@@ -1,0 +1,21 @@
+Str:Agi:Sta:Int:Spi:Arcane Resist:Fire Resist:Nature Resist;
+Frost Resist:Shadow Resist:Holy Resist:DPS:Min Damage:Max Damage:Speed:Melee AP;
+Ranged AP:Ranged Hit:Armor:Defense:Block Value:Block:Dodge;
+Parry:Spell Hit:Spell Crit:Healing:Spell Damage:Arcane Power:Fire Power:Frost Power;
+Holy Power:Nature Power:Shadow Power:Durability:HP5:MP5:Cooldown:Buy;
+Sell:Money:AP:Melee Haste:Resilience:Melee Crit:Buyout:Spell Pen;
+Melee Hit:Crit:Feral AP:Sockets:Ranged Haste:Spell Haste:Haste:Bonus Armor;
+:Armor Pen:Health:Mana:Expertise:Hit:Spell Power:;
+Melee DPS:Melee min damage:Melee max damage;
+Melee speed:Ranged DPS:Ranged max damage:Ranged speed
+
+20:21:22:23:24:25:26:27;
+28:29:30:32:33:34:36:37;
+38:39:40:41:42:43:44:45;
+46:48:49:50:51:52:53:54;
+55:56:57:59:60:61:62:63;
+64:65:77:78:79:84:90:94;
+95:96:97:100:101:102:103:109;
+111:114:115:116:117:119:123:125;
+134:135:136;
+137:138:139:140:141
