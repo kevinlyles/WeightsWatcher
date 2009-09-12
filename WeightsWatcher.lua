@@ -82,7 +82,8 @@ function DisplayItemInfo(tooltip, ttname)
 			start = 2
 		end
 		for i = start, tooltip:NumLines() do
-			text = getglobal(ttname .. "TextLeft" .. i):GetText()
+			text = WeightsWatcher:preprocess(getglobal(ttname .. "TextLeft" .. i):GetText())
+
 			for _, regex in pairs(ProcessedLines) do
 				start, _, value, name = string.find(text, regex)
 				if start then
@@ -92,4 +93,17 @@ function DisplayItemInfo(tooltip, ttname)
 		end
 		tooltip:Show()
 	end
+end
+
+function WeightsWatcher:preprocess(text)
+	local pattern, replacement
+
+	for _, regex in pairs(Preprocess) do
+		pattern, replacement = unpack(regex)
+		if string.find(text, pattern) then
+			text = gsub(text, pattern, replacement)
+		end
+	end
+
+	return text
 end
