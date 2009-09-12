@@ -66,8 +66,8 @@ function WeightsWatcher:OnDisable()
 end
 
 function DisplayItemInfo(tooltip, ttname)
+	local itemType, ttline, origText, text, pattern, func, stat, start, name, value
 	local _, link = tooltip:GetItem()
-	local itemType, text, start, name, value
 
 	if link == nil then
 		return
@@ -82,13 +82,33 @@ function DisplayItemInfo(tooltip, ttname)
 			start = 2
 		end
 		for i = start, tooltip:NumLines() do
-			text = WeightsWatcher:preprocess(getglobal(ttname .. "TextLeft" .. i):GetText())
+			ttline = getglobal(ttname .. "TextLeft" .. i)
+			origText = ttline:GetText()
+			text = WeightsWatcher:preprocess(origText)
 
+			matched = false
 			for _, regex in pairs(ProcessedLines) do
-				start, _, value, name = string.find(text, regex)
-				if start then
-					tooltip:AddDoubleLine(name, value)
+				if type(regex) == "table" then
+					pattern, func = unpack(regex)
+					if string.find(text, pattern) then
+						stat = func(text, pattern)
+						if stat then
+							tooltip:AddDoubleLine(unpack(stat))
+							matched = true
+							break
+						end
+					end
+				else
+					start, _, name, value = string.find(text, regex)
+					if start then
+						tooltip:AddDoubleLine(name, value)
+						matched = true
+						break
+					end
 				end
+			end
+			if not matched then
+				ttline:SetText(origText .. " *")
 			end
 		end
 		tooltip:Show()
