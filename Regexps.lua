@@ -1,0 +1,3 @@
+ProcessedLines = {
+	"%+(%d+) (%a[%a ]+)"
+}

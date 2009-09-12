@@ -67,7 +67,7 @@ end
 
 function DisplayItemInfo(tooltip, ttname)
 	local _, link = tooltip:GetItem()
-	local itemType
+	local itemType, text, start, name, value
 
 	if link == nil then
 		return
@@ -75,7 +75,15 @@ function DisplayItemInfo(tooltip, ttname)
 
 	_, _, _, _, _, itemType, _, stackSize = GetItemInfo(link)
 	if IsEquippableItem(link) or (itemType == "Gem" and stackSize == 1) then
-		tooltip:AddLine("Weights needed here")
+		for i = 1, tooltip:NumLines() do
+			text = getglobal(ttname .. "TextLeft" .. i):GetText()
+			for _, regex in pairs(ProcessedLines) do
+				start, _, value, name = string.find(text, regex)
+				if start then
+					tooltip:AddDoubleLine(name, value)
+				end
+			end
+		end
 		tooltip:Show()
 	end
 end
