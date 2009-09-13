@@ -87,28 +87,58 @@ function DisplayItemInfo(tooltip, ttname)
 			text = WeightsWatcher:preprocess(origText)
 
 			matched = false
-			for _, regex in pairs(ProcessedLines) do
-				if type(regex) == "table" then
-					pattern, func = unpack(regex)
-					if string.find(text, pattern) then
-						stat = func(text, pattern)
-						if stat then
-							tooltip:AddDoubleLine(unpack(stat))
+			for _, regex in pairs(IgnoredLines) do
+				if string.find(origText, regex) then
+					matched = true
+					break
+				end
+			end
+			if not matched then
+				for _, regex in pairs(SingleStatLines) do
+					if type(regex) == "table" then
+						pattern, func = unpack(regex)
+						if string.find(text, pattern) then
+							stat = func(text, pattern)
+							if stat then
+								tooltip:AddDoubleLine(unpack(stat))
+								matched = true
+								break
+							end
+						end
+					else
+						start, _, name, value = string.find(text, regex)
+						if start then
+							tooltip:AddDoubleLine(name, value)
 							matched = true
 							break
 						end
 					end
-				else
-					start, _, name, value = string.find(text, regex)
-					if start then
-						tooltip:AddDoubleLine(name, value)
-						matched = true
-						break
+				end
+				if not matched then
+					for _, regex in pairs(ProcessedLines) do
+						if type(regex) == "table" then
+							pattern, func = unpack(regex)
+							if string.find(text, pattern) then
+								stat = func(text, pattern)
+								if stat then
+									tooltip:AddDoubleLine(unpack(stat))
+									matched = true
+									break
+								end
+							end
+						else
+							start, _, name, value = string.find(text, regex)
+							if start then
+								tooltip:AddDoubleLine(name, value)
+								matched = true
+								break
+							end
+						end
+					end
+					if not matched then
+						ttline:SetText(origText .. " *")
 					end
 				end
-			end
-			if not matched then
-				ttline:SetText(origText .. " *")
 			end
 		end
 		tooltip:Show()
