@@ -90,71 +90,57 @@ function DisplayItemInfo(tooltip, ttname)
 
 			matched = false
 			for _, regex in pairs(IgnoredLines) do
-				if string.find(origTextL, regex) then
+				if string.find(textL, regex) then
 					matched = true
 					break
 				end
 			end
 			if not matched then
-				for _, regex in pairs(SingleStatLines) do
-					if type(regex) == "table" then
-						pattern, func = unpack(regex)
-						if string.find(textL, pattern) then
-							stat = func(textL, pattern)
-							if stat then
-								tooltip:AddDoubleLine(unpack(stat))
-								matched = true
-								break
-							end
-						end
-					else
-						start, _, name, value = string.find(textL, regex)
-						if start then
-							tooltip:AddDoubleLine(name, value)
-							matched = true
-							break
-						end
+				for _, regex in pairs(DoubleSlotLines) do
+					if string.find(textL, regex) then
+						matched = true
+						tooltip:AddDoubleLine(textL, textR)
+						break
 					end
 				end
 				if not matched then
-					for _, regex in pairs(DoubleSlotLines) do
+					for _, regex in pairs(SingleSlotLines) do
 						if string.find(textL, regex) then
 							matched = true
-							tooltip:AddDoubleLine(textL, textR)
+							tooltip:AddLine(textL)
 							break
 						end
 					end
 					if not matched then
-						for _, regex in pairs(SingleSlotLines) do
-							if string.find(textL, regex) then
-								matched = true
-								tooltip:AddLine(textL)
-								break
+						for _, regex in pairs(MultipleStatLines) do
+							pattern, func = unpack(regex)
+							if string.find(textL, pattern) then
+								statsList = func(textL)
+								if statsList then
+									for _, stat in pairs(statsList) do
+										tooltip:AddDoubleLine(unpack(stat))
+									end
+									matched = true
+									break
+								end
 							end
 						end
 						if not matched then
-							for _, regex in pairs(ProcessedLines) do
-								if type(regex) == "table" then
-									pattern, func = unpack(regex)
-									if string.find(textL, pattern) then
-										stat = func(textL, pattern)
-										if stat then
-											tooltip:AddDoubleLine(unpack(stat))
-											matched = true
-											break
-										end
-									end
-								else
+							matched, stat = extractSingleStat(textL)
+							if matched then
+								tooltip:AddDoubleLine(unpack(stat))
+							else
+								for _, regex in pairs(ProcessedLines) do
 									start, _, name, value = string.find(textL, regex)
 									if start then
-										tooltip:AddDoubleLine(name, value)
 										matched = true
+										tooltip:AddDoubleLine(name, value)
 										break
 									end
 								end
-							end
-							if not matched then
-								ttleft:SetText(origTextL .. " *")
+								if not matched then
+									ttleft:SetText(origTextL .. " *")
+								end
 							end
 						end
 					end
