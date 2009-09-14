@@ -5,6 +5,7 @@ Preprocess = {
 	{"Increases your", "Increases"},
 	{"Increases the target's", "Increases"},
 	{"Unique%-Equipped", "Unique"},
+	{"^Use: Teaches you how to permanently enchant ", "Use: Permanently enchant "},
 }
 
 ProcessedLines = {

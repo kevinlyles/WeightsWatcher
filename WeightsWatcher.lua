@@ -74,7 +74,7 @@ function DisplayItemInfo(tooltip, ttname)
 	end
 
 	_, _, _, _, _, itemType, _, stackSize = GetItemInfo(link)
-	if IsEquippableItem(link) or (itemType == "Gem" and stackSize == 1) then
+	if (IsEquippableItem(link) and itemType ~= "Container" and itemType ~= "Quiver") or (itemType == "Gem" and stackSize == 1) or (itemType == "Consumable") or (itemType == "Recipe") then
 		-- Skip item name and "currently equipped"
 		if getglobal(ttname .. "TextLeft1"):GetText() == CURRENTLY_EQUIPPED then
 			start = 3
