@@ -83,26 +83,32 @@ ProcessedLines = {
 
 	-- TODO: figure out how to properly handle this and other multi-stat lines
 	"^Use: .*%.  If you spend at least %d+ seconds eating you will become well fed and gain ([%a%d][%a%d, ]+) for .*%.",
+}
 
-	"^(Unique)$",
-	"^(Head)$",
-	"^(Neck)$",
-	"^(Shoulder)$",
-	"^(Back)$",
-	"^(Chest)$",
-	"^(Shirt)$",
-	"^(Tabard)$",
-	"^(Wrist)$",
-	"^(Hands)$",
-	"^(Waist)$",
-	"^(Legs)$",
-	"^(Feet)$",
-	"^(Finger)$",
-	"^(Trinket)$",
-	"^(Main Hand)$",
-	"^(Off%-hand)$",
-	"^Held In (Off%-hand)$",
-	"^(Relic)$",
-	"^(Ranged)$",
-	"^(Two Hand)$",
+DoubleSlotLines = {
+	"^Head$",
+	"^Shoulder$",
+	"^Chest$",
+	"^Wrist$",
+	"^Hands$",
+	"^Waist$",
+	"^Legs$",
+	"^Feet$",
+	"^Main Hand$",
+	"^Off Hand$",
+	"^One%-Hand$",
+	"^Two%-Hand$",
+	"^Relic$",
+	"^Ranged$",
+}
+
+SingleSlotLines = {
+	"^Unique$",
+	"^Neck$",
+	"^Back$",
+	"^Shirt$",
+	"^Tabard$",
+	"^Finger$",
+	"^Trinket$",
+	"^Held In Off%-hand$",
 }

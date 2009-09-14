@@ -66,7 +66,7 @@ function WeightsWatcher:OnDisable()
 end
 
 function DisplayItemInfo(tooltip, ttname)
-	local itemType, ttline, origText, text, pattern, func, stat, start, name, value
+	local itemType, ttleft, ttright, origTextL, textL, textR, pattern, func, stat, start, name, value
 	local _, link = tooltip:GetItem()
 
 	if link == nil then
@@ -82,13 +82,15 @@ function DisplayItemInfo(tooltip, ttname)
 			start = 2
 		end
 		for i = start, tooltip:NumLines() do
-			ttline = getglobal(ttname .. "TextLeft" .. i)
-			origText = ttline:GetText()
-			text = WeightsWatcher:preprocess(origText)
+			ttleft = getglobal(ttname .. "TextLeft" .. i)
+			ttright = getglobal(ttname .. "TextRight" .. i)
+			origTextL = ttleft:GetText()
+			textR = ttright:GetText()
+			textL = WeightsWatcher:preprocess(origTextL)
 
 			matched = false
 			for _, regex in pairs(IgnoredLines) do
-				if string.find(origText, regex) then
+				if string.find(origTextL, regex) then
 					matched = true
 					break
 				end
@@ -97,8 +99,8 @@ function DisplayItemInfo(tooltip, ttname)
 				for _, regex in pairs(SingleStatLines) do
 					if type(regex) == "table" then
 						pattern, func = unpack(regex)
-						if string.find(text, pattern) then
-							stat = func(text, pattern)
+						if string.find(textL, pattern) then
+							stat = func(textL, pattern)
 							if stat then
 								tooltip:AddDoubleLine(unpack(stat))
 								matched = true
@@ -106,7 +108,7 @@ function DisplayItemInfo(tooltip, ttname)
 							end
 						end
 					else
-						start, _, name, value = string.find(text, regex)
+						start, _, name, value = string.find(textL, regex)
 						if start then
 							tooltip:AddDoubleLine(name, value)
 							matched = true
@@ -115,28 +117,46 @@ function DisplayItemInfo(tooltip, ttname)
 					end
 				end
 				if not matched then
-					for _, regex in pairs(ProcessedLines) do
-						if type(regex) == "table" then
-							pattern, func = unpack(regex)
-							if string.find(text, pattern) then
-								stat = func(text, pattern)
-								if stat then
-									tooltip:AddDoubleLine(unpack(stat))
-									matched = true
-									break
-								end
-							end
-						else
-							start, _, name, value = string.find(text, regex)
-							if start then
-								tooltip:AddDoubleLine(name, value)
-								matched = true
-								break
-							end
+					for _, regex in pairs(DoubleSlotLines) do
+						if string.find(textL, regex) then
+							matched = true
+							tooltip:AddDoubleLine(textL, textR)
+							break
 						end
 					end
 					if not matched then
-						ttline:SetText(origText .. " *")
+						for _, regex in pairs(SingleSlotLines) do
+							if string.find(textL, regex) then
+								matched = true
+								tooltip:AddLine(textL)
+								break
+							end
+						end
+						if not matched then
+							for _, regex in pairs(ProcessedLines) do
+								if type(regex) == "table" then
+									pattern, func = unpack(regex)
+									if string.find(textL, pattern) then
+										stat = func(textL, pattern)
+										if stat then
+											tooltip:AddDoubleLine(unpack(stat))
+											matched = true
+											break
+										end
+									end
+								else
+									start, _, name, value = string.find(textL, regex)
+									if start then
+										tooltip:AddDoubleLine(name, value)
+										matched = true
+										break
+									end
+								end
+							end
+							if not matched then
+								ttleft:SetText(origTextL .. " *")
+							end
+						end
 					end
 				end
 			end
