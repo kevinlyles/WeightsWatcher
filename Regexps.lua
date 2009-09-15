@@ -3,14 +3,15 @@ if not WeightsWatcher then
 end
 
 Preprocess = {
-	{"(.*)|r$", "%1"},
-	{"^|c[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9](.*)", "%1"},
+	{"|r$", ""},
+	{"^|c[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9]", ""},
 	{"Improves", "Increases"},
 	{"Increases your", "Increases"},
 	{"Increases the target's", "Increases"},
 	{"Unique%-Equipped", "Unique"},
 	{"^Use: Teaches you how to permanently enchant ", "Use: Permanently enchant "},
-	{"(%d+) to ", "%1 "},
+	{"(%d+) to (%a)", "%1 %2"},
+	{"^Use: .*%.  If you spend at least %d+ seconds eating you will become well fed and gain ([%a%d][%a%d, ]+) for .*%.", "%1"},
 }
 
 IgnoredLines = {
@@ -24,7 +25,7 @@ IgnoredLines = {
 	"^Use: Restores %d+ %a[%a ]+ over %d+ sec%.  Must remain seated while %a+ing%.",
 	"^Use: Restores %d+%% of your %a[%a ]+ per second for %d+ sec%.  Must remain seated while %a+ing%.",
 	"^Use: Heals %d+ damage over %d+ sec%.$",
-	"^Use: Restores %d+ %d+ %a+%.",
+	"^Use: Restores %d+ to %d+ %a+",
 }
 
 MultipleStatLines = {
@@ -43,7 +44,7 @@ SingleStatLines = {
 		function()
 			return {"Defense", "25"}
 		end},
-	{"Restores (%d+) mana per 5 sec%.",
+	{"^Equip: Restores (%d+) mana per 5 sec%.",
 		function(text, pattern)
 			return WeightsWatcher:singleStatValueOnly(text, pattern, "MP5")
 		end},
@@ -55,7 +56,7 @@ SingleStatLines = {
 		function(text, pattern)
 			return WeightsWatcher:singleStatValueOnly(text, pattern, "DPS")
 		end},
-	{"^%+?(%d+) (%a[%a ]+)",
+	{"^%+?(%d+%%?) (%a[%a ]+)",
 		function(text, pattern)
 			local start, _, value, name = string.find(text, pattern)
 			if start then
@@ -70,8 +71,10 @@ SingleStatLines = {
 	"^Use: Permanently increase the (%a[%a ]+) of .* by (%d+)%.",
 	"^Use: Permanently enchant .* to increase (%a[%a ]+) by (%d+)%.",
 	"^Use: When applied to your fishing pole, increases (Fishing) by (%d+) for ",
-	"^Use: Permanently increase the (%a[%a ]+) of .* by (%d+)%.",
-	"^Use: Permanently enchant .* to increase (%a[%a ]+) by (%d+)%.",
+
+	-- TODO: figure out how to properly handle these
+	"^(Classes): (%a[%a ,]+)",
+	"^(Requires %a[%a ]+) %((%d+)%)",
 }
 
 DoubleSlotLines = {
@@ -102,14 +105,6 @@ SingleSlotLines = {
 	"^Finger$",
 	"^Trinket$",
 	"^Held In Off%-hand$",
-}
-
-ProcessedLines = {
-	"^(Classes): (%a[%a ,]+)",
-	"^(Requires %a[%a ]+) %((%d+)%)",
-
-	-- TODO: figure out how to properly handle this and other multi-stat lines
-	"^Use: .*%.  If you spend at least %d+ seconds eating you will become well fed and gain ([%a%d][%a%d, ]+) for .*%.",
 }
 
 function WeightsWatcher:multipleStats(text)

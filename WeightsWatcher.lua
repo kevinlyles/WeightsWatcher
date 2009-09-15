@@ -130,17 +130,7 @@ function DisplayItemInfo(tooltip, ttname)
 							if stat then
 								tooltip:AddDoubleLine(unpack(stat))
 							else
-								for _, regex in pairs(ProcessedLines) do
-									start, _, name, value = string.find(textL, regex)
-									if start then
-										matched = true
-										tooltip:AddDoubleLine(name, value)
-										break
-									end
-								end
-								if not matched then
-									ttleft:SetText(origTextL .. " *")
-								end
+								ttleft:SetText(origTextL .. " *")
 							end
 						end
 					end
