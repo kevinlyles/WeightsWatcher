@@ -3,7 +3,20 @@ if not WeightsWatcher then
 end
 
 function WeightsWatcher:OnInitialize()
+	SLASH_WEIGHTSWATCHER1="/ww"
+	SLASH_WEIGHTSWATCHER2="/weightswatcher"
+	SlashCmdList["WEIGHTSWATCHER"] =
+		function(msg)
+			commandHandler(msg)
+		end
+end
 
+function commandHandler(msg)
+	open_config()
+end
+
+function open_config()
+	WeightsWatcherConfig:Show()
 end
 
 function WeightsWatcher:OnEnable()
