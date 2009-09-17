@@ -115,8 +115,8 @@ function multipleStats(text)
 	text = string.gsub(string.gsub(text, ",? and ", "\a"), ", ", "\a")
 	stringTable = { strsplit("\a", text) }
 	for _, statString in pairs(stringTable) do
-		valid, stat = extractSingleStat(statString)
-		if valid then
+		stat = singleStat(statString)
+		if stat then
 			table.insert(stats, stat)
 		end
 	end
@@ -147,7 +147,7 @@ function damageRange(textL, textR)
 	end
 end
 
-function extractSingleStat(text)
+function singleStat(text)
 	local stat
 	for _, regex in pairs(SingleStatLines) do
 		if type(regex) == "table" then
@@ -166,11 +166,7 @@ function extractSingleStat(text)
 			end
 		end
 	end
-	if stat then
-		return true, stat
-	else
-		return false
-	end
+	return stat
 end
 
 function singleStatValueOnly(text, pattern, name)

@@ -126,8 +126,8 @@ function DisplayItemInfo(tooltip, ttname)
 							end
 						end
 						if not matched then
-							matched, stat = extractSingleStat(textL)
-							if matched then
+							stat = singleStat(textL)
+							if stat then
 								tooltip:AddDoubleLine(unpack(stat))
 							else
 								for _, regex in pairs(ProcessedLines) do
