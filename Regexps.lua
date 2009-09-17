@@ -26,6 +26,8 @@ IgnoredLines = {
 	"^Use: Restores %d+%% of your %a[%a ]+ per second for %d+ sec%.  Must remain seated while %a+ing%.",
 	"^Use: Heals %d+ damage over %d+ sec%.$",
 	"^Use: Restores %d+ to %d+ %a+",
+	-- Some relics that boost stats for certain abilities only
+	"^Equip: Increases the %a[%a ]+ of your %a[%a ]+ by ",
 }
 
 MultipleStatLines = {
