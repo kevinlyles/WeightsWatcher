@@ -28,6 +28,8 @@ IgnoredLines = {
 	"^Use: Restores %d+ to %d+ %a+",
 	-- Some relics that boost stats for certain abilities only
 	"^Equip: Increases the %a[%a ]+ of your %a[%a ]+ by ",
+	-- "Chance on hit" and "have a chance"
+	"[Cc]hance ",
 }
 
 MultipleStatLines = {
