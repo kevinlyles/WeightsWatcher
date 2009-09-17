@@ -115,7 +115,7 @@ function DisplayItemInfo(tooltip, ttname)
 						for _, regex in pairs(MultipleStatLines) do
 							pattern, func = unpack(regex)
 							if string.find(textL, pattern) then
-								statsList = func(textL)
+								statsList = func(textL, textR)
 								if statsList then
 									for _, stat in pairs(statsList) do
 										tooltip:AddDoubleLine(unpack(stat))

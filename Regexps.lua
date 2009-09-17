@@ -29,8 +29,8 @@ MultipleStatLines = {
 			return multipleStats(text)
 		end},
 	{"%d %- %d",
-		function(text)
-			return damageRange(text)
+		function(textL, textR)
+			return damageRange(textL, textR)
 		end},
 }
 
@@ -125,16 +125,25 @@ function multipleStats(text)
 	end
 end
 
-function damageRange(text)
-	local start, _, added, minVal, maxVal, name = string.find(text, "^(%+?)(%d+) %- (%d+) (%a* ?Damage)")
+function damageRange(textL, textR)
+	local speed
+	local stats = {}
+	local start, _, added, minVal, maxVal, name = string.find(textL, "^(%+?)(%d+) %- (%d+) (%a* ?Damage)")
 	if start then
 		if added == "+" then
 			added = "Added "
 		end
-		return {
-			{"Minimum " .. added .. name, minVal},
-			{"Maximum " .. added .. name, maxVal},
-		}
+		table.insert(stats, {"Minimum " .. added .. name, minVal})
+		table.insert(stats, {"Maximum " .. added .. name, maxVal})
+	end
+	if textR then
+		start, _, speed = string.find(textR, "^Speed (%d[%d.]+)$")
+		if start then
+			table.insert(stats, {"Speed", speed})
+		end
+	end
+	if #(stats) > 0 then
+		return stats
 	end
 end
 
