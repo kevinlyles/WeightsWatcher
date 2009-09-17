@@ -67,6 +67,8 @@ end
 
 function WeightsWatcher:displayItemStats(tooltip, ttname)
 	local itemType, ttleft, ttright, origTextL, textL, textR, pattern, func, stat, start
+	-- Stats tables: normal stats, socket bonus, gem-given stats, current stat table
+	local normalStats, gemStats, statTable = {}, {}
 	local _, link = tooltip:GetItem()
 
 	if link == nil then
@@ -88,6 +90,8 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 			textR = ttright:GetText()
 			textL = WeightsWatcher:preprocess(origTextL)
 
+			statTable = normalStats
+
 			matched = false
 			for _, regex in pairs(IgnoredLines) do
 				if string.find(textL, regex) then
@@ -99,7 +103,8 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 				for _, regex in pairs(DoubleSlotLines) do
 					if string.find(textL, regex) then
 						matched = true
-						tooltip:AddDoubleLine(textL, textR)
+						table.insert(statTable, {"Slot", textL})
+						table.insert(statTable, {"Subslot", textR})
 						break
 					end
 				end
@@ -107,7 +112,7 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 					for _, regex in pairs(SingleSlotLines) do
 						if string.find(textL, regex) then
 							matched = true
-							tooltip:AddLine(textL)
+							table.insert(statTable, {"Slot", textL})
 							break
 						end
 					end
@@ -118,7 +123,7 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 								statsList = func(textL, textR)
 								if statsList then
 									for _, stat in pairs(statsList) do
-										tooltip:AddDoubleLine(unpack(stat))
+										table.insert(statTable, stat)
 									end
 									matched = true
 									break
@@ -128,13 +133,23 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 						if not matched then
 							stat = WeightsWatcher:singleStat(textL)
 							if stat then
-								tooltip:AddDoubleLine(unpack(stat))
+								table.insert(statTable, stat)
 							else
 								ttleft:SetText(origTextL .. " *")
 							end
 						end
 					end
 				end
+			end
+		end
+		for _, stat in pairs(normalStats) do
+			tooltip:AddDoubleLine(unpack(stat))
+		end
+		if #(gemStats) > 0 then
+			tooltip:AddLine("Gem Stats:")
+			for _, stat in pairs(gemStats) do
+				name, value = unpack(stat)
+				tooltip:AddDoubleLine("  " .. name, value)
 			end
 		end
 		tooltip:Show()
