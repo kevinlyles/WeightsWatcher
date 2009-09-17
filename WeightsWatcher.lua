@@ -66,7 +66,7 @@ function WeightsWatcher:OnDisable()
 end
 
 function DisplayItemInfo(tooltip, ttname)
-	local itemType, ttleft, ttright, origTextL, textL, textR, pattern, func, stat, start, name, value
+	local itemType, ttleft, ttright, origTextL, textL, textR, pattern, func, stat, start
 	local _, link = tooltip:GetItem()
 
 	if link == nil then
@@ -126,7 +126,7 @@ function DisplayItemInfo(tooltip, ttname)
 							end
 						end
 						if not matched then
-							stat = singleStat(textL)
+							stat = WeightsWatcher:singleStat(textL)
 							if stat then
 								tooltip:AddDoubleLine(unpack(stat))
 							else

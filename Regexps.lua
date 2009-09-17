@@ -1,3 +1,7 @@
+if not WeightsWatcher then
+	WeightsWatcher = AceLibrary("AceAddon-2.0"):new("AceEvent-2.0", "AceHook-2.1")
+end
+
 Preprocess = {
 	{"(.*)|r$", "%1"},
 	{"^|c[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9](.*)", "%1"},
@@ -26,11 +30,11 @@ IgnoredLines = {
 MultipleStatLines = {
 	{" and ",
 		function(text)
-			return multipleStats(text)
+			return WeightsWatcher:multipleStats(text)
 		end},
 	{"%d %- %d",
 		function(textL, textR)
-			return damageRange(textL, textR)
+			return WeightsWatcher:damageRange(textL, textR)
 		end},
 }
 
@@ -41,15 +45,15 @@ SingleStatLines = {
 		end},
 	{"Restores (%d+) mana per 5 sec%.",
 		function(text, pattern)
-			return singleStatValueOnly(text, pattern, "MP5")
+			return WeightsWatcher:singleStatValueOnly(text, pattern, "MP5")
 		end},
 	{"^Use: Increases mana regeneration by (%d+) mana per 5 seconds for ",
 		function(text, pattern)
-			return singleStatValueOnly(text, pattern, "MP5")
+			return WeightsWatcher:singleStatValueOnly(text, pattern, "MP5")
 		end},
 	{"^%((%d[%d.]+) damage per second%)$",
 		function(text, pattern)
-			return singleStatValueOnly(text, pattern, "DPS")
+			return WeightsWatcher:singleStatValueOnly(text, pattern, "DPS")
 		end},
 	{"^%+?(%d+) (%a[%a ]+)",
 		function(text, pattern)
@@ -108,14 +112,14 @@ ProcessedLines = {
 	"^Use: .*%.  If you spend at least %d+ seconds eating you will become well fed and gain ([%a%d][%a%d, ]+) for .*%.",
 }
 
-function multipleStats(text)
-	local stat, stringTable, valid
+function WeightsWatcher:multipleStats(text)
+	local stat, stringTable
 	local stats = {}
 
 	text = string.gsub(string.gsub(text, ",? and ", "\a"), ", ", "\a")
 	stringTable = { strsplit("\a", text) }
 	for _, statString in pairs(stringTable) do
-		stat = singleStat(statString)
+		stat = WeightsWatcher:singleStat(statString)
 		if stat then
 			table.insert(stats, stat)
 		end
@@ -125,7 +129,7 @@ function multipleStats(text)
 	end
 end
 
-function damageRange(textL, textR)
+function WeightsWatcher:damageRange(textL, textR)
 	local speed
 	local stats = {}
 	local start, _, added, minVal, maxVal, name = string.find(textL, "^(%+?)(%d+) %- (%d+) (%a* ?Damage)")
@@ -147,7 +151,7 @@ function damageRange(textL, textR)
 	end
 end
 
-function singleStat(text)
+function WeightsWatcher:singleStat(text)
 	local stat
 	for _, regex in pairs(SingleStatLines) do
 		if type(regex) == "table" then
@@ -169,7 +173,7 @@ function singleStat(text)
 	return stat
 end
 
-function singleStatValueOnly(text, pattern, name)
+function WeightsWatcher:singleStatValueOnly(text, pattern, name)
 	local start, _, value = string.find(text, pattern)
 	if start then
 		return {name, value}
