@@ -1,4 +1,6 @@
-WeightsWatcher = AceLibrary("AceAddon-2.0"):new("AceEvent-2.0", "AceHook-2.1")
+if not WeightsWatcher then
+	WeightsWatcher = AceLibrary("AceAddon-2.0"):new("AceEvent-2.0", "AceHook-2.1")
+end
 
 function WeightsWatcher:OnInitialize()
 
