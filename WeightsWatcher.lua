@@ -75,7 +75,13 @@ function DisplayItemInfo(tooltip, ttname)
 
 	_, _, _, _, _, itemType, _, stackSize = GetItemInfo(link)
 	if IsEquippableItem(link) or (itemType == "Gem" and stackSize == 1) then
-		for i = 1, tooltip:NumLines() do
+		-- Skip item name and "currently equipped"
+		if getglobal(ttname .. "TextLeft1"):GetText() == CURRENTLY_EQUIPPED then
+			start = 3
+		else
+			start = 2
+		end
+		for i = start, tooltip:NumLines() do
 			text = getglobal(ttname .. "TextLeft" .. i):GetText()
 			for _, regex in pairs(ProcessedLines) do
 				start, _, value, name = string.find(text, regex)
