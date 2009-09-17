@@ -40,6 +40,8 @@ IgnoredLines = {
 	"^Requires %a[%a ]+ %- Exalted$",
 }
 
+socketBonus = "^Socket Bonus: (.*)"
+
 MultipleStatLines = {
 	{" and ",
 		function(text)

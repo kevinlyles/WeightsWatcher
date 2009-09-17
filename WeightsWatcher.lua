@@ -68,7 +68,7 @@ end
 function WeightsWatcher:displayItemStats(tooltip, ttname)
 	local itemType, ttleft, ttright, origTextL, textL, textR, pattern, func, stat, start
 	-- Stats tables: normal stats, socket bonus, gem-given stats, current stat table
-	local normalStats, gemStats, statTable = {}, {}
+	local normalStats, socketBonusStat, gemStats, statTable = {}, {}, {}
 	local _, link = tooltip:GetItem()
 
 	if link == nil then
@@ -90,7 +90,15 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 			textR = ttright:GetText()
 			textL = WeightsWatcher:preprocess(origTextL)
 
-			statTable = normalStats
+			-- Determine which table this line of stats should go in
+			-- TODO: add the other two types
+			start, _, value = string.find(textL, socketBonus)
+			if start then
+				textL = value
+				statTable = socketBonusStat
+			else
+				statTable = normalStats
+			end
 
 			matched = false
 			for _, regex in pairs(IgnoredLines) do
@@ -144,6 +152,13 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 		end
 		for _, stat in pairs(normalStats) do
 			tooltip:AddDoubleLine(unpack(stat))
+		end
+		if #(socketBonusStat) > 0 then
+			tooltip:AddLine("Socket Bonus:")
+			for _, stat in pairs(socketBonusStat) do
+				name, value = unpack(stat)
+				tooltip:AddDoubleLine("  " .. name, value)
+			end
 		end
 		if #(gemStats) > 0 then
 			tooltip:AddLine("Gem Stats:")
