@@ -33,6 +33,11 @@ IgnoredLines = {
 	"[Cc]hance ",
 	"^You may trade this item with players that were also eligible to loot this item for the next ",
 	"^ $",
+	"^Requires %a[%a ]+ %- Neutral$",
+	"^Requires %a[%a ]+ %- Friendly$",
+	"^Requires %a[%a ]+ %- Honored$",
+	"^Requires %a[%a ]+ %- Revered$",
+	"^Requires %a[%a ]+ %- Exalted$",
 }
 
 MultipleStatLines = {
