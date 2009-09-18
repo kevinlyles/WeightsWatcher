@@ -12,6 +12,7 @@ Preprocess = {
 	{"^Use: Teaches you how to permanently enchant ", "Use: Permanently enchant "},
 	{"(%d+) to (%a)", "%1 %2"},
 	{"^Use: .*%.  If you spend at least %d+ seconds eating you will become well fed and gain ([%a%d][%a%d, ]+) for .*%.", "%1"},
+	{"Cat, Bear, Dire Bear, and Moonkin forms", "Cat/Bear/Dire Bear/Moonkin forms"},
 }
 
 IgnoredLines = {
@@ -61,6 +62,10 @@ SingleStatLines = {
 	{"^%((%d[%d.]+) damage per second%)$",
 		function(text, pattern)
 			return WeightsWatcher:singleStatValueOnly(text, pattern, "DPS")
+		end},
+	{"^Increases attack power by (%d+) in Cat/Bear/Dire Bear/Moonkin forms only%.",
+		function(text, pattern)
+			return WeightsWatcher:singleStatValueOnly(text, pattern, "Feral AP")
 		end},
 	{"^%+?(%d+%%?) (%a[%a ]+)",
 		function(text, pattern)
