@@ -18,6 +18,7 @@ Locales\locales.xml
 GemIds.lua
 config.xml
 weights.xml
+EnchantIDs.lua
 Upgrade.lua
 defaults.lua
 HiddenTooltip.xml
