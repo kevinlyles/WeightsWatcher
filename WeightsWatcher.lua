@@ -66,9 +66,9 @@ function WeightsWatcher:OnDisable()
 end
 
 function WeightsWatcher:displayItemStats(tooltip, ttname)
-	local itemType, ttleft, ttright, origTextL, textL, textR, pattern, func, stat, start
-	-- Stats tables: normal stats, socket bonus, gem-given stats, current stat table
-	local normalStats, socketBonusStat, gemStats, statTable = {}, {}, {}
+	local itemType, stat, name, value
+	-- Stats: normal stats, socket bonus, gem-given stats
+	local normalStats, socketBonusStat, gemStats = {}, {}, {}
 	local _, link = tooltip:GetItem()
 
 	if link == nil then
@@ -77,88 +77,14 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 
 	_, _, _, _, _, itemType, _, stackSize = GetItemInfo(link)
 	if (IsEquippableItem(link) and itemType ~= "Container" and itemType ~= "Quiver") or (itemType == "Gem" and stackSize == 1) or (itemType == "Consumable") or (itemType == "Recipe") then
-		-- Skip item name and "currently equipped"
-		if getglobal(ttname .. "TextLeft1"):GetText() == CURRENTLY_EQUIPPED then
-			start = 3
-		else
-			start = 2
-		end
-		for i = start, tooltip:NumLines() do
-			ttleft = getglobal(ttname .. "TextLeft" .. i)
-			ttright = getglobal(ttname .. "TextRight" .. i)
-			origTextL = ttleft:GetText()
-			textR = ttright:GetText()
-			textL = WeightsWatcher:preprocess(origTextL)
-
-			-- Determine which table this line of stats should go in
-			-- TODO: add the other two types
-			start, _, value = string.find(textL, socketBonus)
-			if start then
-				textL = value
-				statTable = socketBonusStat
-			else
-				statTable = normalStats
-			end
-
-			matched = false
-			for _, regex in pairs(IgnoredLines) do
-				if string.find(textL, regex) then
-					matched = true
-					break
-				end
-			end
-			if not matched then
-				for _, regex in pairs(DoubleSlotLines) do
-					if string.find(textL, regex) then
-						matched = true
-						table.insert(statTable, {"Slot", textL})
-						table.insert(statTable, {"Subslot", textR})
-						break
-					end
-				end
-				if not matched then
-					for _, regex in pairs(SingleSlotLines) do
-						if string.find(textL, regex) then
-							matched = true
-							table.insert(statTable, {"Slot", textL})
-							break
-						end
-					end
-					if not matched then
-						for _, regex in pairs(MultipleStatLines) do
-							pattern, func = unpack(regex)
-							if string.find(textL, pattern) then
-								statsList = func(textL, textR)
-								if statsList then
-									for _, stat in pairs(statsList) do
-										table.insert(statTable, stat)
-									end
-									matched = true
-									break
-								end
-							end
-						end
-						if not matched then
-							stat = WeightsWatcher:singleStat(textL)
-							if stat then
-								table.insert(statTable, stat)
-							else
-								ttleft:SetText(origTextL .. " *")
-							end
-						end
-					end
-				end
-			end
-		end
+		normalStats, socketBonusStat = WeightsWatcher:getItemStats(link, tooltip, ttname)
 		for _, stat in pairs(normalStats) do
 			tooltip:AddDoubleLine(unpack(stat))
 		end
-		if #(socketBonusStat) > 0 then
+		if socketBonusStat then
 			tooltip:AddLine("Socket Bonus:")
-			for _, stat in pairs(socketBonusStat) do
-				name, value = unpack(stat)
-				tooltip:AddDoubleLine("  " .. name, value)
-			end
+			name, value = unpack(socketBonusStat)
+			tooltip:AddDoubleLine("  " .. name, value)
 		end
 		if #(gemStats) > 0 then
 			tooltip:AddLine("Gem Stats:")
@@ -169,6 +95,84 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 		end
 		tooltip:Show()
 	end
+end
+
+function WeightsWatcher:getItemStats(link, tooltip, ttname)
+	local ttleft, ttright, origTextL, textL, textR, pattern, func, start
+	local normalStats, socketBonusStat = {}
+
+	-- Skip item name and "currently equipped"
+	if getglobal(ttname .. "TextLeft1"):GetText() == CURRENTLY_EQUIPPED then
+		start = 3
+	else
+		start = 2
+	end
+
+	for i = start, tooltip:NumLines() do
+		ttleft = getglobal(ttname .. "TextLeft" .. i)
+		ttright = getglobal(ttname .. "TextRight" .. i)
+		origTextL = ttleft:GetText()
+		textR = ttright:GetText()
+		textL = WeightsWatcher:preprocess(origTextL)
+
+		matched = false
+		start, _, value = string.find(textL, socketBonus)
+		if start then
+			matched = true
+			socketBonusStat = WeightsWatcher:singleStat(value)
+		end
+		if not matched then
+			for _, regex in pairs(IgnoredLines) do
+				if string.find(textL, regex) then
+					matched = true
+					break
+				end
+			end
+			if not matched then
+				for _, regex in pairs(DoubleSlotLines) do
+					if string.find(textL, regex) then
+						matched = true
+						table.insert(normalStats, {"Slot", textL})
+						table.insert(normalStats, {"Subslot", textR})
+						break
+					end
+				end
+				if not matched then
+					for _, regex in pairs(SingleSlotLines) do
+						if string.find(textL, regex) then
+							matched = true
+							table.insert(normalStats, {"Slot", textL})
+							break
+						end
+					end
+					if not matched then
+						for _, regex in pairs(MultipleStatLines) do
+							pattern, func = unpack(regex)
+							if string.find(textL, pattern) then
+								statsList = func(textL, textR)
+								if statsList then
+									for _, stat in pairs(statsList) do
+										table.insert(normalStats, stat)
+									end
+									matched = true
+									break
+								end
+							end
+						end
+						if not matched then
+							stat = WeightsWatcher:singleStat(textL)
+							if stat then
+								table.insert(normalStats, stat)
+							else
+								ttleft:SetText(origTextL .. " *")
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+	return normalStats, socketBonusStat
 end
 
 function WeightsWatcher:preprocess(text)
