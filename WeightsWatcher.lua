@@ -77,7 +77,7 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 
 	_, _, _, _, _, itemType, _, stackSize = GetItemInfo(link)
 	if (IsEquippableItem(link) and itemType ~= "Container" and itemType ~= "Quiver") or (itemType == "Gem" and stackSize == 1) or (itemType == "Consumable") or (itemType == "Recipe") then
-		normalStats, socketBonusStat = WeightsWatcher:getItemStats(link, tooltip, ttname)
+		normalStats, socketBonusStat = WeightsWatcher:getItemStats(link)
 		for _, stat in pairs(normalStats) do
 			tooltip:AddDoubleLine(unpack(stat))
 		end
@@ -97,20 +97,24 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 	end
 end
 
-function WeightsWatcher:getItemStats(link, tooltip, ttname)
+function WeightsWatcher:getItemStats(link)
 	local ttleft, ttright, origTextL, textL, textR, pattern, func, start
 	local normalStats, socketBonusStat = {}
 
+	-- Populate hidden tooltip
+	WeightsWatcherHiddenTooltip:ClearLines()
+	WeightsWatcherHiddenTooltip:SetHyperlink(link)
+
 	-- Skip item name and "currently equipped"
-	if getglobal(ttname .. "TextLeft1"):GetText() == CURRENTLY_EQUIPPED then
+	if WeightsWatcherHiddenTooltipTextLeft1:GetText() == CURRENTLY_EQUIPPED then
 		start = 3
 	else
 		start = 2
 	end
 
-	for i = start, tooltip:NumLines() do
-		ttleft = getglobal(ttname .. "TextLeft" .. i)
-		ttright = getglobal(ttname .. "TextRight" .. i)
+	for i = start, WeightsWatcherHiddenTooltip:NumLines() do
+		ttleft = getglobal("WeightsWatcherHiddenTooltipTextLeft" .. i)
+		ttright = getglobal("WeightsWatcherHiddenTooltipTextRight" .. i)
 		origTextL = ttleft:GetText()
 		textR = ttright:GetText()
 		textL = WeightsWatcher:preprocess(origTextL)
@@ -163,8 +167,6 @@ function WeightsWatcher:getItemStats(link, tooltip, ttname)
 							stat = WeightsWatcher:singleStat(textL)
 							if stat then
 								table.insert(normalStats, stat)
-							else
-								ttleft:SetText(origTextL .. " *")
 							end
 						end
 					end
