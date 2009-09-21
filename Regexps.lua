@@ -30,6 +30,8 @@ IgnoredLines = {
 	"^Equip: Increases the %a[%a ]+ of your %a[%a ]+ by ",
 	-- "Chance on hit" and "have a chance"
 	"[Cc]hance ",
+	"^You may trade this item with players that were also eligible to loot this item for the next ",
+	"^ $",
 }
 
 MultipleStatLines = {
