@@ -23,7 +23,7 @@ currentHooks = {}
 
 function WeightsWatcher:HookTooltip(objectName, funcName)
 	local object = getglobal(objectName)
-	self:SecureHook(object, funcName, function(self, ...) DisplayItemInfo(self, objectName, ...) end)
+	self:SecureHook(object, funcName, function(self, ...) WeightsWatcher:displayItemStats(self, objectName, ...) end)
 	table.insert(currentHooks, {object, func})
 end
 
@@ -65,7 +65,7 @@ function WeightsWatcher:OnDisable()
 	end
 end
 
-function DisplayItemInfo(tooltip, ttname)
+function WeightsWatcher:displayItemStats(tooltip, ttname)
 	local itemType, ttleft, ttright, origTextL, textL, textR, pattern, func, stat, start
 	local _, link = tooltip:GetItem()
 
