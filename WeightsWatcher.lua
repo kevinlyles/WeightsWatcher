@@ -67,8 +67,10 @@ end
 
 function WeightsWatcher:displayItemStats(tooltip, ttname)
 	local itemType, stat, name, value
-	-- Stats: normal stats, socket bonus, gem-given stats
-	local normalStats, socketBonusStat, gemStats = {}, {}, {}
+	-- Item link fields
+	local itemId, gemId1, gemId2, gemId3, gemId4, suffixId, uniqueId, linkLevel
+	-- Stats: normal stats, sockets, socket bonus, gem-given stats
+	local normalStats, sockets, socketBonusStat, gemStats
 	local _, link = tooltip:GetItem()
 
 	if link == nil then
@@ -77,9 +79,19 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 
 	_, _, _, _, _, itemType, _, stackSize = GetItemInfo(link)
 	if (IsEquippableItem(link) and itemType ~= "Container" and itemType ~= "Quiver") or (itemType == "Gem" and stackSize == 1) or (itemType == "Consumable") or (itemType == "Recipe") then
-		normalStats, socketBonusStat = WeightsWatcher:getItemStats(link)
+		_, itemId, _, gemId1, gemId2, gemId3, gemId4, suffixId, uniqueId, linkLevel = strsplit(":", link)
+		-- Strip color codes
+		linkLevel = strsplit("|", linkLevel)
+		normalStats, sockets, socketBonusStat = WeightsWatcher:getItemStats(strjoin(":", "item", itemId, "0:0:0:0:0", suffixId, uniqueId, linkLevel))
+		gemStats = WeightsWatcher:getGemStats({gemId1, gemId2, gemId3, gemId4})
 		for _, stat in pairs(normalStats) do
 			tooltip:AddDoubleLine(unpack(stat))
+		end
+		if #(sockets) > 0 then
+			tooltip:AddLine("Sockets:")
+			for _, stat in pairs(sockets) do
+				tooltip:AddLine("  " .. stat)
+			end
 		end
 		if socketBonusStat then
 			tooltip:AddLine("Socket Bonus:")
@@ -89,12 +101,29 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 		if #(gemStats) > 0 then
 			tooltip:AddLine("Gem Stats:")
 			for _, stat in pairs(gemStats) do
-				name, value = unpack(stat)
-				tooltip:AddDoubleLine("  " .. name, value)
+				tooltip:AddLine("  " .. stat[1])
+				for _, stat in pairs(stat[2]) do
+					name, value = unpack(stat)
+					tooltip:AddDoubleLine("    " .. name, value)
+				end
 			end
 		end
 		tooltip:Show()
 	end
+end
+
+function WeightsWatcher:getGemStats(...)
+	local stats, stat
+	local statTable = {}
+	for _, gemId in pairs(...) do
+		stats = GemIds[tonumber(gemId)]
+		if not stats and gemId ~= "0" then
+			print("WeightsWatcher: Unhandled gemId " .. gemId)
+		else
+			table.insert(statTable, stats)
+		end
+	end
+	return statTable
 end
 
 function WeightsWatcher:getItemStats(link)
@@ -174,7 +203,8 @@ function WeightsWatcher:getItemStats(link)
 			end
 		end
 	end
-	return normalStats, socketBonusStat
+	-- TODO: return socket types, in order
+	return normalStats, {}, socketBonusStat
 end
 
 function WeightsWatcher:preprocess(text)
