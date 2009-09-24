@@ -42,6 +42,13 @@ IgnoredLines = {
 
 socketBonus = "^Socket Bonus: (.*)"
 
+SocketLines = {
+	"^(Blue) Socket$",
+	"^(Red) Socket$",
+	"^(Yellow) Socket$",
+	"^(Meta) Socket$",
+}
+
 MultipleStatLines = {
 	{" and ",
 		function(text)

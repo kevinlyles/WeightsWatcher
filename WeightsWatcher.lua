@@ -69,8 +69,8 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 	local itemType, stat, name, value
 	-- Item link fields
 	local itemId, gemId1, gemId2, gemId3, gemId4, suffixId, uniqueId, linkLevel
-	-- Stats: normal stats, sockets, socket bonus, gem-given stats
-	local normalStats, sockets, socketBonusStat, gemStats
+	-- Stats: normal stats, sockets, socket bonus, gem-given stats, whether the socket bonus is active
+	local normalStats, sockets, socketBonusStat, gemStats, socketBonusActive
 	local _, link = tooltip:GetItem()
 
 	if link == nil then
@@ -84,17 +84,36 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 		linkLevel = strsplit("|", linkLevel)
 		normalStats, sockets, socketBonusStat = WeightsWatcher:getItemStats(strjoin(":", "item", itemId, "0:0:0:0:0", suffixId, uniqueId, linkLevel))
 		gemStats = WeightsWatcher:getGemStats({gemId1, gemId2, gemId3, gemId4})
+
+		-- Removes gems in crafted sockets from consideration
+		for i = #(sockets) + 1, #(gemStats) do
+			table.remove(gemStats)
+		end
+
 		for _, stat in pairs(normalStats) do
 			tooltip:AddDoubleLine(unpack(stat))
 		end
 		if #(sockets) > 0 then
 			tooltip:AddLine("Sockets:")
+			socketBonusActive = true
+			for i = 1, #(sockets) do
+				if not gemStats[i] or not WeightsWatcher:matchesSocket(gemStats[i][1], sockets[i]) then
+					socketBonusActive = false
+					break
+				end
+			end
 			for _, stat in pairs(sockets) do
 				tooltip:AddLine("  " .. stat)
 			end
+		else
+			socketBonusActive = false
 		end
 		if socketBonusStat then
-			tooltip:AddLine("Socket Bonus:")
+			if socketBonusActive then
+				tooltip:AddDoubleLine("Socket Bonus:", "Active")
+			else
+				tooltip:AddDoubleLine("Socket Bonus:", "Inactive")
+			end
 			name, value = unpack(socketBonusStat)
 			tooltip:AddDoubleLine("  " .. name, value)
 		end
@@ -112,23 +131,57 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 	end
 end
 
+function WeightsWatcher:matchesSocket(gemColor, socketColor)
+	if socketColor == "Red" then
+		if gemColor == "Red" or gemColor == "Orange" or gemColor == "Purple" or gemColor == "Prismatic" then
+			return true
+		end
+	elseif socketColor == "Blue" then
+		if gemColor == "Blue" or gemColor == "Green" or gemColor == "Purple" or gemColor == "Prismatic" then
+			return true
+		end
+	elseif socketColor == "Yellow" then
+		if gemColor == "Yellow" or gemColor == "Orange" or gemColor == "Green" or gemColor == "Prismatic" then
+			return true
+		end
+	elseif socketColor == "Meta" then
+		if gemColor == "Meta" then
+			return true
+		end
+	else
+		print("Warning: Unrecognized socket color: " .. socketColor)
+	end
+	return false
+end
+
 function WeightsWatcher:getGemStats(...)
-	local stats, stat
+	local stats, stat, lastGem
 	local statTable = {}
+	lastGem = 0
 	for _, gemId in pairs(...) do
 		stats = GemIds[tonumber(gemId)]
-		if not stats and gemId ~= "0" then
-			print("WeightsWatcher: Unhandled gemId " .. gemId)
-		else
+		if stats then
 			table.insert(statTable, stats)
+			lastGem = #(statTable)
+		else
+			if gemId ~= "0" then
+				print("WeightsWatcher: Unhandled gemId " .. gemId)
+			end
+			-- Ensures gems line up with their sockets
+			table.insert(statTable, {"None", {}})
 		end
+	end
+
+	-- Removes extra empty gems
+	for i = lastGem + 1, #(statTable) do
+		table.remove(statTable)
 	end
 	return statTable
 end
 
 function WeightsWatcher:getItemStats(link)
 	local ttleft, ttright, origTextL, textL, textR, pattern, func, start
-	local normalStats, socketBonusStat = {}
+	local normalStats, socketList, socketBonusStat = {}, {}
 
 	-- Populate hidden tooltip
 	WeightsWatcherHiddenTooltip:ClearLines()
@@ -155,47 +208,57 @@ function WeightsWatcher:getItemStats(link)
 			socketBonusStat = WeightsWatcher:singleStat(value)
 		end
 		if not matched then
-			for _, regex in pairs(IgnoredLines) do
-				if string.find(textL, regex) then
+			for _, regex in pairs(SocketLines) do
+				start, _, value = string.find(textL, regex)
+				if start then
 					matched = true
+					table.insert(socketList, value)
 					break
 				end
 			end
 			if not matched then
-				for _, regex in pairs(DoubleSlotLines) do
+				for _, regex in pairs(IgnoredLines) do
 					if string.find(textL, regex) then
 						matched = true
-						table.insert(normalStats, {"Slot", textL})
-						table.insert(normalStats, {"Subslot", textR})
 						break
 					end
 				end
 				if not matched then
-					for _, regex in pairs(SingleSlotLines) do
+					for _, regex in pairs(DoubleSlotLines) do
 						if string.find(textL, regex) then
 							matched = true
 							table.insert(normalStats, {"Slot", textL})
+							table.insert(normalStats, {"Subslot", textR})
 							break
 						end
 					end
 					if not matched then
-						for _, regex in pairs(MultipleStatLines) do
-							pattern, func = unpack(regex)
-							if string.find(textL, pattern) then
-								statsList = func(textL, textR)
-								if statsList then
-									for _, stat in pairs(statsList) do
-										table.insert(normalStats, stat)
-									end
-									matched = true
-									break
-								end
+						for _, regex in pairs(SingleSlotLines) do
+							if string.find(textL, regex) then
+								matched = true
+								table.insert(normalStats, {"Slot", textL})
+								break
 							end
 						end
 						if not matched then
-							stat = WeightsWatcher:singleStat(textL)
-							if stat then
-								table.insert(normalStats, stat)
+							for _, regex in pairs(MultipleStatLines) do
+								pattern, func = unpack(regex)
+								if string.find(textL, pattern) then
+									statsList = func(textL, textR)
+									if statsList then
+										for _, stat in pairs(statsList) do
+											table.insert(normalStats, stat)
+										end
+										matched = true
+										break
+									end
+								end
+							end
+							if not matched then
+								stat = WeightsWatcher:singleStat(textL)
+								if stat then
+									table.insert(normalStats, stat)
+								end
 							end
 						end
 					end
@@ -203,8 +266,7 @@ function WeightsWatcher:getItemStats(link)
 			end
 		end
 	end
-	-- TODO: return socket types, in order
-	return normalStats, {}, socketBonusStat
+	return normalStats, socketList, socketBonusStat
 end
 
 function WeightsWatcher:preprocess(text)
