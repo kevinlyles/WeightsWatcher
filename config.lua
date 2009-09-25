@@ -6,6 +6,11 @@ function commandHandler(msg)
 	open_config()
 end
 
+--initializes config variables and frames
+function initializeConfig()
+	loadClassButtons()
+end
+
 --display or hide the frame
 function open_config()
 	if wwConfig:IsVisible() then
@@ -24,6 +29,31 @@ end
 function addWeightScale(name)
 	print(name)
 end
+
+--loads the various class buttons onto the config frame
+function loadClassButtons()
+	--starting offset values for the button
+	local i = 1
+	--creates a button for each class available in weightsList
+	for class, _ in pairs(ww_vars.weightsList) do
+		local newButton = CreateFrame("Button", class, wwConfig.leftPanel, "classButton")
+		newButton:SetPoint("TOPLEFT", 5, 15 - i * 20)
+		i = i + 1
+	end
+end
+
+classNames = {
+	["DEATHKNIGHT"] = "Death Knight",
+	["DRUID"] = "Druid",
+	["HUNTER"] = "Hunter",
+	["MAGE"] = "Mage",
+	["PALADIN"] = "Paladin",
+	["PRIEST"] = "Priest",
+	["ROGUE"] = "Rogue",
+	["SHAMAN"] = "Shaman",
+	["WARLOCK"] = "Warlock",
+	["WARRIOR"] = "Warrior",
+}
 
 defaultVars = {
 	dataMajorVersion = 0,

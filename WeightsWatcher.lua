@@ -25,6 +25,7 @@ function WeightsWatcher:OnInitialize()
 	else
 		-- TODO: disable the addon
 	end
+	initializeConfig()
 end
 
 currentHooks = {}

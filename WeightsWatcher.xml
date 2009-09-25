@@ -1,6 +1,22 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
 	<Script file="config.lua"/>
+	<!--virtual button used to allow for script generated buttons with class names-->
+	<Button name="classButton" virtual="true">
+		<Size>
+			<AbsDimension x="75" y="20"/>
+		</Size>
+		<Scripts>
+			<OnClick>
+				configClassSelect(self:GetName())
+			</OnClick>
+			<OnLoad>
+				local fontString = self:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+				fontString:SetText(classNames[self:GetName()])
+				self:SetFontString(fontString)
+			</OnLoad>
+		</Scripts>
+	</Button>
 	<!--The Parent Frame Containing all configuration content-->
 	<Frame name="wwConfig" parent="UIParent" hidden="true">
 		<Size>
@@ -38,269 +54,6 @@
 						<AbsInset left="0" right="0" top="5" bottom="5"/>
 					</BackgroundInsets>
 				</Backdrop>
-				<!--List of Class Buttons Found in the Left Config Panel-->
-				<Frames>
-					<Button name="rogueButton">
-						<Size>
-							<AbsDimension x="75" y="20"/>
-						</Size>
-						<Anchors>
-							<Anchor point="TOPLEFT">
-								<Offset>
-									<AbsDimension x="5" y="-5"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Layers>
-							<Layer level="OVERLAY">
-								<FontString name="rogueText" inherits="GameFontNormalSmall" text="Rogue">
-									<Anchors>
-										<Anchor point="LEFT"/>
-									</Anchors>
-								</FontString>
-							</Layer>
-						</Layers>
-						<Scripts>
-							<OnClick>
-								configClassSelect("ROGUE")
-							</OnClick>
-						</Scripts>
-					</Button>
-					<Button name="mageButton">
-						<Size>
-							<AbsDimension x="75" y="20"/>
-						</Size>
-						<Anchors>
-							<Anchor point="TOPLEFT">
-								<Offset>
-									<AbsDimension x="5" y="-25"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Layers>
-							<Layer level="OVERLAY">
-								<FontString name="mageText" inherits="GameFontNormalSmall" text="Mage">
-									<Anchors>
-										<Anchor point="LEFT"/>
-									</Anchors>
-								</FontString>
-							</Layer>
-						</Layers>
-						<Scripts>
-							<OnClick>
-								configClassSelect("MAGE")
-							</OnClick>
-						</Scripts>
-					</Button>
-					<Button name="priestButton">
-						<Size>
-							<AbsDimension x="75" y="20"/>
-						</Size>
-						<Anchors>
-							<Anchor point="TOPLEFT">
-								<Offset>
-									<AbsDimension x="5" y="-45"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Layers>
-							<Layer level="OVERLAY">
-								<FontString name="priestText" inherits="GameFontNormalSmall" text="Priest">
-									<Anchors>
-										<Anchor point="LEFT"/>
-									</Anchors>
-								</FontString>
-							</Layer>
-						</Layers>
-						<Scripts>
-							<OnClick>
-								configClassSelect("PRIEST")
-							</OnClick>
-						</Scripts>
-					</Button>
-					<Button name="warlockButton">
-						<Size>
-							<AbsDimension x="75" y="20"/>
-						</Size>
-						<Anchors>
-							<Anchor point="TOPLEFT">
-								<Offset>
-									<AbsDimension x="5" y="-65"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Layers>
-							<Layer level="OVERLAY">
-								<FontString name="warlockText" inherits="GameFontNormalSmall" text="Warlock">
-									<Anchors>
-										<Anchor point="LEFT"/>
-									</Anchors>
-								</FontString>
-							</Layer>
-						</Layers>
-						<Scripts>
-							<OnClick>
-								configClassSelect("WARLOCK")
-							</OnClick>
-						</Scripts>
-					</Button>
-					<Button name="paladinButton">
-						<Size>
-							<AbsDimension x="75" y="20"/>
-						</Size>
-						<Anchors>
-							<Anchor point="TOPLEFT">
-								<Offset>
-									<AbsDimension x="5" y="-85"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Layers>
-							<Layer level="OVERLAY">
-								<FontString name="paladinText" inherits="GameFontNormalSmall" text="Paladin">
-									<Anchors>
-										<Anchor point="LEFT"/>
-									</Anchors>
-								</FontString>
-							</Layer>
-						</Layers>
-						<Scripts>
-							<OnClick>
-								configClassSelect("PALADIN")
-							</OnClick>
-						</Scripts>
-					</Button>
-					<Button name="druidButton">
-						<Size>
-							<AbsDimension x="75" y="20"/>
-						</Size>
-						<Anchors>
-							<Anchor point="TOPLEFT">
-								<Offset>
-									<AbsDimension x="5" y="-105"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Layers>
-							<Layer level="OVERLAY">
-								<FontString name="druidText" inherits="GameFontNormalSmall" text="Druid">
-									<Anchors>
-										<Anchor point="LEFT"/>
-									</Anchors>
-								</FontString>
-							</Layer>
-						</Layers>
-						<Scripts>
-							<OnClick>
-								configClassSelect("DRUID")
-							</OnClick>
-						</Scripts>
-					</Button>
-					<Button name="shamanButton">
-						<Size>
-							<AbsDimension x="75" y="20"/>
-						</Size>
-						<Anchors>
-							<Anchor point="TOPLEFT">
-								<Offset>
-									<AbsDimension x="5" y="-125"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Layers>
-							<Layer level="OVERLAY">
-								<FontString name="shamanText" inherits="GameFontNormalSmall" text="Shaman">
-									<Anchors>
-										<Anchor point="LEFT"/>
-									</Anchors>
-								</FontString>
-							</Layer>
-						</Layers>
-						<Scripts>
-							<OnClick>
-								configClassSelect("SHAMAN")
-							</OnClick>
-						</Scripts>
-					</Button>
-					<Button name="warriorButton">
-						<Size>
-							<AbsDimension x="75" y="20"/>
-						</Size>
-						<Anchors>
-							<Anchor point="TOPLEFT">
-								<Offset>
-									<AbsDimension x="5" y="-145"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Layers>
-							<Layer level="OVERLAY">
-								<FontString name="warriorText" inherits="GameFontNormalSmall" text="Warrior">
-									<Anchors>
-										<Anchor point="LEFT"/>
-									</Anchors>
-								</FontString>
-							</Layer>
-						</Layers>
-						<Scripts>
-							<OnClick>
-								configClassSelect("WARRIOR")
-							</OnClick>
-						</Scripts>
-					</Button>
-					<Button name="dkButton">
-						<Size>
-							<AbsDimension x="75" y="20"/>
-						</Size>
-						<Anchors>
-							<Anchor point="TOPLEFT">
-								<Offset>
-									<AbsDimension x="5" y="-165"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Layers>
-							<Layer level="OVERLAY">
-								<FontString name="dkText" inherits="GameFontNormalSmall" text="Death Knight">
-									<Anchors>
-										<Anchor point="LEFT"/>
-									</Anchors>
-								</FontString>
-							</Layer>
-						</Layers>
-						<Scripts>
-							<OnClick>
-								configClassSelect("DEATHKNIGHT")
-							</OnClick>
-						</Scripts>
-					</Button>
-					<Button name="hunterButton">
-						<Size>
-							<AbsDimension x="75" y="20"/>
-						</Size>
-						<Anchors>
-							<Anchor point="TOPLEFT">
-								<Offset>
-									<AbsDimension x="5" y="-185"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Layers>
-							<Layer level="OVERLAY">
-								<FontString name="hunterText" inherits="GameFontNormalSmall" text="Hunter">
-									<Anchors>
-										<Anchor point="LEFT"/>
-									</Anchors>
-								</FontString>
-							</Layer>
-						</Layers>
-						<Scripts>
-							<OnClick>
-								configClassSelect("HUNTER")
-							</OnClick>
-						</Scripts>
-					</Button>
-				</Frames>
 			</Frame>
 			<!--Right Frame for viewing the weights for each class-->
 			<Frame>
