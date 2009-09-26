@@ -1,6 +1,12 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
 	<Script file="config.lua"/>
+	<!--Default String used to allow for left alignment with script generated fontstrings-->
+	<FontString name="defaultString" inherits="GameFontNormalSmall" virtual="true">
+		<Anchors>
+			<Anchor point="LEFT"/>
+		</Anchors>
+	</FontString>
 	<!--virtual button used to allow for script generated buttons with class names-->
 	<Button name="classButton" virtual="true">
 		<Size>
@@ -11,7 +17,7 @@
 				configClassSelect(self:GetName())
 			</OnClick>
 			<OnLoad>
-				local fontString = self:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+				local fontString = self:CreateFontString(nil, "OVERLAY", "defaultString")
 				fontString:SetText(classNames[self:GetName()])
 				self:SetFontString(fontString)
 			</OnLoad>
