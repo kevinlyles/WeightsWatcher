@@ -110,6 +110,16 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 			socketBonusActive = false
 		end
 
+		for class, weights in pairs(ww_charVars.activeWeights) do
+			if ww_vars.weightsList[class] then
+				for _, weight in pairs(weights) do
+					if ww_vars.weightsList[class][weight] then
+						tooltip:AddDoubleLine(weight, WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, ww_vars.weightsList[class][weight]))
+					end
+				end
+			end
+		end
+
 		tooltip:Show()
 	end
 end
@@ -135,6 +145,33 @@ function WeightsWatcher:matchesSocket(gemColor, socketColor)
 		print("Warning: Unrecognized socket color: " .. socketColor)
 	end
 	return false
+end
+
+function WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, weightsScale)
+	local weight, name, value = 0
+
+	for _, value in pairs(normalStats) do
+		weight = weight + WeightsWatcher:getWeight(value, weightsScale)
+	end
+	if socketBonusActive then
+		weight = weight + WeightsWatcher:getWeight(socketBonusStat, weightsScale)
+	end
+	for _, value in pairs(gemStats) do
+		for _, value in pairs(value[2]) do
+			weight = weight + WeightsWatcher:getWeight(value, weightsScale)
+		end
+	end
+	return weight
+end
+
+function WeightsWatcher:getWeight(stat, weightsScale)
+	local name, value = unpack(stat)
+	name = string.lower(name)
+	if weightsScale[name] then
+		return weightsScale[name] * value
+	else
+		return 0
+	end
 end
 
 function WeightsWatcher:getGemStats(...)
