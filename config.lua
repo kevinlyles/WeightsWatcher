@@ -27,7 +27,7 @@ end
 
 defaultVars = {
 	dataMajorVersion = 0,
-	dataMinorVersion = 1,
+	dataMinorVersion = 2,
 	weightsList = {
 		["DEATHKNIGHT"] = {
 			["Blood DPS"] = {
@@ -347,6 +347,9 @@ defaultVars = {
 				["haste rating"] = 3,
 			},
 		},
+	},
+	options = {
+		normalizeWeights = true,
 	},
 }
 

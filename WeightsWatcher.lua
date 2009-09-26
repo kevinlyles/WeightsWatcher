@@ -114,7 +114,7 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 			if ww_vars.weightsList[class] then
 				for _, weight in pairs(weights) do
 					if ww_vars.weightsList[class][weight] then
-						tooltip:AddDoubleLine(weight, WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, ww_vars.weightsList[class][weight]))
+						tooltip:AddDoubleLine(weight, string.format("%.3f", WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, ww_vars.weightsList[class][weight])))
 					end
 				end
 			end
@@ -160,6 +160,18 @@ function WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBo
 		for _, value in pairs(value[2]) do
 			weight = weight + WeightsWatcher:getWeight(value, weightsScale)
 		end
+	end
+	if ww_vars.options.normalizeWeights == true then
+		local total = 0
+
+		for _, value in pairs(weightsScale) do
+			total = total + value
+		end
+		if total == 0 then
+			-- Avoids a divide by zero
+			return 0
+		end
+		weight = weight / total
 	end
 	return weight
 end

@@ -112,6 +112,26 @@ function stringsToFuncs(strTable)
 	return funcTable
 end
 
+noop_down = [[
+	return function(vars)
+		vars.dataMinorVersion = vars.dataMinorVersion - 1
+		return vars
+	end
+]]
+
+
+function upgradeAccountToNormalization(vars)
+	if not vars.options then
+		vars.options = {}
+	end
+	if vars.options.normalizeWeights == nil then
+		vars.options.normalizeWeights = true
+	end
+
+	vars.dataMinorVersion = 2
+	return vars
+end
+
 function copyDefaultAccountVars()
 	return deepTableCopy(defaultVars)
 end
@@ -139,10 +159,14 @@ end
 upgradeAccountFunctions = {
 	[0] = {
 		[0] = function(vars) return copyDefaultAccountVars() end,
+		[1] = function(vars) return upgradeAccountToNormalization(vars) end,
 	},
 }
 
 downgradeAccountFunctions = {
+	[0] = {
+		[2] = noop_down,
+	},
 }
 
 upgradeCharFunctions = {
