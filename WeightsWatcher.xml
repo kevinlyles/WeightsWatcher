@@ -64,6 +64,19 @@
 				<Anchors>
 					<Anchor point="RIGHT"/>
 				</Anchors>
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString name="$parentHeader" parentKey="header" inherits="GameFontNormal">
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset>
+										<AbsDimension y="-5"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
 				<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
 					<EdgeSize>
 						<AbsValue val="10"/>
@@ -76,6 +89,40 @@
 					</BackgroundInsets>
 				</Backdrop>
 			</Frame>
+			<!--Close Button for the configuration window-->
+			<Button name="$parentCloseButton" parentKey="closeButton" inherits="UIPanelCloseButton">
+				<Anchors>
+					<Anchor point="TOPRIGHT"/>
+				</Anchors>
+			</Button>
+			<!--restore default button-->
+			<Button name="$parentDefaultsButton" parentKey="defaultsButton" inherits="UIPanelButtonTemplate" text="Restore Defaults">
+				<Size>
+					<AbsDimension x="150" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMLEFT"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						print("Restore defaults not yet implemented")
+					</OnClick>
+				</Scripts>
+			</Button>
+			<!--Create new weight button-->
+			<Button name="$parentNewWeightButton" parentKey="newWeightButton" inherits="UIPanelButtonTemplate" text="New Weight">
+				<Size>
+					<AbsDimension x="100" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						print("New weight not yet implemented")
+					</OnClick>
+				</Scripts>
+			</Button>
 		</Frames>
 	</Frame>
 </Ui>

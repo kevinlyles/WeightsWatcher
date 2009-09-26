@@ -31,7 +31,7 @@ function configClassSelect(classType)
 		--if our previously created button table isn't big enough, add new buttons
 		if #(weightButtonTable) < counter then
 			table.insert(weightButtonTable, CreateFrame("Button", nil, wwConfig.rightPanel, "genericButton"))
-			weightButtonTable[counter]:SetPoint("TOPLEFT", 5, 15 - 20 * counter)
+			weightButtonTable[counter]:SetPoint("TOPLEFT", 5, -5 - 20 * counter)
 		end
 		weightButtonTable[counter]:SetText(weightName)
 		weightButtonTable[counter]:SetScript("OnClick",
@@ -46,6 +46,7 @@ function configClassSelect(classType)
 		weightButtonTable[counter]:Hide()
 		counter = counter + 1
 	end
+	wwConfig.rightPanel.header:SetText(classNames[classType] .. " weights")
 	wwConfig.rightPanel:Show()
 end
 
