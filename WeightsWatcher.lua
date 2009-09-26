@@ -78,8 +78,8 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 	local itemType, stat, name, value
 	-- Item link fields
 	local itemId, gemId1, gemId2, gemId3, gemId4, suffixId, uniqueId, linkLevel
-	-- Stats: normal stats, sockets, socket bonus, gem-given stats, whether the socket bonus is active
-	local normalStats, sockets, socketBonusStat, gemStats, socketBonusActive
+	-- Stats: normal stats, sockets, socket bonus, gem-given stats, whether the socket bonus is active, ideal gems
+	local normalStats, sockets, socketBonusStat, gemStats, socketBonusActive, bestGems
 	local _, link = tooltip:GetItem()
 
 	if link == nil then
@@ -111,18 +111,67 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 			socketBonusActive = false
 		end
 
+		tooltip:AddLine("Current Weights:")
 		for class, weights in pairs(ww_charVars.activeWeights) do
 			if ww_vars.weightsList[class] then
 				for _, weight in pairs(weights) do
 					if ww_vars.weightsList[class][weight] then
-						tooltip:AddDoubleLine(weight, string.format("%.3f", WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, ww_vars.weightsList[class][weight])))
+						tooltip:AddDoubleLine("  " .. weight, string.format("%.3f", WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, ww_vars.weightsList[class][weight])))
 					end
 				end
 			end
 		end
 
+		-- TODO: move this inline (put it in parentheses?)?
+		if #(sockets) > 0 then
+			tooltip:AddLine("Ideally Gemmed Weights:")
+			for class, weights in pairs(ww_charVars.activeWeights) do
+				if ww_vars.weightsList[class] then
+					for _, weight in pairs(weights) do
+						if ww_vars.weightsList[class][weight] then
+							bestGems = {}
+							socketBonusActive = true
+							for _, stat in pairs(sockets) do
+								local gemId = WeightsWatcher:bestGemForSocket(stat, socketBonusStat, ww_vars.weightsList[class][weight])
+								if not WeightsWatcher:matchesSocket(GemIds[gemId][1], stat) then
+									socketBonusActive = false
+								end
+								table.insert(bestGems, gemId)
+							end
+							gemStats = WeightsWatcher:getGemStats(bestGems)
+							tooltip:AddDoubleLine("  " .. weight, string.format("%.3f", WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, ww_vars.weightsList[class][weight])))
+							-- TODO: show the best gem(s) better
+							for _, stat in ipairs(gemStats) do
+								tooltip:AddLine("    Using " .. stat[2] .. " (" .. stat[1] .. ")")
+								for _, stat in pairs(stat[4]) do
+									name, value = unpack(stat)
+									tooltip:AddDoubleLine("      " .. name, value)
+								end
+							end
+						end
+					end
+				end
+			end
+		end
 		tooltip:Show()
 	end
+end
+
+function WeightsWatcher:bestGemForSocket(socketColor, socketBonusStat, weightScale)
+	local bestGem, bestWeight, gemId, gemStats, socketBonusActive, weight = 0, 0
+
+	for gemId, gemStats in pairs(GemIds) do
+		socketBonusActive = WeightsWatcher:matchesSocket(gemStats[1], socketColor)
+		-- Meta sockets don't ever hold anything but meta gems
+		if socketBonusActive or (gemStats[1] ~= "Meta" and socketColor ~= "Meta") then
+			weight = WeightsWatcher:calculateWeight({}, socketBonusActive, socketBonusStat, {gemStats}, weightScale)
+			if bestGem == 0 or weight > bestWeight then
+				bestGem = gemId
+				bestWeight = weight
+			end
+		end
+	end
+	return bestGem, bestWeight
 end
 
 function WeightsWatcher:matchesSocket(gemColor, socketColor)
@@ -154,7 +203,7 @@ function WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBo
 	for _, value in pairs(normalStats) do
 		weight = weight + WeightsWatcher:getWeight(value, weightsScale)
 	end
-	if socketBonusActive then
+	if socketBonusActive and socketBonusStat then
 		weight = weight + WeightsWatcher:getWeight(socketBonusStat, weightsScale)
 	end
 	for _, value in pairs(gemStats) do
