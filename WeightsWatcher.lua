@@ -158,7 +158,7 @@ function WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBo
 		weight = weight + WeightsWatcher:getWeight(socketBonusStat, weightsScale)
 	end
 	for _, value in pairs(gemStats) do
-		for _, value in pairs(value[2]) do
+		for _, value in pairs(value[4]) do
 			weight = weight + WeightsWatcher:getWeight(value, weightsScale)
 		end
 	end
