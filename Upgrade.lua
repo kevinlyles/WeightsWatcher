@@ -120,6 +120,15 @@ noop_down = [[
 ]]
 
 
+function upgradeAccountToGemQuality(vars)
+	if not vars.options.gemQualityLimit then
+		vars.options.gemQualityLimit = 9
+	end
+
+	vars.dataMinorVersion = 3
+	return vars
+end
+
 function upgradeAccountToNormalization(vars)
 	if not vars.options then
 		vars.options = {}
@@ -160,12 +169,14 @@ upgradeAccountFunctions = {
 	[0] = {
 		[0] = function(vars) return copyDefaultAccountVars() end,
 		[1] = function(vars) return upgradeAccountToNormalization(vars) end,
+		[2] = function(vars) return upgradeAccountToGemQuality(vars) end,
 	},
 }
 
 downgradeAccountFunctions = {
 	[0] = {
 		[2] = noop_down,
+		[3] = noop_down,
 	},
 }
 

@@ -208,7 +208,7 @@ classNames = {
 
 defaultVars = {
 	dataMajorVersion = 0,
-	dataMinorVersion = 2,
+	dataMinorVersion = 3,
 	weightsList = {
 		["DEATHKNIGHT"] = {
 			["Blood DPS"] = {
@@ -539,6 +539,7 @@ defaultVars = {
 	},
 	options = {
 		normalizeWeights = true,
+		gemQualityLimit = 9,
 	},
 }
 

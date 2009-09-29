@@ -133,12 +133,16 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 							bestGemsIgnoreSocket = {}
 							socketBonusActive = true
 							for _, stat in pairs(sockets) do
-								local gemId, _, gemIdIgnoreSocket = WeightsWatcher:bestGemsForSocket(stat, socketBonusStat, ww_vars.weightsList[class][weight])
-								if not WeightsWatcher:matchesSocket(GemIds[gemIdIgnoreSocket][1], stat) then
-									socketBonusActive = false
+								local gemId, _, gemIdIgnoreSocket = WeightsWatcher:bestGemsForSocket(stat, socketBonusStat, ww_vars.weightsList[class][weight], ww_vars.options.gemQualityLimit)
+								if gemIdIgnoreSocket ~= 0 then
+									if not WeightsWatcher:matchesSocket(GemIds[gemIdIgnoreSocket][1], stat) then
+										socketBonusActive = false
+									end
+									if gemId ~= 0 then
+										table.insert(bestGems, gemId)
+									end
+									table.insert(bestGemsIgnoreSocket, gemIdIgnoreSocket)
 								end
-								table.insert(bestGems, gemId)
-								table.insert(bestGemsIgnoreSocket, gemIdIgnoreSocket)
 							end
 							gemStats = WeightsWatcher:getGemStats(bestGems)
 							gemStatsIgnoreSockets = WeightsWatcher:getGemStats(bestGemsIgnoreSocket)
@@ -168,23 +172,25 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 	end
 end
 
-function WeightsWatcher:bestGemsForSocket(socketColor, socketBonusStat, weightScale)
+function WeightsWatcher:bestGemsForSocket(socketColor, socketBonusStat, weightScale, qualityLimit)
 	local bestGem, bestWeight, bestGemIgnoreSocket, bestWeightIgnoreSocket, gemId, gemStats, socketBonusActive, weight = 0, 0, 0, 0
 
 	for gemId, gemStats in pairs(GemIds) do
-		socketBonusActive = WeightsWatcher:matchesSocket(gemStats[1], socketColor)
-		-- Meta sockets don't ever hold anything but meta gems
-		if socketBonusActive or (gemStats[1] ~= "Meta" and socketColor ~= "Meta") then
-			weight = WeightsWatcher:calculateWeight({}, socketBonusActive, nil, {gemStats}, weightScale)
-			if socketBonusActive then
-				if bestGem == 0 or weight > bestWeight then
-					bestGem = gemId
-					bestWeight = weight
+		if not qualityLimit or gemStats[3] <= qualityLimit then
+			socketBonusActive = WeightsWatcher:matchesSocket(gemStats[1], socketColor)
+			-- Meta sockets don't ever hold anything but meta gems
+			if socketBonusActive or (gemStats[1] ~= "Meta" and socketColor ~= "Meta") then
+				weight = WeightsWatcher:calculateWeight({}, socketBonusActive, nil, {gemStats}, weightScale)
+				if socketBonusActive then
+					if bestGem == 0 or weight > bestWeight then
+						bestGem = gemId
+						bestWeight = weight
+					end
 				end
-			end
-			if bestGemIgnoreSocket == 0 or weight > bestWeightIgnoreSocket then
-				bestGemIgnoreSocket = gemId
-				bestWeightIgnoreSocket = weight
+				if bestGemIgnoreSocket == 0 or weight > bestWeightIgnoreSocket then
+					bestGemIgnoreSocket = gemId
+					bestWeightIgnoreSocket = weight
+				end
 			end
 		end
 	end
