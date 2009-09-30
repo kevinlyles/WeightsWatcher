@@ -388,8 +388,7 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 										for _, gem in ipairs(gemStats) do
 											tooltip:AddDoubleLine("    Using " .. gem[2] .. " (" .. gem[1] .. ")", " ")
 											if keyDetectors[ww_vars.options.tooltip.showIdealGemStats]() then
-												for _, stat in ipairs(gem[4]) do
-													stat, value = unpack(stat)
+												for stat, value in pairs(gem[4]) do
 													tooltip:AddDoubleLine("      " .. stat .. ": " .. value, " ")
 												end
 											end
@@ -463,15 +462,17 @@ end
 function WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, weightsScale)
 	local weight, name, value = 0
 
-	for _, value in pairs(normalStats) do
-		weight = weight + WeightsWatcher:getWeight(value, weightsScale)
+	for name, value in pairs(normalStats) do
+		weight = weight + WeightsWatcher:getWeight(name, value, weightsScale)
 	end
 	if socketBonusActive and socketBonusStat then
-		weight = weight + WeightsWatcher:getWeight(socketBonusStat, weightsScale)
+		for name, value in pairs(socketBonusStat) do
+			weight = weight + WeightsWatcher:getWeight(name, value, weightsScale)
+		end
 	end
 	for _, value in pairs(gemStats) do
-		for _, value in pairs(value[4]) do
-			weight = weight + WeightsWatcher:getWeight(value, weightsScale)
+		for name, value in pairs(value[4]) do
+			weight = weight + WeightsWatcher:getWeight(name, value, weightsScale)
 		end
 	end
 	if ww_vars.options.normalizeWeights == true then
@@ -489,11 +490,10 @@ function WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBo
 	return weight
 end
 
-function WeightsWatcher:getWeight(stat, weightsScale)
-	local name, value = unpack(stat)
-	name = string.lower(name)
-	if weightsScale[name] then
-		return weightsScale[name] * value
+function WeightsWatcher:getWeight(stat, value, weightsScale)
+	stat = string.lower(stat)
+	if weightsScale[stat] then
+		return weightsScale[stat] * value
 	else
 		return 0
 	end
@@ -573,8 +573,8 @@ function WeightsWatcher:getItemStats(link)
 					for _, regex in pairs(DoubleSlotLines) do
 						if string.find(textL, regex) then
 							matched = true
-							table.insert(normalStats, {"Slot", textL})
-							table.insert(normalStats, {"Subslot", textR})
+							normalStats["Slot"] =  textL
+							normalStats["Subslot"] = textR
 							if textL == "Ranged" or textL == "Projectile" then
 								ranged = true
 							end
@@ -585,7 +585,7 @@ function WeightsWatcher:getItemStats(link)
 						for _, regex in pairs(SingleSlotLines) do
 							if string.find(textL, regex) then
 								matched = true
-								table.insert(normalStats, {"Slot", textL})
+								normalStats["Slot"] =  textL
 								break
 							end
 						end
@@ -595,8 +595,12 @@ function WeightsWatcher:getItemStats(link)
 								if string.find(textL, pattern) then
 									statsList = func(textL, textR)
 									if statsList then
-										for _, stat in pairs(statsList) do
-											table.insert(normalStats, stat)
+										for name, value in pairs(statsList) do
+											if normalStats[name] then
+												normalStats[name] = normalStats[name] + value
+											else
+												normalStats[name] = value
+											end
 										end
 										matched = true
 										break
@@ -606,7 +610,13 @@ function WeightsWatcher:getItemStats(link)
 							if not matched then
 								stat = WeightsWatcher:singleStat(textL)
 								if stat then
-									table.insert(normalStats, stat)
+									for name, value in pairs(stat) do
+										if normalStats[name] then
+											normalStats[name] = normalStats[name] + value
+										else
+											normalStats[name] = value
+										end
+									end
 								end
 							end
 						end
@@ -616,20 +626,14 @@ function WeightsWatcher:getItemStats(link)
 		end
 	end
 	if ranged then
-		for _, stat in ipairs(normalStats) do
-			if stat[1] == "DPS" then
-				stat[1] = "Ranged DPS"
-			end
-		end
+		normalStats["Ranged DPS"] = normalStats["DPS"]
+		normalStats["DPS"] = nil
 	end
 	return normalStats, socketList, socketBonusStat
 end
 
 function WeightsWatcher:preprocess(text)
-	local pattern, replacement
-
-	for _, regex in pairs(Preprocess) do
-		pattern, replacement = unpack(regex)
+	for pattern, replacement in pairs(Preprocess) do
 		if string.find(text, pattern) then
 			text = gsub(text, pattern, replacement)
 		end

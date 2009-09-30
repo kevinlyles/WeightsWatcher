@@ -3,18 +3,18 @@ if not WeightsWatcher then
 end
 
 Preprocess = {
-	{"|r$", ""},
-	{"^|c[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9]", ""},
-	{"Improves", "Increases"},
-	{"Increases your", "Increases"},
-	{"Increases the target's", "Increases"},
-	{"Unique%-Equipped", "Unique"},
-	{"^Use: Teaches you how to permanently enchant ", "Use: Permanently enchant "},
-	{"(%d+) to (%a)", "%1 %2"},
-	{"^Use: .*%.  If you spend at least %d+ seconds eating you will become well fed and gain ([%a%d][%a%d, ]+) for .*%.", "%1"},
-	{"Cat, Bear, Dire Bear, and Moonkin forms", "Cat/Bear/Dire Bear/Moonkin forms"},
-	{"maximum health", "health"},
-	{"Mana every 5 seconds", "MP5"},
+	["|r$"] = "",
+	["^|c[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9]"] = "",
+	["Improves"] = "Increases",
+	["Increases your"] = "Increases",
+	["Increases the target's"] = "Increases",
+	["Unique%-Equipped"] = "Unique",
+	["^Use: Teaches you how to permanently enchant "] = "Use: Permanently enchant ",
+	["(%d+) to (%a)"] = "%1 %2",
+	["^Use: .*%.  If you spend at least %d+ seconds eating you will become well fed and gain ([%a%d][%a%d, ]+) for .*%."] = "%1",
+	["Cat, Bear, Dire Bear, and Moonkin forms"] = "Cat/Bear/Dire Bear/Moonkin forms",
+	["maximum health"] = "health",
+	["Mana every 5 seconds"] = "MP5",
 }
 
 IgnoredLines = {
@@ -67,7 +67,7 @@ MultipleStatLines = {
 SingleStatLines = {
 	{"^Rune of the Stoneskin Gargoyle",
 		function()
-			return {"Defense", "25"}
+			return {["Defense"] = 25}
 		end},
 	{"^Equip: Restores (%d+) mana per 5 sec%.",
 		function(text, pattern)
@@ -94,7 +94,7 @@ SingleStatLines = {
 		function(text, pattern)
 			local start, _, value, name = string.find(text, pattern)
 			if start then
-				return {name, value}
+				return {[name] = tonumber(value)}
 			end
 		end},
 
@@ -150,7 +150,13 @@ function WeightsWatcher:multipleStats(text)
 	for _, statString in pairs(stringTable) do
 		stat = WeightsWatcher:singleStat(statString)
 		if stat then
-			table.insert(stats, stat)
+			for name, value in pairs(stat) do
+				if stats[name] then
+					stats[name] = stats[name] + value
+				else
+					stats[name] = value
+				end
+			end
 		end
 	end
 	if #(stats) > 0 then
@@ -166,13 +172,13 @@ function WeightsWatcher:damageRange(textL, textR)
 		if added == "+" then
 			added = "Added "
 		end
-		table.insert(stats, {"Minimum " .. added .. name, minVal})
-		table.insert(stats, {"Maximum " .. added .. name, maxVal})
+		stats["Minimum " .. added .. name] = tonumber(minVal)
+		stats["Maximum " .. added .. name] = tonumber(maxVal)
 	end
 	if textR then
 		start, _, speed = string.find(textR, "^Speed (%d[%d.]+)$")
 		if start then
-			table.insert(stats, {"Speed", speed})
+			stats["Speed"] = tonumber(speed)
 		end
 	end
 	if #(stats) > 0 then
@@ -194,7 +200,7 @@ function WeightsWatcher:singleStat(text)
 		else
 			start, _, name, value = string.find(text, regex)
 			if start then
-				stat = {name, value}
+				stat = {[name] = tonumber(value)}
 				break
 			end
 		end
@@ -205,6 +211,6 @@ end
 function WeightsWatcher:singleStatValueOnly(text, pattern, name)
 	local start, _, value = string.find(text, pattern)
 	if start then
-		return {name, value}
+		return {[name] = tonumber(value)}
 	end
 end
