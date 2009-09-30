@@ -3,6 +3,7 @@ if not WeightsWatcher then
 end
 
 weightButtonTable = {}
+statButtonTable = {}
 
 function commandHandler(msg)
 	open_config()
@@ -11,6 +12,7 @@ end
 --initializes config variables and frames
 function initializeConfig()
 	loadClassButtons()
+	createStatFontStrings()
 end
 
 --display or hide the frame
@@ -36,7 +38,7 @@ function configClassSelect(classType)
 		weightButtonTable[counter]:SetText(weightName)
 		weightButtonTable[counter]:SetScript("OnClick",
 			function()
-				print("Selecting weights not yet implemented")
+				configWeightSelect(weightName)
 			end)
 		weightButtonTable[counter]:Show()
 		counter = counter + 1
@@ -48,6 +50,11 @@ function configClassSelect(classType)
 	end
 	wwConfig.rightPanel.header:SetText(classNames[classType] .. " weights")
 	wwConfig.rightPanel:Show()
+end
+
+--opens a new config pane to edit stat weights
+function configWeightSelect(selectedWeight)
+	editWeight:Show()
 end
 
 --loads the various class buttons onto the config frame
@@ -66,6 +73,91 @@ function loadClassButtons()
 		i = i + 1
 	end
 end
+
+--creates a list of fontStrings to display the stats
+function createStatFontStrings()
+	local xOffSet, yOffSet = 5, -5
+	for category, stats in pairs(trackedStats) do
+		--for each category print the header and then the print the list of stats
+		local newButton = CreateFrame("Button", category, editWeight, "genericButton")
+		newButton:SetPoint("TOPLEFT", xOffSet, yOffSet)
+		newButton:SetText(category)
+		yOffSet = yOffSet - 20
+		for _ , stat in pairs(stats) do
+			newButton = CreateFrame("Button", stat, editWeight, "genericButton")
+			newButton:SetPoint("TOPLEFT", xOffSet * 2, yOffSet)
+			newButton:SetText(stat)
+			yOffSet = yOffSet - 20
+		end
+	end
+end
+
+trackedStats = {
+	["General"] = {
+		"Stamina",
+		"Critical Strike Rating",
+		"Haste Rating",
+		"Hit Rating",
+		"Resilience Rating",
+	},
+	["Tanking"] = {
+		"Defense Rating",
+		"Dodge Rating",
+		"Parry Rating",
+		"Block Rating",
+		"Block Value",
+		"Armor",
+		"HP5",
+	},
+	["Melee"] = {
+		"Agility",
+		"Attack Power",
+		"Strength",
+		"Armor Penetration Rating",
+		"Expertise Rating",
+		"Weapon DPS",
+		"Minimum Weapon Damage",
+		"Maximum Weapon Damage",
+	},
+	["Caster"] = {
+		"Intellect",
+		"MP5",
+		"Spell Penetration",
+		"Spell Power",
+		"Spirit",
+	},
+	["Meta Gem Stats"] = {
+		"Armor from Items Percent",
+		"Block Value Percent",
+		"Chance to Increase Melee/Ranged Attack Speed",
+		"Chance to Increase Spell Cast Speed",
+		"Chance to Restore Health on Hit",
+		"Chance to Restore Mana on Spellcast",
+		"Chance to Stun Target",
+		"Critical Damage Percent",
+		"Critical Healing Percent",
+		"Fear Duration Reduction Percent",
+		"Minor Run Speed",
+		"Silence Duration Reduction Percent",
+		"Snare/Root Duration Reduction Percent",
+		"Sometimes Heal on your Crits",
+		"Spell Damage Taken Reduction Percent",
+		"Spell Reflect Percent",
+		"Stun Duration Reduction Percent",
+		"Stun Resistance Percent",
+		"Threat Percent",
+		"Threat Reduction Percent",
+		"Weapon Damage (Not to be Confused with weapon dps)",
+	},
+	["Resistances"] = {
+		"Arcane",
+		"Fire",
+		"Frost",
+		"Holy",
+		"Nature",
+		"Shadow",
+	},
+}
 
 classNames = {
 	["DEATHKNIGHT"] = "Death Knight",

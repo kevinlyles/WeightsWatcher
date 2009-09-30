@@ -18,6 +18,23 @@
 			</OnLoad>
 		</Scripts>
 	</Button>
+	<!--weight edit frame-->
+	<Frame name="editWeight" hidden="true" parent="UIParent" frameStrata="DIALOG">
+		<Size>
+			<AbsDimension x="400" y="600"/>
+		</Size>
+		<Anchors>
+			<Anchor point="CENTER"/>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture setAllPoints="true">
+					<!--Plain black background-->
+					<Color r="0" g="0" b="0" a="1"/>
+				</Texture>
+			</Layer>
+		</Layers>
+	</Frame>
 	<!--The Parent Frame Containing all configuration content-->
 	<Frame name="wwConfig" parent="UIParent" hidden="true">
 		<Size>
