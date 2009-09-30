@@ -98,11 +98,7 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 			table.remove(gemStats)
 		end
 
-		for _, stat in pairs(normalStats) do
-			tooltip:AddDoubleLine(unpack(stat))
-		end
 		if #(sockets) > 0 then
-			tooltip:AddLine("Sockets:")
 			socketBonusActive = true
 			for i = 1, #(sockets) do
 				if not gemStats[i] or not WeightsWatcher:matchesSocket(gemStats[i][1], sockets[i]) then
@@ -110,31 +106,10 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 					break
 				end
 			end
-			for _, stat in pairs(sockets) do
-				tooltip:AddLine("  " .. stat)
-			end
 		else
 			socketBonusActive = false
 		end
-		if socketBonusStat then
-			if socketBonusActive then
-				tooltip:AddDoubleLine("Socket Bonus:", "Active")
-			else
-				tooltip:AddDoubleLine("Socket Bonus:", "Inactive")
-			end
-			name, value = unpack(socketBonusStat)
-			tooltip:AddDoubleLine("  " .. name, value)
-		end
-		if #(gemStats) > 0 then
-			tooltip:AddLine("Gem Stats:")
-			for _, stat in pairs(gemStats) do
-				tooltip:AddLine("  " .. stat[1])
-				for _, stat in pairs(stat[2]) do
-					name, value = unpack(stat)
-					tooltip:AddDoubleLine("    " .. name, value)
-				end
-			end
-		end
+
 		tooltip:Show()
 	end
 end
