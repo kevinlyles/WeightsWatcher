@@ -602,6 +602,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 		bareLink = splitItemLink(link)
 		local bareItemInfo = ww_bareItemCache[bareLink]
 
+		showDebugInfo = keyDetectors[ww_vars.options.tooltip.showDebugInfo]()
 		showWeights = keyDetectors[ww_vars.options.tooltip.showWeights]()
 		showIdealWeights = keyDetectors[ww_vars.options.tooltip.showIdealWeights]()
 		showIdealGems = keyDetectors[ww_vars.options.tooltip.showIdealGems]()
@@ -631,6 +632,64 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 					compareSubslot2 = ww_bareItemCache[compareBareLink2].nonStats["subslot"]
 				end
 				compareMethod = determineCompareMethod(currentSlot, compareSlot, compareSlot2, currentSubslot, compareSubslot, compareSubslot2)
+			end
+		end
+
+		if showDebugInfo then
+			for name, value in pairs(bareItemInfo.nonStats) do
+				if value == true then
+					tooltip:AddLine(name)
+				else
+					tooltip:AddDoubleLine(name, value)
+				end
+			end
+			for name, value in pairs(bareItemInfo.normalStats) do
+				tooltip:AddDoubleLine(name, value)
+			end
+			if #(bareItemInfo.useEffects) > 0 then
+				tooltip:AddLine("Use effects:")
+				for _, useEffect in pairs(bareItemInfo.useEffects) do
+					tooltip:AddDoubleLine("  " .. useEffect.value .. " " .. useEffect.stat, useEffect.duration .. "/" .. useEffect.cooldown)
+				end
+			end
+			if #(bareItemInfo.stackingEquipEffects) > 0 then
+				tooltip:AddLine("Stacking equip effects:")
+				for _, effect in pairs(bareItemInfo.stackingEquipEffects) do
+					tooltip:AddDoubleLine("  " .. effect.value .. " " .. effect.stat, effect.numStacks)
+					for trigger in pairs(effect.triggers) do
+						tooltip:AddLine("    on " .. trigger)
+					end
+				end
+			end
+
+			local itemInfo = ww_itemCache[link]
+
+			if #(bareItemInfo.sockets) > 0 then
+				tooltip:AddLine("Sockets:")
+				for _, stat in pairs(bareItemInfo.sockets) do
+					tooltip:AddLine("  " .. stat)
+				end
+				if bareItemInfo.socketBonusStat then
+					if itemInfo.socketBonusActive then
+						tooltip:AddDoubleLine("Socket Bonus:", "Active")
+					else
+						tooltip:AddDoubleLine("Socket Bonus:", "Inactive")
+					end
+					for name, value in pairs(bareItemInfo.socketBonusStat) do
+						tooltip:AddDoubleLine("  " .. name, value)
+					end
+				end
+				if #(itemInfo.gemStats) > 0 then
+					tooltip:AddLine("Gem Stats:")
+					for _, gems in pairs(itemInfo.gemStats) do
+						for _, gem in ipairs(gems) do
+							tooltip:AddLine("  " .. gem[2] .. " (" .. gem[1] .. ")")
+							for stat, value in pairs(gem[3]) do
+								tooltip:AddDoubleLine("    " .. stat, value)
+							end
+						end
+					end
+				end
 			end
 		end
 
@@ -717,7 +776,22 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 			ttleft = getglobal(ttname .. "TextLeft" .. i)
 			origTextL = ttleft:GetText()
 			textL = WeightsWatcher.preprocess(origTextL:lower())
-			if rawget(ww_unparsed_lines, textL) or rawget(ww_unweighted_lines, textL) then
+			if rawget(ww_unparsed_lines, textL) then
+				if showDebugInfo then
+					ttleft:SetText(origTextL .. " |cffff00ff(U)|r")
+				else
+					ttleft:SetText(origTextL .. " |cffff0000*|r")
+				end
+				numUnweightedEffects = numUnweightedEffects + 1
+			elseif rawget(ww_ignored_lines, textL) then
+				if showDebugInfo then
+					ttleft:SetText(origTextL .. " |cffffff00(I)|r")
+				end
+			elseif rawget(ww_temp_ignored_lines, textL) then
+				if showDebugInfo then
+					ttleft:SetText(origTextL .. " |cffffff00(TI)|r")
+				end
+			elseif rawget(ww_unweighted_lines, textL) then
 				ttleft:SetText(origTextL .. " |cffff0000*|r")
 				numUnweightedEffects = numUnweightedEffects + 1
 			end
@@ -752,6 +826,11 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 				end
 			elseif ww_vars.options.tooltip.showWeights ~= "Never" then
 				tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showWeights .. " to show weights>")
+			end
+			if not showDebugInfo then
+				if ww_vars.options.tooltip.showDebugInfo ~= "Never" then
+					tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showDebugInfo .. " to show debug info>")
+				end
 			end
 		end
 

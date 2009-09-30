@@ -135,6 +135,15 @@ function noop_major_up(vars)
 	return vars
 end
 
+function upgradeAccountToDebugKey(vars)
+	if vars.options.tooltip.showDebugInfo == nil then
+		vars.options.tooltip.showDebugInfo = "Never"
+	end
+
+	vars.dataMinorVersion = 13
+	return vars
+end
+
 function upgradeAccountToTriggers(vars)
 	if vars.savedTriggers then
 		for _, class in ipairs(vars.savedTriggers) do
@@ -859,6 +868,7 @@ upgradeAccountFunctions = {
 		[9] = upgradeAccountToWorkingMeleeDamage,
 		[10] = upgradeAccountToUseEffectRatio,
 		[11] = upgradeAccountToTriggers,
+		[12] = upgradeAccountToDebugKey,
 	},
 }
 
@@ -888,6 +898,7 @@ downgradeAccountFunctions = {
 		[10] = noop_down,
 		[11] = noop_down,
 		[12] = downgradeAccountFromTriggers,
+		[13] = noop_down,
 	},
 }
 

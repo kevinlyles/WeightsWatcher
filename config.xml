@@ -118,7 +118,7 @@
 	</FontString>
 	<Frame name="ww_config" parent="UIParent" hidden="true" frameStrata="HIGH">
 		<Size>
-			<AbsDimension x="600" y="400"/>
+			<AbsDimension x="600" y="425"/>
 		</Size>
 		<Anchors>
 			<Anchor point="CENTER"/>
@@ -572,9 +572,25 @@
 							</OnLoad>
 						</Scripts>
 					</Frame>
-					<CheckButton name="$parentHideTooltipHints" parentKey="hideTooltipHints" inherits="ww_checkButton" text="Hide tooltip hints">
+					<Frame name="$parentShowDebugInfo" parentKey="showDebugInfo" inherits="ww_modifierKeyDropDown">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowIdealGemStats"/>
+							<!--<Anchor point="LEFT" relativePoint="LEFT" relativeTo="$parentShowIdealGems">
+								<Offset>
+									<AbsDimension x="20"/>
+								</Offset>
+							</Anchor>-->
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								self.label:SetText("Show parser debug information:")
+								self.dropdown:SetText("showDebugInfo")
+							</OnLoad>
+						</Scripts>
+					</Frame>
+					<CheckButton name="$parentHideTooltipHints" parentKey="hideTooltipHints" inherits="ww_checkButton" text="Hide tooltip hints">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowDebugInfo"/>
 						</Anchors>
 						<Scripts>
 							<OnClick>
