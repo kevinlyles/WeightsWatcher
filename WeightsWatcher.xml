@@ -35,6 +35,11 @@
 			</Layer>
 		</Layers>
 		<Frames>
+			<Button name="$parentCloseButton" parentKey="closeButton" inherits="UIPanelCloseButton">
+				<Anchors>
+					<Anchor point="TOPRIGHT"/>
+				</Anchors>
+			</Button>
 			<!--Invisible frame with scroll bar that does the scrolling-->
 			<ScrollFrame name="$parentScrollFrame" parentKey="scrollFrame" inherits="FauxScrollFrameTemplate">
 				<Size>

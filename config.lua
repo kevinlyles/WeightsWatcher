@@ -25,7 +25,7 @@ function open_config()
 end
 
 function scrollBarUpdate()
-	local numShown, i = 30
+	local numShown, i = 29
 	local offset = FauxScrollFrame_GetOffset(editWeight.scrollFrame)
 -- 	print(offset)
 	FauxScrollFrame_Update(editWeight.scrollFrame, #(statButtonTable), numShown, 100)
@@ -36,7 +36,7 @@ function scrollBarUpdate()
 	if offset > #(statButtonTable) - numShown then
 		offset = #(statButtonTable) - numShown
 	end
-	statButtonTable[1]:SetPoint("TOPLEFT", 5, 20 * offset)
+	statButtonTable[1]:SetPoint("TOPLEFT", 5, -20 + 20 * offset)
 	for i = 1, offset do
 		-- seems to be the only way to reliably update the positions of the buttons after these
 		statButtonTable[i]:Hide()
