@@ -24,6 +24,33 @@ function open_config()
 	end
 end
 
+function scrollBarUpdate()
+	local numShown, i = 30
+	local offset = FauxScrollFrame_GetOffset(editWeight.scrollFrame)
+-- 	print(offset)
+	FauxScrollFrame_Update(editWeight.scrollFrame, #(statButtonTable), numShown, 100)
+	offset = offset / 5
+	if numShown > #(statButtonTable) then
+		numShown = #(statButtonTable)
+	end
+	if offset > #(statButtonTable) - numShown then
+		offset = #(statButtonTable) - numShown
+	end
+	statButtonTable[1]:SetPoint("TOPLEFT", 5, 20 * offset)
+	for i = 1, offset do
+		-- seems to be the only way to reliably update the positions of the buttons after these
+		statButtonTable[i]:Hide()
+		statButtonTable[i]:Show()
+		statButtonTable[i]:Hide()
+	end
+	for i = offset + 1, offset + numShown do
+		statButtonTable[i]:Show()
+	end
+	for i = offset + numShown + 1, #(statButtonTable) do
+		statButtonTable[i]:Hide()
+	end
+end
+
 --opens the right panel and loads the appropriate buttons
 function configClassSelect(classType)
 	local counter = 1
@@ -76,18 +103,28 @@ end
 
 --creates a list of fontStrings to display the stats
 function createStatFontStrings()
-	local xOffSet, yOffSet = 5, -5
+	local xOffset, i, newCat = 5, 1
 	for category, stats in pairs(trackedStats) do
 		--for each category print the header and then the print the list of stats
 		local newButton = CreateFrame("Button", category, editWeight, "genericButton")
-		newButton:SetPoint("TOPLEFT", xOffSet, yOffSet)
+		if i > 1 then
+			newButton:SetPoint("TOPLEFT", statButtonTable[i - 1], "BOTTOMLEFT", -2 * xOffset, 0)
+		end
 		newButton:SetText(category)
-		yOffSet = yOffSet - 20
+		table.insert(statButtonTable, newButton)
+		i = i + 1
+		newCat = true
 		for _ , stat in pairs(stats) do
 			newButton = CreateFrame("Button", stat, editWeight, "genericButton")
-			newButton:SetPoint("TOPLEFT", xOffSet * 2, yOffSet)
+			if newCat then
+				newButton:SetPoint("TOPLEFT", statButtonTable[i - 1], "BOTTOMLEFT", 2 * xOffset, 0)
+				newCat = false
+			else
+				newButton:SetPoint("TOPLEFT", statButtonTable[i - 1], "BOTTOMLEFT", 0, 0)
+			end
 			newButton:SetText(stat)
-			yOffSet = yOffSet - 20
+			table.insert(statButtonTable, newButton)
+			i = i + 1
 		end
 	end
 end

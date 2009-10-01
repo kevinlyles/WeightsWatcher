@@ -34,6 +34,29 @@
 				</Texture>
 			</Layer>
 		</Layers>
+		<Frames>
+			<!--Invisible frame with scroll bar that does the scrolling-->
+			<ScrollFrame name="$parentScrollFrame" parentKey="scrollFrame" inherits="FauxScrollFrameTemplate">
+				<Size>
+					<AbsDimension x="400" y="600"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="editWeight">
+						<Offset>
+							<AbsDimension x="-5"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnShow>
+						scrollBarUpdate()
+					</OnShow>
+					<OnVerticalScroll>
+						FauxScrollFrame_OnVerticalScroll(self, offset, 20, scrollBarUpdate)
+					</OnVerticalScroll>
+				</Scripts>
+			</ScrollFrame>
+		</Frames>
 	</Frame>
 	<!--The Parent Frame Containing all configuration content-->
 	<Frame name="wwConfig" parent="UIParent" hidden="true">
