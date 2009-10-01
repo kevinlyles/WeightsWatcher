@@ -2,24 +2,24 @@
 		xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
 	<Script file="config.lua"/>
 	<!--Default String used to allow for left alignment with script generated fontstrings-->
-	<FontString name="defaultString" inherits="GameFontNormalSmall" virtual="true">
+	<FontString name="ww_defaultString" inherits="GameFontNormalSmall" virtual="true">
 		<Anchors>
 			<Anchor point="LEFT"/>
 		</Anchors>
 	</FontString>
 	<!--virtual button used to allow for script generated buttons-->
-	<Button name="genericButton" virtual="true">
+	<Button name="ww_genericButton" virtual="true">
 		<Size>
 			<AbsDimension x="75" y="20"/>
 		</Size>
 		<Scripts>
 			<OnLoad>
-				self:SetFontString(self:CreateFontString(nil, "OVERLAY", "defaultString"))
+				self:SetFontString(self:CreateFontString(nil, "OVERLAY", "ww_defaultString"))
 			</OnLoad>
 		</Scripts>
 	</Button>
 	<!--weight edit frame-->
-	<Frame name="editWeight" hidden="true" parent="UIParent" frameStrata="DIALOG">
+	<Frame name="ww_editWeight" hidden="true" parent="UIParent" frameStrata="DIALOG">
 		<Size>
 			<AbsDimension x="400" y="600"/>
 		</Size>
@@ -46,7 +46,7 @@
 					<AbsDimension x="400" y="600"/>
 				</Size>
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="editWeight">
+					<Anchor point="TOPLEFT" relativeTo="ww_editWeight">
 						<Offset>
 							<AbsDimension x="-5"/>
 						</Offset>
@@ -64,7 +64,7 @@
 		</Frames>
 	</Frame>
 	<!--The Parent Frame Containing all configuration content-->
-	<Frame name="wwConfig" parent="UIParent" hidden="true">
+	<Frame name="ww_config" parent="UIParent" hidden="true">
 		<Size>
 			<AbsDimension x="400" y="400"/>
 		</Size>

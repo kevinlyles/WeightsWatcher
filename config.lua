@@ -2,8 +2,8 @@ if not WeightsWatcher then
 	WeightsWatcher = AceLibrary("AceAddon-2.0"):new("AceEvent-2.0", "AceHook-2.1")
 end
 
-weightButtonTable = {}
-statButtonTable = {}
+ww_weightButtonTable = {}
+ww_statButtonTable = {}
 
 function commandHandler(msg)
 	open_config()
@@ -17,37 +17,37 @@ end
 
 --display or hide the frame
 function open_config()
-	if wwConfig:IsVisible() then
-		wwConfig:Hide()
+	if ww_config:IsVisible() then
+		ww_config:Hide()
 	else
-		wwConfig:Show()
+		ww_config:Show()
 	end
 end
 
 function scrollBarUpdate()
 	local numShown, i = 29
-	local offset = FauxScrollFrame_GetOffset(editWeight.scrollFrame)
+	local offset = FauxScrollFrame_GetOffset(ww_editWeight.scrollFrame)
 -- 	print(offset)
-	FauxScrollFrame_Update(editWeight.scrollFrame, #(statButtonTable), numShown, 100)
+	FauxScrollFrame_Update(ww_editWeight.scrollFrame, #(ww_statButtonTable), numShown, 100)
 	offset = offset / 5
-	if numShown > #(statButtonTable) then
-		numShown = #(statButtonTable)
+	if numShown > #(ww_statButtonTable) then
+		numShown = #(ww_statButtonTable)
 	end
-	if offset > #(statButtonTable) - numShown then
-		offset = #(statButtonTable) - numShown
+	if offset > #(ww_statButtonTable) - numShown then
+		offset = #(ww_statButtonTable) - numShown
 	end
-	statButtonTable[1]:SetPoint("TOPLEFT", 5, -20 + 20 * offset)
+	ww_statButtonTable[1]:SetPoint("TOPLEFT", 5, -20 + 20 * offset)
 	for i = 1, offset do
 		-- seems to be the only way to reliably update the positions of the buttons after these
-		statButtonTable[i]:Hide()
-		statButtonTable[i]:Show()
-		statButtonTable[i]:Hide()
+		ww_statButtonTable[i]:Hide()
+		ww_statButtonTable[i]:Show()
+		ww_statButtonTable[i]:Hide()
 	end
 	for i = offset + 1, offset + numShown do
-		statButtonTable[i]:Show()
+		ww_statButtonTable[i]:Show()
 	end
-	for i = offset + numShown + 1, #(statButtonTable) do
-		statButtonTable[i]:Hide()
+	for i = offset + numShown + 1, #(ww_statButtonTable) do
+		ww_statButtonTable[i]:Hide()
 	end
 end
 
@@ -58,30 +58,30 @@ function configClassSelect(classType)
 	--NOTE: this approach is used to minimize memory leakage
 	for weightName, _ in pairs(ww_vars.weightsList[classType]) do
 		--if our previously created button table isn't big enough, add new buttons
-		if #(weightButtonTable) < counter then
-			table.insert(weightButtonTable, CreateFrame("Button", nil, wwConfig.rightPanel, "genericButton"))
-			weightButtonTable[counter]:SetPoint("TOPLEFT", 5, -5 - 20 * counter)
+		if #(ww_weightButtonTable) < counter then
+			table.insert(ww_weightButtonTable, CreateFrame("Button", nil, ww_config.rightPanel, "ww_genericButton"))
+			ww_weightButtonTable[counter]:SetPoint("TOPLEFT", 5, -5 - 20 * counter)
 		end
-		weightButtonTable[counter]:SetText(weightName)
-		weightButtonTable[counter]:SetScript("OnClick",
+		ww_weightButtonTable[counter]:SetText(weightName)
+		ww_weightButtonTable[counter]:SetScript("OnClick",
 			function()
 				configWeightSelect(weightName)
 			end)
-		weightButtonTable[counter]:Show()
+		ww_weightButtonTable[counter]:Show()
 		counter = counter + 1
 	end
 	--if we have any remaining buttons, hide them
-	while counter <= #(weightButtonTable) do
-		weightButtonTable[counter]:Hide()
+	while counter <= #(ww_weightButtonTable) do
+		ww_weightButtonTable[counter]:Hide()
 		counter = counter + 1
 	end
-	wwConfig.rightPanel.header:SetText(classNames[classType] .. " weights")
-	wwConfig.rightPanel:Show()
+	ww_config.rightPanel.header:SetText(classNames[classType] .. " weights")
+	ww_config.rightPanel:Show()
 end
 
 --opens a new config pane to edit stat weights
 function configWeightSelect(selectedWeight)
-	editWeight:Show()
+	ww_editWeight:Show()
 end
 
 --loads the various class buttons onto the config frame
@@ -90,7 +90,7 @@ function loadClassButtons()
 	local i = 1
 	--creates a button for each class available in weightsList
 	for class, _ in pairs(ww_vars.weightsList) do
-		local newButton = CreateFrame("Button", class, wwConfig.leftPanel, "genericButton")
+		local newButton = CreateFrame("Button", class, ww_config.leftPanel, "ww_genericButton")
 		newButton:SetPoint("TOPLEFT", 5, 15 - i * 20)
 		newButton:SetText(classNames[class])
 		newButton:SetScript("OnClick",
@@ -106,24 +106,24 @@ function createStatFontStrings()
 	local xOffset, i, newCat = 5, 1
 	for category, stats in pairs(trackedStats) do
 		--for each category print the header and then the print the list of stats
-		local newButton = CreateFrame("Button", category, editWeight, "genericButton")
+		local newButton = CreateFrame("Button", category, ww_editWeight, "ww_genericButton")
 		if i > 1 then
-			newButton:SetPoint("TOPLEFT", statButtonTable[i - 1], "BOTTOMLEFT", -2 * xOffset, 0)
+			newButton:SetPoint("TOPLEFT", ww_statButtonTable[i - 1], "BOTTOMLEFT", -2 * xOffset, 0)
 		end
 		newButton:SetText(category)
-		table.insert(statButtonTable, newButton)
+		table.insert(ww_statButtonTable, newButton)
 		i = i + 1
 		newCat = true
 		for _ , stat in pairs(stats) do
-			newButton = CreateFrame("Button", stat, editWeight, "genericButton")
+			newButton = CreateFrame("Button", stat, ww_editWeight, "ww_genericButton")
 			if newCat then
-				newButton:SetPoint("TOPLEFT", statButtonTable[i - 1], "BOTTOMLEFT", 2 * xOffset, 0)
+				newButton:SetPoint("TOPLEFT", ww_statButtonTable[i - 1], "BOTTOMLEFT", 2 * xOffset, 0)
 				newCat = false
 			else
-				newButton:SetPoint("TOPLEFT", statButtonTable[i - 1], "BOTTOMLEFT", 0, 0)
+				newButton:SetPoint("TOPLEFT", ww_statButtonTable[i - 1], "BOTTOMLEFT", 0, 0)
 			end
 			newButton:SetText(stat)
-			table.insert(statButtonTable, newButton)
+			table.insert(ww_statButtonTable, newButton)
 			i = i + 1
 		end
 	end
