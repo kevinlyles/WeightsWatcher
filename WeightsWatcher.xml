@@ -40,6 +40,12 @@
 					<Anchor point="TOPRIGHT"/>
 				</Anchors>
 			</Button>
+			<!--used to hold a series of stat frames to maintain absolute position when scrolling-->
+			<Frame name="$parentScrollContainer" parentKey="scrollContainer">
+				<Size>
+					<AbsDimension x="400" y="600"/>
+				</Size>
+			</Frame>
 			<!--Invisible frame with scroll bar that does the scrolling-->
 			<ScrollFrame name="$parentScrollFrame" parentKey="scrollFrame" inherits="FauxScrollFrameTemplate">
 				<Size>

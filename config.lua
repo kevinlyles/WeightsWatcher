@@ -25,9 +25,11 @@ function open_config()
 end
 
 function scrollBarUpdate()
+	--since all buttons are relative to the first we need to adjust the position of the first to have the rest display within our frame
 	local numShown, i = 29
+	--scroll bar position
 	local offset = FauxScrollFrame_GetOffset(ww_editWeight.scrollFrame)
--- 	print(offset)
+	--let the scroll bar position update
 	FauxScrollFrame_Update(ww_editWeight.scrollFrame, #(ww_statButtonTable), numShown, 100)
 	offset = offset / 5
 	if numShown > #(ww_statButtonTable) then
@@ -36,16 +38,19 @@ function scrollBarUpdate()
 	if offset > #(ww_statButtonTable) - numShown then
 		offset = #(ww_statButtonTable) - numShown
 	end
-	ww_statButtonTable[1]:SetPoint("TOPLEFT", 5, -20 + 20 * offset)
+
+	--change the position of the stats frame based on the offset
+	ww_editWeight.scrollContainer:SetPoint("TOPLEFT", 0, -20 + 20 * offset)
+
+	--hide the elements that appear before the first button shown
 	for i = 1, offset do
-		-- seems to be the only way to reliably update the positions of the buttons after these
-		ww_statButtonTable[i]:Hide()
-		ww_statButtonTable[i]:Show()
 		ww_statButtonTable[i]:Hide()
 	end
+	--display those that fit in the window
 	for i = offset + 1, offset + numShown do
 		ww_statButtonTable[i]:Show()
 	end
+	--hide the buttons after the window
 	for i = offset + numShown + 1, #(ww_statButtonTable) do
 		ww_statButtonTable[i]:Hide()
 	end
@@ -106,8 +111,10 @@ function createStatFontStrings()
 	local xOffset, i, newCat = 5, 1
 	for category, stats in pairs(trackedStats) do
 		--for each category print the header and then the print the list of stats
-		local newButton = CreateFrame("Button", category, ww_editWeight, "ww_genericButton")
-		if i > 1 then
+		local newButton = CreateFrame("Button", category, ww_editWeight.scrollContainer, "ww_genericButton")
+		if i == 1 then
+			newButton:SetPoint("TOPLEFT", ww_editWeight.scrollContainer, "TOPLEFT", xOffset, 0)
+		else
 			newButton:SetPoint("TOPLEFT", ww_statButtonTable[i - 1], "BOTTOMLEFT", -2 * xOffset, 0)
 		end
 		newButton:SetText(category)
@@ -115,7 +122,7 @@ function createStatFontStrings()
 		i = i + 1
 		newCat = true
 		for _ , stat in pairs(stats) do
-			newButton = CreateFrame("Button", stat, ww_editWeight, "ww_genericButton")
+			newButton = CreateFrame("Button", stat, ww_editWeight.scrollContainer, "ww_genericButton")
 			if newCat then
 				newButton:SetPoint("TOPLEFT", ww_statButtonTable[i - 1], "BOTTOMLEFT", 2 * xOffset, 0)
 				newCat = false
