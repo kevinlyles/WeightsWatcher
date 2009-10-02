@@ -18,6 +18,25 @@
 			</OnLoad>
 		</Scripts>
 	</Button>
+	<!--virtual frame used to allow for script generated frames with stat information-->
+	<Frame name="ww_statFrame" virtual="true">
+		<Size>
+			<AbsDimension x="400" y="20"/>
+		</Size>
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString name="$parentText" parentKey="text" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="20"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+	</Frame>
 	<!--weight edit frame-->
 	<Frame name="ww_editWeight" hidden="true" parent="UIParent" frameStrata="DIALOG">
 		<Size>
