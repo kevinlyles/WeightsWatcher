@@ -82,7 +82,7 @@
 						scrollBarUpdate()
 					</OnShow>
 					<OnVerticalScroll>
-						FauxScrollFrame_OnVerticalScroll(self, offset, 20, scrollBarUpdate)
+						FauxScrollFrame_OnVerticalScroll(self, offset, 20, self:GetScript("OnShow"))
 					</OnVerticalScroll>
 				</Scripts>
 			</ScrollFrame>
