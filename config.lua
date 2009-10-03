@@ -25,35 +25,26 @@ function open_config()
 	end
 end
 
-function scrollBarUpdate()
-	--since all buttons are relative to the first we need to adjust the position of the first to have the rest display within our frame
-	local numShown, i = 28
-	--scroll bar position
-	local offset = FauxScrollFrame_GetOffset(ww_editWeight.scrollFrame)
-	--let the scroll bar position update
-	FauxScrollFrame_Update(ww_editWeight.scrollFrame, #(ww_statFrameTable), numShown, 100)
+function scrollBarUpdate(scrollFrame, scrolledFrame, buttonTable, buttonHeight, initialOffset, numShown)
+	local i
+	local offset = FauxScrollFrame_GetOffset(scrollFrame)
 	offset = offset / 5
-	if numShown > #(ww_statFrameTable) then
-		numShown = #(ww_statFrameTable)
+	if numShown > #(buttonTable) then
+		numShown = #(buttonTable)
 	end
-	if offset > #(ww_statFrameTable) - numShown then
-		offset = #(ww_statFrameTable) - numShown
+	if offset > #(buttonTable) - numShown then
+		offset = #(buttonTable) - numShown
 	end
-
-	--change the position of the stats frame based on the offset
-	ww_editWeight.scrollContainer:SetPoint("TOPLEFT", 0, -30 + 20 * offset)
-
-	--hide the stats that appear before the first button shown
+	FauxScrollFrame_Update(scrollFrame, #(buttonTable), numShown, buttonHeight * 5)
+	scrolledFrame:SetPoint("TOPLEFT", 0, initialOffset + buttonHeight * offset)
 	for i = 1, offset do
-		ww_statFrameTable[i]:Hide()
+		buttonTable[i]:Hide()
 	end
-	--display those that fit in the window
 	for i = offset + 1, offset + numShown do
-		ww_statFrameTable[i]:Show()
+		buttonTable[i]:Show()
 	end
-	--hide the stats after the window
-	for i = offset + numShown + 1, #(ww_statFrameTable) do
-		ww_statFrameTable[i]:Hide()
+	for i = offset + numShown + 1, #(buttonTable) do
+		buttonTable[i]:Hide()
 	end
 end
 
@@ -177,7 +168,7 @@ function toggleCollapse(categoryFrame)
 		categoryFrame.collapsed = true
 		categoryFrame:SetHeight(20)
 	end
-	scrollBarUpdate()
+	scrollBarUpdate(ww_editWeight.scrollFrame, ww_editWeight.scrollContainer, ww_statFrameTable, 20, -30, 28)
 end
 
 trackedStats = {

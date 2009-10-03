@@ -116,7 +116,7 @@
 				</Anchors>
 				<Scripts>
 					<OnShow>
-						scrollBarUpdate()
+						scrollBarUpdate(self, ww_editWeight.scrollContainer, ww_statFrameTable, 20, -30, 28)
 					</OnShow>
 					<OnVerticalScroll>
 						FauxScrollFrame_OnVerticalScroll(self, offset, 20, self:GetScript("OnShow"))
