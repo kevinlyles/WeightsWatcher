@@ -29,6 +29,8 @@ IgnoredLines = {
 	"^Use: Restores %d+ to %d+ %a+",
 	-- Some relics that boost stats for certain abilities only
 	"^Equip: Increases the %a[%a ]+ of your %a[%a ]+ by ",
+	-- Use effects that have a cooldown
+	"[Cc]ooldown",
 	-- "Chance on hit" and "have a chance"
 	"[Cc]hance ",
 	"^You may trade this item with players that were also eligible to loot this item for the next ",
