@@ -31,6 +31,7 @@ defaultVars = {
 	weightsList = {
 		["DEATHKNIGHT"] = {
 			["Blood DPS"] = {
+				["dps"] = 361,
 				["hit rating"] = 100,
 				["strength"] = 97,
 				["expertise rating"] = 64,
@@ -40,6 +41,7 @@ defaultVars = {
 				["haste rating"] = 22,
 			},
 			["Frost DPS"] = {
+				["dps"] = 417,
 				["hit rating"] = 100,
 				["strength"] = 99,
 				["expertise rating"] = 52,
@@ -49,6 +51,7 @@ defaultVars = {
 				["haste rating"] = 21,
 			},
 			["Unholy DPS"] = {
+				["dps"] = 305,
 				["hit rating"] = 100,
 				["strength"] = 100,
 				["expertise rating"] = 56,
@@ -58,6 +61,7 @@ defaultVars = {
 				["armor penetration rating"] = 22,
 			},
 			["Tanking"] = {
+				["dps"] = 432,
 				["parry rating"] = 103,
 				["hit rating"] = 100,
 				["strength"] = 99,
@@ -118,6 +122,7 @@ defaultVars = {
 		},
 		["HUNTER"] = {
 			["Beast Mastery"] = {
+				["dps"] = 134,
 				["hit rating"] = 100,
 				["intellect"] = 94,
 				["agility"] = 59,
@@ -128,6 +133,7 @@ defaultVars = {
 				["critical strike rating"] = 37,
 			},
 			["Marksmanship"] = {
+				["dps"] = 151,
 				["intellect"] = 100,
 				["hit rating"] = 90,
 				["mp5"] = 70,
@@ -138,6 +144,7 @@ defaultVars = {
 				["attack power"] = 38,
 			},
 			["Survival"] = {
+				["dps"] = 147,
 				["intellect"] = 100,
 				["hit rating"] = 93,
 				["agility"] = 83,
@@ -216,20 +223,20 @@ defaultVars = {
 		},
 		["PRIEST"] = {
 			["Discipline"] = {
-				["spell power"] = 100,
-				["critical strike rating"] = 95,
-				["intellect"] = 59,
-				["haste rating"] = 47,
-				["mp5"] = 36,
-				["spirit"] = 36,
+				["mp5"] = 100,
+				["intellect"] = 89,
+				["spell power"] = 60,
+				["critical strike rating"] = 36,
+				["spirit"] = 32,
+				["haste rating"] = 20,
 			},
 			["Holy"] = {
-				["spell power"] = 100,
-				["mp5"] = 93,
-				["intellect"] = 88,
-				["spirit"] = 85,
-				["critical strike rating"] = 63,
-				["haste rating"] = 51,
+				["mp5"] = 100,
+				["intellect"] = 69,
+				["spell power"] = 60,
+				["spirit"] = 52,
+				["critical strike rating"] = 38,
+				["haste rating"] = 31,
 			},
 			["Shadow"] = {
 				["hit rating"] = 100,
@@ -264,6 +271,7 @@ defaultVars = {
 				["intellect"] = 10,
 			},
 			["Enhancement"] = {
+				["dps"] = 191,
 				["hit rating"] = 100,
 				["expertise rating"] = 84,
 				["intellect"] = 55,
