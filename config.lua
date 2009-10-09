@@ -21,6 +21,24 @@ StaticPopupDialogs["WW_CONFIRM_WEIGHT_DELETE"] = {
 	hideOnEscape = true,
 }
 
+StaticPopupDialogs["WW_CONFIRM_RESTORE_DEFAULTS"] = {
+	text = "Are you sure you want to restore default weights?  This will overwrite any weights with the default names (but leave others alone).",
+	button1 = "Restore Defaults",
+	button2 = "Cancel",
+	OnAccept = function()
+			for class, weights in pairs(defaultVars.weightsList) do
+				for weight, stats in pairs(weights) do
+					setWeight(class, weight, stats)
+				end
+			end
+			ww_config.rightPanel:Hide()
+		end,
+	showAlert = true,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = true,
+}
+
 StaticPopupDialogs["WW_WEIGHT_EXISTS"] = {
 	text = "The %s weight named \"%s\" already exists.  Pick a different name.",
 	button1 = "Okay",

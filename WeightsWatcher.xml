@@ -325,7 +325,7 @@
 				</Anchors>
 				<Scripts>
 					<OnClick>
-						print("Restore defaults not yet implemented")
+						StaticPopup_Show("WW_CONFIRM_RESTORE_DEFAULTS")
 					</OnClick>
 				</Scripts>
 			</Button>
