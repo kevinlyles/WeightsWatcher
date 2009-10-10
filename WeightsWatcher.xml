@@ -19,7 +19,26 @@
 		</Scripts>
 	</Button>
 	<!--virtual frame used to allow for script generated frames with stat information-->
-	<Frame name="ww_statFrame" virtual="true">
+	<Frame name="ww_categoryFrame" virtual="true">
+		<Size>
+			<AbsDimension x="400"/>
+		</Size>
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString inherits="GameFontNormal" parentKey="text">
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="5" y="-5"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+	</Frame>
+	<!--virtual frame used to allow for script generated frames with stat information-->
+	<Frame name="ww_elementFrame" virtual="true">
 		<Size>
 			<AbsDimension x="400" y="20"/>
 		</Size>

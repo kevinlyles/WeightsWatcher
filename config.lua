@@ -3,6 +3,7 @@ if not WeightsWatcher then
 end
 
 ww_weightButtonTable = {}
+ww_categoryFrameTable = {}
 ww_statFrameTable = {}
 
 function commandHandler(msg)
@@ -26,7 +27,7 @@ end
 
 function scrollBarUpdate()
 	--since all buttons are relative to the first we need to adjust the position of the first to have the rest display within our frame
-	local numShown, i = 29
+	local numShown, i = 28
 	--scroll bar position
 	local offset = FauxScrollFrame_GetOffset(ww_editWeight.scrollFrame)
 	--let the scroll bar position update
@@ -40,7 +41,7 @@ function scrollBarUpdate()
 	end
 
 	--change the position of the stats frame based on the offset
-	ww_editWeight.scrollContainer:SetPoint("TOPLEFT", 0, 20 * offset)
+	ww_editWeight.scrollContainer:SetPoint("TOPLEFT", 0, -30 + 20 * offset)
 
 	--hide the stats that appear before the first button shown
 	for i = 1, offset do
@@ -108,21 +109,30 @@ end
 
 --creates a list of fontStrings to display the stats
 function createStatFontStrings()
-	local i = 1
+	local i, newCategoryFrame, newElementFrame = 1
+
 	for category, stats in pairs(trackedStats) do
 		--for each category print the header and then the print the list of stats
-		local newFrame = CreateFrame("Frame", category, ww_editWeight.scrollContainer, "ww_statFrame")
-		newFrame.text:SetText(category)
-		newFrame:SetPoint("TOPLEFT", ww_editWeight.scrollContainer, "TOPLEFT", -15, -20 * i)
-		table.insert(ww_statFrameTable, newFrame)
-		i = i + 1
-		for _ , stat in pairs(stats) do
-			newFrame = CreateFrame("Frame", stat, ww_editWeight.scrollContainer, "ww_statFrame")
-			newFrame.text:SetText(stat)
-			newFrame:SetPoint("TOPLEFT", ww_editWeight.scrollContainer, "TOPLEFT", 0, -20 * i)
-			table.insert(ww_statFrameTable, newFrame)
-			i = i + 1
+		newCategoryFrame = CreateFrame("Frame", nil, ww_editWeight.scrollContainer, "ww_categoryFrame")
+		newCategoryFrame.text:SetText(category)
+		newCategoryFrame.length = 1
+		if i == 1 then
+			newCategoryFrame:SetPoint("TOPLEFT")
+		else
+			newCategoryFrame:SetPoint("TOPLEFT", ww_categoryFrameTable[i - 1], "BOTTOMLEFT")
 		end
+		table.insert(ww_categoryFrameTable, newCategoryFrame)
+		table.insert(ww_statFrameTable, newCategoryFrame.text)
+		for j, stat in ipairs(stats) do
+			newElementFrame = CreateFrame("Frame", nil, ww_categoryFrameTable[i], "ww_elementFrame")
+			newElementFrame.text:SetText(stat)
+			newElementFrame:SetPoint("TOPLEFT", 0, -20 * j)
+			table.insert(ww_statFrameTable, newElementFrame)
+			newCategoryFrame.length = newCategoryFrame.length + 1
+		end
+
+		newCategoryFrame:SetHeight(20 * newCategoryFrame.length)
+		i = i + 1
 	end
 end
 
