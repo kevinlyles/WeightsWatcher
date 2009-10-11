@@ -123,17 +123,55 @@ function createStatFontStrings()
 		end
 		table.insert(ww_categoryFrameTable, newCategoryFrame)
 		table.insert(ww_statFrameTable, newCategoryFrame.text)
+		newCategoryFrame.position = #(ww_statFrameTable)
 		for j, stat in ipairs(stats) do
 			newElementFrame = CreateFrame("Frame", nil, ww_categoryFrameTable[i], "ww_elementFrame")
 			newElementFrame.text:SetText(stat)
+			newElementFrame.name = stat
 			newElementFrame:SetPoint("TOPLEFT", 0, -20 * j)
 			table.insert(ww_statFrameTable, newElementFrame)
 			newCategoryFrame.length = newCategoryFrame.length + 1
 		end
 
 		newCategoryFrame:SetHeight(20 * newCategoryFrame.length)
+		newCategoryFrame.collapsed = false
 		i = i + 1
 	end
+end
+
+function toggleCollapse(categoryFrame)
+	if categoryFrame.length == 1 then
+		return
+	end
+	if categoryFrame.collapsed then
+		for i, stat in ipairs({categoryFrame:GetChildren()}) do
+			if stat.name then
+				table.insert(ww_statFrameTable, categoryFrame.position + i - 1, stat)
+			end
+		end
+		for _, category in ipairs(ww_categoryFrameTable) do
+			if category.position > categoryFrame.position then
+				category.position = category.position + categoryFrame.length - 1
+			end
+		end
+		categoryFrame.collapsed = false
+		categoryFrame:SetHeight(20 * categoryFrame.length)
+	else
+		for _, stat in ipairs({categoryFrame:GetChildren()}) do
+			if stat.name then
+				stat:Hide()
+				table.remove(ww_statFrameTable, categoryFrame.position + 1)
+			end
+		end
+		for _, category in ipairs(ww_categoryFrameTable) do
+			if category.position > categoryFrame.position then
+				category.position = category.position - categoryFrame.length + 1
+			end
+		end
+		categoryFrame.collapsed = true
+		categoryFrame:SetHeight(20)
+	end
+	scrollBarUpdate()
 end
 
 trackedStats = {

@@ -23,19 +23,30 @@
 		<Size>
 			<AbsDimension x="400"/>
 		</Size>
-		<Layers>
-			<Layer level="OVERLAY">
-				<FontString inherits="GameFontNormal" parentKey="text">
-					<Anchors>
-						<Anchor point="TOPLEFT">
-							<Offset>
-								<AbsDimension x="5" y="-5"/>
-							</Offset>
-						</Anchor>
-					</Anchors>
-				</FontString>
-			</Layer>
-		</Layers>
+		<Frames>
+			<Button name="$parentText" parentKey="text">
+				<Size>
+					<AbsDimension x="395" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="5"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						local fontString = self:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+						fontString:SetPoint("LEFT")
+						self:SetFontString(fontString)
+					</OnLoad>
+					<OnClick>
+						toggleCollapse(self:GetParent())
+					</OnClick>
+				</Scripts>
+			</Button>
+		</Frames>
 	</Frame>
 	<!--virtual frame used to allow for script generated frames with stat information-->
 	<Frame name="ww_elementFrame" virtual="true">
