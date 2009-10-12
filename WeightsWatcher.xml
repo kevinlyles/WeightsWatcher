@@ -21,12 +21,15 @@
 	<!--virtual frame used to allow for script generated frames with stat information-->
 	<Frame name="ww_categoryFrame" virtual="true">
 		<Size>
-			<AbsDimension x="400"/>
+			<AbsDimension y="20"/>
 		</Size>
+		<Anchors>
+			<Anchor point="RIGHT"/>
+		</Anchors>
 		<Frames>
 			<Button name="$parentText" parentKey="text">
 				<Size>
-					<AbsDimension x="395" y="20"/>
+					<AbsDimension y="20"/>
 				</Size>
 				<Anchors>
 					<Anchor point="TOPLEFT">
@@ -34,6 +37,7 @@
 							<AbsDimension x="5"/>
 						</Offset>
 					</Anchor>
+					<Anchor point="RIGHT"/>
 				</Anchors>
 				<Scripts>
 					<OnLoad>
@@ -51,8 +55,11 @@
 	<!--virtual frame used to allow for script generated frames with stat information-->
 	<Frame name="ww_elementFrame" virtual="true">
 		<Size>
-			<AbsDimension x="400" y="20"/>
+			<AbsDimension y="20"/>
 		</Size>
+		<Anchors>
+			<Anchor point="RIGHT"/>
+		</Anchors>
 		<Layers>
 			<Layer level="OVERLAY">
 				<FontString name="$parentText" parentKey="text" inherits="GameFontNormal">
@@ -139,10 +146,20 @@
 			<!--The Class Selection Frame-->
 			<Frame name="$parentLeftPanel" parentKey="leftPanel">
 				<Size>
-					<AbsDimension x="100" y="350"/>
+					<AbsDimension x="100"/>
 				</Size>
 				<Anchors>
+					<Anchor point="TOP">
+						<Offset>
+							<AbsDimension y="-25"/>
+						</Offset>
+					</Anchor>
 					<Anchor point="LEFT"/>
+					<Anchor point="BOTTOM">
+						<Offset>
+							<AbsDimension y="25"/>
+						</Offset>
+					</Anchor>
 				</Anchors>
 				<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
 					<EdgeSize>
@@ -158,11 +175,18 @@
 			</Frame>
 			<!--Right Frame for viewing the weights for each class-->
 			<Frame name="$parentRightPanel" parentKey="rightPanel" hidden="true">
-				<Size>
-					<AbsDimension x="300" y="350"/>
-				</Size>
 				<Anchors>
-					<Anchor point="RIGHT"/>
+					<Anchor point="TOPLEFT" relativeTo="$parentLeftPanel" relativePoint="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="20"/>
+						</Offset>
+					</Anchor>
+					<Anchor point="BOTTOM" relativeTo="$parentLeftPanel"/>
+					<Anchor point="RIGHT">
+						<Offset>
+							<AbsDimension x="-20"/>
+						</Offset>
+					</Anchor>
 				</Anchors>
 				<Layers>
 					<Layer level="OVERLAY">
