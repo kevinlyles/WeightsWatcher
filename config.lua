@@ -5,6 +5,8 @@ end
 ww_weightButtonTable = {}
 ww_categoryFrameTable = {}
 ww_statFrameTable = {}
+ww_classFrameTable = {}
+ww_weightFrameTable = {}
 
 function commandHandler(msg)
 	open_config()
@@ -13,7 +15,7 @@ end
 --initializes config variables and frames
 function initializeConfig()
 	loadClassButtons()
-	createScrollableTieredList(trackedStats, ww_editWeight.scrollFrame, ww_editWeight.scrollContainer, ww_categoryFrameTable, ww_statFrameTable, "ww_elementFrame", 20)
+	createScrollableTieredList(trackedStats, ww_config.rightPanel.scrollFrame, ww_config.rightPanel.scrollContainer, ww_categoryFrameTable, ww_statFrameTable, "ww_statFrame", 20)
 end
 
 --display or hide the frame
@@ -48,53 +50,42 @@ function scrollBarUpdate(scrollFrame, scrolledFrame, buttonTable, buttonHeight, 
 	end
 end
 
---opens the right panel and loads the appropriate buttons
-function configClassSelect(classType)
-	local counter = 1
-	--retrieve the list of weights and update any visible buttons to reflect the changes
-	--NOTE: this approach is used to minimize memory leakage
-	for weightName, _ in pairs(ww_vars.weightsList[classType]) do
-		--if our previously created button table isn't big enough, add new buttons
-		if #(ww_weightButtonTable) < counter then
-			table.insert(ww_weightButtonTable, CreateFrame("Button", nil, ww_config.rightPanel, "ww_genericButton"))
-			ww_weightButtonTable[counter]:SetPoint("TOPLEFT", 5, -5 - 20 * counter)
-		end
-		ww_weightButtonTable[counter]:SetText(weightName)
-		ww_weightButtonTable[counter]:SetScript("OnClick",
-			function()
-				configWeightSelect(weightName)
-			end)
-		ww_weightButtonTable[counter]:Show()
-		counter = counter + 1
-	end
-	--if we have any remaining buttons, hide them
-	while counter <= #(ww_weightButtonTable) do
-		ww_weightButtonTable[counter]:Hide()
-		counter = counter + 1
-	end
-	ww_config.rightPanel.header:SetText(classNames[classType] .. " weights")
+function configSelectWeight(weight)
+	ww_config.rightPanel.header:SetText(weight:GetName())
 	ww_config.rightPanel:Show()
-end
-
---opens a new config pane to edit stat weights
-function configWeightSelect(selectedWeight)
-	ww_editWeight:Show()
 end
 
 --loads the various class buttons onto the config frame
 function loadClassButtons()
-	--starting offset values for the button
-	local i = 1
-	--creates a button for each class available in weightsList
-	for class, _ in pairs(ww_vars.weightsList) do
-		local newButton = CreateFrame("Button", class, ww_config.leftPanel, "ww_genericButton")
-		newButton:SetPoint("TOPLEFT", 5, 15 - i * 20)
-		newButton:SetText(classNames[class])
-		newButton:SetScript("OnClick",
-			function()
-				configClassSelect(class)
-			end)
-		i = i + 1
+	local classes = {}
+
+	for class, weights in pairs(ww_vars.weightsList) do
+		class = classNames[class]
+		classes[class] = {}
+		for name, _ in pairs(weights) do
+			table.insert(classes[class], name)
+		end
+	end
+
+	createScrollableTieredList(classes, ww_config.leftPanel.scrollFrame, ww_config.leftPanel.scrollContainer, ww_classFrameTable, ww_weightFrameTable, "ww_elementFrame", 20)
+
+	local _, class = UnitClass("player")
+	class = classNames[class]
+	for _, classFrame in ipairs(ww_classFrameTable) do
+		if classFrame.text:GetText() ~= class then
+			toggleCollapse(classFrame, ww_classFrameTable, ww_weightFrameTable, 20,
+				function()
+					ww_config.leftPanel.scrollFrame:GetScript("OnShow")(ww_config.leftPanel.scrollFrame)
+				end)
+		end
+		for i, weightFrame in ipairs({classFrame:GetChildren()}) do
+			if i > 1 then
+				weightFrame.text:SetScript("OnClick",
+					function()
+						configSelectWeight(weightFrame)
+					end)
+			end
+		end
 	end
 end
 

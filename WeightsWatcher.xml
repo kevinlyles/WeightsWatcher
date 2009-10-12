@@ -7,17 +7,6 @@
 			<Anchor point="LEFT"/>
 		</Anchors>
 	</FontString>
-	<!--virtual button used to allow for script generated buttons-->
-	<Button name="ww_genericButton" virtual="true">
-		<Size>
-			<AbsDimension x="75" y="20"/>
-		</Size>
-		<Scripts>
-			<OnLoad>
-				self:SetFontString(self:CreateFontString(nil, "OVERLAY", "ww_defaultString"))
-			</OnLoad>
-		</Scripts>
-	</Button>
 	<!--virtual frame used to allow for script generated frames with stat information-->
 	<Frame name="ww_categoryFrame" virtual="true">
 		<Size>
@@ -50,7 +39,7 @@
 		</Frames>
 	</Frame>
 	<!--virtual frame used to allow for script generated frames with stat information-->
-	<Frame name="ww_elementFrame" virtual="true">
+	<Frame name="ww_statFrame" virtual="true">
 		<Size>
 			<AbsDimension y="20"/>
 		</Size>
@@ -60,6 +49,9 @@
 		<Layers>
 			<Layer level="OVERLAY">
 				<FontString name="$parentText" parentKey="text" inherits="GameFontNormal">
+					<Size>
+						<AbsDimension y="20"/>
+					</Size>
 					<Anchors>
 						<Anchor point="LEFT">
 							<Offset>
@@ -71,61 +63,39 @@
 			</Layer>
 		</Layers>
 	</Frame>
-	<!--weight edit frame-->
-	<Frame name="ww_editWeight" hidden="true" parent="UIParent" frameStrata="DIALOG">
+	<!--virtual frame used to allow for script generated frames with stat information-->
+	<Frame name="ww_elementFrame" virtual="true">
 		<Size>
-			<AbsDimension x="400" y="600"/>
+			<AbsDimension y="20"/>
 		</Size>
 		<Anchors>
-			<Anchor point="CENTER"/>
+			<Anchor point="RIGHT"/>
 		</Anchors>
-		<Layers>
-			<Layer level="BACKGROUND">
-				<Texture setAllPoints="true">
-					<!--Plain black background-->
-					<Color r="0" g="0" b="0" a="1"/>
-				</Texture>
-			</Layer>
-		</Layers>
 		<Frames>
-			<Button name="$parentCloseButton" parentKey="closeButton" inherits="UIPanelCloseButton">
-				<Anchors>
-					<Anchor point="TOPRIGHT"/>
-				</Anchors>
-			</Button>
-			<!--used to hold a series of stat frames to maintain absolute position when scrolling-->
-			<Frame name="$parentScrollContainer" parentKey="scrollContainer">
+			<Button name="$parentText" parentKey="text">
 				<Size>
-					<AbsDimension x="400" y="600"/>
-				</Size>
-			</Frame>
-			<!--Invisible frame with scroll bar that does the scrolling-->
-			<ScrollFrame name="$parentScrollFrame" parentKey="scrollFrame" inherits="FauxScrollFrameTemplate">
-				<Size>
-					<AbsDimension x="400" y="600"/>
+					<AbsDimension y="20"/>
 				</Size>
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="ww_editWeight">
+					<Anchor point="LEFT">
 						<Offset>
-							<AbsDimension x="-5"/>
+							<AbsDimension x="20"/>
 						</Offset>
 					</Anchor>
+					<Anchor point="RIGHT"/>
 				</Anchors>
 				<Scripts>
-					<OnShow>
-						scrollBarUpdate(self, ww_editWeight.scrollContainer, ww_statFrameTable, 20, -30, 28)
-					</OnShow>
-					<OnVerticalScroll>
-						FauxScrollFrame_OnVerticalScroll(self, offset, 20, self:GetScript("OnShow"))
-					</OnVerticalScroll>
+					<OnLoad>
+						self:SetFontString(self:CreateFontString(nil, "OVERLAY", "ww_defaultString"))
+					</OnLoad>
 				</Scripts>
-			</ScrollFrame>
+			</Button>
 		</Frames>
 	</Frame>
 	<!--The Parent Frame Containing all configuration content-->
 	<Frame name="ww_config" parent="UIParent" hidden="true" frameStrata="HIGH">
 		<Size>
-			<AbsDimension x="400" y="400"/>
+			<AbsDimension x="600" y="600"/>
 		</Size>
 		<Anchors>
 			<Anchor point="CENTER"/>
@@ -143,7 +113,7 @@
 			<!--The Class Selection Frame-->
 			<Frame name="$parentLeftPanel" parentKey="leftPanel">
 				<Size>
-					<AbsDimension x="100"/>
+					<AbsDimension x="150"/>
 				</Size>
 				<Anchors>
 					<Anchor point="TOP">
@@ -169,6 +139,34 @@
 						<AbsInset left="0" right="0" top="5" bottom="5"/>
 					</BackgroundInsets>
 				</Backdrop>
+				<Frames>
+					<!--used to hold a series of stat frames to maintain absolute position when scrolling-->
+					<Frame name="$parentScrollContainer" parentKey="scrollContainer">
+						<Anchors>
+							<Anchor point="LEFT"/>
+							<Anchor point="RIGHT"/>
+						</Anchors>
+					</Frame>
+					<!--Invisible frame with scroll bar that does the scrolling-->
+					<ScrollFrame name="$parentScrollFrame" parentKey="scrollFrame" inherits="FauxScrollFrameTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT"/>
+							<Anchor point="BOTTOMRIGHT">
+								<Offset>
+									<AbsDimension x="-5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnShow>
+								scrollBarUpdate(self, ww_config.leftPanel.scrollContainer, ww_weightFrameTable, 20, 0, 27)
+							</OnShow>
+							<OnVerticalScroll>
+								FauxScrollFrame_OnVerticalScroll(self, offset, 20, self:GetScript("OnShow"))
+							</OnVerticalScroll>
+						</Scripts>
+					</ScrollFrame>
+				</Frames>
 			</Frame>
 			<!--Right Frame for viewing the weights for each class-->
 			<Frame name="$parentRightPanel" parentKey="rightPanel" hidden="true">
@@ -209,6 +207,34 @@
 						<AbsInset left="0" right="0" top="5" bottom="5"/>
 					</BackgroundInsets>
 				</Backdrop>
+				<Frames>
+					<!--used to hold a series of stat frames to maintain absolute position when scrolling-->
+					<Frame name="$parentScrollContainer" parentKey="scrollContainer">
+						<Anchors>
+							<Anchor point="LEFT"/>
+							<Anchor point="RIGHT"/>
+						</Anchors>
+					</Frame>
+					<!--Invisible frame with scroll bar that does the scrolling-->
+					<ScrollFrame name="$parentScrollFrame" parentKey="scrollFrame" inherits="FauxScrollFrameTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT"/>
+							<Anchor point="BOTTOMRIGHT">
+								<Offset>
+									<AbsDimension x="-5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnShow>
+								scrollBarUpdate(self, ww_config.rightPanel.scrollContainer, ww_statFrameTable, 20, -30, 26)
+							</OnShow>
+							<OnVerticalScroll>
+								FauxScrollFrame_OnVerticalScroll(self, offset, 20, self:GetScript("OnShow"))
+							</OnVerticalScroll>
+						</Scripts>
+					</ScrollFrame>
+				</Frames>
 			</Frame>
 			<!--Close Button for the configuration window-->
 			<Button name="$parentCloseButton" parentKey="closeButton" inherits="UIPanelCloseButton">
