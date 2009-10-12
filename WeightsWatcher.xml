@@ -45,9 +45,6 @@
 						fontString:SetPoint("LEFT")
 						self:SetFontString(fontString)
 					</OnLoad>
-					<OnClick>
-						toggleCollapse(self:GetParent())
-					</OnClick>
 				</Scripts>
 			</Button>
 		</Frames>

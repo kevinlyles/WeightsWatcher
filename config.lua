@@ -13,7 +13,7 @@ end
 --initializes config variables and frames
 function initializeConfig()
 	loadClassButtons()
-	createScrollableTieredList(trackedStats, ww_editWeight.scrollContainer, ww_categoryFrameTable, ww_statFrameTable, "ww_elementFrame", 20)
+	createScrollableTieredList(trackedStats, ww_editWeight.scrollFrame, ww_editWeight.scrollContainer, ww_categoryFrameTable, ww_statFrameTable, "ww_elementFrame", 20)
 end
 
 --display or hide the frame
@@ -100,12 +100,14 @@ end
 
 -- Creates a tiered list that can be scrolled
 -- template is a table of key-value pairs with keys as the categories and values as a table of elements
+-- scrollFrame is the scrollframe that controls scrolledFrame
+-- NOTE: scrollFrame's OnShow must update the scrollbar
 -- scrolledFrame is the frame that will hold everything
 -- categoryTable is the table that will hold the categories and their information
 -- elementTable is the table that will hold the elements
 -- elementType is the element template type
 -- elementHeight is the height of each element
-function createScrollableTieredList(template, scrolledFrame, categoryTable, elementTable, elementType, elementHeight)
+function createScrollableTieredList(template, scrollFrame, scrolledFrame, categoryTable, elementTable, elementType, elementHeight)
 	local i, categoryFrame, elementFrame = 1
 
 	for category, elements in pairs(template) do
@@ -118,6 +120,13 @@ function createScrollableTieredList(template, scrolledFrame, categoryTable, elem
 		else
 			categoryFrame:SetPoint("TOPLEFT", categoryTable[i - 1], "BOTTOMLEFT")
 		end
+		categoryFrame.text:SetScript("OnClick",
+			function(self)
+				toggleCollapse(self:GetParent(), categoryTable, elementTable, elementHeight,
+					function()
+						scrollFrame:GetScript("OnShow")(scrollFrame)
+					end)
+			end)
 		table.insert(categoryTable, categoryFrame)
 		table.insert(elementTable, categoryFrame.text)
 		categoryFrame.position = #(elementTable)
@@ -136,17 +145,17 @@ function createScrollableTieredList(template, scrolledFrame, categoryTable, elem
 	end
 end
 
-function toggleCollapse(categoryFrame)
+function toggleCollapse(categoryFrame, categoryTable, elementTable, elementHeight, scrollBarUpdateFunction)
 	if categoryFrame.length == 1 then
 		return
 	end
 	if categoryFrame.collapsed then
 		for i, stat in ipairs({categoryFrame:GetChildren()}) do
 			if stat.name then
-				table.insert(ww_statFrameTable, categoryFrame.position + i - 1, stat)
+				table.insert(elementTable, categoryFrame.position + i - 1, stat)
 			end
 		end
-		for _, category in ipairs(ww_categoryFrameTable) do
+		for _, category in ipairs(categoryTable) do
 			if category.position > categoryFrame.position then
 				category.position = category.position + categoryFrame.length - 1
 			end
@@ -157,10 +166,10 @@ function toggleCollapse(categoryFrame)
 		for _, stat in ipairs({categoryFrame:GetChildren()}) do
 			if stat.name then
 				stat:Hide()
-				table.remove(ww_statFrameTable, categoryFrame.position + 1)
+				table.remove(elementTable, categoryFrame.position + 1)
 			end
 		end
-		for _, category in ipairs(ww_categoryFrameTable) do
+		for _, category in ipairs(categoryTable) do
 			if category.position > categoryFrame.position then
 				category.position = category.position - categoryFrame.length + 1
 			end
@@ -168,7 +177,7 @@ function toggleCollapse(categoryFrame)
 		categoryFrame.collapsed = true
 		categoryFrame:SetHeight(20)
 	end
-	scrollBarUpdate(ww_editWeight.scrollFrame, ww_editWeight.scrollContainer, ww_statFrameTable, 20, -30, 28)
+	scrollBarUpdateFunction()
 end
 
 trackedStats = {
