@@ -13,7 +13,7 @@ end
 --initializes config variables and frames
 function initializeConfig()
 	loadClassButtons()
-	createStatFontStrings()
+	createScrollableTieredList(trackedStats, ww_editWeight.scrollContainer, ww_categoryFrameTable, ww_statFrameTable, "ww_elementFrame", 20)
 end
 
 --display or hide the frame
@@ -107,34 +107,40 @@ function loadClassButtons()
 	end
 end
 
---creates a list of fontStrings to display the stats
-function createStatFontStrings()
-	local i, newCategoryFrame, newElementFrame = 1
+-- Creates a tiered list that can be scrolled
+-- template is a table of key-value pairs with keys as the categories and values as a table of elements
+-- scrolledFrame is the frame that will hold everything
+-- categoryTable is the table that will hold the categories and their information
+-- elementTable is the table that will hold the elements
+-- elementType is the element template type
+-- elementHeight is the height of each element
+function createScrollableTieredList(template, scrolledFrame, categoryTable, elementTable, elementType, elementHeight)
+	local i, categoryFrame, elementFrame = 1
 
-	for category, stats in pairs(trackedStats) do
+	for category, elements in pairs(template) do
 		--for each category print the header and then the print the list of stats
-		newCategoryFrame = CreateFrame("Frame", nil, ww_editWeight.scrollContainer, "ww_categoryFrame")
-		newCategoryFrame.text:SetText(category)
-		newCategoryFrame.length = 1
+		categoryFrame = CreateFrame("Frame", category, scrolledFrame, "ww_categoryFrame")
+		categoryFrame.text:SetText(category)
+		categoryFrame.length = 1
 		if i == 1 then
-			newCategoryFrame:SetPoint("TOPLEFT")
+			categoryFrame:SetPoint("TOPLEFT")
 		else
-			newCategoryFrame:SetPoint("TOPLEFT", ww_categoryFrameTable[i - 1], "BOTTOMLEFT")
+			categoryFrame:SetPoint("TOPLEFT", categoryTable[i - 1], "BOTTOMLEFT")
 		end
-		table.insert(ww_categoryFrameTable, newCategoryFrame)
-		table.insert(ww_statFrameTable, newCategoryFrame.text)
-		newCategoryFrame.position = #(ww_statFrameTable)
-		for j, stat in ipairs(stats) do
-			newElementFrame = CreateFrame("Frame", nil, ww_categoryFrameTable[i], "ww_elementFrame")
-			newElementFrame.text:SetText(stat)
-			newElementFrame.name = stat
-			newElementFrame:SetPoint("TOPLEFT", 0, -20 * j)
-			table.insert(ww_statFrameTable, newElementFrame)
-			newCategoryFrame.length = newCategoryFrame.length + 1
+		table.insert(categoryTable, categoryFrame)
+		table.insert(elementTable, categoryFrame.text)
+		categoryFrame.position = #(elementTable)
+		for j, element in ipairs(elements) do
+			elementFrame = CreateFrame("Frame", element, categoryTable[i], elementType)
+			elementFrame.text:SetText(element)
+			elementFrame.name = element
+			elementFrame:SetPoint("TOPLEFT", 0, -elementHeight * j)
+			table.insert(elementTable, elementFrame)
+			categoryFrame.length = categoryFrame.length + 1
 		end
 
-		newCategoryFrame:SetHeight(20 * newCategoryFrame.length)
-		newCategoryFrame.collapsed = false
+		categoryFrame:SetHeight(elementHeight * categoryFrame.length)
+		categoryFrame.collapsed = false
 		i = i + 1
 	end
 end
