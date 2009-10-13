@@ -15,7 +15,7 @@ end
 --initializes config variables and frames
 function initializeConfig()
 	loadClassButtons()
-	createScrollableTieredList(trackedStats, ww_config.rightPanel.scrollFrame, ww_config.rightPanel.scrollContainer, ww_categoryFrameTable, ww_statFrameTable, "ww_statFrame", 20)
+	loadStatButtons()
 end
 
 --display or hide the frame
@@ -50,16 +50,18 @@ function scrollBarUpdate(scrollFrame, scrolledFrame, buttonTable, buttonHeight, 
 	end
 end
 
-function configSelectWeight(weight)
-	ww_config.rightPanel.header:SetText(weight:GetName())
+function configSelectWeight(weightFrame)
+	ww_config.rightPanel.statList = ww_vars.weightsList[weightFrame.category.class][weightFrame.name]
+	ww_config.rightPanel.header:SetText(weightFrame.name)
 	ww_config.rightPanel:Show()
 end
 
 --loads the various class buttons onto the config frame
 function loadClassButtons()
-	local classes = {}
+	local classes, revClassLookup = {}, {}
 
 	for class, weights in pairs(ww_vars.weightsList) do
+		revClassLookup[classNames[class]] = class
 		class = classNames[class]
 		classes[class] = {}
 		for name, _ in pairs(weights) do
@@ -70,9 +72,9 @@ function loadClassButtons()
 	createScrollableTieredList(classes, ww_config.leftPanel.scrollFrame, ww_config.leftPanel.scrollContainer, ww_classFrameTable, ww_weightFrameTable, "ww_elementFrame", 20)
 
 	local _, class = UnitClass("player")
-	class = classNames[class]
 	for _, classFrame in ipairs(ww_classFrameTable) do
-		if classFrame.text:GetText() ~= class then
+		classFrame.class = revClassLookup[classFrame.text:GetText()]
+		if classFrame.class ~= class then
 			toggleCollapse(classFrame, ww_classFrameTable, ww_weightFrameTable, 20,
 				function()
 					ww_config.leftPanel.scrollFrame:GetScript("OnShow")(ww_config.leftPanel.scrollFrame)
@@ -84,6 +86,19 @@ function loadClassButtons()
 					function()
 						configSelectWeight(weightFrame)
 					end)
+			end
+		end
+	end
+end
+
+function loadStatButtons()
+	createScrollableTieredList(trackedStats, ww_config.rightPanel.scrollFrame, ww_config.rightPanel.scrollContainer, ww_categoryFrameTable, ww_statFrameTable, "ww_statFrame", 20)
+
+	for _, categoryFrame in ipairs(ww_categoryFrameTable) do
+		local children = {categoryFrame:GetChildren()}
+		for i, statFrame in ipairs(children) do
+			if statFrame.name then
+				statFrame.statName = string.lower(statFrame.name)
 			end
 		end
 	end
@@ -105,6 +120,7 @@ function createScrollableTieredList(template, scrollFrame, scrolledFrame, catego
 		--for each category print the header and then the print the list of stats
 		categoryFrame = CreateFrame("Frame", category, scrolledFrame, "ww_categoryFrame")
 		categoryFrame.text:SetText(category)
+		categoryFrame.name = category
 		categoryFrame.length = 1
 		if i == 1 then
 			categoryFrame:SetPoint("TOPLEFT")
@@ -123,6 +139,8 @@ function createScrollableTieredList(template, scrollFrame, scrolledFrame, catego
 		categoryFrame.position = #(elementTable)
 		for j, element in ipairs(elements) do
 			elementFrame = CreateFrame("Frame", element, categoryTable[i], elementType)
+			elementFrame.position = j
+			elementFrame.category = categoryFrame
 			elementFrame.text:SetText(element)
 			elementFrame.name = element
 			elementFrame:SetPoint("TOPLEFT", 0, -elementHeight * j)
