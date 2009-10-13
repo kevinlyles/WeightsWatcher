@@ -21,6 +21,16 @@ StaticPopupDialogs["WW_CONFIRM_WEIGHT_DELETE"] = {
 	hideOnEscape = true,
 }
 
+StaticPopupDialogs["WW_WEIGHT_EXISTS"] = {
+	text = "The %s weight named \"%s\" already exists.  Pick a different name.",
+	button1 = "Okay",
+	enterClicksFirstButton = true,
+	showAlert = true,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = true,
+}
+
 function commandHandler(msg)
 	open_config()
 end
@@ -170,6 +180,54 @@ function deleteWeight(weight)
 	ww_config.leftPanel.scrollFrame:GetScript("OnShow")(ww_config.leftPanel.scrollFrame)
 end
 
+function configNewWeight(class, weight)
+	if class then
+		UIDropDownMenu_SetSelectedValue(ww_newWeight.dropdown, class, false)
+	end
+	ww_newWeight.editBox:SetText("")
+	if weight then
+		ww_newWeight.editBox:SetText(weight)
+	end
+	ww_newWeight:Show()
+end
+
+function setWeight(class, weight, statList)
+	local weightFrame, position
+
+	if not ww_vars.weightsList[class][weight] then
+		for _, classFrame in ipairs(ww_classFrameTable) do
+			if classFrame.class == class then
+				position = classFrame.length
+				weightFrame = CreateFrame("Frame", weight, classFrame, "ww_elementFrame")
+				weightFrame.position = position
+				weightFrame.category = classFrame
+				weightFrame.text:SetText(weight)
+				weightFrame.name = weight
+				weightFrame:SetPoint("TOPLEFT", 0, -20 * position)
+				classFrame.length = classFrame.length + 1
+				weightFrame.text:SetScript("OnClick",
+					function(self)
+						configSelectWeight(weightFrame)
+					end)
+				if classFrame.collapsed then
+					weightFrame:Hide()
+				else
+					classFrame:SetHeight(20 * classFrame.length)
+					table.insert(ww_weightFrameTable, classFrame.position + position, weightFrame)
+					for _, class in ipairs(ww_classFrameTable) do
+						if class.position > classFrame.position then
+							class.position = class.position + 1
+						end
+					end
+				end
+				break
+			end
+		end
+		ww_config.leftPanel.scrollFrame:GetScript("OnShow")(ww_config.leftPanel.scrollFrame)
+	end
+	ww_vars.weightsList[class][weight] = deepTableCopy(statList)
+end
+
 --loads the various class buttons onto the config frame
 function loadClassButtons()
 	local classes, revClassLookup = {}, {}
@@ -301,6 +359,29 @@ function toggleCollapse(categoryFrame, categoryTable, elementTable, elementHeigh
 		categoryFrame:SetHeight(20)
 	end
 	scrollBarUpdateFunction()
+end
+
+function ClassDropDownInitialize(dropdown)
+	local info = {}
+
+	info.func = DropDownOnClick
+	info.arg1 = dropdown
+	for class, name in pairs(classNames) do
+		info.text = name
+		info.value = class
+		info.checked = nil
+		UIDropDownMenu_AddButton(info)
+	end
+end
+
+function ClassDropDownOnShow(dropdown)
+	local _, class = UnitClass("player")
+	UIDropDownMenu_Initialize(dropdown, ClassDropDownInitialize);
+	UIDropDownMenu_SetSelectedValue(dropdown, class)
+end
+
+function DropDownOnClick(choice, dropdown)
+	UIDropDownMenu_SetSelectedValue(dropdown, choice.value, false)
 end
 
 trackedStats = {
