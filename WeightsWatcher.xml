@@ -248,6 +248,15 @@
 							<Anchor point="BOTTOMLEFT"/>
 						</Anchors>
 					</Button>
+					<!--Reset button-->
+					<Button name="$parentResetButton" parentKey="resetButton" inherits="UIPanelButtonTemplate" text="Reset">
+						<Size>
+							<AbsDimension x="100" y="22"/>
+						</Size>
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT"/>
+						</Anchors>
+					</Button>
 					<!--used to hold a series of stat frames to maintain absolute position when scrolling-->
 					<Frame name="$parentScrollContainer" parentKey="scrollContainer">
 						<Anchors>

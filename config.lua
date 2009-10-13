@@ -54,6 +54,24 @@ end
 function configSelectWeight(weightFrame)
 	ww_config.rightPanel.statList = ww_vars.weightsList[weightFrame.category.class][weightFrame.name]
 
+	-- Fills the right panel with the current weight's stats
+	configResetWeight(weightFrame)
+
+	ww_config.rightPanel.header:SetText(weightFrame.name)
+	ww_config.rightPanel.saveButton:SetScript("OnClick",
+		function()
+			configSaveWeight(weightFrame)
+		end)
+	ww_config.rightPanel.resetButton:SetScript("OnClick",
+		function()
+			configResetWeight(weightFrame)
+		end)
+	ww_config.rightPanel:Show()
+end
+
+function configResetWeight(weight)
+	local value
+
 	for _, frame in pairs(ww_statFrameTable) do
 		if frame.statName then
 			value = ww_config.rightPanel.statList[frame.statName]
@@ -63,13 +81,6 @@ function configSelectWeight(weightFrame)
 			frame.statValue:SetText(value)
 		end
 	end
-
-	ww_config.rightPanel.header:SetText(weightFrame.name)
-	ww_config.rightPanel.saveButton:SetScript("OnClick",
-		function()
-			configSaveWeight(weightFrame)
-		end)
-	ww_config.rightPanel:Show()
 end
 
 function configSaveWeight(weight)
