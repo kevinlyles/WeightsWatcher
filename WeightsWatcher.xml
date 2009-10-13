@@ -62,6 +62,37 @@
 				</FontString>
 			</Layer>
 		</Layers>
+		<Frames>
+			<EditBox letters="16" name="$parentStatValue" parentKey="statValue">
+				<Size>
+					<AbsDimension x="130" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="RIGHT"/>
+				</Anchors>
+				<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+					<EdgeSize>
+						<AbsValue val="10"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val="10"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left="0" right="0" top="5" bottom="5"/>
+					</BackgroundInsets>
+				</Backdrop>
+				<FontString inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="LEFT"/>
+					</Anchors>
+				</FontString>
+				<Scripts>
+					<OnLoad>
+						self:SetTextInsets(5, 5, 0, 0)
+					</OnLoad>
+				</Scripts>
+			</EditBox>
+		</Frames>
 	</Frame>
 	<!--virtual frame used to allow for script generated frames with stat information-->
 	<Frame name="ww_elementFrame" virtual="true">
@@ -208,6 +239,15 @@
 					</BackgroundInsets>
 				</Backdrop>
 				<Frames>
+					<!--Save button-->
+					<Button name="$parentSaveButton" parentKey="saveButton" inherits="UIPanelButtonTemplate" text="Save">
+						<Size>
+							<AbsDimension x="100" y="22"/>
+						</Size>
+						<Anchors>
+							<Anchor point="BOTTOMLEFT"/>
+						</Anchors>
+					</Button>
 					<!--used to hold a series of stat frames to maintain absolute position when scrolling-->
 					<Frame name="$parentScrollContainer" parentKey="scrollContainer">
 						<Anchors>
@@ -227,7 +267,7 @@
 						</Anchors>
 						<Scripts>
 							<OnShow>
-								scrollBarUpdate(self, ww_config.rightPanel.scrollContainer, ww_statFrameTable, 20, -30, 26)
+								scrollBarUpdate(self, ww_config.rightPanel.scrollContainer, ww_statFrameTable, 20, -30, 25)
 							</OnShow>
 							<OnVerticalScroll>
 								FauxScrollFrame_OnVerticalScroll(self, offset, 20, self:GetScript("OnShow"))

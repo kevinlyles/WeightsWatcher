@@ -50,10 +50,40 @@ function scrollBarUpdate(scrollFrame, scrolledFrame, buttonTable, buttonHeight, 
 	end
 end
 
+--opens a new config pane to edit stat weights
 function configSelectWeight(weightFrame)
 	ww_config.rightPanel.statList = ww_vars.weightsList[weightFrame.category.class][weightFrame.name]
+
+	for _, frame in pairs(ww_statFrameTable) do
+		if frame.statName then
+			value = ww_config.rightPanel.statList[frame.statName]
+			if not value then
+				value = ""
+			end
+			frame.statValue:SetText(value)
+		end
+	end
+
 	ww_config.rightPanel.header:SetText(weightFrame.name)
+	ww_config.rightPanel.saveButton:SetScript("OnClick",
+		function()
+			configSaveWeight(weightFrame)
+		end)
 	ww_config.rightPanel:Show()
+end
+
+function configSaveWeight(weight)
+	for _, frame in pairs(ww_statFrameTable) do
+		if frame.statName then
+			value = frame.statValue:GetText()
+			if value == "" then
+				value = nil
+			else
+				value = tonumber(value)
+			end
+			ww_vars.weightsList[weight.category.class][weight.name][frame.statName] = value
+		end
+	end
 end
 
 --loads the various class buttons onto the config frame
