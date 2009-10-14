@@ -158,10 +158,6 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 							tooltip:AddDoubleLine("  " .. weight, string.format("%.3f", WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, ww_vars.weightsList[class][weight])))
 							for _, stat in ipairs(gemStats) do
 								tooltip:AddLine("    Using " .. stat[2] .. " (" .. stat[1] .. ")")
-								for _, stat in pairs(stat[4]) do
-									name, value = unpack(stat)
-									tooltip:AddDoubleLine("      " .. name, value)
-								end
 							end
 						end
 					end
