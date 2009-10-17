@@ -13,6 +13,7 @@ Preprocess = {
 	{"(%d+) to (%a)", "%1 %2"},
 	{"^Use: .*%.  If you spend at least %d+ seconds eating you will become well fed and gain ([%a%d][%a%d, ]+) for .*%.", "%1"},
 	{"Cat, Bear, Dire Bear, and Moonkin forms", "Cat/Bear/Dire Bear/Moonkin forms"},
+	{"maximum health", "health"},
 }
 
 IgnoredLines = {

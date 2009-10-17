@@ -133,6 +133,7 @@ trackedStats = {
 		"Haste Rating",
 		"Hit Rating",
 		"Resilience Rating",
+		"Health",
 	},
 	["Tanking"] = {
 		"Defense Rating",
