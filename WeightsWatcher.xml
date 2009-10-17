@@ -89,7 +89,7 @@
 		</Frames>
 	</Frame>
 	<!--The Parent Frame Containing all configuration content-->
-	<Frame name="ww_config" parent="UIParent" hidden="true">
+	<Frame name="ww_config" parent="UIParent" hidden="true" frameStrata="HIGH">
 		<Size>
 			<AbsDimension x="400" y="400"/>
 		</Size>
