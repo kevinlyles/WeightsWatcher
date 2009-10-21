@@ -108,6 +108,11 @@ end
 function configSelectWeight(weightFrame)
 	local empty
 
+	if ww_config.rightPanel.weightFrame then
+		ww_config.rightPanel.weightFrame.text.highlightFrame:Hide()
+	end
+	weightFrame.text.highlightFrame:Show()
+
 	ww_config.rightPanel.weightFrame = weightFrame
 	ww_config.rightPanel.statList = ww_vars.weightsList[weightFrame.category.class][weightFrame.name]
 

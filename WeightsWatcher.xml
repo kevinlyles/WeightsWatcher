@@ -7,6 +7,48 @@
 			<Anchor point="LEFT"/>
 		</Anchors>
 	</FontString>
+	<Frame name="ww_highlightedFrame" virtual="true" hidden="true">
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture file="Interface\Buttons\UI-Panel-Button-Glow" alphaMode="ADD">
+					<Size>
+						<AbsDimension y="20" x="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT"/>
+					</Anchors>
+					<TexCoords left="0.03125" right="0.25" top=".0625" bottom=".5625"/>
+				</Texture>
+				<Texture file="Interface\Buttons\UI-Panel-Button-Glow" alphaMode="ADD">
+					<Size>
+						<AbsDimension y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="16"/>
+							</Offset>
+						</Anchor>
+						<Anchor point="RIGHT">
+							<Offset>
+								<AbsDimension x="-16"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.25" right="0.5" top=".0625" bottom=".5625"/>
+				</Texture>
+				<Texture file="Interface\Buttons\UI-Panel-Button-Glow" alphaMode="ADD">
+					<Size>
+						<AbsDimension y="20" x="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT"/>
+					</Anchors>
+					<TexCoords left=".5" right=".6875" top=".0625" bottom=".5625"/>
+				</Texture>
+			</Layer>
+		</Layers>
+	</Frame>
 	<!--virtual frame used to allow for script generated frames with stat information-->
 	<Frame name="ww_categoryFrame" virtual="true">
 		<Size>
@@ -63,6 +105,20 @@
 			</Layer>
 		</Layers>
 		<Frames>
+			<Frame name="$parentHighlightFrame" parentKey="highlightFrame" inherits="ww_highlightedFrame">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="10"/>
+						</Offset>
+					</Anchor>
+					<Anchor point="BOTTOMRIGHT">
+						<Offset>
+							<AbsDimension x="-135"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
 			<EditBox letters="16" name="$parentStatValue" parentKey="statValue">
 				<Size>
 					<AbsDimension x="130" y="20"/>
@@ -105,6 +161,12 @@
 							self:SetCursorPosition(cursorPosition)
 						end
 					</OnChar>
+					<OnEditFocusGained>
+						self:GetParent().highlightFrame:Show()
+					</OnEditFocusGained>
+					<OnEditFocusLost>
+						self:GetParent().highlightFrame:Hide()
+					</OnEditFocusLost>
 				</Scripts>
 			</EditBox>
 		</Frames>
@@ -130,6 +192,22 @@
 					</Anchor>
 					<Anchor point="RIGHT"/>
 				</Anchors>
+				<Frames>
+					<Frame name="$parentHighlightFrame" parentKey="highlightFrame" inherits="ww_highlightedFrame">
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset>
+									<AbsDimension x="-10"/>
+								</Offset>
+							</Anchor>
+							<Anchor point="BOTTOMRIGHT">
+								<Offset>
+									<AbsDimension x="-10"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Frame>
+				</Frames>
 				<Scripts>
 					<OnClick>
 						configSelectWeight(self:GetParent())
