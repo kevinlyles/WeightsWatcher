@@ -153,7 +153,7 @@
 			<Layer level="BACKGROUND">
 				<Texture setAllPoints="true">
 					<!--Plain black background with 50% alpha-->
-					<Color r="0" g="0" b="0" a="0.5"/>
+					<Color r="0" g="0" b="0" a="0.8"/>
 				</Texture>
 			</Layer>
 		</Layers>
