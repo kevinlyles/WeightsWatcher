@@ -338,6 +338,18 @@ function loadClassButtons()
 		if classFrame.class ~= class then
 			classFrame.text:Click()
 		end
+		for i, weightFrame in ipairs({classFrame:GetChildren()}) do
+			if weightFrame.name then
+				if ww_charVars.activeWeights[classFrame.class] then
+					for _, weight in ipairs(ww_charVars.activeWeights[classFrame.class]) do
+						if weight == weightFrame.name then
+							weightFrame.checkButton:SetChecked(true)
+							break
+						end
+					end
+				end
+			end
+		end
 	end
 end
 

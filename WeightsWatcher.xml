@@ -185,6 +185,47 @@
 			<Anchor point="RIGHT"/>
 		</Anchors>
 		<Frames>
+			<CheckButton name="$parentCheckButton" parentKey="checkButton" inherits="UICheckButtonTemplate" text="Watch this Weight">
+				<Size>
+					<AbsDimension x="20" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT">
+						<Offset>
+							<AbsDimension x="10"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						local parent = self:GetParent()
+						local class = parent.category.class
+
+						if not ww_charVars.activeWeights[class] then
+							ww_charVars.activeWeights[class] = {}
+							table.insert(ww_charVars.activeWeights, class)
+						end
+						if self:GetChecked() then
+							table.insert(ww_charVars.activeWeights[class], parent.name)
+						else
+							for i, weight in ipairs(ww_charVars.activeWeights[class]) do
+								if weight == parent.name then
+									table.remove(ww_charVars.activeWeights[class], i)
+									break
+								end
+							end
+						end
+					</OnClick>
+					<OnEnter>
+						GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
+						GameTooltip:AddLine("Watch this weight?", 1, 1, 1)
+						GameTooltip:Show()
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide()
+					</OnLeave>
+				</Scripts>
+			</CheckButton>
 			<Button name="$parentText" parentKey="text">
 				<Size>
 					<AbsDimension y="20"/>
@@ -192,7 +233,7 @@
 				<Anchors>
 					<Anchor point="LEFT">
 						<Offset>
-							<AbsDimension x="20"/>
+							<AbsDimension x="40"/>
 						</Offset>
 					</Anchor>
 					<Anchor point="RIGHT"/>
