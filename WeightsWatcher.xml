@@ -167,6 +167,9 @@
 					<OnEditFocusLost>
 						self:GetParent().highlightFrame:Hide()
 					</OnEditFocusLost>
+					<OnTabPressed>
+						changeFocus(self:GetParent())
+					</OnTabPressed>
 				</Scripts>
 			</EditBox>
 		</Frames>

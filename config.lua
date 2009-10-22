@@ -91,6 +91,9 @@ function scrollBarUpdate(scrollFrame, scrolledFrame, buttonHeight, initialOffset
 	if offset > #(scrollFrame.shown) - numShown then
 		offset = #(scrollFrame.shown) - numShown
 	end
+	if offset < 0 then
+		offset = 0
+	end
 	FauxScrollFrame_Update(scrollFrame, #(scrollFrame.shown), numShown, buttonHeight * 5)
 	scrolledFrame:SetPoint("TOPLEFT", 0, initialOffset + buttonHeight * offset)
 	for i = 1, offset do
@@ -101,6 +104,43 @@ function scrollBarUpdate(scrollFrame, scrolledFrame, buttonHeight, initialOffset
 	end
 	for i = offset + numShown + 1, #(scrollFrame.shown) do
 		scrollFrame.shown[i]:Hide()
+	end
+end
+
+--moves the editbox focus to the next available edit box
+function changeFocus(currentStatFrame)
+	local frame, offset
+	local elements = ww_config.rightPanel.scrollFrame.shown
+	local position = currentStatFrame.category.position + currentStatFrame.position
+
+	if IsShiftKeyDown() then
+		direction = -1
+	else
+		direction = 1
+	end
+	repeat
+		position = position + direction
+		if not elements[position] then
+			if direction < 0 then
+				position = #(elements)
+			else
+				position = 1
+			end
+		end
+	until elements[position].statName
+
+	frame = elements[position]
+	if frame then
+		if not frame:IsShown() then
+			if direction < 0 then
+				offset = (position - 1) * 5
+			else
+				offset = (position - 25) * 5
+			end
+			FauxScrollFrame_SetOffset(ww_config.rightPanel.scrollFrame, offset)
+			ww_config.rightPanel.scrollFrame:GetScript("OnVerticalScroll")(ww_config.rightPanel.scrollFrame, offset * 20)
+		end
+		frame.statValue:SetFocus()
 	end
 end
 
