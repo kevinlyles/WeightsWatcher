@@ -27,6 +27,23 @@ function open_config()
 	end
 end
 
+function validateNumber(newChar, newText)
+	if string.find(newChar, "^[0-9]$") then
+		return true
+	elseif newChar == '.' then
+		local first = newText:find(".", 1, true)
+		local second = newText:find(".", first + 1, true)
+		if not second then
+			return true
+		end
+	elseif newChar == '-' then
+		if not string.find(newText, "-", 2) then
+			return true
+		end
+	end
+	return false
+end
+
 function scrollBarUpdate(scrollFrame, scrolledFrame, buttonTable, buttonHeight, initialOffset, numShown)
 	local i
 	local offset = FauxScrollFrame_GetOffset(scrollFrame)

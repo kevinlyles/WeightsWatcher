@@ -90,6 +90,21 @@
 					<OnLoad>
 						self:SetTextInsets(5, 5, 0, 0)
 					</OnLoad>
+					<OnTextChanged>
+						local text = self:GetText()
+						if self:GetNumber() ~= 0 or text:match("^[0.]+$") or text == "" then
+							self.number = text
+						end
+					</OnTextChanged>
+					<OnChar>
+						if validateNumber(text, self:GetText()) then
+							self.number = self:GetText()
+						else
+							local cursorPosition = self:GetCursorPosition() - 1
+							self:SetText(self.number)
+							self:SetCursorPosition(cursorPosition)
+						end
+					</OnChar>
 				</Scripts>
 			</EditBox>
 		</Frames>
