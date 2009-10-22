@@ -163,9 +163,11 @@
 					</OnChar>
 					<OnEditFocusGained>
 						self:GetParent().highlightFrame:Show()
+						self:HighlightText()
 					</OnEditFocusGained>
 					<OnEditFocusLost>
 						self:GetParent().highlightFrame:Hide()
+						self:HighlightText(0,0)
 					</OnEditFocusLost>
 					<OnTabPressed>
 						changeFocus(self:GetParent())
