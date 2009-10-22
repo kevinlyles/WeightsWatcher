@@ -84,15 +84,15 @@ function configResetWeight(weight)
 end
 
 function configSaveWeight(weight)
+	local number
+
 	for _, frame in pairs(ww_statFrameTable) do
 		if frame.statName then
-			value = frame.statValue:GetText()
-			if value == "" then
-				value = nil
-			else
-				value = tonumber(value)
+			number = frame.statValue:GetNumber()
+			if number == 0 then
+				number = nil
 			end
-			ww_vars.weightsList[weight.category.class][weight.name][frame.statName] = value
+			ww_vars.weightsList[weight.category.class][weight.name][frame.statName] = number
 		end
 	end
 end
