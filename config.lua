@@ -1,3 +1,30 @@
+if not WeightsWatcher then
+	WeightsWatcher = AceLibrary("AceAddon-2.0"):new("AceEvent-2.0", "AceHook-2.1")
+end
+
+function commandHandler(msg)
+	open_config()
+end
+
+--display or hide the frame
+function open_config()
+	if wwConfig:IsVisible() then
+		wwConfig:Hide()
+	else
+		wwConfig:Show()
+	end
+end
+
+function configClassSelect(classType)
+	for name, _ in pairs(ww_vars.weightsList[classType]) do
+		addWeightScale(name)
+	end
+end
+
+function addWeightScale(name)
+	print(name)
+end
+
 defaultVars = {
 	dataMajorVersion = 0,
 	dataMinorVersion = 1,

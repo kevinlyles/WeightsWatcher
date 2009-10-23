@@ -27,14 +27,6 @@ function WeightsWatcher:OnInitialize()
 	end
 end
 
-function commandHandler(msg)
-	open_config()
-end
-
-function open_config()
-	WeightsWatcherConfig:Show()
-end
-
 currentHooks = {}
 
 function WeightsWatcher:HookTooltip(objectName, funcName)
