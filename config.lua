@@ -2,6 +2,8 @@ if not WeightsWatcher then
 	WeightsWatcher = AceLibrary("AceAddon-2.0"):new("AceEvent-2.0", "AceHook-2.1")
 end
 
+weightButtonTable = {}
+
 function commandHandler(msg)
 	open_config()
 end
@@ -20,14 +22,31 @@ function open_config()
 	end
 end
 
+--opens the right panel and loads the appropriate buttons
 function configClassSelect(classType)
-	for name, _ in pairs(ww_vars.weightsList[classType]) do
-		addWeightScale(name)
+	local counter = 1
+	--retrieve the list of weights and update any visible buttons to reflect the changes
+	--NOTE: this approach is used to minimize memory leakage
+	for weightName, _ in pairs(ww_vars.weightsList[classType]) do
+		--if our previously created button table isn't big enough, add new buttons
+		if #(weightButtonTable) < counter then
+			table.insert(weightButtonTable, CreateFrame("Button", nil, wwConfig.rightPanel, "genericButton"))
+			weightButtonTable[counter]:SetPoint("TOPLEFT", 5, 15 - 20 * counter)
+		end
+		weightButtonTable[counter]:SetText(weightName)
+		weightButtonTable[counter]:SetScript("OnClick",
+			function()
+				print("Selecting weights not yet implemented")
+			end)
+		weightButtonTable[counter]:Show()
+		counter = counter + 1
 	end
-end
-
-function addWeightScale(name)
-	print(name)
+	--if we have any remaining buttons, hide them
+	while counter <= #(weightButtonTable) do
+		weightButtonTable[counter]:Hide()
+		counter = counter + 1
+	end
+	wwConfig.rightPanel:Show()
 end
 
 --loads the various class buttons onto the config frame
@@ -36,8 +55,13 @@ function loadClassButtons()
 	local i = 1
 	--creates a button for each class available in weightsList
 	for class, _ in pairs(ww_vars.weightsList) do
-		local newButton = CreateFrame("Button", class, wwConfig.leftPanel, "classButton")
+		local newButton = CreateFrame("Button", class, wwConfig.leftPanel, "genericButton")
 		newButton:SetPoint("TOPLEFT", 5, 15 - i * 20)
+		newButton:SetText(classNames[class])
+		newButton:SetScript("OnClick",
+			function()
+				configClassSelect(class)
+			end)
 		i = i + 1
 	end
 end
