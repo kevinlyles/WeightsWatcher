@@ -119,6 +119,94 @@ noop_down = [[
 	end
 ]]
 
+function upgradeAccountToOrderedLists(vars)
+	local i, j = 1
+	local weightsListCopy = {}
+
+	for class, weights in pairs(vars.weightsList) do
+		if type(class) ~= "string" then
+			print("WeightsWatcher: Error: class name has type " .. type(class) .. ", expecting string.")
+			return nil
+		end
+		weightsListCopy[i] = class
+		weightsListCopy[class] = {}
+		j = 1
+		for weight, stats in pairs(weights) do
+			if type(weight) ~= "string" then
+				print("WeightsWatcher: Error: weight name for class " .. class .. " has type " .. type(weight) .. ", expecting string.")
+				return nil
+			end
+			weightsListCopy[class][j] = weight
+			weightsListCopy[class][weight] = stats
+			j = j + 1
+		end
+		i = i + 1
+	end
+
+	vars.weightsList = weightsListCopy
+	vars.dataMinorVersion = 4
+	return vars
+end
+
+downgradeAccountFromOrderedLists = [[
+	return function(vars)
+		local weightsListCopy = {}
+
+		for i, class in ipairs(vars.weightsList) do
+			weightsListCopy[class] = {}
+			for j, weight in ipairs(vars.weightsList[class]) do
+				weightsListCopy[class][weight] = class[weight]
+			end
+		end
+		vars.weightsList = weightsListCopy
+
+		vars.dataMinorVersion = 3
+		return vars
+	end
+]]
+
+function upgradeCharToOrderedLists(vars)
+	local i = 1
+	local activeWeightsCopy = {}
+
+	for class, weights in pairs(vars.activeWeights) do
+		if type(class) ~= "string" then
+			print("WeightsWatcher: Error: class name has type " .. type(class) .. ", expecting string.")
+			return nil
+		end
+		activeWeightsCopy[i] = class
+		activeWeightsCopy[class] = {}
+		for j, weight in pairs(weights) do
+			if type(weight) ~= "string" then
+				print("WeightsWatcher: Error: weight name has type " .. type(weight) .. ", expecting string.")
+				return nil
+			end
+			activeWeightsCopy[class][j] = weight
+		end
+		i = i + 1
+	end
+
+	vars.activeWeights = activeWeightsCopy
+	vars.dataMinorVersion = 2
+	return vars
+end
+
+downgradeCharFromOrderedLists = [[
+	return function(vars)
+		local activeWeightsCopy = {}
+
+		for i, class in ipairs(vars.activeWeights) do
+			activeWeightsCopy[class] = {}
+			for j, weight in ipairs(vars.activeWeights[class]) do
+				activeWeightsCopy[class][j] = weight
+			end
+		end
+		vars.activeWeights = activeWeightsCopy
+
+		vars.dataMinorVersion = 1
+		return vars
+	end
+]]
 
 function upgradeAccountToGemQuality(vars)
 	if not vars.options.gemQualityLimit then
@@ -146,11 +234,11 @@ function copyDefaultAccountVars()
 end
 
 function createActiveWeights(class)
-	local activeWeights = {}
+	local activeWeights = {class}
 
 	activeWeights[class] = {}
-	for name, _ in pairs(ww_vars.weightsList[class]) do
-		table.insert(activeWeights[class], name)
+	for i, name in ipairs(ww_vars.weightsList[class]) do
+		activeWeights[class][i] = name
 	end
 
 	return activeWeights
@@ -170,6 +258,7 @@ upgradeAccountFunctions = {
 		[0] = function(vars) return copyDefaultAccountVars() end,
 		[1] = function(vars) return upgradeAccountToNormalization(vars) end,
 		[2] = function(vars) return upgradeAccountToGemQuality(vars) end,
+		[3] = function(vars) return upgradeAccountToOrderedLists(vars) end,
 	},
 }
 
@@ -177,14 +266,19 @@ downgradeAccountFunctions = {
 	[0] = {
 		[2] = noop_down,
 		[3] = noop_down,
+		[4] = downgradeAccountFromOrderedLists,
 	},
 }
 
 upgradeCharFunctions = {
 	[0] = {
 		[0] = function(vars) return copyDefaultCharVars() end,
+		[1] = function(vars) return upgradeCharToOrderedLists(vars) end,
 	},
 }
 
 downgradeCharFunctions = {
+	[0] = {
+		[2] = downgradeCharFromOrderedLists,
+	},
 }

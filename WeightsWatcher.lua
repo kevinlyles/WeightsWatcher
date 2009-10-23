@@ -112,9 +112,9 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 		end
 
 		tooltip:AddLine("Current Weights:")
-		for class, weights in pairs(ww_charVars.activeWeights) do
+		for _, class in ipairs(ww_charVars.activeWeights) do
 			if ww_vars.weightsList[class] then
-				for _, weight in pairs(weights) do
+				for _, weight in pairs(ww_charVars.activeWeights[class]) do
 					if ww_vars.weightsList[class][weight] then
 						tooltip:AddDoubleLine("  " .. weight, string.format("%.3f", WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, ww_vars.weightsList[class][weight])))
 					end
@@ -125,9 +125,9 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 		-- TODO: move this inline (put it in parentheses?)?
 		if #(sockets) > 0 then
 			tooltip:AddLine("Ideally Gemmed Weights:")
-			for class, weights in pairs(ww_charVars.activeWeights) do
+			for _, class in ipairs(ww_charVars.activeWeights) do
 				if ww_vars.weightsList[class] then
-					for _, weight in pairs(weights) do
+					for _, weight in pairs(ww_charVars.activeWeights[class]) do
 						if ww_vars.weightsList[class][weight] then
 							bestGems = {}
 							bestGemsIgnoreSocket = {}

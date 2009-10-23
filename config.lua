@@ -26,9 +26,9 @@ StaticPopupDialogs["WW_CONFIRM_RESTORE_DEFAULTS"] = {
 	button1 = "Restore Defaults",
 	button2 = "Cancel",
 	OnAccept = function()
-			for class, weights in pairs(defaultVars.weightsList) do
-				for weight, stats in pairs(weights) do
-					setWeight(class, weight, stats)
+			for _, class in ipairs(defaultVars.weightsList) do
+				for _, weight in ipairs(defaultVars.weightsList[class]) do
+					setWeight(class, weight, defaultVars.weightsList[class][weight])
 				end
 			end
 			ww_config.rightPanel:Hide()
@@ -170,7 +170,7 @@ function configSaveWeight(weight)
 end
 
 function deleteWeight(weight)
-	local point, relativeTo, relativePoint, xOffset, yOffset
+	local point, relativeTo, relativePoint, xOffset, yOffset, removed
 
 	weight.category.length = weight.category.length - 1
 	for _, weightFrame in ipairs({weight.category:GetChildren()}) do
@@ -197,7 +197,29 @@ function deleteWeight(weight)
 	weight:Hide()
 	weight:SetParent(nil)
 
+	removed = false
+	for i, name in ipairs(ww_vars.weightsList[weight.category.class]) do
+		if removed then
+			ww_vars.weightsList[weight.category.class][i - 1] = ww_vars.weightsList[weight.category.class][i]
+			ww_vars.weightsList[weight.category.class][i] = nil
+		elseif name == weight.name then
+			ww_vars.weightsList[weight.category.class][i] = nil
+			removed = true
+		end
+	end
 	ww_vars.weightsList[weight.category.class][weight.name] = nil
+	removed = false
+	if ww_charVars.activeWeights[weight.category.class] then
+		for i, name in ipairs(ww_charVars.activeWeights[weight.category.class]) do
+			if removed then
+				ww_charVars.activeWeights[weight.category.class][i - 1] = ww_charVars.activeWeights[weight.category.class][i]
+				ww_charVars.activeWeights[weight.category.class][i] = nil
+			elseif name == weight.name then
+				ww_charVars.activeWeights[weight.category.class][i] = nil
+				removed = true
+			end
+		end
+	end
 	ww_config.rightPanel:Hide()
 	ww_config.leftPanel.scrollFrame:GetScript("OnShow")(ww_config.leftPanel.scrollFrame)
 end
@@ -250,6 +272,7 @@ function setWeight(class, weight, statList)
 				break
 			end
 		end
+		table.insert(ww_vars.weightsList[class], weight)
 		ww_config.leftPanel.scrollFrame:GetScript("OnShow")(ww_config.leftPanel.scrollFrame)
 	end
 	ww_vars.weightsList[class][weight] = deepTableCopy(statList)
@@ -257,14 +280,15 @@ end
 
 --loads the various class buttons onto the config frame
 function loadClassButtons()
-	local classes, revClassLookup = {}, {}
+	local classes, revClassLookup, newClass = {}, {}
 
-	for class, weights in pairs(ww_vars.weightsList) do
-		revClassLookup[classNames[class]] = class
-		class = classNames[class]
-		classes[class] = {}
-		for name, _ in pairs(weights) do
-			table.insert(classes[class], name)
+	for i, class in ipairs(ww_vars.weightsList) do
+		newClass = classNames[class]
+		revClassLookup[newClass] = class
+		classes[i] = newClass
+		classes[newClass] = {}
+		for j, name in ipairs(ww_vars.weightsList[class]) do
+			classes[newClass][j] = name
 		end
 	end
 
@@ -313,9 +337,9 @@ end
 -- elementType is the element template type
 -- elementHeight is the height of each element
 function createScrollableTieredList(template, scrollFrame, scrolledFrame, categoryTable, elementTable, elementType, elementHeight)
-	local i, categoryFrame, elementFrame = 1
+	local categoryFrame, elementFrame
 
-	for category, elements in pairs(template) do
+	for i, category in ipairs(template) do
 		--for each category print the header and then the print the list of stats
 		categoryFrame = CreateFrame("Frame", category, scrolledFrame, "ww_categoryFrame")
 		categoryFrame.text:SetText(category)
@@ -336,7 +360,7 @@ function createScrollableTieredList(template, scrollFrame, scrolledFrame, catego
 		table.insert(categoryTable, categoryFrame)
 		table.insert(elementTable, categoryFrame.text)
 		categoryFrame.position = #(elementTable)
-		for j, element in ipairs(elements) do
+		for j, element in ipairs(template[category]) do
 			elementFrame = CreateFrame("Frame", element, categoryTable[i], elementType)
 			elementFrame.position = j
 			elementFrame.category = categoryFrame
@@ -349,7 +373,6 @@ function createScrollableTieredList(template, scrollFrame, scrolledFrame, catego
 
 		categoryFrame:SetHeight(elementHeight * categoryFrame.length)
 		categoryFrame.collapsed = false
-		i = i + 1
 	end
 end
 
@@ -412,6 +435,12 @@ function DropDownOnClick(choice, dropdown)
 end
 
 trackedStats = {
+	[1] = "General",
+	[2] = "Tanking",
+	[3] = "Melee",
+	[4] = "Caster",
+	[5] = "Meta Gem Stats",
+	[6] = "Resistances",
 	["General"] = {
 		"Stamina",
 		"Critical Strike Rating",
@@ -494,9 +523,23 @@ classNames = {
 
 defaultVars = {
 	dataMajorVersion = 0,
-	dataMinorVersion = 3,
+	dataMinorVersion = 4,
 	weightsList = {
+		[1] = "DEATHKNIGHT",
+		[2] = "DRUID",
+		[3] = "HUNTER",
+		[4] = "MAGE",
+		[5] = "PALADIN",
+		[6] = "PRIEST",
+		[7] = "ROGUE",
+		[8] = "SHAMAN",
+		[9] = "WARLOCK",
+		[10] = "WARRIOR",
 		["DEATHKNIGHT"] = {
+			[1] = "Blood DPS",
+			[2] = "Frost DPS",
+			[3] = "Unholy DPS",
+			[4] = "Tank",
 			["Blood DPS"] = {
 				["dps"] = 361,
 				["hit rating"] = 100,
@@ -527,7 +570,7 @@ defaultVars = {
 				["haste rating"] = 26,
 				["armor penetration rating"] = 22,
 			},
-			["Tanking"] = {
+			["Tank"] = {
 				["dps"] = 432,
 				["parry rating"] = 103,
 				["hit rating"] = 100,
@@ -544,6 +587,10 @@ defaultVars = {
 			},
 		},
 		["DRUID"] = {
+			[1] = "Balance",
+			[2] = "Feral DPS",
+			[3] = "Feral Tank",
+			[4] = "Restoration",
 			["Balance"] = {
 				["hit rating"] = 100,
 				["haste rating"] = 46,
@@ -588,6 +635,9 @@ defaultVars = {
 			},
 		},
 		["HUNTER"] = {
+			[1] = "Beast Mastery",
+			[2] = "Marksmanship",
+			[3] = "Survival",
 			["Beast Mastery"] = {
 				["dps"] = 134,
 				["hit rating"] = 100,
@@ -623,6 +673,9 @@ defaultVars = {
 			},
 		},
 		["MAGE"] = {
+			[1] = "Arcane",
+			[2] = "Fire",
+			[3] = "Frost",
 			["Arcane"] = {
 				["hit rating"] = 100,
 				["haste rating"] = 49,
@@ -653,6 +706,9 @@ defaultVars = {
 			},
 		},
 		["PALADIN"] = {
+			[1] = "Holy",
+			[2] = "Protection",
+			[3] = "Retribution",
 			["Holy"] = {
 				["haste rating"] = 100,
 				["spell power"] = 55,
@@ -689,6 +745,9 @@ defaultVars = {
 			},
 		},
 		["PRIEST"] = {
+			[1] = "Discipline",
+			[2] = "Holy",
+			[3] = "Shadow",
 			["Discipline"] = {
 				["mp5"] = 100,
 				["intellect"] = 89,
@@ -717,6 +776,7 @@ defaultVars = {
 			},
 		},
 		["ROGUE"] = {
+			[1] = "All",
 			["All"] = {
 				["agility"] = 100,
 				["expertise rating"] = 100,
@@ -730,6 +790,9 @@ defaultVars = {
 			},
 		},
 		["SHAMAN"] = {
+			[1] = "Elemental",
+			[2] = "Enhancement",
+			[3] = "Restoration",
 			["Elemental"] = {
 				["hit rating"] = 100,
 				["spell power"] = 65,
@@ -759,6 +822,9 @@ defaultVars = {
 			},
 		},
 		["WARLOCK"] = {
+			[1] = "Affliction",
+			[2] = "Demonology",
+			[3] = "Destruction",
 			["Affliction"] = {
 				["spell power"] = 100,
 				["shadow spell damage"] = 88,
@@ -794,6 +860,8 @@ defaultVars = {
 			},
 		},
 		["WARRIOR"] = {
+			[1] = "DPS",
+			[2] = "Protection",
 			["DPS"] = {
 				["expertise rating"] = 100,
 				["attack power"] = 34,
@@ -831,6 +899,6 @@ defaultVars = {
 
 defaultCharVars = {
 	dataMajorVersion = 0,
-	dataMinorVersion = 1,
+	dataMinorVersion = 2,
 	activeWeights = {},
 }
