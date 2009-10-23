@@ -234,7 +234,7 @@ function WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBo
 		local total = 0
 
 		for _, value in pairs(weightsScale) do
-			total = total + value
+			total = total + abs(value)
 		end
 		if total == 0 then
 			-- Avoids a divide by zero
