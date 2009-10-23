@@ -1,4 +1,6 @@
 defaultVars = {
+	dataMajorVersion = 0,
+	dataMinorVersion = 1,
 	weightsList = {
 		["ROGUE"] = {
 			["Default"] = {
@@ -59,5 +61,7 @@ defaultVars = {
 }
 
 defaultCharVars = {
+	dataMajorVersion = 0,
+	dataMinorVersion = 1,
 	activeWeights = {},
 }

@@ -3,12 +3,28 @@ if not WeightsWatcher then
 end
 
 function WeightsWatcher:OnInitialize()
+	local tempVars
+
 	SLASH_WEIGHTSWATCHER1="/ww"
 	SLASH_WEIGHTSWATCHER2="/weightswatcher"
 	SlashCmdList["WEIGHTSWATCHER"] =
 		function(msg)
 			commandHandler(msg)
 		end
+
+	tempVars = WeightsWatcher:Upgrade("account")
+	if tempVars then
+		ww_vars = tempVars
+	else
+		-- TODO: disable the addon
+	end
+-- 	print("WeightsWatcher: be sure to restore the default weights if you want the new default weights.")
+	tempVars = WeightsWatcher:Upgrade("character")
+	if tempVars then
+		ww_charVars = tempVars
+	else
+		-- TODO: disable the addon
+	end
 end
 
 function commandHandler(msg)
