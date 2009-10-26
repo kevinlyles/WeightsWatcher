@@ -18,6 +18,7 @@ GemIds.lua
 config.lua
 Regexps.lua
 Upgrade.lua
+defaults.lua
 HiddenTooltip.xml
 WeightsWatcher.lua
 WeightsWatcher.xml
