@@ -279,10 +279,7 @@ function loadClassButtons()
 	for _, classFrame in ipairs(ww_classFrameTable) do
 		classFrame.class = revClassLookup[classFrame.text:GetText()]
 		if classFrame.class ~= class then
-			toggleCollapse(classFrame, ww_classFrameTable, ww_weightFrameTable, 20,
-				function()
-					ww_config.leftPanel.scrollFrame:GetScript("OnShow")(ww_config.leftPanel.scrollFrame)
-				end)
+			classFrame.text:Click()
 		end
 	end
 end
