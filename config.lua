@@ -2,12 +2,6 @@ if not WeightsWatcher then
 	WeightsWatcher = AceLibrary("AceAddon-2.0"):new("AceEvent-2.0", "AceHook-2.1")
 end
 
-ww_weightButtonTable = {}
-ww_categoryFrameTable = {}
-ww_statFrameTable = {}
-ww_classFrameTable = {}
-ww_weightFrameTable = {}
-
 StaticPopupDialogs["WW_CONFIRM_WEIGHT_DELETE"] = {
 	text = "Are you sure you want to delete the %s weight named \"%s\"?",
 	button1 = "Delete",
@@ -85,26 +79,26 @@ function validateNumber(newChar, newText)
 	return false
 end
 
-function scrollBarUpdate(scrollFrame, scrolledFrame, buttonTable, buttonHeight, initialOffset, numShown)
+function scrollBarUpdate(scrollFrame, scrolledFrame, buttonHeight, initialOffset, numShown)
 	local i
 	local offset = FauxScrollFrame_GetOffset(scrollFrame)
 	offset = offset / 5
-	if numShown > #(buttonTable) then
-		numShown = #(buttonTable)
+	if numShown > #(scrollFrame.shown) then
+		numShown = #(scrollFrame.shown)
 	end
-	if offset > #(buttonTable) - numShown then
-		offset = #(buttonTable) - numShown
+	if offset > #(scrollFrame.shown) - numShown then
+		offset = #(scrollFrame.shown) - numShown
 	end
-	FauxScrollFrame_Update(scrollFrame, #(buttonTable), numShown, buttonHeight * 5)
+	FauxScrollFrame_Update(scrollFrame, #(scrollFrame.shown), numShown, buttonHeight * 5)
 	scrolledFrame:SetPoint("TOPLEFT", 0, initialOffset + buttonHeight * offset)
 	for i = 1, offset do
-		buttonTable[i]:Hide()
+		scrollFrame.shown[i]:Hide()
 	end
 	for i = offset + 1, offset + numShown do
-		buttonTable[i]:Show()
+		scrollFrame.shown[i]:Show()
 	end
-	for i = offset + numShown + 1, #(buttonTable) do
-		buttonTable[i]:Hide()
+	for i = offset + numShown + 1, #(scrollFrame.shown) do
+		scrollFrame.shown[i]:Hide()
 	end
 end
 
@@ -120,11 +114,10 @@ function configSelectWeight(weightFrame)
 	ww_config.rightPanel:Show()
 end
 
--- TODO: fix this for collapsed categories!
 function configResetWeight()
 	local value
 
-	for _, frame in pairs(ww_statFrameTable) do
+	for _, frame in pairs(ww_config.rightPanel.scrollFrame.stats) do
 		if frame.statName then
 			value = ww_config.rightPanel.statList[frame.statName]
 			if not value then
@@ -142,7 +135,7 @@ end
 function configSaveWeight()
 	local number
 
-	for _, frame in pairs(ww_statFrameTable) do
+	for _, frame in pairs(ww_config.rightPanel.scrollFrame.stats) do
 		if frame.statName then
 			number = frame.statValue:GetNumber()
 			if number == 0 then
@@ -171,12 +164,12 @@ function deleteWeight()
 		end
 	end
 	if not weight.category.collapsed then
-		for _, classFrame in ipairs(ww_classFrameTable) do
+		for _, classFrame in ipairs(ww_config.leftPanel.scrollFrame.categories) do
 			if classFrame.position > weight.category.position then
 				classFrame.position = classFrame.position - 1
 			end
 		end
-		table.remove(ww_weightFrameTable, weight.category.position + weight.position)
+		table.remove(ww_config.leftPanel.scrollFrame.shown, weight.category.position + weight.position)
 		weight.category:SetHeight(20 * weight.category.length)
 	end
 	weight:Hide()
@@ -229,7 +222,7 @@ function setWeight(class, weight, statList)
 	local weightFrame, position
 
 	if not ww_vars.weightsList[class][weight] then
-		for _, classFrame in ipairs(ww_classFrameTable) do
+		for _, classFrame in ipairs(ww_config.leftPanel.scrollFrame.categories) do
 			if classFrame.class == class then
 				position = classFrame.length
 				weightFrame = CreateFrame("Frame", weight, classFrame, "ww_weightFrame")
@@ -243,8 +236,8 @@ function setWeight(class, weight, statList)
 					weightFrame:Hide()
 				else
 					classFrame:SetHeight(20 * classFrame.length)
-					table.insert(ww_weightFrameTable, classFrame.position + position, weightFrame)
-					for _, class in ipairs(ww_classFrameTable) do
+					table.insert(ww_config.leftPanel.scrollFrame.shown, classFrame.position + position, weightFrame)
+					for _, class in ipairs(ww_config.leftPanel.scrollFrame.categories) do
 						if class.position > classFrame.position then
 							class.position = class.position + 1
 						end
@@ -273,10 +266,10 @@ function loadClassButtons()
 		end
 	end
 
-	createScrollableTieredList(classes, ww_config.leftPanel.scrollFrame, ww_config.leftPanel.scrollContainer, ww_classFrameTable, ww_weightFrameTable, "ww_weightFrame", 20)
+	createScrollableTieredList(classes, ww_config.leftPanel.scrollFrame, ww_config.leftPanel.scrollContainer, "ww_weightFrame", 20)
 
 	local _, class = UnitClass("player")
-	for _, classFrame in ipairs(ww_classFrameTable) do
+	for _, classFrame in ipairs(ww_config.leftPanel.scrollFrame.categories) do
 		classFrame.class = revClassLookup[classFrame.text:GetText()]
 		if classFrame.class ~= class then
 			classFrame.text:Click()
@@ -285,30 +278,35 @@ function loadClassButtons()
 end
 
 function loadStatButtons()
-	createScrollableTieredList(trackedStats, ww_config.rightPanel.scrollFrame, ww_config.rightPanel.scrollContainer, ww_categoryFrameTable, ww_statFrameTable, "ww_statFrame", 20)
+	local stats = {}
 
-	for _, categoryFrame in ipairs(ww_categoryFrameTable) do
+	createScrollableTieredList(trackedStats, ww_config.rightPanel.scrollFrame, ww_config.rightPanel.scrollContainer, "ww_statFrame", 20)
+
+	for _, categoryFrame in ipairs(ww_config.rightPanel.scrollFrame.categories) do
 		local children = {categoryFrame:GetChildren()}
 		for i, statFrame in ipairs(children) do
 			if statFrame.name then
+				table.insert(stats, statFrame)
 				statFrame.statName = string.lower(statFrame.name)
 			end
 		end
 	end
+
+	ww_config.rightPanel.scrollFrame.stats = stats
 end
 
 -- Creates a tiered list that can be scrolled
 -- template is a table of key-value pairs with keys as the categories and values as a table of elements
 -- scrollFrame is the scrollframe that controls scrolledFrame
--- NOTE: scrollFrame's OnShow must update the scrollbar
+-- NOTE: scrollFrame must have an OnShow handler that updates the scrollbar
 -- scrolledFrame is the frame that will hold everything
--- categoryTable is the table that will hold the categories and their information
--- elementTable is the table that will hold the elements
 -- elementType is the element template type
 -- elementHeight is the height of each element
-function createScrollableTieredList(template, scrollFrame, scrolledFrame, categoryTable, elementTable, elementType, elementHeight)
+function createScrollableTieredList(template, scrollFrame, scrolledFrame, elementType, elementHeight)
 	local categoryFrame, elementFrame
 
+	scrollFrame.categories = {}
+	scrollFrame.shown = {}
 	for i, category in ipairs(template) do
 		--for each category print the header and then the print the list of stats
 		categoryFrame = CreateFrame("Frame", category, scrolledFrame, "ww_categoryFrame")
@@ -318,26 +316,26 @@ function createScrollableTieredList(template, scrollFrame, scrolledFrame, catego
 		if i == 1 then
 			categoryFrame:SetPoint("TOPLEFT")
 		else
-			categoryFrame:SetPoint("TOPLEFT", categoryTable[i - 1], "BOTTOMLEFT")
+			categoryFrame:SetPoint("TOPLEFT", scrollFrame.categories[i - 1], "BOTTOMLEFT")
 		end
 		categoryFrame.text:SetScript("OnClick",
 			function(self)
-				toggleCollapse(self:GetParent(), categoryTable, elementTable, elementHeight,
+				toggleCollapse(self:GetParent(), scrollFrame, elementHeight,
 					function()
 						scrollFrame:GetScript("OnShow")(scrollFrame)
 					end)
 			end)
-		table.insert(categoryTable, categoryFrame)
-		table.insert(elementTable, categoryFrame.text)
-		categoryFrame.position = #(elementTable)
+		table.insert(scrollFrame.categories, categoryFrame)
+		table.insert(scrollFrame.shown, categoryFrame.text)
+		categoryFrame.position = #(scrollFrame.shown)
 		for j, element in ipairs(template[category]) do
-			elementFrame = CreateFrame("Frame", element, categoryTable[i], elementType)
+			elementFrame = CreateFrame("Frame", element, scrollFrame.categories[i], elementType)
 			elementFrame.position = j
 			elementFrame.category = categoryFrame
 			elementFrame.text:SetText(element)
 			elementFrame.name = element
 			elementFrame:SetPoint("TOPLEFT", 0, -elementHeight * j)
-			table.insert(elementTable, elementFrame)
+			table.insert(scrollFrame.shown, elementFrame)
 			categoryFrame.length = categoryFrame.length + 1
 		end
 
@@ -346,17 +344,17 @@ function createScrollableTieredList(template, scrollFrame, scrolledFrame, catego
 	end
 end
 
-function toggleCollapse(categoryFrame, categoryTable, elementTable, elementHeight, scrollBarUpdateFunction)
+function toggleCollapse(categoryFrame, scrollFrame, elementHeight, scrollBarUpdateFunction)
 	if categoryFrame.length == 1 then
 		return
 	end
 	if categoryFrame.collapsed then
 		for i, stat in ipairs({categoryFrame:GetChildren()}) do
 			if stat.name then
-				table.insert(elementTable, categoryFrame.position + i - 1, stat)
+				table.insert(scrollFrame.shown, categoryFrame.position + i - 1, stat)
 			end
 		end
-		for _, category in ipairs(categoryTable) do
+		for _, category in ipairs(scrollFrame.categories) do
 			if category.position > categoryFrame.position then
 				category.position = category.position + categoryFrame.length - 1
 			end
@@ -367,10 +365,10 @@ function toggleCollapse(categoryFrame, categoryTable, elementTable, elementHeigh
 		for _, stat in ipairs({categoryFrame:GetChildren()}) do
 			if stat.name then
 				stat:Hide()
-				table.remove(elementTable, categoryFrame.position + 1)
+				table.remove(scrollFrame.shown, categoryFrame.position + 1)
 			end
 		end
-		for _, category in ipairs(categoryTable) do
+		for _, category in ipairs(scrollFrame.categories) do
 			if category.position > categoryFrame.position then
 				category.position = category.position - categoryFrame.length + 1
 			end

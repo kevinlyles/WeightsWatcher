@@ -208,7 +208,7 @@
 						</Anchors>
 						<Scripts>
 							<OnShow>
-								scrollBarUpdate(self, ww_config.leftPanel.scrollContainer, ww_weightFrameTable, 20, 0, 27)
+								scrollBarUpdate(self, ww_config.leftPanel.scrollContainer, 20, 0, 27)
 							</OnShow>
 							<OnVerticalScroll>
 								FauxScrollFrame_OnVerticalScroll(self, offset, 20, self:GetScript("OnShow"))
@@ -340,7 +340,7 @@
 						</Anchors>
 						<Scripts>
 							<OnShow>
-								scrollBarUpdate(self, ww_config.rightPanel.scrollContainer, ww_statFrameTable, 20, -30, 25)
+								scrollBarUpdate(self, ww_config.rightPanel.scrollContainer, 20, -30, 25)
 							</OnShow>
 							<OnVerticalScroll>
 								FauxScrollFrame_OnVerticalScroll(self, offset, 20, self:GetScript("OnShow"))
@@ -520,7 +520,7 @@
 							local error = StaticPopup_Show("WW_WEIGHT_EXISTS", classNames[class], name)
 						else
 							setWeight(class, name, self:GetParent().statList)
-							for _, classFrame in ipairs(ww_classFrameTable) do
+							for _, classFrame in ipairs(ww_config.leftPanel.scrollFrame.categories) do
 								if classFrame.class == class then
 									local children = {classFrame:GetChildren()}
 									configSelectWeight(children[classFrame:GetNumChildren()])
