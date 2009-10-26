@@ -12,8 +12,8 @@ StaticPopupDialogs["WW_CONFIRM_WEIGHT_DELETE"] = {
 	text = "Are you sure you want to delete the %s weight named \"%s\"?",
 	button1 = "Delete",
 	button2 = "Cancel",
-	OnAccept = function(self, weight)
-			deleteWeight(weight)
+	OnAccept = function()
+			deleteWeight()
 		end,
 	showAlert = true,
 	timeout = 0,
@@ -110,32 +110,18 @@ end
 
 --opens a new config pane to edit stat weights
 function configSelectWeight(weightFrame)
+	ww_config.rightPanel.weightFrame = weightFrame
 	ww_config.rightPanel.statList = ww_vars.weightsList[weightFrame.category.class][weightFrame.name]
 
 	-- Fills the right panel with the current weight's stats
-	configResetWeight(weightFrame)
+	configResetWeight()
 
 	ww_config.rightPanel.header:SetText(weightFrame.name)
-	ww_config.rightPanel.saveButton:SetScript("OnClick",
-		function()
-			configSaveWeight(weightFrame)
-		end)
-	ww_config.rightPanel.copyButton:SetScript("OnClick",
-		function()
-			configNewWeight(weightFrame.category.class, "Copy of " .. weightFrame.name, ww_config.rightPanel.statList)
-		end)
-	ww_config.rightPanel.deleteButton:SetScript("OnClick",
-		function()
-			configDeleteWeight(weightFrame)
-		end)
-	ww_config.rightPanel.resetButton:SetScript("OnClick",
-		function()
-			configResetWeight(weightFrame)
-		end)
 	ww_config.rightPanel:Show()
 end
 
-function configResetWeight(weight)
+-- TODO: fix this for collapsed categories!
+function configResetWeight()
 	local value
 
 	for _, frame in pairs(ww_statFrameTable) do
@@ -149,13 +135,11 @@ function configResetWeight(weight)
 	end
 end
 
-function configDeleteWeight(weight)
-	local confirm = StaticPopup_Show("WW_CONFIRM_WEIGHT_DELETE", weight.category.name, weight.name)
-	-- Pass the things to delete, has to be done after the show call
-	confirm.data = weight
+function configDeleteWeight()
+	StaticPopup_Show("WW_CONFIRM_WEIGHT_DELETE", ww_config.rightPanel.weightFrame.category.name, ww_config.rightPanel.weightFrame.name)
 end
 
-function configSaveWeight(weight)
+function configSaveWeight()
 	local number
 
 	for _, frame in pairs(ww_statFrameTable) do
@@ -164,13 +148,14 @@ function configSaveWeight(weight)
 			if number == 0 then
 				number = nil
 			end
-			ww_vars.weightsList[weight.category.class][weight.name][frame.statName] = number
+			ww_config.rightPanel.statList[frame.statName] = number
 		end
 	end
 end
 
-function deleteWeight(weight)
+function deleteWeight()
 	local point, relativeTo, relativePoint, xOffset, yOffset, removed
+	local weight = ww_config.rightPanel.weightFrame
 
 	weight.category.length = weight.category.length - 1
 	for _, weightFrame in ipairs({weight.category:GetChildren()}) do
@@ -247,17 +232,13 @@ function setWeight(class, weight, statList)
 		for _, classFrame in ipairs(ww_classFrameTable) do
 			if classFrame.class == class then
 				position = classFrame.length
-				weightFrame = CreateFrame("Frame", weight, classFrame, "ww_elementFrame")
+				weightFrame = CreateFrame("Frame", weight, classFrame, "ww_weightFrame")
 				weightFrame.position = position
 				weightFrame.category = classFrame
 				weightFrame.text:SetText(weight)
 				weightFrame.name = weight
 				weightFrame:SetPoint("TOPLEFT", 0, -20 * position)
 				classFrame.length = classFrame.length + 1
-				weightFrame.text:SetScript("OnClick",
-					function(self)
-						configSelectWeight(weightFrame)
-					end)
 				if classFrame.collapsed then
 					weightFrame:Hide()
 				else
@@ -292,7 +273,7 @@ function loadClassButtons()
 		end
 	end
 
-	createScrollableTieredList(classes, ww_config.leftPanel.scrollFrame, ww_config.leftPanel.scrollContainer, ww_classFrameTable, ww_weightFrameTable, "ww_elementFrame", 20)
+	createScrollableTieredList(classes, ww_config.leftPanel.scrollFrame, ww_config.leftPanel.scrollContainer, ww_classFrameTable, ww_weightFrameTable, "ww_weightFrame", 20)
 
 	local _, class = UnitClass("player")
 	for _, classFrame in ipairs(ww_classFrameTable) do
@@ -302,14 +283,6 @@ function loadClassButtons()
 				function()
 					ww_config.leftPanel.scrollFrame:GetScript("OnShow")(ww_config.leftPanel.scrollFrame)
 				end)
-		end
-		for i, weightFrame in ipairs({classFrame:GetChildren()}) do
-			if i > 1 then
-				weightFrame.text:SetScript("OnClick",
-					function()
-						configSelectWeight(weightFrame)
-					end)
-			end
 		end
 	end
 end

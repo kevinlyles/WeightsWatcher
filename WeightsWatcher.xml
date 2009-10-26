@@ -110,7 +110,7 @@
 		</Frames>
 	</Frame>
 	<!--virtual frame used to allow for script generated frames with stat information-->
-	<Frame name="ww_elementFrame" virtual="true">
+	<Frame name="ww_weightFrame" virtual="true">
 		<Size>
 			<AbsDimension y="20"/>
 		</Size>
@@ -131,6 +131,9 @@
 					<Anchor point="RIGHT"/>
 				</Anchors>
 				<Scripts>
+					<OnClick>
+						configSelectWeight(self:GetParent())
+					</OnClick>
 					<OnLoad>
 						self:SetFontString(self:CreateFontString(nil, "OVERLAY", "ww_defaultString"))
 					</OnLoad>
@@ -262,6 +265,11 @@
 						<Anchors>
 							<Anchor point="BOTTOMLEFT"/>
 						</Anchors>
+						<Scripts>
+							<OnClick>
+								configSaveWeight()
+							</OnClick>
+						</Scripts>
 					</Button>
 					<!--Copy button-->
 					<Button name="$parentCopyButton" parentKey="copyButton" inherits="UIPanelButtonTemplate" text="Copy">
@@ -275,6 +283,11 @@
 								</Offset>
 							</Anchor>
 						</Anchors>
+						<Scripts>
+							<OnClick>
+								configNewWeight(self:GetParent().weightFrame.category.class, "Copy of " .. self:GetParent().weightFrame.name, self:GetParent().statList)
+							</OnClick>
+						</Scripts>
 					</Button>
 					<!--Reset button-->
 					<Button name="$parentResetButton" parentKey="resetButton" inherits="UIPanelButtonTemplate" text="Reset">
@@ -284,6 +297,11 @@
 						<Anchors>
 							<Anchor point="BOTTOMRIGHT"/>
 						</Anchors>
+						<Scripts>
+							<OnClick>
+								configResetWeight()
+							</OnClick>
+						</Scripts>
 					</Button>
 					<!--Delete button-->
 					<Button name="$parentDeleteButton" parentKey="deleteButton" inherits="UIPanelButtonTemplate" text="Delete">
@@ -297,6 +315,11 @@
 								</Offset>
 							</Anchor>
 						</Anchors>
+						<Scripts>
+							<OnClick>
+								configDeleteWeight()
+							</OnClick>
+						</Scripts>
 					</Button>
 					<!--used to hold a series of stat frames to maintain absolute position when scrolling-->
 					<Frame name="$parentScrollContainer" parentKey="scrollContainer">
