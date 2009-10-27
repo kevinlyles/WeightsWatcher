@@ -104,11 +104,28 @@ end
 
 --opens a new config pane to edit stat weights
 function configSelectWeight(weightFrame)
+	local empty
+
 	ww_config.rightPanel.weightFrame = weightFrame
 	ww_config.rightPanel.statList = ww_vars.weightsList[weightFrame.category.class][weightFrame.name]
 
 	-- Fills the right panel with the current weight's stats
 	configResetWeight()
+
+	for _, categoryFrame in ipairs(ww_config.rightPanel.scrollFrame.categories) do
+		empty = true
+		for _, statFrame in ipairs({categoryFrame:GetChildren()}) do
+			if statFrame.statName then
+				if statFrame.statValue:GetText() ~= "" then
+					empty = false
+					break
+				end
+			end
+		end
+		if (categoryFrame.collapsed and not empty) or (not categoryFrame.collapsed and empty) then
+			categoryFrame.text:Click()
+		end
+	end
 
 	ww_config.rightPanel.header:SetText(weightFrame.name)
 	ww_config.rightPanel:Show()
