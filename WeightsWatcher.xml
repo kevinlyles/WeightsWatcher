@@ -70,14 +70,45 @@
 					</Anchor>
 					<Anchor point="RIGHT"/>
 				</Anchors>
+				<NormalTexture file="Interface\Buttons\UI-MinusButton-UP">
+					<Size>
+						<AbsDimension x="16" y="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT"/>
+					</Anchors>
+				</NormalTexture>
+				<PushedTexture file="Interface\Buttons\UI-MinusButton-DOWN">
+					<Size>
+						<AbsDimension x="16" y="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT"/>
+					</Anchors>
+				</PushedTexture>
+				<HighlightTexture file="Interface\Buttons\UI-PlusButton-Hilight" alphaMode="ADD">
+					<Size>
+						<AbsDimension x="16" y="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT"/>
+					</Anchors>
+				</HighlightTexture>
 				<Scripts>
 					<OnLoad>
 						local fontString = self:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-						fontString:SetPoint("LEFT")
+						fontString:SetPoint("LEFT", 20, 0)
 						self:SetFontString(fontString)
 					</OnLoad>
 					<OnClick>
 						toggleCollapse(self:GetParent(), self:GetParent():GetParent():GetParent().scrollFrame)
+						if self:GetParent().collapsed then
+							self:SetNormalTexture("Interface\\Buttons\\UI-PlusButton-UP")
+							self:SetPushedTexture("Interface\\Buttons\\UI-PlusButton-DOWN")
+						else
+							self:SetNormalTexture("Interface\\Buttons\\UI-MinusButton-UP")
+							self:SetPushedTexture("Interface\\Buttons\\UI-MinusButton-DOWN")
+						end
 					</OnClick>
 				</Scripts>
 			</Button>
