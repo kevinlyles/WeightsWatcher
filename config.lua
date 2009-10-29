@@ -25,7 +25,9 @@ StaticPopupDialogs["WW_CONFIRM_RESTORE_DEFAULTS"] = {
 					setWeight(class, weight, defaultVars.weightsList[class][weight])
 				end
 			end
-			ww_config.rightPanel:Hide()
+			if ww_config.rightPanel:IsShown() then
+				configSelectWeight(ww_config.rightPanel.weightFrame)
+			end
 		end,
 	showAlert = true,
 	timeout = 0,
