@@ -120,7 +120,11 @@
 			<AbsDimension y="22"/>
 		</Size>
 		<Anchors>
-			<Anchor point="RIGHT"/>
+			<Anchor point="RIGHT">
+				<Offset>
+					<AbsDimension x="-5"/>
+				</Offset>
+			</Anchor>
 		</Anchors>
 		<Layers>
 			<Layer level="OVERLAY">
@@ -453,10 +457,14 @@
 					<!--Save button-->
 					<Button name="$parentSaveButton" parentKey="saveButton" inherits="UIPanelButtonTemplate" text="Save">
 						<Size>
-							<AbsDimension x="100" y="22"/>
+							<AbsDimension x="80" y="22"/>
 						</Size>
 						<Anchors>
-							<Anchor point="BOTTOMLEFT"/>
+							<Anchor point="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="5" y="5"/>
+								</Offset>
+							</Anchor>
 						</Anchors>
 						<Scripts>
 							<OnClick>
@@ -467,12 +475,12 @@
 					<!--Copy button-->
 					<Button name="$parentCopyButton" parentKey="copyButton" inherits="UIPanelButtonTemplate" text="Copy">
 						<Size>
-							<AbsDimension x="100" y="22"/>
+							<AbsDimension x="80" y="22"/>
 						</Size>
 						<Anchors>
 							<Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parentSaveButton">
 								<Offset>
-									<AbsDimension x="3"/>
+									<AbsDimension x="27"/>
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -485,10 +493,14 @@
 					<!--Reset button-->
 					<Button name="$parentResetButton" parentKey="resetButton" inherits="UIPanelButtonTemplate" text="Reset">
 						<Size>
-							<AbsDimension x="100" y="22"/>
+							<AbsDimension x="80" y="22"/>
 						</Size>
 						<Anchors>
-							<Anchor point="BOTTOMRIGHT"/>
+							<Anchor point="BOTTOMRIGHT">
+								<Offset>
+									<AbsDimension x="-5" y="5"/>
+								</Offset>
+							</Anchor>
 						</Anchors>
 						<Scripts>
 							<OnClick>
@@ -499,12 +511,12 @@
 					<!--Delete button-->
 					<Button name="$parentDeleteButton" parentKey="deleteButton" inherits="UIPanelButtonTemplate" text="Delete">
 						<Size>
-							<AbsDimension x="100" y="22"/>
+							<AbsDimension x="80" y="22"/>
 						</Size>
 						<Anchors>
 							<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parentResetButton">
 								<Offset>
-									<AbsDimension x="-3"/>
+									<AbsDimension x="-27"/>
 								</Offset>
 							</Anchor>
 						</Anchors>
