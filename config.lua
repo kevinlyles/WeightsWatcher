@@ -165,10 +165,10 @@ function changeFocus(currentStatFrame)
 			if direction < 0 then
 				offset = (position - 1) * 5
 			else
-				offset = (position - 25) * 5
+				offset = (position - 22) * 5
 			end
 			FauxScrollFrame_SetOffset(ww_config.rightPanel.scrollFrame, offset)
-			ww_config.rightPanel.scrollFrame:GetScript("OnVerticalScroll")(ww_config.rightPanel.scrollFrame, offset * 20)
+			ww_config.rightPanel.scrollFrame:GetScript("OnVerticalScroll")(ww_config.rightPanel.scrollFrame, offset * 22)
 		end
 		frame.statValue:SetFocus()
 	end
@@ -309,7 +309,7 @@ function deleteWeight()
 			for i = 1, weightFrame:GetNumPoints() do
 				point, relativeTo, relativePoint, xOffset, yOffset = weightFrame:GetPoint(1)
 				if point == "TOPLEFT" then
-					weightFrame:SetPoint(point, relativeTo, relativePoint, xOffset, yOffset + 20)
+					weightFrame:SetPoint(point, relativeTo, relativePoint, xOffset, yOffset + 22)
 					break
 				end
 			end
@@ -322,7 +322,7 @@ function deleteWeight()
 			end
 		end
 		table.remove(ww_config.leftPanel.scrollFrame.shown, weight.category.position + weight.position)
-		weight.category:SetHeight(20 * weight.category.length)
+		weight.category:SetHeight(22 * weight.category.length)
 	end
 	weight:Hide()
 	weight:SetParent(nil)
@@ -384,12 +384,12 @@ function setWeight(class, weight, statList)
 				weightFrame.category = classFrame
 				weightFrame.text:SetText(weight)
 				weightFrame.name = weight
-				weightFrame:SetPoint("TOPLEFT", 0, -20 * position)
+				weightFrame:SetPoint("TOPLEFT", 0, -22 * position)
 				classFrame.length = classFrame.length + 1
 				if classFrame.collapsed then
 					weightFrame:Hide()
 				else
-					classFrame:SetHeight(20 * classFrame.length)
+					classFrame:SetHeight(22 * classFrame.length)
 					table.insert(ww_config.leftPanel.scrollFrame.shown, classFrame.position + position, weightFrame)
 					for _, class in ipairs(ww_config.leftPanel.scrollFrame.categories) do
 						if class.position > classFrame.position then
@@ -420,7 +420,7 @@ function loadClassButtons()
 		end
 	end
 
-	createScrollableTieredList(classes, ww_config.leftPanel.scrollFrame, ww_config.leftPanel.scrollContainer, "ww_weightFrame", 20)
+	createScrollableTieredList(classes, ww_config.leftPanel.scrollFrame, ww_config.leftPanel.scrollContainer, "ww_weightFrame", 22)
 
 	local _, class = UnitClass("player")
 	for _, classFrame in ipairs(ww_config.leftPanel.scrollFrame.categories) do
@@ -446,7 +446,7 @@ end
 function loadStatButtons()
 	local stats = {}
 
-	createScrollableTieredList(trackedStats, ww_config.rightPanel.scrollFrame, ww_config.rightPanel.scrollContainer, "ww_statFrame", 20)
+	createScrollableTieredList(trackedStats, ww_config.rightPanel.scrollFrame, ww_config.rightPanel.scrollContainer, "ww_statFrame", 22)
 
 	for _, categoryFrame in ipairs(ww_config.rightPanel.scrollFrame.categories) do
 		local children = {categoryFrame:GetChildren()}

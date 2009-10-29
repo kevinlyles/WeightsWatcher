@@ -12,7 +12,7 @@
 			<Layer level="BACKGROUND">
 				<Texture file="Interface\Buttons\UI-Panel-Button-Glow" alphaMode="ADD">
 					<Size>
-						<AbsDimension y="20" x="16"/>
+						<AbsDimension y="22" x="16"/>
 					</Size>
 					<Anchors>
 						<Anchor point="LEFT"/>
@@ -21,7 +21,7 @@
 				</Texture>
 				<Texture file="Interface\Buttons\UI-Panel-Button-Glow" alphaMode="ADD">
 					<Size>
-						<AbsDimension y="20"/>
+						<AbsDimension y="22"/>
 					</Size>
 					<Anchors>
 						<Anchor point="LEFT">
@@ -39,7 +39,7 @@
 				</Texture>
 				<Texture file="Interface\Buttons\UI-Panel-Button-Glow" alphaMode="ADD">
 					<Size>
-						<AbsDimension y="20" x="16"/>
+						<AbsDimension y="22" x="16"/>
 					</Size>
 					<Anchors>
 						<Anchor point="RIGHT"/>
@@ -52,7 +52,7 @@
 	<!--virtual frame used to allow for script generated frames with stat information-->
 	<Frame name="ww_categoryFrame" virtual="true">
 		<Size>
-			<AbsDimension y="20"/>
+			<AbsDimension y="22"/>
 		</Size>
 		<Anchors>
 			<Anchor point="RIGHT"/>
@@ -65,7 +65,7 @@
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>
-							<AbsDimension x="5"/>
+							<AbsDimension x="5" y="-1"/>
 						</Offset>
 					</Anchor>
 					<Anchor point="RIGHT"/>
@@ -117,7 +117,7 @@
 	<!--virtual frame used to allow for script generated frames with stat information-->
 	<Frame name="ww_statFrame" virtual="true">
 		<Size>
-			<AbsDimension y="20"/>
+			<AbsDimension y="22"/>
 		</Size>
 		<Anchors>
 			<Anchor point="RIGHT"/>
@@ -143,19 +143,19 @@
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>
-							<AbsDimension x="10"/>
+							<AbsDimension x="15" y="-1"/>
 						</Offset>
 					</Anchor>
 					<Anchor point="BOTTOMRIGHT">
 						<Offset>
-							<AbsDimension x="-135"/>
+							<AbsDimension x="-132" y="-1"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 			</Frame>
 			<EditBox letters="16" name="$parentStatValue" parentKey="statValue" autoFocus="false">
 				<Size>
-					<AbsDimension x="130" y="20"/>
+					<AbsDimension x="130" y="22"/>
 				</Size>
 				<Anchors>
 					<Anchor point="RIGHT"/>
@@ -232,7 +232,7 @@
 	<!--virtual frame used to allow for script generated frames with stat information-->
 	<Frame name="ww_weightFrame" virtual="true">
 		<Size>
-			<AbsDimension y="20"/>
+			<AbsDimension y="22"/>
 		</Size>
 		<Anchors>
 			<Anchor point="RIGHT"/>
@@ -291,17 +291,31 @@
 					</Anchor>
 					<Anchor point="RIGHT"/>
 				</Anchors>
+				<HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight2" alphaMode="ADD">
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="-3" y="-2"/>
+							</Offset>
+						</Anchor>
+						<Anchor point="BOTTOMRIGHT">
+							<Offset>
+								<AbsDimension x="-7"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</HighlightTexture>
 				<Frames>
 					<Frame name="$parentHighlightFrame" parentKey="highlightFrame" inherits="ww_highlightedFrame">
 						<Anchors>
 							<Anchor point="TOPLEFT">
 								<Offset>
-									<AbsDimension x="-10"/>
+									<AbsDimension x="-5" y="-1"/>
 								</Offset>
 							</Anchor>
 							<Anchor point="BOTTOMRIGHT">
 								<Offset>
-									<AbsDimension x="-10"/>
+									<AbsDimension x="-5" y="-1"/>
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -387,10 +401,10 @@
 						</Anchors>
 						<Scripts>
 							<OnShow>
-								scrollBarUpdate(self, ww_config.leftPanel.scrollContainer, 20, 0, 27)
+								scrollBarUpdate(self, ww_config.leftPanel.scrollContainer, 22, 0, 25)
 							</OnShow>
 							<OnVerticalScroll>
-								FauxScrollFrame_OnVerticalScroll(self, offset, 20, self:GetScript("OnShow"))
+								FauxScrollFrame_OnVerticalScroll(self, offset, 22, self:GetScript("OnShow"))
 							</OnVerticalScroll>
 						</Scripts>
 					</ScrollFrame>
@@ -519,10 +533,10 @@
 						</Anchors>
 						<Scripts>
 							<OnShow>
-								scrollBarUpdate(self, ww_config.rightPanel.scrollContainer, 20, -30, 25)
+								scrollBarUpdate(self, ww_config.rightPanel.scrollContainer, 22, -30, 22)
 							</OnShow>
 							<OnVerticalScroll>
-								FauxScrollFrame_OnVerticalScroll(self, offset, 20, self:GetScript("OnShow"))
+								FauxScrollFrame_OnVerticalScroll(self, offset, 22, self:GetScript("OnShow"))
 							</OnVerticalScroll>
 						</Scripts>
 					</ScrollFrame>
