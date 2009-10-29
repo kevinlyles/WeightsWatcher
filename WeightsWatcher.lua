@@ -209,7 +209,7 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 				if ww_vars.weightsList[class] then
 					for _, weight in pairs(ww_charVars.activeWeights[class]) do
 						if ww_vars.weightsList[class][weight] then
-							tooltip:AddDoubleLine("  " .. weight, string.format("%.3f", ww_weightCache[class][weight][link]))
+							tooltip:AddDoubleLine("  " .. weight .. " - " .. classNames[class], string.format("%.3f", ww_weightCache[class][weight][link]))
 						end
 					end
 				end
@@ -224,7 +224,7 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 						if ww_vars.weightsList[class] then
 							for _, weight in pairs(ww_charVars.activeWeights[class]) do
 								if ww_vars.weightsList[class][weight] then
-									tooltip:AddDoubleLine("  " .. weight, string.format("%.3f", ww_weightIdealCache[class][weight][bareLink].score))
+									tooltip:AddDoubleLine("  " .. weight .. " - " .. classNames[class], string.format("%.3f", ww_weightIdealCache[class][weight][bareLink].score))
 									if keyDetectors[ww_vars.options.tooltip.showIdealGems]() then
 										gemStats = ww_weightIdealCache[class][weight][bareLink].gemStats
 										for _, gem in ipairs(gemStats) do

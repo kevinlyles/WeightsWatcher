@@ -226,7 +226,7 @@ function configSelectWeight(weightFrame)
 		end
 	end
 
-	ww_config.rightPanel.header:SetText(weightFrame.name)
+	ww_config.rightPanel.header:SetText(weightFrame.category.name .. " - " .. weightFrame.name)
 	ww_config.rightPanel:Show()
 end
 
