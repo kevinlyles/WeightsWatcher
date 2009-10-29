@@ -228,11 +228,11 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 									if keyDetectors[ww_vars.options.tooltip.showIdealGems]() then
 										gemStats = ww_weightIdealCache[class][weight][bareLink].gemStats
 										for _, gem in ipairs(gemStats) do
-											tooltip:AddLine("    Using " .. gem[2] .. " (" .. gem[1] .. ")")
+											tooltip:AddDoubleLine("    Using " .. gem[2] .. " (" .. gem[1] .. ")", " ")
 											if keyDetectors[ww_vars.options.tooltip.showIdealGemStats]() then
 												for _, stat in ipairs(gem[4]) do
 													stat, value = unpack(stat)
-													tooltip:AddLine("      " .. stat .. ": " .. value)
+													tooltip:AddDoubleLine("      " .. stat .. ": " .. value, " ")
 												end
 											end
 										end
