@@ -119,6 +119,15 @@ noop_down = [[
 	end
 ]]
 
+function upgradeAccountToHandleModifierKeys(vars)
+	if not vars.options.tooltip then
+		vars.options.tooltip = deepTableCopy(defaultVars.options.tooltip)
+	end
+
+	vars.dataMinorVersion = 5
+	return vars
+end
+
 function upgradeAccountToOrderedLists(vars)
 	local i, j = 1
 	local weightsListCopy = {}
@@ -259,6 +268,7 @@ upgradeAccountFunctions = {
 		[1] = function(vars) return upgradeAccountToNormalization(vars) end,
 		[2] = function(vars) return upgradeAccountToGemQuality(vars) end,
 		[3] = function(vars) return upgradeAccountToOrderedLists(vars) end,
+		[4] = function(vars) return upgradeAccountToHandleModifierKeys(vars) end,
 	},
 }
 
@@ -267,6 +277,7 @@ downgradeAccountFunctions = {
 		[2] = noop_down,
 		[3] = noop_down,
 		[4] = downgradeAccountFromOrderedLists,
+		[5] = noop_down,
 	},
 }
 

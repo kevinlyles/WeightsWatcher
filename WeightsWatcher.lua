@@ -192,6 +192,7 @@ end
 
 function WeightsWatcher:displayItemStats(tooltip, ttname)
 	local link, bareLink, itemType, stackSize, sockets, gemStats
+	local stat, value
 
 	_, link = tooltip:GetItem()
 	if link == nil then
@@ -202,34 +203,59 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 	if (IsEquippableItem(link) and itemType ~= "Container" and itemType ~= "Quiver") or (itemType == "Gem" and stackSize == 1) or (itemType == "Consumable") or (itemType == "Recipe") then
 		bareLink = WeightsWatcher:cacheItemStats(link)
 
-		tooltip:AddLine("Current Weights:")
-		for _, class in ipairs(ww_charVars.activeWeights) do
-			if ww_vars.weightsList[class] then
-				for _, weight in pairs(ww_charVars.activeWeights[class]) do
-					if ww_vars.weightsList[class][weight] then
-						tooltip:AddDoubleLine("  " .. weight, string.format("%.3f", ww_weightCache[class][weight][link]))
-					end
-				end
-			end
-		end
-
-		_, sockets, _ = unpack(ww_bareItemCache[bareLink])
-
-		if #(sockets) > 0 then
-			tooltip:AddLine("Ideally Gemmed Weights:")
+		if keyDetectors[ww_vars.options.tooltip.showWeights]() then
+			tooltip:AddLine("Current Weights:")
 			for _, class in ipairs(ww_charVars.activeWeights) do
 				if ww_vars.weightsList[class] then
 					for _, weight in pairs(ww_charVars.activeWeights[class]) do
 						if ww_vars.weightsList[class][weight] then
-							tooltip:AddDoubleLine("  " .. weight, string.format("%.3f", ww_weightIdealCache[class][weight][bareLink].score))
-							gemStats = ww_weightIdealCache[class][weight][bareLink].gemStats
-							for _, stat in ipairs(gemStats) do
-								tooltip:AddLine("    Using " .. stat[2] .. " (" .. stat[1] .. ")")
-							end
+							tooltip:AddDoubleLine("  " .. weight, string.format("%.3f", ww_weightCache[class][weight][link]))
 						end
 					end
 				end
 			end
+
+			_, sockets, _ = unpack(ww_bareItemCache[bareLink])
+
+			if #(sockets) > 0 then
+				if keyDetectors[ww_vars.options.tooltip.showIdealWeights]() then
+					tooltip:AddLine("Ideally Gemmed Weights:")
+					for _, class in ipairs(ww_charVars.activeWeights) do
+						if ww_vars.weightsList[class] then
+							for _, weight in pairs(ww_charVars.activeWeights[class]) do
+								if ww_vars.weightsList[class][weight] then
+									tooltip:AddDoubleLine("  " .. weight, string.format("%.3f", ww_weightIdealCache[class][weight][bareLink].score))
+									if keyDetectors[ww_vars.options.tooltip.showIdealGems]() then
+										gemStats = ww_weightIdealCache[class][weight][bareLink].gemStats
+										for _, gem in ipairs(gemStats) do
+											tooltip:AddLine("    Using " .. gem[2] .. " (" .. gem[1] .. ")")
+											if keyDetectors[ww_vars.options.tooltip.showIdealGemStats]() then
+												for _, stat in ipairs(gem[4]) do
+													stat, value = unpack(stat)
+													tooltip:AddLine("      " .. stat .. ": " .. value)
+												end
+											end
+										end
+									end
+								end
+							end
+						end
+					end
+					if not keyDetectors[ww_vars.options.tooltip.showIdealGems]() then
+						if ww_vars.options.tooltip.showIdealGems then
+							tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealGems .. " to show ideal gems>")
+						end
+					elseif not keyDetectors[ww_vars.options.tooltip.showIdealGemStats]() then
+						if ww_vars.options.tooltip.showIdealGemStats then
+							tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealGemStats .. " to show ideal gem stats>")
+						end
+					end
+				elseif ww_vars.options.tooltip.showIdealWeights then
+					tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealWeights .. " to show ideal weights>")
+				end
+			end
+		elseif ww_vars.options.tooltip.showWeights then
+			tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showWeights .. " to show weights>")
 		end
 		tooltip:Show()
 	end

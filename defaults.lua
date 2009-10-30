@@ -85,9 +85,23 @@ classNames = {
 	["WARRIOR"] = "Warrior",
 }
 
+keyDetectors = {
+	[true] = function() return true end,
+	[false] = function() return false end,
+	["LSHIFT"] = IsLeftShiftKeyDown,
+	["RSHIFT"] = IsRightShiftKeyDown,
+	["SHIFT"] = IsShiftKeyDown,
+	["LALT"] = IsLeftAltKeyDown,
+	["RALT"] = IsRightAltKeyDown,
+	["ALT"] = IsAltKeyDown,
+	["LCTRL"] = IsLeftControlKeyDown,
+	["RCTRL"] = IsRightControlKeyDown,
+	["CTRL"] = IsControlKeyDown,
+}
+
 defaultVars = {
 	dataMajorVersion = 0,
-	dataMinorVersion = 4,
+	dataMinorVersion = 5,
 	weightsList = {
 		[1] = "DEATHKNIGHT",
 		[2] = "DRUID",
@@ -458,6 +472,12 @@ defaultVars = {
 	options = {
 		normalizeWeights = true,
 		gemQualityLimit = 9,
+		tooltip = {
+			showWeights = true,
+			showIdealWeights = "SHIFT",
+			showIdealGems = "CTRL",
+			showIdealGemStats = true,
+		},
 	},
 }
 
