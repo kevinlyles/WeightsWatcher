@@ -116,6 +116,7 @@ end
 --moves the editbox focus to the next available edit box
 function changeFocus(currentStatFrame)
 	local frame, offset
+	local timesLooped = 0
 	local elements = ww_config.rightPanel.scrollFrame.shown
 	local position = currentStatFrame.category.position + currentStatFrame.position
 
@@ -132,8 +133,13 @@ function changeFocus(currentStatFrame)
 			else
 				position = 1
 			end
+			timesLooped = timesLooped + 1
 		end
-	until elements[position].statName
+	until timesLooped == 2 or elements[position].statName
+
+	if timesLooped == 2 then
+		return
+	end
 
 	frame = elements[position]
 	if frame then
