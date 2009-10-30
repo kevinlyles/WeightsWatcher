@@ -23,6 +23,12 @@ StaticPopupDialogs["WW_CONFIRM_RESTORE_DEFAULTS"] = {
 			for _, class in ipairs(defaultVars.weightsList) do
 				for _, weight in ipairs(defaultVars.weightsList[class]) do
 					setWeight(class, weight, defaultVars.weightsList[class][weight])
+					if ww_weightCache[class] then
+						ww_weightCache[class][weight] = {}
+					end
+					if ww_weightIdealCache[class] then
+						ww_weightIdealCache[class][weight] = {}
+					end
 				end
 			end
 			if ww_config.rightPanel:IsShown() then
@@ -198,6 +204,15 @@ end
 
 function configSaveWeight()
 	local number
+	local weightFrame = ww_config.rightPanel.weightFrame
+
+	-- The weight is changing, clear any cached info
+	if ww_weightCache[weightFrame.category.class] then
+		ww_weightCache[weightFrame.category.class][weightFrame.name] = {}
+	end
+	if ww_weightIdealCache[weightFrame.category.class] then
+		ww_weightIdealCache[weightFrame.category.class][weightFrame.name] = {}
+	end
 
 	for _, frame in pairs(ww_config.rightPanel.scrollFrame.stats) do
 		if frame.statName then
@@ -213,6 +228,14 @@ end
 function deleteWeight()
 	local point, relativeTo, relativePoint, xOffset, yOffset, removed
 	local weight = ww_config.rightPanel.weightFrame
+
+	-- The weight is being deleted, clear any cached info
+	if ww_weightCache[weight.category.class] then
+		ww_weightCache[weight.category.class][weight.name] = nil
+	end
+	if ww_weightIdealCache[weight.category.class] then
+		ww_weightIdealCache[weight.category.class][weight.name] = nil
+	end
 
 	weight.category.length = weight.category.length - 1
 	for _, weightFrame in ipairs({weight.category:GetChildren()}) do

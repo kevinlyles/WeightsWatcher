@@ -2,6 +2,11 @@ if not WeightsWatcher then
 	WeightsWatcher = AceLibrary("AceAddon-2.0"):new("AceEvent-2.0", "AceHook-2.1")
 end
 
+ww_itemCache = {}
+ww_bareItemCache = {}
+ww_weightCache = {}
+ww_weightIdealCache = {}
+
 function WeightsWatcher:OnInitialize()
 	local tempVars
 
@@ -74,24 +79,25 @@ function WeightsWatcher:OnDisable()
 	end
 end
 
-function WeightsWatcher:displayItemStats(tooltip, ttname)
-	local itemType, stat, name, value
-	-- Item link fields
-	local itemId, gemId1, gemId2, gemId3, gemId4, suffixId, uniqueId, linkLevel
+function WeightsWatcher:cacheItemStats(link)
 	-- Stats: normal stats, sockets, socket bonus, gem-given stats, whether the socket bonus is active, ideal gems, ideal gems ignoring socket bonuses
-	local normalStats, sockets, socketBonusStat, gemStats, socketBonusActive, bestGems, bestGemsIgnoreSocket
-	local _, link = tooltip:GetItem()
+	local normalStats, sockets, socketBonusStat, socketBonusActive, gemStats, bestGems, bestGemsIgnoreSocket
 
-	if link == nil then
-		return
+	_, itemId, _, gemId1, gemId2, gemId3, gemId4, suffixId, uniqueId, linkLevel = strsplit(":", link)
+	-- Strip color codes
+	linkLevel = strsplit("|", linkLevel)
+	bareLink = strjoin(":", "item", itemId, "0:0:0:0:0", suffixId, uniqueId, linkLevel)
+
+	if ww_bareItemCache[bareLink] then
+		normalStats, sockets, socketBonusStat = unpack(ww_bareItemCache[bareLink])
+	else
+		normalStats, sockets, socketBonusStat = WeightsWatcher:getItemStats(bareLink)
+		ww_bareItemCache[bareLink] = {normalStats, sockets, socketBonusStat}
 	end
 
-	_, _, _, _, _, itemType, _, stackSize = GetItemInfo(link)
-	if (IsEquippableItem(link) and itemType ~= "Container" and itemType ~= "Quiver") or (itemType == "Gem" and stackSize == 1) or (itemType == "Consumable") or (itemType == "Recipe") then
-		_, itemId, _, gemId1, gemId2, gemId3, gemId4, suffixId, uniqueId, linkLevel = strsplit(":", link)
-		-- Strip color codes
-		linkLevel = strsplit("|", linkLevel)
-		normalStats, sockets, socketBonusStat = WeightsWatcher:getItemStats(strjoin(":", "item", itemId, "0:0:0:0:0", suffixId, uniqueId, linkLevel))
+	if ww_itemCache[link] then
+		socketBonusActive, gemStats = unpack(ww_itemCache[link])
+	else
 		gemStats = WeightsWatcher:getGemStats({gemId1, gemId2, gemId3, gemId4})
 
 		-- Removes gems in crafted sockets from consideration
@@ -111,24 +117,42 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 			socketBonusActive = false
 		end
 
-		tooltip:AddLine("Current Weights:")
-		for _, class in ipairs(ww_charVars.activeWeights) do
-			if ww_vars.weightsList[class] then
-				for _, weight in pairs(ww_charVars.activeWeights[class]) do
-					if ww_vars.weightsList[class][weight] then
-						tooltip:AddDoubleLine("  " .. weight, string.format("%.3f", WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, ww_vars.weightsList[class][weight])))
+		ww_itemCache[link] = {socketBonusActive, gemStats}
+	end
+
+	for _, class in ipairs(ww_charVars.activeWeights) do
+		if ww_vars.weightsList[class] then
+			if not ww_weightCache[class] then
+				ww_weightCache[class] = {}
+			end
+			for _, weight in pairs(ww_charVars.activeWeights[class]) do
+				if ww_vars.weightsList[class][weight] then
+					if not ww_weightCache[class][weight] then
+						ww_weightCache[class][weight] = {}
+					end
+					if not ww_weightCache[class][weight][link] then
+						ww_weightCache[class][weight][link] = WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, ww_vars.weightsList[class][weight])
 					end
 				end
 			end
 		end
+	end
 
-		-- TODO: move this inline (put it in parentheses?)?
-		if #(sockets) > 0 then
-			tooltip:AddLine("Ideally Gemmed Weights:")
-			for _, class in ipairs(ww_charVars.activeWeights) do
-				if ww_vars.weightsList[class] then
-					for _, weight in pairs(ww_charVars.activeWeights[class]) do
-						if ww_vars.weightsList[class][weight] then
+	if #(sockets) > 0 then
+		for _, class in ipairs(ww_charVars.activeWeights) do
+			if ww_vars.weightsList[class] then
+				if not ww_weightIdealCache[class] then
+					ww_weightIdealCache[class] = {}
+				end
+				for _, weight in pairs(ww_charVars.activeWeights[class]) do
+					if ww_vars.weightsList[class][weight] then
+						if not ww_weightIdealCache[class][weight] then
+							ww_weightIdealCache[class][weight] = {}
+						end
+
+						if not ww_weightIdealCache[class][weight][bareLink] then
+							ww_weightIdealCache[class][weight][bareLink] = {}
+
 							bestGems = {}
 							bestGemsIgnoreSocket = {}
 							socketBonusActive = true
@@ -151,11 +175,54 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 							weightValIgnoreSockets = WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStatsIgnoreSockets, ww_vars.weightsList[class][weight])
 
 							if weightVal < weightValIgnoreSockets then
+								weightVal = weightValIgnoreSockets
 								gemStats = gemStatsIgnoreSockets
-							else
-								socketBonusActive = true
 							end
-							tooltip:AddDoubleLine("  " .. weight, string.format("%.3f", WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, ww_vars.weightsList[class][weight])))
+							ww_weightIdealCache[class][weight][bareLink].gemStats = gemStats
+							ww_weightIdealCache[class][weight][bareLink].score = weightVal
+						end
+					end
+				end
+			end
+		end
+	end
+
+	return bareLink
+end
+
+function WeightsWatcher:displayItemStats(tooltip, ttname)
+	local link, bareLink, itemType, stackSize, sockets, gemStats
+
+	_, link = tooltip:GetItem()
+	if link == nil then
+		return
+	end
+
+	_, _, _, _, _, itemType, _, stackSize = GetItemInfo(link)
+	if (IsEquippableItem(link) and itemType ~= "Container" and itemType ~= "Quiver") or (itemType == "Gem" and stackSize == 1) or (itemType == "Consumable") or (itemType == "Recipe") then
+		bareLink = WeightsWatcher:cacheItemStats(link)
+
+		tooltip:AddLine("Current Weights:")
+		for _, class in ipairs(ww_charVars.activeWeights) do
+			if ww_vars.weightsList[class] then
+				for _, weight in pairs(ww_charVars.activeWeights[class]) do
+					if ww_vars.weightsList[class][weight] then
+						tooltip:AddDoubleLine("  " .. weight, string.format("%.3f", ww_weightCache[class][weight][link]))
+					end
+				end
+			end
+		end
+
+		_, sockets, _ = unpack(ww_bareItemCache[bareLink])
+
+		if #(sockets) > 0 then
+			tooltip:AddLine("Ideally Gemmed Weights:")
+			for _, class in ipairs(ww_charVars.activeWeights) do
+				if ww_vars.weightsList[class] then
+					for _, weight in pairs(ww_charVars.activeWeights[class]) do
+						if ww_vars.weightsList[class][weight] then
+							tooltip:AddDoubleLine("  " .. weight, string.format("%.3f", ww_weightIdealCache[class][weight][bareLink].score))
+							gemStats = ww_weightIdealCache[class][weight][bareLink].gemStats
 							for _, stat in ipairs(gemStats) do
 								tooltip:AddLine("    Using " .. stat[2] .. " (" .. stat[1] .. ")")
 							end
