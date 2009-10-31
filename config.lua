@@ -406,6 +406,7 @@ function createScrollableTieredList(template, scrollFrame, scrolledFrame, elemen
 
 	scrollFrame.categories = {}
 	scrollFrame.shown = {}
+	scrollFrame.elementHeight = elementHeight
 	for i, category in ipairs(template) do
 		--for each category print the header and then the print the list of stats
 		categoryFrame = CreateFrame("Frame", category, scrolledFrame, "ww_categoryFrame")
@@ -417,13 +418,6 @@ function createScrollableTieredList(template, scrollFrame, scrolledFrame, elemen
 		else
 			categoryFrame:SetPoint("TOPLEFT", scrollFrame.categories[i - 1], "BOTTOMLEFT")
 		end
-		categoryFrame.text:SetScript("OnClick",
-			function(self)
-				toggleCollapse(self:GetParent(), scrollFrame, elementHeight,
-					function()
-						scrollFrame:GetScript("OnShow")(scrollFrame)
-					end)
-			end)
 		table.insert(scrollFrame.categories, categoryFrame)
 		table.insert(scrollFrame.shown, categoryFrame.text)
 		categoryFrame.position = #(scrollFrame.shown)
@@ -443,7 +437,7 @@ function createScrollableTieredList(template, scrollFrame, scrolledFrame, elemen
 	end
 end
 
-function toggleCollapse(categoryFrame, scrollFrame, elementHeight, scrollBarUpdateFunction)
+function toggleCollapse(categoryFrame, scrollFrame)
 	if categoryFrame.length == 1 then
 		return
 	end
@@ -459,7 +453,7 @@ function toggleCollapse(categoryFrame, scrollFrame, elementHeight, scrollBarUpda
 			end
 		end
 		categoryFrame.collapsed = false
-		categoryFrame:SetHeight(20 * categoryFrame.length)
+		categoryFrame:SetHeight(scrollFrame.elementHeight * categoryFrame.length)
 	else
 		for _, stat in ipairs({categoryFrame:GetChildren()}) do
 			if stat.name then
@@ -473,9 +467,9 @@ function toggleCollapse(categoryFrame, scrollFrame, elementHeight, scrollBarUpda
 			end
 		end
 		categoryFrame.collapsed = true
-		categoryFrame:SetHeight(20)
+		categoryFrame:SetHeight(scrollFrame.elementHeight)
 	end
-	scrollBarUpdateFunction()
+	scrollFrame:GetScript("OnShow")(scrollFrame)
 end
 
 function ClassDropDownInitialize(dropdown)
