@@ -1,0 +1,15 @@
+Weighted total of a character's gear (like GearScore), but using the default weights for that class/spec
+	add option to use an alternate weight instead/in addition to the default
+	default here is from defaultVars, NOT just the weight with the default's name in ww_vars
+
+import/export from/to wowhead weights
+
+automatic outfit creation using outfitter (and others?)
+	look into supporting just the equipment manger if possible
+	needs to handle hit/expertise/def/etc caps intelligently
+
+option to consider enchants when comparing gear
+
+better user interaction re: unhandled gems, major errors, etc
+
+suggestions welcome!
