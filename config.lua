@@ -49,8 +49,8 @@ StaticPopupDialogs["WW_CONFIRM_RESTORE_DEFAULTS"] = {
 					end
 				end
 			end
-			if ww_config.rightPanel:IsShown() then
-				configSelectWeight(ww_config.rightPanel.weightFrame)
+			if ww_weights.rightPanel:IsShown() then
+				configSelectWeight(ww_weights.rightPanel.weightFrame)
 			end
 		end,
 	showAlert = true,
@@ -73,18 +73,18 @@ function commandHandler(msg)
 	open_config()
 end
 
---initializes config variables and frames
-function initializeConfig()
+-- initializes weights config frames and variables
+function initializeWeightsConfig()
 	loadClassButtons()
 	loadStatButtons()
 end
 
 --display or hide the frame
 function open_config()
-	if ww_config:IsVisible() then
-		ww_config:Hide()
+	if ww_weights:IsVisible() then
+		ww_weights:Hide()
 	else
-		ww_config:Show()
+		ww_weights:Show()
 	end
 end
 
@@ -135,7 +135,7 @@ end
 function changeFocus(currentStatFrame)
 	local frame, offset
 	local timesLooped = 0
-	local elements = ww_config.rightPanel.scrollFrame.shown
+	local elements = ww_weights.rightPanel.scrollFrame.shown
 	local position = currentStatFrame.category.position + currentStatFrame.position
 
 	if IsShiftKeyDown() then
@@ -167,16 +167,16 @@ function changeFocus(currentStatFrame)
 			else
 				offset = (position - 22) * 5
 			end
-			FauxScrollFrame_SetOffset(ww_config.rightPanel.scrollFrame, offset)
-			ww_config.rightPanel.scrollFrame:GetScript("OnVerticalScroll")(ww_config.rightPanel.scrollFrame, offset * 22)
+			FauxScrollFrame_SetOffset(ww_weights.rightPanel.scrollFrame, offset)
+			ww_weights.rightPanel.scrollFrame:GetScript("OnVerticalScroll")(ww_weights.rightPanel.scrollFrame, offset * 22)
 		end
 		frame.statValue:SetFocus()
 	end
 end
 
 function configDiscardChanges(func)
-	if ww_config.rightPanel:IsShown() and ww_config.rightPanel.changedStats then
-		for _, _ in pairs(ww_config.rightPanel.changedStats) do
+	if ww_weights.rightPanel:IsShown() and ww_weights.rightPanel.changedStats then
+		for _, _ in pairs(ww_weights.rightPanel.changedStats) do
 			local popup = StaticPopup_Show("WW_CONFIRM_DISCARD_CHANGES")
 			popup.data = func
 			return
@@ -186,7 +186,7 @@ function configDiscardChanges(func)
 end
 
 function selectWeight(class, name)
-	for _, classFrame in ipairs(ww_config.leftPanel.scrollFrame.categories) do
+	for _, classFrame in ipairs(ww_weights.leftPanel.scrollFrame.categories) do
 		if classFrame.class == class then
 			local children = {classFrame:GetChildren()}
 			configSelectWeight(children[classFrame:GetNumChildren()])
@@ -199,19 +199,19 @@ end
 function configSelectWeight(weightFrame)
 	local empty
 
-	if ww_config.rightPanel.weightFrame then
-		ww_config.rightPanel.weightFrame.text.highlightFrame:Hide()
+	if ww_weights.rightPanel.weightFrame then
+		ww_weights.rightPanel.weightFrame.text.highlightFrame:Hide()
 	end
 	weightFrame.text.highlightFrame:Show()
 
-	ww_config.rightPanel.weightFrame = weightFrame
-	ww_config.rightPanel.statList = ww_vars.weightsList[weightFrame.category.class][weightFrame.name]
-	ww_config.rightPanel.changedStats = {}
+	ww_weights.rightPanel.weightFrame = weightFrame
+	ww_weights.rightPanel.statList = ww_vars.weightsList[weightFrame.category.class][weightFrame.name]
+	ww_weights.rightPanel.changedStats = {}
 
 	-- Fills the right panel with the current weight's stats
 	configResetWeight()
 
-	for _, categoryFrame in ipairs(ww_config.rightPanel.scrollFrame.categories) do
+	for _, categoryFrame in ipairs(ww_weights.rightPanel.scrollFrame.categories) do
 		empty = true
 		for _, statFrame in ipairs({categoryFrame:GetChildren()}) do
 			if statFrame.statName then
@@ -226,18 +226,18 @@ function configSelectWeight(weightFrame)
 		end
 	end
 
-	ww_config.rightPanel.header:SetText(weightFrame.category.name .. " - " .. weightFrame.name)
-	ww_config.rightPanel:Show()
+	ww_weights.rightPanel.header:SetText(weightFrame.category.name .. " - " .. weightFrame.name)
+	ww_weights.rightPanel:Show()
 end
 
 function configResetWeight()
 	local value
 	local changed = false
 
-	if ww_config.rightPanel.changedStats then
-		for statValue, statName in pairs(ww_config.rightPanel.changedStats) do
+	if ww_weights.rightPanel.changedStats then
+		for statValue, statName in pairs(ww_weights.rightPanel.changedStats) do
 			changed = true
-			value = ww_config.rightPanel.statList[statName]
+			value = ww_weights.rightPanel.statList[statName]
 			if not value then
 				value = ""
 			end
@@ -245,9 +245,9 @@ function configResetWeight()
 		end
 	end
 	if not changed then
-		for _, frame in pairs(ww_config.rightPanel.scrollFrame.stats) do
+		for _, frame in pairs(ww_weights.rightPanel.scrollFrame.stats) do
 			if frame.statName then
-				value = ww_config.rightPanel.statList[frame.statName]
+				value = ww_weights.rightPanel.statList[frame.statName]
 				if not value then
 					value = ""
 				end
@@ -256,18 +256,18 @@ function configResetWeight()
 		end
 	end
 
-	ww_config.rightPanel.changedStats = {}
-	ww_config.rightPanel.saveButton:Disable()
-	ww_config.rightPanel.resetButton:Disable()
+	ww_weights.rightPanel.changedStats = {}
+	ww_weights.rightPanel.saveButton:Disable()
+	ww_weights.rightPanel.resetButton:Disable()
 end
 
 function configDeleteWeight()
-	StaticPopup_Show("WW_CONFIRM_WEIGHT_DELETE", ww_config.rightPanel.weightFrame.category.name, ww_config.rightPanel.weightFrame.name)
+	StaticPopup_Show("WW_CONFIRM_WEIGHT_DELETE", ww_weights.rightPanel.weightFrame.category.name, ww_weights.rightPanel.weightFrame.name)
 end
 
 function configSaveWeight()
 	local number
-	local weightFrame = ww_config.rightPanel.weightFrame
+	local weightFrame = ww_weights.rightPanel.weightFrame
 
 	-- The weight is changing, clear any cached info
 	if ww_weightCache[weightFrame.category.class] then
@@ -277,22 +277,22 @@ function configSaveWeight()
 		ww_weightIdealCache[weightFrame.category.class][weightFrame.name] = {}
 	end
 
-	for statValue, statName in pairs(ww_config.rightPanel.changedStats) do
+	for statValue, statName in pairs(ww_weights.rightPanel.changedStats) do
 		number = statValue:GetNumber()
 		if number == 0 then
 			number = nil
 		end
-		ww_config.rightPanel.statList[statName] = number
+		ww_weights.rightPanel.statList[statName] = number
 	end
 
-	ww_config.rightPanel.changedStats = {}
-	ww_config.rightPanel.saveButton:Disable()
-	ww_config.rightPanel.resetButton:Disable()
+	ww_weights.rightPanel.changedStats = {}
+	ww_weights.rightPanel.saveButton:Disable()
+	ww_weights.rightPanel.resetButton:Disable()
 end
 
 function deleteWeight()
 	local point, relativeTo, relativePoint, xOffset, yOffset, removed
-	local weight = ww_config.rightPanel.weightFrame
+	local weight = ww_weights.rightPanel.weightFrame
 
 	-- The weight is being deleted, clear any cached info
 	if ww_weightCache[weight.category.class] then
@@ -316,12 +316,12 @@ function deleteWeight()
 		end
 	end
 	if not weight.category.collapsed then
-		for _, classFrame in ipairs(ww_config.leftPanel.scrollFrame.categories) do
+		for _, classFrame in ipairs(ww_weights.leftPanel.scrollFrame.categories) do
 			if classFrame.position > weight.category.position then
 				classFrame.position = classFrame.position - 1
 			end
 		end
-		table.remove(ww_config.leftPanel.scrollFrame.shown, weight.category.position + weight.position)
+		table.remove(ww_weights.leftPanel.scrollFrame.shown, weight.category.position + weight.position)
 		weight.category:SetHeight(22 * weight.category.length)
 	end
 	weight:Hide()
@@ -350,8 +350,8 @@ function deleteWeight()
 			end
 		end
 	end
-	ww_config.rightPanel:Hide()
-	ww_config.leftPanel.scrollFrame:GetScript("OnShow")(ww_config.leftPanel.scrollFrame)
+	ww_weights.rightPanel:Hide()
+	ww_weights.leftPanel.scrollFrame:GetScript("OnShow")(ww_weights.leftPanel.scrollFrame)
 end
 
 function configNewWeight(class, weight, statList)
@@ -376,7 +376,7 @@ function setWeight(class, weight, statList)
 	local weightFrame, position
 
 	if not ww_vars.weightsList[class][weight] then
-		for _, classFrame in ipairs(ww_config.leftPanel.scrollFrame.categories) do
+		for _, classFrame in ipairs(ww_weights.leftPanel.scrollFrame.categories) do
 			if classFrame.class == class then
 				position = classFrame.length
 				weightFrame = CreateFrame("Frame", weight, classFrame, "ww_weightFrame")
@@ -390,8 +390,8 @@ function setWeight(class, weight, statList)
 					weightFrame:Hide()
 				else
 					classFrame:SetHeight(22 * classFrame.length)
-					table.insert(ww_config.leftPanel.scrollFrame.shown, classFrame.position + position, weightFrame)
-					for _, class in ipairs(ww_config.leftPanel.scrollFrame.categories) do
+					table.insert(ww_weights.leftPanel.scrollFrame.shown, classFrame.position + position, weightFrame)
+					for _, class in ipairs(ww_weights.leftPanel.scrollFrame.categories) do
 						if class.position > classFrame.position then
 							class.position = class.position + 1
 						end
@@ -401,7 +401,7 @@ function setWeight(class, weight, statList)
 			end
 		end
 		table.insert(ww_vars.weightsList[class], weight)
-		ww_config.leftPanel.scrollFrame:GetScript("OnShow")(ww_config.leftPanel.scrollFrame)
+		ww_weights.leftPanel.scrollFrame:GetScript("OnShow")(ww_weights.leftPanel.scrollFrame)
 	end
 	ww_vars.weightsList[class][weight] = deepTableCopy(statList)
 end
@@ -420,10 +420,10 @@ function loadClassButtons()
 		end
 	end
 
-	createScrollableTieredList(classes, ww_config.leftPanel.scrollFrame, ww_config.leftPanel.scrollContainer, "ww_weightFrame", 22)
+	createScrollableTieredList(classes, ww_weights.leftPanel.scrollFrame, ww_weights.leftPanel.scrollContainer, "ww_weightFrame", 22)
 
 	local _, class = UnitClass("player")
-	for _, classFrame in ipairs(ww_config.leftPanel.scrollFrame.categories) do
+	for _, classFrame in ipairs(ww_weights.leftPanel.scrollFrame.categories) do
 		classFrame.class = revClassLookup[classFrame.text:GetText()]
 		if classFrame.class ~= class then
 			classFrame.text:Click()
@@ -446,9 +446,9 @@ end
 function loadStatButtons()
 	local stats = {}
 
-	createScrollableTieredList(trackedStats, ww_config.rightPanel.scrollFrame, ww_config.rightPanel.scrollContainer, "ww_statFrame", 22)
+	createScrollableTieredList(trackedStats, ww_weights.rightPanel.scrollFrame, ww_weights.rightPanel.scrollContainer, "ww_statFrame", 22)
 
-	for _, categoryFrame in ipairs(ww_config.rightPanel.scrollFrame.categories) do
+	for _, categoryFrame in ipairs(ww_weights.rightPanel.scrollFrame.categories) do
 		local children = {categoryFrame:GetChildren()}
 		for i, statFrame in ipairs(children) do
 			if statFrame.name then
@@ -458,7 +458,7 @@ function loadStatButtons()
 		end
 	end
 
-	ww_config.rightPanel.scrollFrame.stats = stats
+	ww_weights.rightPanel.scrollFrame.stats = stats
 end
 
 -- Creates a tiered list that can be scrolled

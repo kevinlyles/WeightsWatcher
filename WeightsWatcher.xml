@@ -1,12 +1,13 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
 	<Script file="config.lua"/>
-	<!--Default String used to allow for left alignment with script generated fontstrings-->
+	<!--Default String used to allow for simpler left alignment in script generated fontstrings-->
 	<FontString name="ww_defaultString" inherits="GameFontNormalSmall" virtual="true">
 		<Anchors>
 			<Anchor point="LEFT"/>
 		</Anchors>
 	</FontString>
+	<!-- Adds a border that can be hidden/shown as a unit -->
 	<Frame name="ww_highlightedFrame" virtual="true" hidden="true">
 		<Layers>
 			<Layer level="BACKGROUND">
@@ -49,7 +50,7 @@
 			</Layer>
 		</Layers>
 	</Frame>
-	<!--virtual frame used to allow for script generated frames with stat information-->
+	<!-- virtual frame used for categories in tiered lists -->
 	<Frame name="ww_categoryFrame" virtual="true">
 		<Size>
 			<AbsDimension y="22"/>
@@ -189,21 +190,21 @@
 						if self:GetNumber() ~= 0 or text:match("^[0.]+$") or text == "" then
 							self.number = text
 						end
-						if self:GetNumber() == ww_config.rightPanel.statList[self:GetParent().statName] or (self:GetNumber() == 0 and not ww_config.rightPanel.statList[self:GetParent().statName]) then
-							ww_config.rightPanel.changedStats[self] = nil
+						if self:GetNumber() == ww_weights.rightPanel.statList[self:GetParent().statName] or (self:GetNumber() == 0 and not ww_weights.rightPanel.statList[self:GetParent().statName]) then
+							ww_weights.rightPanel.changedStats[self] = nil
 							local changed = false
-							for _ in pairs(ww_config.rightPanel.changedStats) do
+							for _ in pairs(ww_weights.rightPanel.changedStats) do
 								changed = true
 								break
 							end
 							if not changed then
-								ww_config.rightPanel.saveButton:Disable()
-								ww_config.rightPanel.resetButton:Disable()
+								ww_weights.rightPanel.saveButton:Disable()
+								ww_weights.rightPanel.resetButton:Disable()
 							end
 						else
-							ww_config.rightPanel.changedStats[self] = self:GetParent().statName
-							ww_config.rightPanel.saveButton:Enable()
-							ww_config.rightPanel.resetButton:Enable()
+							ww_weights.rightPanel.changedStats[self] = self:GetParent().statName
+							ww_weights.rightPanel.saveButton:Enable()
+							ww_weights.rightPanel.resetButton:Enable()
 						end
 					</OnTextChanged>
 					<OnChar>
@@ -338,8 +339,8 @@
 			</Button>
 		</Frames>
 	</Frame>
-	<!--The Parent Frame Containing all configuration content-->
-	<Frame name="ww_config" parent="UIParent" hidden="true" frameStrata="HIGH">
+	<!-- The frame containing all weight-related content -->
+	<Frame name="ww_weights" parent="UIParent" hidden="true" frameStrata="HIGH">
 		<Size>
 			<AbsDimension x="600" y="600"/>
 		</Size>
@@ -405,7 +406,7 @@
 						</Anchors>
 						<Scripts>
 							<OnShow>
-								scrollBarUpdate(self, ww_config.leftPanel.scrollContainer, 22, 0, 25)
+								scrollBarUpdate(self, ww_weights.leftPanel.scrollContainer, 22, 0, 25)
 							</OnShow>
 							<OnVerticalScroll>
 								FauxScrollFrame_OnVerticalScroll(self, offset, 22, self:GetScript("OnShow"))
@@ -545,7 +546,7 @@
 						</Anchors>
 						<Scripts>
 							<OnShow>
-								scrollBarUpdate(self, ww_config.rightPanel.scrollContainer, 22, -30, 22)
+								scrollBarUpdate(self, ww_weights.rightPanel.scrollContainer, 22, -30, 22)
 							</OnShow>
 							<OnVerticalScroll>
 								FauxScrollFrame_OnVerticalScroll(self, offset, 22, self:GetScript("OnShow"))
@@ -555,7 +556,7 @@
 				</Frames>
 				<Scripts>
 					<OnShow>
-						if not ww_config.popup then
+						if not ww_weights.popup then
 							changeFocus(self.scrollFrame.stats[#(self.scrollFrame.stats)])
 						end
 					</OnShow>
@@ -577,7 +578,7 @@
 				</Anchors>
 				<Scripts>
 					<OnClick>
-						if ww_config.rightPanel.weightFrame and defaultVars.weightsList[ww_config.rightPanel.weightFrame.category.class][ww_config.rightPanel.weightFrame.name] then
+						if ww_weights.rightPanel.weightFrame and defaultVars.weightsList[ww_weights.rightPanel.weightFrame.category.class][ww_weights.rightPanel.weightFrame.name] then
 							StaticPopup_Show("WW_CONFIRM_RESTORE_DEFAULTS")
 						else
 							configDiscardChanges(function()
