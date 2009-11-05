@@ -154,6 +154,22 @@
 						if self:GetNumber() ~= 0 or text:match("^[0.]+$") or text == "" then
 							self.number = text
 						end
+						if self:GetNumber() == ww_config.rightPanel.statList[self:GetParent().statName] or (self:GetNumber() == 0 and not ww_config.rightPanel.statList[self:GetParent().statName]) then
+							ww_config.rightPanel.changedStats[self] = nil
+							local changed = false
+							for _ in pairs(ww_config.rightPanel.changedStats) do
+								changed = true
+								break
+							end
+							if not changed then
+								ww_config.rightPanel.saveButton:Disable()
+								ww_config.rightPanel.resetButton:Disable()
+							end
+						else
+							ww_config.rightPanel.changedStats[self] = self:GetParent().statName
+							ww_config.rightPanel.saveButton:Enable()
+							ww_config.rightPanel.resetButton:Enable()
+						end
 					</OnTextChanged>
 					<OnChar>
 						if validateNumber(text, self:GetText()) then
@@ -262,7 +278,9 @@
 				</Frames>
 				<Scripts>
 					<OnClick>
-						configSelectWeight(self:GetParent())
+						configDiscardChanges(function()
+								configSelectWeight(self:GetParent())
+							end)
 					</OnClick>
 					<OnLoad>
 						self:SetFontString(self:CreateFontString(nil, "OVERLAY", "ww_defaultString"))
@@ -480,7 +498,9 @@
 				</Frames>
 				<Scripts>
 					<OnShow>
-						changeFocus(self.scrollFrame.stats[#(self.scrollFrame.stats)])
+						if not ww_config.popup then
+							changeFocus(self.scrollFrame.stats[#(self.scrollFrame.stats)])
+						end
 					</OnShow>
 				</Scripts>
 			</Frame>
@@ -500,7 +520,13 @@
 				</Anchors>
 				<Scripts>
 					<OnClick>
-						StaticPopup_Show("WW_CONFIRM_RESTORE_DEFAULTS")
+						if ww_config.rightPanel.weightFrame and defaultVars.weightsList[ww_config.rightPanel.weightFrame.category.class][ww_config.rightPanel.weightFrame.name] then
+							StaticPopup_Show("WW_CONFIRM_RESTORE_DEFAULTS")
+						else
+							configDiscardChanges(function()
+									StaticPopup_Show("WW_CONFIRM_RESTORE_DEFAULTS")
+								end)
+						end
 					</OnClick>
 				</Scripts>
 			</Button>
@@ -523,6 +549,23 @@
 			<OnLoad>
 				table.insert(UISpecialFrames, self:GetName());
 			</OnLoad>
+			<OnHide>
+				if self.reallyClose then
+					self.reallyClose = nil
+				else
+					self.popup = true
+					self:Show()
+					configDiscardChanges(function()
+							self.reallyClose = true
+							<!-- Safe because configDiscardChanges will save the weight first -->
+							if self.rightPanel:IsShown() then
+								configResetWeight()
+							end
+							self:Hide()
+						end)
+					self.popup = nil
+				end
+			</OnHide>
 		</Scripts>
 	</Frame>
 	<Frame name="ww_newWeight" parent="UIParent" hidden="true" frameStrata="DIALOG">

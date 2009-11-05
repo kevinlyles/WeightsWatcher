@@ -2,6 +2,24 @@ if not WeightsWatcher then
 	WeightsWatcher = AceLibrary("AceAddon-2.0"):new("AceEvent-2.0", "AceHook-2.1")
 end
 
+StaticPopupDialogs["WW_CONFIRM_DISCARD_CHANGES"] = {
+	text = "You have unsaved changes for this weight.",
+	button1 = "Discard",
+	button3 = "Save",
+	button2 = "Cancel",
+	OnAccept = function(self, func)
+			func()
+		end,
+	OnAlt = function(self, func)
+			configSaveWeight()
+			func()
+		end,
+	showAlert = true,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = true,
+}
+
 StaticPopupDialogs["WW_CONFIRM_WEIGHT_DELETE"] = {
 	text = "Are you sure you want to delete the %s weight named \"%s\"?",
 	button1 = "Delete",
@@ -156,6 +174,17 @@ function changeFocus(currentStatFrame)
 	end
 end
 
+function configDiscardChanges(func)
+	if ww_config.rightPanel:IsShown() and ww_config.rightPanel.changedStats then
+		for _, _ in pairs(ww_config.rightPanel.changedStats) do
+			local popup = StaticPopup_Show("WW_CONFIRM_DISCARD_CHANGES")
+			popup.data = func
+			return
+		end
+	end
+	func()
+end
+
 function selectWeight(class, name)
 	for _, classFrame in ipairs(ww_config.leftPanel.scrollFrame.categories) do
 		if classFrame.class == class then
@@ -177,6 +206,7 @@ function configSelectWeight(weightFrame)
 
 	ww_config.rightPanel.weightFrame = weightFrame
 	ww_config.rightPanel.statList = ww_vars.weightsList[weightFrame.category.class][weightFrame.name]
+	ww_config.rightPanel.changedStats = {}
 
 	-- Fills the right panel with the current weight's stats
 	configResetWeight()
@@ -202,16 +232,33 @@ end
 
 function configResetWeight()
 	local value
+	local changed = false
 
-	for _, frame in pairs(ww_config.rightPanel.scrollFrame.stats) do
-		if frame.statName then
-			value = ww_config.rightPanel.statList[frame.statName]
+	if ww_config.rightPanel.changedStats then
+		for statValue, statName in pairs(ww_config.rightPanel.changedStats) do
+			changed = true
+			value = ww_config.rightPanel.statList[statName]
 			if not value then
 				value = ""
 			end
-			frame.statValue:SetText(value)
+			statValue:SetText(value)
 		end
 	end
+	if not changed then
+		for _, frame in pairs(ww_config.rightPanel.scrollFrame.stats) do
+			if frame.statName then
+				value = ww_config.rightPanel.statList[frame.statName]
+				if not value then
+					value = ""
+				end
+				frame.statValue:SetText(value)
+			end
+		end
+	end
+
+	ww_config.rightPanel.changedStats = {}
+	ww_config.rightPanel.saveButton:Disable()
+	ww_config.rightPanel.resetButton:Disable()
 end
 
 function configDeleteWeight()
@@ -230,15 +277,17 @@ function configSaveWeight()
 		ww_weightIdealCache[weightFrame.category.class][weightFrame.name] = {}
 	end
 
-	for _, frame in pairs(ww_config.rightPanel.scrollFrame.stats) do
-		if frame.statName then
-			number = frame.statValue:GetNumber()
-			if number == 0 then
-				number = nil
-			end
-			ww_config.rightPanel.statList[frame.statName] = number
+	for statValue, statName in pairs(ww_config.rightPanel.changedStats) do
+		number = statValue:GetNumber()
+		if number == 0 then
+			number = nil
 		end
+		ww_config.rightPanel.statList[statName] = number
 	end
+
+	ww_config.rightPanel.changedStats = {}
+	ww_config.rightPanel.saveButton:Disable()
+	ww_config.rightPanel.resetButton:Disable()
 end
 
 function deleteWeight()
@@ -306,19 +355,21 @@ function deleteWeight()
 end
 
 function configNewWeight(class, weight, statList)
-	-- Need to call show first to re-initialize the dropdown
-	ww_newWeight:Show()
-	if class then
-		UIDropDownMenu_SetSelectedValue(ww_newWeight.dropdown, class, false)
-	end
-	ww_newWeight.editBox:SetText("")
-	if weight then
-		ww_newWeight.editBox:SetText(weight)
-	end
-	if not statList then
-		statList = {}
-	end
-	ww_newWeight.statList = statList
+	configDiscardChanges(function()
+			-- Need to call show first to re-initialize the dropdown
+			ww_newWeight:Show()
+			if class then
+				UIDropDownMenu_SetSelectedValue(ww_newWeight.dropdown, class, false)
+			end
+			ww_newWeight.editBox:SetText("")
+			if weight then
+				ww_newWeight.editBox:SetText(weight)
+			end
+			if not statList then
+				statList = {}
+			end
+			ww_newWeight.statList = statList
+		end)
 end
 
 function setWeight(class, weight, statList)
