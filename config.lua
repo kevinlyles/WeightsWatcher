@@ -15,6 +15,10 @@ function commandHandler(msg)
 		else
 			ww_weights:Show()
 		end
+	elseif msg == "version" then
+		print("WeightsWatcher version: 1.0a1")
+		print("  Account data version: " .. ww_vars.dataMajorVersion .. "." .. ww_vars.dataMinorVersion)
+		print("  Character data version: " .. ww_charVars.dataMajorVersion .. "." .. ww_charVars.dataMinorVersion)
 	else
 		printHelp()
 	end
@@ -23,7 +27,8 @@ end
 function printHelp()
 	print("WeightsWatcher help:")
 	print("Type /weightswatcher <arg> (or /ww <arg>)")
-	print("  config     opens the main configuration window")
-	print("  weights  opens the weights configuration window")
-	print("  help        displays this message")
+	print("  config      opens the main configuration window")
+	print("  weights   opens the weights configuration window")
+	print("  version    displays version information")
+	print("  help         displays this message")
 end
