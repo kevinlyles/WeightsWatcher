@@ -4,12 +4,21 @@ end
 
 function commandHandler(msg)
 	if msg == "config" then
+		ww_weights:Hide()
+		-- TODO: make this work better with the confirmDiscardChanges dialog
+		if ww_weights:IsShown() then
+			return
+		end
 		if ww_config:IsVisible() then
 			ww_config:Hide()
 		else
 			ww_config:Show()
 		end
 	elseif msg == "weights" then
+		ww_config:Hide()
+		if ww_config:IsShown() then
+			return
+		end
 		if ww_weights:IsVisible() then
 			ww_weights:Hide()
 		else
