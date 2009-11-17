@@ -156,6 +156,16 @@ function changeFocus(currentStatFrame)
 	end
 end
 
+function selectWeight(class, name)
+	for _, classFrame in ipairs(ww_config.leftPanel.scrollFrame.categories) do
+		if classFrame.class == class then
+			local children = {classFrame:GetChildren()}
+			configSelectWeight(children[classFrame:GetNumChildren()])
+			break
+		end
+	end
+end
+
 --opens a new config pane to edit stat weights
 function configSelectWeight(weightFrame)
 	local empty

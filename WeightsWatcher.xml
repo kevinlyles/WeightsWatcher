@@ -122,7 +122,7 @@
 					</Anchor>
 				</Anchors>
 			</Frame>
-			<EditBox letters="16" name="$parentStatValue" parentKey="statValue">
+			<EditBox letters="16" name="$parentStatValue" parentKey="statValue" autoFocus="false">
 				<Size>
 					<AbsDimension x="130" y="20"/>
 				</Size>
@@ -175,6 +175,9 @@
 					<OnTabPressed>
 						changeFocus(self:GetParent())
 					</OnTabPressed>
+					<OnEscapePressed>
+						self:ClearFocus()
+					</OnEscapePressed>
 				</Scripts>
 			</EditBox>
 		</Frames>
@@ -475,6 +478,11 @@
 						</Scripts>
 					</ScrollFrame>
 				</Frames>
+				<Scripts>
+					<OnShow>
+						changeFocus(self.scrollFrame.stats[#(self.scrollFrame.stats)])
+					</OnShow>
+				</Scripts>
 			</Frame>
 			<!--Close Button for the configuration window-->
 			<Button name="$parentCloseButton" parentKey="closeButton" inherits="UIPanelCloseButton">
@@ -511,6 +519,11 @@
 				</Scripts>
 			</Button>
 		</Frames>
+		<Scripts>
+			<OnLoad>
+				table.insert(UISpecialFrames, self:GetName());
+			</OnLoad>
+		</Scripts>
 	</Frame>
 	<Frame name="ww_newWeight" parent="UIParent" hidden="true" frameStrata="DIALOG">
 		<Size>
@@ -626,6 +639,20 @@
 							self:GetParent().createButton:Enable()
 						end
 					</OnTextChanged>
+					<OnEnterPressed>
+						if StaticPopup_Visible("WW_WEIGHT_EXISTS") then
+							StaticPopup_Hide("WW_WEIGHT_EXISTS")
+						else
+							self:GetParent().createButton:Click()
+						end
+					</OnEnterPressed>
+					<OnEscapePressed>
+						if StaticPopup_Visible("WW_WEIGHT_EXISTS") then
+							StaticPopup_Hide("WW_WEIGHT_EXISTS")
+						else
+							self:GetParent().cancelButton:Click()
+						end
+					</OnEscapePressed>
 				</Scripts>
 			</EditBox>
 			<Button name="$parentCreateButton" parentKey="createButton" inherits="UIPanelButtonTemplate" text="Create">
@@ -647,13 +674,7 @@
 							local error = StaticPopup_Show("WW_WEIGHT_EXISTS", classNames[class], name)
 						else
 							setWeight(class, name, self:GetParent().statList)
-							for _, classFrame in ipairs(ww_config.leftPanel.scrollFrame.categories) do
-								if classFrame.class == class then
-									local children = {classFrame:GetChildren()}
-									configSelectWeight(children[classFrame:GetNumChildren()])
-									break
-								end
-							end
+							selectWeight(class, name)
 							self:GetParent():Hide()
 						end
 					</OnClick>
@@ -677,5 +698,10 @@
 				</Scripts>
 			</Button>
 		</Frames>
+		<Scripts>
+			<OnShow>
+				self.editBox:SetFocus()
+			</OnShow>
+		</Scripts>
 	</Frame>
 </Ui>
