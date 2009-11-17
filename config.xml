@@ -1,6 +1,97 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+	<Script file="config.lua"/>
 	<Frame name="ww_config" parent="UIParent" hidden="true" frameStrata="HIGH">
+		<Size>
+			<AbsDimension x="600" y="600"/>
+		</Size>
+		<Anchors>
+			<Anchor point="CENTER"/>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture setAllPoints="true">
+					<!--Plain black background with 80% alpha-->
+					<Color r="0" g="0" b="0" a="0.8"/>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<FontString name="$parentGemQualityLabel" parentKey="gemQualityLabel" text="Maximum Ideal Gem Quality:" inherits="GameFontNormal">
+					<Anchors>
+<!-- 						Broken -->
+<!--						<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentNormalizeWeights"/>-->
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="5" y="-40"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="$parentCloseButton" parentKey="closeButton" inherits="UIPanelCloseButton">
+				<Anchors>
+					<Anchor point="TOPRIGHT"/>
+				</Anchors>
+			</Button>
+			<CheckButton name="$parentNormalizeWeights" parentKey="normalizeWeights" inherits="UICheckButtonTemplate" text="Normalize weights">
+				<Size>
+					<AbsDimension x="25" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="10" y="-10"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						if self:GetChecked() then
+							ww_vars.options.normalizeWeights = true
+						else
+							ww_vars.options.normalizeWeights = false
+						end
+						ww_weightCache = {}
+						ww_weightIdealCache = {}
+					</OnClick>
+					<OnEnter>
+						GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
+						GameTooltip:AddLine("Divides item scores by the total of all stats' values in that weight", 1, 1, 1)
+						GameTooltip:Show()
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide()
+					</OnLeave>
+					<OnLoad>
+						getglobal(self:GetName() .. "Text"):SetText(self:GetText())
+					</OnLoad>
+					<OnShow>
+						self:SetChecked(ww_vars.options.normalizeWeights)
+					</OnShow>
+				</Scripts>
+			</CheckButton>
+			<Button name="$parentGemQuality" parentKey="gemQuality" inherits="UIDropDownMenuTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentGemQualityLabel">
+						<Offset>
+							<AbsDimension y="-5"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						UIDropDownMenu_SetWidth(self, 200, 15)
+						UIDropDownMenu_JustifyText(self, "LEFT")
+					</OnLoad>
+					<OnShow>
+						UIDropDownMenu_Initialize(self, GemQualityDropDownInitialize)
+						UIDropDownMenu_SetSelectedValue(self, ww_vars.options.gemQualityLimit)
+					</OnShow>
+				</Scripts>
+			</Button>
+		</Frames>
 		<Scripts>
 			<OnLoad>
 				table.insert(UISpecialFrames, self:GetName());

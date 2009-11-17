@@ -86,6 +86,20 @@ classNames = {
 	["WARRIOR"] = "Warrior",
 }
 
+gemQualityNames = {
+	[1] = "Burning Crusade common",
+	[2] = "Burning Crusade uncommon",
+	[3] = "Burning Crusade rare",
+	[4] = "Burning Crusade epic",
+	[5] = "Burning Crusade unique-equipped",
+	[6] = "Wrath uncommon",
+	[7] = "Wrath perfect uncommon",
+	[8] = "Wrath rare",
+	[9] = "Wrath epic",
+	[10] = "Wrath unique-equipped",
+	[11] = "Wrath jewelcrafter-only",
+}
+
 keyDetectors = {
 	[true] = function() return true end,
 	[false] = function() return false end,

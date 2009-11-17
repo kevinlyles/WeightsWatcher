@@ -41,3 +41,22 @@ function printHelp()
 	print("  version    displays version information")
 	print("  help         displays this message")
 end
+
+function GemQualityDropDownInitialize(dropdown)
+	local info = {}
+
+	info.func = GemQualityDropDownOnClick
+	info.arg1 = dropdown
+	for num, name in ipairs(gemQualityNames) do
+		info.text = name
+		info.value = num
+		info.checked = nil
+		UIDropDownMenu_AddButton(info)
+	end
+end
+
+function GemQualityDropDownOnClick(choice, dropdown)
+	UIDropDownMenu_SetSelectedValue(dropdown, choice.value, false)
+	ww_vars.options.gemQualityLimit = choice.value
+	ww_weightIdealCache = {}
+end
