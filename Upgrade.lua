@@ -112,6 +112,11 @@ function stringsToFuncs(strTable)
 	return funcTable
 end
 
+function noop_up(vars)
+	vars.dataMinorVersion = vars.dataMinorVersion + 1
+	return vars
+end
+
 noop_down = [[
 	return function(vars)
 		vars.dataMinorVersion = vars.dataMinorVersion - 1
@@ -269,6 +274,7 @@ upgradeAccountFunctions = {
 		[2] = function(vars) return upgradeAccountToGemQuality(vars) end,
 		[3] = function(vars) return upgradeAccountToOrderedLists(vars) end,
 		[4] = function(vars) return upgradeAccountToHandleModifierKeys(vars) end,
+		[5] = function(vars) return noop_up(vars) end,
 	},
 }
 
@@ -278,6 +284,7 @@ downgradeAccountFunctions = {
 		[3] = noop_down,
 		[4] = downgradeAccountFromOrderedLists,
 		[5] = noop_down,
+		[6] = noop_down,
 	},
 }
 
