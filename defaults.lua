@@ -28,7 +28,7 @@ trackedStats = {
 		"Strength",
 		"Armor Penetration Rating",
 		"Expertise Rating",
-		"Weapon DPS",
+		"DPS",
 		"Minimum Weapon Damage",
 		"Maximum Weapon Damage",
 	},
@@ -60,7 +60,7 @@ trackedStats = {
 		"Stun Resistance Percent",
 		"Threat Percent",
 		"Threat Reduction Percent",
-		"Weapon Damage (Not to be Confused with weapon dps)",
+		"Weapon Damage",
 	},
 	["Resistances"] = {
 		"Arcane",
