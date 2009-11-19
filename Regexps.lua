@@ -14,6 +14,7 @@ Preprocess = {
 	{"^Use: .*%.  If you spend at least %d+ seconds eating you will become well fed and gain ([%a%d][%a%d, ]+) for .*%.", "%1"},
 	{"Cat, Bear, Dire Bear, and Moonkin forms", "Cat/Bear/Dire Bear/Moonkin forms"},
 	{"maximum health", "health"},
+	{"Mana every 5 seconds", "MP5"},
 }
 
 IgnoredLines = {
@@ -84,7 +85,8 @@ SingleStatLines = {
 		function(text, pattern)
 			return WeightsWatcher:singleStatValueOnly(text, pattern, "Feral AP")
 		end},
-	{"^%+?(%d+%%?) (%a[%a ]+)",
+	-- The 5 is to catch MP5 and HP5 values
+	{"^%+?(%d+%%?) (%a[%a ]+5?)",
 		function(text, pattern)
 			local start, _, value, name = string.find(text, pattern)
 			if start then
