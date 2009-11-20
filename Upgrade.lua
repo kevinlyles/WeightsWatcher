@@ -124,6 +124,15 @@ noop_down = [[
 	end
 ]]
 
+function upgradeAccountShowClassNames(vars)
+	if not vars.options.tooltip.showClassNames then
+		vars.options.tooltip.showClassNames = "Others"
+	end
+
+	vars.dataMinorVersion = 7
+	return vars
+end
+
 function upgradeAccountToHandleModifierKeys(vars)
 	if not vars.options.tooltip then
 		vars.options.tooltip = deepTableCopy(defaultVars.options.tooltip)
@@ -275,6 +284,7 @@ upgradeAccountFunctions = {
 		[3] = function(vars) return upgradeAccountToOrderedLists(vars) end,
 		[4] = function(vars) return upgradeAccountToHandleModifierKeys(vars) end,
 		[5] = function(vars) return noop_up(vars) end,
+		[6] = function(vars) return upgradeAccountShowClassNames(vars) end,
 	},
 }
 
@@ -285,6 +295,7 @@ downgradeAccountFunctions = {
 		[4] = downgradeAccountFromOrderedLists,
 		[5] = noop_down,
 		[6] = noop_down,
+		[7] = noop_down,
 	},
 }
 

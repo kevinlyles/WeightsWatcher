@@ -102,7 +102,7 @@ keyDetectors = {
 
 defaultVars = {
 	dataMajorVersion = 0,
-	dataMinorVersion = 6,
+	dataMinorVersion = 7,
 	weightsList = {
 		[1] = "DEATHKNIGHT",
 		[2] = "DRUID",
@@ -497,6 +497,7 @@ defaultVars = {
 	options = {
 		normalizeWeights = true,
 		gemQualityLimit = 9,
+		showClassNames = "Others",
 		tooltip = {
 			showWeights = true,
 			showIdealWeights = "SHIFT",
