@@ -125,6 +125,15 @@ keyDetectors = {
 	["Control"] = IsControlKeyDown,
 }
 
+classNameOptions = {
+	[1] = "Always",
+	[2] = "Others",
+	[3] = "Never",
+	["Always"] = "Always",
+	["Others"] = "Other Classes",
+	["Never"] = "Never",
+}
+
 defaultVars = {
 	dataMajorVersion = 0,
 	dataMinorVersion = 10,

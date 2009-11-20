@@ -78,3 +78,21 @@ function ModifierKeyDropDownOnClick(choice, dropdown)
 	UIDropDownMenu_SetSelectedValue(dropdown, choice.value, false)
 	ww_vars.options.tooltip[dropdown:GetText()] = choice.value
 end
+
+function ShowClassNameDropDownInitialize(dropdown)
+	local info = {}
+
+	info.func = ShowClassNameDropDownOnClick
+	info.arg1 = dropdown
+	for _, value in ipairs(classNameOptions) do
+		info.text = classNameOptions[value]
+		info.value = value
+		info.checked = nil
+		UIDropDownMenu_AddButton(info)
+	end
+end
+
+function ShowClassNameDropDownOnClick(choice, dropdown)
+	UIDropDownMenu_SetSelectedValue(dropdown, choice.value, false)
+	ww_vars.options.tooltip.showClassNames = choice.value
+end

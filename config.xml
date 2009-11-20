@@ -75,6 +75,15 @@
 						</Anchor>
 					</Anchors>
 				</FontString>
+				<FontString name="$parentShowClassNamesLabel" parentKey="showClassNamesLabel" text="Show class names:" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="5" y="-290"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
 			</Layer>
 		</Layers>
 		<Frames>
@@ -143,6 +152,24 @@
 			<Button name="$parentShowIdealWeights" parentKey="showIdealWeights" inherits="ww_modifierKeyDropDown" text="showIdealWeights"/>
 			<Button name="$parentShowIdealGems" parentKey="showIdealGems" inherits="ww_modifierKeyDropDown" text="showIdealGems"/>
 			<Button name="$parentShowIdealGemStats" parentKey="showIdealGemStats" inherits="ww_modifierKeyDropDown" text="showIdealGemStats"/>
+			<Button name="$parentShowClassNames" parentKey="showClassNames" inherits="UIDropDownMenuTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentShowClassNamesLabel">
+						<Offset>
+							<AbsDimension y="-5"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						UIDropDownMenu_JustifyText(self, "LEFT")
+					</OnLoad>
+					<OnShow>
+						UIDropDownMenu_Initialize(self, ShowClassNameDropDownInitialize)
+						UIDropDownMenu_SetSelectedValue(self, ww_vars.options.tooltip.showClassNames)
+					</OnShow>
+				</Scripts>
+			</Button>
 		</Frames>
 		<Scripts>
 			<OnLoad>
