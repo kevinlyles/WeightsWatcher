@@ -170,6 +170,37 @@
 					</OnShow>
 				</Scripts>
 			</Button>
+			<CheckButton name="$parentHideTooltipHints" parentKey="hideTooltipHints" inherits="UICheckButtonTemplate" text="Hide tooltip hints">
+				<Size>
+					<AbsDimension x="25" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentShowClassNames"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						if self:GetChecked() then
+							ww_vars.options.tooltip.hideHints = true
+						else
+							ww_vars.options.tooltip.hideHints = false
+						end
+					</OnClick>
+					<OnEnter>
+						GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
+						GameTooltip:AddLine("Hides modifier key hints in tooltips", 1, 1, 1)
+						GameTooltip:Show()
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide()
+					</OnLeave>
+					<OnLoad>
+						getglobal(self:GetName() .. "Text"):SetText(self:GetText())
+					</OnLoad>
+					<OnShow>
+						self:SetChecked(ww_vars.options.tooltip.hideHints)
+					</OnShow>
+				</Scripts>
+			</CheckButton>
 		</Frames>
 		<Scripts>
 			<OnLoad>
