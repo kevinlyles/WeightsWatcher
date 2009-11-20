@@ -124,6 +124,15 @@ noop_down = [[
 	end
 ]]
 
+function upgradeAccountHideModKeyHints(vars)
+	if vars.options.tooltip.hideHints == nil then
+		vars.options.tooltip.hideHints = false
+	end
+
+	vars.dataMinorVersion = 8
+	return vars
+end
+
 function upgradeAccountShowClassNames(vars)
 	if not vars.options.tooltip.showClassNames then
 		vars.options.tooltip.showClassNames = "Others"
@@ -285,6 +294,7 @@ upgradeAccountFunctions = {
 		[4] = function(vars) return upgradeAccountToHandleModifierKeys(vars) end,
 		[5] = function(vars) return noop_up(vars) end,
 		[6] = function(vars) return upgradeAccountShowClassNames(vars) end,
+		[7] = function(vars) return upgradeAccountHideModKeyHints(vars) end,
 	},
 }
 
@@ -296,6 +306,7 @@ downgradeAccountFunctions = {
 		[5] = noop_down,
 		[6] = noop_down,
 		[7] = noop_down,
+		[8] = noop_down,
 	},
 }
 
