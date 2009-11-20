@@ -276,19 +276,19 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 						end
 					end
 					if not ww_vars.options.tooltip.hideHints and not keyDetectors[ww_vars.options.tooltip.showIdealGems]() then
-						if ww_vars.options.tooltip.showIdealGems then
+						if ww_vars.options.tooltip.showIdealGems ~= "Never" then
 							tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealGems .. " to show ideal gems>")
 						end
 					elseif not ww_vars.options.tooltip.hideHints and not keyDetectors[ww_vars.options.tooltip.showIdealGemStats]() then
-						if ww_vars.options.tooltip.showIdealGemStats then
+						if ww_vars.options.tooltip.showIdealGemStats ~= "Never" then
 							tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealGemStats .. " to show ideal gem stats>")
 						end
 					end
-				elseif not ww_vars.options.tooltip.hideHints and ww_vars.options.tooltip.showIdealWeights then
+				elseif not ww_vars.options.tooltip.hideHints and ww_vars.options.tooltip.showIdealWeights ~= "Never" then
 					tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealWeights .. " to show ideal weights>")
 				end
 			end
-		elseif not ww_vars.options.tooltip.hideHints and ww_vars.options.tooltip.showWeights then
+		elseif not ww_vars.options.tooltip.hideHints and ww_vars.options.tooltip.showWeights ~= "Never" then
 			tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showWeights .. " to show weights>")
 		end
 		tooltip:Show()

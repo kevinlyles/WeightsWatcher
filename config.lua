@@ -60,3 +60,21 @@ function GemQualityDropDownOnClick(choice, dropdown)
 	ww_vars.options.gemQualityLimit = choice.value
 	ww_weightIdealCache = {}
 end
+
+function ModifierKeyDropDownInitialize(dropdown)
+	local info = {}
+
+	info.func = ModifierKeyDropDownOnClick
+	info.arg1 = dropdown
+	for _, value in ipairs(keyDetectors) do
+		info.text = value
+		info.value = value
+		info.checked = nil
+		UIDropDownMenu_AddButton(info)
+	end
+end
+
+function ModifierKeyDropDownOnClick(choice, dropdown)
+	UIDropDownMenu_SetSelectedValue(dropdown, choice.value, false)
+	ww_vars.options.tooltip[dropdown:GetText()] = choice.value
+end

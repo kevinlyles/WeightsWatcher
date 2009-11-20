@@ -124,6 +124,86 @@ noop_down = [[
 	end
 ]]
 
+function upgradeAccountToConfig(vars)
+	local table = vars.options.tooltip
+	local conversion = {
+		[true] = "Always",
+		[false] = "Never",
+		["LSHIFT"] = "Left Shift",
+		["RSHIFT"] = "Right Shift",
+		["SHIFT"] = "Shift",
+		["LALT"] = "Left Alt",
+		["RALT"] = "Right Alt",
+		["ALT"] = "Alt",
+		["LCTRL"] = "Left Control",
+		["RCTRL"] = "Right Control",
+		["CTRL"] = "Control",
+	}
+	local keys = {
+		["showIdealGemStats"] = true,
+		["showIdealWeights"] = true,
+		["showWeights"] = true,
+		["showIdealGems"] = true,
+	}
+
+	for key, value in pairs(table) do
+		if keys[key] then
+			if conversion[value] == nil then
+				if type(value) ~= "string" then
+					value = "type: " .. type(value)
+				end
+				print("WeightsWatcher: error: invalid value in tooltip options: " .. value)
+				return nil
+			end
+			table[key] = conversion[value]
+		end
+	end
+
+	vars.dataMinorVersion = 10
+	return vars
+end
+
+downgradeAccountFromConfig = [[
+	return function(vars)
+		local table = vars.options.tooltip
+		local conversion = {
+			["Always"] = true,
+			["Never"] = false,
+			["Left Shift"] = "LSHIFT",
+			["Right Shift"] = "RSHIFT",
+			["Shift"] = "SHIFT",
+			["Left Alt"] = "LALT",
+			["Right Alt"] = "RALT",
+			["Alt"] = "ALT",
+			["Left Control"] = "LCTRL",
+			["Right Control"] = "RCTRL",
+			["Control"] = "CTRL",
+		}
+		local keys = {
+			["showIdealGemStats"] = true,
+			["showIdealWeights"] = true,
+			["showWeights"] = true,
+			["showIdealGems"] = true,
+		}
+
+		for key, value in pairs(table) do
+			if keys[key] then
+				if conversion[value] == nil then
+					if type(value) ~= "string" then
+						value = "type: " .. type(value)
+					end
+					print("WeightsWatcher: error: invalid value in tooltip options: " .. value)
+					return nil
+				end
+				table[key] = conversion[value]
+			end
+		end
+
+		vars.dataMinorVersion = 9
+		return vars
+	end
+]]
+
 function upgradeAccountForceGemColors(vars)
 	if vars.options.breakSocketColors == nil then
 		vars.options.breakSocketColors = true
@@ -308,6 +388,7 @@ upgradeAccountFunctions = {
 		[6] = function(vars) return upgradeAccountShowClassNames(vars) end,
 		[7] = function(vars) return upgradeAccountHideModKeyHints(vars) end,
 		[8] = function(vars) return upgradeAccountForceGemColors(vars) end,
+		[9] = function(vars) return upgradeAccountToConfig(vars) end,
 	},
 }
 
@@ -321,6 +402,7 @@ downgradeAccountFunctions = {
 		[7] = noop_down,
 		[8] = noop_down,
 		[9] = noop_down,
+		[10] = downgradeAccountFromConfig,
 	},
 }
 
