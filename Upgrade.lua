@@ -124,6 +124,18 @@ noop_down = [[
 	end
 ]]
 
+function upgradeAccountForceGemColors(vars)
+	if vars.options.breakSocketColors == nil then
+		vars.options.breakSocketColors = true
+	end
+	if vars.options.neverBreakSocketColors == nil then
+		vars.options.neverBreakSocketColors = false
+	end
+
+	vars.dataMinorVersion = 9
+	return vars
+end
+
 function upgradeAccountHideModKeyHints(vars)
 	if vars.options.tooltip.hideHints == nil then
 		vars.options.tooltip.hideHints = false
@@ -295,6 +307,7 @@ upgradeAccountFunctions = {
 		[5] = function(vars) return noop_up(vars) end,
 		[6] = function(vars) return upgradeAccountShowClassNames(vars) end,
 		[7] = function(vars) return upgradeAccountHideModKeyHints(vars) end,
+		[8] = function(vars) return upgradeAccountForceGemColors(vars) end,
 	},
 }
 
@@ -307,6 +320,7 @@ downgradeAccountFunctions = {
 		[6] = noop_down,
 		[7] = noop_down,
 		[8] = noop_down,
+		[9] = noop_down,
 	},
 }
 

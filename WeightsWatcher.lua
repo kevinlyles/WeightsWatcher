@@ -146,6 +146,9 @@ function WeightsWatcher:cacheItemStats(link)
 				end
 				for _, weight in pairs(ww_charVars.activeWeights[class]) do
 					if ww_vars.weightsList[class][weight] then
+						local socketBonusWeight = ww_vars.weightsList[class][weight][string.lower(socketBonusStat[1])]
+						local breakSocketColors = ww_vars.options.breakSocketColors or (not ww_vars.options.neverBreakSocketColors and (not socketBonusWeight or socketBonusWeight <= 0))
+
 						if not ww_weightIdealCache[class][weight] then
 							ww_weightIdealCache[class][weight] = {}
 						end
@@ -155,28 +158,30 @@ function WeightsWatcher:cacheItemStats(link)
 
 							bestGems = {}
 							bestGemsIgnoreSocket = {}
-							socketBonusActive = true
-							for _, stat in pairs(sockets) do
-								local gemId, _, gemIdIgnoreSocket = WeightsWatcher:bestGemsForSocket(stat, socketBonusStat, ww_vars.weightsList[class][weight], ww_vars.options.gemQualityLimit)
-								if gemIdIgnoreSocket ~= 0 then
-									if not WeightsWatcher:matchesSocket(GemIds[gemIdIgnoreSocket][1], stat) then
-										socketBonusActive = false
+							for _, color in pairs(sockets) do
+								gemId, _, gemIdIgnoreSocket = WeightsWatcher:bestGemsForSocket(color, socketBonusStat, ww_vars.weightsList[class][weight], ww_vars.options.gemQualityLimit)
+
+								if gemId ~= 0 then
+									table.insert(bestGems, gemId)
+								end
+								if breakSocketColors then
+									if gemIdIgnoreSocket ~= 0 then
+										table.insert(bestGemsIgnoreSocket, gemIdIgnoreSocket)
 									end
-									if gemId ~= 0 then
-										table.insert(bestGems, gemId)
-									end
-									table.insert(bestGemsIgnoreSocket, gemIdIgnoreSocket)
 								end
 							end
 							gemStats = WeightsWatcher:getGemStats(bestGems)
 							gemStatsIgnoreSockets = WeightsWatcher:getGemStats(bestGemsIgnoreSocket)
 							local weightVal, weightValIgnoreSockets
 							weightVal = WeightsWatcher:calculateWeight(normalStats, true, socketBonusStat, gemStats, ww_vars.weightsList[class][weight])
-							weightValIgnoreSockets = WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStatsIgnoreSockets, ww_vars.weightsList[class][weight])
+							if breakSocketColors then
+								gemStatsIgnoreSockets = WeightsWatcher:getGemStats(bestGemsIgnoreSocket)
+								weightValIgnoreSockets = WeightsWatcher:calculateWeight(normalStats, false, socketBonusStat, gemStatsIgnoreSockets, ww_vars.weightsList[class][weight])
 
-							if weightVal < weightValIgnoreSockets then
-								weightVal = weightValIgnoreSockets
-								gemStats = gemStatsIgnoreSockets
+								if weightVal < weightValIgnoreSockets then
+									weightVal = weightValIgnoreSockets
+									gemStats = gemStatsIgnoreSockets
+								end
 							end
 							ww_weightIdealCache[class][weight][bareLink].gemStats = gemStats
 							ww_weightIdealCache[class][weight][bareLink].score = weightVal
