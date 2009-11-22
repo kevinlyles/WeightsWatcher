@@ -2,6 +2,8 @@ if not WeightsWatcher then
 	WeightsWatcher = AceLibrary("AceAddon-2.0"):new("AceEvent-2.0", "AceHook-2.1")
 end
 
+currentHooks = {}
+
 ww_itemCache = {}
 ww_bareItemCache = {}
 ww_weightCache = {}
@@ -17,23 +19,76 @@ function WeightsWatcher:OnInitialize()
 			commandHandler(msg)
 		end
 
-	tempVars = WeightsWatcher:Upgrade("account")
-	if tempVars then
-		ww_vars = tempVars
-	else
-		-- TODO: disable the addon
+	if not upgradeData("account", "ww_vars") then
+		return
 	end
--- 	print("WeightsWatcher: be sure to restore the default weights if you want the new default weights.")
-	tempVars = WeightsWatcher:Upgrade("character")
-	if tempVars then
-		ww_charVars = tempVars
-	else
-		-- TODO: disable the addon
+	if not upgradeData("character", "ww_charVars") then
+		return
 	end
 	initializeWeightsConfig()
 end
 
-currentHooks = {}
+StaticPopupDialogs["WW_INVALID_ACCOUNT_DATA"] = {
+	text = "Invalid account data found.  You can:                  \n       - Disable WeightsWatcher and reload your UI\n- Load the default settings                          \n\nWARNING: loading the default account settings will erase all weights and options you had set.",
+	button1 = "Load Defaults",
+	button2 = "Disable WeightsWatcher",
+	OnAccept = function(self, func)
+			if not upgradeData("character", "ww_charVars") then
+				return
+			end
+			initializeWeightsConfig()
+		end,
+	OnCancel = function(self, func)
+			DisableAddOn("WeightsWatcher")
+			ReloadUI()
+		end,
+	showAlert = true,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = false,
+}
+
+StaticPopupDialogs["WW_INVALID_CHARACTER_DATA"] = {
+	text = "Invalid character data found.  You can:               \n       - Disable WeightsWatcher and reload your UI\n- Load the default settings                          \n\nLoading the default character settings will not affect your saved weights.",
+	button1 = "Load Defaults",
+	button2 = "Disable WeightsWatcher",
+	OnAccept = function(self, func)
+			ww_charVars = copyDefaultCharVars()
+			initializeWeightsConfig()
+		end,
+	OnCancel = function(self, func)
+			DisableAddOn("WeightsWatcher")
+			ReloadUI()
+		end,
+	showAlert = true,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = false,
+}
+
+function upgradeData(dataType, varsName)
+	local tempVars
+
+	tempVars = WeightsWatcher:Upgrade(dataType)
+	if tempVars then
+		_G[varsName] = tempVars
+		return true
+	else
+		WeightsWatcher:Broken(dataType)
+		return false
+	end
+end
+
+function WeightsWatcher:Broken(dataType)
+	if dataType == "account" then
+		StaticPopup_Show("WW_INVALID_ACCOUNT_DATA")
+	elseif dataType == "character" then
+		StaticPopup_Show("WW_INVALID_CHARACTER_DATA")
+	else
+		DisableAddOn("WeightsWatcher")
+		ReloadUI()
+	end
+end
 
 function WeightsWatcher:HookTooltip(objectName, funcName)
 	local object = getglobal(objectName)
@@ -77,6 +132,7 @@ function WeightsWatcher:OnDisable()
 	for _, hook in currentHooks do
 		self:Unhook(unpack(hook))
 	end
+	currentHooks = {}
 end
 
 function WeightsWatcher:cacheItemStats(link)

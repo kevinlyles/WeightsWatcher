@@ -102,6 +102,10 @@ end
 function stringsToFuncs(strTable)
 	local funcTable = {}
 
+	if not strTable then
+		return funcTable
+	end
+
 	for major, tbl in pairs(strTable) do
 		funcTable[major] = {}
 		for minor, funcStr in pairs(tbl) do
