@@ -1,18 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
 	<Script file="config.lua"/>
-	<Button name="ww_modifierKeyDropDown" inherits="UIDropDownMenuTemplate" virtual="true">
-		<Scripts>
-			<OnLoad>
-				UIDropDownMenu_JustifyText(self, "LEFT")
-				self:SetPoint("TOPLEFT", self:GetName() .. "Label", "BOTTOMLEFT", 0, -5)
-			</OnLoad>
-			<OnShow>
-				UIDropDownMenu_Initialize(self, ModifierKeyDropDownInitialize)
-				UIDropDownMenu_SetSelectedValue(self, ww_vars.options.tooltip[self:GetText()])
-			</OnShow>
-		</Scripts>
-	</Button>
 	<Frame name="ww_borderedFrame" virtual="true">
 		<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
 			<EdgeSize>
@@ -25,6 +13,50 @@
 				<AbsInset left="0" right="0" top="5" bottom="5"/>
 			</BackgroundInsets>
 		</Backdrop>
+	</Frame>
+	<Frame name="ww_labeledElement" virtual="true">
+		<Anchors>
+			<Anchor point="LEFT"/>
+			<Anchor point="RIGHT"/>
+		</Anchors>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString name="$parentLabel" parentKey="label" inherits="GameFontNormalSmall">
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="5" y="-5"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+	</Frame>
+	<Frame name="ww_modifierKeyDropDown" inherits="ww_labeledElement" virtual="true">
+		<Size>
+			<AbsDimension y="45"/>
+		</Size>
+		<Frames>
+			<Button name="$parentDropdown" parentKey="dropdown" inherits="UIDropDownMenuTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentLabel">
+						<Offset>
+							<AbsDimension x="-15" y="-3"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						UIDropDownMenu_JustifyText(self, "LEFT")
+					</OnLoad>
+					<OnShow>
+						UIDropDownMenu_Initialize(self, ModifierKeyDropDownInitialize)
+						UIDropDownMenu_SetSelectedValue(self, ww_vars.options.tooltip[self:GetText()])
+					</OnShow>
+				</Scripts>
+			</Button>
+		</Frames>
 	</Frame>
 	<FontString name="ww_headerFont" inherits="GameFontNormalLarge" virtual="true">
 		<Anchors>
@@ -88,32 +120,43 @@
 					</Layer>
 				</Layers>
 				<Frames>
-					<Button name="$parentGemQuality" parentKey="gemQuality" inherits="UIDropDownMenuTemplate">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentGemQualityLabel">
-								<Offset>
-									<AbsDimension y="-5"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Scripts>
-							<OnLoad>
-								UIDropDownMenu_SetWidth(self, 200, 15)
-								UIDropDownMenu_JustifyText(self, "LEFT")
-							</OnLoad>
-							<OnShow>
-								UIDropDownMenu_Initialize(self, GemQualityDropDownInitialize)
-								UIDropDownMenu_SetSelectedValue(self, ww_vars.options.gemQualityLimit)
-							</OnShow>
-						</Scripts>
-					</Button>
+					<Frame name="$parentGemQuality" parentKey="gemQuality" text="Maximum Ideal Gem Quality:" inherits="ww_labeledFrame">
+						<Size>
+							<AbsDimension y="45"/>
+						</Size>
+						<Frames>
+							<Button name="$parentDropdown" parentKey="dropdown" inherits="UIDropDownMenuTemplate">
+								<Anchors>
+									<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentLabel">
+										<Offset>
+											<AbsDimension x="-15" y="-3"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Scripts>
+									<OnLoad>
+										UIDropDownMenu_SetWidth(self, 200, 15)
+										UIDropDownMenu_JustifyText(self, "LEFT")
+									</OnLoad>
+									<OnShow>
+										UIDropDownMenu_Initialize(self, GemQualityDropDownInitialize)
+										UIDropDownMenu_SetSelectedValue(self, ww_vars.options.gemQualityLimit)
+									</OnShow>
+								</Scripts>
+							</Button>
+						</Frames>
+					</Frame>
 					<CheckButton name="$parentObeySocketColors" parentKey="obeySocketColors" inherits="UICheckButtonTemplate" text="Obey socket colors">
 						<Size>
 							<AbsDimension x="25" y="25"/>
 						</Size>
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentGemQuality"/>
-							<Anchor point="LEFT"/>
+							<Anchor point="LEFT">
+								<Offset>
+									<AbsDimension x="5"/>
+								</Offset>
+							</Anchor>
 						</Anchors>
 						<Scripts>
 							<OnClick>
@@ -196,7 +239,11 @@
 						</Size>
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentAlwaysObeySocketColors"/>
-							<Anchor point="LEFT"/>
+							<Anchor point="LEFT">
+								<Offset>
+									<AbsDimension x="5"/>
+								</Offset>
+							</Anchor>
 						</Anchors>
 						<Scripts>
 							<OnClick>
@@ -234,7 +281,7 @@
 				<Layers>
 					<Layer level="ARTWORK">
 						<FontString name="$parentHeader" parentKey="header" text="Display Options" inherits="ww_headerFont"/>
-						<FontString name="$parentShowWeightsLabel" parentKey="showWeightsLabel" text="Show weights:" inherits="GameFontNormal">
+<!--						<FontString name="$parentShowWeightsLabel" parentKey="showWeightsLabel" text="Show weights:" inherits="GameFontNormal">
 							<Anchors>
 								<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentHeader">
 									<Offset>
@@ -274,12 +321,12 @@
 									</Offset>
 								</Anchor>
 							</Anchors>
-						</FontString>
+						</FontString>-->
 						<FontString name="$parentShowClassNamesLabel" parentKey="showClassNamesLabel" text="Show class names:" inherits="GameFontNormal">
 							<Anchors>
-								<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowIdealGemStatsLabel">
+								<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentHeader">
 									<Offset>
-										<AbsDimension y="-75"/>
+										<AbsDimension y="-225"/>
 									</Offset>
 								</Anchor>
 								<Anchor point="LEFT">
@@ -292,35 +339,76 @@
 					</Layer>
 				</Layers>
 				<Frames>
-					<Button name="$parentShowWeights" parentKey="showWeights" inherits="ww_modifierKeyDropDown" text="showWeights"/>
-					<Button name="$parentShowIdealWeights" parentKey="showIdealWeights" inherits="ww_modifierKeyDropDown" text="showIdealWeights"/>
-					<Button name="$parentShowIdealGems" parentKey="showIdealGems" inherits="ww_modifierKeyDropDown" text="showIdealGems"/>
-					<Button name="$parentShowIdealGemStats" parentKey="showIdealGemStats" inherits="ww_modifierKeyDropDown" text="showIdealGemStats"/>
-					<Button name="$parentShowClassNames" parentKey="showClassNames" inherits="UIDropDownMenuTemplate">
+					<Frame name="$parentShowWeights" parentKey="showWeights" inherits="ww_modifierKeyDropDown">
 						<Anchors>
-							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentShowClassNamesLabel">
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentHeader"/>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								self.label:SetText("Show weights:")
+								self.dropdown:SetText("showWeights")
+							</OnLoad>
+						</Scripts>
+					</Frame>
+					<Frame name="$parentShowIdealWeights" parentKey="showIdealWeights" inherits="ww_modifierKeyDropDown">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowWeights"/>
+							<Anchor point="LEFT" relativePoint="LEFT" relativeTo="$parentShowWeights">
 								<Offset>
-									<AbsDimension y="-5"/>
+									<AbsDimension x="20"/>
 								</Offset>
 							</Anchor>
 						</Anchors>
 						<Scripts>
 							<OnLoad>
-								UIDropDownMenu_JustifyText(self, "LEFT")
+								self.label:SetText("Show ideally-gemmed weights:")
+								self.dropdown:SetText("showIdealWeights")
 							</OnLoad>
-							<OnShow>
-								UIDropDownMenu_Initialize(self, ShowClassNameDropDownInitialize)
-								UIDropDownMenu_SetSelectedValue(self, ww_vars.options.tooltip.showClassNames)
-							</OnShow>
 						</Scripts>
-					</Button>
+					</Frame>
+					<Frame name="$parentShowIdealGems" parentKey="showIdealGems" inherits="ww_modifierKeyDropDown">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowIdealWeights"/>
+							<Anchor point="LEFT" relativePoint="LEFT" relativeTo="$parentShowIdealWeights">
+								<Offset>
+									<AbsDimension x="20"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								self.label:SetText("Show ideal gems:")
+								self.dropdown:SetText("showIdealGems")
+							</OnLoad>
+						</Scripts>
+					</Frame>
+					<Frame name="$parentShowIdealGemStats" parentKey="showIdealGemStats" inherits="ww_modifierKeyDropDown">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowIdealGems"/>
+							<Anchor point="LEFT" relativePoint="LEFT" relativeTo="$parentShowIdealGems">
+								<Offset>
+									<AbsDimension x="20"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								self.label:SetText("Show ideal gem stats:")
+								self.dropdown:SetText("showIdealGemStats")
+							</OnLoad>
+						</Scripts>
+					</Frame>
 					<CheckButton name="$parentHideTooltipHints" parentKey="hideTooltipHints" inherits="UICheckButtonTemplate" text="Hide tooltip hints">
 						<Size>
 							<AbsDimension x="25" y="25"/>
 						</Size>
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowIdealGemStats"/>
-							<Anchor point="LEFT"/>
+							<Anchor point="LEFT">
+								<Offset>
+									<AbsDimension x="5"/>
+								</Offset>
+							</Anchor>
 						</Anchors>
 						<Scripts>
 							<OnClick>
@@ -346,6 +434,24 @@
 							</OnShow>
 						</Scripts>
 					</CheckButton>
+					<Button name="$parentShowClassNames" parentKey="showClassNames" inherits="UIDropDownMenuTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentShowClassNamesLabel">
+								<Offset>
+									<AbsDimension y="-5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								UIDropDownMenu_JustifyText(self, "LEFT")
+							</OnLoad>
+							<OnShow>
+								UIDropDownMenu_Initialize(self, ShowClassNameDropDownInitialize)
+								UIDropDownMenu_SetSelectedValue(self, ww_vars.options.tooltip.showClassNames)
+							</OnShow>
+						</Scripts>
+					</Button>
 				</Frames>
 			</Frame>
 		</Frames>
