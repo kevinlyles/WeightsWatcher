@@ -13,9 +13,31 @@
 			</OnShow>
 		</Scripts>
 	</Button>
+	<Frame name="ww_borderedFrame" virtual="true">
+		<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+			<EdgeSize>
+				<AbsValue val="10"/>
+			</EdgeSize>
+			<TileSize>
+				<AbsValue val="10"/>
+			</TileSize>
+			<BackgroundInsets>
+				<AbsInset left="0" right="0" top="5" bottom="5"/>
+			</BackgroundInsets>
+		</Backdrop>
+	</Frame>
+	<FontString name="ww_headerFont" inherits="GameFontNormalLarge" virtual="true">
+		<Anchors>
+			<Anchor point="TOP">
+				<Offset>
+					<AbsDimension y="-5"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</FontString>
 	<Frame name="ww_config" parent="UIParent" hidden="true" frameStrata="HIGH">
 		<Size>
-			<AbsDimension x="600" y="600"/>
+			<AbsDimension x="300" y="600"/>
 		</Size>
 		<Anchors>
 			<Anchor point="CENTER"/>
@@ -27,64 +49,6 @@
 					<Color r="0" g="0" b="0" a="0.8"/>
 				</Texture>
 			</Layer>
-			<Layer level="ARTWORK">
-				<FontString name="$parentGemQualityLabel" parentKey="gemQualityLabel" text="Maximum Ideal Gem Quality:" inherits="GameFontNormal">
-					<Anchors>
-<!-- 						Broken -->
-<!--						<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentNormalizeWeights"/>-->
-						<Anchor point="TOPLEFT">
-							<Offset>
-								<AbsDimension x="5" y="-40"/>
-							</Offset>
-						</Anchor>
-					</Anchors>
-				</FontString>
-				<FontString name="$parentShowWeightsLabel" parentKey="showWeightsLabel" text="Show weights:" inherits="GameFontNormal">
-					<Anchors>
-						<Anchor point="TOPLEFT">
-							<Offset>
-								<AbsDimension x="5" y="-90"/>
-							</Offset>
-						</Anchor>
-					</Anchors>
-				</FontString>
-				<FontString name="$parentShowIdealWeightsLabel" parentKey="showIdealWeightsLabel" text="Show ideal weights:" inherits="GameFontNormal">
-					<Anchors>
-						<Anchor point="TOPLEFT">
-							<Offset>
-								<AbsDimension x="5" y="-140"/>
-							</Offset>
-						</Anchor>
-					</Anchors>
-				</FontString>
-				<FontString name="$parentShowIdealGemsLabel" parentKey="showIdealGemsLabel" text="Show ideal gems:" inherits="GameFontNormal">
-					<Anchors>
-						<Anchor point="TOPLEFT">
-							<Offset>
-								<AbsDimension x="5" y="-190"/>
-							</Offset>
-						</Anchor>
-					</Anchors>
-				</FontString>
-				<FontString name="$parentShowIdealGemStatsLabel" parentKey="showIdealGemStatsLabel" text="Show ideal gem stats:" inherits="GameFontNormal">
-					<Anchors>
-						<Anchor point="TOPLEFT">
-							<Offset>
-								<AbsDimension x="5" y="-240"/>
-							</Offset>
-						</Anchor>
-					</Anchors>
-				</FontString>
-				<FontString name="$parentShowClassNamesLabel" parentKey="showClassNamesLabel" text="Show class names:" inherits="GameFontNormal">
-					<Anchors>
-						<Anchor point="TOPLEFT">
-							<Offset>
-								<AbsDimension x="5" y="-290"/>
-							</Offset>
-						</Anchor>
-					</Anchors>
-				</FontString>
-			</Layer>
 		</Layers>
 		<Frames>
 			<Button name="$parentCloseButton" parentKey="closeButton" inherits="UIPanelCloseButton">
@@ -92,197 +56,294 @@
 					<Anchor point="TOPRIGHT"/>
 				</Anchors>
 			</Button>
-			<CheckButton name="$parentNormalizeWeights" parentKey="normalizeWeights" inherits="UICheckButtonTemplate" text="Normalize weights">
+			<Frame name="$parentCalculationOptions" parentKey="calculationOptions" inherits="ww_borderedFrame">
+				<Anchors>
+					<Anchor point="TOPLEFT"/>
+					<Anchor point="TOPRIGHT"/>
+				</Anchors>
 				<Size>
-					<AbsDimension x="25" y="25"/>
+					<AbsDimension y="200"/>
 				</Size>
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString name="$parentHeader" parentKey="header" text="Calculation Options" inherits="ww_headerFont"/>
+						<FontString name="$parentGemQualityLabel" parentKey="gemQualityLabel" text="Maximum Ideal Gem Quality:" inherits="GameFontNormal">
+							<Anchors>
+								<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentHeader">
+									<Offset>
+										<AbsDimension y="-5"/>
+									</Offset>
+								</Anchor>
+								<Anchor point="LEFT">
+									<Offset>
+										<AbsDimension x="5"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<Button name="$parentGemQuality" parentKey="gemQuality" inherits="UIDropDownMenuTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentGemQualityLabel">
+								<Offset>
+									<AbsDimension y="-5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								UIDropDownMenu_SetWidth(self, 200, 15)
+								UIDropDownMenu_JustifyText(self, "LEFT")
+							</OnLoad>
+							<OnShow>
+								UIDropDownMenu_Initialize(self, GemQualityDropDownInitialize)
+								UIDropDownMenu_SetSelectedValue(self, ww_vars.options.gemQualityLimit)
+							</OnShow>
+						</Scripts>
+					</Button>
+					<CheckButton name="$parentObeySocketColors" parentKey="obeySocketColors" inherits="UICheckButtonTemplate" text="Obey socket colors">
+						<Size>
+							<AbsDimension x="25" y="25"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentGemQuality"/>
+							<Anchor point="LEFT"/>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								if self:GetChecked() then
+									ww_vars.options.breakSocketColors = false
+									self:GetParent().alwaysObeySocketColors:Enable()
+								else
+									ww_vars.options.breakSocketColors = true
+									self:GetParent().alwaysObeySocketColors:Disable()
+								end
+								ww_weightIdealCache = {}
+							</OnClick>
+							<OnEnter>
+								GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
+								GameTooltip:AddLine("Chooses ideal gems that obey their socket color (even if that gives a lower overall score)", 1, 1, 1)
+								GameTooltip:Show()
+							</OnEnter>
+							<OnLeave>
+								GameTooltip:Hide()
+							</OnLeave>
+							<OnLoad>
+								getglobal(self:GetName() .. "Text"):SetText(self:GetText())
+							</OnLoad>
+							<OnShow>
+								self:SetChecked(not ww_vars.options.breakSocketColors)
+							</OnShow>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="$parentAlwaysObeySocketColors" parentKey="alwaysObeySocketColors" inherits="UICheckButtonTemplate" text="Even if the socket bonus is worthless">
+						<Size>
+							<AbsDimension x="25" y="25"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentObeySocketColors">
+								<Offset>
+									<AbsDimension x="20"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								if self:GetChecked() then
+									ww_vars.options.neverBreakSocketColors = true
+								else
+									ww_vars.options.neverBreakSocketColors = false
+								end
+								ww_weightIdealCache = {}
+							</OnClick>
+							<OnDisable>
+								self.text:SetTextColor(0.5, 0.5, 0.5)
+							</OnDisable>
+							<OnEnable>
+								self.text:SetTextColor(1, 0.82, 0)
+							</OnEnable>
+							<OnEnter>
+								GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
+								GameTooltip:AddLine("Forces ideal gems to obey their socket color (even if the socket bonus has a 0 or negative score for that weight)", 1, 1, 1)
+								GameTooltip:Show()
+							</OnEnter>
+							<OnLeave>
+								GameTooltip:Hide()
+							</OnLeave>
+							<OnLoad>
+								self.text = getglobal(self:GetName() .. "Text")
+								self.text:SetText(self:GetText())
+							</OnLoad>
+							<OnShow>
+								self:SetChecked(ww_vars.options.neverBreakSocketColors)
+								if ww_vars.options.breakSocketColors then
+									self:Disable()
+								else
+									self:Enable()
+								end
+							</OnShow>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="$parentNormalizeWeights" parentKey="normalizeWeights" inherits="UICheckButtonTemplate" text="Normalize weights">
+						<Size>
+							<AbsDimension x="25" y="25"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentAlwaysObeySocketColors"/>
+							<Anchor point="LEFT"/>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								if self:GetChecked() then
+									ww_vars.options.normalizeWeights = true
+								else
+									ww_vars.options.normalizeWeights = false
+								end
+								ww_weightCache = {}
+								ww_weightIdealCache = {}
+							</OnClick>
+							<OnEnter>
+								GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
+								GameTooltip:AddLine("Divides item scores by the total of all stats' values in that weight", 1, 1, 1)
+								GameTooltip:Show()
+							</OnEnter>
+							<OnLeave>
+								GameTooltip:Hide()
+							</OnLeave>
+							<OnLoad>
+								getglobal(self:GetName() .. "Text"):SetText(self:GetText())
+							</OnLoad>
+							<OnShow>
+								self:SetChecked(ww_vars.options.normalizeWeights)
+							</OnShow>
+						</Scripts>
+					</CheckButton>
+				</Frames>
+			</Frame>
+			<Frame name="$parentDisplayOptions" parentKey="displayOptions" inherits="ww_borderedFrame">
 				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="10" y="-10"/>
-						</Offset>
-					</Anchor>
+					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentCalculationOptions"/>
+					<Anchor point="BOTTOMRIGHT"/>
 				</Anchors>
-				<Scripts>
-					<OnClick>
-						if self:GetChecked() then
-							ww_vars.options.normalizeWeights = true
-						else
-							ww_vars.options.normalizeWeights = false
-						end
-						ww_weightCache = {}
-						ww_weightIdealCache = {}
-					</OnClick>
-					<OnEnter>
-						GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
-						GameTooltip:AddLine("Divides item scores by the total of all stats' values in that weight", 1, 1, 1)
-						GameTooltip:Show()
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide()
-					</OnLeave>
-					<OnLoad>
-						getglobal(self:GetName() .. "Text"):SetText(self:GetText())
-					</OnLoad>
-					<OnShow>
-						self:SetChecked(ww_vars.options.normalizeWeights)
-					</OnShow>
-				</Scripts>
-			</CheckButton>
-			<Button name="$parentGemQuality" parentKey="gemQuality" inherits="UIDropDownMenuTemplate">
-				<Anchors>
-					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentGemQualityLabel">
-						<Offset>
-							<AbsDimension y="-5"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<Scripts>
-					<OnLoad>
-						UIDropDownMenu_SetWidth(self, 200, 15)
-						UIDropDownMenu_JustifyText(self, "LEFT")
-					</OnLoad>
-					<OnShow>
-						UIDropDownMenu_Initialize(self, GemQualityDropDownInitialize)
-						UIDropDownMenu_SetSelectedValue(self, ww_vars.options.gemQualityLimit)
-					</OnShow>
-				</Scripts>
-			</Button>
-			<Button name="$parentShowWeights" parentKey="showWeights" inherits="ww_modifierKeyDropDown" text="showWeights"/>
-			<Button name="$parentShowIdealWeights" parentKey="showIdealWeights" inherits="ww_modifierKeyDropDown" text="showIdealWeights"/>
-			<Button name="$parentShowIdealGems" parentKey="showIdealGems" inherits="ww_modifierKeyDropDown" text="showIdealGems"/>
-			<Button name="$parentShowIdealGemStats" parentKey="showIdealGemStats" inherits="ww_modifierKeyDropDown" text="showIdealGemStats"/>
-			<Button name="$parentShowClassNames" parentKey="showClassNames" inherits="UIDropDownMenuTemplate">
-				<Anchors>
-					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentShowClassNamesLabel">
-						<Offset>
-							<AbsDimension y="-5"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<Scripts>
-					<OnLoad>
-						UIDropDownMenu_JustifyText(self, "LEFT")
-					</OnLoad>
-					<OnShow>
-						UIDropDownMenu_Initialize(self, ShowClassNameDropDownInitialize)
-						UIDropDownMenu_SetSelectedValue(self, ww_vars.options.tooltip.showClassNames)
-					</OnShow>
-				</Scripts>
-			</Button>
-			<CheckButton name="$parentHideTooltipHints" parentKey="hideTooltipHints" inherits="UICheckButtonTemplate" text="Hide tooltip hints">
-				<Size>
-					<AbsDimension x="25" y="25"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentShowClassNames"/>
-				</Anchors>
-				<Scripts>
-					<OnClick>
-						if self:GetChecked() then
-							ww_vars.options.tooltip.hideHints = true
-						else
-							ww_vars.options.tooltip.hideHints = false
-						end
-					</OnClick>
-					<OnEnter>
-						GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
-						GameTooltip:AddLine("Hides modifier key hints in tooltips", 1, 1, 1)
-						GameTooltip:Show()
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide()
-					</OnLeave>
-					<OnLoad>
-						getglobal(self:GetName() .. "Text"):SetText(self:GetText())
-					</OnLoad>
-					<OnShow>
-						self:SetChecked(ww_vars.options.tooltip.hideHints)
-					</OnShow>
-				</Scripts>
-			</CheckButton>
-			<CheckButton name="$parentObeySocketColors" parentKey="obeySocketColors" inherits="UICheckButtonTemplate" text="Obey socket colors">
-				<Size>
-					<AbsDimension x="25" y="25"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentHideTooltipHints"/>
-<!--						<Offset>
-							<AbsDimension x="10" y="-10"/>
-						</Offset>
-					</Anchor>-->
-				</Anchors>
-				<Scripts>
-					<OnClick>
-						if self:GetChecked() then
-							ww_vars.options.breakSocketColors = false
-							self:GetParent().alwaysObeySocketColors:Enable()
-						else
-							ww_vars.options.breakSocketColors = true
-							self:GetParent().alwaysObeySocketColors:Disable()
-						end
-						ww_weightIdealCache = {}
-					</OnClick>
-					<OnEnter>
-						GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
-						GameTooltip:AddLine("Chooses ideal gems that obey their socket color (even if that gives a lower overall score)", 1, 1, 1)
-						GameTooltip:Show()
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide()
-					</OnLeave>
-					<OnLoad>
-						getglobal(self:GetName() .. "Text"):SetText(self:GetText())
-					</OnLoad>
-					<OnShow>
-						self:SetChecked(not ww_vars.options.breakSocketColors)
-					</OnShow>
-				</Scripts>
-			</CheckButton>
-			<CheckButton name="$parentAlwaysObeySocketColors" parentKey="alwaysObeySocketColors" inherits="UICheckButtonTemplate" text="Even if the socket bonus is worthless">
-				<Size>
-					<AbsDimension x="25" y="25"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentObeySocketColors"/>
-				</Anchors>
-				<Scripts>
-					<OnClick>
-						if self:GetChecked() then
-							ww_vars.options.neverBreakSocketColors = true
-						else
-							ww_vars.options.neverBreakSocketColors = false
-						end
-						ww_weightIdealCache = {}
-					</OnClick>
-					<OnDisable>
-						self.text:SetTextColor(0.5, 0.5, 0.5)
-					</OnDisable>
-					<OnEnable>
-						self.text:SetTextColor(1, 0.82, 0)
-					</OnEnable>
-					<OnEnter>
-						GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
-						GameTooltip:AddLine("Forces ideal gems to obey their socket color (even if the socket bonus has a 0 or negative score for that weight)", 1, 1, 1)
-						GameTooltip:Show()
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide()
-					</OnLeave>
-					<OnLoad>
-						self.text = getglobal(self:GetName() .. "Text")
-						self.text:SetText(self:GetText())
-					</OnLoad>
-					<OnShow>
-						self:SetChecked(ww_vars.options.neverBreakSocketColors)
-						if ww_vars.options.breakSocketColors then
-							self:Disable()
-						else
-							self:Enable()
-						end
-					</OnShow>
-				</Scripts>
-			</CheckButton>
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString name="$parentHeader" parentKey="header" text="Display Options" inherits="ww_headerFont"/>
+						<FontString name="$parentShowWeightsLabel" parentKey="showWeightsLabel" text="Show weights:" inherits="GameFontNormal">
+							<Anchors>
+								<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentHeader">
+									<Offset>
+										<AbsDimension y="-5"/>
+									</Offset>
+								</Anchor>
+								<Anchor point="LEFT">
+									<Offset>
+										<AbsDimension x="5"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="$parentShowIdealWeightsLabel" parentKey="showIdealWeightsLabel" text="Show ideally-gemmed weights:" inherits="GameFontNormal">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentShowWeightsLabel">
+									<Offset>
+										<AbsDimension x="20" y="-50"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="$parentShowIdealGemsLabel" parentKey="showIdealGemsLabel" text="Show ideal gems:" inherits="GameFontNormal">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentShowIdealWeightsLabel">
+									<Offset>
+										<AbsDimension x="20" y="-50"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="$parentShowIdealGemStatsLabel" parentKey="showIdealGemStatsLabel" text="Show ideal gem stats:" inherits="GameFontNormal">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentShowIdealGemsLabel">
+									<Offset>
+										<AbsDimension x="20" y="-50"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="$parentShowClassNamesLabel" parentKey="showClassNamesLabel" text="Show class names:" inherits="GameFontNormal">
+							<Anchors>
+								<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowIdealGemStatsLabel">
+									<Offset>
+										<AbsDimension y="-75"/>
+									</Offset>
+								</Anchor>
+								<Anchor point="LEFT">
+									<Offset>
+										<AbsDimension x="5"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<Button name="$parentShowWeights" parentKey="showWeights" inherits="ww_modifierKeyDropDown" text="showWeights"/>
+					<Button name="$parentShowIdealWeights" parentKey="showIdealWeights" inherits="ww_modifierKeyDropDown" text="showIdealWeights"/>
+					<Button name="$parentShowIdealGems" parentKey="showIdealGems" inherits="ww_modifierKeyDropDown" text="showIdealGems"/>
+					<Button name="$parentShowIdealGemStats" parentKey="showIdealGemStats" inherits="ww_modifierKeyDropDown" text="showIdealGemStats"/>
+					<Button name="$parentShowClassNames" parentKey="showClassNames" inherits="UIDropDownMenuTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentShowClassNamesLabel">
+								<Offset>
+									<AbsDimension y="-5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								UIDropDownMenu_JustifyText(self, "LEFT")
+							</OnLoad>
+							<OnShow>
+								UIDropDownMenu_Initialize(self, ShowClassNameDropDownInitialize)
+								UIDropDownMenu_SetSelectedValue(self, ww_vars.options.tooltip.showClassNames)
+							</OnShow>
+						</Scripts>
+					</Button>
+					<CheckButton name="$parentHideTooltipHints" parentKey="hideTooltipHints" inherits="UICheckButtonTemplate" text="Hide tooltip hints">
+						<Size>
+							<AbsDimension x="25" y="25"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowIdealGemStats"/>
+							<Anchor point="LEFT"/>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								if self:GetChecked() then
+									ww_vars.options.tooltip.hideHints = true
+								else
+									ww_vars.options.tooltip.hideHints = false
+								end
+							</OnClick>
+							<OnEnter>
+								GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
+								GameTooltip:AddLine("Hides modifier key hints in tooltips", 1, 1, 1)
+								GameTooltip:Show()
+							</OnEnter>
+							<OnLeave>
+								GameTooltip:Hide()
+							</OnLeave>
+							<OnLoad>
+								getglobal(self:GetName() .. "Text"):SetText(self:GetText())
+							</OnLoad>
+							<OnShow>
+								self:SetChecked(ww_vars.options.tooltip.hideHints)
+							</OnShow>
+						</Scripts>
+					</CheckButton>
+				</Frames>
+			</Frame>
 		</Frames>
 		<Scripts>
 			<OnLoad>
