@@ -58,8 +58,12 @@
 			</Button>
 			<Frame name="$parentCalculationOptions" parentKey="calculationOptions" inherits="ww_borderedFrame">
 				<Anchors>
-					<Anchor point="TOPLEFT"/>
-					<Anchor point="TOPRIGHT"/>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension y="-25"/>
+						</Offset>
+					</Anchor>
+					<Anchor point="RIGHT"/>
 				</Anchors>
 				<Size>
 					<AbsDimension y="200"/>
