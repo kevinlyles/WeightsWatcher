@@ -103,24 +103,13 @@
 				<Layers>
 					<Layer level="ARTWORK">
 						<FontString name="$parentHeader" parentKey="header" text="Calculation Options" inherits="ww_headerFont"/>
-						<FontString name="$parentGemQualityLabel" parentKey="gemQualityLabel" text="Maximum Ideal Gem Quality:" inherits="GameFontNormal">
-							<Anchors>
-								<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentHeader">
-									<Offset>
-										<AbsDimension y="-5"/>
-									</Offset>
-								</Anchor>
-								<Anchor point="LEFT">
-									<Offset>
-										<AbsDimension x="5"/>
-									</Offset>
-								</Anchor>
-							</Anchors>
-						</FontString>
 					</Layer>
 				</Layers>
 				<Frames>
-					<Frame name="$parentGemQuality" parentKey="gemQuality" text="Maximum Ideal Gem Quality:" inherits="ww_labeledFrame">
+					<Frame name="$parentGemQuality" parentKey="gemQuality" inherits="ww_labeledElement">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentHeader"/>
+						</Anchors>
 						<Size>
 							<AbsDimension y="45"/>
 						</Size>
@@ -145,6 +134,11 @@
 								</Scripts>
 							</Button>
 						</Frames>
+						<Scripts>
+							<OnLoad>
+								self.label:SetText("Maximum Ideal Gem Quality:")
+							</OnLoad>
+						</Scripts>
 					</Frame>
 					<CheckButton name="$parentObeySocketColors" parentKey="obeySocketColors" inherits="UICheckButtonTemplate" text="Obey socket colors">
 						<Size>
@@ -281,61 +275,6 @@
 				<Layers>
 					<Layer level="ARTWORK">
 						<FontString name="$parentHeader" parentKey="header" text="Display Options" inherits="ww_headerFont"/>
-<!--						<FontString name="$parentShowWeightsLabel" parentKey="showWeightsLabel" text="Show weights:" inherits="GameFontNormal">
-							<Anchors>
-								<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentHeader">
-									<Offset>
-										<AbsDimension y="-5"/>
-									</Offset>
-								</Anchor>
-								<Anchor point="LEFT">
-									<Offset>
-										<AbsDimension x="5"/>
-									</Offset>
-								</Anchor>
-							</Anchors>
-						</FontString>
-						<FontString name="$parentShowIdealWeightsLabel" parentKey="showIdealWeightsLabel" text="Show ideally-gemmed weights:" inherits="GameFontNormal">
-							<Anchors>
-								<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentShowWeightsLabel">
-									<Offset>
-										<AbsDimension x="20" y="-50"/>
-									</Offset>
-								</Anchor>
-							</Anchors>
-						</FontString>
-						<FontString name="$parentShowIdealGemsLabel" parentKey="showIdealGemsLabel" text="Show ideal gems:" inherits="GameFontNormal">
-							<Anchors>
-								<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentShowIdealWeightsLabel">
-									<Offset>
-										<AbsDimension x="20" y="-50"/>
-									</Offset>
-								</Anchor>
-							</Anchors>
-						</FontString>
-						<FontString name="$parentShowIdealGemStatsLabel" parentKey="showIdealGemStatsLabel" text="Show ideal gem stats:" inherits="GameFontNormal">
-							<Anchors>
-								<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentShowIdealGemsLabel">
-									<Offset>
-										<AbsDimension x="20" y="-50"/>
-									</Offset>
-								</Anchor>
-							</Anchors>
-						</FontString>-->
-						<FontString name="$parentShowClassNamesLabel" parentKey="showClassNamesLabel" text="Show class names:" inherits="GameFontNormal">
-							<Anchors>
-								<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentHeader">
-									<Offset>
-										<AbsDimension y="-225"/>
-									</Offset>
-								</Anchor>
-								<Anchor point="LEFT">
-									<Offset>
-										<AbsDimension x="5"/>
-									</Offset>
-								</Anchor>
-							</Anchors>
-						</FontString>
 					</Layer>
 				</Layers>
 				<Frames>
@@ -434,24 +373,39 @@
 							</OnShow>
 						</Scripts>
 					</CheckButton>
-					<Button name="$parentShowClassNames" parentKey="showClassNames" inherits="UIDropDownMenuTemplate">
+					<Frame name="$parentShowClassNames" parentKey="showClassNames" inherits="ww_labeledElement">
 						<Anchors>
-							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentShowClassNamesLabel">
-								<Offset>
-									<AbsDimension y="-5"/>
-								</Offset>
-							</Anchor>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentHideTooltipHints"/>
 						</Anchors>
+						<Size>
+							<AbsDimension y="45"/>
+						</Size>
+						<Frames>
+							<Button name="$parentDropdown" parentKey="dropdown" inherits="UIDropDownMenuTemplate">
+								<Anchors>
+									<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentLabel">
+										<Offset>
+											<AbsDimension x="-15" y="-3"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Scripts>
+									<OnLoad>
+										UIDropDownMenu_JustifyText(self, "LEFT")
+									</OnLoad>
+									<OnShow>
+										UIDropDownMenu_Initialize(self, ShowClassNameDropDownInitialize)
+										UIDropDownMenu_SetSelectedValue(self, ww_vars.options.tooltip.showClassNames)
+									</OnShow>
+								</Scripts>
+							</Button>
+						</Frames>
 						<Scripts>
 							<OnLoad>
-								UIDropDownMenu_JustifyText(self, "LEFT")
+								self.label:SetText("Show class names:")
 							</OnLoad>
-							<OnShow>
-								UIDropDownMenu_Initialize(self, ShowClassNameDropDownInitialize)
-								UIDropDownMenu_SetSelectedValue(self, ww_vars.options.tooltip.showClassNames)
-							</OnShow>
 						</Scripts>
-					</Button>
+					</Frame>
 				</Frames>
 			</Frame>
 		</Frames>
