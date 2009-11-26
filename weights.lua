@@ -34,7 +34,7 @@ StaticPopupDialogs["WW_CONFIRM_WEIGHT_DELETE"] = {
 }
 
 StaticPopupDialogs["WW_CONFIRM_RESTORE_DEFAULTS"] = {
-	text = "Are you sure you want to restore default weights?  This will overwrite any weights with the default names (but leave others alone).",
+	text = "Are you sure you want to restore default weights?\n\nWeights whose names are white will be overwritten (the others will be left as they are).",
 	button1 = "Restore Defaults",
 	button2 = "Cancel",
 	OnAccept = function()
@@ -372,6 +372,11 @@ function setWeight(class, weight, statList)
 				weightFrame.text:SetText(weight)
 				weightFrame.name = weight
 				weightFrame:SetPoint("TOPLEFT", 0, -22 * position)
+				if defaultVars.weightsList[class] and defaultVars.weightsList[class][weight] then
+					local fontString = weightFrame.text:GetFontString()
+					fontString:SetTextColor(1, 1, 1)
+					weightFrame.text:SetFontString(fontString)
+				end
 				classFrame.length = classFrame.length + 1
 				if classFrame.collapsed then
 					weightFrame:Hide()
@@ -424,6 +429,11 @@ function loadClassButtons()
 							break
 						end
 					end
+				end
+				if defaultVars.weightsList[classFrame.class] and defaultVars.weightsList[classFrame.class][weightFrame.name] then
+					local fontString = weightFrame.text:GetFontString()
+					fontString:SetTextColor(1, 1, 1)
+					weightFrame.text:SetFontString(fontString)
 				end
 			end
 		end
