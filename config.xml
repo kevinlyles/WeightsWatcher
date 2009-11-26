@@ -69,7 +69,7 @@
 	</FontString>
 	<Frame name="ww_config" parent="UIParent" hidden="true" frameStrata="HIGH">
 		<Size>
-			<AbsDimension x="300" y="600"/>
+			<AbsDimension x="600" y="400"/>
 		</Size>
 		<Anchors>
 			<Anchor point="CENTER"/>
@@ -95,10 +95,10 @@
 							<AbsDimension y="-25"/>
 						</Offset>
 					</Anchor>
-					<Anchor point="RIGHT"/>
+					<Anchor point="BOTTOM"/>
 				</Anchors>
 				<Size>
-					<AbsDimension y="200"/>
+					<AbsDimension x="300"/>
 				</Size>
 				<Layers>
 					<Layer level="ARTWORK">
@@ -269,7 +269,7 @@
 			</Frame>
 			<Frame name="$parentDisplayOptions" parentKey="displayOptions" inherits="ww_borderedFrame">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentCalculationOptions"/>
+					<Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeTo="$parentCalculationOptions"/>
 					<Anchor point="BOTTOMRIGHT"/>
 				</Anchors>
 				<Layers>
