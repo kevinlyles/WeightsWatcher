@@ -29,6 +29,7 @@ trackedStats = {
 		"Armor Penetration Rating",
 		"Expertise Rating",
 		"DPS",
+		"Ranged DPS",
 		"Minimum Weapon Damage",
 		"Maximum Weapon Damage",
 	},
@@ -219,7 +220,7 @@ defaultVars = {
 			[2] = "Marksmanship",
 			[3] = "Survival",
 			["Beast Mastery"] = {
-				["dps"] = 213,
+				["ranged dps"] = 213,
 				["hit rating"] = 100,
 				["agility"] = 58,
 				["critical strike rating"] = 40,
@@ -229,7 +230,7 @@ defaultVars = {
 				["haste rating"] = 21,
 			},
 			["Marksmanship"] = {
-				["dps"] = 379,
+				["ranged dps"] = 379,
 				["hit rating"] = 100,
 				["agility"] = 74,
 				["critical strike rating"] = 57,
@@ -239,7 +240,7 @@ defaultVars = {
 				["haste rating"] = 24,
 			},
 			["Survival"] = {
-				["dps"] = 181,
+				["ranged dps"] = 181,
 				["hit rating"] = 100,
 				["agility"] = 76,
 				["critical strike rating"] = 42,

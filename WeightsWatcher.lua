@@ -376,6 +376,7 @@ end
 function WeightsWatcher:getItemStats(link)
 	local ttleft, ttright, origTextL, textL, textR, pattern, func, start
 	local normalStats, socketList, socketBonusStat = {}, {}
+	local ranged = false
 
 	-- Populate hidden tooltip
 	WeightsWatcherHiddenTooltip:ClearLines()
@@ -423,6 +424,9 @@ function WeightsWatcher:getItemStats(link)
 							matched = true
 							table.insert(normalStats, {"Slot", textL})
 							table.insert(normalStats, {"Subslot", textR})
+							if textL == "Ranged" or textL == "Projectile" then
+								ranged = true
+							end
 							break
 						end
 					end
@@ -457,6 +461,13 @@ function WeightsWatcher:getItemStats(link)
 						end
 					end
 				end
+			end
+		end
+	end
+	if ranged then
+		for _, stat in ipairs(normalStats) do
+			if stat[1] == "DPS" then
+				stat[1] = "Ranged DPS"
 			end
 		end
 	end

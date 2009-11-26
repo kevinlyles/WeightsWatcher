@@ -81,6 +81,10 @@ SingleStatLines = {
 		function(text, pattern)
 			return WeightsWatcher:singleStatValueOnly(text, pattern, "DPS")
 		end},
+	{"^Adds (%d[%d.]+) damage per second$",
+		function(text, pattern)
+			return WeightsWatcher:singleStatValueOnly(text, pattern, "DPS")
+		end},
 	{"^Increases attack power by (%d+) in Cat/Bear/Dire Bear/Moonkin forms only%.",
 		function(text, pattern)
 			return WeightsWatcher:singleStatValueOnly(text, pattern, "Feral AP")
