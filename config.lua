@@ -120,6 +120,10 @@ function configSelectWeight(weightFrame)
 		function()
 			configSaveWeight(weightFrame)
 		end)
+	ww_config.rightPanel.copyButton:SetScript("OnClick",
+		function()
+			configNewWeight(weightFrame.category.class, "Copy of " .. weightFrame.name, ww_config.rightPanel.statList)
+		end)
 	ww_config.rightPanel.deleteButton:SetScript("OnClick",
 		function()
 			configDeleteWeight(weightFrame)
@@ -198,7 +202,9 @@ function deleteWeight(weight)
 	ww_config.leftPanel.scrollFrame:GetScript("OnShow")(ww_config.leftPanel.scrollFrame)
 end
 
-function configNewWeight(class, weight)
+function configNewWeight(class, weight, statList)
+	-- Need to call show first to re-initialize the dropdown
+	ww_newWeight:Show()
 	if class then
 		UIDropDownMenu_SetSelectedValue(ww_newWeight.dropdown, class, false)
 	end
@@ -206,7 +212,10 @@ function configNewWeight(class, weight)
 	if weight then
 		ww_newWeight.editBox:SetText(weight)
 	end
-	ww_newWeight:Show()
+	if not statList then
+		statList = {}
+	end
+	ww_newWeight.statList = statList
 end
 
 function setWeight(class, weight, statList)

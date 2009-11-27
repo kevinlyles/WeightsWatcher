@@ -263,6 +263,19 @@
 							<Anchor point="BOTTOMLEFT"/>
 						</Anchors>
 					</Button>
+					<!--Copy button-->
+					<Button name="$parentCopyButton" parentKey="copyButton" inherits="UIPanelButtonTemplate" text="Copy">
+						<Size>
+							<AbsDimension x="100" y="22"/>
+						</Size>
+						<Anchors>
+							<Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parentSaveButton">
+								<Offset>
+									<AbsDimension x="3"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
 					<!--Reset button-->
 					<Button name="$parentResetButton" parentKey="resetButton" inherits="UIPanelButtonTemplate" text="Reset">
 						<Size>
@@ -278,7 +291,11 @@
 							<AbsDimension x="100" y="22"/>
 						</Size>
 						<Anchors>
-							<Anchor point="BOTTOM"/>
+							<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parentResetButton">
+								<Offset>
+									<AbsDimension x="-3"/>
+								</Offset>
+							</Anchor>
 						</Anchors>
 					</Button>
 					<!--used to hold a series of stat frames to maintain absolute position when scrolling-->
@@ -479,7 +496,14 @@
 						if ww_vars.weightsList[class][name] then
 							local error = StaticPopup_Show("WW_WEIGHT_EXISTS", classNames[class], name)
 						else
-							setWeight(class, name, {})
+							setWeight(class, name, self:GetParent().statList)
+							for _, classFrame in ipairs(ww_classFrameTable) do
+								if classFrame.class == class then
+									local children = {classFrame:GetChildren()}
+									configSelectWeight(children[classFrame:GetNumChildren()])
+									break
+								end
+							end
 							self:GetParent():Hide()
 						end
 					</OnClick>
