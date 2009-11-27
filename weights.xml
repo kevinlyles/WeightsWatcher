@@ -1,0 +1,808 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+	<Script file="weights.lua"/>
+	<!--Default String used to allow for simpler left alignment in script generated fontstrings-->
+	<FontString name="ww_defaultString" inherits="GameFontNormalSmall" virtual="true">
+		<Anchors>
+			<Anchor point="LEFT"/>
+		</Anchors>
+	</FontString>
+	<!-- Adds a border that can be hidden/shown as a unit -->
+	<Frame name="ww_highlightedFrame" virtual="true" hidden="true">
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture file="Interface\Buttons\UI-Panel-Button-Glow" alphaMode="ADD">
+					<Size>
+						<AbsDimension y="22" x="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT"/>
+					</Anchors>
+					<TexCoords left="0.03125" right="0.25" top=".0625" bottom=".5625"/>
+				</Texture>
+				<Texture file="Interface\Buttons\UI-Panel-Button-Glow" alphaMode="ADD">
+					<Size>
+						<AbsDimension y="22"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="16"/>
+							</Offset>
+						</Anchor>
+						<Anchor point="RIGHT">
+							<Offset>
+								<AbsDimension x="-16"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.25" right="0.5" top=".0625" bottom=".5625"/>
+				</Texture>
+				<Texture file="Interface\Buttons\UI-Panel-Button-Glow" alphaMode="ADD">
+					<Size>
+						<AbsDimension y="22" x="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT"/>
+					</Anchors>
+					<TexCoords left=".5" right=".6875" top=".0625" bottom=".5625"/>
+				</Texture>
+			</Layer>
+		</Layers>
+	</Frame>
+	<!-- virtual frame used for categories in tiered lists -->
+	<Frame name="ww_categoryFrame" virtual="true">
+		<Size>
+			<AbsDimension y="22"/>
+		</Size>
+		<Anchors>
+			<Anchor point="RIGHT"/>
+		</Anchors>
+		<Frames>
+			<Button name="$parentText" parentKey="text">
+				<Size>
+					<AbsDimension y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="5" y="-1"/>
+						</Offset>
+					</Anchor>
+					<Anchor point="RIGHT"/>
+				</Anchors>
+				<NormalTexture file="Interface\Buttons\UI-MinusButton-UP">
+					<Size>
+						<AbsDimension x="16" y="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT"/>
+					</Anchors>
+				</NormalTexture>
+				<PushedTexture file="Interface\Buttons\UI-MinusButton-DOWN">
+					<Size>
+						<AbsDimension x="16" y="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT"/>
+					</Anchors>
+				</PushedTexture>
+				<HighlightTexture file="Interface\Buttons\UI-PlusButton-Hilight" alphaMode="ADD">
+					<Size>
+						<AbsDimension x="16" y="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT"/>
+					</Anchors>
+				</HighlightTexture>
+				<Scripts>
+					<OnLoad>
+						local fontString = self:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+						fontString:SetPoint("LEFT", 20, 0)
+						self:SetFontString(fontString)
+					</OnLoad>
+					<OnClick>
+						toggleCollapse(self:GetParent(), self:GetParent():GetParent():GetParent().scrollFrame)
+						if self:GetParent().collapsed then
+							self:SetNormalTexture("Interface\\Buttons\\UI-PlusButton-UP")
+							self:SetPushedTexture("Interface\\Buttons\\UI-PlusButton-DOWN")
+						else
+							self:SetNormalTexture("Interface\\Buttons\\UI-MinusButton-UP")
+							self:SetPushedTexture("Interface\\Buttons\\UI-MinusButton-DOWN")
+						end
+					</OnClick>
+				</Scripts>
+			</Button>
+		</Frames>
+	</Frame>
+	<!--virtual frame used to allow for script generated frames with stat information-->
+	<Frame name="ww_statFrame" virtual="true">
+		<Size>
+			<AbsDimension y="22"/>
+		</Size>
+		<Anchors>
+			<Anchor point="RIGHT">
+				<Offset>
+					<AbsDimension x="-5"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString name="$parentText" parentKey="text" inherits="GameFontNormal">
+					<Size>
+						<AbsDimension y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="20"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame name="$parentHighlightFrame" parentKey="highlightFrame" inherits="ww_highlightedFrame">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="15" y="-1"/>
+						</Offset>
+					</Anchor>
+					<Anchor point="BOTTOMRIGHT">
+						<Offset>
+							<AbsDimension x="-132" y="-1"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<EditBox letters="16" name="$parentStatValue" parentKey="statValue" autoFocus="false">
+				<Size>
+					<AbsDimension x="130" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="RIGHT"/>
+				</Anchors>
+				<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+					<EdgeSize>
+						<AbsValue val="10"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val="10"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left="0" right="0" top="5" bottom="5"/>
+					</BackgroundInsets>
+				</Backdrop>
+				<FontString inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="LEFT"/>
+					</Anchors>
+				</FontString>
+				<Scripts>
+					<OnLoad>
+						self:SetTextInsets(5, 5, 0, 0)
+					</OnLoad>
+					<OnTextChanged>
+						local text = self:GetText()
+						if self:GetNumber() ~= 0 or text:match("^[0.]+$") or text == "" then
+							self.number = text
+						end
+						if self:GetNumber() == ww_weights.rightPanel.statList[self:GetParent().statName] or (self:GetNumber() == 0 and not ww_weights.rightPanel.statList[self:GetParent().statName]) then
+							ww_weights.rightPanel.changedStats[self] = nil
+							local changed = false
+							for _ in pairs(ww_weights.rightPanel.changedStats) do
+								changed = true
+								break
+							end
+							if not changed then
+								ww_weights.rightPanel.saveButton:Disable()
+								ww_weights.rightPanel.resetButton:Disable()
+							end
+						else
+							ww_weights.rightPanel.changedStats[self] = self:GetParent().statName
+							ww_weights.rightPanel.saveButton:Enable()
+							ww_weights.rightPanel.resetButton:Enable()
+						end
+					</OnTextChanged>
+					<OnChar>
+						if validateNumber(text, self:GetText()) then
+							self.number = self:GetText()
+						else
+							local cursorPosition = self:GetCursorPosition() - 1
+							self:SetText(self.number)
+							self:SetCursorPosition(cursorPosition)
+						end
+					</OnChar>
+					<OnEditFocusGained>
+						self:GetParent().highlightFrame:Show()
+						self:HighlightText()
+					</OnEditFocusGained>
+					<OnEditFocusLost>
+						self:GetParent().highlightFrame:Hide()
+						self:HighlightText(0,0)
+					</OnEditFocusLost>
+					<OnTabPressed>
+						changeFocus(self:GetParent())
+					</OnTabPressed>
+					<OnEscapePressed>
+						self:ClearFocus()
+					</OnEscapePressed>
+				</Scripts>
+			</EditBox>
+		</Frames>
+	</Frame>
+	<!--virtual frame used to allow for script generated frames with stat information-->
+	<Frame name="ww_weightFrame" virtual="true">
+		<Size>
+			<AbsDimension y="22"/>
+		</Size>
+		<Anchors>
+			<Anchor point="RIGHT"/>
+		</Anchors>
+		<Frames>
+			<CheckButton name="$parentCheckButton" parentKey="checkButton" inherits="UICheckButtonTemplate" text="Watch this Weight">
+				<Size>
+					<AbsDimension x="20" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT">
+						<Offset>
+							<AbsDimension x="10"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						local parent = self:GetParent()
+						local class = parent.category.class
+
+						if not ww_charVars.activeWeights[class] then
+							ww_charVars.activeWeights[class] = {}
+							table.insert(ww_charVars.activeWeights, class)
+						end
+						if self:GetChecked() then
+							table.insert(ww_charVars.activeWeights[class], parent.name)
+						else
+							for i, weight in ipairs(ww_charVars.activeWeights[class]) do
+								if weight == parent.name then
+									table.remove(ww_charVars.activeWeights[class], i)
+									break
+								end
+							end
+						end
+					</OnClick>
+					<OnEnter>
+						GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
+						GameTooltip:AddLine("Watch this weight?", 1, 1, 1)
+						GameTooltip:Show()
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide()
+					</OnLeave>
+				</Scripts>
+			</CheckButton>
+			<Button name="$parentText" parentKey="text">
+				<Size>
+					<AbsDimension y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT">
+						<Offset>
+							<AbsDimension x="40"/>
+						</Offset>
+					</Anchor>
+					<Anchor point="RIGHT"/>
+				</Anchors>
+				<HighlightTexture file="Interface\Buttons\UI-Listbox-Highlight2" alphaMode="ADD">
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="-3" y="-2"/>
+							</Offset>
+						</Anchor>
+						<Anchor point="BOTTOMRIGHT">
+							<Offset>
+								<AbsDimension x="-7"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</HighlightTexture>
+				<Frames>
+					<Frame name="$parentHighlightFrame" parentKey="highlightFrame" inherits="ww_highlightedFrame">
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset>
+									<AbsDimension x="-5" y="-1"/>
+								</Offset>
+							</Anchor>
+							<Anchor point="BOTTOMRIGHT">
+								<Offset>
+									<AbsDimension x="-5" y="-1"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Frame>
+				</Frames>
+				<Scripts>
+					<OnClick>
+						configDiscardChanges(function()
+								configSelectWeight(self:GetParent())
+							end)
+					</OnClick>
+					<OnLoad>
+						self:SetFontString(self:CreateFontString(nil, "OVERLAY", "ww_defaultString"))
+					</OnLoad>
+				</Scripts>
+			</Button>
+		</Frames>
+	</Frame>
+	<!-- The frame containing all weight-related content -->
+	<Frame name="ww_weights" parent="UIParent" hidden="true" frameStrata="HIGH">
+		<Size>
+			<AbsDimension x="600" y="600"/>
+		</Size>
+		<Anchors>
+			<Anchor point="CENTER"/>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture setAllPoints="true">
+					<!--Plain black background with 50% alpha-->
+					<Color r="0" g="0" b="0" a="0.8"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<!--list of objects within the configuartion window-->
+		<Frames>
+			<!--The Class Selection Frame-->
+			<Frame name="$parentLeftPanel" parentKey="leftPanel">
+				<Size>
+					<AbsDimension x="150"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOP">
+						<Offset>
+							<AbsDimension y="-25"/>
+						</Offset>
+					</Anchor>
+					<Anchor point="LEFT"/>
+					<Anchor point="BOTTOM">
+						<Offset>
+							<AbsDimension y="25"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+					<EdgeSize>
+						<AbsValue val="10"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val="10"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left="0" right="0" top="5" bottom="5"/>
+					</BackgroundInsets>
+				</Backdrop>
+				<Frames>
+					<!--used to hold a series of stat frames to maintain absolute position when scrolling-->
+					<Frame name="$parentScrollContainer" parentKey="scrollContainer">
+						<Anchors>
+							<Anchor point="LEFT"/>
+							<Anchor point="RIGHT"/>
+						</Anchors>
+					</Frame>
+					<!--Invisible frame with scroll bar that does the scrolling-->
+					<ScrollFrame name="$parentScrollFrame" parentKey="scrollFrame" inherits="FauxScrollFrameTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT"/>
+							<Anchor point="BOTTOMRIGHT">
+								<Offset>
+									<AbsDimension x="-5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnShow>
+								scrollBarUpdate(self, ww_weights.leftPanel.scrollContainer, 22, 0, 25)
+							</OnShow>
+							<OnVerticalScroll>
+								FauxScrollFrame_OnVerticalScroll(self, offset, 22, self:GetScript("OnShow"))
+							</OnVerticalScroll>
+						</Scripts>
+					</ScrollFrame>
+				</Frames>
+			</Frame>
+			<!--Right Frame for viewing the weights for each class-->
+			<Frame name="$parentRightPanel" parentKey="rightPanel" hidden="true">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentLeftPanel" relativePoint="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="20"/>
+						</Offset>
+					</Anchor>
+					<Anchor point="BOTTOM" relativeTo="$parentLeftPanel"/>
+					<Anchor point="RIGHT">
+						<Offset>
+							<AbsDimension x="-20"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString name="$parentHeader" parentKey="header" inherits="GameFontNormal">
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset>
+										<AbsDimension y="-5"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+					<EdgeSize>
+						<AbsValue val="10"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val="10"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left="0" right="0" top="5" bottom="5"/>
+					</BackgroundInsets>
+				</Backdrop>
+				<Frames>
+					<!--Save button-->
+					<Button name="$parentSaveButton" parentKey="saveButton" inherits="UIPanelButtonTemplate" text="Save">
+						<Size>
+							<AbsDimension x="80" y="22"/>
+						</Size>
+						<Anchors>
+							<Anchor point="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="5" y="5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								configSaveWeight()
+							</OnClick>
+						</Scripts>
+					</Button>
+					<!--Copy button-->
+					<Button name="$parentCopyButton" parentKey="copyButton" inherits="UIPanelButtonTemplate" text="Copy">
+						<Size>
+							<AbsDimension x="80" y="22"/>
+						</Size>
+						<Anchors>
+							<Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parentSaveButton">
+								<Offset>
+									<AbsDimension x="27"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								configNewWeight(self:GetParent().weightFrame.category.class, "Copy of " .. self:GetParent().weightFrame.name, self:GetParent().statList)
+							</OnClick>
+						</Scripts>
+					</Button>
+					<!--Reset button-->
+					<Button name="$parentResetButton" parentKey="resetButton" inherits="UIPanelButtonTemplate" text="Reset">
+						<Size>
+							<AbsDimension x="80" y="22"/>
+						</Size>
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT">
+								<Offset>
+									<AbsDimension x="-5" y="5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								configResetWeight()
+							</OnClick>
+						</Scripts>
+					</Button>
+					<!--Delete button-->
+					<Button name="$parentDeleteButton" parentKey="deleteButton" inherits="UIPanelButtonTemplate" text="Delete">
+						<Size>
+							<AbsDimension x="80" y="22"/>
+						</Size>
+						<Anchors>
+							<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parentResetButton">
+								<Offset>
+									<AbsDimension x="-27"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								configDeleteWeight()
+							</OnClick>
+						</Scripts>
+					</Button>
+					<!--used to hold a series of stat frames to maintain absolute position when scrolling-->
+					<Frame name="$parentScrollContainer" parentKey="scrollContainer">
+						<Anchors>
+							<Anchor point="LEFT"/>
+							<Anchor point="RIGHT"/>
+						</Anchors>
+					</Frame>
+					<!--Invisible frame with scroll bar that does the scrolling-->
+					<ScrollFrame name="$parentScrollFrame" parentKey="scrollFrame" inherits="FauxScrollFrameTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT"/>
+							<Anchor point="BOTTOMRIGHT">
+								<Offset>
+									<AbsDimension x="-5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnShow>
+								scrollBarUpdate(self, ww_weights.rightPanel.scrollContainer, 22, -30, 22)
+							</OnShow>
+							<OnVerticalScroll>
+								FauxScrollFrame_OnVerticalScroll(self, offset, 22, self:GetScript("OnShow"))
+							</OnVerticalScroll>
+						</Scripts>
+					</ScrollFrame>
+				</Frames>
+				<Scripts>
+					<OnShow>
+						if not ww_weights.popup then
+							changeFocus(self.scrollFrame.stats[#(self.scrollFrame.stats)])
+						end
+					</OnShow>
+				</Scripts>
+			</Frame>
+			<!--Close Button for the configuration window-->
+			<Button name="$parentCloseButton" parentKey="closeButton" inherits="UIPanelCloseButton">
+				<Anchors>
+					<Anchor point="TOPRIGHT"/>
+				</Anchors>
+			</Button>
+			<!--restore default button-->
+			<Button name="$parentDefaultsButton" parentKey="defaultsButton" inherits="UIPanelButtonTemplate" text="Restore Defaults">
+				<Size>
+					<AbsDimension x="150" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMLEFT"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						if ww_weights.rightPanel.weightFrame and defaultVars.weightsList[ww_weights.rightPanel.weightFrame.category.class][ww_weights.rightPanel.weightFrame.name] then
+							StaticPopup_Show("WW_CONFIRM_RESTORE_DEFAULTS")
+						else
+							configDiscardChanges(function()
+									StaticPopup_Show("WW_CONFIRM_RESTORE_DEFAULTS")
+								end)
+						end
+					</OnClick>
+				</Scripts>
+			</Button>
+			<!--Create new weight button-->
+			<Button name="$parentNewWeightButton" parentKey="newWeightButton" inherits="UIPanelButtonTemplate" text="New Weight">
+				<Size>
+					<AbsDimension x="100" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						configNewWeight()
+					</OnClick>
+				</Scripts>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				table.insert(UISpecialFrames, self:GetName());
+			</OnLoad>
+			<OnHide>
+				if self.reallyClose then
+					self.reallyClose = nil
+				else
+					self.popup = true
+					self:Show()
+					configDiscardChanges(function()
+							self.reallyClose = true
+							<!-- Safe because configDiscardChanges will save the weight first -->
+							if self.rightPanel:IsShown() then
+								configResetWeight()
+							end
+							self:Hide()
+						end)
+					self.popup = nil
+				end
+			</OnHide>
+		</Scripts>
+	</Frame>
+	<Frame name="ww_newWeight" parent="UIParent" hidden="true" frameStrata="DIALOG">
+		<Size>
+			<AbsDimension x="420" y="120"/>
+		</Size>
+		<Anchors>
+			<Anchor point="CENTER"/>
+		</Anchors>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString name="$parentText" parentKey="text" inherits="GameFontHighlight" text="Please choose a class and name for your new weight:">
+					<Size>
+						<AbsDimension x="380" y="0"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="-16"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+			<Layer level="BACKGROUND">
+				<Texture setAllPoints="true">
+					<!--Plain black background with 50% alpha-->
+					<Color r="0" g="0" b="0" a="0.5"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+			<BackgroundInsets>
+				<AbsInset left="11" right="12" top="12" bottom="11"/>
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val="32"/>
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="32"/>
+			</EdgeSize>
+		</Backdrop>
+		<Frames>
+			<Button name="$parentDropDown" parentKey="dropdown" inherits="UIDropDownMenuTemplate">
+				<Anchors>
+					<Anchor point="LEFT"/>
+				</Anchors>
+				<Scripts>
+					<OnShow>
+						ClassDropDownOnShow(self);
+					</OnShow>
+				</Scripts>
+			</Button>
+			<EditBox letters="50" name="$parentEditBox" parentKey="editBox">
+				<Size>
+					<AbsDimension y="32"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOM" >
+						<Offset>
+							<AbsDimension x="0" y="45"/>
+						</Offset>
+					</Anchor>
+					<Anchor point="RIGHT">
+						<Offset>
+							<AbsDimension x="-25"/>
+						</Offset>
+					</Anchor>
+					<Anchor point="LEFT" relativeTo="$parentDropDown" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="125"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<FontString inherits="ChatFontNormal"/>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture file="Interface\ChatFrame\UI-ChatInputBorder-Left">
+							<Size>
+								<AbsDimension x="128" y="32"/>
+							</Size>
+							<Anchors>
+								<Anchor point="LEFT">
+									<Offset>
+										<AbsDimension x="-10" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<TexCoords left="0" right="0.5" top="0" bottom="1.0"/>
+						</Texture>
+						<Texture file="Interface\ChatFrame\UI-ChatInputBorder-Right">
+							<Size>
+								<AbsDimension x="128" y="32"/>
+							</Size>
+							<Anchors>
+								<Anchor point="RIGHT">
+									<Offset>
+										<AbsDimension x="10" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<TexCoords left="0.5" right="1.0" top="0" bottom="1.0"/>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						self:SetTextInsets(5, 5, 0, 0)
+					</OnLoad>
+					<OnTextChanged>
+						if self:GetText() == "" then
+							self:GetParent().createButton:Disable()
+						else
+							self:GetParent().createButton:Enable()
+						end
+					</OnTextChanged>
+					<OnEnterPressed>
+						if StaticPopup_Visible("WW_WEIGHT_EXISTS") then
+							StaticPopup_Hide("WW_WEIGHT_EXISTS")
+						else
+							self:GetParent().createButton:Click()
+						end
+					</OnEnterPressed>
+					<OnEscapePressed>
+						if StaticPopup_Visible("WW_WEIGHT_EXISTS") then
+							StaticPopup_Hide("WW_WEIGHT_EXISTS")
+						else
+							self:GetParent().cancelButton:Click()
+						end
+					</OnEscapePressed>
+				</Scripts>
+			</EditBox>
+			<Button name="$parentCreateButton" parentKey="createButton" inherits="UIPanelButtonTemplate" text="Create">
+				<Size>
+					<AbsDimension x="128" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOM">
+						<Offset>
+							<AbsDimension x="-6" y="16"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						local class = UIDropDownMenu_GetSelectedValue(self:GetParent().dropdown)
+						local name = self:GetParent().editBox:GetText()
+						if ww_vars.weightsList[class][name] then
+							local error = StaticPopup_Show("WW_WEIGHT_EXISTS", classNames[class], name)
+						else
+							setWeight(class, name, self:GetParent().statList)
+							selectWeight(class, name)
+							self:GetParent():Hide()
+						end
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$parentCancelButton" parentKey="cancelButton" inherits="UIPanelButtonTemplate" text="Cancel">
+				<Size>
+					<AbsDimension x="128" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" relativePoint="BOTTOM">
+						<Offset>
+							<AbsDimension x="6" y="16"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						self:GetParent():Hide()
+					</OnClick>
+				</Scripts>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnShow>
+				self.editBox:SetFocus()
+			</OnShow>
+		</Scripts>
+	</Frame>
+</Ui>
