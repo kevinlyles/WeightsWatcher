@@ -8,6 +8,19 @@ ww_statFrameTable = {}
 ww_classFrameTable = {}
 ww_weightFrameTable = {}
 
+StaticPopupDialogs["WW_CONFIRM_WEIGHT_DELETE"] = {
+	text = "Are you sure you want to delete the %s weight named \"%s\"?",
+	button1 = "Delete",
+	button2 = "Cancel",
+	OnAccept = function(self, weight)
+			deleteWeight(weight)
+		end,
+	showAlert = true,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = true,
+}
+
 function commandHandler(msg)
 	open_config()
 end
@@ -79,6 +92,10 @@ function configSelectWeight(weightFrame)
 		function()
 			configSaveWeight(weightFrame)
 		end)
+	ww_config.rightPanel.deleteButton:SetScript("OnClick",
+		function()
+			configDeleteWeight(weightFrame)
+		end)
 	ww_config.rightPanel.resetButton:SetScript("OnClick",
 		function()
 			configResetWeight(weightFrame)
@@ -100,6 +117,12 @@ function configResetWeight(weight)
 	end
 end
 
+function configDeleteWeight(weight)
+	local confirm = StaticPopup_Show("WW_CONFIRM_WEIGHT_DELETE", weight.category.name, weight.name)
+	-- Pass the things to delete, has to be done after the show call
+	confirm.data = weight
+end
+
 function configSaveWeight(weight)
 	local number
 
@@ -112,6 +135,39 @@ function configSaveWeight(weight)
 			ww_vars.weightsList[weight.category.class][weight.name][frame.statName] = number
 		end
 	end
+end
+
+function deleteWeight(weight)
+	local point, relativeTo, relativePoint, xOffset, yOffset
+
+	weight.category.length = weight.category.length - 1
+	for _, weightFrame in ipairs({weight.category:GetChildren()}) do
+		if weightFrame.position and weightFrame.position > weight.position then
+			weightFrame.position = weightFrame.position - 1
+			for i = 1, weightFrame:GetNumPoints() do
+				point, relativeTo, relativePoint, xOffset, yOffset = weightFrame:GetPoint(1)
+				if point == "TOPLEFT" then
+					weightFrame:SetPoint(point, relativeTo, relativePoint, xOffset, yOffset + 20)
+					break
+				end
+			end
+		end
+	end
+	if not weight.category.collapsed then
+		for _, classFrame in ipairs(ww_classFrameTable) do
+			if classFrame.position > weight.category.position then
+				classFrame.position = classFrame.position - 1
+			end
+		end
+		table.remove(ww_weightFrameTable, weight.category.position + weight.position)
+		weight.category:SetHeight(20 * weight.category.length)
+	end
+	weight:Hide()
+	weight:SetParent(nil)
+
+	ww_vars.weightsList[weight.category.class][weight.name] = nil
+	ww_config.rightPanel:Hide()
+	ww_config.leftPanel.scrollFrame:GetScript("OnShow")(ww_config.leftPanel.scrollFrame)
 end
 
 --loads the various class buttons onto the config frame

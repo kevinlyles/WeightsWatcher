@@ -272,6 +272,15 @@
 							<Anchor point="BOTTOMRIGHT"/>
 						</Anchors>
 					</Button>
+					<!--Delete button-->
+					<Button name="$parentDeleteButton" parentKey="deleteButton" inherits="UIPanelButtonTemplate" text="Delete">
+						<Size>
+							<AbsDimension x="100" y="22"/>
+						</Size>
+						<Anchors>
+							<Anchor point="BOTTOM"/>
+						</Anchors>
+					</Button>
 					<!--used to hold a series of stat frames to maintain absolute position when scrolling-->
 					<Frame name="$parentScrollContainer" parentKey="scrollContainer">
 						<Anchors>
