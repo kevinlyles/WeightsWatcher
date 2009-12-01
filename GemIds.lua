@@ -20,14 +20,6 @@
 -- 	11: wrath JC-only
 
 GemIds = {
--- 	[2686] = {
--- 		"Red",
--- 		{["Strength"] = 8},
--- 	},
--- 	[2688] = {
--- 		"Yellow",
--- 		{["Stamina"] = 8},
--- 	},
 	[2690] = {
 		"Red",
 		"Teardrop Blood Garnet",
@@ -406,10 +398,6 @@ GemIds = {
 		5,
 		{["Resilience Rating"] = 10},
 	},
--- 	[2894] = {
--- 		"Red",
--- 		{["Strength"] = 7},
--- 	},
 	[2896] = {
 		"Red",
 		"Stark Blood Garnet",
@@ -428,10 +416,6 @@ GemIds = {
 		3,
 		{["Stamina"] = 3, ["Critical Strike Rating"] = 4},
 	},
--- 	[2911] = {
--- 		"Red",
--- 		{["Strength"] = 10},
--- 	},
 	[2912] = {
 		"Red",
 		"Runed Ornate Ruby",
@@ -462,20 +446,12 @@ GemIds = {
 		4,
 		{["Critical Strike Rating"] = 5, ["Spell Power"] = 6},
 	},
--- 	[2918] = {
--- 		"Green",
--- 		{["Stamina"] = 3, ["Critical Strike Rating"] = 4},
--- 	},
 	[2921] = {
 		"Green",
 		"Barbed Deep Peridot",
 		3,
 		{["Stamina"] = 3, ["Critical Strike Rating"] = 4},
 	},
--- 	[2922] = {
--- 		"Red",
--- 		{["Strength"] = 7},
--- 	},
 	[2923] = {
 		"Green",
 		"Notched Deep Peridot",
@@ -536,10 +512,6 @@ GemIds = {
 		4,
 		{["Attack Power"] = 20},
 	},
--- 	[2950] = {
--- 		"Yellow",
--- 		{["Critical Strike Rating"] = 10},
--- 	},
 	[2956] = {
 		"Red",
 		"Bold Tourmaline",
@@ -794,7 +766,7 @@ GemIds = {
 	},
 	[3072] = {
 		"Orange",
-		"Enscribed Fire Opal", -- No, that's not a typo on my part
+		"Enscribed Fire Opal", -- No, that's not a typo (on my part, anyway)
 		4,
 		{["Strength"] = 5, ["Critical Strike Rating"] = 4},
 	},
@@ -1362,14 +1334,6 @@ GemIds = {
 		3,
 		{["Resilience Rating"] = 4, ["Stamina"] = 6},
 	},
--- 	[3242] = {
--- 		"Prismatic",
--- 		{["All Resistances"] = 5},
--- 	},
--- 	[3254] = {
--- 		"Prismatic",
--- 		{["All Stats"] = 4},
--- 	},
 	[3261] = {
 		"Meta",
 		"Chaotic Skyfire Diamond",
@@ -1496,20 +1460,12 @@ GemIds = {
 		11,
 		{["Stamina"] = 51},
 	},
--- 	[3317] = {
--- 		"Blue",
--- 		{["Stamina"] = 21},
--- 	},
 	[3318] = {
 		"Purple",
 		"Purified Shadowsong Amethyst",
 		4,
 		{["Spell Power"] = 6, ["Spirit"] = 5},
 	},
--- 	[3321] = {
--- 		"Red",
--- 		{["Armor"] = 150},
--- 	},
 	[3335] = {
 		"Red",
 		"Bold Ornate Ruby",
