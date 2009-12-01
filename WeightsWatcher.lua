@@ -524,7 +524,7 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 										for _, gem in ipairs(gemStats) do
 											tooltip:AddDoubleLine("    Using " .. gem[2] .. " (" .. gem[1] .. ")", " ")
 											if keyDetectors[ww_vars.options.tooltip.showIdealGemStats]() then
-												for stat, value in pairs(gem[4]) do
+												for stat, value in pairs(gem[3]) do
 													tooltip:AddDoubleLine("      " .. stat .. ": " .. value, " ")
 												end
 											end
@@ -556,11 +556,13 @@ end
 
 function WeightsWatcher:bestGemForSocket(socketColor, weightScale, qualityLimit)
 	local bestGem, bestWeight, weight = 0, 0
+	if not qualityLimit then
+		qualityLimit = #(GemIds)
+	end
 
-	for gemId, gemStats in pairs(GemIds) do
-		if not qualityLimit or gemStats[3] <= qualityLimit then
-			-- Meta sockets don't ever hold anything but meta gems
-			if  WeightsWatcher:matchesSocket(gemStats[1], socketColor) then
+	for quality = qualityLimit, 1, -1 do
+		for gemId, gemStats in pairs(GemIds[quality]) do
+			if WeightsWatcher:matchesSocket(gemStats[1], socketColor) then
 				weight = WeightsWatcher:calculateWeight({}, true, nil, {gemStats}, weightScale)
 				if bestGem == 0 or weight > bestWeight then
 					bestGem = gemId
@@ -572,7 +574,16 @@ function WeightsWatcher:bestGemForSocket(socketColor, weightScale, qualityLimit)
 	return bestGem, bestWeight
 end
 
-function WeightsWatcher:matchesSocket(gemColor, socketColor)
+function WeightsWatcher:matchesSocket(gemId, socketColor)
+	local gemColor
+
+	if type(gemId) == "number" then
+		local _, gemInfo = WeightsWatcher:GemInfo(gemId)
+		gemColor = gemInfo[1]
+	elseif type(gemId) == "string" then
+		gemColor = gemId
+	end
+
 	if socketColor == "Red" then
 		if gemColor == "Red" or gemColor == "Orange" or gemColor == "Purple" or gemColor == "Prismatic" then
 			return true
@@ -607,7 +618,7 @@ function WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBo
 		end
 	end
 	for _, value in pairs(gemStats) do
-		for name, value in pairs(value[4]) do
+		for name, value in pairs(value[3]) do
 			weight = weight + WeightsWatcher:getWeight(name, value, weightsScale)
 		end
 	end
@@ -640,7 +651,7 @@ function WeightsWatcher:getGemStats(...)
 	local statTable = {}
 	lastGem = 0
 	for _, gemId in pairs(...) do
-		stats = GemIds[tonumber(gemId)]
+		_, stats = WeightsWatcher:GemInfo(gemId)
 		if stats then
 			table.insert(statTable, stats)
 			lastGem = #(statTable)
@@ -649,7 +660,7 @@ function WeightsWatcher:getGemStats(...)
 				print("WeightsWatcher: Unhandled gemId " .. gemId)
 			end
 			-- Ensures gems line up with their sockets
-			table.insert(statTable, {"None", {}})
+			table.insert(statTable, {"None", "N/A", {}})
 		end
 	end
 
