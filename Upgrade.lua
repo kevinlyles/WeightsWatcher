@@ -128,6 +128,31 @@ noop_down = [[
 	end
 ]]
 
+function noop_major_up(vars)
+	vars.dataMajorVersion = vars.dataMajorVersion + 1
+	vars.dataMinorVersion = 0
+
+	return vars
+end
+
+downgradeAccountToDevelopment = [[
+	return function(vars)
+		vars.dataMajorVersion = 0
+		vars.dataMinorVersion = 10
+
+		return vars
+	end
+]]
+
+downgradeCharToDevelopment = [[
+	return function(vars)
+		vars.dataMajorVersion = 0
+		vars.dataMinorVersion = 2
+
+		return vars
+	end
+]]
+
 function upgradeAccountToConfig(vars)
 	local table = vars.options.tooltip
 	local conversion = {
@@ -393,6 +418,7 @@ upgradeAccountFunctions = {
 		[7] = function(vars) return upgradeAccountHideModKeyHints(vars) end,
 		[8] = function(vars) return upgradeAccountForceGemColors(vars) end,
 		[9] = function(vars) return upgradeAccountToConfig(vars) end,
+		[10] = function(vars) return noop_major_up(vars) end,
 	},
 }
 
@@ -408,17 +434,24 @@ downgradeAccountFunctions = {
 		[9] = noop_down,
 		[10] = downgradeAccountFromConfig,
 	},
+	[1] = {
+		[0] = downgradeAccountToDevelopment,
+	},
 }
 
 upgradeCharFunctions = {
 	[0] = {
 		[0] = function(vars) return copyDefaultCharVars() end,
 		[1] = function(vars) return upgradeCharToOrderedLists(vars) end,
+		[2] = function(vars) return noop_major_up(vars) end,
 	},
 }
 
 downgradeCharFunctions = {
 	[0] = {
 		[2] = downgradeCharFromOrderedLists,
+	},
+	[1] = {
+		[0] = downgradeCharToDevelopment,
 	},
 }

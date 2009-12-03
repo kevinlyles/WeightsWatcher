@@ -135,8 +135,8 @@ classNameOptions = {
 }
 
 defaultVars = {
-	dataMajorVersion = 0,
-	dataMinorVersion = 10,
+	dataMajorVersion = 1,
+	dataMinorVersion = 0,
 	weightsList = {
 		[1] = "DEATHKNIGHT",
 		[2] = "DRUID",
@@ -545,7 +545,7 @@ defaultVars = {
 }
 
 defaultCharVars = {
-	dataMajorVersion = 0,
-	dataMinorVersion = 2,
+	dataMajorVersion = 1,
+	dataMinorVersion = 0,
 	activeWeights = {},
 }

@@ -25,7 +25,7 @@ function commandHandler(msg)
 			ww_weights:Show()
 		end
 	elseif msg == "version" then
-		print("WeightsWatcher version: 1.0a1")
+		print("WeightsWatcher version: 1.0b1")
 		print("  Account data version: " .. ww_vars.dataMajorVersion .. "." .. ww_vars.dataMinorVersion)
 		print("  Character data version: " .. ww_charVars.dataMajorVersion .. "." .. ww_charVars.dataMinorVersion)
 	else
