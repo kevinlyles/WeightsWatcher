@@ -1,8 +1,8 @@
-## Interface: 30200
+## Interface: 30300
 ## Title: Weights Watcher
 ## Notes: Ranks gear according to customizable stat weights
 ## Author: The Flying Squirrels
-## Version: 1.0b1
+## Version: 1.0b2
 ## SavedVariables: ww_vars
 ## SavedVariablesPerCharacter: ww_charVars
 ## X-Category: Interface Enhancements
