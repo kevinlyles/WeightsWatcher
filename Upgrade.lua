@@ -135,6 +135,84 @@ function noop_major_up(vars)
 	return vars
 end
 
+function upgradeAccountToBetterMetaEffectNames(vars)
+	local newName
+	local conversion = {
+		["armor from items percent"] = "armor from items (percent)",
+		["block value percent"] = "block value (percent)",
+		["chance to increase melee/ranged attack speed"] = "chance to increase physical haste",
+		["chance to increase spell cast speed"] = "chance to increase spell haste",
+		["critical damage percent"] = "critical damage (percent)",
+		["critical healing percent"] = "critical healing (percent)",
+		["fear duration reduction percent"] = "fear duration reduction (percent)",
+		["silence duration reduction percent"] = "silence duration reduction (percent)",
+		["snare/root duration reduction percent"] = "snare/root duration reduction (percent)",
+		["spell damage taken reduction percent"] = "spell damage taken reduction (percent)",
+		["spell reflect percent"] = "spell reflect (percent)",
+		["stun duration reduction percent"] = "stun duration reduction (percent)",
+		["stun resistance percent"] = "stun resistance (percent)",
+		["threat percent"] = false,
+		["threat reduction percent"] = "threat reduction (percent)",
+	}
+
+	for _, class in ipairs(vars.weightsList) do
+		for _, weight in ipairs(vars.weightsList[class]) do
+			for stat, value in pairs(vars.weightsList[class][weight]) do
+				newName = conversion[stat]
+				-- Don't touch unchanged stat names, clear deleted stat names
+				if newName ~= nil then
+					vars.weightsList[class][weight][stat] = nil
+				end
+				-- move the value to the new stat name
+				if newName then
+					vars.weightsList[class][weight][newName] = value
+				end
+			end
+		end
+	end
+
+	vars.dataMinorVersion = 1
+	return vars
+end
+
+downgradeAccountFromBetterMetaEffectNames = [[
+	return function (vars)
+		local newName
+		local conversion = {
+			["armor from items (percent)"] = "armor from items percent",
+			["block value (percent)"] = "block value percent",
+			["chance to increase physical haste"] = "chance to increase melee/ranged attack speed",
+			["chance to increase spell haste"] = "chance to increase spell cast speed",
+			["critical damage (percent)"] = "critical damage percent",
+			["critical healing (percent)"] = "critical healing percent",
+			["fear duration reduction (percent)"] = "fear duration reduction percent",
+			["silence duration reduction (percent)"] = "silence duration reduction percent",
+			["snare/root duration reduction (percent)"] = "snare/root duration reduction percent",
+			["spell damage taken reduction (percent)"] = "spell damage taken reduction percent",
+			["spell reflect (percent)"] = "spell reflect percent",
+			["stun duration reduction (percent)"] = "stun duration reduction percent",
+			["stun resistance (percent)"] = "stun resistance percent",
+			["threat reduction (percent)"] = "threat reduction percent",
+		}
+
+		for _, class in ipairs(vars.weightsList) do
+			for _, weight in ipairs(vars.weightsList[class]) do
+				for stat, value in pairs(vars.weightsList[class][weight]) do
+					newName = conversion[stat]
+					-- move the value to the new stat name
+					if newName then
+						vars.weightsList[class][weight][stat] = nil
+						vars.weightsList[class][weight][newName] = value
+					end
+				end
+			end
+		end
+
+		vars.dataMinorVersion = 0
+		return vars
+	end
+]]
+
 downgradeAccountToDevelopment = [[
 	return function(vars)
 		vars.dataMajorVersion = 0
@@ -420,6 +498,9 @@ upgradeAccountFunctions = {
 		[9] = function(vars) return upgradeAccountToConfig(vars) end,
 		[10] = function(vars) return noop_major_up(vars) end,
 	},
+	[1] = {
+		[0] = function(vars) return upgradeAccountToBetterMetaEffectNames(vars) end,
+	},
 }
 
 downgradeAccountFunctions = {
@@ -436,6 +517,7 @@ downgradeAccountFunctions = {
 	},
 	[1] = {
 		[0] = downgradeAccountToDevelopment,
+		[1] = downgradeAccountFromBetterMetaEffectNames,
 	},
 }
 
