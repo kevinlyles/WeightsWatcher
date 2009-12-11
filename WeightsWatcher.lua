@@ -126,6 +126,9 @@ function WeightsWatcher:OnEnable()
 	WeightsWatcher:HookTooltip("ShoppingTooltip2", "SetExistingSocketGem")
 	WeightsWatcher:HookTooltip("ShoppingTooltip2", "SetHyperlinkCompareItem")
 	WeightsWatcher:HookTooltip("ShoppingTooltip2", "SetInventoryItem")
+	if AtlasLootTooltip then
+		WeightsWatcher:HookTooltip("AtlasLootTooltip", "SetHyperlink")
+	end
 end
 
 function WeightsWatcher:OnDisable()
