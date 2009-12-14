@@ -4,10 +4,152 @@ end
 
 currentHooks = {}
 
-ww_itemCache = {}
-ww_bareItemCache = {}
-ww_weightCache = {}
-ww_weightIdealCache = {}
+ww_bareItemCacheMetatable = {
+	__index = function(tbl, key)
+		tbl[key] = {WeightsWatcher:getItemStats(key)}
+		return tbl[key]
+	end,
+}
+
+ww_itemCacheMetatable = {
+	__index = function(tbl, key)
+		local gemStats, socketBonusActive
+		local bareLink, gems = splitItemLink(key)
+		local normalStats, sockets, socketBonusStat = unpack(ww_bareItemCache[bareLink])
+
+		gemStats = WeightsWatcher:getGemStats(gems)
+
+		-- Removes gems in crafted sockets from consideration
+		for i = #(sockets) + 1, #(gemStats) do
+			table.remove(gemStats)
+		end
+
+		if #(sockets) > 0 then
+			socketBonusActive = true
+			for i = 1, #(sockets) do
+				if not gemStats[i] or not WeightsWatcher:matchesSocket(gemStats[i][1], sockets[i]) then
+					socketBonusActive = false
+					break
+				end
+			end
+		else
+			socketBonusActive = false
+		end
+
+		tbl[key] = {socketBonusActive, gemStats}
+		return tbl[key]
+	end,
+}
+
+ww_weightCacheWeightMetatable = {
+	__index = function(tbl, key)
+		local normalStats, socketBonusActive, socketBonusStat, gemStats
+		local bareLink = splitItemLink(key)
+		normalStats, _, socketBonusStat = unpack(ww_bareItemCache[bareLink])
+		socketBonusActive, gemStats = unpack(ww_itemCache[key])
+
+		tbl[key] = WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, tbl.weight)
+		return tbl[key]
+	end,
+}
+
+ww_weightCacheClassMetatable = {
+	__index = function(tbl, key)
+		tbl[key] = setmetatable({}, ww_weightCacheWeightMetatable)
+		tbl[key].weight = tbl.class[key]
+		return tbl[key]
+	end,
+}
+
+ww_weightCacheMetatable = {
+	__index = function(tbl, key)
+		tbl[key] = setmetatable({}, ww_weightCacheClassMetatable)
+		tbl[key].class = ww_vars.weightsList[key]
+		return tbl[key]
+	end,
+}
+
+ww_weightIdealCacheWeightMetatable = {
+	__index = function(tbl, key)
+		if key == "weight" then
+			return nil
+		elseif key == "bestGems" then
+			local redScore, yellowScore, blueScore, overallScore
+			local bestGems = {}
+
+			bestGems.Red, redScore = WeightsWatcher:bestGemForSocket("Red", tbl.weight, ww_vars.options.gemQualityLimit)
+			bestGems.Yellow, yellowScore = WeightsWatcher:bestGemForSocket("Yellow", tbl.weight, ww_vars.options.gemQualityLimit)
+			bestGems.Blue, blueScore = WeightsWatcher:bestGemForSocket("Blue", tbl.weight, ww_vars.options.gemQualityLimit)
+			bestGems.Meta = WeightsWatcher:bestGemForSocket("Meta", tbl.weight, ww_vars.options.gemQualityLimit)
+			bestGems.overall = bestGems.Red
+			overallScore = redScore
+			if blueScore > overallScore then
+				bestGems.overall = bestGems.Blue
+				overallScore = blueScore
+			end
+			if yellowScore > overallScore then
+				bestGems.overall = bestGems.Yellow
+			end
+			tbl.bestGems = bestGems
+			return bestGems
+		end
+		local gemId, gemIdIgnoreSocket, weightVal, weightValIgnoreSockets, bestGems, bestGemsIgnoreSocket
+		local normalStats, sockets, socketBonusStat = unpack(ww_bareItemCache[key])
+
+		bestGems = {}
+		bestGemsIgnoreSocket = {}
+		for _, color in pairs(sockets) do
+			gemId = tbl.bestGems[color]
+			if gemId ~= 0 then
+				table.insert(bestGems, gemId)
+			end
+			if breakSocketColors then
+				gemIdIgnoreSocket = tbl.bestGems.overall
+				if gemIdIgnoreSocket ~= 0 then
+					table.insert(bestGemsIgnoreSocket, gemIdIgnoreSocket)
+				end
+			end
+		end
+		gemStats = WeightsWatcher:getGemStats(bestGems)
+		weightVal = WeightsWatcher:calculateWeight(normalStats, true, socketBonusStat, gemStats, tbl.weight)
+		if breakSocketColors then
+			gemStatsIgnoreSockets = WeightsWatcher:getGemStats(bestGemsIgnoreSocket)
+			weightValIgnoreSockets = WeightsWatcher:calculateWeight(normalStats, false, socketBonusStat, gemStatsIgnoreSockets, tbl.weight)
+
+			if weightVal < weightValIgnoreSockets then
+				weightVal = weightValIgnoreSockets
+				gemStats = gemStatsIgnoreSockets
+			end
+		end
+
+		tbl[key] = {
+			gemStats = gemStats,
+			score = weightVal,
+		}
+		return tbl[key]
+	end,
+}
+
+ww_weightIdealCacheClassMetatable = {
+	__index = function(tbl, key)
+		tbl[key] = setmetatable({}, ww_weightIdealCacheWeightMetatable)
+		tbl[key].weight = tbl.class[key]
+		return tbl[key]
+	end,
+}
+
+ww_weightIdealCacheMetatable = {
+	__index = function(tbl, key)
+		tbl[key] = setmetatable({}, ww_weightIdealCacheClassMetatable)
+		tbl[key].class = ww_vars.weightsList[key]
+		return tbl[key]
+	end,
+}
+
+ww_bareItemCache = setmetatable({}, ww_bareItemCacheMetatable)
+ww_itemCache = setmetatable({}, ww_itemCacheMetatable)
+ww_weightCache = setmetatable({}, ww_weightCacheMetatable)
+ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
 
 function WeightsWatcher:OnInitialize()
 	local tempVars
@@ -138,145 +280,18 @@ function WeightsWatcher:OnDisable()
 	currentHooks = {}
 end
 
-function WeightsWatcher:cacheItemStats(link)
-	-- Stats: normal stats, sockets, socket bonus, gem-given stats, whether the socket bonus is active, ideal gems, ideal gems ignoring socket bonuses
-	local normalStats, sockets, socketBonusStat, socketBonusActive, gemStats
-
-	_, itemId, _, gemId1, gemId2, gemId3, gemId4, suffixId, uniqueId, linkLevel = strsplit(":", link)
+function splitItemLink(link)
+	local _, itemId, _, gemId1, gemId2, gemId3, gemId4, suffixId, uniqueId, linkLevel = strsplit(":", link)
 	-- Strip color codes
 	linkLevel = strsplit("|", linkLevel)
 	bareLink = strjoin(":", "item", itemId, "0:0:0:0:0", suffixId, uniqueId, linkLevel)
 
-	if ww_bareItemCache[bareLink] then
-		normalStats, sockets, socketBonusStat = unpack(ww_bareItemCache[bareLink])
-	else
-		normalStats, sockets, socketBonusStat = WeightsWatcher:getItemStats(bareLink)
-		ww_bareItemCache[bareLink] = {normalStats, sockets, socketBonusStat}
-	end
-
-	if ww_itemCache[link] then
-		socketBonusActive, gemStats = unpack(ww_itemCache[link])
-	else
-		gemStats = WeightsWatcher:getGemStats({gemId1, gemId2, gemId3, gemId4})
-
-		-- Removes gems in crafted sockets from consideration
-		for i = #(sockets) + 1, #(gemStats) do
-			table.remove(gemStats)
-		end
-
-		if #(sockets) > 0 then
-			socketBonusActive = true
-			for i = 1, #(sockets) do
-				if not gemStats[i] or not WeightsWatcher:matchesSocket(gemStats[i][1], sockets[i]) then
-					socketBonusActive = false
-					break
-				end
-			end
-		else
-			socketBonusActive = false
-		end
-
-		ww_itemCache[link] = {socketBonusActive, gemStats}
-	end
-
-	for _, class in ipairs(ww_charVars.activeWeights) do
-		if ww_vars.weightsList[class] then
-			if not ww_weightCache[class] then
-				ww_weightCache[class] = {}
-			end
-			for _, weight in pairs(ww_charVars.activeWeights[class]) do
-				if ww_vars.weightsList[class][weight] then
-					if not ww_weightCache[class][weight] then
-						ww_weightCache[class][weight] = {}
-					end
-					if not ww_weightCache[class][weight][link] then
-						ww_weightCache[class][weight][link] = WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, ww_vars.weightsList[class][weight])
-					end
-				end
-			end
-		end
-	end
-
-	if #(sockets) > 0 then
-		for _, class in ipairs(ww_charVars.activeWeights) do
-			if ww_vars.weightsList[class] then
-				if not ww_weightIdealCache[class] then
-					ww_weightIdealCache[class] = {}
-				end
-				for _, weight in pairs(ww_charVars.activeWeights[class]) do
-					if ww_vars.weightsList[class][weight] then
-						local socketBonusWeight = ww_vars.weightsList[class][weight][string.lower(socketBonusStat[1])]
-						local breakSocketColors = ww_vars.options.breakSocketColors or (not ww_vars.options.neverBreakSocketColors and (not socketBonusWeight or socketBonusWeight <= 0))
-
-						if not ww_weightIdealCache[class][weight] then
-							ww_weightIdealCache[class][weight] = {}
-						end
-
-						if not ww_weightIdealCache[class][weight].bestGems then
-							local redScore, yellowScore, blueScore, overallScore
-							local bestGems = {}
-
-							bestGems.Red, redScore = WeightsWatcher:bestGemForSocket("Red", ww_vars.weightsList[class][weight], ww_vars.options.gemQualityLimit)
-							bestGems.Yellow, yellowScore = WeightsWatcher:bestGemForSocket("Yellow", ww_vars.weightsList[class][weight], ww_vars.options.gemQualityLimit)
-							bestGems.Blue, blueScore = WeightsWatcher:bestGemForSocket("Blue", ww_vars.weightsList[class][weight], ww_vars.options.gemQualityLimit)
-							bestGems.Meta = WeightsWatcher:bestGemForSocket("Meta", ww_vars.weightsList[class][weight], ww_vars.options.gemQualityLimit)
-							bestGems.overall = bestGems.Red
-							overallScore = redScore
-							if blueScore > overallScore then
-								bestGems.overall = bestGems.Blue
-								overallScore = blueScore
-							end
-							if yellowScore > overallScore then
-								bestGems.overall = bestGems.Yellow
-							end
-							ww_weightIdealCache[class][weight].bestGems = bestGems
-						end
-
-						if not ww_weightIdealCache[class][weight][bareLink] then
-							local gemId, gemIdIgnoreSocket, weightVal, weightValIgnoreSockets, bestGems, bestGemsIgnoreSocket
-
-							ww_weightIdealCache[class][weight][bareLink] = {}
-
-							bestGems = {}
-							bestGemsIgnoreSocket = {}
-							for _, color in pairs(sockets) do
-								gemId = ww_weightIdealCache[class][weight].bestGems[color]
-								if gemId ~= 0 then
-									table.insert(bestGems, gemId)
-								end
-								if breakSocketColors then
-									gemIdIgnoreSocket = ww_weightIdealCache[class][weight].bestGems.overall
-									if gemIdIgnoreSocket ~= 0 then
-										table.insert(bestGemsIgnoreSocket, gemIdIgnoreSocket)
-									end
-								end
-							end
-							gemStats = WeightsWatcher:getGemStats(bestGems)
-							weightVal = WeightsWatcher:calculateWeight(normalStats, true, socketBonusStat, gemStats, ww_vars.weightsList[class][weight])
-							if breakSocketColors then
-								gemStatsIgnoreSockets = WeightsWatcher:getGemStats(bestGemsIgnoreSocket)
-								weightValIgnoreSockets = WeightsWatcher:calculateWeight(normalStats, false, socketBonusStat, gemStatsIgnoreSockets, ww_vars.weightsList[class][weight])
-
-								if weightVal < weightValIgnoreSockets then
-									weightVal = weightValIgnoreSockets
-									gemStats = gemStatsIgnoreSockets
-								end
-							end
-							ww_weightIdealCache[class][weight][bareLink].gemStats = gemStats
-							ww_weightIdealCache[class][weight][bareLink].score = weightVal
-						end
-					end
-				end
-			end
-		end
-	end
-
-	return bareLink
+	return bareLink, {gemId1, gemId2, gemId3, gemId4}
 end
 
 function WeightsWatcher:displayItemStats(tooltip, ttname)
 	local link, bareLink, itemType, stackSize, sockets, gemStats
-	local stat, value, string
+	local stat, value, str
 	local _, playerClass = UnitClass("player")
 
 	_, link = tooltip:GetItem()
@@ -286,7 +301,7 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 
 	_, _, _, _, _, itemType, _, stackSize = GetItemInfo(link)
 	if (IsEquippableItem(link) and itemType ~= "Container" and itemType ~= "Quiver") or (itemType == "Gem" and stackSize == 1) or (itemType == "Consumable") or (itemType == "Recipe") then
-		bareLink = WeightsWatcher:cacheItemStats(link)
+		bareLink = splitItemLink(link)
 
 		if keyDetectors[ww_vars.options.tooltip.showWeights]() then
 			tooltip:AddLine("Current Weights:")
@@ -294,11 +309,11 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 				if ww_vars.weightsList[class] then
 					for _, weight in pairs(ww_charVars.activeWeights[class]) do
 						if ww_vars.weightsList[class][weight] then
-							string = "  " .. weight
+							str = "  " .. weight
 							if ww_vars.options.tooltip.showClassNames == "Always" or (ww_vars.options.tooltip.showClassNames == "Others" and class ~= playerClass) then
-								string = string .. " - " .. classNames[class]
+								str = str .. " - " .. classNames[class]
 							end
-							tooltip:AddDoubleLine(string, string.format("%.3f", ww_weightCache[class][weight][link]))
+							tooltip:AddDoubleLine(str, string.format("%.3f", ww_weightCache[class][weight][link]))
 						end
 					end
 				end
@@ -313,11 +328,11 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 						if ww_vars.weightsList[class] then
 							for _, weight in pairs(ww_charVars.activeWeights[class]) do
 								if ww_vars.weightsList[class][weight] then
-									string = "  " .. weight
+									str = "  " .. weight
 									if ww_vars.options.tooltip.showClassNames == "Always" or (ww_vars.options.tooltip.showClassNames == "Others" and class ~= playerClass) then
-										string = string .. " - " .. classNames[class]
+										str = str .. " - " .. classNames[class]
 									end
-									tooltip:AddDoubleLine(string, string.format("%.3f", ww_weightIdealCache[class][weight][bareLink].score))
+									tooltip:AddDoubleLine(str, string.format("%.3f", ww_weightIdealCache[class][weight][bareLink].score))
 									if keyDetectors[ww_vars.options.tooltip.showIdealGems]() then
 										gemStats = ww_weightIdealCache[class][weight][bareLink].gemStats
 										for _, gem in ipairs(gemStats) do
