@@ -137,7 +137,7 @@ classNameOptions = {
 
 defaultVars = {
 	dataMajorVersion = 1,
-	dataMinorVersion = 2,
+	dataMinorVersion = 3,
 	weightsList = {
 		[1] = "DEATHKNIGHT",
 		[2] = "DRUID",
@@ -541,6 +541,7 @@ defaultVars = {
 			showIdealGems = "Control",
 			showIdealGemStats = "Always",
 			showClassNames = "Others",
+			showDifferences = true,
 		},
 	},
 }

@@ -291,7 +291,8 @@ end
 
 function WeightsWatcher:displayItemStats(tooltip, ttname)
 	local link, bareLink, itemType, stackSize, sockets, gemStats
-	local stat, value, str
+	local stat, value, str, formatStr
+	local compareLink, compareBareLink, compareScore, compareLink2, compareBareLink2, compareScore2
 	local _, playerClass = UnitClass("player")
 
 	_, link = tooltip:GetItem()
@@ -303,6 +304,17 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 	if (IsEquippableItem(link) and itemType ~= "Container" and itemType ~= "Quiver") or (itemType == "Gem" and stackSize == 1) or (itemType == "Consumable") or (itemType == "Recipe") then
 		bareLink = splitItemLink(link)
 
+		if ttname == "GameTooltip" and ww_vars.options.tooltip.showDifferences then
+			_, compareLink = ShoppingTooltip1:GetItem()
+			if compareLink then
+				compareBareLink = splitItemLink(compareLink)
+			end
+			_, compareLink2 = ShoppingTooltip2:GetItem()
+			if compareLink2 then
+				compareBareLink2 = splitItemLink(compareLink2)
+			end
+		end
+
 		if keyDetectors[ww_vars.options.tooltip.showWeights]() then
 			tooltip:AddLine("Current Weights:")
 			for _, class in ipairs(ww_charVars.activeWeights) do
@@ -313,7 +325,26 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 							if ww_vars.options.tooltip.showClassNames == "Always" or (ww_vars.options.tooltip.showClassNames == "Others" and class ~= playerClass) then
 								str = str .. " - " .. classNames[class]
 							end
-							tooltip:AddDoubleLine(str, string.format("%.3f", ww_weightCache[class][weight][link]))
+							if compareLink then
+								compareScore = ww_weightCache[class][weight][compareLink]
+								if compareLink2 then
+									compareScore2 = ww_weightCache[class][weight][compareLink2]
+									if compareScore2 < compareScore then
+										compareScore = compareScore2
+									end
+								end
+								compareScore = ww_weightCache[class][weight][link] - compareScore
+								if compareScore < 0 then
+									formatStr = "%.3f (|cffff0000%+.3f|r)"
+								elseif compareScore > 0 then
+									formatStr = "%.3f (|cff00ff00%+.3f|r)"
+								else
+									formatStr = "%.3f (%+.3f)"
+								end
+								tooltip:AddDoubleLine(str, string.format(formatStr, ww_weightCache[class][weight][link], compareScore))
+							else
+								tooltip:AddDoubleLine(str, string.format("%.3f", ww_weightCache[class][weight][link]))
+							end
 						end
 					end
 				end
@@ -332,7 +363,26 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 									if ww_vars.options.tooltip.showClassNames == "Always" or (ww_vars.options.tooltip.showClassNames == "Others" and class ~= playerClass) then
 										str = str .. " - " .. classNames[class]
 									end
-									tooltip:AddDoubleLine(str, string.format("%.3f", ww_weightIdealCache[class][weight][bareLink].score))
+									if compareBareLink then
+										compareScore = ww_weightIdealCache[class][weight][compareBareLink].score
+										if compareBareLink2 then
+											compareScore2 = ww_weightIdealCache[class][weight][compareBareLink2].score
+											if compareScore2 < compareScore then
+												compareScore = compareScore2
+											end
+										end
+										compareScore = ww_weightIdealCache[class][weight][bareLink].score - compareScore
+										if compareScore < 0 then
+											formatStr = "%.3f (|cffff0000%+.3f|r)"
+										elseif compareScore > 0 then
+											formatStr = "%.3f (|cff00ff00%+.3f|r)"
+										else
+											formatStr = "%.3f (%+.3f)"
+										end
+										tooltip:AddDoubleLine(str, string.format(formatStr, ww_weightIdealCache[class][weight][bareLink].score, compareScore))
+									else
+										tooltip:AddDoubleLine(str, string.format("%.3f", ww_weightIdealCache[class][weight][bareLink].score))
+									end
 									if keyDetectors[ww_vars.options.tooltip.showIdealGems]() then
 										gemStats = ww_weightIdealCache[class][weight][bareLink].gemStats
 										for _, gem in ipairs(gemStats) do

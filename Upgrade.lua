@@ -135,6 +135,15 @@ function noop_major_up(vars)
 	return vars
 end
 
+function upgradeAccountToShowDifferences(vars)
+	if vars.options.tooltip.showDifferences == nil then
+		vars.options.tooltip.showDifferences = true
+	end
+
+	vars.dataMinorVersion = 3
+	return vars
+end
+
 function upgradeAccountToCorrectShowClassNames(vars)
 	if vars.options.tooltip.showClassNames == nil then
 		if vars.options.showClassNames == nil then
@@ -515,6 +524,7 @@ upgradeAccountFunctions = {
 	[1] = {
 		[0] = function(vars) return upgradeAccountToBetterMetaEffectNames(vars) end,
 		[1] = function(vars) return upgradeAccountToCorrectShowClassNames(vars) end,
+		[2] = function(vars) return upgradeAccountToShowDifferences(vars) end,
 	},
 }
 
@@ -534,6 +544,7 @@ downgradeAccountFunctions = {
 		[0] = downgradeAccountToDevelopment,
 		[1] = downgradeAccountFromBetterMetaEffectNames,
 		[2] = noop_down,
+		[3] = noop_down,
 	},
 }
 

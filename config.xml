@@ -406,6 +406,42 @@
 							</OnLoad>
 						</Scripts>
 					</Frame>
+					<CheckButton name="$parentShowDifference" parentKey="showDifference" inherits="UICheckButtonTemplate" text="Show differences to current gear">
+						<Size>
+							<AbsDimension x="25" y="25"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowClassNames"/>
+							<Anchor point="LEFT">
+								<Offset>
+									<AbsDimension x="5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								if self:GetChecked() then
+									ww_vars.options.tooltip.showDifferences = true
+								else
+									ww_vars.options.tooltip.showDifferences = false
+								end
+							</OnClick>
+							<OnEnter>
+								GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
+								GameTooltip:AddLine("Shows the change in score compared to the currently equipped gear", 1, 1, 1)
+								GameTooltip:Show()
+							</OnEnter>
+							<OnLeave>
+								GameTooltip:Hide()
+							</OnLeave>
+							<OnLoad>
+								getglobal(self:GetName() .. "Text"):SetText(self:GetText())
+							</OnLoad>
+							<OnShow>
+								self:SetChecked(ww_vars.options.tooltip.showDifferences)
+							</OnShow>
+						</Scripts>
+					</CheckButton>
 				</Frames>
 			</Frame>
 		</Frames>
