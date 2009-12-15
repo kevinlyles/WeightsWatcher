@@ -137,7 +137,7 @@ classNameOptions = {
 
 defaultVars = {
 	dataMajorVersion = 1,
-	dataMinorVersion = 1,
+	dataMinorVersion = 2,
 	weightsList = {
 		[1] = "DEATHKNIGHT",
 		[2] = "DRUID",
@@ -534,13 +534,13 @@ defaultVars = {
 		neverBreakSocketColors = false,
 		normalizeWeights = true,
 		gemQualityLimit = 9,
-		showClassNames = "Others",
 		tooltip = {
 			hideHints = false,
 			showWeights = "Always",
 			showIdealWeights = "Shift",
 			showIdealGems = "Control",
 			showIdealGemStats = "Always",
+			showClassNames = "Others",
 		},
 	},
 }
