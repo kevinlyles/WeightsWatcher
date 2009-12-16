@@ -312,6 +312,119 @@ function splitItemLink(link)
 	return bareLink, {gemId1, gemId2, gemId3, gemId4}
 end
 
+local function checkForTitansGrip()
+	local _, class = UnitClass("player")
+	if class ~= "WARRIOR" then
+		return false
+	end
+	local name, _, _, _, rank = GetNumTalents(2, 27, false, false)
+	if name == "Titan's Grip" then
+		return rank == 1
+	end
+	-- Minor rearranging of the tree
+	for i = 1, GetNumTalents(2, false, false) do
+		name, _, _, _, rank = GetNumTalents(2, i, false, false)
+		if name == "Titan's Grip" then
+			return rank == 1
+		end
+	end
+	-- Major rearranging of the tree
+	for i = 1, GetNumTalentTabs(false, false) do
+		for j = 1, GetNumTalents(2, false, false) do
+			name, _, _, _, rank = GetNumTalents(i, j, false, false)
+			if name == "Titan's Grip" then
+				return rank == 1
+			end
+		end
+	end
+	return false
+end
+
+local function determineCompareMethod(currentSlot, compareSlot, compareSlot2, currentSubslot, compareSubslot, compareSubslot2)
+	if checkForTitansGrip() then
+		if currentSlot == "Two-Hand" then
+			currentSlot = "One-Hand"
+		end
+		if compareSlot == "Two-Hand" then
+			compareSlot = "One-Hand"
+		end
+		if compareSlot2 == "Two-Hand" then
+			compareSlot2 = "One-Hand"
+		end
+	end
+
+	if currentSlot == "Two-Hand" then
+		return "both"
+	elseif currentSlot == "Main Hand" then
+		if compareSlot2 == "Main Hand" or compareSlot2 == "Two-Hand" or compareSlot2 == "One-Hand" then
+			return "2"
+		elseif compareSlot == "Main Hand" or compareSlot == "Two-Hand" or compareSlot == "One-Hand" then
+			return "1"
+		end
+	elseif currentSlot == "Off Hand" or currentSlot == "Held In Off-hand" then
+		if compareSlot == "Off Hand" or compareSlot == "Held In Off-hand" or compareSlot == "Two-Hand" or (compareSlot == "One-Hand" and not compareSlot2) then
+			return "1"
+		end
+	elseif currentSlot == "One-Hand" then
+		if compareSlot == "Main Hand" or compareSlot == "One-Hand" or (compareSlot == "Off Hand" and compareSubslot ~= "Shield") then
+			if compareSlot2 == "Main Hand" or compareSlot2 == "One-Hand" or (compareSlot2 == "Off Hand" and compareSubslot2 ~= "Shield") then
+				return "worst"
+			else
+				return "1"
+			end
+		else
+			if compareSlot2 == "Main Hand" or compareSlot2 == "One-Hand" or (compareSlot2 == "Off Hand" and compareSubslot2 ~= "Shield") then
+				return "2"
+			end
+		end
+	elseif currentSlot == "Finger" or currentSlot == "Trinket" then
+		return "worst"
+	else
+		return "1"
+	end
+	return "none"
+end
+
+local function computeDifference(compareMethod, compareScore, compareScore2, currentScore)
+	if compareMethod == "1" then
+		if compareScore then
+			return currentScore - compareScore
+		end
+	elseif compareMethod == "2" then
+		if compareScore2 then
+			return currentScore - compareScore2
+		end
+	elseif compareMethod == "both" then
+		if compareScore then
+			if compareScore2 then
+				return currentScore - (compareScore + compareScore2)
+			else
+				return currentScore - compareScore
+			end
+		else
+			if compareScore2 then
+				return currentScore - compareScore2
+			end
+		end
+	elseif compareMethod == "worst" then
+		if compareScore then
+			if compareScore2 then
+				if compareScore < compareScore2 then
+					return currentScore - compareScore
+				else
+					return currentScore - compareScore2
+				end
+			else
+				return currentScore - compareScore
+			end
+		else
+			if compareScore2 then
+				return currentScore - compareScore2
+			end
+		end
+	end
+end
+
 local function colorizeDifferences(difference)
 	if difference then
 		if difference < 0 then
@@ -329,7 +442,7 @@ end
 function WeightsWatcher:displayItemStats(tooltip, ttname)
 	local link, bareLink, itemType, stackSize, sockets, gemStats
 	local stat, value, str, formatStr
-	local compareLink, compareBareLink, compareLink2, compareBareLink2
+	local compareLink, compareBareLink, compareLink2, compareBareLink2, compareMethod
 	local _, playerClass = UnitClass("player")
 
 	_, link = tooltip:GetItem()
@@ -342,14 +455,22 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 		bareLink = splitItemLink(link)
 
 		if ttname == "GameTooltip" and ww_vars.options.tooltip.showDifferences then
+			local currentSlot, compareSlot, compareSlot2, currentSubslot, compareSubslot, compareSubslot2
+			currentSlot = ww_bareItemCache[bareLink][1]["Slot"]
+			currentSubslot = ww_bareItemCache[bareLink][1]["Subslot"]
 			_, compareLink = ShoppingTooltip1:GetItem()
 			if compareLink then
 				compareBareLink = splitItemLink(compareLink)
+				compareSlot = ww_bareItemCache[compareBareLink][1]["Slot"]
+				compareSubslot = ww_bareItemCache[compareBareLink][1]["Subslot"]
 			end
 			_, compareLink2 = ShoppingTooltip2:GetItem()
 			if compareLink2 then
 				compareBareLink2 = splitItemLink(compareLink2)
+				compareSlot2 = ww_bareItemCache[compareBareLink2][1]["Slot"]
+				compareSubslot2 = ww_bareItemCache[compareBareLink2][1]["Subslot"]
 			end
+			compareMethod = determineCompareMethod(currentSlot, compareSlot, compareSlot2, currentSubslot, compareSubslot, compareSubslot2)
 		end
 
 		if keyDetectors[ww_vars.options.tooltip.showWeights]() then
@@ -368,11 +489,8 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 								compareScore = ww_weightCache[class][weight][compareLink]
 								if compareLink2 then
 									compareScore2 = ww_weightCache[class][weight][compareLink2]
-									if compareScore2 < compareScore then
-										compareScore = compareScore2
-									end
 								end
-								compareScore = currentScore - compareScore
+								compareScore = computeDifference(compareMethod, compareScore, compareScore2, currentScore)
 							end
 							tooltip:AddDoubleLine(str, string.format(colorizeDifferences(compareScore), currentScore, compareScore))
 						end
@@ -399,11 +517,8 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 										compareScore = ww_weightIdealCache[class][weight][compareBareLink].score
 										if compareBareLink2 then
 											compareScore2 = ww_weightIdealCache[class][weight][compareBareLink2].score
-											if compareScore2 < compareScore then
-												compareScore = compareScore2
-											end
 										end
-										compareScore = currentScore - compareScore
+										compareScore = computeDifference(compareMethod, compareScore, compareScore2, currentScore)
 									end
 									tooltip:AddDoubleLine(str, string.format(colorizeDifferences(compareScore), currentScore, compareScore))
 									if keyDetectors[ww_vars.options.tooltip.showIdealGems]() then
