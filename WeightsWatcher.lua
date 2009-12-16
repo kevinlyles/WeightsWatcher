@@ -292,7 +292,7 @@ end
 function WeightsWatcher:displayItemStats(tooltip, ttname)
 	local link, bareLink, itemType, stackSize, sockets, gemStats
 	local stat, value, str, formatStr
-	local compareLink, compareBareLink, compareScore, compareLink2, compareBareLink2, compareScore2
+	local compareLink, compareBareLink, compareLink2, compareBareLink2
 	local _, playerClass = UnitClass("player")
 
 	_, link = tooltip:GetItem()
@@ -321,6 +321,8 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 				if ww_vars.weightsList[class] then
 					for _, weight in pairs(ww_charVars.activeWeights[class]) do
 						if ww_vars.weightsList[class][weight] then
+							local currentScore = ww_weightCache[class][weight][link]
+							local compareScore, compareScore2
 							str = "  " .. weight
 							if ww_vars.options.tooltip.showClassNames == "Always" or (ww_vars.options.tooltip.showClassNames == "Others" and class ~= playerClass) then
 								str = str .. " - " .. classNames[class]
@@ -333,7 +335,7 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 										compareScore = compareScore2
 									end
 								end
-								compareScore = ww_weightCache[class][weight][link] - compareScore
+								compareScore = currentScore - compareScore
 								if compareScore < 0 then
 									formatStr = "%.3f (|cffff0000%+.3f|r)"
 								elseif compareScore > 0 then
@@ -341,9 +343,9 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 								else
 									formatStr = "%.3f (%+.3f)"
 								end
-								tooltip:AddDoubleLine(str, string.format(formatStr, ww_weightCache[class][weight][link], compareScore))
+								tooltip:AddDoubleLine(str, string.format(formatStr, currentScore, compareScore))
 							else
-								tooltip:AddDoubleLine(str, string.format("%.3f", ww_weightCache[class][weight][link]))
+								tooltip:AddDoubleLine(str, string.format("%.3f", currentScore))
 							end
 						end
 					end
@@ -359,6 +361,8 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 						if ww_vars.weightsList[class] then
 							for _, weight in pairs(ww_charVars.activeWeights[class]) do
 								if ww_vars.weightsList[class][weight] then
+									local currentScore = ww_weightIdealCache[class][weight][bareLink].score
+									local compareScore, compareScore2
 									str = "  " .. weight
 									if ww_vars.options.tooltip.showClassNames == "Always" or (ww_vars.options.tooltip.showClassNames == "Others" and class ~= playerClass) then
 										str = str .. " - " .. classNames[class]
@@ -371,7 +375,7 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 												compareScore = compareScore2
 											end
 										end
-										compareScore = ww_weightIdealCache[class][weight][bareLink].score - compareScore
+										compareScore = currentScore - compareScore
 										if compareScore < 0 then
 											formatStr = "%.3f (|cffff0000%+.3f|r)"
 										elseif compareScore > 0 then
@@ -379,9 +383,9 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 										else
 											formatStr = "%.3f (%+.3f)"
 										end
-										tooltip:AddDoubleLine(str, string.format(formatStr, ww_weightIdealCache[class][weight][bareLink].score, compareScore))
+										tooltip:AddDoubleLine(str, string.format(formatStr, currentScore, compareScore))
 									else
-										tooltip:AddDoubleLine(str, string.format("%.3f", ww_weightIdealCache[class][weight][bareLink].score))
+										tooltip:AddDoubleLine(str, string.format("%.3f", currentScore))
 									end
 									if keyDetectors[ww_vars.options.tooltip.showIdealGems]() then
 										gemStats = ww_weightIdealCache[class][weight][bareLink].gemStats
