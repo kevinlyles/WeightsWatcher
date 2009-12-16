@@ -289,6 +289,20 @@ function splitItemLink(link)
 	return bareLink, {gemId1, gemId2, gemId3, gemId4}
 end
 
+local function colorizeDifferences(difference)
+	if difference then
+		if difference < 0 then
+			return "%.3f (|cffff0000%+.3f|r)"
+		elseif difference > 0 then
+			return "%.3f (|cff00ff00%+.3f|r)"
+		else
+			return "%.3f (%+.3f)"
+		end
+	else
+		return "%.3f"
+	end
+end
+
 function WeightsWatcher:displayItemStats(tooltip, ttname)
 	local link, bareLink, itemType, stackSize, sockets, gemStats
 	local stat, value, str, formatStr
@@ -336,17 +350,8 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 									end
 								end
 								compareScore = currentScore - compareScore
-								if compareScore < 0 then
-									formatStr = "%.3f (|cffff0000%+.3f|r)"
-								elseif compareScore > 0 then
-									formatStr = "%.3f (|cff00ff00%+.3f|r)"
-								else
-									formatStr = "%.3f (%+.3f)"
-								end
-								tooltip:AddDoubleLine(str, string.format(formatStr, currentScore, compareScore))
-							else
-								tooltip:AddDoubleLine(str, string.format("%.3f", currentScore))
 							end
+							tooltip:AddDoubleLine(str, string.format(colorizeDifferences(compareScore), currentScore, compareScore))
 						end
 					end
 				end
@@ -376,17 +381,8 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 											end
 										end
 										compareScore = currentScore - compareScore
-										if compareScore < 0 then
-											formatStr = "%.3f (|cffff0000%+.3f|r)"
-										elseif compareScore > 0 then
-											formatStr = "%.3f (|cff00ff00%+.3f|r)"
-										else
-											formatStr = "%.3f (%+.3f)"
-										end
-										tooltip:AddDoubleLine(str, string.format(formatStr, currentScore, compareScore))
-									else
-										tooltip:AddDoubleLine(str, string.format("%.3f", currentScore))
 									end
+									tooltip:AddDoubleLine(str, string.format(colorizeDifferences(compareScore), currentScore, compareScore))
 									if keyDetectors[ww_vars.options.tooltip.showIdealGems]() then
 										gemStats = ww_weightIdealCache[class][weight][bareLink].gemStats
 										for _, gem in ipairs(gemStats) do
