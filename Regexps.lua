@@ -67,7 +67,7 @@ MultipleStatLines = {
 SingleStatLines = {
 	{"^Rune of the Stoneskin Gargoyle",
 		function()
-			return {["Defense"] = 25}
+			return setmetatable({["Defense"] = 25}, ww_normalStatsMetatable)
 		end},
 	{"^Equip: Restores (%d+) mana per 5 sec%.",
 		function(text, pattern)
@@ -94,7 +94,7 @@ SingleStatLines = {
 		function(text, pattern)
 			local start, _, value, name = string.find(text, pattern)
 			if start then
-				return {[name] = tonumber(value)}
+				return setmetatable({[name] = tonumber(value)}, ww_normalStatsMetatable)
 			end
 		end},
 
@@ -143,7 +143,7 @@ SingleSlotLines = {
 
 function WeightsWatcher:multipleStats(text)
 	local stat, stringTable
-	local stats = {}
+	local stats = setmetatale({}, ww_normalStatsMetatable)
 
 	text = string.gsub(string.gsub(text, ",? and ", "\a"), ", ", "\a")
 	stringTable = { strsplit("\a", text) }
@@ -166,7 +166,7 @@ end
 
 function WeightsWatcher:damageRange(textL, textR)
 	local speed
-	local stats = {}
+	local stats = setmetatable({}, ww_normalStatsMetatable)
 	local start, _, added, minVal, maxVal, name = string.find(textL, "^(%+?)(%d+) %- (%d+) (%a* ?Damage)")
 	if start then
 		if added == "+" then
@@ -200,7 +200,7 @@ function WeightsWatcher:singleStat(text)
 		else
 			start, _, name, value = string.find(text, regex)
 			if start then
-				stat = {[name] = tonumber(value)}
+				stat = setmetatable({[name] = tonumber(value)}, ww_normalStatsMetatable)
 				break
 			end
 		end
@@ -211,6 +211,6 @@ end
 function WeightsWatcher:singleStatValueOnly(text, pattern, name)
 	local start, _, value = string.find(text, pattern)
 	if start then
-		return {[name] = tonumber(value)}
+		return setmetatable({[name] = tonumber(value)}, ww_normalStatsMetatable)
 	end
 end

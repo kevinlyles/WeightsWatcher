@@ -4,6 +4,29 @@ end
 
 currentHooks = {}
 
+ww_normalStatsMetatable = {
+	-- Allows us to skip the nil check
+	__index = function()
+		return 0
+	end,
+	__add = function(tbl1, tbl2)
+		local tbl = setmetatable({}, ww_normalStatsMetatable)
+
+		if tbl ~= nil then
+			for k, v in pairs(tbl1) do
+				tbl[k] = v
+			end
+		end
+		if tbl2 ~= nil then
+			for k, v in pairs(tbl2) do
+				tbl[k] = tbl[k] + v
+			end
+		end
+
+		return tbl
+	end,
+}
+
 ww_bareItemCacheMetatable = {
 	__index = function(tbl, key)
 		tbl[key] = {WeightsWatcher:getItemStats(key)}
@@ -526,7 +549,7 @@ end
 
 function WeightsWatcher:getItemStats(link)
 	local ttleft, ttright, origTextL, textL, textR, pattern, func, start
-	local normalStats, socketList, socketBonusStat = {}, {}
+	local normalStats, socketList, socketBonusStat = setmetatable({}, ww_normalStatsMetatable), {}
 	local ranged = false
 
 	-- Populate hidden tooltip
@@ -595,13 +618,7 @@ function WeightsWatcher:getItemStats(link)
 								if string.find(textL, pattern) then
 									statsList = func(textL, textR)
 									if statsList then
-										for name, value in pairs(statsList) do
-											if normalStats[name] then
-												normalStats[name] = normalStats[name] + value
-											else
-												normalStats[name] = value
-											end
-										end
+										normalStats = normalStats + statsList
 										matched = true
 										break
 									end
@@ -610,13 +627,7 @@ function WeightsWatcher:getItemStats(link)
 							if not matched then
 								stat = WeightsWatcher:singleStat(textL)
 								if stat then
-									for name, value in pairs(stat) do
-										if normalStats[name] then
-											normalStats[name] = normalStats[name] + value
-										else
-											normalStats[name] = value
-										end
-									end
+									normalStats = normalStats + stat
 								end
 							end
 						end
