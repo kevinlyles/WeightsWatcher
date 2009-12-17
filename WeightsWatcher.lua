@@ -98,10 +98,10 @@ ww_weightIdealCacheWeightMetatable = {
 			local redScore, yellowScore, blueScore, overallScore
 			local bestGems = {}
 
-			bestGems.Red, redScore = WeightsWatcher:bestGemForSocket("Red", tbl.weight, ww_vars.options.gemQualityLimit)
-			bestGems.Yellow, yellowScore = WeightsWatcher:bestGemForSocket("Yellow", tbl.weight, ww_vars.options.gemQualityLimit)
-			bestGems.Blue, blueScore = WeightsWatcher:bestGemForSocket("Blue", tbl.weight, ww_vars.options.gemQualityLimit)
-			bestGems.Meta = WeightsWatcher:bestGemForSocket("Meta", tbl.weight, ww_vars.options.gemQualityLimit)
+			bestGems.Red, redScore = WeightsWatcher:bestGemForSocket("Red", tbl.weight, ww_vars.options.gems.qualityLimit)
+			bestGems.Yellow, yellowScore = WeightsWatcher:bestGemForSocket("Yellow", tbl.weight, ww_vars.options.gems.qualityLimit)
+			bestGems.Blue, blueScore = WeightsWatcher:bestGemForSocket("Blue", tbl.weight, ww_vars.options.gems.qualityLimit)
+			bestGems.Meta = WeightsWatcher:bestGemForSocket("Meta", tbl.weight, ww_vars.options.gems.qualityLimit)
 			bestGems.overall = bestGems.Red
 			overallScore = redScore
 			if blueScore > overallScore then
@@ -557,20 +557,27 @@ end
 function WeightsWatcher:bestGemForSocket(socketColor, weightScale, qualityLimit)
 	local bestGem, bestWeight, weight = 0, 0
 	if not qualityLimit then
-		qualityLimit = #(GemIds)
+		qualityLimit = #(GemIds["Normal"])
 	end
 
-	for quality = qualityLimit, 1, -1 do
-		for gemId, gemStats in pairs(GemIds[quality]) do
-			if WeightsWatcher:matchesSocket(gemStats[1], socketColor) then
-				weight = WeightsWatcher:calculateWeight({}, true, nil, {gemStats}, weightScale)
-				if bestGem == 0 or weight > bestWeight then
-					bestGem = gemId
-					bestWeight = weight
+	for gemType, gems in pairs(GemIds) do
+		if ww_vars.options.gems.usedTypes[gemType] then
+			for quality = qualityLimit, 1, -1 do
+				if gems[quality] then
+					for gemId, gemStats in pairs(gems[quality]) do
+						if WeightsWatcher:matchesSocket(gemStats[1], socketColor) then
+							weight = WeightsWatcher:calculateWeight({}, true, nil, {gemStats}, weightScale)
+							if bestGem == 0 or weight > bestWeight then
+								bestGem = gemId
+								bestWeight = weight
+							end
+						end
+					end
 				end
 			end
 		end
 	end
+
 	return bestGem, bestWeight
 end
 
@@ -578,8 +585,13 @@ function WeightsWatcher:matchesSocket(gemId, socketColor)
 	local gemColor
 
 	if type(gemId) == "number" then
-		local _, gemInfo = WeightsWatcher:GemInfo(gemId)
-		gemColor = gemInfo[1]
+		local gemInfo = WeightsWatcher:GemInfo(gemId)
+		if gemInfo then
+			gemColor = gemInfo.info[1]
+		else
+			print("WeightsWatcher: Unrecognized GemId: " .. gemId)
+			return false
+		end
 	elseif type(gemId) == "string" then
 		gemColor = gemId
 	end
@@ -607,19 +619,19 @@ function WeightsWatcher:matchesSocket(gemId, socketColor)
 end
 
 function WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, weightsScale)
-	local weight, name, value = 0
+	local weight = 0
 
-	for name, value in pairs(normalStats) do
-		weight = weight + WeightsWatcher:getWeight(name, value, weightsScale)
+	for stat, value in pairs(normalStats) do
+		weight = weight + WeightsWatcher:getWeight(stat, value, weightsScale)
 	end
 	if socketBonusActive and socketBonusStat then
-		for name, value in pairs(socketBonusStat) do
-			weight = weight + WeightsWatcher:getWeight(name, value, weightsScale)
+		for stat, value in pairs(socketBonusStat) do
+			weight = weight + WeightsWatcher:getWeight(stat, value, weightsScale)
 		end
 	end
-	for _, value in pairs(gemStats) do
-		for name, value in pairs(value[3]) do
-			weight = weight + WeightsWatcher:getWeight(name, value, weightsScale)
+	for _, gemInfo in pairs(gemStats) do
+		for stat, value in pairs(gemInfo[3]) do
+			weight = weight + WeightsWatcher:getWeight(stat, value, weightsScale)
 		end
 	end
 	if ww_vars.options.normalizeWeights == true then
@@ -647,13 +659,13 @@ function WeightsWatcher:getWeight(stat, value, weightsScale)
 end
 
 function WeightsWatcher:getGemStats(...)
-	local stats, stat, lastGem
+	local gemInfo, stat, lastGem
 	local statTable = {}
 	lastGem = 0
 	for _, gemId in pairs(...) do
-		_, stats = WeightsWatcher:GemInfo(gemId)
-		if stats then
-			table.insert(statTable, stats)
+		gemInfo = WeightsWatcher:GemInfo(gemId)
+		if gemInfo then
+			table.insert(statTable, gemInfo.info)
 			lastGem = #(statTable)
 		else
 			if gemId ~= "0" then

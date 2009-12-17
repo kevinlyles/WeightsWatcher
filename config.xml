@@ -129,7 +129,7 @@
 									</OnLoad>
 									<OnShow>
 										UIDropDownMenu_Initialize(self, GemQualityDropDownInitialize)
-										UIDropDownMenu_SetSelectedValue(self, ww_vars.options.gemQualityLimit)
+										UIDropDownMenu_SetSelectedValue(self, ww_vars.options.gems.qualityLimit)
 									</OnShow>
 								</Scripts>
 							</Button>
@@ -140,12 +140,123 @@
 							</OnLoad>
 						</Scripts>
 					</Frame>
-					<CheckButton name="$parentObeySocketColors" parentKey="obeySocketColors" inherits="UICheckButtonTemplate" text="Obey socket colors">
+					<CheckButton name="$parentUseUEGems" parentKey="useUEGems" inherits="UICheckButtonTemplate" text="Use Unique-Equipped Gems">
 						<Size>
 							<AbsDimension x="25" y="25"/>
 						</Size>
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentGemQuality"/>
+							<Anchor point="LEFT">
+								<Offset>
+									<AbsDimension x="5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								if self:GetChecked() then
+									ww_vars.options.gems.usedTypes["Unique-Equipped"] = true
+								else
+									ww_vars.options.gems.usedTypes["Unique-Equipped"] = false
+								end
+								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+							</OnClick>
+							<OnEnter>
+								GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
+								GameTooltip:AddLine("Consider gems that are Unique-Equipped when finding ideal gems", 1, 1, 1)
+								GameTooltip:Show()
+							</OnEnter>
+							<OnLeave>
+								GameTooltip:Hide()
+							</OnLeave>
+							<OnLoad>
+								getglobal(self:GetName() .. "Text"):SetText(self:GetText())
+							</OnLoad>
+							<OnShow>
+								self:SetChecked(ww_vars.options.gems.usedTypes["Unique-Equipped"])
+							</OnShow>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="$parentUseJCOnlyGems" parentKey="useJCOnlyGems" inherits="UICheckButtonTemplate" text="Use Jewelcrafter-Only Gems">
+						<Size>
+							<AbsDimension x="25" y="25"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseUEGems"/>
+							<Anchor point="LEFT">
+								<Offset>
+									<AbsDimension x="5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								if self:GetChecked() then
+									ww_vars.options.gems.usedTypes["Jewelcrafter-Only"] = true
+								else
+									ww_vars.options.gems.usedTypes["Jewelcrafter-Only"] = false
+								end
+								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+							</OnClick>
+							<OnEnter>
+								GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
+								GameTooltip:AddLine("Consider gems that are Jewelcrafter-Only when finding ideal gems", 1, 1, 1)
+								GameTooltip:Show()
+							</OnEnter>
+							<OnLeave>
+								GameTooltip:Hide()
+							</OnLeave>
+							<OnLoad>
+								getglobal(self:GetName() .. "Text"):SetText(self:GetText())
+							</OnLoad>
+							<OnShow>
+								self:SetChecked(ww_vars.options.gems.usedTypes["Jewelcrafter-Only"])
+							</OnShow>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="$parentUseProcGems" parentKey="useProcGems" inherits="UICheckButtonTemplate" text="Use Procced Gems">
+						<Size>
+							<AbsDimension x="25" y="25"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseJCOnlyGems"/>
+							<Anchor point="LEFT">
+								<Offset>
+									<AbsDimension x="5"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								if self:GetChecked() then
+									ww_vars.options.gems.usedTypes["Procced"] = true
+								else
+									ww_vars.options.gems.usedTypes["Procced"] = false
+								end
+								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+							</OnClick>
+							<OnEnter>
+								GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
+								GameTooltip:AddLine("Consider gems that are created by a proc (i.e. Wrath \"Perfect\" gems) when finding ideal gems", 1, 1, 1)
+								GameTooltip:Show()
+							</OnEnter>
+							<OnLeave>
+								GameTooltip:Hide()
+							</OnLeave>
+							<OnLoad>
+								getglobal(self:GetName() .. "Text"):SetText(self:GetText())
+							</OnLoad>
+							<OnShow>
+								self:SetChecked(ww_vars.options.gems.usedTypes["Procced"])
+							</OnShow>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="$parentObeySocketColors" parentKey="obeySocketColors" inherits="UICheckButtonTemplate" text="Obey socket colors">
+						<Size>
+							<AbsDimension x="25" y="25"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseProcGems"/>
 							<Anchor point="LEFT">
 								<Offset>
 									<AbsDimension x="5"/>

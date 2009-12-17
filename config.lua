@@ -57,7 +57,7 @@ end
 
 function GemQualityDropDownOnClick(choice, dropdown)
 	UIDropDownMenu_SetSelectedValue(dropdown, choice.value, false)
-	ww_vars.options.gemQualityLimit = choice.value
+	ww_vars.options.gems.qualityLimit = choice.value
 	ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
 end
 

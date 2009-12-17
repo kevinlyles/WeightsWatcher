@@ -92,13 +92,9 @@ gemQualityNames = {
 	[2] = "Burning Crusade uncommon",
 	[3] = "Burning Crusade rare",
 	[4] = "Burning Crusade epic",
-	[5] = "Burning Crusade unique-equipped",
-	[6] = "Wrath uncommon",
-	[7] = "Wrath perfect uncommon",
-	[8] = "Wrath rare",
-	[9] = "Wrath epic",
-	[10] = "Wrath unique-equipped",
-	[11] = "Wrath jewelcrafter-only",
+	[5] = "Wrath uncommon",
+	[6] = "Wrath rare",
+	[7] = "Wrath epic",
 }
 
 keyDetectors = {
@@ -137,7 +133,7 @@ classNameOptions = {
 
 defaultVars = {
 	dataMajorVersion = 1,
-	dataMinorVersion = 3,
+	dataMinorVersion = 4,
 	weightsList = {
 		[1] = "DEATHKNIGHT",
 		[2] = "DRUID",
@@ -530,10 +526,18 @@ defaultVars = {
 		},
 	},
 	options = {
-		breakSocketColors = true,
-		neverBreakSocketColors = false,
+		gems = {
+			qualityLimit = 7,
+			breakSocketColors = true,
+			neverBreakSocketColors = false,
+			usedTypes = {
+				["Normal"] = true,
+				["Unique-Equipped"] = false,
+				["Jewelcrafter-Only"] = false,
+				["Procced"] = true,
+			}
+		},
 		normalizeWeights = true,
-		gemQualityLimit = 9,
 		tooltip = {
 			hideHints = false,
 			showWeights = "Always",

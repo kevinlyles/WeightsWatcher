@@ -135,6 +135,76 @@ function noop_major_up(vars)
 	return vars
 end
 
+function upgradeAccountToPartitionedGems(vars)
+	qualityConversion = {
+		[1] = 1,
+		[2] = 2,
+		[3] = 3,
+		[4] = 4,
+		[5] = 4,
+		[6] = 5,
+		[7] = 5,
+		[8] = 6,
+		[9] = 7,
+		[10] = 7,
+		[11] = 7,
+	}
+
+	if not vars.options.gems then
+		vars.options.gems = {}
+	end
+	if not vars.options.gems.usedTypes then
+		vars.options.gems.usedTypes = {}
+	end
+
+	vars.options.gems.usedTypes["Normal"] = true
+	vars.options.gems.usedTypes["Unique-Equipped"] = vars.options.gemQualityLimit == 5 or vars.options.gemQualityLimit == 10
+	vars.options.gems.usedTypes["Jewelcrafter-Only"] = vars.options.gemQualityLimit == 11
+	vars.options.gems.usedTypes["Procced"] = vars.options.gemQualityLimit == 7
+	vars.options.gems.qualityLimit = qualityConversion[vars.options.gemQualityLimit]
+	vars.options.gems.breakSocketColors = vars.options.breakSocketColors
+	vars.options.gems.neverBreakSocketColors = vars.options.neverBreakSocketColors
+
+	vars.options.gemQualityLimit = nil
+	vars.options.breakSocketColors = nil
+	vars.options.neverBreakSocketColors = nil
+
+	vars.dataMinorVersion = 4
+	return vars
+end
+
+downgradeAccountFromPartitionedGems = [[
+	return function(vars)
+		qualityConversion = {
+			[1] = 1,
+			[2] = 2,
+			[3] = 3,
+			[4] = 4,
+			[5] = 6,
+			[6] = 8,
+			[7] = 9,
+		}
+
+		vars.options.gemQualityLimit = qualityConversion[vars.options.gems.qualityLimit]
+		if vars.options.gems.usedTypes["Unique-Equipped"] and (vars.options.gems.qualityLimit == 4 or vars.options.gems.qualityLimit == 7) then
+			vars.options.gemQualityLimit = vars.options.gemQualityLimit + 1
+		end
+		if vars.options.gems.usedTypes["Procced"] and vars.options.gems.qualityLimit == 5 then
+			vars.options.gemQualityLimit = 7
+		end
+		if vars.options.gems.usedTypes["Jewelcrafter-Only"] and vars.options.gems.qualityLimit == 7 then
+			vars.options.gemQualityLimit = 11
+		end
+		vars.options.breakSocketColors = vars.options.gems.breakSocketColors
+		vars.options.neverBreakSocketColors = vars.options.gems.neverBreakSocketColors
+
+		vars.options.gems = nil
+
+		vars.dataMinorVersion = 3
+		return vars
+	end
+]]
+
 function upgradeAccountToShowDifferences(vars)
 	if vars.options.tooltip.showDifferences == nil then
 		vars.options.tooltip.showDifferences = true
@@ -525,6 +595,7 @@ upgradeAccountFunctions = {
 		[0] = function(vars) return upgradeAccountToBetterMetaEffectNames(vars) end,
 		[1] = function(vars) return upgradeAccountToCorrectShowClassNames(vars) end,
 		[2] = function(vars) return upgradeAccountToShowDifferences(vars) end,
+		[3] = function(vars) return upgradeAccountToPartitionedGems(vars) end,
 	},
 }
 
@@ -545,6 +616,7 @@ downgradeAccountFunctions = {
 		[1] = downgradeAccountFromBetterMetaEffectNames,
 		[2] = noop_down,
 		[3] = noop_down,
+		[4] = downgradeAccountFromPartitionedGems,
 	},
 }
 
