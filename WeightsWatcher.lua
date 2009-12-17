@@ -94,9 +94,7 @@ ww_weightCacheMetatable = {
 
 ww_weightIdealCacheWeightMetatable = {
 	__index = function(tbl, key)
-		if key == "weight" then
-			return nil
-		elseif key == "bestGems" then
+		if key == "bestGems" then
 			local redScore, yellowScore, blueScore, overallScore
 			local bestGems = {}
 

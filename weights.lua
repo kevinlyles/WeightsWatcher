@@ -41,12 +41,8 @@ StaticPopupDialogs["WW_CONFIRM_RESTORE_DEFAULTS"] = {
 			for _, class in ipairs(defaultVars.weightsList) do
 				for _, weight in ipairs(defaultVars.weightsList[class]) do
 					setWeight(class, weight, defaultVars.weightsList[class][weight])
-					if ww_weightCache[class] then
-						ww_weightCache[class][weight] = {}
-					end
-					if ww_weightIdealCache[class] then
-						ww_weightIdealCache[class][weight] = {}
-					end
+					ww_weightCache[class][weight] = nil
+					ww_weightIdealCache[class][weight] = nil
 				end
 			end
 			if ww_weights.rightPanel:IsShown() then
@@ -257,12 +253,8 @@ function configSaveWeight()
 	local weightFrame = ww_weights.rightPanel.weightFrame
 
 	-- The weight is changing, clear any cached info
-	if ww_weightCache[weightFrame.category.class] then
-		ww_weightCache[weightFrame.category.class][weightFrame.name] = {}
-	end
-	if ww_weightIdealCache[weightFrame.category.class] then
-		ww_weightIdealCache[weightFrame.category.class][weightFrame.name] = {}
-	end
+	ww_weightCache[weightFrame.category.class][weightFrame.name] = nil
+	ww_weightIdealCache[weightFrame.category.class][weightFrame.name] = nil
 
 	for statValue, statName in pairs(ww_weights.rightPanel.changedStats) do
 		number = statValue:GetNumber()
