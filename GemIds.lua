@@ -3451,7 +3451,7 @@ GemIds = {
 	[3741] = {
 		"Red",
 		"Flashing Dragon's Eye",
-		34,
+		11,
 		{["Parry Rating"] = 34},
 	},
 	[3742] = {
