@@ -143,7 +143,7 @@ SingleSlotLines = {
 
 function WeightsWatcher:multipleStats(text)
 	local stat, stringTable
-	local stats = setmetatale({}, ww_normalStatsMetatable)
+	local stats = setmetatable({}, ww_normalStatsMetatable)
 
 	text = string.gsub(string.gsub(text, ",? and ", "\a"), ", ", "\a")
 	stringTable = { strsplit("\a", text) }
