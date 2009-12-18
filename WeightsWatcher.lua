@@ -441,6 +441,7 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 	local link, bareLink, itemType, stackSize, sockets, gemStats
 	local stat, value, str, formatStr
 	local compareLink, compareBareLink, compareLink2, compareBareLink2, compareMethod
+	local showWeights, showIdealWeights, showIdealGems, showIdealGemStats
 	local _, playerClass = UnitClass("player")
 
 	_, link = tooltip:GetItem()
@@ -451,6 +452,11 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 	_, _, _, _, _, itemType, _, stackSize = GetItemInfo(link)
 	if (IsEquippableItem(link) and itemType ~= "Container" and itemType ~= "Quiver") or (itemType == "Gem" and stackSize == 1) or (itemType == "Consumable") or (itemType == "Recipe") then
 		bareLink = splitItemLink(link)
+
+		showWeights = keyDetectors[ww_vars.options.tooltip.showWeights]()
+		showIdealWeights = keyDetectors[ww_vars.options.tooltip.showIdealWeights]()
+		showIdealGems = keyDetectors[ww_vars.options.tooltip.showIdealGems]()
+		showIdealGemStats = keyDetectors[ww_vars.options.tooltip.showIdealGemStats]()
 
 		if ttname == "GameTooltip" and ww_vars.options.tooltip.showDifferences then
 			local currentSlot, compareSlot, compareSlot2, currentSubslot, compareSubslot, compareSubslot2
@@ -471,8 +477,9 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 			compareMethod = determineCompareMethod(currentSlot, compareSlot, compareSlot2, currentSubslot, compareSubslot, compareSubslot2)
 		end
 
-		if keyDetectors[ww_vars.options.tooltip.showWeights]() then
-			tooltip:AddLine("Current Weights:")
+		if showWeights then
+			_, sockets, _ = unpack(ww_bareItemCache[bareLink])
+
 			for _, class in ipairs(ww_charVars.activeWeights) do
 				if ww_vars.weightsList[class] then
 					for _, weight in pairs(ww_charVars.activeWeights[class]) do
@@ -491,42 +498,24 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 								compareScore = computeDifference(compareMethod, compareScore, compareScore2, currentScore)
 							end
 							tooltip:AddDoubleLine(str, string.format(colorizeDifferences(compareScore), currentScore, compareScore))
-						end
-					end
-				end
-			end
-
-			_, sockets, _ = unpack(ww_bareItemCache[bareLink])
-
-			if #(sockets) > 0 then
-				if keyDetectors[ww_vars.options.tooltip.showIdealWeights]() then
-					tooltip:AddLine("Ideally Gemmed Weights:")
-					for _, class in ipairs(ww_charVars.activeWeights) do
-						if ww_vars.weightsList[class] then
-							for _, weight in pairs(ww_charVars.activeWeights[class]) do
-								if ww_vars.weightsList[class][weight] then
-									local currentScore = ww_weightIdealCache[class][weight][bareLink].score
-									local compareScore, compareScore2
-									str = "  " .. weight
-									if ww_vars.options.tooltip.showClassNames == "Always" or (ww_vars.options.tooltip.showClassNames == "Others" and class ~= playerClass) then
-										str = str .. " - " .. classNames[class]
+							if #(sockets) > 0 and showIdealWeights then
+								local currentScore = ww_weightIdealCache[class][weight][bareLink].score
+								local compareScore, compareScore2
+								if compareBareLink then
+									compareScore = ww_weightIdealCache[class][weight][compareBareLink].score
+									if compareBareLink2 then
+										compareScore2 = ww_weightIdealCache[class][weight][compareBareLink2].score
 									end
-									if compareBareLink then
-										compareScore = ww_weightIdealCache[class][weight][compareBareLink].score
-										if compareBareLink2 then
-											compareScore2 = ww_weightIdealCache[class][weight][compareBareLink2].score
-										end
-										compareScore = computeDifference(compareMethod, compareScore, compareScore2, currentScore)
-									end
-									tooltip:AddDoubleLine(str, string.format(colorizeDifferences(compareScore), currentScore, compareScore))
-									if keyDetectors[ww_vars.options.tooltip.showIdealGems]() then
-										gemStats = ww_weightIdealCache[class][weight][bareLink].gemStats
-										for _, gem in ipairs(gemStats) do
-											tooltip:AddDoubleLine("    Using " .. gem[2] .. " (" .. gem[1] .. ")", " ")
-											if keyDetectors[ww_vars.options.tooltip.showIdealGemStats]() then
-												for stat, value in pairs(gem[3]) do
-													tooltip:AddDoubleLine("      " .. stat .. ": " .. value, " ")
-												end
+									compareScore = computeDifference(compareMethod, compareScore, compareScore2, currentScore)
+								end
+								tooltip:AddDoubleLine("    Ideally-gemmed:", string.format(colorizeDifferences(compareScore), currentScore, compareScore))
+								if showIdealGems then
+									gemStats = ww_weightIdealCache[class][weight][bareLink].gemStats
+									for _, gem in ipairs(gemStats) do
+										tooltip:AddDoubleLine("      Using " .. gem[2] .. " (" .. gem[1] .. ")", " ")
+										if showIdealGemStats then
+											for stat, value in pairs(gem[3]) do
+												tooltip:AddDoubleLine("        " .. stat .. ": " .. value, " ")
 											end
 										end
 									end
@@ -534,22 +523,27 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 							end
 						end
 					end
-					if not ww_vars.options.tooltip.hideHints and not keyDetectors[ww_vars.options.tooltip.showIdealGems]() then
-						if ww_vars.options.tooltip.showIdealGems ~= "Never" then
-							tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealGems .. " to show ideal gems>")
-						end
-					elseif not ww_vars.options.tooltip.hideHints and not keyDetectors[ww_vars.options.tooltip.showIdealGemStats]() then
-						if ww_vars.options.tooltip.showIdealGemStats ~= "Never" then
-							tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealGemStats .. " to show ideal gem stats>")
-						end
+				end
+			end
+			if not ww_vars.options.tooltip.hideHints and #(sockets) > 0 then
+				if not showIdealWeights then
+					if ww_vars.options.tooltip.showIdealWeights ~= "Never" then
+						tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealWeights .. " to show ideal weights>")
 					end
-				elseif not ww_vars.options.tooltip.hideHints and ww_vars.options.tooltip.showIdealWeights ~= "Never" then
-					tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealWeights .. " to show ideal weights>")
+				elseif not showIdealGems then
+					if ww_vars.options.tooltip.showIdealGems ~= "Never" then
+						tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealGems .. " to show ideal gems>")
+					end
+				elseif not showIdealGemStats then
+					if ww_vars.options.tooltip.showIdealGemStats ~= "Never" then
+						tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealGemStats .. " to show ideal gem stats>")
+					end
 				end
 			end
 		elseif not ww_vars.options.tooltip.hideHints and ww_vars.options.tooltip.showWeights ~= "Never" then
 			tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showWeights .. " to show weights>")
 		end
+
 		tooltip:Show()
 	end
 end
