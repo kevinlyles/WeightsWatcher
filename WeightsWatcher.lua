@@ -485,15 +485,27 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 					for _, weight in pairs(ww_charVars.activeWeights[class]) do
 						if ww_vars.weightsList[class][weight] then
 							local currentScore = ww_weightCache[class][weight][link]
-							local compareScore, compareScore2
+							local compareScore, compareScore2, compareBareScore, compareBareScore2
 							str = "  " .. weight
 							if ww_vars.options.tooltip.showClassNames == "Always" or (ww_vars.options.tooltip.showClassNames == "Others" and class ~= playerClass) then
 								str = str .. " - " .. classNames[class]
 							end
 							if compareLink then
 								compareScore = ww_weightCache[class][weight][compareLink]
+								if showIdealWeights and #(sockets) == 0 then
+									compareBareScore = ww_weightIdealCache[class][weight][compareBareLink].score
+									if compareScore < compareBareScore then
+										compareScore = compareBareScore
+									end
+								end
 								if compareLink2 then
 									compareScore2 = ww_weightCache[class][weight][compareLink2]
+									if showIdealWeights and #(sockets) == 0 then
+										compareBareScore2 = ww_weightIdealCache[class][weight][compareBareLink2].score
+										if compareScore2 < compareBareScore2 then
+											compareScore2 = compareBareScore2
+										end
+									end
 								end
 								compareScore = computeDifference(compareMethod, compareScore, compareScore2, currentScore)
 							end
