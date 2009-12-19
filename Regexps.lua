@@ -159,7 +159,8 @@ function WeightsWatcher:multipleStats(text)
 			end
 		end
 	end
-	if #(stats) > 0 then
+	-- Don't return an empty table
+	for _, _ in pairs (stats) do
 		return stats
 	end
 end
@@ -181,7 +182,8 @@ function WeightsWatcher:damageRange(textL, textR)
 			stats["Speed"] = tonumber(speed)
 		end
 	end
-	if #(stats) > 0 then
+	-- Don't return an empty table
+	for _, _ in pairs (stats) do
 		return stats
 	end
 end
