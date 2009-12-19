@@ -29,7 +29,7 @@ ww_normalStatsMetatable = {
 
 ww_bareItemCacheMetatable = {
 	__index = function(tbl, key)
-		tbl[key] = {WeightsWatcher:getItemStats(key)}
+		tbl[key] = WeightsWatcher:getItemStats(key)
 		return tbl[key]
 	end,
 }
@@ -38,7 +38,7 @@ ww_itemCacheMetatable = {
 	__index = function(tbl, key)
 		local gemStats, socketBonusActive
 		local bareLink, gems = splitItemLink(key)
-		local normalStats, sockets, socketBonusStat = unpack(ww_bareItemCache[bareLink])
+		local sockets = ww_bareItemCache[bareLink].sockets
 
 		gemStats = WeightsWatcher:getGemStats(gems)
 
@@ -59,17 +59,22 @@ ww_itemCacheMetatable = {
 			socketBonusActive = false
 		end
 
-		tbl[key] = {socketBonusActive, gemStats}
+		tbl[key] = {
+			socketBonusActive = socketBonusActive,
+			gemStats = gemStats
+		}
 		return tbl[key]
 	end,
 }
 
 ww_weightCacheWeightMetatable = {
 	__index = function(tbl, key)
-		local normalStats, socketBonusActive, socketBonusStat, gemStats
-		local bareLink = splitItemLink(key)
-		normalStats, _, socketBonusStat = unpack(ww_bareItemCache[bareLink])
-		socketBonusActive, gemStats = unpack(ww_itemCache[key])
+		local itemStats = ww_bareItemCache[splitItemLink(key)]
+		local normalStats = itemStats.normalStats
+		local socketBonusStat = itemStats.socketBonusStat
+		itemStats = ww_itemCache[key]
+		local socketBonusActive = itemStats.socketBonusActive
+		local gemStats = itemStats.gemStats
 
 		tbl[key] = WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, tbl.weight)
 		return tbl[key]
@@ -116,7 +121,10 @@ ww_weightIdealCacheWeightMetatable = {
 		end
 
 		local gemId, gemIdIgnoreSocket, weightVal, weightValIgnoreSockets, bestGems, bestGemsIgnoreSocket
-		local normalStats, sockets, socketBonusStat = unpack(ww_bareItemCache[key])
+		local itemStats = ww_bareItemCache[key]
+		local normalStats = itemStats.normalStats
+		local sockets = itemStats.sockets
+		local socketBonusStat = itemStats.socketBonusStat
 		local socketBonusWeight = 0
 		if socketBonusStat then
 			for stat, value in pairs(socketBonusStat) do
@@ -473,25 +481,25 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 
 		if ttname == "GameTooltip" and ww_vars.options.tooltip.showDifferences then
 			local currentSlot, compareSlot, compareSlot2, currentSubslot, compareSubslot, compareSubslot2
-			currentSlot = ww_bareItemCache[bareLink][1]["Slot"]
-			currentSubslot = ww_bareItemCache[bareLink][1]["Subslot"]
+			currentSlot = ww_bareItemCache[bareLink].normalStats["Slot"]
+			currentSubslot = ww_bareItemCache[bareLink].normalStats["Subslot"]
 			_, compareLink = ShoppingTooltip1:GetItem()
 			if compareLink then
 				compareBareLink = splitItemLink(compareLink)
-				compareSlot = ww_bareItemCache[compareBareLink][1]["Slot"]
-				compareSubslot = ww_bareItemCache[compareBareLink][1]["Subslot"]
+				compareSlot = ww_bareItemCache[compareBareLink].normalStats["Slot"]
+				compareSubslot = ww_bareItemCache[compareBareLink].normalStats["Subslot"]
 			end
 			_, compareLink2 = ShoppingTooltip2:GetItem()
 			if compareLink2 then
 				compareBareLink2 = splitItemLink(compareLink2)
-				compareSlot2 = ww_bareItemCache[compareBareLink2][1]["Slot"]
-				compareSubslot2 = ww_bareItemCache[compareBareLink2][1]["Subslot"]
+				compareSlot2 = ww_bareItemCache[compareBareLink2].normalStats["Slot"]
+				compareSubslot2 = ww_bareItemCache[compareBareLink2].normalStats["Subslot"]
 			end
 			compareMethod = determineCompareMethod(currentSlot, compareSlot, compareSlot2, currentSubslot, compareSubslot, compareSubslot2)
 		end
 
 		if showWeights then
-			_, sockets, _ = unpack(ww_bareItemCache[bareLink])
+			sockets = ww_bareItemCache[bareLink].sockets
 
 			for _, class in ipairs(ww_charVars.activeWeights) do
 				if ww_vars.weightsList[class] then
@@ -837,11 +845,18 @@ function WeightsWatcher:getItemStats(link)
 			end
 		end
 	end
+
 	if ranged then
 		normalStats["Ranged DPS"] = rawget(normalStats, "DPS")
 		normalStats["DPS"] = nil
 	end
-	return normalStats, socketList, socketBonusStat
+
+	return {
+		normalStats = normalStats,
+		nonStats = nonStats,
+		sockets = socketList,
+		socketBonusStat = socketBonusStat,
+	}
 end
 
 function WeightsWatcher:preprocess(text)
