@@ -163,7 +163,7 @@ function WeightsWatcher:multipleStats(text)
 		text = string.gsub(string.gsub(text, ",? and ", "\a"), ", ", "\a")
 	end
 	stringTable = { strsplit("\a", text) }
-	for _, statString in pairs(stringTable) do
+	for _, statString in ipairs(stringTable) do
 		stat = WeightsWatcher:singleStat(statString)
 		if stat then
 			stats = stats + stat
@@ -200,7 +200,7 @@ end
 
 function WeightsWatcher:singleStat(text)
 	local stat
-	for _, regex in pairs(SingleStatLines) do
+	for _, regex in ipairs(SingleStatLines) do
 		if type(regex) == "table" then
 			local pattern, func = unpack(regex)
 			if string.find(text, pattern) then

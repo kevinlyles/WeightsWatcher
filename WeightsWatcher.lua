@@ -778,7 +778,7 @@ function WeightsWatcher:getItemStats(link)
 			socketBonusStat = WeightsWatcher:singleStat(value)
 		end
 		if not matched then
-			for _, regex in pairs(SocketLines) do
+			for _, regex in ipairs(SocketLines) do
 				start, _, value = string.find(textL, regex)
 				if start then
 					matched = true
@@ -787,14 +787,14 @@ function WeightsWatcher:getItemStats(link)
 				end
 			end
 			if not matched then
-				for _, regex in pairs(IgnoredLines) do
+				for _, regex in ipairs(IgnoredLines) do
 					if string.find(textL, regex) then
 						matched = true
 						break
 					end
 				end
 				if not matched then
-					for _, regex in pairs(DoubleSlotLines) do
+					for _, regex in ipairs(DoubleSlotLines) do
 						if string.find(textL, regex) then
 							matched = true
 							normalStats["Slot"] =  textL
@@ -806,7 +806,7 @@ function WeightsWatcher:getItemStats(link)
 						end
 					end
 					if not matched then
-						for _, regex in pairs(SingleSlotLines) do
+						for _, regex in ipairs(SingleSlotLines) do
 							if string.find(textL, regex) then
 								matched = true
 								normalStats["Slot"] =  textL
@@ -814,7 +814,7 @@ function WeightsWatcher:getItemStats(link)
 							end
 						end
 						if not matched then
-							for _, regex in pairs(MultipleStatLines) do
+							for _, regex in ipairs(MultipleStatLines) do
 								pattern, func = unpack(regex)
 								if string.find(textL, pattern) then
 									statsList = func(textL, textR)
