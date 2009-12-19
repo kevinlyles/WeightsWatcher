@@ -486,7 +486,7 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 						if ww_vars.weightsList[class][weight] then
 							local currentScore = ww_weightCache[class][weight][link]
 							local compareScore, compareScore2, compareBareScore, compareBareScore2
-							str = "  " .. weight
+							str = weight
 							if ww_vars.options.tooltip.showClassNames == "Always" or (ww_vars.options.tooltip.showClassNames == "Others" and class ~= playerClass) then
 								str = str .. " - " .. classNames[class]
 							end
@@ -520,14 +520,14 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 									end
 									compareScore = computeDifference(compareMethod, compareScore, compareScore2, currentScore)
 								end
-								tooltip:AddDoubleLine("    Ideally-gemmed:", string.format(colorizeDifferences(compareScore), currentScore, compareScore))
+								tooltip:AddDoubleLine("  Ideally-gemmed:", string.format(colorizeDifferences(compareScore), currentScore, compareScore))
 								if showIdealGems then
 									gemStats = ww_weightIdealCache[class][weight][bareLink].gemStats
 									for _, gem in ipairs(gemStats) do
-										tooltip:AddDoubleLine("      Using " .. gem[2] .. " (" .. gem[1] .. ")", " ")
+										tooltip:AddDoubleLine("    Using " .. gem[2] .. " (" .. gem[1] .. ")", " ")
 										if showIdealGemStats then
 											for stat, value in pairs(gem[3]) do
-												tooltip:AddDoubleLine("        " .. stat .. ": " .. value, " ")
+												tooltip:AddDoubleLine("      " .. stat .. ": " .. value, " ")
 											end
 										end
 									end
@@ -540,7 +540,7 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 			if not ww_vars.options.tooltip.hideHints and #(sockets) > 0 then
 				if not showIdealWeights then
 					if ww_vars.options.tooltip.showIdealWeights ~= "Never" then
-						tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealWeights .. " to show ideal weights>")
+						tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealWeights .. " to show ideally-gemmed weights>")
 					end
 				elseif not showIdealGems then
 					if ww_vars.options.tooltip.showIdealGems ~= "Never" then
