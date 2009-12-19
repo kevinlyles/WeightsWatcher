@@ -612,9 +612,9 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 
 		if ttname == "GameTooltip" and ww_vars.options.tooltip.showDifferences then
 			local currentSlot, compareSlot, compareSlot2, currentSubslot, compareSubslot, compareSubslot2
-			currentSlot = ww_bareItemCache[bareLink].normalStats["Slot"]
+			currentSlot = ww_bareItemCache[bareLink].nonStats["Slot"]
 			if currentSlot and currentSlot ~= 0 then
-				currentSubslot = ww_bareItemCache[bareLink].normalStats["Subslot"]
+				currentSubslot = ww_bareItemCache[bareLink].nonStats["Subslot"]
 				local compareSlots = slotConversion[currentSlot]
 				if type(compareSlots) == "string" then
 					compareLink = GetInventoryItemLink("player", WeightsWatcher.slotList[compareSlots])
@@ -624,13 +624,13 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 				end
 				if compareLink then
 					compareBareLink = splitItemLink(compareLink)
-					compareSlot = ww_bareItemCache[compareBareLink].normalStats["Slot"]
-					compareSubslot = ww_bareItemCache[compareBareLink].normalStats["Subslot"]
+					compareSlot = ww_bareItemCache[compareBareLink].nonStats["Slot"]
+					compareSubslot = ww_bareItemCache[compareBareLink].nonStats["Subslot"]
 				end
 				if compareLink2 then
 					compareBareLink2 = splitItemLink(compareLink2)
-					compareSlot2 = ww_bareItemCache[compareBareLink2].normalStats["Slot"]
-					compareSubslot2 = ww_bareItemCache[compareBareLink2].normalStats["Subslot"]
+					compareSlot2 = ww_bareItemCache[compareBareLink2].nonStats["Slot"]
+					compareSubslot2 = ww_bareItemCache[compareBareLink2].nonStats["Subslot"]
 				end
 				compareMethod = determineCompareMethod(currentSlot, compareSlot, compareSlot2, currentSubslot, compareSubslot, compareSubslot2)
 			end
@@ -896,7 +896,7 @@ end
 
 function WeightsWatcher.getItemStats(link)
 	local ttleft, ttright, origTextL, textL, textR, pattern, func, start
-	local normalStats, socketList, socketBonusStat = WeightsWatcher.newStatTable(), {}
+	local normalStats, nonStats, socketList, socketBonusStat = WeightsWatcher.newStatTable(), {}, {}
 	local ranged = false
 
 	-- Populate hidden tooltip
@@ -940,41 +940,50 @@ function WeightsWatcher.getItemStats(link)
 					end
 				end
 				if not matched then
-					for _, regex in ipairs(DoubleSlotLines) do
+					for _, regex in ipairs(ItemInfoLines) do
 						if string.find(textL, regex) then
 							matched = true
-							normalStats["Slot"] =  textL
-							normalStats["Subslot"] = textR
-							if textL == "Ranged" or textL == "Projectile" then
-								ranged = true
-							end
+							nonStats[textL] =  true
 							break
 						end
 					end
 					if not matched then
-						for _, regex in ipairs(SingleSlotLines) do
+						for _, regex in ipairs(DoubleSlotLines) do
 							if string.find(textL, regex) then
 								matched = true
-								normalStats["Slot"] =  textL
+								nonStats["Slot"] =  textL
+								nonStats["Subslot"] = textR
+								if textL == "Ranged" or textL == "Projectile" then
+									ranged = true
+								end
 								break
 							end
 						end
 						if not matched then
-							for _, regex in ipairs(MultipleStatLines) do
-								pattern, func = unpack(regex)
-								if string.find(textL, pattern) then
-									statsList = func(textL, textR)
-									if statsList then
-										normalStats = normalStats + statsList
-										matched = true
-										break
-									end
+							for _, regex in ipairs(SingleSlotLines) do
+								if string.find(textL, regex) then
+									matched = true
+									nonStats["Slot"] =  textL
+									break
 								end
 							end
 							if not matched then
-								stat = WeightsWatcher.singleStat(textL)
-								if stat then
-									normalStats = normalStats + stat
+								for _, regex in ipairs(MultipleStatLines) do
+									pattern, func = unpack(regex)
+									if string.find(textL, pattern) then
+										statsList = func(textL, textR)
+										if statsList then
+											normalStats = normalStats + statsList
+											matched = true
+											break
+										end
+									end
+								end
+								if not matched then
+									stat = WeightsWatcher.singleStat(textL)
+									if stat then
+										normalStats = normalStats + stat
+									end
 								end
 							end
 						end

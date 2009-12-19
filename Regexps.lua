@@ -21,11 +21,6 @@ Preprocess = {
 }
 
 IgnoredLines = {
-	"^Soulbound$",
-	"^Binds when equipped$",
-	"^Binds when picked up$",
-	"^Binds when used$",
-	"^Binds to account$",
 	"^Durability %d+ / %d+$",
 	"^<.+>$",
 	"^\".+\"$",
@@ -119,6 +114,12 @@ SingleStatLines = {
 	"^(Requires %a[%a ]+) %((%d+)%)",
 }
 
+ItemInfoLines = {
+	"^Unique",
+	"^Binds ",
+	"^Soulbound$",
+}
+
 DoubleSlotLines = {
 	"^Head$",
 	"^Shoulder$",
@@ -139,7 +140,6 @@ DoubleSlotLines = {
 }
 
 SingleSlotLines = {
-	"^Unique$",
 	"^Neck$",
 	"^Back$",
 	"^Shirt$",
