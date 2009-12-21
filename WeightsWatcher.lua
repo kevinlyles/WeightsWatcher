@@ -706,30 +706,57 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 					end
 				end
 			end
-			if not ww_vars.options.tooltip.hideHints and #(sockets) > 0 then
-				if not showIdealWeights then
-					if ww_vars.options.tooltip.showIdealWeights ~= "Never" then
-						tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealWeights .. " to show ideally-gemmed weights>")
-					end
-				elseif not showIdealGems then
-					if ww_vars.options.tooltip.showIdealGems ~= "Never" then
-						tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealGems .. " to show ideal gems>")
-					end
-				else
-					if not showIdealGemStats then
-						if ww_vars.options.tooltip.showIdealGemStats ~= "Never" then
-							tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealGemStats .. " to show ideal gem stats>")
+		end
+
+		local start, ttleft, origTextL, textL
+		local numUnweightedEffects = 0
+		-- Skip item name and "currently equipped"
+		if WeightsWatcherHiddenTooltipTextLeft1:GetText() == CURRENTLY_EQUIPPED then
+			start = 3
+		else
+			start = 2
+		end
+
+		for i = start, tooltip:NumLines() do
+			ttleft = getglobal(ttname .. "TextLeft" .. i)
+			origTextL = ttleft:GetText()
+			textL = WeightsWatcher.preprocess(origTextL:lower())
+			if rawget(ww_unparsed_lines, textL) or rawget(ww_unweighted_lines, textL) then
+				ttleft:SetText(origTextL .. " |cffff0000*|r")
+				numUnweightedEffects = numUnweightedEffects + 1
+			end
+		end
+		if numUnweightedEffects > 0 then
+			tooltip:AddLine("|cffff0000* indicates unweighted effects|r (" .. numUnweightedEffects .. " total)")
+		end
+
+		if not ww_vars.options.tooltip.hideHints then
+			if showWeights then
+				if not ww_vars.options.tooltip.hideHints and #(sockets) > 0 then
+					if not showIdealWeights then
+						if ww_vars.options.tooltip.showIdealWeights ~= "Never" then
+							tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealWeights .. " to show ideally-gemmed weights>")
 						end
-					end
-					if not showAlternateGems and alternateGemsExist then
-						if ww_vars.options.tooltip.showAlternateGems ~= "Never" then
-							tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showAlternateGems .. " to show alternate ideal gems>")
+					elseif not showIdealGems then
+						if ww_vars.options.tooltip.showIdealGems ~= "Never" then
+							tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealGems .. " to show ideal gems>")
+						end
+					else
+						if not showIdealGemStats then
+							if ww_vars.options.tooltip.showIdealGemStats ~= "Never" then
+								tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealGemStats .. " to show ideal gem stats>")
+							end
+						end
+						if not showAlternateGems and alternateGemsExist then
+							if ww_vars.options.tooltip.showAlternateGems ~= "Never" then
+								tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showAlternateGems .. " to show alternate ideal gems>")
+							end
 						end
 					end
 				end
+			elseif ww_vars.options.tooltip.showWeights ~= "Never" then
+				tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showWeights .. " to show weights>")
 			end
-		elseif not ww_vars.options.tooltip.hideHints and ww_vars.options.tooltip.showWeights ~= "Never" then
-			tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showWeights .. " to show weights>")
 		end
 
 		tooltip:Show()
