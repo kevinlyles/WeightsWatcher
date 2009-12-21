@@ -47,12 +47,17 @@ TempIgnoredLines = {
 }
 
 UnweightedLines = {
+	"^%(%d%) set: ",
+	"^set: ", -- In-game only?
 	-- Some relics that boost stats for certain abilities only
 	"^equip: increases the %a[%a ]+ of your %a[%a ]+ by ",
 	-- Use effects that have a cooldown
 	"cooldown",
-	-- "Chance on hit" and "have a chance"
-	"chance ",
+	"chance t?on? ",
+	"^use: .*enchants? ",
+	"^equip: you",
+	"^use: coats a weapon with poison ",
+	"^equip: causes your ",
 }
 
 socketBonus = "^socket bonus: (.*)"
