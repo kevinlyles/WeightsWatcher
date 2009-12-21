@@ -135,6 +135,29 @@ function noop_major_up(vars)
 	return vars
 end
 
+function upgradeAccountToWorkingResistances(vars)
+	local resistances = {
+		"arcane",
+		"fire",
+		"frost",
+		"holy",
+		"nature",
+		"shadow",
+	}
+
+	for _, class in ipairs(vars.weightsList) do
+		for _, weight in ipairs(vars.weightsList[class]) do
+			for _, resistance in ipairs(resistances) do
+				vars.weightsList[class][weight][resistance .. " resistance"] = vars.weightsList[class][weight][resistance]
+				vars.weightsList[class][weight][resistance] = nil
+			end
+		end
+	end
+
+	vars.dataMinorVersion = 9
+	return vars
+end
+
 function upgradeAccountToShowAlternateGemsTypoFix(vars)
 	if vars.options.tooltip.showAlternateGems == nil then
 		vars.options.tooltip.showAlternateGems = "Alt"
@@ -755,6 +778,7 @@ upgradeAccountFunctions = {
 		[5] = upgradeAccountToGemSources,
 		[6] = upgradeAccountToShowAlternateGems,
 		[7] = upgradeAccountToShowAlternateGemsTypoFix,
+		[8] = upgradeAccountToWorkingResistances,
 	},
 }
 
@@ -780,6 +804,7 @@ downgradeAccountFunctions = {
 		[6] = downgradeAccountFromGemSources,
 		[7] = noop_down,
 		[8] = noop_down,
+		[9] = noop_down,
 	},
 }
 

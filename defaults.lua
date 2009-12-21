@@ -71,6 +71,12 @@ trackedStats = {
 		"Holy",
 		"Nature",
 		"Shadow",
+		["Arcane"] = "arcane resistance",
+		["Fire"] = "fire resistance",
+		["Frost"] = "frost resistance",
+		["Holy"] = "holy resistance",
+		["Nature"] = "nature resistance",
+		["Shadow"] = "shadow resistance",
 	},
 }
 
@@ -133,7 +139,7 @@ classNameOptions = {
 
 defaultVars = {
 	dataMajorVersion = 1,
-	dataMinorVersion = 8,
+	dataMinorVersion = 9,
 	weightsList = {
 		[1] = "DEATHKNIGHT",
 		[2] = "DRUID",

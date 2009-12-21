@@ -483,7 +483,7 @@ function createScrollableTieredList(template, scrollFrame, scrolledFrame, elemen
 			elementFrame.position = j
 			elementFrame.category = categoryFrame
 			elementFrame.text:SetText(element)
-			elementFrame.name = element
+			elementFrame.name = template[category][element] or element
 			elementFrame:SetPoint("TOPLEFT", 0, -elementHeight * j)
 			table.insert(scrollFrame.shown, elementFrame)
 			categoryFrame.length = categoryFrame.length + 1
