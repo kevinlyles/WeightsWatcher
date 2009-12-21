@@ -6,7 +6,7 @@ Preprocess = {
 	["|r$"] = "",
 	["^|c[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9]"] = "",
 	["Improves"] = "Increases",
-	["Increases your"] = "Increases",
+	["([Ii]ncreases?) your"] = "%1",
 	["Increases the target's"] = "Increases",
 	["Unique%-Equipped"] = "Unique",
 	["^Use: Teaches you how to permanently enchant "] = "Use: Permanently enchant ",
@@ -145,18 +145,20 @@ function WeightsWatcher:multipleStats(text)
 	local stat, stringTable
 	local stats = setmetatable({}, ww_normalStatsMetatable)
 
-	text = string.gsub(string.gsub(text, ",? and ", "\a"), ", ", "\a")
+	start, _, value = string.find(text, " and %a[%a ]+ by (%d+)%.")
+	if start then
+		text = string.gsub(text, ".*[iI]ncrease[sd]? ", "")
+		text = string.gsub(text, " by (%d+)%..*", " %1")
+		text = string.gsub(text, ",? and ", " " .. value .. "\a")
+		text = string.gsub(text, ", ", " " .. value .. "\a")
+	else
+		text = string.gsub(string.gsub(text, ",? and ", "\a"), ", ", "\a")
+	end
 	stringTable = { strsplit("\a", text) }
 	for _, statString in pairs(stringTable) do
 		stat = WeightsWatcher:singleStat(statString)
 		if stat then
-			for name, value in pairs(stat) do
-				if stats[name] then
-					stats[name] = stats[name] + value
-				else
-					stats[name] = value
-				end
-			end
+			stats = stats + stat
 		end
 	end
 	-- Don't return an empty table
