@@ -22,6 +22,7 @@ IgnoredLines = {
 	"^Binds when equipped$",
 	"^Binds when picked up$",
 	"^Binds when used$",
+	"^Binds to account$",
 	"^Durability %d+ / %d+$",
 	"^<.+>$",
 	"^\".+\"$",
@@ -42,6 +43,7 @@ IgnoredLines = {
 	"^Requires %a[%a ]+ %- Honored$",
 	"^Requires %a[%a ]+ %- Revered$",
 	"^Requires %a[%a ]+ %- Exalted$",
+	"^Use: Teaches you how to ",
 }
 
 socketBonus = "^Socket Bonus: (.*)"
