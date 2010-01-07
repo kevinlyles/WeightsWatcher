@@ -15,6 +15,9 @@ Preprocess = {
 	["Cat, Bear, Dire Bear, and Moonkin forms"] = "Cat/Bear/Dire Bear/Moonkin forms",
 	["maximum health"] = "health",
 	["Mana every 5 seconds"] = "MP5",
+	["the block value of your shield"] = "block value",
+	["shield block rating"] = "block rating",
+	["Block$"] = "block value",
 }
 
 IgnoredLines = {
