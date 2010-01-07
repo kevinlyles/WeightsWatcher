@@ -95,13 +95,20 @@ SingleStatLines = {
 				return setmetatable({[name] = tonumber(value)}, ww_normalStatsMetatable)
 			end
 		end},
+	{"^Use: Permanently enchants? .* to give %+?(%d+) (%a[%a ]+).",
+		function(text, pattern)
+			local start, _, value, name = string.find(text, pattern)
+			if start then
+				return setmetatable({[name] = tonumber(value)}, ww_normalStatsMetatable)
+			end
+		end},
 
 	"^(%a[%a ]+) (%d+)",
 	"^Equip: Increases (%a[%a ]+) by (%d+)%.",
 	"^Equip: Increased (%a[%a ]+) %+(%d+)%.",
 	"^Use: Increases (%a[%a ]+) by (%d+) for .*%.",
 	"^Use: Permanently increase the (%a[%a ]+) of .* by (%d+)%.",
-	"^Use: Permanently enchant .* to increase (%a[%a ]+) by (%d+)%.",
+	"^Use: Permanently enchants? .* to increase (%a[%a ]+) by (%d+)%.",
 	"^Use: When applied to your fishing pole, increases (Fishing) by (%d+) for ",
 
 	-- TODO: figure out how to properly handle these
