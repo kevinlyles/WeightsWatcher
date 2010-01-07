@@ -465,7 +465,7 @@ function createScrollableTieredList(template, scrollFrame, scrolledFrame, elemen
 	scrollFrame.elementHeight = elementHeight
 	for i, category in ipairs(template) do
 		--for each category print the header and then the print the list of stats
-		categoryFrame = CreateFrame("Frame", category, scrolledFrame, "ww_categoryFrame")
+		categoryFrame = CreateFrame("Frame", "WW_" .. category, scrolledFrame, "ww_categoryFrame")
 		categoryFrame.text:SetText(category)
 		categoryFrame.name = category
 		categoryFrame.length = 1
@@ -478,7 +478,7 @@ function createScrollableTieredList(template, scrollFrame, scrolledFrame, elemen
 		table.insert(scrollFrame.shown, categoryFrame.text)
 		categoryFrame.position = #(scrollFrame.shown)
 		for j, element in ipairs(template[category]) do
-			elementFrame = CreateFrame("Frame", element, scrollFrame.categories[i], elementType)
+			elementFrame = CreateFrame("Frame", "WW_" .. element, scrollFrame.categories[i], elementType)
 			elementFrame.position = j
 			elementFrame.category = categoryFrame
 			elementFrame.text:SetText(element)
