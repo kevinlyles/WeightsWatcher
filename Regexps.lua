@@ -65,10 +65,6 @@ MultipleStatLines = {
 }
 
 SingleStatLines = {
-	{"^Rune of the Stoneskin Gargoyle",
-		function()
-			return setmetatable({["Defense"] = 25}, ww_normalStatsMetatable)
-		end},
 	{"^Equip: Restores (%d+) mana per 5 sec%.",
 		function(text, pattern)
 			return WeightsWatcher:singleStatValueOnly(text, pattern, "MP5")
