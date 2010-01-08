@@ -1045,7 +1045,8 @@ function WeightsWatcher.getItemStats(link)
 end
 
 function WeightsWatcher.preprocess(text)
-	for pattern, replacement in pairs(Preprocess) do
+	for _, regex in ipairs(Preprocess) do
+		local pattern, replacement = unpack(regex)
 		if string.find(text, pattern) then
 			text = string.gsub(text, pattern, replacement)
 		end
