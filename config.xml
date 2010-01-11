@@ -469,9 +469,25 @@
 							</OnLoad>
 						</Scripts>
 					</Frame>
-					<Frame name="$parentShowIdealGemStats" parentKey="showIdealGemStats" inherits="ww_modifierKeyDropDown">
+					<Frame name="$parentShowAlternateGems" parentKey="showIdealGemStats" inherits="ww_modifierKeyDropDown">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowIdealGems"/>
+							<Anchor point="LEFT" relativePoint="LEFT" relativeTo="$parentShowIdealGems">
+								<Offset>
+									<AbsDimension x="20"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								self.label:SetText("Show alternate ideal gems:")
+								self.dropdown:SetText("showAlternateGems")
+							</OnLoad>
+						</Scripts>
+					</Frame>
+					<Frame name="$parentShowIdealGemStats" parentKey="showIdealGemStats" inherits="ww_modifierKeyDropDown">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowAlternateGems"/>
 							<Anchor point="LEFT" relativePoint="LEFT" relativeTo="$parentShowIdealGems">
 								<Offset>
 									<AbsDimension x="20"/>

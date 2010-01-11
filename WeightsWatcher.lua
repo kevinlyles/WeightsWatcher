@@ -95,25 +95,26 @@ ww_weightCacheMetatable = {
 ww_weightIdealCacheWeightMetatable = {
 	__index = function(tbl, key)
 		if key == "bestGems" then
-			local redScore, yellowScore, blueScore, overallScore
 			local bestGems = {}
 
-			bestGems.Red, redScore = WeightsWatcher:bestGemForSocket("Red", tbl.weight, ww_vars.options.gems.qualityLimit)
-			bestGems.Yellow, yellowScore = WeightsWatcher:bestGemForSocket("Yellow", tbl.weight, ww_vars.options.gems.qualityLimit)
-			bestGems.Blue, blueScore = WeightsWatcher:bestGemForSocket("Blue", tbl.weight, ww_vars.options.gems.qualityLimit)
-			bestGems.Meta = WeightsWatcher:bestGemForSocket("Meta", tbl.weight, ww_vars.options.gems.qualityLimit)
-			bestGems.overall = bestGems.Red
-			overallScore = redScore
-			if blueScore > overallScore then
-				bestGems.overall = bestGems.Blue
-				overallScore = blueScore
+			bestGems.Red, bestGems.RedScore = WeightsWatcher:bestGemForSocket("Red", tbl.weight, ww_vars.options.gems.qualityLimit)
+			bestGems.Yellow, bestGems.YellowScore = WeightsWatcher:bestGemForSocket("Yellow", tbl.weight, ww_vars.options.gems.qualityLimit)
+			bestGems.Blue, bestGems.BlueScore = WeightsWatcher:bestGemForSocket("Blue", tbl.weight, ww_vars.options.gems.qualityLimit)
+			bestGems.Meta, bestGems.MetaScore = WeightsWatcher:bestGemForSocket("Meta", tbl.weight, ww_vars.options.gems.qualityLimit)
+			bestGems.Overall = bestGems.Red
+			bestGems.OverallScore = bestGems.RedScore
+			if bestGems.BlueScore > bestGems.OverallScore then
+				bestGems.Overall = bestGems.Blue
+				bestGems.OverallScore = bestGems.BlueScore
 			end
-			if yellowScore > overallScore then
-				bestGems.overall = bestGems.Yellow
+			if bestGems.YellowScore > bestGems.OverallScore then
+				bestGems.Overall = bestGems.Yellow
+				bestGems.OverallScore = bestGems.YellowScore
 			end
 			tbl.bestGems = bestGems
 			return bestGems
 		end
+
 		local gemId, gemIdIgnoreSocket, weightVal, weightValIgnoreSockets, bestGems, bestGemsIgnoreSocket
 		local normalStats, sockets, socketBonusStat = unpack(ww_bareItemCache[key])
 		local socketBonusWeight = 0
@@ -124,17 +125,20 @@ ww_weightIdealCacheWeightMetatable = {
 		end
 		local breakSocketColors = ww_vars.options.gems.breakSocketColors or (not ww_vars.options.gems.neverBreakSocketColors and socketBonusWeight <= 0)
 
-		bestGems = {}
-		bestGemsIgnoreSocket = {}
+		bestGems, bestGemsIgnoreSocket = {}, {}
+		gemScore, gemScoreIgnoreSocket = 0, 0
 		for _, color in pairs(sockets) do
 			gemId = tbl.bestGems[color]
-			if gemId ~= 0 then
+			-- TODO: get rid of the if check?
+			if #(gemId) > 0 then
 				table.insert(bestGems, gemId)
+				gemScore = gemScore + tbl.bestGems[color .. "Score"]
 			end
 			if breakSocketColors then
-				gemIdIgnoreSocket = tbl.bestGems.overall
-				if gemIdIgnoreSocket ~= 0 then
+				gemIdIgnoreSocket = tbl.bestGems.Overall
+				if #(gemIdIgnoreSocket) > 0 then
 					table.insert(bestGemsIgnoreSocket, gemIdIgnoreSocket)
+					gemScoreIgnoreSocket = gemScoreIgnoreSocket + tbl.bestGems.OverallScore
 				end
 			end
 		end
@@ -314,7 +318,7 @@ function splitItemLink(link)
 	linkLevel = strsplit("|", linkLevel)
 	bareLink = strjoin(":", "item", itemId, "0:0:0:0:0", suffixId, uniqueId, linkLevel)
 
-	return bareLink, {gemId1, gemId2, gemId3, gemId4}
+	return bareLink, {{gemId1}, {gemId2}, {gemId3}, {gemId4}}
 end
 
 local function checkForTitansGrip()
@@ -448,7 +452,7 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 	local link, bareLink, itemType, stackSize, sockets, gemStats
 	local stat, value, str, formatStr
 	local compareLink, compareBareLink, compareLink2, compareBareLink2, compareMethod
-	local showWeights, showIdealWeights, showIdealGems, showIdealGemStats
+	local showWeights, showIdealWeights, showIdealGems, showIdealGemStats, showAlternateGems
 	local _, playerClass = UnitClass("player")
 
 	_, link = tooltip:GetItem()
@@ -464,6 +468,7 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 		showIdealWeights = keyDetectors[ww_vars.options.tooltip.showIdealWeights]()
 		showIdealGems = keyDetectors[ww_vars.options.tooltip.showIdealGems]()
 		showIdealGemStats = keyDetectors[ww_vars.options.tooltip.showIdealGemStats]()
+		showAlternateGems = keyDetectors[ww_vars.options.tooltip.showAlternateGems]()
 
 		if ttname == "GameTooltip" and ww_vars.options.tooltip.showDifferences then
 			local currentSlot, compareSlot, compareSlot2, currentSubslot, compareSubslot, compareSubslot2
@@ -530,11 +535,20 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 								tooltip:AddDoubleLine("  Ideally-gemmed:", string.format(colorizeDifferences(compareScore), currentScore, compareScore))
 								if showIdealGems then
 									gemStats = ww_weightIdealCache[class][weight][bareLink].gemStats
-									for _, gem in ipairs(gemStats) do
-										tooltip:AddDoubleLine("    Using " .. gem[2] .. " (" .. gem[1] .. ")", " ")
-										if showIdealGemStats then
-											for stat, value in pairs(gem[3]) do
-												tooltip:AddDoubleLine("      " .. stat .. ": " .. value, " ")
+									for _, gems in ipairs(gemStats) do
+										for i, gem in ipairs(gems) do
+											if #(gems) > 1 then
+												tooltip:AddDoubleLine("    (Option " .. i .. "/" .. #(gems) .. ") " .. gem[2] .. " (" .. gem[1] .. ")", " ")
+											else
+												tooltip:AddDoubleLine("    Using " .. gem[2] .. " (" .. gem[1] .. ")", " ")
+											end
+											if showIdealGemStats then
+												for stat, value in pairs(gem[3]) do
+													tooltip:AddDoubleLine("      " .. stat .. ": " .. value, " ")
+												end
+											end
+											if not showAlternateGems then
+												break
 											end
 										end
 									end
@@ -553,9 +567,16 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 					if ww_vars.options.tooltip.showIdealGems ~= "Never" then
 						tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealGems .. " to show ideal gems>")
 					end
-				elseif not showIdealGemStats then
-					if ww_vars.options.tooltip.showIdealGemStats ~= "Never" then
-						tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealGemStats .. " to show ideal gem stats>")
+				else
+					if not showIdealGemStats then
+						if ww_vars.options.tooltip.showIdealGemStats ~= "Never" then
+							tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealGemStats .. " to show ideal gem stats>")
+						end
+					end
+					if not showAlternateGems then
+						if ww_vars.options.tooltip.showAlternateGems ~= "Never" then
+							tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showAlternateGems .. " to show alternate ideal gems>")
+						end
 					end
 				end
 			end
@@ -568,7 +589,7 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 end
 
 function WeightsWatcher:bestGemForSocket(socketColor, weightScale, qualityLimit)
-	local bestGem, bestWeight, weight = 0, 0
+	local bestGem, bestWeight, weight = {}, 0
 	if not qualityLimit then
 		qualityLimit = #(GemIds["Normal"])
 	end
@@ -581,10 +602,21 @@ function WeightsWatcher:bestGemForSocket(socketColor, weightScale, qualityLimit)
 						if gems[quality] then
 							for gemId, gemStats in pairs(gems[quality]) do
 								if WeightsWatcher:matchesSocket(gemStats[1], socketColor) then
-									weight = WeightsWatcher:calculateWeight({}, true, nil, {gemStats}, weightScale)
-									if bestGem == 0 or weight > bestWeight then
-										bestGem = gemId
+									weight = WeightsWatcher:calculateWeight({}, true, nil, {{gemStats}}, weightScale)
+									if #(bestGem) == 0 or weight > bestWeight then
+										bestGem = {gemId}
 										bestWeight = weight
+									elseif weight == bestWeight then
+										local duplicate = false
+										for _, gem in pairs(bestGem) do
+											if WeightsWatcher:GemInfo(gem).info[2] == gemStats[2] then
+												duplicate = true
+												break
+											end
+										end
+										if not duplicate then
+											table.insert(bestGem, gemId)
+										end
 									end
 								end
 							end
@@ -646,10 +678,18 @@ function WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBo
 			weight = weight + WeightsWatcher:getWeight(stat, value, weightsScale)
 		end
 	end
-	for _, gemInfo in pairs(gemStats) do
-		for stat, value in pairs(gemInfo[3]) do
-			weight = weight + WeightsWatcher:getWeight(stat, value, weightsScale)
+	for _, gems in pairs(gemStats) do
+		local maxWeight = 0
+		for _, gemInfo in pairs(gems) do
+			local weight = 0
+			for stat, value in pairs(gemInfo[3]) do
+				weight = weight + WeightsWatcher:getWeight(stat, value, weightsScale)
+			end
+			if weight > maxWeight then
+				maxWeight = weight
+			end
 		end
+		weight = weight + maxWeight
 	end
 	if ww_vars.options.tooltip.normalizeWeights == true then
 		local total = 0
@@ -679,18 +719,24 @@ function WeightsWatcher:getGemStats(...)
 	local gemInfo, stat, lastGem
 	local statTable = {}
 	lastGem = 0
-	for _, gemId in pairs(...) do
-		gemInfo = WeightsWatcher:GemInfo(gemId)
-		if gemInfo then
-			table.insert(statTable, gemInfo.info)
-			lastGem = #(statTable)
-		else
-			if gemId ~= "0" then
-				print("WeightsWatcher: Unhandled gemId " .. gemId)
+	for _, gems in pairs(...) do
+		local innerStatTable = {}
+		for _, gemId in pairs(gems) do
+			gemInfo = WeightsWatcher:GemInfo(gemId)
+			if gemInfo then
+				table.insert(innerStatTable, gemInfo.info)
+			else
+				if gemId ~= "0" then
+					print("WeightsWatcher: Unhandled gemId " .. gemId)
+				end
+				-- Ensures gems line up with their sockets
+				table.insert(innerStatTable, {"None", "N/A", {}})
 			end
-			-- Ensures gems line up with their sockets
-			table.insert(statTable, {"None", "N/A", {}})
 		end
+		if #(innerStatTable) > 0 then
+			table.insert(statTable, innerStatTable)
+		end
+		lastGem = #(statTable)
 	end
 
 	-- Removes extra empty gems
