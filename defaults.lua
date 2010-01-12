@@ -133,7 +133,7 @@ classNameOptions = {
 
 defaultVars = {
 	dataMajorVersion = 1,
-	dataMinorVersion = 5,
+	dataMinorVersion = 6,
 	weightsList = {
 		[1] = "DEATHKNIGHT",
 		[2] = "DRUID",
@@ -530,12 +530,19 @@ defaultVars = {
 			qualityLimit = 7,
 			breakSocketColors = true,
 			neverBreakSocketColors = false,
-			usedTypes = {
+			types = {
 				["Normal"] = true,
 				["Unique-Equipped"] = false,
 				["Jewelcrafter-Only"] = false,
+			},
+			sources = {
+				["Vendor"] = true,
+				["PVP-Vendor"] = false,
+				["Crafted"] = true,
 				["Procced"] = true,
-			}
+				["Drop"] = false,
+				["Quest"] = false,
+			},
 		},
 		tooltip = {
 			hideHints = false,

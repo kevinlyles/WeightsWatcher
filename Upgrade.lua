@@ -135,6 +135,105 @@ function noop_major_up(vars)
 	return vars
 end
 
+function upgradeAccountToGemSources(vars)
+	if not vars.options.gems.types then
+		vars.options.gems.types = {}
+	end
+	if not vars.options.gems.sources then
+		vars.options.gems.sources = {}
+	end
+
+	if vars.options.gems.usedTypes then
+		if vars.options.gems.types["Normal"] == nil then
+			vars.options.gems.types["Normal"] = vars.options.gems.usedTypes["Normal"]
+		end
+		if vars.options.gems.types["Unique-Equipped"] == nil then
+			vars.options.gems.types["Unique-Equipped"] = vars.options.gems.usedTypes["Unique-Equipped"]
+		end
+		if vars.options.gems.types["Jewelcrafter-Only"] == nil then
+			vars.options.gems.types["Jewelcrafter-Only"] = vars.options.gems.usedTypes["Jewelcrafter-Only"]
+		end
+		if vars.options.gems.sources["Procced"] == nil then
+			vars.options.gems.sources["Procced"] = vars.options.gems.usedTypes["Procced"]
+		end
+	end
+
+	if vars.options.gems.types["Normal"] == nil then
+		vars.options.gems.types["Normal"] = true
+	end
+	if vars.options.gems.types["Unique-Equipped"] == nil then
+		vars.options.gems.types["Unique-Equipped"] = false
+	end
+	if vars.options.gems.types["Jewelcrafter-Only"] == nil then
+		vars.options.gems.types["Jewelcrafter-Only"] = false
+	end
+
+	if vars.options.gems.sources["Vendor"] == nil then
+		vars.options.gems.sources["Vendor"] = true
+	end
+	if vars.options.gems.sources["PVP-Vendor"] == nil then
+		vars.options.gems.sources["PVP-Vendor"] = false
+	end
+	if vars.options.gems.sources["Crafted"] == nil then
+		vars.options.gems.sources["Crafted"] = true
+	end
+	if vars.options.gems.sources["Procced"] == nil then
+		vars.options.gems.sources["Procced"] = true
+	end
+	if vars.options.gems.sources["Drop"] == nil then
+		vars.options.gems.sources["Drop"] = false
+	end
+	if vars.options.gems.sources["Quest"] == nil then
+		vars.options.gems.sources["Quest"] = false
+	end
+
+	vars.options.gems.usedTypes = nil
+
+	vars.dataMinorVersion = 6
+	return vars
+end
+
+downgradeAccountFromGemSources = [[
+	return function(vars)
+		if not vars.options.gems.usedTypes then
+			vars.options.gems.usedTypes = {}
+		end
+
+		if vars.options.gems.types then
+			if vars.options.gems.usedTypes["Normal"] == nil then
+				vars.options.gems.usedTypes["Normal"] = vars.options.gems.types["Normal"]
+			end
+			if vars.options.gems.usedTypes["Unique-Equipped"] == nil then
+				vars.options.gems.usedTypes["Unique-Equipped"] = vars.options.gems.types["Unique-Equipped"]
+			end
+			if vars.options.gems.usedTypes["Jewelcrafter-Only"] == nil then
+				vars.options.gems.usedTypes["Jewelcrafter-Only"] = vars.options.gems.types["Jewelcrafter-Only"]
+			end
+		end
+		if vars.options.gems.sources then
+			if vars.options.gems.usedTypes["Procced"] == nil then
+				vars.options.gems.usedTypes["Procced"] = vars.options.gems.sources["Procced"]
+			end
+		end
+
+		if vars.options.gems.usedTypes["Normal"] == nil then
+			vars.options.gems.usedTypes["Normal"] = true
+		end
+		if vars.options.gems.usedTypes["Unique-Equipped"] == nil then
+			vars.options.gems.usedTypes["Unique-Equipped"] = false
+		end
+		if vars.options.gems.usedTypes["Jewelcrafter-Only"] == nil then
+			vars.options.gems.usedTypes["Jewelcrafter-Only"] = false
+		end
+		if vars.options.gems.usedTypes["Procced"] == nil then
+			vars.options.gems.usedTypes["Procced"] = true
+		end
+
+		vars.dataMinorVersion = 5
+		return vars
+	end
+]]
+
 function upgradeAccountToFixedConfigOptions(vars)
 	if vars.options.breakSocketColors ~= nil then
 		vars.options.gems.breakSocketColors = vars.options.breakSocketColors
@@ -635,6 +734,7 @@ upgradeAccountFunctions = {
 		[2] = function(vars) return upgradeAccountToShowDifferences(vars) end,
 		[3] = function(vars) return upgradeAccountToPartitionedGems(vars) end,
 		[4] = function(vars) return upgradeAccountToFixedConfigOptions(vars) end,
+		[5] = function(vars) return upgradeAccountToGemSources(vars) end,
 	},
 }
 
@@ -657,6 +757,7 @@ downgradeAccountFunctions = {
 		[3] = noop_down,
 		[4] = downgradeAccountFromPartitionedGems,
 		[5] = downgradeAccountFromFixedConfigOptions,
+		[6] = downgradeAccountFromGemSources,
 	},
 }
 

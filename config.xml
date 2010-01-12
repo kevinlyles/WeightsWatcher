@@ -196,15 +196,15 @@
 						<Scripts>
 							<OnClick>
 								if self:GetChecked() then
-									ww_vars.options.gems.usedTypes["Unique-Equipped"] = true
+									ww_vars.options.gems.types["Unique-Equipped"] = true
 								else
-									ww_vars.options.gems.usedTypes["Unique-Equipped"] = false
+									ww_vars.options.gems.types["Unique-Equipped"] = false
 								end
 								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
 							</OnClick>
 							<OnLoad>
-								self.shouldBeChecked = function() return ww_vars.options.gems.usedTypes["Unique-Equipped"] end
-								self.ttText = "Consider gems that are Unique-Equipped when finding ideal gems"
+								self.shouldBeChecked = function() return ww_vars.options.gems.types["Unique-Equipped"] end
+								self.ttText = "Consider gems that are Unique-Equipped"
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -215,40 +215,142 @@
 						<Scripts>
 							<OnClick>
 								if self:GetChecked() then
-									ww_vars.options.gems.usedTypes["Jewelcrafter-Only"] = true
+									ww_vars.options.gems.types["Jewelcrafter-Only"] = true
 								else
-									ww_vars.options.gems.usedTypes["Jewelcrafter-Only"] = false
+									ww_vars.options.gems.types["Jewelcrafter-Only"] = false
 								end
 								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
 							</OnClick>
 							<OnLoad>
-								self.shouldBeChecked = function() return ww_vars.options.gems.usedTypes["Jewelcrafter-Only"] end
-								self.ttText = "Consider gems that are Jewelcrafter-Only when finding ideal gems"
+								self.shouldBeChecked = function() return ww_vars.options.gems.types["Jewelcrafter-Only"] end
+								self.ttText = "Consider gems that are Jewelcrafter-Only"
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
-					<CheckButton name="$parentUseProcGems" parentKey="useProcGems" inherits="ww_checkButton" text="Use Procced Gems">
+					<CheckButton name="$parentUseVendorGems" parentKey="useVendorGems" inherits="ww_checkButton" text="Use Vendor-Purchasable Gems">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseJCOnlyGems"/>
 						</Anchors>
 						<Scripts>
 							<OnClick>
 								if self:GetChecked() then
-									ww_vars.options.gems.usedTypes["Procced"] = true
+									ww_vars.options.gems.sources["Vendor"] = true
 								else
-									ww_vars.options.gems.usedTypes["Procced"] = false
+									ww_vars.options.gems.sources["Vendor"] = false
 								end
 								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
 							</OnClick>
 							<OnLoad>
-								self.shouldBeChecked = function() return ww_vars.options.gems.usedTypes["Procced"] end
-								self.ttText = "Consider gems that are created by a proc (i.e. Wrath \"Perfect\" gems) when finding ideal gems"
+								self.shouldBeChecked = function() return ww_vars.options.gems.sources["Vendor"] end
+								self.ttText = "Consider gems that are purchasable with gold"
+							</OnLoad>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="$parentUsePVPVendorGems" parentKey="usePVPVendorGems" inherits="ww_checkButton" text="Use PVP Vendor-Purchasable Gems">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseVendorGems"/>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								if self:GetChecked() then
+									ww_vars.options.gems.sources["PVP-Vendor"] = true
+								else
+									ww_vars.options.gems.sources["PVP-Vendor"] = false
+								end
+								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+							</OnClick>
+							<OnLoad>
+								self.shouldBeChecked = function() return ww_vars.options.gems.sources["PVP-Vendor"] end
+								self.ttText = "Consider gems that are purchasable with PVP tokens"
+							</OnLoad>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="$parentUseCraftedGems" parentKey="useCraftedGems" inherits="ww_checkButton" text="Use Crafted Gems">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUsePVPVendorGems"/>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								if self:GetChecked() then
+									ww_vars.options.gems.sources["Crafted"] = true
+									self:GetParent().useProcGems:Enable()
+								else
+									ww_vars.options.gems.sources["Crafted"] = false
+									self:GetParent().useProcGems:Disable()
+								end
+								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+							</OnClick>
+							<OnLoad>
+								self.shouldBeChecked = function() return ww_vars.options.gems.sources["Crafted"] end
+								self.ttText = "Consider gems that are player crafted (usually but not always through Jewelcrafting)"
+							</OnLoad>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="$parentUseProcGems" parentKey="useProcGems" inherits="ww_checkButton" text="Use Procced Gems">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentUseCraftedGems">
+								<Offset>
+									<AbsDimension x="20"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								if self:GetChecked() then
+									ww_vars.options.gems.sources["Procced"] = true
+								else
+									ww_vars.options.gems.sources["Procced"] = false
+								end
+								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+							</OnClick>
+							<OnLoad>
+								self.shouldBeChecked = function() return ww_vars.options.gems.sources["Procced"] end
+								self.shouldBeEnabled = function() return ww_vars.options.gems.sources["Crafted"] end
+								self.ttText = "Consider gems that are created by a proc (i.e. Wrath \"Perfect\" gems)"
+							</OnLoad>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="$parentUseDropGems" parentKey="useDropGems" inherits="ww_checkButton" text="Use Dropped Gems">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseProcGems"/>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								if self:GetChecked() then
+									ww_vars.options.gems.sources["Drop"] = true
+								else
+									ww_vars.options.gems.sources["Drop"] = false
+								end
+								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+							</OnClick>
+							<OnLoad>
+								self.shouldBeChecked = function() return ww_vars.options.gems.sources["Drop"] end
+								self.ttText = "Consider gems that are dropped by a mob/zone"
+							</OnLoad>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="$parentUseQuestGems" parentKey="useQuestGems" inherits="ww_checkButton" text="Use Quest Reward Gems">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseDropGems"/>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								if self:GetChecked() then
+									ww_vars.options.gems.sources["Quest"] = true
+								else
+									ww_vars.options.gems.sources["Quest"] = false
+								end
+								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+							</OnClick>
+							<OnLoad>
+								self.shouldBeChecked = function() return ww_vars.options.gems.sources["Quest"] end
+								self.ttText = "Consider gems that are quest rewards"
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
 					<CheckButton name="$parentObeySocketColors" parentKey="obeySocketColors" inherits="ww_checkButton" text="Obey socket colors">
 						<Anchors>
-							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseProcGems"/>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseQuestGems"/>
 						</Anchors>
 						<Scripts>
 							<OnClick>

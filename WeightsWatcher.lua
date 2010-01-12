@@ -573,16 +573,20 @@ function WeightsWatcher:bestGemForSocket(socketColor, weightScale, qualityLimit)
 		qualityLimit = #(GemIds["Normal"])
 	end
 
-	for gemType, gems in pairs(GemIds) do
-		if ww_vars.options.gems.usedTypes[gemType] then
-			for quality = qualityLimit, 1, -1 do
-				if gems[quality] then
-					for gemId, gemStats in pairs(gems[quality]) do
-						if WeightsWatcher:matchesSocket(gemStats[1], socketColor) then
-							weight = WeightsWatcher:calculateWeight({}, true, nil, {gemStats}, weightScale)
-							if bestGem == 0 or weight > bestWeight then
-								bestGem = gemId
-								bestWeight = weight
+	for gemSource, gems in pairs(GemIds) do
+		if ww_vars.options.gems.sources[gemSource] then
+			for gemType, gems in pairs(gems) do
+				if ww_vars.options.gems.types[gemType] then
+					for quality = qualityLimit, 1, -1 do
+						if gems[quality] then
+							for gemId, gemStats in pairs(gems[quality]) do
+								if WeightsWatcher:matchesSocket(gemStats[1], socketColor) then
+									weight = WeightsWatcher:calculateWeight({}, true, nil, {gemStats}, weightScale)
+									if bestGem == 0 or weight > bestWeight then
+										bestGem = gemId
+										bestWeight = weight
+									end
+								end
 							end
 						end
 					end
