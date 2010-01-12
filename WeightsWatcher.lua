@@ -315,13 +315,13 @@ local function checkForTitansGrip()
 	if class ~= "WARRIOR" then
 		return false
 	end
-	local name, _, _, _, rank = GetNumTalents(2, 27, false, false)
+	local name, _, _, _, rank = GetTalentInfo(2, 27, false, false)
 	if name == "Titan's Grip" then
 		return rank == 1
 	end
 	-- Minor rearranging of the tree
 	for i = 1, GetNumTalents(2, false, false) do
-		name, _, _, _, rank = GetNumTalents(2, i, false, false)
+		name, _, _, _, rank = GetTalentInfo(2, i, false, false)
 		if name == "Titan's Grip" then
 			return rank == 1
 		end
