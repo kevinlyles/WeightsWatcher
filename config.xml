@@ -58,6 +58,55 @@
 			</Button>
 		</Frames>
 	</Frame>
+	<!-- Check button template
+		Requires the following values be set at load:
+			self.shouldBeChecked: function returning true/false
+			self.shouldBeEnabled (optional): function returning true/false
+			self.ttText (optional): text to display on mouseover -->
+	<CheckButton name="ww_checkButton" inherits="UICheckButtonTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="25" y="25"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT">
+				<Offset>
+					<AbsDimension x="5"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Scripts>
+			<OnDisable>
+				self.text:SetTextColor(0.5, 0.5, 0.5)
+			</OnDisable>
+			<OnEnable>
+				self.text:SetTextColor(1, 0.82, 0)
+			</OnEnable>
+			<OnEnter>
+				if self.ttText then
+					GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
+					GameTooltip:AddLine(self.ttText, 1, 1, 1)
+					GameTooltip:Show()
+				end
+			</OnEnter>
+			<OnLeave>
+				if self.ttText then
+					GameTooltip:Hide()
+				end
+			</OnLeave>
+			<OnShow>
+				self.text = getglobal(self:GetName() .. "Text")
+				self.text:SetText(self:GetText())
+				self:SetChecked(self.shouldBeChecked())
+				if self.shouldBeEnabled then
+					if self.shouldBeEnabled() then
+						self:Enable()
+					else
+						self:Disable()
+					end
+				end
+			</OnShow>
+		</Scripts>
+	</CheckButton>
 	<FontString name="ww_headerFont" inherits="GameFontNormalLarge" virtual="true">
 		<Anchors>
 			<Anchor point="TOP">
@@ -140,17 +189,9 @@
 							</OnLoad>
 						</Scripts>
 					</Frame>
-					<CheckButton name="$parentUseUEGems" parentKey="useUEGems" inherits="UICheckButtonTemplate" text="Use Unique-Equipped Gems">
-						<Size>
-							<AbsDimension x="25" y="25"/>
-						</Size>
+					<CheckButton name="$parentUseUEGems" parentKey="useUEGems" inherits="ww_checkButton" text="Use Unique-Equipped Gems">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentGemQuality"/>
-							<Anchor point="LEFT">
-								<Offset>
-									<AbsDimension x="5"/>
-								</Offset>
-							</Anchor>
 						</Anchors>
 						<Scripts>
 							<OnClick>
@@ -161,33 +202,15 @@
 								end
 								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
 							</OnClick>
-							<OnEnter>
-								GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
-								GameTooltip:AddLine("Consider gems that are Unique-Equipped when finding ideal gems", 1, 1, 1)
-								GameTooltip:Show()
-							</OnEnter>
-							<OnLeave>
-								GameTooltip:Hide()
-							</OnLeave>
 							<OnLoad>
-								getglobal(self:GetName() .. "Text"):SetText(self:GetText())
+								self.shouldBeChecked = function() return ww_vars.options.gems.usedTypes["Unique-Equipped"] end
+								self.ttText = "Consider gems that are Unique-Equipped when finding ideal gems"
 							</OnLoad>
-							<OnShow>
-								self:SetChecked(ww_vars.options.gems.usedTypes["Unique-Equipped"])
-							</OnShow>
 						</Scripts>
 					</CheckButton>
-					<CheckButton name="$parentUseJCOnlyGems" parentKey="useJCOnlyGems" inherits="UICheckButtonTemplate" text="Use Jewelcrafter-Only Gems">
-						<Size>
-							<AbsDimension x="25" y="25"/>
-						</Size>
+					<CheckButton name="$parentUseJCOnlyGems" parentKey="useJCOnlyGems" inherits="ww_checkButton" text="Use Jewelcrafter-Only Gems">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseUEGems"/>
-							<Anchor point="LEFT">
-								<Offset>
-									<AbsDimension x="5"/>
-								</Offset>
-							</Anchor>
 						</Anchors>
 						<Scripts>
 							<OnClick>
@@ -198,33 +221,15 @@
 								end
 								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
 							</OnClick>
-							<OnEnter>
-								GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
-								GameTooltip:AddLine("Consider gems that are Jewelcrafter-Only when finding ideal gems", 1, 1, 1)
-								GameTooltip:Show()
-							</OnEnter>
-							<OnLeave>
-								GameTooltip:Hide()
-							</OnLeave>
 							<OnLoad>
-								getglobal(self:GetName() .. "Text"):SetText(self:GetText())
+								self.shouldBeChecked = function() return ww_vars.options.gems.usedTypes["Jewelcrafter-Only"] end
+								self.ttText = "Consider gems that are Jewelcrafter-Only when finding ideal gems"
 							</OnLoad>
-							<OnShow>
-								self:SetChecked(ww_vars.options.gems.usedTypes["Jewelcrafter-Only"])
-							</OnShow>
 						</Scripts>
 					</CheckButton>
-					<CheckButton name="$parentUseProcGems" parentKey="useProcGems" inherits="UICheckButtonTemplate" text="Use Procced Gems">
-						<Size>
-							<AbsDimension x="25" y="25"/>
-						</Size>
+					<CheckButton name="$parentUseProcGems" parentKey="useProcGems" inherits="ww_checkButton" text="Use Procced Gems">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseJCOnlyGems"/>
-							<Anchor point="LEFT">
-								<Offset>
-									<AbsDimension x="5"/>
-								</Offset>
-							</Anchor>
 						</Anchors>
 						<Scripts>
 							<OnClick>
@@ -235,33 +240,15 @@
 								end
 								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
 							</OnClick>
-							<OnEnter>
-								GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
-								GameTooltip:AddLine("Consider gems that are created by a proc (i.e. Wrath \"Perfect\" gems) when finding ideal gems", 1, 1, 1)
-								GameTooltip:Show()
-							</OnEnter>
-							<OnLeave>
-								GameTooltip:Hide()
-							</OnLeave>
 							<OnLoad>
-								getglobal(self:GetName() .. "Text"):SetText(self:GetText())
+								self.shouldBeChecked = function() return ww_vars.options.gems.usedTypes["Procced"] end
+								self.ttText = "Consider gems that are created by a proc (i.e. Wrath \"Perfect\" gems) when finding ideal gems"
 							</OnLoad>
-							<OnShow>
-								self:SetChecked(ww_vars.options.gems.usedTypes["Procced"])
-							</OnShow>
 						</Scripts>
 					</CheckButton>
-					<CheckButton name="$parentObeySocketColors" parentKey="obeySocketColors" inherits="UICheckButtonTemplate" text="Obey socket colors">
-						<Size>
-							<AbsDimension x="25" y="25"/>
-						</Size>
+					<CheckButton name="$parentObeySocketColors" parentKey="obeySocketColors" inherits="ww_checkButton" text="Obey socket colors">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseProcGems"/>
-							<Anchor point="LEFT">
-								<Offset>
-									<AbsDimension x="5"/>
-								</Offset>
-							</Anchor>
 						</Anchors>
 						<Scripts>
 							<OnClick>
@@ -274,26 +261,13 @@
 								end
 								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
 							</OnClick>
-							<OnEnter>
-								GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
-								GameTooltip:AddLine("Chooses ideal gems that obey their socket color (even if that gives a lower overall score)", 1, 1, 1)
-								GameTooltip:Show()
-							</OnEnter>
-							<OnLeave>
-								GameTooltip:Hide()
-							</OnLeave>
 							<OnLoad>
-								getglobal(self:GetName() .. "Text"):SetText(self:GetText())
+								self.shouldBeChecked = function() return not ww_vars.options.breakSocketColors end
+								self.ttText = "Chooses ideal gems that obey their socket color (even if that gives a lower overall score)"
 							</OnLoad>
-							<OnShow>
-								self:SetChecked(not ww_vars.options.breakSocketColors)
-							</OnShow>
 						</Scripts>
 					</CheckButton>
-					<CheckButton name="$parentAlwaysObeySocketColors" parentKey="alwaysObeySocketColors" inherits="UICheckButtonTemplate" text="Even if the socket bonus is worthless">
-						<Size>
-							<AbsDimension x="25" y="25"/>
-						</Size>
+					<CheckButton name="$parentAlwaysObeySocketColors" parentKey="alwaysObeySocketColors" inherits="ww_checkButton" text="Even if the socket bonus is worthless">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentObeySocketColors">
 								<Offset>
@@ -310,45 +284,16 @@
 								end
 								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
 							</OnClick>
-							<OnDisable>
-								self.text:SetTextColor(0.5, 0.5, 0.5)
-							</OnDisable>
-							<OnEnable>
-								self.text:SetTextColor(1, 0.82, 0)
-							</OnEnable>
-							<OnEnter>
-								GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
-								GameTooltip:AddLine("Forces ideal gems to obey their socket color (even if the socket bonus has a 0 or negative score for that weight)", 1, 1, 1)
-								GameTooltip:Show()
-							</OnEnter>
-							<OnLeave>
-								GameTooltip:Hide()
-							</OnLeave>
 							<OnLoad>
-								self.text = getglobal(self:GetName() .. "Text")
-								self.text:SetText(self:GetText())
+								self.shouldBeChecked = function() return ww_vars.options.neverBreakSocketColors end
+								self.shouldBeEnabled = function() return not ww_vars.options.breakSocketColors end
+								self.ttText = "Forces ideal gems to obey their socket color (even if the socket bonus has a 0 or negative score for that weight)"
 							</OnLoad>
-							<OnShow>
-								self:SetChecked(ww_vars.options.neverBreakSocketColors)
-								if ww_vars.options.breakSocketColors then
-									self:Disable()
-								else
-									self:Enable()
-								end
-							</OnShow>
 						</Scripts>
 					</CheckButton>
-					<CheckButton name="$parentNormalizeWeights" parentKey="normalizeWeights" inherits="UICheckButtonTemplate" text="Normalize weights">
-						<Size>
-							<AbsDimension x="25" y="25"/>
-						</Size>
+					<CheckButton name="$parentNormalizeWeights" parentKey="normalizeWeights" inherits="ww_checkButton" text="Normalize weights">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentAlwaysObeySocketColors"/>
-							<Anchor point="LEFT">
-								<Offset>
-									<AbsDimension x="5"/>
-								</Offset>
-							</Anchor>
 						</Anchors>
 						<Scripts>
 							<OnClick>
@@ -360,20 +305,10 @@
 								ww_weightCache = setmetatable({}, ww_weightCacheMetatable)
 								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
 							</OnClick>
-							<OnEnter>
-								GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
-								GameTooltip:AddLine("Divides item scores by the total of all stats' values in that weight", 1, 1, 1)
-								GameTooltip:Show()
-							</OnEnter>
-							<OnLeave>
-								GameTooltip:Hide()
-							</OnLeave>
 							<OnLoad>
-								getglobal(self:GetName() .. "Text"):SetText(self:GetText())
+								self.shouldBeChecked = function() return ww_vars.options.normalizeWeights end
+								self.ttText = "Divides item scores by the total of all stats' values in that weight"
 							</OnLoad>
-							<OnShow>
-								self:SetChecked(ww_vars.options.normalizeWeights)
-							</OnShow>
 						</Scripts>
 					</CheckButton>
 				</Frames>
@@ -448,17 +383,9 @@
 							</OnLoad>
 						</Scripts>
 					</Frame>
-					<CheckButton name="$parentHideTooltipHints" parentKey="hideTooltipHints" inherits="UICheckButtonTemplate" text="Hide tooltip hints">
-						<Size>
-							<AbsDimension x="25" y="25"/>
-						</Size>
+					<CheckButton name="$parentHideTooltipHints" parentKey="hideTooltipHints" inherits="ww_checkButton" text="Hide tooltip hints">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowIdealGemStats"/>
-							<Anchor point="LEFT">
-								<Offset>
-									<AbsDimension x="5"/>
-								</Offset>
-							</Anchor>
 						</Anchors>
 						<Scripts>
 							<OnClick>
@@ -468,20 +395,10 @@
 									ww_vars.options.tooltip.hideHints = false
 								end
 							</OnClick>
-							<OnEnter>
-								GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
-								GameTooltip:AddLine("Hides modifier key hints in tooltips", 1, 1, 1)
-								GameTooltip:Show()
-							</OnEnter>
-							<OnLeave>
-								GameTooltip:Hide()
-							</OnLeave>
 							<OnLoad>
-								getglobal(self:GetName() .. "Text"):SetText(self:GetText())
+								self.shouldBeChecked = function() return ww_vars.options.tooltip.hideHints end
+								self.ttText = "Hides modifier key hints in tooltips"
 							</OnLoad>
-							<OnShow>
-								self:SetChecked(ww_vars.options.tooltip.hideHints)
-							</OnShow>
 						</Scripts>
 					</CheckButton>
 					<Frame name="$parentShowClassNames" parentKey="showClassNames" inherits="ww_labeledElement">
@@ -517,17 +434,9 @@
 							</OnLoad>
 						</Scripts>
 					</Frame>
-					<CheckButton name="$parentShowDifference" parentKey="showDifference" inherits="UICheckButtonTemplate" text="Show differences to current gear">
-						<Size>
-							<AbsDimension x="25" y="25"/>
-						</Size>
+					<CheckButton name="$parentShowDifference" parentKey="showDifference" inherits="ww_checkButton" text="Show differences to current gear">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowClassNames"/>
-							<Anchor point="LEFT">
-								<Offset>
-									<AbsDimension x="5"/>
-								</Offset>
-							</Anchor>
 						</Anchors>
 						<Scripts>
 							<OnClick>
@@ -537,20 +446,10 @@
 									ww_vars.options.tooltip.showDifferences = false
 								end
 							</OnClick>
-							<OnEnter>
-								GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
-								GameTooltip:AddLine("Shows the change in score compared to the currently equipped gear", 1, 1, 1)
-								GameTooltip:Show()
-							</OnEnter>
-							<OnLeave>
-								GameTooltip:Hide()
-							</OnLeave>
 							<OnLoad>
-								getglobal(self:GetName() .. "Text"):SetText(self:GetText())
+								self.shouldBeChecked = function() return ww_vars.options.tooltip.showDifferences end
+								self.ttText = "Shows the change in score compared to the currently equipped gear"
 							</OnLoad>
-							<OnShow>
-								self:SetChecked(ww_vars.options.tooltip.showDifferences)
-							</OnShow>
 						</Scripts>
 					</CheckButton>
 				</Frames>
