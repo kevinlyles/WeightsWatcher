@@ -116,6 +116,13 @@ ww_weightIdealCacheWeightMetatable = {
 		end
 		local gemId, gemIdIgnoreSocket, weightVal, weightValIgnoreSockets, bestGems, bestGemsIgnoreSocket
 		local normalStats, sockets, socketBonusStat = unpack(ww_bareItemCache[key])
+		local socketBonusWeight = 0
+		if socketBonusStat then
+			for stat, value in pairs(socketBonusStat) do
+				socketBonusWeight = socketBonusWeight + (tbl.weight[string.lower(stat)] or 0) * value
+			end
+		end
+		local breakSocketColors = ww_vars.options.gems.breakSocketColors or (not ww_vars.options.gems.neverBreakSocketColors and socketBonusWeight <= 0)
 
 		bestGems = {}
 		bestGemsIgnoreSocket = {}
@@ -640,7 +647,7 @@ function WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBo
 			weight = weight + WeightsWatcher:getWeight(stat, value, weightsScale)
 		end
 	end
-	if ww_vars.options.normalizeWeights == true then
+	if ww_vars.options.tooltip.normalizeWeights == true then
 		local total = 0
 
 		for _, value in pairs(weightsScale) do

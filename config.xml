@@ -253,16 +253,16 @@
 						<Scripts>
 							<OnClick>
 								if self:GetChecked() then
-									ww_vars.options.breakSocketColors = false
+									ww_vars.options.gems.breakSocketColors = false
 									self:GetParent().alwaysObeySocketColors:Enable()
 								else
-									ww_vars.options.breakSocketColors = true
+									ww_vars.options.gems.breakSocketColors = true
 									self:GetParent().alwaysObeySocketColors:Disable()
 								end
 								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
 							</OnClick>
 							<OnLoad>
-								self.shouldBeChecked = function() return not ww_vars.options.breakSocketColors end
+								self.shouldBeChecked = function() return not ww_vars.options.gems.breakSocketColors end
 								self.ttText = "Chooses ideal gems that obey their socket color (even if that gives a lower overall score)"
 							</OnLoad>
 						</Scripts>
@@ -278,15 +278,15 @@
 						<Scripts>
 							<OnClick>
 								if self:GetChecked() then
-									ww_vars.options.neverBreakSocketColors = true
+									ww_vars.options.gems.neverBreakSocketColors = true
 								else
-									ww_vars.options.neverBreakSocketColors = false
+									ww_vars.options.gems.neverBreakSocketColors = false
 								end
 								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
 							</OnClick>
 							<OnLoad>
-								self.shouldBeChecked = function() return ww_vars.options.neverBreakSocketColors end
-								self.shouldBeEnabled = function() return not ww_vars.options.breakSocketColors end
+								self.shouldBeChecked = function() return ww_vars.options.gems.neverBreakSocketColors end
+								self.shouldBeEnabled = function() return not ww_vars.options.gems.breakSocketColors end
 								self.ttText = "Forces ideal gems to obey their socket color (even if the socket bonus has a 0 or negative score for that weight)"
 							</OnLoad>
 						</Scripts>
@@ -298,15 +298,15 @@
 						<Scripts>
 							<OnClick>
 								if self:GetChecked() then
-									ww_vars.options.normalizeWeights = true
+									ww_vars.options.tooltip.normalizeWeights = true
 								else
-									ww_vars.options.normalizeWeights = false
+									ww_vars.options.tooltip.normalizeWeights = false
 								end
 								ww_weightCache = setmetatable({}, ww_weightCacheMetatable)
 								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
 							</OnClick>
 							<OnLoad>
-								self.shouldBeChecked = function() return ww_vars.options.normalizeWeights end
+								self.shouldBeChecked = function() return ww_vars.options.tooltip.normalizeWeights end
 								self.ttText = "Divides item scores by the total of all stats' values in that weight"
 							</OnLoad>
 						</Scripts>

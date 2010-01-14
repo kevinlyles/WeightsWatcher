@@ -133,7 +133,7 @@ classNameOptions = {
 
 defaultVars = {
 	dataMajorVersion = 1,
-	dataMinorVersion = 4,
+	dataMinorVersion = 5,
 	weightsList = {
 		[1] = "DEATHKNIGHT",
 		[2] = "DRUID",
@@ -537,9 +537,9 @@ defaultVars = {
 				["Procced"] = true,
 			}
 		},
-		normalizeWeights = true,
 		tooltip = {
 			hideHints = false,
+			normalizeWeights = true,
 			showWeights = "Always",
 			showIdealWeights = "Shift",
 			showIdealGems = "Control",

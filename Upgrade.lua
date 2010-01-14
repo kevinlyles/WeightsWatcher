@@ -135,6 +135,44 @@ function noop_major_up(vars)
 	return vars
 end
 
+function upgradeAccountToFixedConfigOptions(vars)
+	if vars.options.breakSocketColors ~= nil then
+		vars.options.gems.breakSocketColors = vars.options.breakSocketColors
+		vars.options.breakSocketColors = nil
+	else
+		vars.options.gems.breakSocketColors = true
+	end
+	if vars.options.neverBreakSocketColors ~= nil then
+		vars.options.gems.neverBreakSocketColors = vars.options.neverBreakSocketColors
+		vars.options.neverBreakSocketColors = nil
+	else
+		vars.options.gems.neverBreakSocketColors = false
+	end
+	if vars.options.normalizeWeights ~= nil then
+		vars.options.tooltip.normalizeWeights = vars.options.normalizeWeights
+		vars.options.normalizeWeights = nil
+	else
+		vars.options.tooltip.normalizeWeights = true
+	end
+
+	vars.dataMinorVersion = 5
+	return vars
+end
+
+downgradeAccountFromFixedConfigOptions = [[
+	return function(vars)
+		if vars.options.tooltip.normalizeWeights ~= nil then
+			vars.options.normalizeWeights = vars.options.tooltip.normalizeWeights
+			vars.options.tooltip.normalizeWeights = nil
+		else
+			vars.options.normalizeWeights = true
+		end
+
+		vars.dataMinorVersion = 4
+		return vars
+	end
+]]
+
 function upgradeAccountToPartitionedGems(vars)
 	qualityConversion = {
 		[1] = 1,
@@ -596,6 +634,7 @@ upgradeAccountFunctions = {
 		[1] = function(vars) return upgradeAccountToCorrectShowClassNames(vars) end,
 		[2] = function(vars) return upgradeAccountToShowDifferences(vars) end,
 		[3] = function(vars) return upgradeAccountToPartitionedGems(vars) end,
+		[4] = function(vars) return upgradeAccountToFixedConfigOptions(vars) end,
 	},
 }
 
@@ -617,6 +656,7 @@ downgradeAccountFunctions = {
 		[2] = noop_down,
 		[3] = noop_down,
 		[4] = downgradeAccountFromPartitionedGems,
+		[5] = downgradeAccountFromFixedConfigOptions,
 	},
 }
 
