@@ -350,7 +350,7 @@ local function checkForTitansGrip()
 end
 
 local function determineCompareMethod(currentSlot, compareSlot, compareSlot2, currentSubslot, compareSubslot, compareSubslot2)
-	if checkForTitansGrip() then
+	if checkForTitansGrip() and (compareSubslot == "Axe" or compareSubslot == "Mace" or compareSubslot == "Sword") then
 		if currentSlot == "Two-Hand" then
 			currentSlot = "One-Hand"
 		end
@@ -375,7 +375,7 @@ local function determineCompareMethod(currentSlot, compareSlot, compareSlot2, cu
 			return "1"
 		end
 	elseif currentSlot == "One-Hand" then
-		if compareSlot == "Main Hand" or compareSlot == "One-Hand" or (compareSlot == "Off Hand" and compareSubslot ~= "Shield") then
+		if compareSlot == "Main Hand" or compareSlot == "One-Hand" or (compareSlot == "Off Hand" and compareSubslot ~= "Shield") or compareSlot == "Two-Hand" then
 			if compareSlot2 == "Main Hand" or compareSlot2 == "One-Hand" or (compareSlot2 == "Off Hand" and compareSubslot2 ~= "Shield") then
 				return "worst"
 			else
