@@ -135,6 +135,16 @@ function noop_major_up(vars)
 	return vars
 end
 
+function upgradeAccountToShowAlternateGemsTypoFix(vars)
+	if vars.options.tooltip.showAlternateGems == nil then
+		vars.options.tooltip.showAlternateGems = "Alt"
+	end
+	vars.options.tooltip.showAlternativeGems = nil
+
+	vars.dataMinorVersion = 8
+	return vars
+end
+
 function upgradeAccountToShowAlternateGems(vars)
 	if vars.options.tooltip.showAlternateGems == nil then
 		vars.options.tooltip.showAlternateGems = "Alt"
@@ -745,6 +755,7 @@ upgradeAccountFunctions = {
 		[4] = function(vars) return upgradeAccountToFixedConfigOptions(vars) end,
 		[5] = function(vars) return upgradeAccountToGemSources(vars) end,
 		[6] = function(vars) return upgradeAccountToShowAlternateGems(vars) end,
+		[7] = function(vars) return upgradeAccountToShowAlternateGemsTypoFix(vars) end,
 	},
 }
 
@@ -769,6 +780,7 @@ downgradeAccountFunctions = {
 		[5] = downgradeAccountFromFixedConfigOptions,
 		[6] = downgradeAccountFromGemSources,
 		[7] = noop_down,
+		[8] = noop_down,
 	},
 }
 
