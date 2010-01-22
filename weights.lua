@@ -409,13 +409,12 @@ function loadClassButtons()
 	local _, class = UnitClass("player")
 	for _, classFrame in ipairs(ww_weights.leftPanel.scrollFrame.categories) do
 		classFrame.class = revClassLookup[classFrame.text:GetText()]
-		if classFrame.class ~= class then
-			classFrame.text:Click()
-		end
+		local used = (classFrame.class == class)
 		for i, weightFrame in ipairs({classFrame:GetChildren()}) do
 			if weightFrame.name then
 				if ww_charVars.activeWeights[classFrame.class] then
 					for _, weight in ipairs(ww_charVars.activeWeights[classFrame.class]) do
+						used = true
 						if weight == weightFrame.name then
 							weightFrame.checkButton:SetChecked(true)
 							break
@@ -428,6 +427,9 @@ function loadClassButtons()
 					weightFrame.text:SetFontString(fontString)
 				end
 			end
+		end
+		if not used then
+			classFrame.text:Click()
 		end
 	end
 end
