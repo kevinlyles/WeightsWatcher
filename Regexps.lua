@@ -20,20 +20,15 @@ Preprocess = {
 	["block$"] = "block value",
 }
 
+ignoredInvalidStats = {
+	"item level",
+	"requires level",
+}
+
 IgnoredLines = {
 	"^durability %d+ / %d+$",
 	"^<.+>$",
 	"^\".+\"$",
-	"^use: restores %d+ %a[%a ]+ over %d+ sec%.  must remain seated while %a+ing%.",
-	"^use: restores %d+%% of your %a[%a ]+ per second for %d+ sec%.  must remain seated while %a+ing%.",
-	"^use: heals %d+ damage over %d+ sec%.$",
-	"^use: restores %d+ to %d+ %a+",
-	-- Some relics that boost stats for certain abilities only
-	"^equip: increases the %a[%a ]+ of your %a[%a ]+ by ",
-	-- Use effects that have a cooldown
-	"cooldown",
-	-- "Chance on hit" and "have a chance"
-	"chance ",
 	"^you may trade this item with players that were also eligible to loot this item for the next ",
 	"^ $",
 	"^requires %a[%a ]+ %- neutral$",
@@ -42,6 +37,22 @@ IgnoredLines = {
 	"^requires %a[%a ]+ %- revered$",
 	"^requires %a[%a ]+ %- exalted$",
 	"^use: teaches you how to ",
+}
+
+TempIgnoredLines = {
+	"^use: restores %d+ %a[%a ]+ over %d+ sec%.  must remain seated while %a+ing%.",
+	"^use: restores %d+%% of your %a[%a ]+ per second for %d+ sec%.  must remain seated while %a+ing%.",
+	"^use: heals %d+ damage over %d+ sec%.$",
+	"^use: restores %d+ to %d+ %a+",
+}
+
+UnweightedLines = {
+	-- Some relics that boost stats for certain abilities only
+	"^equip: increases the %a[%a ]+ of your %a[%a ]+ by ",
+	-- Use effects that have a cooldown
+	"cooldown",
+	-- "Chance on hit" and "have a chance"
+	"chance ",
 }
 
 socketBonus = "^socket bonus: (.*)"
@@ -149,9 +160,10 @@ SingleSlotLines = {
 	"^held in off%-hand$",
 }
 
-function WeightsWatcher.multipleStats(text, link)
+function WeightsWatcher.multipleStats(text)
 	local stat, stringTable
 	local stats = WeightsWatcher.newStatTable()
+	local origText = text
 
 	start, _, value = string.find(text, " and %a[%a ]+ by (%d+)%.")
 	if start then
@@ -167,6 +179,8 @@ function WeightsWatcher.multipleStats(text, link)
 		stat = WeightsWatcher.singleStat(statString)
 		if stat then
 			stats = stats + stat
+		else
+			ww_unparsed_lines[origText] = true
 		end
 	end
 	-- Don't return an empty table

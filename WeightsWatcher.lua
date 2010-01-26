@@ -906,6 +906,13 @@ function WeightsWatcher.parseLine(textL, textR, link)
 	end
 	for _, regex in ipairs(IgnoredLines) do
 		if string.find(textL, regex) then
+			ww_ignored_lines[textL][regex] = true
+			return
+		end
+	end
+	for _, regex in ipairs(TempIgnoredLines) do
+		if string.find(textL, regex) then
+			ww_temp_ignored_lines[textL][regex] = true
 			return
 		end
 	end
@@ -940,6 +947,13 @@ function WeightsWatcher.parseLine(textL, textR, link)
 	if stat then
 		return stat
 	end
+	for _, regex in ipairs(UnweightedLines) do
+		if string.find(textL, regex) then
+			ww_unweighted_lines[textL][regex] = true
+			return
+		end
+	end
+	ww_unparsed_lines[textL] = true
 end
 
 function WeightsWatcher.getItemStats(link)
