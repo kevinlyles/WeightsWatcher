@@ -894,8 +894,57 @@ function WeightsWatcher.getGemStats(...)
 	return statTable
 end
 
+function WeightsWatcher.parseLine(textL, textR, link)
+	local start, _, value = string.find(textL, socketBonus)
+	if start then
+		return nil, nil, nil, WeightsWatcher.singleStat(value)
+	end
+	for _, regex in ipairs(SocketLines) do
+		local start, _, value = string.find(textL, regex)
+		if start then
+			return nil, nil, value
+		end
+	end
+	for _, regex in ipairs(IgnoredLines) do
+		if string.find(textL, regex) then
+			return
+		end
+	end
+	for _, regex in ipairs(ItemInfoLines) do
+		if string.find(textL, regex) then
+			return nil, {[textL] = true}
+		end
+	end
+	for _, regex in ipairs(DoubleSlotLines) do
+		if string.find(textL, regex) then
+			local nonStats = {}
+			nonStats["Slot"] = textL
+			nonStats["Subslot"] = textR
+			return nil, nonStats
+		end
+	end
+	for _, regex in ipairs(SingleSlotLines) do
+		if string.find(textL, regex) then
+			return nil, {["Slot"] = textL}
+		end
+	end
+	for _, regex in ipairs(MultipleStatLines) do
+		local pattern, func = unpack(regex)
+		if string.find(textL, pattern) then
+			local statsList = func(textL, textR)
+			if statsList then
+				return statsList
+			end
+		end
+	end
+	local stat = WeightsWatcher.singleStat(textL)
+	if stat then
+		return stat
+	end
+end
+
 function WeightsWatcher.getItemStats(link)
-	local ttleft, ttright, origTextL, textL, textR, pattern, func, start
+	local textL, textR, pattern, func, start
 	local normalStats, nonStats, socketList, socketBonusStat = WeightsWatcher.newStatTable(), {}, {}
 	local ranged = false
 
@@ -911,89 +960,28 @@ function WeightsWatcher.getItemStats(link)
 	end
 
 	for i = start, WeightsWatcherHiddenTooltip:NumLines() do
-		ttleft = getglobal("WeightsWatcherHiddenTooltipTextLeft" .. i)
-		ttright = getglobal("WeightsWatcherHiddenTooltipTextRight" .. i)
-		origTextL = ttleft:GetText()
-		textR = ttright:GetText()
-		textL = WeightsWatcher.preprocess(origTextL)
+		textL = WeightsWatcher.preprocess(getglobal("WeightsWatcherHiddenTooltipTextLeft" .. i):GetText())
+		textR = getglobal("WeightsWatcherHiddenTooltipTextRight" .. i):GetText()
 
-		matched = false
-		start, _, value = string.find(textL, socketBonus)
-		if start then
-			matched = true
-			socketBonusStat = WeightsWatcher.singleStat(value)
+		local stats, unStats, socket, socketBonus = WeightsWatcher.parseLine(textL, textR, link)
+
+		if stats then
+			normalStats = normalStats + stats
 		end
-		if not matched then
-			for _, regex in ipairs(SocketLines) do
-				start, _, value = string.find(textL, regex)
-				if start then
-					matched = true
-					table.insert(socketList, value)
-					break
-				end
+		if unStats then
+			for name, value in pairs(unStats) do
+				nonStats[name] = value
 			end
-			if not matched then
-				for _, regex in ipairs(IgnoredLines) do
-					if string.find(textL, regex) then
-						matched = true
-						break
-					end
-				end
-				if not matched then
-					for _, regex in ipairs(ItemInfoLines) do
-						if string.find(textL, regex) then
-							matched = true
-							nonStats[textL] =  true
-							break
-						end
-					end
-					if not matched then
-						for _, regex in ipairs(DoubleSlotLines) do
-							if string.find(textL, regex) then
-								matched = true
-								nonStats["Slot"] =  textL
-								nonStats["Subslot"] = textR
-								if textL == "Ranged" or textL == "Projectile" then
-									ranged = true
-								end
-								break
-							end
-						end
-						if not matched then
-							for _, regex in ipairs(SingleSlotLines) do
-								if string.find(textL, regex) then
-									matched = true
-									nonStats["Slot"] =  textL
-									break
-								end
-							end
-							if not matched then
-								for _, regex in ipairs(MultipleStatLines) do
-									pattern, func = unpack(regex)
-									if string.find(textL, pattern) then
-										statsList = func(textL, textR)
-										if statsList then
-											normalStats = normalStats + statsList
-											matched = true
-											break
-										end
-									end
-								end
-								if not matched then
-									stat = WeightsWatcher.singleStat(textL)
-									if stat then
-										normalStats = normalStats + stat
-									end
-								end
-							end
-						end
-					end
-				end
-			end
+		end
+		if socket then
+			table.insert(socketList, socket)
+		end
+		if socketBonus then
+			socketBonusStat = socketBonus
 		end
 	end
 
-	if ranged then
+	if nonStats["Slot"] == "Ranged" or nonStats["Slot"] == "Projectile" then
 		normalStats["Ranged DPS"] = rawget(normalStats, "DPS")
 		normalStats["DPS"] = nil
 	end
