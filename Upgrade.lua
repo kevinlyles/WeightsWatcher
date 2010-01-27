@@ -735,27 +735,27 @@ end
 
 upgradeAccountFunctions = {
 	[0] = {
-		[0] = function(vars) return copyDefaultAccountVars() end,
-		[1] = function(vars) return upgradeAccountToNormalization(vars) end,
-		[2] = function(vars) return upgradeAccountToGemQuality(vars) end,
-		[3] = function(vars) return upgradeAccountToOrderedLists(vars) end,
-		[4] = function(vars) return upgradeAccountToHandleModifierKeys(vars) end,
-		[5] = function(vars) return noop_up(vars) end,
-		[6] = function(vars) return upgradeAccountShowClassNames(vars) end,
-		[7] = function(vars) return upgradeAccountHideModKeyHints(vars) end,
-		[8] = function(vars) return upgradeAccountForceGemColors(vars) end,
-		[9] = function(vars) return upgradeAccountToConfig(vars) end,
-		[10] = function(vars) return noop_major_up(vars) end,
+		[0] = copyDefaultAccountVars,
+		[1] = upgradeAccountToNormalization,
+		[2] = upgradeAccountToGemQuality,
+		[3] = upgradeAccountToOrderedLists,
+		[4] = upgradeAccountToHandleModifierKeys,
+		[5] = noop_up,
+		[6] = upgradeAccountShowClassNames,
+		[7] = upgradeAccountHideModKeyHints,
+		[8] = upgradeAccountForceGemColors,
+		[9] = upgradeAccountToConfig,
+		[10] = noop_major_up,
 	},
 	[1] = {
-		[0] = function(vars) return upgradeAccountToBetterMetaEffectNames(vars) end,
-		[1] = function(vars) return upgradeAccountToCorrectShowClassNames(vars) end,
-		[2] = function(vars) return upgradeAccountToShowDifferences(vars) end,
-		[3] = function(vars) return upgradeAccountToPartitionedGems(vars) end,
-		[4] = function(vars) return upgradeAccountToFixedConfigOptions(vars) end,
-		[5] = function(vars) return upgradeAccountToGemSources(vars) end,
-		[6] = function(vars) return upgradeAccountToShowAlternateGems(vars) end,
-		[7] = function(vars) return upgradeAccountToShowAlternateGemsTypoFix(vars) end,
+		[0] = upgradeAccountToBetterMetaEffectNames,
+		[1] = upgradeAccountToCorrectShowClassNames,
+		[2] = upgradeAccountToShowDifferences,
+		[3] = upgradeAccountToPartitionedGems,
+		[4] = upgradeAccountToFixedConfigOptions,
+		[5] = upgradeAccountToGemSources,
+		[6] = upgradeAccountToShowAlternateGems,
+		[7] = upgradeAccountToShowAlternateGemsTypoFix,
 	},
 }
 
@@ -786,9 +786,9 @@ downgradeAccountFunctions = {
 
 upgradeCharFunctions = {
 	[0] = {
-		[0] = function(vars) return copyDefaultCharVars() end,
-		[1] = function(vars) return upgradeCharToOrderedLists(vars) end,
-		[2] = function(vars) return noop_major_up(vars) end,
+		[0] = copyDefaultCharVars,
+		[1] = upgradeCharToOrderedLists,
+		[2] = noop_major_up,
 	},
 }
 
