@@ -845,7 +845,7 @@ end
 function WeightsWatcher:preprocess(text)
 	for pattern, replacement in pairs(Preprocess) do
 		if string.find(text, pattern) then
-			text = gsub(text, pattern, replacement)
+			text = string.gsub(text, pattern, replacement)
 		end
 	end
 
