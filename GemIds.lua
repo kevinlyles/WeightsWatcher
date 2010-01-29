@@ -2559,7 +2559,7 @@ ww_gems = {
 				[4244] = {
 					"green",
 					"Vivid Dream Emerald",
-					{[L["resilience rating"]] = 20, [L["spell penetration"]] = 20},
+					{[L["resilience rating"]] = 20, [L["spell penetration"]] = 25},
 				},
 				[4251] = {
 					"meta",
