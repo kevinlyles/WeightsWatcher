@@ -103,19 +103,6 @@ Preprocess = {
 	["|r$"] = "",
 	["^|c[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9]"] = "",
 	[" +$"] = "",
-	["improves"] = "increases",
-	["(increases?) your"] = "%1",
-	["increases the target's"] = "increases",
-	["unique%-equipped"] = "unique",
-	["^use: teaches you how to permanently enchant "] = "use: permanently enchant ",
-	["(%d+) to (%a)"] = "%1 %2",
-	["^use: .*%.  if you spend at least %d+ seconds eating you will become well fed and gain ([%a%d][%a%d, ]+) for .*%."] = "%1",
-	["cat, bear, dire bear, and moonkin forms"] = "cat/bear/dire bear/moonkin forms",
-	["maximum health"] = "health",
-	["mana every 5 seconds"] = "mp5",
-	["the block value of your shield"] = "block value",
-	["shield block rating"] = "block rating",
-	["block$"] = "block value",
 }
 
 ignoredInvalidStats = {
@@ -168,64 +155,9 @@ SocketLines = {
 }
 
 MultipleStatLines = {
-	{" and ",
-		function(text)
-			return WeightsWatcher.multipleStats(text)
-		end},
-	{"%d %- %d",
-		function(textL, textR)
-			return WeightsWatcher.damageRange(textL, textR)
-		end},
 }
 
 SingleStatLines = {
-	{"^equip: restores (%d+) mana per 5 sec%.",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "mp5")
-		end},
-	{"^use: increases mana regeneration by (%d+) mana per 5 seconds for ",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "mp5")
-		end},
-	{"^%((%d[%d.]+) damage per second%)$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "dps")
-		end},
-	{"^adds (%d[%d.]+) damage per second$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "dps")
-		end},
-	{"^increases attack power by (%d+) in cat/bear/dire bear/moonkin forms only%.",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "feral ap")
-		end},
-	-- The 5 is to catch MP5 and HP5 values
-	{"^%+?(%d+%%?) (%a[%a ]+5?)",
-		function(text, pattern)
-			local start, _, value, name = string.find(text, pattern)
-			if start then
-				return WeightsWatcher.newStatTable({[name] = tonumber(value)})
-			end
-		end},
-	{"^use: permanently enchants? .* to give %+?(%d+) (%a[%a ]+).",
-		function(text, pattern)
-			local start, _, value, name = string.find(text, pattern)
-			if start then
-				return WeightsWatcher.newStatTable({[name] = tonumber(value)})
-			end
-		end},
-
-	"^(%a[%a ]+) (%d+)",
-	"^equip: increases (%a[%a ]+) by (%d+)%.",
-	"^equip: increased (%a[%a ]+) %+(%d+)%.",
-	"^use: increases (%a[%a ]+) by (%d+) for .*%.",
-	"^use: permanently increase the (%a[%a ]+) of .* by (%d+)%.",
-	"^use: permanently enchants? .* to increase (%a[%a ]+) by (%d+)%.",
-	"^use: when applied to your fishing pole, increases (fishing) by (%d+) for ",
-
-	-- TODO: figure out how to properly handle these
-	"^(classes): (%a[%a ,]+)",
-	"^(requires %a[%a ]+) %((%d+)%)",
 }
 
 ItemInfoLines = {
