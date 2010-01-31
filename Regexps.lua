@@ -2,6 +2,91 @@ if not WeightsWatcher then
 	WeightsWatcher = AceLibrary("AceAddon-2.0"):new("AceEvent-2.0", "AceHook-2.1")
 end
 
+function WeightsWatcher.multipleStats(text)
+	local stat, stringTable
+	local stats = WeightsWatcher.newStatTable()
+	local origText = text
+
+	start, _, value = string.find(text, " and %a[%a ]+ by (%d+)%.")
+	if start then
+		text = string.gsub(text, ".*[iI]ncrease[sd]? ", "")
+		text = string.gsub(text, " by (%d+)%..*", " %1")
+		text = string.gsub(text, ",? and ", " " .. value .. "\a")
+		text = string.gsub(text, ", ", " " .. value .. "\a")
+	else
+		text = string.gsub(string.gsub(text, ",? and ", "\a"), ", ", "\a")
+	end
+	stringTable = { strsplit("\a", text) }
+	for _, statString in ipairs(stringTable) do
+		stat = WeightsWatcher.singleStat(statString)
+		if stat then
+			stats = stats + stat
+		else
+			ww_unparsed_lines[origText] = true
+		end
+	end
+	-- Don't return an empty table
+	for _, _ in pairs (stats) do
+		return stats
+	end
+end
+
+function WeightsWatcher.damageRange(textL, textR)
+	local speed
+	local stats = WeightsWatcher.newStatTable()
+	local start, _, added, minVal, maxVal, name = string.find(textL, "^(%+?)(%d+) %- (%d+) (%a* ?damage)$")
+	if start then
+		if added == "+" then
+			added = "added "
+		end
+		stats["minimum " .. added .. name] = tonumber(minVal)
+		stats["maximum " .. added .. name] = tonumber(maxVal)
+	end
+	if textR then
+		start, _, speed = string.find(textR, "^speed (%d+%.?%d*)$")
+		if start then
+			stats["speed"] = tonumber(speed)
+		end
+	end
+	-- Don't return an empty table
+	for _, _ in pairs (stats) do
+		return stats
+	end
+end
+
+function WeightsWatcher.singleStat(text)
+	local stat
+	for _, regex in ipairs(SingleStatLines) do
+		if type(regex) == "table" then
+			local pattern, func = unpack(regex)
+			if string.find(text, pattern) then
+				stat = func(text, pattern)
+				if stat then
+					break
+				end
+			end
+		else
+			start, _, name, value = string.find(text, regex)
+			if start then
+				stat = WeightsWatcher.newStatTable({[name] = tonumber(value)})
+				break
+			end
+		end
+	end
+	return stat
+end
+
+function WeightsWatcher.singleStatValueOnly(text, pattern, name)
+	local start, _, value = string.find(text, pattern)
+	if start then
+		return WeightsWatcher.newStatTable({[name] = tonumber(value)})
+	end
+end
+
+function WeightsWatcher.newStatTable(tbl)
+	return setmetatable(tbl or {}, ww_normalStatsMetatable)
+end
+
 Preprocess = {
 	["|r$"] = "",
 	["^|c[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9]"] = "",
@@ -164,88 +249,3 @@ SingleSlotLines = {
 	"^trinket$",
 	"^held in off%-hand$",
 }
-
-function WeightsWatcher.multipleStats(text)
-	local stat, stringTable
-	local stats = WeightsWatcher.newStatTable()
-	local origText = text
-
-	start, _, value = string.find(text, " and %a[%a ]+ by (%d+)%.")
-	if start then
-		text = string.gsub(text, ".*[iI]ncrease[sd]? ", "")
-		text = string.gsub(text, " by (%d+)%..*", " %1")
-		text = string.gsub(text, ",? and ", " " .. value .. "\a")
-		text = string.gsub(text, ", ", " " .. value .. "\a")
-	else
-		text = string.gsub(string.gsub(text, ",? and ", "\a"), ", ", "\a")
-	end
-	stringTable = { strsplit("\a", text) }
-	for _, statString in ipairs(stringTable) do
-		stat = WeightsWatcher.singleStat(statString)
-		if stat then
-			stats = stats + stat
-		else
-			ww_unparsed_lines[origText] = true
-		end
-	end
-	-- Don't return an empty table
-	for _, _ in pairs (stats) do
-		return stats
-	end
-end
-
-function WeightsWatcher.damageRange(textL, textR)
-	local speed
-	local stats = WeightsWatcher.newStatTable()
-	local start, _, added, minVal, maxVal, name = string.find(textL, "^(%+?)(%d+) %- (%d+) (%a* ?damage)$")
-	if start then
-		if added == "+" then
-			added = "added "
-		end
-		stats["minimum " .. added .. name] = tonumber(minVal)
-		stats["maximum " .. added .. name] = tonumber(maxVal)
-	end
-	if textR then
-		start, _, speed = string.find(textR, "^speed (%d+%.?%d*)$")
-		if start then
-			stats["speed"] = tonumber(speed)
-		end
-	end
-	-- Don't return an empty table
-	for _, _ in pairs (stats) do
-		return stats
-	end
-end
-
-function WeightsWatcher.singleStat(text)
-	local stat
-	for _, regex in ipairs(SingleStatLines) do
-		if type(regex) == "table" then
-			local pattern, func = unpack(regex)
-			if string.find(text, pattern) then
-				stat = func(text, pattern)
-				if stat then
-					break
-				end
-			end
-		else
-			start, _, name, value = string.find(text, regex)
-			if start then
-				stat = WeightsWatcher.newStatTable({[name] = tonumber(value)})
-				break
-			end
-		end
-	end
-	return stat
-end
-
-function WeightsWatcher.singleStatValueOnly(text, pattern, name)
-	local start, _, value = string.find(text, pattern)
-	if start then
-		return WeightsWatcher.newStatTable({[name] = tonumber(value)})
-	end
-end
-
-function WeightsWatcher.newStatTable(tbl)
-	return setmetatable(tbl or {}, ww_normalStatsMetatable)
-end
