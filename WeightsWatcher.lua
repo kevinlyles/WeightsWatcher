@@ -971,9 +971,9 @@ function WeightsWatcher.parseLine(textL, textR, link)
 	for _, regex in ipairs(MultipleStatLines) do
 		local pattern, func = unpack(regex)
 		if string.find(textL, pattern) then
-			local statsList = func(textL, textR)
-			if statsList then
-				return statsList
+			local stats = func(textL, pattern)
+			if stats then
+				return stats
 			end
 		end
 	end

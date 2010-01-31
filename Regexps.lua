@@ -2,32 +2,14 @@ if not WeightsWatcher then
 	WeightsWatcher = AceLibrary("AceAddon-2.0"):new("AceEvent-2.0", "AceHook-2.1")
 end
 
-function WeightsWatcher.multipleStats(text)
-	local stat, stringTable
-	local stats = WeightsWatcher.newStatTable()
-	local origText = text
-
-	start, _, value = string.find(text, " and %a[%a ]+ by (%d+)%.")
+function WeightsWatcher.twoStats(text, pattern)
+	local start, _, stat1, stat2 = string.find(text, pattern)
 	if start then
-		text = string.gsub(text, ".*[iI]ncrease[sd]? ", "")
-		text = string.gsub(text, " by (%d+)%..*", " %1")
-		text = string.gsub(text, ",? and ", " " .. value .. "\a")
-		text = string.gsub(text, ", ", " " .. value .. "\a")
-	else
-		text = string.gsub(string.gsub(text, ",? and ", "\a"), ", ", "\a")
-	end
-	stringTable = { strsplit("\a", text) }
-	for _, statString in ipairs(stringTable) do
-		stat = WeightsWatcher.singleStat(statString)
-		if stat then
-			stats = stats + stat
-		else
-			ww_unparsed_lines[origText] = true
+		stat1 = WeightsWatcher.singleStat(stat1)
+		stat2 = WeightsWatcher.singleStat(stat2)
+		if stat1 and stat2 then
+			return stat1 + stat2
 		end
-	end
-	-- Don't return an empty table
-	for _, _ in pairs (stats) do
-		return stats
 	end
 end
 
@@ -201,6 +183,11 @@ SocketLines = {
 }
 
 MultipleStatLines = {
+	{"^([^,]+) and ([^,]+)$", WeightsWatcher.twoStats},
+	-- currently used only by items 31864 and 31872
+	{"^([^,]+) & ([^,]+)$", WeightsWatcher.twoStats},
+	-- currently only used by item 28363
+	{"^([^,]+), ([^,]+)$", WeightsWatcher.twoStats},
 }
 
 SingleStatLines = {
