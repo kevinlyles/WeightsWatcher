@@ -55,25 +55,22 @@ function WeightsWatcher.damageRange(textL, textR)
 end
 
 function WeightsWatcher.singleStat(text)
-	local stat
 	for _, regex in ipairs(SingleStatLines) do
 		if type(regex) == "table" then
 			local pattern, func = unpack(regex)
 			if string.find(text, pattern) then
-				stat = func(text, pattern)
+				local stat = func(text, pattern)
 				if stat then
-					break
+					return stat
 				end
 			end
 		else
-			start, _, name, value = string.find(text, regex)
+			local start, _, name, value = string.find(text, regex)
 			if start then
-				stat = WeightsWatcher.newStatTable({[name] = tonumber(value)})
-				break
+				return WeightsWatcher.newStatTable({[name] = tonumber(value)})
 			end
 		end
 	end
-	return stat
 end
 
 function WeightsWatcher.singleStatValueOnly(text, pattern, name)
