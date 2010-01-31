@@ -923,7 +923,10 @@ end
 function WeightsWatcher.parseLine(textL, textR, link)
 	local start, _, value = string.find(textL, socketBonus)
 	if start then
-		return nil, nil, nil, WeightsWatcher.singleStat(value)
+		local socketBonusStat = WeightsWatcher.singleStat(value)
+		if socketBonusStat then
+			return nil, nil, nil, socketBonusStat
+		end
 	end
 	for _, regex in ipairs(SocketLines) do
 		local start, _, value = string.find(textL, regex)
