@@ -203,6 +203,8 @@ ItemInfoLines = {
 	"^binds ",
 	"^unique",
 	"^soulbound$",
+	"^heroic$",
+	"^quest item$",
 }
 
 DoubleSlotLines = {
