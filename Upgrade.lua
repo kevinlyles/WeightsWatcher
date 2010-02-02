@@ -726,10 +726,9 @@ end
 
 function copyDefaultCharVars()
 	local charVars
-	local _, class = UnitClass("player")
 
 	charVars = deepTableCopy(defaultCharVars)
-	charVars.activeWeights = createActiveWeights(class)
+	charVars.activeWeights = createActiveWeights(WeightsWatcher.playerClass)
 	return charVars
 end
 

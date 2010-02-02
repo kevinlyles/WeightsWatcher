@@ -406,10 +406,9 @@ function loadClassButtons()
 
 	createScrollableTieredList(classes, ww_weights.leftPanel.scrollFrame, ww_weights.leftPanel.scrollContainer, "ww_weightFrame", 22)
 
-	local _, class = UnitClass("player")
 	for _, classFrame in ipairs(ww_weights.leftPanel.scrollFrame.categories) do
 		classFrame.class = revClassLookup[classFrame.text:GetText()]
-		local used = (classFrame.class == class)
+		local used = (classFrame.class == WeightsWatcher.playerClass)
 		for i, weightFrame in ipairs({classFrame:GetChildren()}) do
 			if weightFrame.name then
 				if ww_charVars.activeWeights[classFrame.class] then
@@ -544,9 +543,8 @@ function ClassDropDownInitialize(dropdown)
 end
 
 function ClassDropDownOnShow(dropdown)
-	local _, class = UnitClass("player")
 	UIDropDownMenu_Initialize(dropdown, ClassDropDownInitialize);
-	UIDropDownMenu_SetSelectedValue(dropdown, class)
+	UIDropDownMenu_SetSelectedValue(dropdown, WeightsWatcher.playerClass)
 end
 
 function DropDownOnClick(choice, dropdown)

@@ -191,15 +191,45 @@ ww_itemCache = setmetatable({}, ww_itemCacheMetatable)
 ww_weightCache = setmetatable({}, ww_weightCacheMetatable)
 ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
 
-function WeightsWatcher:OnInitialize()
-	local tempVars
+local function loadGeneralInfo()
+	local _, class = UnitClass("player")
+	WeightsWatcher.playerClass = class
 
-	SLASH_WEIGHTSWATCHER1="/ww"
-	SLASH_WEIGHTSWATCHER2="/weightswatcher"
-	SlashCmdList["WEIGHTSWATCHER"] =
-		function(msg)
-			commandHandler(msg)
-		end
+	local slotList = {
+		"AmmoSlot",
+		"BackSlot",
+		"ChestSlot",
+		"FeetSlot",
+		"Finger0Slot",
+		"Finger1Slot",
+		"HandsSlot",
+		"HeadSlot",
+		"LegsSlot",
+		"MainHandSlot",
+		"NeckSlot",
+		"RangedSlot",
+		"SecondaryHandSlot",
+		"ShirtSlot",
+		"ShoulderSlot",
+		"TabardSlot",
+		"Trinket0Slot",
+		"Trinket1Slot",
+		"WaistSlot",
+		"WristSlot",
+	}
+
+	WeightsWatcher.slotList = {}
+
+	local slotNum
+	for _, slotName in ipairs(slotList) do
+		local slotNum = GetInventorySlotInfo(slotName)
+		WeightsWatcher.slotList[slotNum] = slotName
+		WeightsWatcher.slotList[slotName] = slotNum
+	end
+end
+
+function WeightsWatcher:OnInitialize()
+	loadGeneralInfo()
 
 	if not upgradeData("account", "ww_vars") then
 		return
@@ -207,7 +237,15 @@ function WeightsWatcher:OnInitialize()
 	if not upgradeData("character", "ww_charVars") then
 		return
 	end
+
 	initializeWeightsConfig()
+
+	SLASH_WEIGHTSWATCHER1="/ww"
+	SLASH_WEIGHTSWATCHER2="/weightswatcher"
+	SlashCmdList["WEIGHTSWATCHER"] =
+		function(msg)
+			commandHandler(msg)
+		end
 end
 
 StaticPopupDialogs["WW_INVALID_ACCOUNT_DATA"] = {
@@ -330,8 +368,7 @@ function splitItemLink(link)
 end
 
 local function checkForTitansGrip()
-	local _, class = UnitClass("player")
-	if class ~= "WARRIOR" then
+	if WeightsWatcher.playerClass ~= "WARRIOR" then
 		return false
 	end
 	local name, _, _, _, rank = GetTalentInfo(2, 27, false, false)
@@ -462,7 +499,6 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 	local compareLink, compareBareLink, compareLink2, compareBareLink2, compareMethod
 	local showWeights, showIdealWeights, showIdealGems, showIdealGemStats, showAlternateGems
 	local alternateGemsExist = false
-	local _, playerClass = UnitClass("player")
 
 	_, link = tooltip:GetItem()
 	if link == nil then
@@ -508,7 +544,7 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 							local currentScore = ww_weightCache[class][weight][link]
 							local compareScore, compareScore2, compareBareScore, compareBareScore2
 							str = weight
-							if ww_vars.options.tooltip.showClassNames == "Always" or (ww_vars.options.tooltip.showClassNames == "Others" and class ~= playerClass) then
+							if ww_vars.options.tooltip.showClassNames == "Always" or (ww_vars.options.tooltip.showClassNames == "Others" and class ~= WeightsWatcher.playerClass) then
 								str = str .. " - " .. classNames[class]
 							end
 							if compareLink then
