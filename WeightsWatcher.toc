@@ -2,7 +2,7 @@
 ## Title: Weights Watcher
 ## Notes: Ranks gear according to customizable stat weights
 ## Author: The Flying Squirrels
-## Version: 1.4r7
+## Version: 1.4r8
 ## OptionalDeps: AtlasLoot
 ## SavedVariables: ww_vars
 ## SavedVariablesPerCharacter: ww_charVars
@@ -10,12 +10,7 @@
 ## X-Compatible-With: 40000
 ## X-License: GPLv2
 
-Libs\AceLibrary\AceLibrary.lua
-Libs\AceOO-2.0\AceOO-2.0.lua
-Libs\AceAddon-2.0\AceAddon-2.0.lua
-Libs\AceEvent-2.0\AceEvent-2.0.lua
-Libs\AceHook-2.1\AceHook-2.1.lua
-
+WeightsWatcher.xml
 Regexps.lua
 
 Locales\locales.xml

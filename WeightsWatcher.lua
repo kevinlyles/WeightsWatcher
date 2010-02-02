@@ -201,6 +201,11 @@ local function upgradeData(dataType, varsName)
 	end
 end
 
+local function hookTooltip(objectName, funcName)
+	local object = _G[objectName]
+	hooksecurefunc(object, funcName, function(self, ...) WeightsWatcher.displayItemStats(self, objectName, ...) end)
+end
+
 local function initializeAfterDataUpgrade()
 	ww_initializeParser()
 
@@ -212,6 +217,40 @@ local function initializeAfterDataUpgrade()
 		function(msg)
 			ww_commandHandler(msg)
 		end
+
+	hookTooltip("GameTooltip", "SetAuctionItem")
+	hookTooltip("GameTooltip", "SetAuctionSellItem")
+	hookTooltip("GameTooltip", "SetBagItem")
+	hookTooltip("GameTooltip", "SetBuybackItem")
+	hookTooltip("GameTooltip", "SetExistingSocketGem")
+	hookTooltip("GameTooltip", "SetGuildBankItem")
+	hookTooltip("GameTooltip", "SetHyperlink")
+	hookTooltip("GameTooltip", "SetInboxItem")
+	hookTooltip("GameTooltip", "SetInventoryItem")
+	hookTooltip("GameTooltip", "SetLootItem")
+	hookTooltip("GameTooltip", "SetLootRollItem")
+	hookTooltip("GameTooltip", "SetMerchantItem")
+	hookTooltip("GameTooltip", "SetQuestItem")
+	hookTooltip("GameTooltip", "SetQuestLogItem")
+	hookTooltip("GameTooltip", "SetReforgeItem")
+	hookTooltip("GameTooltip", "SetSendMailItem")
+	hookTooltip("GameTooltip", "SetSocketGem")
+	hookTooltip("GameTooltip", "SetTradePlayerItem")
+	hookTooltip("GameTooltip", "SetTradeSkillItem")
+	hookTooltip("GameTooltip", "SetTradeTargetItem")
+	hookTooltip("GameTooltip", "SetTrainerService")
+	-- Item link tooltips
+	hookTooltip("ItemRefTooltip", "SetHyperlink")
+	-- Secondary and tertiary comparison tooltips
+	hookTooltip("ShoppingTooltip1", "SetExistingSocketGem")
+	hookTooltip("ShoppingTooltip1", "SetHyperlinkCompareItem")
+	hookTooltip("ShoppingTooltip1", "SetInventoryItem")
+	hookTooltip("ShoppingTooltip2", "SetExistingSocketGem")
+	hookTooltip("ShoppingTooltip2", "SetHyperlinkCompareItem")
+	hookTooltip("ShoppingTooltip2", "SetInventoryItem")
+	if AtlasLootTooltip then
+		hookTooltip("AtlasLootTooltip", "SetHyperlink")
+	end
 end
 
 function WeightsWatcher.OnInitialize()
@@ -277,56 +316,6 @@ function WeightsWatcher.Broken(dataType)
 		DisableAddOn("WeightsWatcher")
 		ReloadUI()
 	end
-end
-
-function WeightsWatcher.HookTooltip(objectName, funcName)
-	local object = _G[objectName]
-	local func = _G[funcName]
-	WeightsWatcher:SecureHook(object, funcName, function(self, ...) WeightsWatcher.displayItemStats(self, objectName, ...) end)
-	table.insert(currentHooks, {object, func})
-end
-
-function WeightsWatcher.OnEnable()
-	WeightsWatcher.HookTooltip("GameTooltip", "SetAuctionItem")
-	WeightsWatcher.HookTooltip("GameTooltip", "SetAuctionSellItem")
-	WeightsWatcher.HookTooltip("GameTooltip", "SetBagItem")
-	WeightsWatcher.HookTooltip("GameTooltip", "SetBuybackItem")
-	WeightsWatcher.HookTooltip("GameTooltip", "SetExistingSocketGem")
-	WeightsWatcher.HookTooltip("GameTooltip", "SetGuildBankItem")
-	WeightsWatcher.HookTooltip("GameTooltip", "SetHyperlink")
-	WeightsWatcher.HookTooltip("GameTooltip", "SetInboxItem")
-	WeightsWatcher.HookTooltip("GameTooltip", "SetInventoryItem")
-	WeightsWatcher.HookTooltip("GameTooltip", "SetLootItem")
-	WeightsWatcher.HookTooltip("GameTooltip", "SetLootRollItem")
-	WeightsWatcher.HookTooltip("GameTooltip", "SetMerchantItem")
-	WeightsWatcher.HookTooltip("GameTooltip", "SetQuestItem")
-	WeightsWatcher.HookTooltip("GameTooltip", "SetQuestLogItem")
-	WeightsWatcher.HookTooltip("GameTooltip", "SetReforgeItem")
-	WeightsWatcher.HookTooltip("GameTooltip", "SetSendMailItem")
-	WeightsWatcher.HookTooltip("GameTooltip", "SetSocketGem")
-	WeightsWatcher.HookTooltip("GameTooltip", "SetTradePlayerItem")
-	WeightsWatcher.HookTooltip("GameTooltip", "SetTradeSkillItem")
-	WeightsWatcher.HookTooltip("GameTooltip", "SetTradeTargetItem")
-	WeightsWatcher.HookTooltip("GameTooltip", "SetTrainerService")
-	-- Item link tooltips
-	WeightsWatcher.HookTooltip("ItemRefTooltip", "SetHyperlink")
-	-- Secondary and tertiary comparison tooltips
-	WeightsWatcher.HookTooltip("ShoppingTooltip1", "SetExistingSocketGem")
-	WeightsWatcher.HookTooltip("ShoppingTooltip1", "SetHyperlinkCompareItem")
-	WeightsWatcher.HookTooltip("ShoppingTooltip1", "SetInventoryItem")
-	WeightsWatcher.HookTooltip("ShoppingTooltip2", "SetExistingSocketGem")
-	WeightsWatcher.HookTooltip("ShoppingTooltip2", "SetHyperlinkCompareItem")
-	WeightsWatcher.HookTooltip("ShoppingTooltip2", "SetInventoryItem")
-	if AtlasLootTooltip then
-		WeightsWatcher.HookTooltip("AtlasLootTooltip", "SetHyperlink")
-	end
-end
-
-function WeightsWatcher.OnDisable()
-	for _, hook in currentHooks do
-		WeightsWatcher:Unhook(unpack(hook))
-	end
-	currentHooks = {}
 end
 
 local function checkForTitansGrip()
