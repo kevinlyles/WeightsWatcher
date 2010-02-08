@@ -112,7 +112,44 @@ local FoodAffixes = {
 	" +for %d+ hours?%.$",
 }
 
+local EquipStatsMatchLines = {
+	"^equip: increases [^t].* by ",
+	"^equip: increases your effective stealth level",
+	"^equip: increases effective stealth level",
+	"^equip: improves [^t].* by ",
+	"^equip: restores ",
+	"^equip: increases the block value of your shield by ",
+	"^equip: [+-]?%d+ all resistances%.$",
+	"^equip: [+-]?%d+ armor%.$",
+}
+
+local EquipStatsUnweightedLines = {
+	" when fighting ",
+	" spell power of ",
+	" pet[' ]",
+	" you kill a target ",
+	" against ",
+	" while ",
+	" periodic damage done by ",
+	" you use ",
+}
+
+local EquipStatsPreprocessLines = {
+	{" effective stealth level%.$", " effective stealth level by 1."},
+}
+
+local EquipStatsAffixes = {
+	"^equip: +",
+	"^increases ",
+	"^improves +",
+	"^restores +",
+	"^your +",
+	" +does not work for players above level %d+%.$",
+	"%.$",
+}
+
 EffectHandlers = {
+	{EquipStatsMatchLines, {}, EquipStatsUnweightedLines, EquipStatsPreprocessLines, EquipStatsAffixes, "equipStats"},
 	{FoodMatchLines, FoodIgnoreLines, FoodUnweightedLines, FoodPreprocessLines, FoodAffixes, "food"},
 }
 
@@ -333,16 +370,41 @@ MultipleStatLines = {
 				end
 			end
 		end},
+	-- item 10779
+	{"(%a[%a ]+) by (%d+), (%a[%a ]+) by (%d+),? and your normal health regeneration by (%d+)",
+		function(text, pattern)
+			local start, _, stat1, val1, stat2, val2, val3 = string.find(text, pattern)
+			if start then
+				local stats = WeightsWatcher.newStatTable()
+				stats[stat1] = tonumber(val1)
+				stats[stat2] = tonumber(val2)
+				stats["hp5"] = tonumber(val3)
+				return stats
+			end
+		end},
 	-- currently used only by items 31864 and 31872
 	{"^([^,]+) & ([^,]+)$", WeightsWatcher.twoStats},
 	-- currently only used by item 28363
 	{"^([^,]+), ([^,]+)$", WeightsWatcher.twoStats},
+	{"^chance to resist (%a+) and (%a+) effects by (%d+)%%$",
+		function(text, pattern)
+			local start, _, effect1, effect2, value = string.find(text, pattern)
+			if start then
+				value = tonumber(value)
+				local stats = WeightsWatcher.newStatTable()
+				stats[effect1 .. " resist chance (percent)"] = value
+				stats[effect2 .. " resist chance (percent)"] = value
+				return stats
+			end
+		end},
 }
 
 SingleStatLines = {
 	{"^([+-]?%d+) ([^b]%a+)$", WeightsWatcher.statNumFirst},
 
 
+	{"^the (block value) of your shield by (%d+)$", WeightsWatcher.statNameFirst},
+	{"^shield (block rating) by ([+-]?%d+)$", WeightsWatcher.statNameFirst},
 	{"^(all stats) are reduced by (%d+)$",
 		function(text, pattern)
 			local start, _, name, value = string.find(text, pattern)
@@ -356,6 +418,10 @@ SingleStatLines = {
 			if start then
 				return WeightsWatcher.newStatTable({[name] = -tonumber(value)})
 			end
+		end},
+	{"^effective stealth level by (%d+)$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "increased stealth")
 		end},
 	-- Tends to eat other stats if not last
 	{"^(%a[%a ]+) by (%d+)$", WeightsWatcher.statNameFirst},
@@ -399,6 +465,14 @@ SingleStatLines = {
 	{"^([+-]?%d+) (ranged attack power)$", WeightsWatcher.statNumFirst},
 	{"^([+-]?%d+) (all stats)$", WeightsWatcher.statNumFirst},
 	{"^([+-]?%d+) to (all stats)$", WeightsWatcher.statNumFirst},
+
+	{"^chance to resist (%a+) effects by (%d+)%%$",
+		function(text, pattern)
+			local start, _, effect, value = string.find(text, pattern)
+			if start then
+				return WeightsWatcher.newStatTable({[effect .. " resist chance (percent)"] = tonumber(value)})
+			end
+		end},
 
 	-- random suffix enchants
 	{"^([+-]?%d+) (%a+ spell damage)$", WeightsWatcher.statNumFirst},
