@@ -161,9 +161,9 @@ UnweightedLines = {
 socketBonus = "^socket bonus: (.*)"
 
 SocketLines = {
-	"^(blue) socket$",
 	"^(red) socket$",
 	"^(yellow) socket$",
+	"^(blue) socket$",
 	"^(meta) socket$",
 }
 
@@ -229,8 +229,8 @@ SingleStatLines = {
 }
 
 ItemInfoLines = {
-	"^unique",
 	"^binds ",
+	"^unique",
 	"^soulbound$",
 }
 
@@ -243,22 +243,22 @@ DoubleSlotLines = {
 	"^waist$",
 	"^legs$",
 	"^feet$",
+	"^two%-hand$",
+	"^one%-hand$",
 	"^main hand$",
 	"^off hand$",
-	"^one%-hand$",
-	"^two%-hand$",
-	"^relic$",
 	"^ranged$",
+	"^relic$",
 	"^thrown$",
 	"^projectile$",
 }
 
 SingleSlotLines = {
-	"^neck$",
-	"^back$",
-	"^shirt$",
-	"^tabard$",
 	"^finger$",
+	"^back$",
+	"^neck$",
 	"^trinket$",
 	"^held in off%-hand$",
+	"^shirt$",
+	"^tabard$",
 }
