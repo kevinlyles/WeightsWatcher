@@ -193,12 +193,9 @@ MultipleStatLines = {
 }
 
 SingleStatLines = {
-	{"^([+-]?%d+) (armor)$", WeightsWatcher.statNumFirst},
-	{"^([+-]?%d+) (agility)$", WeightsWatcher.statNumFirst},
-	{"^([+-]?%d+) (intellect)$", WeightsWatcher.statNumFirst},
-	{"^([+-]?%d+) (spirit)$", WeightsWatcher.statNumFirst},
-	{"^([+-]?%d+) (stamina)$", WeightsWatcher.statNumFirst},
-	{"^([+-]?%d+) (strength)$", WeightsWatcher.statNumFirst},
+	{"^([+-]?%d+) ([^b]%a+)$", WeightsWatcher.statNumFirst},
+
+
 	{"^%((%d+%.?%d*) damage per second%)$",
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "dps")
@@ -208,10 +205,8 @@ SingleStatLines = {
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "mp5")
 		end},
-	{"^([+-]?%d+) (%a+ %a+ rating)$", WeightsWatcher.statNumFirst},
-	{"^([+-]?%d+) (%a+ rating)$", WeightsWatcher.statNumFirst},
-	{"^([+-]?%d+) (spell power)$", WeightsWatcher.statNumFirst},
-	{"^([+-]?%d+) (attack power)$", WeightsWatcher.statNumFirst},
+	{"^([+-]?%d+) (%a[%a ]+ rating)$", WeightsWatcher.statNumFirst},
+	{"^([+-]?%d+) (%a+ power)$", WeightsWatcher.statNumFirst},
 	{"^([+-]?%d+) (%a+ resistance)$", WeightsWatcher.statNumFirst},
 	{"^([+-]?%d+) (all resistances)$", WeightsWatcher.statNumFirst},
 	{"^([+-]?%d+) resist all$",
