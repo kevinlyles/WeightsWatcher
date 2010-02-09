@@ -100,8 +100,7 @@ function WeightsWatcher.newStatTable(tbl)
 end
 
 Preprocess = {
-	{"|r$", ""},
-	{"^|c[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9]", ""},
+	{"|c[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9]([^|]+)|r", "%1"},
 	{" +$", ""},
 }
 
