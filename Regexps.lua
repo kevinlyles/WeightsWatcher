@@ -204,22 +204,7 @@ SingleStatLines = {
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "dps")
 		end
 	},
-	-- Normal item stats
-	{"^([+-]?%d+) mana every 5 seconds%.?$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "mp5")
-		end},
-	-- Random suffix enchants and socket bonuses
-	{"^([+-]?%d+) mana every 5 sec%.?$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "mp5")
-		end},
-	{"^([+-]?%d+) mana per 5 seconds%.?$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "mp5")
-		end},
-	-- Socket bonuses
-	{"^([+-]?%d+) mana per 5 sec%.?$",
+	{"^([+-]?%d+) mana %a+ 5 seco?n?d?s?%.?$",
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "mp5")
 		end},
@@ -242,21 +227,7 @@ SingleStatLines = {
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "block value")
 		end},
 	{"^([+-]?%d+) (block value)$", WeightsWatcher.statNumFirst},
-	{"^([+-]?%d+) health every 5 seconds%.?$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "hp5")
-		end},
-	-- random suffix enchants
-	{"^([+-]?%d+) health every 5 sec%.?$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "hp5")
-		end},
--- 	{"^([+-]?%d+) health per 5 seconds%.?$",
--- 		function(text, pattern)
--- 			return WeightsWatcher.singleStatValueOnly(text, pattern, "hp5")
--- 		end},
-	-- Random suffix enchants
-	{"^([+-]?%d+) health per 5 sec%.?$",
+	{"^([+-]?%d+) health %a+ 5 seco?n?d?s?%.?$",
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "hp5")
 		end},
