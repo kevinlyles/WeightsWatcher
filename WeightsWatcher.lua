@@ -134,7 +134,7 @@ ww_weightIdealCacheWeightMetatable = {
 				table.insert(bestGems, gemId)
 				gemScore = gemScore + tbl.bestGems[color .. "Score"]
 			end
-			if breakSocketColors then
+			if breakSocketColors and color ~= "Meta" then
 				gemIdIgnoreSocket = tbl.bestGems.Overall
 				if #(gemIdIgnoreSocket) > 0 then
 					table.insert(bestGemsIgnoreSocket, gemIdIgnoreSocket)
