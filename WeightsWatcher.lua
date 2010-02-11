@@ -453,6 +453,7 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 	local stat, value, str, formatStr
 	local compareLink, compareBareLink, compareLink2, compareBareLink2, compareMethod
 	local showWeights, showIdealWeights, showIdealGems, showIdealGemStats, showAlternateGems
+	local alternateGemsExist = false
 	local _, playerClass = UnitClass("player")
 
 	_, link = tooltip:GetItem()
@@ -539,6 +540,7 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 										for i, gem in ipairs(gems) do
 											if #(gems) > 1 then
 												tooltip:AddDoubleLine("    (Option " .. i .. "/" .. #(gems) .. ") " .. gem[2] .. " (" .. gem[1] .. ")", " ")
+												alternateGemsExist = true
 											else
 												tooltip:AddDoubleLine("    Using " .. gem[2] .. " (" .. gem[1] .. ")", " ")
 											end
@@ -573,7 +575,7 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 							tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealGemStats .. " to show ideal gem stats>")
 						end
 					end
-					if not showAlternateGems then
+					if not showAlternateGems and alternateGemsExist then
 						if ww_vars.options.tooltip.showAlternateGems ~= "Never" then
 							tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showAlternateGems .. " to show alternate ideal gems>")
 						end
