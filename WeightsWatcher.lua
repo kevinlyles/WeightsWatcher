@@ -880,7 +880,7 @@ end
 
 function WeightsWatcher:getItemStats(link)
 	local ttleft, ttright, origTextL, textL, textR, pattern, func, start
-	local normalStats, socketList, socketBonusStat = setmetatable({}, ww_normalStatsMetatable), {}
+	local normalStats, socketList, socketBonusStat = WeightsWatcher.newStatTable(), {}
 	local ranged = false
 
 	-- Populate hidden tooltip
