@@ -838,7 +838,7 @@ function WeightsWatcher:getItemStats(link)
 		end
 	end
 	if ranged then
-		normalStats["Ranged DPS"] = normalStats["DPS"]
+		normalStats["Ranged DPS"] = rawget(normalStats, "DPS")
 		normalStats["DPS"] = nil
 	end
 	return normalStats, socketList, socketBonusStat
