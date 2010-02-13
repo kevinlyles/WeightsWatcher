@@ -228,8 +228,24 @@ local function loadGeneralInfo()
 	end
 end
 
+function WeightsWatcher:ResetTables()
+	local metatable = {}
+	metatable.__index = function(tbl, key)
+		tbl[key] = setmetatable({}, metatable)
+		return tbl[key]
+	end
+
+	ww_unparsed_lines = setmetatable({}, metatable)
+	ww_ignored_lines = setmetatable({}, metatable)
+	ww_temp_ignored_lines = setmetatable({}, metatable)
+	ww_unparsed_items = setmetatable({}, metatable)
+	ww_unweighted_lines = setmetatable({}, metatable)
+end
+
 function WeightsWatcher:OnInitialize()
 	loadGeneralInfo()
+
+	WeightsWatcher:ResetTables()
 
 	if not upgradeData("account", "ww_vars") then
 		return
