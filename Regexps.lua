@@ -87,6 +87,7 @@ end
 Preprocess = {
 	["|r$"] = "",
 	["^|c[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9]"] = "",
+	[" +$"] = "",
 	["improves"] = "increases",
 	["(increases?) your"] = "%1",
 	["increases the target's"] = "increases",
@@ -112,7 +113,7 @@ IgnoredLines = {
 	"^<.+>$",
 	"^\".+\"$",
 	"^you may trade this item with players that were also eligible to loot this item for the next ",
-	"^ $",
+	"^$",
 	"^requires %a[%a ]+ %- neutral$",
 	"^requires %a[%a ]+ %- friendly$",
 	"^requires %a[%a ]+ %- honored$",
