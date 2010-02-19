@@ -96,6 +96,8 @@ Preprocess = {
 ignoredInvalidStats = {
 	"item level",
 	"requires level",
+	"all stats",
+	"all resistances",
 }
 
 IgnoredLines = {
@@ -201,6 +203,16 @@ SingleStatLines = {
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "dps")
 		end
 	},
+	{"^([+-]?%d+) resist all$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "all resistances")
+		end},
+	{"^([+-]?%d+) resistance to all schools of magic$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "all resistances")
+		end},
+	{"^([+-]?%d+) (all stats)$", WeightsWatcher.statNumFirst},
+	{"^([+-]?%d+) to (all stats)$", WeightsWatcher.statNumFirst},
 }
 
 ItemInfoLines = {

@@ -848,6 +848,16 @@ function WeightsWatcher.calculateWeight(normalStats, socketBonusActive, socketBo
 	for stat, value in pairs(normalStats) do
 		weight = weight + WeightsWatcher.getWeight(stat, value, weightsScale)
 	end
+	if normalStats["all stats"] and not weightsScale["all stats"] then
+		for _, stat in pairs({"agility", "intellect", "spirit", "stamina", "strength"}) do
+			weight = weight + WeightsWatcher.getWeight(stat, normalStats["all stats"], weightsScale)
+		end
+	end
+	if normalStats["all resistances"] and not weightsScale["all resistances"] then
+		for _, school in pairs({"arcane", "fire", "frost", "nature", "shadow"}) do
+			weight = weight + WeightsWatcher.getWeight(school .. " resistance", normalStats["all resistances"], weightsScale)
+		end
+	end
 	if socketBonusActive and socketBonusStat then
 		for stat, value in pairs(socketBonusStat) do
 			weight = weight + WeightsWatcher.getWeight(stat, value, weightsScale)
@@ -859,6 +869,16 @@ function WeightsWatcher.calculateWeight(normalStats, socketBonusActive, socketBo
 			local weight = 0
 			for stat, value in pairs(gemInfo[3]) do
 				weight = weight + WeightsWatcher.getWeight(stat, value, weightsScale)
+			end
+			if gemInfo[3]["all stats"] and not weightsScale["all stats"] then
+				for _, stat in pairs({"agility", "intellect", "spirit", "stamina", "strength"}) do
+					weight = weight + WeightsWatcher.getWeight(stat, gemInfo[3]["all stats"], weightsScale)
+				end
+			end
+			if gemInfo[3]["all resistances"] and not weightsScale["all resistances"] then
+				for _, school in pairs({"arcane", "fire", "frost", "nature", "shadow"}) do
+					weight = weight + WeightsWatcher.getWeight(school .. " resistance", gemInfo[3]["all resistances"], weightsScale)
+				end
 			end
 			if weight > maxWeight then
 				maxWeight = weight
