@@ -964,6 +964,10 @@ function WeightsWatcher.parseLine(textL, textR, link)
 			return nil, {["slot"] = textL}
 		end
 	end
+	local stats = WeightsWatcher.damageRange(textL, textR)
+	if stats then
+		return stats
+	end
 	for _, regex in ipairs(MultipleStatLines) do
 		local pattern, func = unpack(regex)
 		if string.find(textL, pattern) then

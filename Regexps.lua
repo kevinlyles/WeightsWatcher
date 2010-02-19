@@ -32,26 +32,41 @@ function WeightsWatcher.multipleStats(text)
 end
 
 function WeightsWatcher.damageRange(textL, textR)
-	local speed
-	local stats = WeightsWatcher.newStatTable()
-	local start, _, added, minVal, maxVal, name = string.find(textL, "^(%+?)(%d+) %- (%d+) (%a* ?damage)$")
+	local stats
+	local start, _, minimum, maximum = string.find(textL, "^(%d+) %- (%d+) damage$")
 	if start then
-		if added == "+" then
-			added = "added "
+		stats = WeightsWatcher.newStatTable()
+		stats["minimum weapon damage"] = tonumber(minimum)
+		stats["maximum weapon damage"] = tonumber(maximum)
+	else
+		local start, _, minimum, maximum, school = string.find(textL, "^(%d+) %- (%d+) (%a+) damage$")
+		if start then
+			stats = WeightsWatcher.newStatTable()
+			stats["minimum wand " .. school .. " damage"] = tonumber(minimum)
+			stats["maximum wand " .. school .. " damage"] = tonumber(maximum)
+		else
+			local start, _, minimum, maximum, school = string.find(textL, "^%+(%d+) %- (%d+) (%a+) damage$")
+			if start then
+				stats = WeightsWatcher.newStatTable()
+				stats["minimum added " .. school .. " damage"] = tonumber(minimum)
+				stats["maximum added " .. school .. " damage"] = tonumber(maximum)
+			else
+				local start, _, damage = string.find(textL, "^(%d+) damage$")
+				if start then
+					stats = WeightsWatcher.newStatTable()
+					stats["minimum weapon damage"] = tonumber(damage)
+					stats["maximum weapon damage"] = tonumber(damage)
+				end
+			end
 		end
-		stats["minimum " .. added .. name] = tonumber(minVal)
-		stats["maximum " .. added .. name] = tonumber(maxVal)
 	end
-	if textR then
-		start, _, speed = string.find(textR, "^speed (%d+%.?%d*)$")
+	if stats and textR then
+		local start, _, speed = string.find(textR, "^speed (%d+%.?%d*)$")
 		if start then
 			stats["speed"] = tonumber(speed)
 		end
 	end
-	-- Don't return an empty table
-	for _, _ in pairs (stats) do
-		return stats
-	end
+	return stats
 end
 
 function WeightsWatcher.singleStat(text)
