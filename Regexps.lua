@@ -722,7 +722,12 @@ MultipleStatLines = {
 }
 
 SingleStatLines = {
-	{"^([+-]?%d+) ([^b]%a+)$", WeightsWatcher.statNumFirst},
+	{"^([+-]?%d+) (armor)$", WeightsWatcher.statNumFirst},
+	{"^([+-]?%d+) (agility)$", WeightsWatcher.statNumFirst},
+	{"^([+-]?%d+) (intellect)$", WeightsWatcher.statNumFirst},
+	{"^([+-]?%d+) (spirit)$", WeightsWatcher.statNumFirst},
+	{"^([+-]?%d+) (stamina)$", WeightsWatcher.statNumFirst},
+	{"^([+-]?%d+) (strength)$", WeightsWatcher.statNumFirst},
 
 
 	{"^the (block value) of your shield by (%d+)$", WeightsWatcher.statNameFirst},
@@ -866,7 +871,8 @@ SingleStatLines = {
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "mp5")
 		end},
 	{"^([+-]?%d+) (%a[%a ]+ rating)$", WeightsWatcher.statNumFirst},
-	{"^([+-]?%d+) (%a+ power)$", WeightsWatcher.statNumFirst},
+	{"^([+-]?%d+) (attack power)$", WeightsWatcher.statNumFirst},
+	{"^([+-]?%d+) (spell power)$", WeightsWatcher.statNumFirst},
 	{"^([+-]?%d+) (%a+ resistance)$", WeightsWatcher.statNumFirst},
 	{"^([+-]?%d+) (all resistances)$", WeightsWatcher.statNumFirst},
 	{"^([+-]?%d+) resist all$",
