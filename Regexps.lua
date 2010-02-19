@@ -95,6 +95,13 @@ function WeightsWatcher.singleStatValueOnly(text, pattern, name)
 	end
 end
 
+function WeightsWatcher.statNumFirst(text, pattern)
+	local start, _, value, name = string.find(text, pattern)
+	if start then
+		return WeightsWatcher.newStatTable({[name] = tonumber(value)})
+	end
+end
+
 function WeightsWatcher.newStatTable(tbl)
 	return setmetatable(tbl or {}, ww_normalStatsMetatable)
 end
@@ -197,6 +204,11 @@ MultipleStatLines = {
 }
 
 SingleStatLines = {
+	{"^([+-]?%d+) (agility)$", WeightsWatcher.statNumFirst},
+	{"^([+-]?%d+) (intellect)$", WeightsWatcher.statNumFirst},
+	{"^([+-]?%d+) (spirit)$", WeightsWatcher.statNumFirst},
+	{"^([+-]?%d+) (stamina)$", WeightsWatcher.statNumFirst},
+	{"^([+-]?%d+) (strength)$", WeightsWatcher.statNumFirst},
 	{"^%((%d+%.?%d*) damage per second%)$",
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "dps")
