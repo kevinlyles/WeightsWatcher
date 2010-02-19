@@ -258,6 +258,93 @@ SingleStatLines = {
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "feral attack power")
 		end},
+
+	-- meta effects
+	{"^(%d+)%% increased armor value from items$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "armor from items (percent)")
+		end},
+	{"^([+-]?%d+)%% shield block value$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "block value (percent)")
+		end},
+	{"^chance to increase melee/ranged attack speed$",
+		function(text, pattern)
+			return WeightsWatcher.newStatTable({["chance to increase physical haste"] = 1})
+		end},
+	{"^chance to increase spell cast speed$",
+		function(text, pattern)
+			return WeightsWatcher.newStatTable({["chance to increase spell haste"] = 1})
+		end},
+	{"^chance to restore health on hit$",
+		function(text, pattern)
+			return WeightsWatcher.newStatTable({[text] = 1})
+		end},
+	{"^chance to restore mana on spellcast$",
+		function(text, pattern)
+			return WeightsWatcher.newStatTable({[text] = 1})
+		end},
+	{"^chance to stun target$",
+		function(text, pattern)
+			return WeightsWatcher.newStatTable({[text] = 1})
+		end},
+	{"^(%d+)%% increased critical damage$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "critical damage (percent)")
+		end},
+	{"^(%d+)%% increased critical healing effect$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "critical healing (percent)")
+		end},
+	{"^fear duration reduced by (%d+)%%$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "fear duration reduction (percent)")
+		end},
+	{"^([+-]?%d+)%% intellect$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "intellect (percent)")
+		end},
+	{"^([+-]?%d+)%% mana$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "mana (percent)")
+		end},
+	{"^([+-]?%d+) (melee damage)$", WeightsWatcher.statNumFirst},
+	{"^minor run speed increase$",
+		function(text, pattern)
+			return WeightsWatcher.newStatTable({["minor run speed"] = 1})
+		end},
+	{"^silence duration reduced by (%d+)%%$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "silence duration reduction (percent)")
+		end},
+	{"^reduces snare/root duration by (%d+)%%$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "snare/root duration reduction (percent)")
+		end},
+	{"^sometimes heal on your crits$",
+		function(text, pattern)
+			return WeightsWatcher.newStatTable({[text] = 1})
+		end},
+	{"^reduce spell damage taken by (%d+)%%$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "spell damage taken reduction (percent)")
+		end},
+	{"^(%d+)%% spell reflect$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "spell reflect (percent)")
+		end},
+	{"^stun duration reduced by (%d+)%%$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "stun duration reduction (percent)")
+		end},
+	{"^(%d+)%% stun resistance$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "stun resistance (percent)")
+		end},
+	{"^(%d+)%% reduced threat$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "threat reduction (percent)")
+		end},
 }
 
 ItemInfoLines = {
