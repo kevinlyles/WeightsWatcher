@@ -405,6 +405,31 @@ local ElixirAffixes = {
 	"%.$",
 }
 
+local CooldownUseMatchLines = {
+	"^use: grants? .* cooldown%)$",
+	"^use: increases? .* cooldown%)$",
+}
+
+local CooldownUsePreprocessLines = {
+	{" (arcane spell) power ", " %1 damage "},
+	{" (fire spell) power ", " %1 damage "},
+	{" (frost spell) power ", " %1 damage "},
+	{" (holy spell) power ", " %1 damage "},
+	{" (nature spell) power ", " %1 damage "},
+	{" (shadow spell) power ", " %1 damage "},
+	{" your stats ", " all stats "},
+	{" dodge by ", " dodge rating by "},
+}
+
+local CooldownUseAffixes = {
+	"^use: +",
+	"^grants? +",
+	"^increases? +",
+	"^your +",
+	"^the target's +",
+	"^maximum +",
+}
+
 local function parseStats(text, section)
 	for _, regex in ipairs(ww_regexes[section].MultipleStat) do
 		local pattern, func = unpack(regex)
@@ -433,6 +458,7 @@ EffectHandlers = {
 	{ElixirMatchLines, {}, ElixirUnweightedLines, ElixirPreprocessLines, ElixirAffixes, parseStats, "elixir"},
 	{FishingMatchLines, {}, {}, {}, FishingAffixes, parseStats, "fishing"},
 	{UseEffectMatchLines, UseEffectIgnoreLines, UseEffectUnweightedLines, UseEffectPreprocessLines, UseEffectAffixes, parseStats, "useEffect"},
+	{CooldownUseMatchLines, {}, {}, CooldownUsePreprocessLines, CooldownUseAffixes, function(text) local stat = WeightsWatcher.useEffect(text) if stat then return {useEffect = stat} end end, "cooldownUseEffect"},
 }
 
 function WeightsWatcher.twoStats(text, pattern, section)
@@ -530,6 +556,42 @@ end
 
 function WeightsWatcher.newStatTable(tbl)
 	return setmetatable(tbl or {}, ww_normalStatsMetatable)
+end
+
+function WeightsWatcher.convertToSeconds(duration)
+	local start, _, hours = string.find(duration, "^(%d+) ho?u?rs?$")
+	if start then
+		return hours * 3600
+	end
+	local start, _, minutes, seconds = string.find(duration, "^(%d+) minu?t?e?s? (%d+) seco?n?d?s?$")
+	if start then
+		return minutes * 60 + seconds
+	end
+	local start, _, minutes = string.find(duration, "^(%d+) minu?t?e?s?$")
+	if start then
+		return minutes * 60
+	end
+	local start, _, seconds = string.find(duration, "^(%d+) seco?n?d?s?$")
+	if start then
+		return tonumber(seconds)
+	end
+end
+
+function WeightsWatcher.useEffect(text)
+	local start, _, stat, value, duration, cooldown = string.find(text, "^(%a+ ?%a+ ?%a+ ?%a+) by ([+-]?%d+) for (%d+ %a+ ?%d* ?%a*)%. +%((%d+ %a+ ?%d* ?%a*) cooldown%)$")
+	if not start then
+		start, _, value, stat, duration, cooldown = string.find(text, "^([+-]?%d+) (%a+ ?%a+ ?%a+ ?%a+) for (%d+ %a+ ?%d* ?%a*)%. +%((%d+ %a+ ?%d* ?%a*) cooldown%)$")
+	end
+	if start then
+		cooldown = WeightsWatcher.convertToSeconds(cooldown)
+		duration = WeightsWatcher.convertToSeconds(duration)
+		return {
+			stat = stat,
+			value = value,
+			duration = duration,
+			cooldown = cooldown,
+		}
+	end
 end
 
 Preprocess = {

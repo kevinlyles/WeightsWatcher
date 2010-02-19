@@ -72,11 +72,12 @@ ww_weightCacheWeightMetatable = {
 		local itemStats = ww_bareItemCache[splitItemLink(key)]
 		local normalStats = itemStats.normalStats
 		local socketBonusStat = itemStats.socketBonusStat
+		local useEffects = itemStats.useEffects
 		itemStats = ww_itemCache[key]
 		local socketBonusActive = itemStats.socketBonusActive
 		local gemStats = itemStats.gemStats
 
-		tbl[key] = WeightsWatcher.calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, tbl.weight)
+		tbl[key] = WeightsWatcher.calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, useEffects, tbl.weight)
 		return tbl[key]
 	end,
 }
@@ -125,6 +126,7 @@ ww_weightIdealCacheWeightMetatable = {
 		local normalStats = itemStats.normalStats
 		local sockets = itemStats.sockets
 		local socketBonusStat = itemStats.socketBonusStat
+		local useEffects = itemStats.useEffects
 		local socketBonusWeight = 0
 		if socketBonusStat then
 			for stat, value in pairs(socketBonusStat) do
@@ -151,10 +153,10 @@ ww_weightIdealCacheWeightMetatable = {
 			end
 		end
 		gemStats = WeightsWatcher.getGemStats(bestGems)
-		weightVal = WeightsWatcher.calculateWeight(normalStats, true, socketBonusStat, gemStats, tbl.weight)
+		weightVal = WeightsWatcher.calculateWeight(normalStats, true, socketBonusStat, gemStats, useEffects, tbl.weight)
 		if breakSocketColors then
 			gemStatsIgnoreSockets = WeightsWatcher.getGemStats(bestGemsIgnoreSocket)
-			weightValIgnoreSockets = WeightsWatcher.calculateWeight(normalStats, false, socketBonusStat, gemStatsIgnoreSockets, tbl.weight)
+			weightValIgnoreSockets = WeightsWatcher.calculateWeight(normalStats, false, socketBonusStat, gemStatsIgnoreSockets, useEffects, tbl.weight)
 
 			if weightVal < weightValIgnoreSockets then
 				weightVal = weightValIgnoreSockets
@@ -780,7 +782,7 @@ function WeightsWatcher.bestGemForSocket(socketColor, weightScale, qualityLimit)
 						if gems[quality] then
 							for gemId, gemStats in pairs(gems[quality]) do
 								if WeightsWatcher.matchesSocket(gemStats[1], socketColor) then
-									weight = WeightsWatcher.calculateWeight({}, true, nil, {{gemStats}}, weightScale)
+									weight = WeightsWatcher.calculateWeight({}, true, nil, {{gemStats}}, {}, weightScale)
 									if #(bestGem) == 0 or weight > bestWeight then
 										bestGem = {gemId}
 										bestWeight = weight
@@ -845,7 +847,7 @@ function WeightsWatcher.matchesSocket(gemId, socketColor)
 	return false
 end
 
-function WeightsWatcher.calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, weightsScale)
+function WeightsWatcher.calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, useEffects, weightsScale)
 	local weight = 0
 
 	for stat, value in pairs(normalStats) do
@@ -888,6 +890,9 @@ function WeightsWatcher.calculateWeight(normalStats, socketBonusActive, socketBo
 			end
 		end
 		weight = weight + maxWeight
+	end
+	for _, useEffect in pairs(useEffects) do
+		weight = weight + WeightsWatcher.getWeight(useEffect.stat, useEffect.value * useEffect.duration / useEffect.cooldown * ww_vars.options.useEffects.uptimeRatio, weightsScale)
 	end
 	if ww_vars.options.tooltip.normalizeWeights == true then
 		local total = 0
@@ -1001,7 +1006,7 @@ end
 
 function WeightsWatcher.getItemStats(link)
 	local textL, textR, pattern, func, start
-	local normalStats, nonStats, socketList, socketBonusStat = WeightsWatcher.newStatTable(), {}, {}, WeightsWatcher.newStatTable()
+	local normalStats, nonStats, socketList, socketBonusStat, useEffects = WeightsWatcher.newStatTable(), {}, {}, WeightsWatcher.newStatTable(), {}
 	local ranged = false
 
 	-- Populate hidden tooltip
@@ -1038,6 +1043,9 @@ function WeightsWatcher.getItemStats(link)
 			if stats.socketBonusStat then
 				socketBonusStat = socketBonusStat + stats.socketBonusStat
 			end
+			if stats.useEffect then
+				table.insert(useEffects, stats.useEffect)
+			end
 		end
 	end
 
@@ -1051,6 +1059,7 @@ function WeightsWatcher.getItemStats(link)
 		nonStats = nonStats,
 		sockets = socketList,
 		socketBonusStat = socketBonusStat,
+		useEffects = useEffects,
 	}
 end
 

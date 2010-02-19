@@ -413,6 +413,77 @@
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
+					<Frame name="$parentUseEffectUptimeRatio" parentKey = "useEffectUptimeRatio" inherits="ww_labeledElement">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentNormalizeWeights"/>
+						</Anchors>
+						<Size>
+							<AbsDimension y="25"/>
+						</Size>
+						<Frames>
+							<EditBox letters="16" name="$parentRatio" parentKey="ratio" autoFocus="false">
+								<Anchors>
+									<Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parentLabel"/>
+								</Anchors>
+								<Size>
+									<AbsDimension x="50" y="22"/>
+								</Size>
+								<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+									<EdgeSize>
+										<AbsValue val="10"/>
+									</EdgeSize>
+									<TileSize>
+										<AbsValue val="10"/>
+									</TileSize>
+									<BackgroundInsets>
+										<AbsInset left="0" right="0" top="5" bottom="5"/>
+									</BackgroundInsets>
+								</Backdrop>
+								<FontString inherits="GameFontNormal">
+									<Anchors>
+										<Anchor point="LEFT"/>
+									</Anchors>
+								</FontString>
+								<Scripts>
+									<OnLoad>
+										self:SetTextInsets(5, 5, 0, 0)
+									</OnLoad>
+									<OnShow>
+										self:SetText(ww_vars.options.useEffects.uptimeRatio * 100)
+									</OnShow>
+									<OnTextChanged>
+										local text = self:GetText()
+										if self:GetNumber() ~= 0 or text:match("^[0.]+$") or text == "" then
+											self.number = text
+											ww_vars.options.useEffects.uptimeRatio = self:GetNumber() / 100
+											ww_weightCache = setmetatable({}, ww_weightCacheMetatable)
+											ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+										end
+									</OnTextChanged>
+									<OnChar>
+										if validateNumber(text, self:GetText()) then
+											self.number = self:GetText()
+											ww_vars.options.useEffects.uptimeRatio = self:GetNumber() / 100
+											ww_weightCache = setmetatable({}, ww_weightCacheMetatable)
+											ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+										else
+											local cursorPosition = self:GetCursorPosition() - 1
+											self:SetText(self.number)
+											self:SetCursorPosition(cursorPosition)
+										end
+									</OnChar>
+									<OnEscapePressed>
+										self:ClearFocus()
+									</OnEscapePressed>
+								</Scripts>
+							</EditBox>
+						</Frames>
+						<Scripts>
+							<OnLoad>
+								self.label:SetText("Percent of ideal use effect uptime:")
+							</OnLoad>
+						</Scripts>
+					</Frame>
 				</Frames>
 			</Frame>
 			<Frame name="$parentDisplayOptions" parentKey="displayOptions" inherits="ww_borderedFrame">

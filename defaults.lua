@@ -208,7 +208,7 @@ classNameOptions = {
 
 defaultVars = {
 	dataMajorVersion = 1,
-	dataMinorVersion = 10,
+	dataMinorVersion = 11,
 	weightsList = {
 		[1] = "DEATHKNIGHT",
 		[2] = "DRUID",
@@ -633,6 +633,9 @@ defaultVars = {
 			showIdealWeights = "Shift",
 			showWeights = "Always",
 		},
+		useEffects = {
+			uptimeRatio = 0.8,
+		}
 	},
 }
 

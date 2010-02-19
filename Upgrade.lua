@@ -135,6 +135,18 @@ function noop_major_up(vars)
 	return vars
 end
 
+function upgradeAccountToUseEffectRatio(vars)
+	if not vars.options.useEffects then
+		vars.options.useEffects = {}
+	end
+	if not vars.options.useEffects.uptimeRatio then
+		vars.options.useEffects.uptimeRatio = 0.8
+	end
+
+	vars.dataMinorVersion = 11
+	return vars
+end
+
 function upgradeAccountToWorkingMeleeDamage(vars)
 	for _, class in ipairs(vars.weightsList) do
 		for _, weight in ipairs(vars.weightsList[class]) do
@@ -792,6 +804,7 @@ upgradeAccountFunctions = {
 		[7] = upgradeAccountToShowAlternateGemsTypoFix,
 		[8] = upgradeAccountToWorkingResistances,
 		[9] = upgradeAccountToWorkingMeleeDamage,
+		[10] = upgradeAccountToUseEffectRatio,
 	},
 }
 
@@ -819,6 +832,7 @@ downgradeAccountFunctions = {
 		[8] = noop_down,
 		[9] = noop_down,
 		[10] = noop_down,
+		[11] = noop_down,
 	},
 }
 
