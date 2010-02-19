@@ -236,6 +236,7 @@ function WeightsWatcher.ResetTables()
 	end
 
 	ww_unparsed_lines = setmetatable({}, metatable)
+	ww_handle_effects_unparsed_lines = setmetatable({}, metatable)
 	ww_ignored_lines = setmetatable({}, metatable)
 	ww_temp_ignored_lines = setmetatable({}, metatable)
 	ww_unparsed_items = setmetatable({}, metatable)
@@ -988,6 +989,17 @@ function WeightsWatcher.parseLine(textL, textR, link)
 	if stats then
 		return stats
 	end
+
+	for _, args in ipairs(EffectHandlers) do
+		local stats = WeightsWatcher.handleEffects(textL, unpack(args))
+		if stats then
+			if stats == true then
+				return
+			end
+			return stats
+		end
+	end
+
 	local stats = WeightsWatcher.parseStats(textL)
 	if stats then
 		return stats

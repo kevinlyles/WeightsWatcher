@@ -2,6 +2,59 @@ if not WeightsWatcher then
 	WeightsWatcher = AceLibrary("AceAddon-2.0"):new("AceEvent-2.0", "AceHook-2.1")
 end
 
+function WeightsWatcher.handleEffects(text, matchLines, ignoreLines, unweightedLines, preprocessLines, affixLines, section)
+	local match = false
+	for _, pattern in ipairs(matchLines) do
+		if string.find(text, pattern) then
+			match = true
+			break
+		end
+	end
+	if not match then
+		return false
+	end
+
+	local origText = text
+
+	for _, pattern in ipairs(ignoreLines) do
+		if string.find(text, pattern) then
+			ww_ignored_lines[text][pattern] = true
+			return true
+		end
+	end
+	for _, pattern in ipairs(unweightedLines) do
+		if string.find(text, pattern) then
+			ww_unweighted_lines[text][pattern] = true
+			return true
+		end
+	end
+	for _, regex in ipairs(preprocessLines) do
+		local pattern, replacement = unpack(regex)
+		if string.find(text, pattern) then
+			text = string.gsub(text, pattern, replacement)
+		end
+	end
+	for _, pattern in ipairs(affixLines) do
+		if string.find(text, pattern) then
+			text = string.gsub(text, pattern, "")
+		end
+		if text == "" then
+			break
+		end
+	end
+	if text == "" then
+		ww_ignored_lines[origText] = true
+		return true
+	end
+	local stat = WeightsWatcher.parseStats(text)
+	if stat then
+		return stat
+	end
+end
+
+EffectHandlers = {
+}
+
 function WeightsWatcher.twoStats(text, pattern)
 	local start, _, stat1, stat2 = string.find(text, pattern)
 	if start then
