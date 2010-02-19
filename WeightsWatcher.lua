@@ -968,18 +968,9 @@ function WeightsWatcher.parseLine(textL, textR, link)
 	if stats then
 		return stats
 	end
-	for _, regex in ipairs(MultipleStatLines) do
-		local pattern, func = unpack(regex)
-		if string.find(textL, pattern) then
-			local stats = func(textL, pattern)
-			if stats then
-				return stats
-			end
-		end
-	end
-	local stat = WeightsWatcher.singleStat(textL)
-	if stat then
-		return stat
+	local stats = WeightsWatcher.parseStats(textL)
+	if stats then
+		return stats
 	end
 	for _, regex in ipairs(UnweightedLines) do
 		if string.find(textL, regex) then
@@ -987,7 +978,24 @@ function WeightsWatcher.parseLine(textL, textR, link)
 			return
 		end
 	end
-	ww_unparsed_lines[textL] = true
+
+	ww_unparsed_lines[textL][link] = true
+end
+
+function WeightsWatcher.parseStats(text)
+	for _, regex in ipairs(MultipleStatLines) do
+		local pattern, func = unpack(regex)
+		if string.find(text, pattern) then
+			local stats = func(text, pattern)
+			if stats then
+				return stats
+			end
+		end
+	end
+	local stat = WeightsWatcher.singleStat(text)
+	if stat then
+		return stat
+	end
 end
 
 function WeightsWatcher.getItemStats(link)
