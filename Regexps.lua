@@ -197,6 +197,11 @@ MultipleStatLines = {
 }
 
 SingleStatLines = {
+	{"^%((%d+%.?%d*) damage per second%)$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "dps")
+		end
+	},
 }
 
 ItemInfoLines = {
