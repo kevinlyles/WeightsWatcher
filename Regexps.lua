@@ -193,6 +193,7 @@ MultipleStatLines = {
 }
 
 SingleStatLines = {
+	{"^([+-]?%d+) (armor)$", WeightsWatcher.statNumFirst},
 	{"^([+-]?%d+) (agility)$", WeightsWatcher.statNumFirst},
 	{"^([+-]?%d+) (intellect)$", WeightsWatcher.statNumFirst},
 	{"^([+-]?%d+) (spirit)$", WeightsWatcher.statNumFirst},
@@ -203,6 +204,31 @@ SingleStatLines = {
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "dps")
 		end
 	},
+	-- Normal item stats
+	{"^([+-]?%d+) mana every 5 seconds%.?$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "mp5")
+		end},
+	-- Random suffix enchants and socket bonuses
+	{"^([+-]?%d+) mana every 5 sec%.?$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "mp5")
+		end},
+	{"^([+-]?%d+) mana per 5 seconds%.?$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "mp5")
+		end},
+	-- Socket bonuses
+	{"^([+-]?%d+) mana per 5 sec%.?$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "mp5")
+		end},
+	{"^([+-]?%d+) (%a+ %a+ rating)$", WeightsWatcher.statNumFirst},
+	{"^([+-]?%d+) (%a+ rating)$", WeightsWatcher.statNumFirst},
+	{"^([+-]?%d+) (spell power)$", WeightsWatcher.statNumFirst},
+	{"^([+-]?%d+) (attack power)$", WeightsWatcher.statNumFirst},
+	{"^([+-]?%d+) (%a+ resistance)$", WeightsWatcher.statNumFirst},
+	{"^([+-]?%d+) (all resistances)$", WeightsWatcher.statNumFirst},
 	{"^([+-]?%d+) resist all$",
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "all resistances")
@@ -211,8 +237,45 @@ SingleStatLines = {
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "all resistances")
 		end},
+	{"^(%d+) block$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "block value")
+		end},
+	{"^([+-]?%d+) (block value)$", WeightsWatcher.statNumFirst},
+	{"^([+-]?%d+) health every 5 seconds%.?$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "hp5")
+		end},
+	-- random suffix enchants
+	{"^([+-]?%d+) health every 5 sec%.?$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "hp5")
+		end},
+-- 	{"^([+-]?%d+) health per 5 seconds%.?$",
+-- 		function(text, pattern)
+-- 			return WeightsWatcher.singleStatValueOnly(text, pattern, "hp5")
+-- 		end},
+	-- Random suffix enchants
+	{"^([+-]?%d+) health per 5 sec%.?$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "hp5")
+		end},
+	{"^([+-]?%d+) (spell penetration)$", WeightsWatcher.statNumFirst},
+	{"^adds (%d[%d%.]*) damage per second$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "dps")
+		end},
+	{"^([+-]?%d+) (ranged attack power)$", WeightsWatcher.statNumFirst},
 	{"^([+-]?%d+) (all stats)$", WeightsWatcher.statNumFirst},
 	{"^([+-]?%d+) to (all stats)$", WeightsWatcher.statNumFirst},
+
+	-- random suffix enchants
+	{"^([+-]?%d+) (%a+ spell damage)$", WeightsWatcher.statNumFirst},
+	-- Used only for random enchant id 1470
+	{"^([+-]?%d+) resist shadow$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "shadow resistance")
+		end},
 
 	-- druid only
 	{"^increases attack power by (%d+) in cat, bear, dire bear, and moonkin forms only%.$",
