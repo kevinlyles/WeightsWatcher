@@ -213,6 +213,12 @@ SingleStatLines = {
 		end},
 	{"^([+-]?%d+) (all stats)$", WeightsWatcher.statNumFirst},
 	{"^([+-]?%d+) to (all stats)$", WeightsWatcher.statNumFirst},
+
+	-- druid only
+	{"^increases attack power by (%d+) in cat, bear, dire bear, and moonkin forms only%.$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "feral attack power")
+		end},
 }
 
 ItemInfoLines = {
