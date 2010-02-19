@@ -457,7 +457,7 @@ GemIds = {
 				[2834] = {
 					"Meta",
 					"Brutal Earthstorm Diamond",
-					{["Weapon Damage"] = 3, ["Chance to Stun Target"] = 1},
+					{["Melee Damage"] = 3, ["Chance to Stun Target"] = 1},
 				},
 				[2835] = {
 					"Meta",

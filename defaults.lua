@@ -53,6 +53,7 @@ trackedStats = {
 		"Fear Duration Reduction (Percent)",
 		"Intellect (Percent)",
 		"Mana (Percent)",
+		"Melee Damage",
 		"Minor Run Speed",
 		"Silence Duration Reduction (Percent)",
 		"Snare/Root Duration Reduction (Percent)",
@@ -62,7 +63,6 @@ trackedStats = {
 		"Stun Duration Reduction (Percent)",
 		"Stun Resistance (Percent)",
 		"Threat Reduction (Percent)",
-		"Weapon Damage",
 	},
 	["Resistances"] = {
 		"Arcane",
@@ -139,7 +139,7 @@ classNameOptions = {
 
 defaultVars = {
 	dataMajorVersion = 1,
-	dataMinorVersion = 9,
+	dataMinorVersion = 10,
 	weightsList = {
 		[1] = "DEATHKNIGHT",
 		[2] = "DRUID",

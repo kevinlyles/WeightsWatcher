@@ -135,6 +135,18 @@ function noop_major_up(vars)
 	return vars
 end
 
+function upgradeAccountToWorkingMeleeDamage(vars)
+	for _, class in ipairs(vars.weightsList) do
+		for _, weight in ipairs(vars.weightsList[class]) do
+			vars.weightsList[class][weight]["melee damage"] = vars.weightsList[class][weight]["weapon damage"]
+			vars.weightsList[class][weight]["weapon damage"] = nil
+		end
+	end
+
+	vars.dataMinorVersion = 10
+	return vars
+end
+
 function upgradeAccountToWorkingResistances(vars)
 	local resistances = {
 		"arcane",
@@ -779,6 +791,7 @@ upgradeAccountFunctions = {
 		[6] = upgradeAccountToShowAlternateGems,
 		[7] = upgradeAccountToShowAlternateGemsTypoFix,
 		[8] = upgradeAccountToWorkingResistances,
+		[9] = upgradeAccountToWorkingMeleeDamage,
 	},
 }
 
@@ -805,6 +818,7 @@ downgradeAccountFunctions = {
 		[7] = noop_down,
 		[8] = noop_down,
 		[9] = noop_down,
+		[10] = noop_down,
 	},
 }
 
