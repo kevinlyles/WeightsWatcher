@@ -52,7 +52,68 @@ function WeightsWatcher.handleEffects(text, matchLines, ignoreLines, unweightedL
 	end
 end
 
+local FoodMatchLines = {
+	"^use: restores .* over ",
+	"^use: restores .* per seco?n?d? for ",
+	"^use: restores .* every seco?n?d? for ",
+	"^use: set out a %a+ feast ",
+	" drunk",
+	" drinker's desire ",
+	" smooo+th",
+}
+
+local FoodIgnoreLines = {
+	" must remain seated while %a+ing%.$",
+	" usable only inside %a[%a ]+%.$",
+	" %(%d+ min cooldown%)$",
+	" nearby party members ",
+	"can only be consumed underwater%.",
+}
+
+local FoodUnweightedLines = {
+	" you will become well fed and can track ",
+	" you are likely to grow in size%.",
+	" discover the fortune hidden in your meal!$",
+}
+
+local FoodPreprocessLines = {
+	{" of your (%a+) ", " %1 "},
+	{" every seco?n?d? for ", " over "},
+	{" per seco?n?d? for ", " over "},
+	{", but decreases ", " and decreases "},
+}
+
+local FoodAffixes = {
+	"^use: +",
+	"^set out a great feast that will feed your party! +",
+	"^set out a bountiful feast to feed a very hungry party%. +",
+	"^restores %d+%%? %a+ over %d+ sec%. *",
+	"^restores %d+%%? health and %d*%%? ?mana over %d+ sec%. *",
+	"^restores %d+%%? health and %d*%%? ?mana every sec for %d+ sec%. *",
+	"^restores %d+ %a+ over %d+ sec, but at a cost%. +",
+	"^must remain seated while %a+ing%. +",
+	"^if you spend at least %d+ seco?n?d?s? %a+ing you will become \"?well fed\"? and +",
+	"^if you spend at least %d+ seco?n?d?s? %a+ing you will become enlightened and +",
+	"^if you eat for %d+ seconds will +",
+	"^gain +",
+	"^also +",
+	"^increases? +",
+	"^your +",
+	"^restores +",
+	" +green means it's good!$",
+	" +and gets you pretty drunk%.$",
+	" +and gets you drunk to boot[%.!]$",
+	" +standard alcohol%.$",
+	" +strong alcohol%.$",
+	" +also packs quite a kick%.%.%.$",
+	" +smooo+th%.$",
+	" +and increases the drinker's desire to converse%.$",
+	" +for %d+ min%.?$",
+	" +for %d+ hours?%.$",
+}
+
 EffectHandlers = {
+	{FoodMatchLines, FoodIgnoreLines, FoodUnweightedLines, FoodPreprocessLines, FoodAffixes, "food"},
 }
 
 function WeightsWatcher.twoStats(text, pattern)
@@ -60,6 +121,17 @@ function WeightsWatcher.twoStats(text, pattern)
 	if start then
 		stat1 = WeightsWatcher.singleStat(stat1)
 		stat2 = WeightsWatcher.singleStat(stat2)
+		if stat1 and stat2 then
+			return stat1 + stat2
+		end
+	end
+end
+
+function WeightsWatcher.multipleStatsOneNumber(text, pattern)
+	local start, _, value, stat1, stat2 = string.find(text, pattern)
+	if start then
+		stat1 = WeightsWatcher.singleStat(value .. stat1)
+		stat2 = WeightsWatcher.singleStat(value .. stat2)
 		if stat1 and stat2 then
 			return stat1 + stat2
 		end
@@ -132,6 +204,13 @@ end
 
 function WeightsWatcher.statNumFirst(text, pattern)
 	local start, _, value, name = string.find(text, pattern)
+	if start then
+		return WeightsWatcher.newStatTable({[name] = tonumber(value)})
+	end
+end
+
+function WeightsWatcher.statNameFirst(text, pattern)
+	local start, _, name, value = string.find(text, pattern)
 	if start then
 		return WeightsWatcher.newStatTable({[name] = tonumber(value)})
 	end
@@ -239,6 +318,21 @@ SocketLines = {
 
 MultipleStatLines = {
 	{"^([^,]+) and ([^,]+)$", WeightsWatcher.twoStats},
+	{"^([+-]?%d+ )(%a[%a ]+%a) and (%a[%a ]+%a)$", WeightsWatcher.multipleStatsOneNumber},
+	{"^([%a%d][%a%d ]+[%a%d]), ([%a%d][%a%d ]+[%a%d]),? and ([%a%d][%a%d ]+[%a%d])$",
+		function(text, pattern)
+			local start, _, stat1, stat2, stat3 = string.find(text, pattern)
+			if start then
+				stat1 = WeightsWatcher.singleStat(stat1)
+				stat2 = WeightsWatcher.singleStat(stat2)
+				stat3 = WeightsWatcher.singleStat(stat3)
+				if stat1 and stat2 and stat3 then
+					return stat1 + stat2 + stat3
+				else
+					ww_unparsed_lines[text][pattern].parsedTo = {stat1, stat2, stat3}
+				end
+			end
+		end},
 	-- currently used only by items 31864 and 31872
 	{"^([^,]+) & ([^,]+)$", WeightsWatcher.twoStats},
 	-- currently only used by item 28363
@@ -247,6 +341,24 @@ MultipleStatLines = {
 
 SingleStatLines = {
 	{"^([+-]?%d+) ([^b]%a+)$", WeightsWatcher.statNumFirst},
+
+
+	{"^(all stats) are reduced by (%d+)$",
+		function(text, pattern)
+			local start, _, name, value = string.find(text, pattern)
+			if start then
+				return WeightsWatcher.newStatTable({[name] = -tonumber(value)})
+			end
+		end},
+	{"^reduces (%a[%a ]+) by (%d+)$",
+		function(text, pattern)
+			local start, _, name, value = string.find(text, pattern)
+			if start then
+				return WeightsWatcher.newStatTable({[name] = -tonumber(value)})
+			end
+		end},
+	-- Tends to eat other stats if not last
+	{"^(%a[%a ]+) by (%d+)$", WeightsWatcher.statNameFirst},
 
 
 	{"^%((%d+%.?%d*) damage per second%)$",
