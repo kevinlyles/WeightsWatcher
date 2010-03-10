@@ -72,16 +72,16 @@ function initializeWeightsConfig()
 end
 
 function validateNumber(newChar, newText)
-	if string.find(newChar, "^[0-9]$") then
+	if string.find(newChar, "^%d$") then
 		return true
 	elseif newChar == '.' then
-		local first = newText:find(".", 1, true)
-		local second = newText:find(".", first + 1, true)
+		local first = newText:find("%.", 1, true)
+		local second = newText:find("%.", first + 1, true)
 		if not second then
 			return true
 		end
 	elseif newChar == '-' then
-		if not string.find(newText, "-", 2) then
+		if not string.find(newText, "%-", 2) then
 			return true
 		end
 	end

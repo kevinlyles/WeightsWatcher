@@ -178,7 +178,7 @@ end
 function WeightsWatcher:damageRange(textL, textR)
 	local speed
 	local stats = setmetatable({}, ww_normalStatsMetatable)
-	local start, _, added, minVal, maxVal, name = string.find(textL, "^(%+?)(%d+) %- (%d+) (%a* ?Damage)")
+	local start, _, added, minVal, maxVal, name = string.find(textL, "^(%+?)(%d+) %- (%d+) (%a* ?Damage)$")
 	if start then
 		if added == "+" then
 			added = "Added "
@@ -187,7 +187,7 @@ function WeightsWatcher:damageRange(textL, textR)
 		stats["Maximum " .. added .. name] = tonumber(maxVal)
 	end
 	if textR then
-		start, _, speed = string.find(textR, "^Speed (%d[%d.]+)$")
+		start, _, speed = string.find(textR, "^Speed (%d+%.?%d*)$")
 		if start then
 			stats["Speed"] = tonumber(speed)
 		end
