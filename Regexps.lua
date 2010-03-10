@@ -148,6 +148,107 @@ local EquipStatsAffixes = {
 	"%.$",
 }
 
+local EnchantMatchLines = {
+	"^use: permanently ",
+	"^use: teaches you how to permanently enchant ",
+	"^use: attach",
+	"^use: enchants? ",
+}
+
+local EnchantUnweightedLines = {
+	" sometimes ",
+	" chance ",
+	" often ",
+	" damage to ",
+	" occasionally ",
+}
+
+local EnchantPreprocessLines = {
+	{" socket ", " prismatic socket "},
+	{" and increase?i?n?g? ", " and "},
+	{" and your ", " and "},
+	{" melee weapon to do (%d+) additional points? of damage", " %1 melee damage"},
+	{" armor value ", " armor "},
+	{" a slight movement speed increase", " a minor movement speed increase"},
+	{"^use: attaches a permanent scope to a bow or gun that increases its damage by ", "increases ranged damage by "},
+	{" resistance to (%a+) by ", " %1 resistance by "},
+	{" resistance to all schools of magic by ", " all resistances by "},
+	{" to all ", " all "},
+}
+
+local EnchantAffixes = {
+	"^use: +",
+	"^teaches you how to +",
+	"^permanently +",
+	"^enchants? +",
+	"^attache?s? +",
+	"^an? +",
+	"^chain to your weapon, +",
+	"^counterweight to a two%-handed sword, mace, axe or polearm increasing the wielder's +",
+	"^permanent scope to a bow or gun +",
+	"weapon to increase its +",
+	"^spurs to your +",
+
+	"^boots +",
+	"^bracers? +",
+	"^cloak +",
+	"^gloves +",
+	"^shield +",
+	"^piece of +",
+	"^chest armor +",
+	"^two%-handed +",
+	"^melee weapon +",
+	"^weapon +",
+	"^staff +",
+	"^ring +",
+
+	"^%a+ l?e?g? ?armor onto pants +",
+	"^embroiders spellthread into pants, +",
+	"lightweight titanium plating to a shield, +",
+
+	"^increasing +",
+
+	"^[st]o +",
+	"^that +",
+	"^they +",
+	"^it +",
+
+	"^increases? +",
+	"^provides? +",
+	"^adds? +",
+	"^gives? +",
+	"^grants? +",
+	"^regenerates? +",
+	"^restores? +",
+
+	"^your +",
+	"^the +",
+	"^[bw]earer's +",
+	" of the [bw]earer",
+	"^both +",
+	"^its +",
+
+	" +%(1 sec cooldown%)$",
+	" +only use?able on items level %d+ and above%.$",
+	" +requires a level %d+ or higher l?e?v?e?l? ?item%.$",
+	" +must be level %d+ or lower to gain this benefit%.$",
+	" +wearer must be level %d+ or higher%.$",
+	"[\r\n]+%a+ing [%a ]+ causes [%a ]+ to become soulbound%.$",
+	"[\r\n]+can only be attached to [%a ]+ in your inventory%.$",
+	" +only the enchanter's rings can be enchanted,? and enchanting a ring will cause it to become soulbound%.$",
+	-- TODO: flag this somehow and handle it in scoring
+	" +does not stack with other similar effects%.",
+
+	"^eternal belt buckle onto a belt, adding a +",
+	" +to the belt%.$",
+	" +t?of? an item worn on the %a[%a ,]+ or %a+",
+	" +on a pair of gloves",
+	"additional points? of +",
+	"^mana regeneration by +",
+
+	"%.$",
+}
+
 local FishingMatchLines = {
 	"^use: replace",
 	"^use: when applied to your fishing pole",
@@ -220,6 +321,7 @@ local UseEffectAffixes = {
 EffectHandlers = {
 	{EquipStatsMatchLines, {}, EquipStatsUnweightedLines, EquipStatsPreprocessLines, EquipStatsAffixes, "equipStats"},
 	{FoodMatchLines, FoodIgnoreLines, FoodUnweightedLines, FoodPreprocessLines, FoodAffixes, "food"},
+	{EnchantMatchLines, {}, EnchantUnweightedLines, EnchantPreprocessLines, EnchantAffixes, "enchant"},
 	{FishingMatchLines, {}, {}, {}, FishingAffixes, "fishing"},
 	{UseEffectMatchLines, UseEffectIgnoreLines, UseEffectUnweightedLines, UseEffectPreprocessLines, UseEffectAffixes, "useEffects"},
 }
@@ -440,6 +542,82 @@ MultipleStatLines = {
 				end
 			end
 		end},
+	-- used by some enchants
+	{"^(%a[%a ]+ rating )and (%a[%a ]+ rating )by( %d+)$",
+		function(text, pattern)
+			local start, _, stat1, stat2, value = string.find(text, pattern)
+			if start then
+				stat1 = WeightsWatcher.singleStat(stat1 .. "by" .. value)
+				stat2 = WeightsWatcher.singleStat(stat2 .. "by" .. value)
+				if stat1 and stat2 then
+					return stat1 + stat2
+				else
+					ww_unparsed_lines[text][pattern].parsedTo = {stat1, stat2}
+				end
+			end
+		end},
+	{"^(%a[%a ]+ )and (%a[%a ]+ )rating by( %d+)$",
+		function(text, pattern)
+			local start, _, stat1, stat2, value = string.find(text, pattern)
+			if start then
+				stat1 = WeightsWatcher.singleStat(stat1 .. "rating by" .. value)
+				stat2 = WeightsWatcher.singleStat(stat2 .. "rating by" .. value)
+				if stat1 and stat2 then
+					return stat1 + stat2
+				else
+					ww_unparsed_lines[text][pattern].parsedTo = {stat1, stat2}
+				end
+			end
+		end},
+	{"^(%a[%a ]+ )and (%a[%a ]+ )rating by( %d+)$",
+		function(text, pattern)
+			local start, _, stat1, stat2, value = string.find(text, pattern)
+			if start then
+				stat1 = WeightsWatcher.singleStat(stat1 .. "rating by" .. value)
+				stat2 = WeightsWatcher.singleStat(stat2 .. "rating by" .. value)
+				if stat1 and stat2 then
+					return stat1 + stat2
+				else
+					ww_unparsed_lines[text][pattern].parsedTo = {stat1, stat2}
+				end
+			end
+		end},
+	{"^(%a+ )and (%a+ )spell power by( %d+)$",
+		function(text, pattern)
+			local start, _, stat1, stat2, value = string.find(text, pattern)
+			if start then
+				stat1 = WeightsWatcher.singleStat(stat1 .. "spell damage by" .. value)
+				stat2 = WeightsWatcher.singleStat(stat2 .. "spell damage by" .. value)
+				if stat1 and stat2 then
+					return stat1 + stat2
+				else
+					ww_unparsed_lines[text][pattern].parsedTo = {stat1, stat2}
+				end
+			end
+		end},
+	{"^([+-]?%d+) mana and health every 5 seco?n?d?s?$",
+		function(text, pattern)
+			local start, _, value = string.find(text, pattern)
+			if start then
+				value = tonumber(value)
+				local stats = WeightsWatcher.newStatTable()
+				stats["mp5"] = value
+				stats["hp5"] = value
+				return stats
+			end
+		end},
+	{"^([+-]?%d+) health and mana every 5 seco?n?d?s?$",
+		function(text, pattern)
+			local start, _, value = string.find(text, pattern)
+			if start then
+				value = tonumber(value)
+				local stats = WeightsWatcher.newStatTable()
+				stats["mp5"] = value
+				stats["hp5"] = value
+				return stats
+			end
+		end},
+	-- Convert this and following to re-use the parser?
 	-- item 10779
 	{"(%a[%a ]+) by (%d+), (%a[%a ]+) by (%d+),? and your normal health regeneration by (%d+)",
 		function(text, pattern)
@@ -449,6 +627,18 @@ MultipleStatLines = {
 				stats[stat1] = tonumber(val1)
 				stats[stat2] = tonumber(val2)
 				stats["hp5"] = tonumber(val3)
+				return stats
+			end
+		end},
+	{"^(%a+), (%a+), and (%a+) by (%d+)$",
+		function(text, pattern)
+			local start, _, stat1, stat2, stat3, value = string.find(text, pattern)
+			if start then
+				value = tonumber(value)
+				local stats = WeightsWatcher.newStatTable()
+				stats[stat1] = value
+				stats[stat2] = value
+				stats[stat3] = value
 				return stats
 			end
 		end},
@@ -489,13 +679,90 @@ SingleStatLines = {
 				return WeightsWatcher.newStatTable({[name] = -tonumber(value)})
 			end
 		end},
+	{"^resistance to all schools of magic by ([+-]?%d+)$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "all resistances")
+		end},
+	{"^(%a+ spell )power by ([+-]?%d+)$",
+		function(text, pattern)
+			local start, _, name, value = string.find(text, pattern)
+			if start then
+				return WeightsWatcher.newStatTable({[name .. "damage"] = tonumber(value)})
+			end
+		end},
+	{"^resilience by ([+-]?%d+)$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "resilience rating")
+		end},
+	{"^mounted movement speed by ([+-]?%d+)%%$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "mount speed (percent)")
+		end},
+	{"^mount speed by ([+-]?%d+)%%$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "mount speed (percent)")
+		end},
+	{"^([+-]?%d+) additional (armor)$", WeightsWatcher.statNumFirst},
+	{"^stealth$",
+		function(text, pattern)
+			return WeightsWatcher.newStatTable({["increased stealth"] = 1})
+		end},
+	{"^stealth slightly$",
+		function(text, pattern)
+			return WeightsWatcher.newStatTable({["increased stealth"] = 1})
+		end},
 	{"^effective stealth level by (%d+)$",
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "increased stealth")
 		end},
-	-- Tends to eat other stats if not last
-	{"^(%a[%a ]+) by (%d+)$", WeightsWatcher.statNameFirst},
+	{"^threat from all attacks and spells by (%d+)%%$",
+		function(text, pattern)
+			local start, _, value = string.find(text, pattern)
+			if start then
+				return WeightsWatcher.newStatTable({["threat (percent)"] = value})
+			end
+		end},
+	{"^threat caused by (%d+)%%$",
+		function(text, pattern)
+			local start, _, value = string.find(text, pattern)
+			if start then
+				return WeightsWatcher.newStatTable({["threat (percent)"] = value})
+			end
+		end},
+	{"^decrease threat from all attacks and spells by (%d+)%%$",
+		function(text, pattern)
+			local start, _, value = string.find(text, pattern)
+			if start then
+				return WeightsWatcher.newStatTable({["threat reduction (percent)"] = value})
+			end
+		end},
+	{"^([+-]?%d+) additional (block value)$", WeightsWatcher.statNumFirst},
+	{"^reducing the duration of disarm effects by ([+-]?%d+)%%$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "disarm duration reduction (percent)")
+		end},
+	{"^prismatic socket$",
+		function(text, pattern)
+			return WeightsWatcher.newStatTable({[text] = 1})
+		end},
 
+	-- profession skills
+	{"^(fishing) skill by ([+-]?%d+)$", WeightsWatcher.statNameFirst},
+	{"^(herbalism) skill by ([+-]?%d+)$", WeightsWatcher.statNameFirst},
+	{"^(mining) skill by ([+-]?%d+)$", WeightsWatcher.statNameFirst},
+	{"^(skinning) skill by (%d+)$", WeightsWatcher.statNameFirst},
+
+	-- Tends to eat other stats if not last
+	{"^(%a+ ?%a+ ?%a+ ?%a+) by (%d+)$", WeightsWatcher.statNameFirst},
+
+	{"^a minor movement speed increase$",
+		function(text, pattern)
+			return WeightsWatcher.newStatTable({["minor run speed"] = 1})
+		end},
+	{"^reduce threat slightly$",
+		function(text, pattern)
+			return WeightsWatcher.newStatTable({["threat reduction (percent)"] = 2})
+		end},
 
 	{"^%((%d+%.?%d*) damage per second%)$",
 		function(text, pattern)
@@ -535,6 +802,7 @@ SingleStatLines = {
 	{"^([+-]?%d+) (ranged attack power)$", WeightsWatcher.statNumFirst},
 	{"^([+-]?%d+) (all stats)$", WeightsWatcher.statNumFirst},
 	{"^([+-]?%d+) to (all stats)$", WeightsWatcher.statNumFirst},
+	{"^([+-]?%d+) (ranged damage)$", WeightsWatcher.statNumFirst},
 
 	{"^chance to resist (%a+) effects by (%d+)%%$",
 		function(text, pattern)
@@ -612,7 +880,7 @@ SingleStatLines = {
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "mana (percent)")
 		end},
-	{"^([+-]?%d+) (melee damage)$", WeightsWatcher.statNumFirst},
+	{"^([+-]?%d+) (%a+ damage)$", WeightsWatcher.statNumFirst},
 	{"^minor run speed increase$",
 		function(text, pattern)
 			return WeightsWatcher.newStatTable({["minor run speed"] = 1})
