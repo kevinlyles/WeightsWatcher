@@ -148,6 +148,24 @@ local EquipStatsAffixes = {
 	"%.$",
 }
 
+local FishingMatchLines = {
+	"^use: replace",
+	"^use: when applied to your fishing pole",
+	" increases? your skill in fishing ",
+}
+
+local FishingAffixes = {
+	"^use: replaces the fishing line on your fishing pole with a %a[%a ]+%a line, increasing +",
+	"^use: when applied to your fishing pole, increases +",
+	"^use: makes you slightly tipsy and increases your skill in +",
+	"%.$",
+	"utes$",
+	" +3 min",
+	" +10 min$",
+	" +1 hour$",
+	" +for$",
+}
+
 local UseEffectMatchLines = {
 	"^use: ",
 }
@@ -202,6 +220,7 @@ local UseEffectAffixes = {
 EffectHandlers = {
 	{EquipStatsMatchLines, {}, EquipStatsUnweightedLines, EquipStatsPreprocessLines, EquipStatsAffixes, "equipStats"},
 	{FoodMatchLines, FoodIgnoreLines, FoodUnweightedLines, FoodPreprocessLines, FoodAffixes, "food"},
+	{FishingMatchLines, {}, {}, {}, FishingAffixes, "fishing"},
 	{UseEffectMatchLines, UseEffectIgnoreLines, UseEffectUnweightedLines, UseEffectPreprocessLines, UseEffectAffixes, "useEffects"},
 }
 
