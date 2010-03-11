@@ -61,34 +61,34 @@ SocketLines = {
 MultipleStatLines = {
 	{" and ",
 		function(text)
-			return WeightsWatcher:multipleStats(text)
+			return WeightsWatcher.multipleStats(text)
 		end},
 	{"%d %- %d",
 		function(textL, textR)
-			return WeightsWatcher:damageRange(textL, textR)
+			return WeightsWatcher.damageRange(textL, textR)
 		end},
 }
 
 SingleStatLines = {
 	{"^Equip: Restores (%d+) mana per 5 sec%.",
 		function(text, pattern)
-			return WeightsWatcher:singleStatValueOnly(text, pattern, "MP5")
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "MP5")
 		end},
 	{"^Use: Increases mana regeneration by (%d+) mana per 5 seconds for ",
 		function(text, pattern)
-			return WeightsWatcher:singleStatValueOnly(text, pattern, "MP5")
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "MP5")
 		end},
 	{"^%((%d[%d.]+) damage per second%)$",
 		function(text, pattern)
-			return WeightsWatcher:singleStatValueOnly(text, pattern, "DPS")
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "DPS")
 		end},
 	{"^Adds (%d[%d.]+) damage per second$",
 		function(text, pattern)
-			return WeightsWatcher:singleStatValueOnly(text, pattern, "DPS")
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "DPS")
 		end},
 	{"^Increases attack power by (%d+) in Cat/Bear/Dire Bear/Moonkin forms only%.",
 		function(text, pattern)
-			return WeightsWatcher:singleStatValueOnly(text, pattern, "Feral AP")
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "Feral AP")
 		end},
 	-- The 5 is to catch MP5 and HP5 values
 	{"^%+?(%d+%%?) (%a[%a ]+5?)",
@@ -149,7 +149,7 @@ SingleSlotLines = {
 	"^Held In Off%-hand$",
 }
 
-function WeightsWatcher:multipleStats(text)
+function WeightsWatcher.multipleStats(text, link)
 	local stat, stringTable
 	local stats = WeightsWatcher.newStatTable()
 
@@ -164,7 +164,7 @@ function WeightsWatcher:multipleStats(text)
 	end
 	stringTable = { strsplit("\a", text) }
 	for _, statString in ipairs(stringTable) do
-		stat = WeightsWatcher:singleStat(statString)
+		stat = WeightsWatcher.singleStat(statString)
 		if stat then
 			stats = stats + stat
 		end
@@ -175,7 +175,7 @@ function WeightsWatcher:multipleStats(text)
 	end
 end
 
-function WeightsWatcher:damageRange(textL, textR)
+function WeightsWatcher.damageRange(textL, textR)
 	local speed
 	local stats = WeightsWatcher.newStatTable()
 	local start, _, added, minVal, maxVal, name = string.find(textL, "^(%+?)(%d+) %- (%d+) (%a* ?Damage)$")
@@ -198,7 +198,7 @@ function WeightsWatcher:damageRange(textL, textR)
 	end
 end
 
-function WeightsWatcher:singleStat(text)
+function WeightsWatcher.singleStat(text)
 	local stat
 	for _, regex in ipairs(SingleStatLines) do
 		if type(regex) == "table" then
@@ -220,7 +220,7 @@ function WeightsWatcher:singleStat(text)
 	return stat
 end
 
-function WeightsWatcher:singleStatValueOnly(text, pattern, name)
+function WeightsWatcher.singleStatValueOnly(text, pattern, name)
 	local start, _, value = string.find(text, pattern)
 	if start then
 		return WeightsWatcher.newStatTable({[name] = tonumber(value)})

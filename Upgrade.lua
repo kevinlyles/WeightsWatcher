@@ -1,4 +1,4 @@
-function WeightsWatcher:Upgrade(dataType)
+function WeightsWatcher.Upgrade(dataType)
 	local oldMinorVersion, oldMajorVersion, newMinorVersion, newMajorVersion, vars, funcTable, direction, downgradeFunctions
 
 	if dataType == "account" then

@@ -3056,7 +3056,7 @@ for gemType, gems in pairs(GemIds) do
 	end
 end
 
-function WeightsWatcher:GemInfo(gemId)
+function WeightsWatcher.GemInfo(gemId)
 	if type(gemId) == "string" then
 		gemId = tonumber(gemId)
 	end

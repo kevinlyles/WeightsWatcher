@@ -29,7 +29,7 @@ ww_normalStatsMetatable = {
 
 ww_bareItemCacheMetatable = {
 	__index = function(tbl, key)
-		tbl[key] = WeightsWatcher:getItemStats(key)
+		tbl[key] = WeightsWatcher.getItemStats(key)
 		return tbl[key]
 	end,
 }
@@ -40,7 +40,7 @@ ww_itemCacheMetatable = {
 		local bareLink, gems = splitItemLink(key)
 		local sockets = ww_bareItemCache[bareLink].sockets
 
-		gemStats = WeightsWatcher:getGemStats(gems)
+		gemStats = WeightsWatcher.getGemStats(gems)
 
 		-- Removes gems in crafted sockets from consideration
 		for i = #(sockets) + 1, #(gemStats) do
@@ -50,7 +50,7 @@ ww_itemCacheMetatable = {
 		if #(sockets) > 0 then
 			socketBonusActive = true
 			for i = 1, #(sockets) do
-				if not gemStats[i] or not WeightsWatcher:matchesSocket(gemStats[i][1], sockets[i]) then
+				if not gemStats[i] or not WeightsWatcher.matchesSocket(gemStats[i][1], sockets[i]) then
 					socketBonusActive = false
 					break
 				end
@@ -76,7 +76,7 @@ ww_weightCacheWeightMetatable = {
 		local socketBonusActive = itemStats.socketBonusActive
 		local gemStats = itemStats.gemStats
 
-		tbl[key] = WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, tbl.weight)
+		tbl[key] = WeightsWatcher.calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, tbl.weight)
 		return tbl[key]
 	end,
 }
@@ -102,10 +102,10 @@ ww_weightIdealCacheWeightMetatable = {
 		if key == "bestGems" then
 			local bestGems = {}
 
-			bestGems.Red, bestGems.RedScore = WeightsWatcher:bestGemForSocket("Red", tbl.weight, ww_vars.options.gems.qualityLimit)
-			bestGems.Yellow, bestGems.YellowScore = WeightsWatcher:bestGemForSocket("Yellow", tbl.weight, ww_vars.options.gems.qualityLimit)
-			bestGems.Blue, bestGems.BlueScore = WeightsWatcher:bestGemForSocket("Blue", tbl.weight, ww_vars.options.gems.qualityLimit)
-			bestGems.Meta, bestGems.MetaScore = WeightsWatcher:bestGemForSocket("Meta", tbl.weight, ww_vars.options.gems.qualityLimit)
+			bestGems.Red, bestGems.RedScore = WeightsWatcher.bestGemForSocket("Red", tbl.weight, ww_vars.options.gems.qualityLimit)
+			bestGems.Yellow, bestGems.YellowScore = WeightsWatcher.bestGemForSocket("Yellow", tbl.weight, ww_vars.options.gems.qualityLimit)
+			bestGems.Blue, bestGems.BlueScore = WeightsWatcher.bestGemForSocket("Blue", tbl.weight, ww_vars.options.gems.qualityLimit)
+			bestGems.Meta, bestGems.MetaScore = WeightsWatcher.bestGemForSocket("Meta", tbl.weight, ww_vars.options.gems.qualityLimit)
 			bestGems.Overall = bestGems.Red
 			bestGems.OverallScore = bestGems.RedScore
 			if bestGems.BlueScore > bestGems.OverallScore then
@@ -150,11 +150,11 @@ ww_weightIdealCacheWeightMetatable = {
 				end
 			end
 		end
-		gemStats = WeightsWatcher:getGemStats(bestGems)
-		weightVal = WeightsWatcher:calculateWeight(normalStats, true, socketBonusStat, gemStats, tbl.weight)
+		gemStats = WeightsWatcher.getGemStats(bestGems)
+		weightVal = WeightsWatcher.calculateWeight(normalStats, true, socketBonusStat, gemStats, tbl.weight)
 		if breakSocketColors then
-			gemStatsIgnoreSockets = WeightsWatcher:getGemStats(bestGemsIgnoreSocket)
-			weightValIgnoreSockets = WeightsWatcher:calculateWeight(normalStats, false, socketBonusStat, gemStatsIgnoreSockets, tbl.weight)
+			gemStatsIgnoreSockets = WeightsWatcher.getGemStats(bestGemsIgnoreSocket)
+			weightValIgnoreSockets = WeightsWatcher.calculateWeight(normalStats, false, socketBonusStat, gemStatsIgnoreSockets, tbl.weight)
 
 			if weightVal < weightValIgnoreSockets then
 				weightVal = weightValIgnoreSockets
@@ -228,7 +228,7 @@ local function loadGeneralInfo()
 	end
 end
 
-function WeightsWatcher:ResetTables()
+function WeightsWatcher.ResetTables()
 	local metatable = {}
 	metatable.__index = function(tbl, key)
 		tbl[key] = setmetatable({}, metatable)
@@ -242,10 +242,10 @@ function WeightsWatcher:ResetTables()
 	ww_unweighted_lines = setmetatable({}, metatable)
 end
 
-function WeightsWatcher:OnInitialize()
+function WeightsWatcher.OnInitialize()
 	loadGeneralInfo()
 
-	WeightsWatcher:ResetTables()
+	WeightsWatcher.ResetTables()
 
 	if not upgradeData("account", "ww_vars") then
 		return
@@ -305,17 +305,17 @@ StaticPopupDialogs["WW_INVALID_CHARACTER_DATA"] = {
 function upgradeData(dataType, varsName)
 	local tempVars
 
-	tempVars = WeightsWatcher:Upgrade(dataType)
+	tempVars = WeightsWatcher.Upgrade(dataType)
 	if tempVars then
 		_G[varsName] = tempVars
 		return true
 	else
-		WeightsWatcher:Broken(dataType)
+		WeightsWatcher.Broken(dataType)
 		return false
 	end
 end
 
-function WeightsWatcher:Broken(dataType)
+function WeightsWatcher.Broken(dataType)
 	if dataType == "account" then
 		StaticPopup_Show("WW_INVALID_ACCOUNT_DATA")
 	elseif dataType == "character" then
@@ -326,48 +326,48 @@ function WeightsWatcher:Broken(dataType)
 	end
 end
 
-function WeightsWatcher:HookTooltip(objectName, funcName)
+function WeightsWatcher.HookTooltip(objectName, funcName)
 	local object = getglobal(objectName)
-	self:SecureHook(object, funcName, function(self, ...) WeightsWatcher:displayItemStats(self, objectName, ...) end)
+	WeightsWatcher:SecureHook(object, funcName, function(self, ...) WeightsWatcher.displayItemStats(self, objectName, ...) end)
 	table.insert(currentHooks, {object, func})
 end
 
-function WeightsWatcher:OnEnable()
-	WeightsWatcher:HookTooltip("GameTooltip", "SetAuctionItem")
-	WeightsWatcher:HookTooltip("GameTooltip", "SetAuctionSellItem")
-	WeightsWatcher:HookTooltip("GameTooltip", "SetBagItem")
-	WeightsWatcher:HookTooltip("GameTooltip", "SetBuybackItem")
-	WeightsWatcher:HookTooltip("GameTooltip", "SetExistingSocketGem")
-	WeightsWatcher:HookTooltip("GameTooltip", "SetGuildBankItem")
-	WeightsWatcher:HookTooltip("GameTooltip", "SetHyperlink")
-	WeightsWatcher:HookTooltip("GameTooltip", "SetInboxItem")
-	WeightsWatcher:HookTooltip("GameTooltip", "SetInventoryItem")
-	WeightsWatcher:HookTooltip("GameTooltip", "SetLootItem")
-	WeightsWatcher:HookTooltip("GameTooltip", "SetLootRollItem")
-	WeightsWatcher:HookTooltip("GameTooltip", "SetMerchantItem")
-	WeightsWatcher:HookTooltip("GameTooltip", "SetQuestItem")
-	WeightsWatcher:HookTooltip("GameTooltip", "SetQuestLogItem")
-	WeightsWatcher:HookTooltip("GameTooltip", "SetSendMailItem")
-	WeightsWatcher:HookTooltip("GameTooltip", "SetSocketGem")
-	WeightsWatcher:HookTooltip("GameTooltip", "SetTradePlayerItem")
-	WeightsWatcher:HookTooltip("GameTooltip", "SetTradeSkillItem")
-	WeightsWatcher:HookTooltip("GameTooltip", "SetTradeTargetItem")
-	WeightsWatcher:HookTooltip("GameTooltip", "SetTrainerService")
+function WeightsWatcher.OnEnable()
+	WeightsWatcher.HookTooltip("GameTooltip", "SetAuctionItem")
+	WeightsWatcher.HookTooltip("GameTooltip", "SetAuctionSellItem")
+	WeightsWatcher.HookTooltip("GameTooltip", "SetBagItem")
+	WeightsWatcher.HookTooltip("GameTooltip", "SetBuybackItem")
+	WeightsWatcher.HookTooltip("GameTooltip", "SetExistingSocketGem")
+	WeightsWatcher.HookTooltip("GameTooltip", "SetGuildBankItem")
+	WeightsWatcher.HookTooltip("GameTooltip", "SetHyperlink")
+	WeightsWatcher.HookTooltip("GameTooltip", "SetInboxItem")
+	WeightsWatcher.HookTooltip("GameTooltip", "SetInventoryItem")
+	WeightsWatcher.HookTooltip("GameTooltip", "SetLootItem")
+	WeightsWatcher.HookTooltip("GameTooltip", "SetLootRollItem")
+	WeightsWatcher.HookTooltip("GameTooltip", "SetMerchantItem")
+	WeightsWatcher.HookTooltip("GameTooltip", "SetQuestItem")
+	WeightsWatcher.HookTooltip("GameTooltip", "SetQuestLogItem")
+	WeightsWatcher.HookTooltip("GameTooltip", "SetSendMailItem")
+	WeightsWatcher.HookTooltip("GameTooltip", "SetSocketGem")
+	WeightsWatcher.HookTooltip("GameTooltip", "SetTradePlayerItem")
+	WeightsWatcher.HookTooltip("GameTooltip", "SetTradeSkillItem")
+	WeightsWatcher.HookTooltip("GameTooltip", "SetTradeTargetItem")
+	WeightsWatcher.HookTooltip("GameTooltip", "SetTrainerService")
 	-- Item link tooltips
-	WeightsWatcher:HookTooltip("ItemRefTooltip", "SetHyperlink")
+	WeightsWatcher.HookTooltip("ItemRefTooltip", "SetHyperlink")
 	-- Secondary and tertiary comparison tooltips
-	WeightsWatcher:HookTooltip("ShoppingTooltip1", "SetExistingSocketGem")
-	WeightsWatcher:HookTooltip("ShoppingTooltip1", "SetHyperlinkCompareItem")
-	WeightsWatcher:HookTooltip("ShoppingTooltip1", "SetInventoryItem")
-	WeightsWatcher:HookTooltip("ShoppingTooltip2", "SetExistingSocketGem")
-	WeightsWatcher:HookTooltip("ShoppingTooltip2", "SetHyperlinkCompareItem")
-	WeightsWatcher:HookTooltip("ShoppingTooltip2", "SetInventoryItem")
+	WeightsWatcher.HookTooltip("ShoppingTooltip1", "SetExistingSocketGem")
+	WeightsWatcher.HookTooltip("ShoppingTooltip1", "SetHyperlinkCompareItem")
+	WeightsWatcher.HookTooltip("ShoppingTooltip1", "SetInventoryItem")
+	WeightsWatcher.HookTooltip("ShoppingTooltip2", "SetExistingSocketGem")
+	WeightsWatcher.HookTooltip("ShoppingTooltip2", "SetHyperlinkCompareItem")
+	WeightsWatcher.HookTooltip("ShoppingTooltip2", "SetInventoryItem")
 	if AtlasLootTooltip then
-		WeightsWatcher:HookTooltip("AtlasLootTooltip", "SetHyperlink")
+		WeightsWatcher.HookTooltip("AtlasLootTooltip", "SetHyperlink")
 	end
 end
 
-function WeightsWatcher:OnDisable()
+function WeightsWatcher.OnDisable()
 	for _, hook in currentHooks do
 		self:Unhook(unpack(hook))
 	end
@@ -588,7 +588,7 @@ local slotConversion = {
 	["Held In Off-hand"] = {"MainHandSlot", "SecondaryHandSlot"},
 }
 
-function WeightsWatcher:displayItemStats(tooltip, ttname)
+function WeightsWatcher.displayItemStats(tooltip, ttname)
 	local link, bareLink, itemType, stackSize, sockets, gemStats
 	local stat, value, str, formatStr
 	local compareLink, compareBareLink, compareLink2, compareBareLink2, compareMethod
@@ -736,7 +736,7 @@ function WeightsWatcher:displayItemStats(tooltip, ttname)
 	end
 end
 
-function WeightsWatcher:bestGemForSocket(socketColor, weightScale, qualityLimit)
+function WeightsWatcher.bestGemForSocket(socketColor, weightScale, qualityLimit)
 	local bestGem, bestWeight, weight = {}, 0
 	if not qualityLimit then
 		qualityLimit = #(GemIds["Normal"])
@@ -749,15 +749,15 @@ function WeightsWatcher:bestGemForSocket(socketColor, weightScale, qualityLimit)
 					for quality = qualityLimit, 1, -1 do
 						if gems[quality] then
 							for gemId, gemStats in pairs(gems[quality]) do
-								if WeightsWatcher:matchesSocket(gemStats[1], socketColor) then
-									weight = WeightsWatcher:calculateWeight({}, true, nil, {{gemStats}}, weightScale)
+								if WeightsWatcher.matchesSocket(gemStats[1], socketColor) then
+									weight = WeightsWatcher.calculateWeight({}, true, nil, {{gemStats}}, weightScale)
 									if #(bestGem) == 0 or weight > bestWeight then
 										bestGem = {gemId}
 										bestWeight = weight
 									elseif weight == bestWeight then
 										local duplicate = false
 										for _, gem in pairs(bestGem) do
-											if WeightsWatcher:GemInfo(gem).info[2] == gemStats[2] then
+											if WeightsWatcher.GemInfo(gem).info[2] == gemStats[2] then
 												duplicate = true
 												break
 											end
@@ -778,11 +778,11 @@ function WeightsWatcher:bestGemForSocket(socketColor, weightScale, qualityLimit)
 	return bestGem, bestWeight
 end
 
-function WeightsWatcher:matchesSocket(gemId, socketColor)
+function WeightsWatcher.matchesSocket(gemId, socketColor)
 	local gemColor
 
 	if type(gemId) == "number" then
-		local gemInfo = WeightsWatcher:GemInfo(gemId)
+		local gemInfo = WeightsWatcher.GemInfo(gemId)
 		if gemInfo then
 			gemColor = gemInfo.info[1]
 		else
@@ -815,15 +815,15 @@ function WeightsWatcher:matchesSocket(gemId, socketColor)
 	return false
 end
 
-function WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, weightsScale)
+function WeightsWatcher.calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, weightsScale)
 	local weight = 0
 
 	for stat, value in pairs(normalStats) do
-		weight = weight + WeightsWatcher:getWeight(stat, value, weightsScale)
+		weight = weight + WeightsWatcher.getWeight(stat, value, weightsScale)
 	end
 	if socketBonusActive and socketBonusStat then
 		for stat, value in pairs(socketBonusStat) do
-			weight = weight + WeightsWatcher:getWeight(stat, value, weightsScale)
+			weight = weight + WeightsWatcher.getWeight(stat, value, weightsScale)
 		end
 	end
 	for _, gems in pairs(gemStats) do
@@ -831,7 +831,7 @@ function WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBo
 		for _, gemInfo in pairs(gems) do
 			local weight = 0
 			for stat, value in pairs(gemInfo[3]) do
-				weight = weight + WeightsWatcher:getWeight(stat, value, weightsScale)
+				weight = weight + WeightsWatcher.getWeight(stat, value, weightsScale)
 			end
 			if weight > maxWeight then
 				maxWeight = weight
@@ -854,7 +854,7 @@ function WeightsWatcher:calculateWeight(normalStats, socketBonusActive, socketBo
 	return weight
 end
 
-function WeightsWatcher:getWeight(stat, value, weightsScale)
+function WeightsWatcher.getWeight(stat, value, weightsScale)
 	stat = string.lower(stat)
 	if weightsScale[stat] then
 		return weightsScale[stat] * value
@@ -863,14 +863,14 @@ function WeightsWatcher:getWeight(stat, value, weightsScale)
 	end
 end
 
-function WeightsWatcher:getGemStats(...)
+function WeightsWatcher.getGemStats(...)
 	local gemInfo, stat, lastGem
 	local statTable = {}
 	lastGem = 0
 	for _, gems in pairs(...) do
 		local innerStatTable = {}
 		for _, gemId in pairs(gems) do
-			gemInfo = WeightsWatcher:GemInfo(gemId)
+			gemInfo = WeightsWatcher.GemInfo(gemId)
 			if gemInfo then
 				table.insert(innerStatTable, gemInfo.info)
 			else
@@ -894,7 +894,7 @@ function WeightsWatcher:getGemStats(...)
 	return statTable
 end
 
-function WeightsWatcher:getItemStats(link)
+function WeightsWatcher.getItemStats(link)
 	local ttleft, ttright, origTextL, textL, textR, pattern, func, start
 	local normalStats, socketList, socketBonusStat = WeightsWatcher.newStatTable(), {}
 	local ranged = false
@@ -915,13 +915,13 @@ function WeightsWatcher:getItemStats(link)
 		ttright = getglobal("WeightsWatcherHiddenTooltipTextRight" .. i)
 		origTextL = ttleft:GetText()
 		textR = ttright:GetText()
-		textL = WeightsWatcher:preprocess(origTextL)
+		textL = WeightsWatcher.preprocess(origTextL)
 
 		matched = false
 		start, _, value = string.find(textL, socketBonus)
 		if start then
 			matched = true
-			socketBonusStat = WeightsWatcher:singleStat(value)
+			socketBonusStat = WeightsWatcher.singleStat(value)
 		end
 		if not matched then
 			for _, regex in ipairs(SocketLines) do
@@ -972,7 +972,7 @@ function WeightsWatcher:getItemStats(link)
 								end
 							end
 							if not matched then
-								stat = WeightsWatcher:singleStat(textL)
+								stat = WeightsWatcher.singleStat(textL)
 								if stat then
 									normalStats = normalStats + stat
 								end
@@ -997,7 +997,7 @@ function WeightsWatcher:getItemStats(link)
 	}
 end
 
-function WeightsWatcher:preprocess(text)
+function WeightsWatcher.preprocess(text)
 	for pattern, replacement in pairs(Preprocess) do
 		if string.find(text, pattern) then
 			text = string.gsub(text, pattern, replacement)
