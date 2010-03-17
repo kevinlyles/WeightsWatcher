@@ -276,6 +276,11 @@ SingleStatLines = {
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "shadow resistance")
 		end},
+	-- currently only used by random enchant id -55 (of the Nightmare)
+	{"^([+-]?%d+) shadow damage$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "shadow spell damage")
+		end},
 
 	-- druid only
 	{"^increases attack power by (%d+) in cat, bear, dire bear, and moonkin forms only%.$",
