@@ -318,11 +318,65 @@ local UseEffectAffixes = {
 	"%.$",
 }
 
+local ElixirMatchLines = {
+	" battle elixir%.",
+	" guardian elixir%.",
+}
+
+local ElixirIgnoreLines = {
+}
+
+local ElixirUnweightedLines = {
+	" walk across water ",
+	" of your spell targets ",
+}
+
+local ElixirPreprocessLines = {
+	{" and your ", " and "},
+	{" and restores ", " and "},
+	{" and grants ", " and "},
+	{" critical rating ", " critical strike rating "},
+	{" maximum health ", " health "},
+	{" the chance that the player will reflect hostile spells cast on them by (%d+)%% for %d+ hrs%. +will automatically reflect the first offensive spell cast against the user", " %1%% spell reflect"},
+	{" goes up by ", " by "},
+}
+
+local ElixirAffixes = {
+	"^use: +",
+	"^increases +",
+	"^your size is increased and +",
+	"^your +",
+	"^the player's +",
+	"^mana regeneration by +",
+	"^regenerate +",
+	" +%(1 sec cooldown%)$",
+	" +%([12] min cooldown%)$",
+	" +this effect persists through death, but only works [io]n [%a ',:]+%.$",
+	" +this effect only works [io]n [%a ',:]+%.$",
+	"[\r\n]+only active [io]n [%a ',:]+%.$",
+	" +effect persists through death%.$",
+	" +this$",
+	" +you can only have the effect of one flask at a time%.$",
+	" +counts as both a battle and guardian elixir%.$",
+	" +battle elixir%.$",
+	" +guardian elixir%.$",
+	" +%d+ ho?u?rs?%.$",
+	" +%d+ minu?t?e?s?%.$",
+	" +for$",
+	" +lasts$",
+	" +effect$",
+	" +when consumed%.$",
+	" +and size$",
+	" +to match your new size%.$",
+	"%.$",
+}
+
 EffectHandlers = {
 	{EquipStatsMatchLines, {}, EquipStatsUnweightedLines, EquipStatsPreprocessLines, EquipStatsAffixes, "equipStats"},
 	{FoodMatchLines, FoodIgnoreLines, FoodUnweightedLines, FoodPreprocessLines, FoodAffixes, "food"},
 	{EnchantMatchLines, {}, EnchantUnweightedLines, EnchantPreprocessLines, EnchantAffixes, "enchant"},
 	{FishingMatchLines, {}, {}, {}, FishingAffixes, "fishing"},
+	{ElixirMatchLines, ElixirIgnoreLines, ElixirUnweightedLines, ElixirPreprocessLines, ElixirAffixes, "elixir"},
 	{UseEffectMatchLines, UseEffectIgnoreLines, UseEffectUnweightedLines, UseEffectPreprocessLines, UseEffectAffixes, "useEffects"},
 }
 
@@ -569,30 +623,39 @@ MultipleStatLines = {
 				end
 			end
 		end},
-	{"^(%a[%a ]+ )and (%a[%a ]+ )rating by( %d+)$",
+	{"^(%a+), (%a+),? and (%a+) spell power by (%d+)$",
 		function(text, pattern)
-			local start, _, stat1, stat2, value = string.find(text, pattern)
+			local start, _, stat1, stat2, stat3, value = string.find(text, pattern)
 			if start then
-				stat1 = WeightsWatcher.singleStat(stat1 .. "rating by" .. value)
-				stat2 = WeightsWatcher.singleStat(stat2 .. "rating by" .. value)
-				if stat1 and stat2 then
-					return stat1 + stat2
-				else
-					ww_unparsed_lines[text][pattern].parsedTo = {stat1, stat2}
-				end
+				value = tonumber(value)
+				local stats = WeightsWatcher.newStatTable()
+				stats[stat1 .. " spell damage"] = value
+				stats[stat2 .. " spell damage"] = value
+				stats[stat3 .. " spell damage"] = value
+				return stats
 			end
 		end},
-	{"^(%a+ )and (%a+ )spell power by( %d+)$",
+	{"^spell damage caused by (%a+), (%a+),? and (%a+) spells by up to (%d+)$",
+		function(text, pattern)
+			local start, _, stat1, stat2, stat3, value = string.find(text, pattern)
+			if start then
+				value = tonumber(value)
+				local stats = WeightsWatcher.newStatTable()
+				stats[stat1 .. " spell damage"] = value
+				stats[stat2 .. " spell damage"] = value
+				stats[stat3 .. " spell damage"] = value
+				return stats
+			end
+		end},
+	{"^(%a+) and (%a+) spell power by (%d+)$",
 		function(text, pattern)
 			local start, _, stat1, stat2, value = string.find(text, pattern)
 			if start then
-				stat1 = WeightsWatcher.singleStat(stat1 .. "spell damage by" .. value)
-				stat2 = WeightsWatcher.singleStat(stat2 .. "spell damage by" .. value)
-				if stat1 and stat2 then
-					return stat1 + stat2
-				else
-					ww_unparsed_lines[text][pattern].parsedTo = {stat1, stat2}
-				end
+				value = tonumber(value)
+				local stats = WeightsWatcher.newStatTable()
+				stats[stat1 .. " spell damage"] = value
+				stats[stat2 .. " spell damage"] = value
+				return stats
 			end
 		end},
 	{"^([+-]?%d+) mana and health every 5 seco?n?d?s?$",
@@ -752,6 +815,26 @@ SingleStatLines = {
 	{"^(mining) skill by ([+-]?%d+)$", WeightsWatcher.statNameFirst},
 	{"^(skinning) skill by (%d+)$", WeightsWatcher.statNameFirst},
 
+	{"^reduces? (%a[%a ]+) by (%d+)$",
+		function(text, pattern)
+			local start, _, name, value = string.find(text, pattern)
+			if start then
+				local stats = WeightsWatcher.parseStats("-" .. value .. " " .. name)
+				if stats then
+					return stats
+				end
+			end
+		end},
+	{"^decreases? (%a[%a ]+) by (%d+)$",
+		function(text, pattern)
+			local start, _, name, value = string.find(text, pattern)
+			if start then
+				local stats = WeightsWatcher.parseStats("-" .. value .. " " .. name)
+				if stats then
+					return stats
+				end
+			end
+		end},
 	-- Tends to eat other stats if not last
 	{"^(%a+ ?%a+ ?%a+ ?%a+) by (%d+)$", WeightsWatcher.statNameFirst},
 
