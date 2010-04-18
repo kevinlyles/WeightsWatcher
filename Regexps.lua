@@ -836,7 +836,17 @@ SingleStatLines = {
 			end
 		end},
 	-- Tends to eat other stats if not last
-	{"^(%a+ ?%a+ ?%a+ ?%a+) by (%d+)$", WeightsWatcher.statNameFirst},
+	-- TODO: split this into a separate function instead of recursing?
+	{"^(%a+ ?%a+ ?%a+ ?%a+) by (%d+)$",
+		function(text, pattern)
+			local start, _, name, value = string.find(text, pattern)
+			if start then
+				local stats = WeightsWatcher.parseStats(value .. " " .. name)
+				if stats then
+					return stats
+				end
+			end
+		end},
 
 	{"^a minor movement speed increase$",
 		function(text, pattern)
