@@ -5,52 +5,52 @@ end
 Preprocess = {
 	["|r$"] = "",
 	["^|c[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9]"] = "",
-	["Improves"] = "Increases",
-	["([Ii]ncreases?) your"] = "%1",
-	["Increases the target's"] = "Increases",
-	["Unique%-Equipped"] = "Unique",
-	["^Use: Teaches you how to permanently enchant "] = "Use: Permanently enchant ",
+	["improves"] = "increases",
+	["(increases?) your"] = "%1",
+	["increases the target's"] = "increases",
+	["unique%-equipped"] = "unique",
+	["^use: teaches you how to permanently enchant "] = "use: permanently enchant ",
 	["(%d+) to (%a)"] = "%1 %2",
-	["^Use: .*%.  If you spend at least %d+ seconds eating you will become well fed and gain ([%a%d][%a%d, ]+) for .*%."] = "%1",
-	["Cat, Bear, Dire Bear, and Moonkin forms"] = "Cat/Bear/Dire Bear/Moonkin forms",
+	["^use: .*%.  if you spend at least %d+ seconds eating you will become well fed and gain ([%a%d][%a%d, ]+) for .*%."] = "%1",
+	["cat, bear, dire bear, and moonkin forms"] = "cat/bear/dire bear/moonkin forms",
 	["maximum health"] = "health",
-	["Mana every 5 seconds"] = "MP5",
+	["mana every 5 seconds"] = "mp5",
 	["the block value of your shield"] = "block value",
 	["shield block rating"] = "block rating",
-	["Block$"] = "block value",
+	["block$"] = "block value",
 }
 
 IgnoredLines = {
-	"^Durability %d+ / %d+$",
+	"^durability %d+ / %d+$",
 	"^<.+>$",
 	"^\".+\"$",
-	"^Use: Restores %d+ %a[%a ]+ over %d+ sec%.  Must remain seated while %a+ing%.",
-	"^Use: Restores %d+%% of your %a[%a ]+ per second for %d+ sec%.  Must remain seated while %a+ing%.",
-	"^Use: Heals %d+ damage over %d+ sec%.$",
-	"^Use: Restores %d+ to %d+ %a+",
+	"^use: restores %d+ %a[%a ]+ over %d+ sec%.  must remain seated while %a+ing%.",
+	"^use: restores %d+%% of your %a[%a ]+ per second for %d+ sec%.  must remain seated while %a+ing%.",
+	"^use: heals %d+ damage over %d+ sec%.$",
+	"^use: restores %d+ to %d+ %a+",
 	-- Some relics that boost stats for certain abilities only
-	"^Equip: Increases the %a[%a ]+ of your %a[%a ]+ by ",
+	"^equip: increases the %a[%a ]+ of your %a[%a ]+ by ",
 	-- Use effects that have a cooldown
-	"[Cc]ooldown",
+	"cooldown",
 	-- "Chance on hit" and "have a chance"
-	"[Cc]hance ",
-	"^You may trade this item with players that were also eligible to loot this item for the next ",
+	"chance ",
+	"^you may trade this item with players that were also eligible to loot this item for the next ",
 	"^ $",
-	"^Requires %a[%a ]+ %- Neutral$",
-	"^Requires %a[%a ]+ %- Friendly$",
-	"^Requires %a[%a ]+ %- Honored$",
-	"^Requires %a[%a ]+ %- Revered$",
-	"^Requires %a[%a ]+ %- Exalted$",
-	"^Use: Teaches you how to ",
+	"^requires %a[%a ]+ %- neutral$",
+	"^requires %a[%a ]+ %- friendly$",
+	"^requires %a[%a ]+ %- honored$",
+	"^requires %a[%a ]+ %- revered$",
+	"^requires %a[%a ]+ %- exalted$",
+	"^use: teaches you how to ",
 }
 
-socketBonus = "^Socket Bonus: (.*)"
+socketBonus = "^socket bonus: (.*)"
 
 SocketLines = {
-	"^(Blue) Socket$",
-	"^(Red) Socket$",
-	"^(Yellow) Socket$",
-	"^(Meta) Socket$",
+	"^(blue) socket$",
+	"^(red) socket$",
+	"^(yellow) socket$",
+	"^(meta) socket$",
 }
 
 MultipleStatLines = {
@@ -65,25 +65,25 @@ MultipleStatLines = {
 }
 
 SingleStatLines = {
-	{"^Equip: Restores (%d+) mana per 5 sec%.",
+	{"^equip: restores (%d+) mana per 5 sec%.",
 		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "MP5")
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "mp5")
 		end},
-	{"^Use: Increases mana regeneration by (%d+) mana per 5 seconds for ",
+	{"^use: increases mana regeneration by (%d+) mana per 5 seconds for ",
 		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "MP5")
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "mp5")
 		end},
 	{"^%((%d[%d.]+) damage per second%)$",
 		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "DPS")
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "dps")
 		end},
-	{"^Adds (%d[%d.]+) damage per second$",
+	{"^adds (%d[%d.]+) damage per second$",
 		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "DPS")
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "dps")
 		end},
-	{"^Increases attack power by (%d+) in Cat/Bear/Dire Bear/Moonkin forms only%.",
+	{"^increases attack power by (%d+) in cat/bear/dire bear/moonkin forms only%.",
 		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "Feral AP")
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "feral ap")
 		end},
 	-- The 5 is to catch MP5 and HP5 values
 	{"^%+?(%d+%%?) (%a[%a ]+5?)",
@@ -93,7 +93,7 @@ SingleStatLines = {
 				return WeightsWatcher.newStatTable({[name] = tonumber(value)})
 			end
 		end},
-	{"^Use: Permanently enchants? .* to give %+?(%d+) (%a[%a ]+).",
+	{"^use: permanently enchants? .* to give %+?(%d+) (%a[%a ]+).",
 		function(text, pattern)
 			local start, _, value, name = string.find(text, pattern)
 			if start then
@@ -102,51 +102,51 @@ SingleStatLines = {
 		end},
 
 	"^(%a[%a ]+) (%d+)",
-	"^Equip: Increases (%a[%a ]+) by (%d+)%.",
-	"^Equip: Increased (%a[%a ]+) %+(%d+)%.",
-	"^Use: Increases (%a[%a ]+) by (%d+) for .*%.",
-	"^Use: Permanently increase the (%a[%a ]+) of .* by (%d+)%.",
-	"^Use: Permanently enchants? .* to increase (%a[%a ]+) by (%d+)%.",
-	"^Use: When applied to your fishing pole, increases (Fishing) by (%d+) for ",
+	"^equip: increases (%a[%a ]+) by (%d+)%.",
+	"^equip: increased (%a[%a ]+) %+(%d+)%.",
+	"^use: increases (%a[%a ]+) by (%d+) for .*%.",
+	"^use: permanently increase the (%a[%a ]+) of .* by (%d+)%.",
+	"^use: permanently enchants? .* to increase (%a[%a ]+) by (%d+)%.",
+	"^use: when applied to your fishing pole, increases (fishing) by (%d+) for ",
 
 	-- TODO: figure out how to properly handle these
-	"^(Classes): (%a[%a ,]+)",
-	"^(Requires %a[%a ]+) %((%d+)%)",
+	"^(classes): (%a[%a ,]+)",
+	"^(requires %a[%a ]+) %((%d+)%)",
 }
 
 ItemInfoLines = {
-	"^Unique",
-	"^Binds ",
-	"^Soulbound$",
+	"^unique",
+	"^binds ",
+	"^soulbound$",
 }
 
 DoubleSlotLines = {
-	"^Head$",
-	"^Shoulder$",
-	"^Chest$",
-	"^Wrist$",
-	"^Hands$",
-	"^Waist$",
-	"^Legs$",
-	"^Feet$",
-	"^Main Hand$",
-	"^Off Hand$",
-	"^One%-Hand$",
-	"^Two%-Hand$",
-	"^Relic$",
-	"^Ranged$",
-	"^Thrown$",
-	"^Projectile$",
+	"^head$",
+	"^shoulder$",
+	"^chest$",
+	"^wrist$",
+	"^hands$",
+	"^waist$",
+	"^legs$",
+	"^feet$",
+	"^main hand$",
+	"^off hand$",
+	"^one%-hand$",
+	"^two%-hand$",
+	"^relic$",
+	"^ranged$",
+	"^thrown$",
+	"^projectile$",
 }
 
 SingleSlotLines = {
-	"^Neck$",
-	"^Back$",
-	"^Shirt$",
-	"^Tabard$",
-	"^Finger$",
-	"^Trinket$",
-	"^Held In Off%-hand$",
+	"^neck$",
+	"^back$",
+	"^shirt$",
+	"^tabard$",
+	"^finger$",
+	"^trinket$",
+	"^held in off%-hand$",
 }
 
 function WeightsWatcher.multipleStats(text, link)
@@ -178,18 +178,18 @@ end
 function WeightsWatcher.damageRange(textL, textR)
 	local speed
 	local stats = WeightsWatcher.newStatTable()
-	local start, _, added, minVal, maxVal, name = string.find(textL, "^(%+?)(%d+) %- (%d+) (%a* ?Damage)$")
+	local start, _, added, minVal, maxVal, name = string.find(textL, "^(%+?)(%d+) %- (%d+) (%a* ?damage)$")
 	if start then
 		if added == "+" then
-			added = "Added "
+			added = "added "
 		end
-		stats["Minimum " .. added .. name] = tonumber(minVal)
-		stats["Maximum " .. added .. name] = tonumber(maxVal)
+		stats["minimum " .. added .. name] = tonumber(minVal)
+		stats["maximum " .. added .. name] = tonumber(maxVal)
 	end
 	if textR then
-		start, _, speed = string.find(textR, "^Speed (%d+%.?%d*)$")
+		start, _, speed = string.find(textR, "^speed (%d+%.?%d*)$")
 		if start then
-			stats["Speed"] = tonumber(speed)
+			stats["speed"] = tonumber(speed)
 		end
 	end
 	-- Don't return an empty table

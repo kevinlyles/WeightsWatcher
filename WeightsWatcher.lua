@@ -102,19 +102,19 @@ ww_weightIdealCacheWeightMetatable = {
 		if key == "bestGems" then
 			local bestGems = {}
 
-			bestGems.Red, bestGems.RedScore = WeightsWatcher.bestGemForSocket("Red", tbl.weight, ww_vars.options.gems.qualityLimit)
-			bestGems.Yellow, bestGems.YellowScore = WeightsWatcher.bestGemForSocket("Yellow", tbl.weight, ww_vars.options.gems.qualityLimit)
-			bestGems.Blue, bestGems.BlueScore = WeightsWatcher.bestGemForSocket("Blue", tbl.weight, ww_vars.options.gems.qualityLimit)
-			bestGems.Meta, bestGems.MetaScore = WeightsWatcher.bestGemForSocket("Meta", tbl.weight, ww_vars.options.gems.qualityLimit)
-			bestGems.Overall = bestGems.Red
-			bestGems.OverallScore = bestGems.RedScore
-			if bestGems.BlueScore > bestGems.OverallScore then
-				bestGems.Overall = bestGems.Blue
-				bestGems.OverallScore = bestGems.BlueScore
+			bestGems.red, bestGems.redScore = WeightsWatcher.bestGemForSocket("red", tbl.weight, ww_vars.options.gems.qualityLimit)
+			bestGems.yellow, bestGems.yellowScore = WeightsWatcher.bestGemForSocket("yellow", tbl.weight, ww_vars.options.gems.qualityLimit)
+			bestGems.blue, bestGems.blueScore = WeightsWatcher.bestGemForSocket("blue", tbl.weight, ww_vars.options.gems.qualityLimit)
+			bestGems.meta, bestGems.metaScore = WeightsWatcher.bestGemForSocket("meta", tbl.weight, ww_vars.options.gems.qualityLimit)
+			bestGems.overall = bestGems.red
+			bestGems.overallScore = bestGems.redScore
+			if bestGems.blueScore > bestGems.overallScore then
+				bestGems.overall = bestGems.blue
+				bestGems.overallScore = bestGems.blueScore
 			end
-			if bestGems.YellowScore > bestGems.OverallScore then
-				bestGems.Overall = bestGems.Yellow
-				bestGems.OverallScore = bestGems.YellowScore
+			if bestGems.yellowScore > bestGems.overallScore then
+				bestGems.overall = bestGems.yellow
+				bestGems.overallScore = bestGems.yellowScore
 			end
 			tbl.bestGems = bestGems
 			return bestGems
@@ -128,7 +128,7 @@ ww_weightIdealCacheWeightMetatable = {
 		local socketBonusWeight = 0
 		if socketBonusStat then
 			for stat, value in pairs(socketBonusStat) do
-				socketBonusWeight = socketBonusWeight + (tbl.weight[string.lower(stat)] or 0) * value
+				socketBonusWeight = socketBonusWeight + (tbl.weight[stat] or 0) * value
 			end
 		end
 		local breakSocketColors = ww_vars.options.gems.breakSocketColors or (not ww_vars.options.gems.neverBreakSocketColors and socketBonusWeight <= 0)
@@ -142,11 +142,11 @@ ww_weightIdealCacheWeightMetatable = {
 				table.insert(bestGems, gemId)
 				gemScore = gemScore + tbl.bestGems[color .. "Score"]
 			end
-			if breakSocketColors and color ~= "Meta" then
-				gemIdIgnoreSocket = tbl.bestGems.Overall
+			if breakSocketColors and color ~= "meta" then
+				gemIdIgnoreSocket = tbl.bestGems.overall
 				if #(gemIdIgnoreSocket) > 0 then
 					table.insert(bestGemsIgnoreSocket, gemIdIgnoreSocket)
-					gemScoreIgnoreSocket = gemScoreIgnoreSocket + tbl.bestGems.OverallScore
+					gemScoreIgnoreSocket = gemScoreIgnoreSocket + tbl.bestGems.overallScore
 				end
 			end
 		end
@@ -451,35 +451,35 @@ local function determineCompareMethod(currentSlot, compareSlot, compareSlot2, cu
 		return "empty"
 	end
 
-	if checkForTitansGrip() and (compareSubslot == "Axe" or compareSubslot == "Mace" or compareSubslot == "Sword") then
-		if currentSlot == "Two-Hand" then
-			currentSlot = "One-Hand"
+	if checkForTitansGrip() and (compareSubslot == "axe" or compareSubslot == "mace" or compareSubslot == "sword") then
+		if currentSlot == "two-hand" then
+			currentSlot = "one-hand"
 		end
-		if compareSlot == "Two-Hand" then
-			compareSlot = "One-Hand"
+		if compareSlot == "two-hand" then
+			compareSlot = "one-hand"
 		end
-		if compareSlot2 == "Two-Hand" then
-			compareSlot2 = "One-Hand"
+		if compareSlot2 == "two-hand" then
+			compareSlot2 = "one-hand"
 		end
 	end
 
-	if currentSlot == "Two-Hand" then
+	if currentSlot == "two-hand" then
 		return "both"
-	elseif currentSlot == "Main Hand" then
+	elseif currentSlot == "main hand" then
 		if compareSlot then
 			return "1"
 		else
 			return "empty"
 		end
-	elseif currentSlot == "Off Hand" or currentSlot == "Held In Off-hand" then
-		if compareSlot == "Two-Hand" then
+	elseif currentSlot == "off hand" or currentSlot == "held in off-hand" then
+		if compareSlot == "two-hand" then
 			return "1"
 		elseif compareSlot2 then
 			return "2"
 		else
 			return "empty"
 		end
-	elseif currentSlot == "One-Hand" then
+	elseif currentSlot == "one-hand" then
 		if checkForDualWield() then
 			if compareSlot and compareSlot2 then
 				return "worst"
@@ -488,7 +488,7 @@ local function determineCompareMethod(currentSlot, compareSlot, compareSlot2, cu
 		else
 			return "1"
 		end
-	elseif currentSlot == "Finger" or currentSlot == "Trinket" then
+	elseif currentSlot == "finger" or currentSlot == "trinket" then
 		if compareSlot and compareSlot2 then
 			return "worst"
 		end
@@ -563,29 +563,29 @@ local function colorizeDifferences(difference)
 end
 
 local slotConversion = {
-	["Head"] = "HeadSlot",
-	["Shoulder"] = "ShoulderSlot",
-	["Chest"] = "ChestSlot",
-	["Wrist"] = "WristSlot",
-	["Hands"] = "HandsSlot",
-	["Waist"] = "WaistSlot",
-	["Legs"] = "LegsSlot",
-	["Feet"] = "FeetSlot",
-	["Main Hand"] = {"MainHandSlot", "SecondaryHandSlot"},
-	["Off Hand"] = {"MainHandSlot", "SecondaryHandSlot"},
-	["One-Hand"] = {"MainHandSlot", "SecondaryHandSlot"},
-	["Two-Hand"] = {"MainHandSlot", "SecondaryHandSlot"},
-	["Relic"] = "RangedSlot",
-	["Ranged"] = "RangedSlot",
-	["Thrown"] = "RangedSlot",
-	["Projectile"] = "AmmoSlot",
-	["Neck"] = "NeckSlot",
-	["Back"] = "BackSlot",
-	["Shirt"] = "ShirtSlot",
-	["Tabard"] = "TabardSlot",
-	["Finger"] = {"Finger0Slot", "Finger1Slot"},
-	["Trinket"] = {"Trinket0Slot", "Trinket1Slot"},
-	["Held In Off-hand"] = {"MainHandSlot", "SecondaryHandSlot"},
+	["head"] = "HeadSlot",
+	["shoulder"] = "ShoulderSlot",
+	["chest"] = "ChestSlot",
+	["wrist"] = "WristSlot",
+	["hands"] = "HandsSlot",
+	["waist"] = "WaistSlot",
+	["legs"] = "LegsSlot",
+	["feet"] = "FeetSlot",
+	["main hand"] = {"MainHandSlot", "SecondaryHandSlot"},
+	["off hand"] = {"MainHandSlot", "SecondaryHandSlot"},
+	["one-hand"] = {"MainHandSlot", "SecondaryHandSlot"},
+	["two-hand"] = {"MainHandSlot", "SecondaryHandSlot"},
+	["relic"] = "RangedSlot",
+	["ranged"] = "RangedSlot",
+	["thrown"] = "RangedSlot",
+	["projectile"] = "AmmoSlot",
+	["neck"] = "NeckSlot",
+	["back"] = "BackSlot",
+	["shirt"] = "ShirtSlot",
+	["tabard"] = "TabardSlot",
+	["finger"] = {"Finger0Slot", "Finger1Slot"},
+	["trinket"] = {"Trinket0Slot", "Trinket1Slot"},
+	["held in off-hand"] = {"MainHandSlot", "SecondaryHandSlot"},
 }
 
 function WeightsWatcher.displayItemStats(tooltip, ttname)
@@ -612,9 +612,9 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 
 		if ttname == "GameTooltip" and ww_vars.options.tooltip.showDifferences then
 			local currentSlot, compareSlot, compareSlot2, currentSubslot, compareSubslot, compareSubslot2
-			currentSlot = ww_bareItemCache[bareLink].nonStats["Slot"]
+			currentSlot = ww_bareItemCache[bareLink].nonStats["slot"]
 			if currentSlot and currentSlot ~= 0 then
-				currentSubslot = ww_bareItemCache[bareLink].nonStats["Subslot"]
+				currentSubslot = ww_bareItemCache[bareLink].nonStats["subslot"]
 				local compareSlots = slotConversion[currentSlot]
 				if type(compareSlots) == "string" then
 					compareLink = GetInventoryItemLink("player", WeightsWatcher.slotList[compareSlots])
@@ -624,13 +624,13 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 				end
 				if compareLink then
 					compareBareLink = splitItemLink(compareLink)
-					compareSlot = ww_bareItemCache[compareBareLink].nonStats["Slot"]
-					compareSubslot = ww_bareItemCache[compareBareLink].nonStats["Subslot"]
+					compareSlot = ww_bareItemCache[compareBareLink].nonStats["slot"]
+					compareSubslot = ww_bareItemCache[compareBareLink].nonStats["subslot"]
 				end
 				if compareLink2 then
 					compareBareLink2 = splitItemLink(compareLink2)
-					compareSlot2 = ww_bareItemCache[compareBareLink2].nonStats["Slot"]
-					compareSubslot2 = ww_bareItemCache[compareBareLink2].nonStats["Subslot"]
+					compareSlot2 = ww_bareItemCache[compareBareLink2].nonStats["slot"]
+					compareSubslot2 = ww_bareItemCache[compareBareLink2].nonStats["subslot"]
 				end
 				compareMethod = determineCompareMethod(currentSlot, compareSlot, compareSlot2, currentSubslot, compareSubslot, compareSubslot2)
 			end
@@ -692,7 +692,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 											end
 											if showIdealGemStats then
 												for stat, value in pairs(gem[3]) do
-													tooltip:AddDoubleLine("      " .. stat .. ": " .. value, " ")
+													tooltip:AddDoubleLine("      " .. statNames[stat] .. ": " .. value, " ")
 												end
 											end
 											if not showAlternateGems then
@@ -793,20 +793,20 @@ function WeightsWatcher.matchesSocket(gemId, socketColor)
 		gemColor = gemId
 	end
 
-	if socketColor == "Red" then
-		if gemColor == "Red" or gemColor == "Orange" or gemColor == "Purple" or gemColor == "Prismatic" then
+	if socketColor == "red" then
+		if gemColor == "red" or gemColor == "orange" or gemColor == "purple" or gemColor == "prismatic" then
 			return true
 		end
-	elseif socketColor == "Blue" then
-		if gemColor == "Blue" or gemColor == "Green" or gemColor == "Purple" or gemColor == "Prismatic" then
+	elseif socketColor == "blue" then
+		if gemColor == "blue" or gemColor == "green" or gemColor == "purple" or gemColor == "prismatic" then
 			return true
 		end
-	elseif socketColor == "Yellow" then
-		if gemColor == "Yellow" or gemColor == "Orange" or gemColor == "Green" or gemColor == "Prismatic" then
+	elseif socketColor == "yellow" then
+		if gemColor == "yellow" or gemColor == "orange" or gemColor == "green" or gemColor == "prismatic" then
 			return true
 		end
-	elseif socketColor == "Meta" then
-		if gemColor == "Meta" then
+	elseif socketColor == "meta" then
+		if gemColor == "meta" then
 			return true
 		end
 	else
@@ -855,7 +855,6 @@ function WeightsWatcher.calculateWeight(normalStats, socketBonusActive, socketBo
 end
 
 function WeightsWatcher.getWeight(stat, value, weightsScale)
-	stat = string.lower(stat)
 	if weightsScale[stat] then
 		return weightsScale[stat] * value
 	else
@@ -918,14 +917,14 @@ function WeightsWatcher.parseLine(textL, textR, link)
 	for _, regex in ipairs(DoubleSlotLines) do
 		if string.find(textL, regex) then
 			local nonStats = {}
-			nonStats["Slot"] = textL
-			nonStats["Subslot"] = textR
+			nonStats["slot"] = textL
+			nonStats["subslot"] = textR
 			return nil, nonStats
 		end
 	end
 	for _, regex in ipairs(SingleSlotLines) do
 		if string.find(textL, regex) then
-			return nil, {["Slot"] = textL}
+			return nil, {["slot"] = textL}
 		end
 	end
 	for _, regex in ipairs(MultipleStatLines) do
@@ -960,8 +959,11 @@ function WeightsWatcher.getItemStats(link)
 	end
 
 	for i = start, WeightsWatcherHiddenTooltip:NumLines() do
-		textL = WeightsWatcher.preprocess(getglobal("WeightsWatcherHiddenTooltipTextLeft" .. i):GetText())
+		textL = WeightsWatcher.preprocess(getglobal("WeightsWatcherHiddenTooltipTextLeft" .. i):GetText():lower())
 		textR = getglobal("WeightsWatcherHiddenTooltipTextRight" .. i):GetText()
+		if textR then
+			textR = textR:lower()
+		end
 
 		local stats, unStats, socket, socketBonus = WeightsWatcher.parseLine(textL, textR, link)
 
@@ -981,9 +983,9 @@ function WeightsWatcher.getItemStats(link)
 		end
 	end
 
-	if nonStats["Slot"] == "Ranged" or nonStats["Slot"] == "Projectile" then
-		normalStats["Ranged DPS"] = rawget(normalStats, "DPS")
-		normalStats["DPS"] = nil
+	if nonStats["slot"] == "ranged" or nonStats["slot"] == "projectile" then
+		normalStats["ranged dps"] = rawget(normalStats, "dps")
+		normalStats["dps"] = nil
 	end
 
 	return {
