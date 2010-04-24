@@ -946,13 +946,13 @@ function WeightsWatcher.parseLine(textL, textR, link)
 	if start then
 		local socketBonusStat = WeightsWatcher.singleStat(value)
 		if socketBonusStat then
-			return nil, nil, nil, socketBonusStat
+			return {socketBonusStat = socketBonusStat}
 		end
 	end
 	for _, regex in ipairs(SocketLines) do
 		local start, _, value = string.find(textL, regex)
 		if start then
-			return nil, nil, value
+			return {socket = value}
 		end
 	end
 	for _, regex in ipairs(IgnoredLines) do
@@ -969,7 +969,7 @@ function WeightsWatcher.parseLine(textL, textR, link)
 	end
 	for _, regex in ipairs(ItemInfoLines) do
 		if string.find(textL, regex) then
-			return nil, {[textL] = true}
+			return {info = {[textL] = true}}
 		end
 	end
 	for _, regex in ipairs(DoubleSlotLines) do
@@ -977,17 +977,17 @@ function WeightsWatcher.parseLine(textL, textR, link)
 			local nonStats = {}
 			nonStats["slot"] = textL
 			nonStats["subslot"] = textR
-			return nil, nonStats
+			return {info = nonStats}
 		end
 	end
 	for _, regex in ipairs(SingleSlotLines) do
 		if string.find(textL, regex) then
-			return nil, {["slot"] = textL}
+			return {info = {["slot"] = textL}}
 		end
 	end
 	local stats = WeightsWatcher.damageRange(textL, textR)
 	if stats then
-		return stats
+		return {stats = stats}
 	end
 
 	for _, args in ipairs(EffectHandlers) do
@@ -1020,19 +1020,19 @@ function WeightsWatcher.parseStats(text)
 		if string.find(text, pattern) then
 			local stats = func(text, pattern)
 			if stats then
-				return stats
+				return {stats = stats}
 			end
 		end
 	end
 	local stat = WeightsWatcher.singleStat(text)
 	if stat then
-		return stat
+		return {stats = stat}
 	end
 end
 
 function WeightsWatcher.getItemStats(link)
 	local textL, textR, pattern, func, start
-	local normalStats, nonStats, socketList, socketBonusStat = WeightsWatcher.newStatTable(), {}, {}
+	local normalStats, nonStats, socketList, socketBonusStat = WeightsWatcher.newStatTable(), {}, {}, WeightsWatcher.newStatTable()
 	local ranged = false
 
 	-- Populate hidden tooltip
@@ -1053,21 +1053,22 @@ function WeightsWatcher.getItemStats(link)
 			textR = textR:lower()
 		end
 
-		local stats, unStats, socket, socketBonus = WeightsWatcher.parseLine(textL, textR, link)
-
+		local stats = WeightsWatcher.parseLine(textL, textR, link)
 		if stats then
-			normalStats = normalStats + stats
-		end
-		if unStats then
-			for name, value in pairs(unStats) do
-				nonStats[name] = value
+			if stats.stats then
+				normalStats = normalStats + stats.stats
 			end
-		end
-		if socket then
-			table.insert(socketList, socket)
-		end
-		if socketBonus then
-			socketBonusStat = socketBonus
+			if stats.info then
+				for name, value in pairs(stats.info) do
+					nonStats[name] = value
+				end
+			end
+			if stats.socket then
+				table.insert(socketList, stats.socket)
+			end
+			if stats.socketBonusStat then
+				socketBonusStat = socketBonusStat + stats.socketBonusStat
+			end
 		end
 	end
 

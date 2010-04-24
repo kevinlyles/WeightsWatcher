@@ -825,7 +825,7 @@ SingleStatLines = {
 			if start then
 				local stats = WeightsWatcher.parseStats("-" .. value .. " " .. name)
 				if stats then
-					return stats
+					return stats.stats
 				end
 			end
 		end},
@@ -835,7 +835,7 @@ SingleStatLines = {
 			if start then
 				local stats = WeightsWatcher.parseStats("-" .. value .. " " .. name)
 				if stats then
-					return stats
+					return stats.stats
 				end
 			end
 		end},
@@ -847,7 +847,7 @@ SingleStatLines = {
 			if start then
 				local stats = WeightsWatcher.parseStats(value .. " " .. name)
 				if stats then
-					return stats
+					return stats.stats
 				end
 			end
 		end},
