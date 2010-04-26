@@ -439,7 +439,7 @@ local function checkForDualWield()
 	local class = WeightsWatcher.playerClass
 	if class == "ROGUE" or class == "DEATHKNIGHT" then
 		return true
-	elseif (class == "HUNTER" or class == "WARRIOR") and level >= 20 then
+	elseif (class == "HUNTER" or class == "WARRIOR") and UnitLevel("player") >= 20 then
 		return true
 	elseif class == "SHAMAN" then
 		return checkForDualWield()
