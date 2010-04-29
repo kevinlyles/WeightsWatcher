@@ -2,7 +2,7 @@ if not WeightsWatcher then
 	WeightsWatcher = AceLibrary("AceAddon-2.0"):new("AceEvent-2.0", "AceHook-2.1")
 end
 
-function WeightsWatcher.handleEffects(text, matchLines, ignoreLines, unweightedLines, preprocessLines, affixLines, section)
+function WeightsWatcher.handleEffects(text, matchLines, ignoreLines, unweightedLines, preprocessLines, affixLines, handler, section)
 	local match = false
 	for _, pattern in ipairs(matchLines) do
 		if string.find(text, pattern) then
@@ -46,7 +46,7 @@ function WeightsWatcher.handleEffects(text, matchLines, ignoreLines, unweightedL
 		ww_ignored_lines[origText] = true
 		return true
 	end
-	local stat = WeightsWatcher.parseStats(text)
+	local stat = handler(text, section)
 	if stat then
 		return stat
 	end
@@ -370,13 +370,17 @@ local ElixirAffixes = {
 	"%.$",
 }
 
+local function parseStats(text, section)
+	return WeightsWatcher.parseStats(text, section)
+end
+
 EffectHandlers = {
-	{EquipStatsMatchLines, {}, EquipStatsUnweightedLines, EquipStatsPreprocessLines, EquipStatsAffixes, "equipStats"},
-	{FoodMatchLines, FoodIgnoreLines, FoodUnweightedLines, FoodPreprocessLines, FoodAffixes, "food"},
-	{EnchantMatchLines, {}, EnchantUnweightedLines, EnchantPreprocessLines, EnchantAffixes, "enchant"},
-	{FishingMatchLines, {}, {}, {}, FishingAffixes, "fishing"},
-	{ElixirMatchLines, ElixirIgnoreLines, ElixirUnweightedLines, ElixirPreprocessLines, ElixirAffixes, "elixir"},
-	{UseEffectMatchLines, UseEffectIgnoreLines, UseEffectUnweightedLines, UseEffectPreprocessLines, UseEffectAffixes, "useEffects"},
+	{EquipStatsMatchLines, {}, EquipStatsUnweightedLines, EquipStatsPreprocessLines, EquipStatsAffixes, parseStats, "equipEffect"},
+	{FoodMatchLines, FoodIgnoreLines, FoodUnweightedLines, FoodPreprocessLines, FoodAffixes, parseStats, "food"},
+	{EnchantMatchLines, {}, EnchantUnweightedLines, EnchantPreprocessLines, EnchantAffixes, parseStats, "enchant"},
+	{FishingMatchLines, {}, {}, {}, FishingAffixes, parseStats, "fishing"},
+	{ElixirMatchLines, ElixirIgnoreLines, ElixirUnweightedLines, ElixirPreprocessLines, ElixirAffixes, parseStats, "elixir"},
+	{UseEffectMatchLines, UseEffectIgnoreLines, UseEffectUnweightedLines, UseEffectPreprocessLines, UseEffectAffixes, parseStats, "useEffect"},
 }
 
 function WeightsWatcher.twoStats(text, pattern)
