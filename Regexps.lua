@@ -89,7 +89,6 @@ local FoodAffixes = {
 	"^set out a bountiful feast to feed a very hungry party%. +",
 	"^restores %d+%%? %a+ over %d+ sec%. *",
 	"^restores %d+%%? health and %d*%%? ?mana over %d+ sec%. *",
-	"^restores %d+%%? health and %d*%%? ?mana every sec for %d+ sec%. *",
 	"^restores %d+ %a+ over %d+ sec, but at a cost%. +",
 	"^must remain seated while %a+ing%. +",
 	"^if you spend at least %d+ seco?n?d?s? %a+ing you will become \"?well fed\"? and +",
@@ -140,7 +139,7 @@ local EquipStatsPreprocessLines = {
 
 local EquipStatsAffixes = {
 	"^equip: +",
-	"^increases ",
+	"^increases +",
 	"^improves +",
 	"^restores +",
 	"^your +",
