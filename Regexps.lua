@@ -15,7 +15,7 @@ local patternCategories = {
 
 ww_regexes = {}
 
-function WeightsWatcher.makePatternTables()
+local function makePatternTables()
 	for _, category in pairs(patternCategories) do
 		ww_regexes[category] = {}
 		ww_regexes[category].MultipleStat = {}
@@ -24,33 +24,20 @@ function WeightsWatcher.makePatternTables()
 	local pattern, func, categories
 	for _, regex in ipairs(MultipleStatLines) do
 		pattern, func, categories = unpack(regex)
-		if not categories then
-			print("Uncategorized pattern: " .. pattern)
-		end
 		for _, category in ipairs(categories) do
-			if ww_regexes[category] then
-				table.insert(ww_regexes[category].MultipleStat, {pattern, func})
-			else
-				print("Invalid category: " .. category)
-			end
+			table.insert(ww_regexes[category].MultipleStat, {pattern, func})
 		end
 	end
 	for _, regex in ipairs(SingleStatLines) do
 		pattern, func, categories = unpack(regex)
-		if not categories then
-			print("Uncategorized pattern: " .. pattern)
-		elseif type(categories) ~= "table" then
-			print("Improperly categorized pattern: " .. pattern)
-		else
-			for _, category in ipairs(categories) do
-				if ww_regexes[category] then
-					table.insert(ww_regexes[category].SingleStat, {pattern, func})
-				else
-					print("Invalid category: " .. category)
-				end
-			end
+		for _, category in ipairs(categories) do
+			table.insert(ww_regexes[category].SingleStat, {pattern, func})
 		end
 	end
+end
+
+function initializeParser()
+	makePatternTables()
 end
 
 function WeightsWatcher.handleEffects(text, matchLines, ignoreLines, unweightedLines, preprocessLines, affixLines, handler, section)
@@ -373,9 +360,6 @@ local ElixirMatchLines = {
 	" guardian elixir%.",
 }
 
-local ElixirIgnoreLines = {
-}
-
 local ElixirUnweightedLines = {
 	" walk across water ",
 	" of your spell targets ",
@@ -422,36 +406,53 @@ local ElixirAffixes = {
 }
 
 local function parseStats(text, section)
-	return WeightsWatcher.parseStats(text, section)
+	for _, regex in ipairs(ww_regexes[section].MultipleStat) do
+		local pattern, func = unpack(regex)
+		if string.find(text, pattern) then
+			local stats = func(text, pattern, section)
+			if stats then
+				return {stats = stats}
+			end
+		end
+	end
+	return WeightsWatcher.singleStat(text, section)
+end
+
+local function parseSocketBonusStat(text, section)
+	local stats = WeightsWatcher.singleStat(text, section)
+	return {socketBonusStat = stats.stats}
 end
 
 EffectHandlers = {
 	{EquipStatsMatchLines, {}, EquipStatsUnweightedLines, EquipStatsPreprocessLines, EquipStatsAffixes, parseStats, "equipEffect"},
+	{{" socket$"}, {}, {}, {}, {" socket$"}, function(text) return {socket = text} end, "socket"},
+	{{"^[^:]+$"}, {}, {}, {}, {}, parseStats, "generic"},
+	{{"^socket bonus: "}, {}, {}, {}, {"^socket bonus: "}, parseSocketBonusStat, "socketBonus"},
 	{FoodMatchLines, FoodIgnoreLines, FoodUnweightedLines, FoodPreprocessLines, FoodAffixes, parseStats, "food"},
 	{EnchantMatchLines, {}, EnchantUnweightedLines, EnchantPreprocessLines, EnchantAffixes, parseStats, "enchant"},
+	{ElixirMatchLines, {}, ElixirUnweightedLines, ElixirPreprocessLines, ElixirAffixes, parseStats, "elixir"},
 	{FishingMatchLines, {}, {}, {}, FishingAffixes, parseStats, "fishing"},
-	{ElixirMatchLines, ElixirIgnoreLines, ElixirUnweightedLines, ElixirPreprocessLines, ElixirAffixes, parseStats, "elixir"},
 	{UseEffectMatchLines, UseEffectIgnoreLines, UseEffectUnweightedLines, UseEffectPreprocessLines, UseEffectAffixes, parseStats, "useEffect"},
 }
 
-function WeightsWatcher.twoStats(text, pattern)
+function WeightsWatcher.twoStats(text, pattern, section)
 	local start, _, stat1, stat2 = string.find(text, pattern)
 	if start then
-		stat1 = WeightsWatcher.singleStat(stat1)
-		stat2 = WeightsWatcher.singleStat(stat2)
+		stat1 = WeightsWatcher.singleStat(stat1, section)
+		stat2 = WeightsWatcher.singleStat(stat2, section)
 		if stat1 and stat2 then
-			return stat1 + stat2
+			return stat1.stats + stat2.stats
 		end
 	end
 end
 
-function WeightsWatcher.multipleStatsOneNumber(text, pattern)
+function WeightsWatcher.multipleStatsOneNumber(text, pattern, section)
 	local start, _, value, stat1, stat2 = string.find(text, pattern)
 	if start then
-		stat1 = WeightsWatcher.singleStat(value .. stat1)
-		stat2 = WeightsWatcher.singleStat(value .. stat2)
+		stat1 = WeightsWatcher.singleStat(value .. stat1, section)
+		stat2 = WeightsWatcher.singleStat(value .. stat2, section)
 		if stat1 and stat2 then
-			return stat1 + stat2
+			return stat1.stats + stat2.stats
 		end
 	end
 end
@@ -494,20 +495,13 @@ function WeightsWatcher.damageRange(textL, textR)
 	return stats
 end
 
-function WeightsWatcher.singleStat(text)
-	for _, regex in ipairs(SingleStatLines) do
-		if type(regex) == "table" then
-			local pattern, func = unpack(regex)
-			if string.find(text, pattern) then
-				local stat = func(text, pattern)
-				if stat then
-					return stat
-				end
-			end
-		else
-			local start, _, name, value = string.find(text, regex)
-			if start then
-				return WeightsWatcher.newStatTable({[name] = tonumber(value)})
+function WeightsWatcher.singleStat(text, section)
+	for _, regex in ipairs(ww_regexes[section].SingleStat) do
+		local pattern, func = unpack(regex)
+		if string.find(text, pattern) then
+			local stat = func(text, pattern, section)
+			if stat then
+				return {stats = stat}
 			end
 		end
 	end
@@ -637,14 +631,14 @@ MultipleStatLines = {
 	{"^([^,]+) and ([^,]+)$", WeightsWatcher.twoStats, {"elixir", "enchant", "food", "generic", "useEffect"}},
 	{"^([+-]?%d+ )(%a[%a ]+%a) and (%a[%a ]+%a)$", WeightsWatcher.multipleStatsOneNumber, {"elixir", "food"}},
 	{"^([%a%d][%a%d ]+[%a%d]), ([%a%d][%a%d ]+[%a%d]),? and ([%a%d][%a%d ]+[%a%d])$",
-		function(text, pattern)
+		function(text, pattern, section)
 			local start, _, stat1, stat2, stat3 = string.find(text, pattern)
 			if start then
-				stat1 = WeightsWatcher.singleStat(stat1)
-				stat2 = WeightsWatcher.singleStat(stat2)
-				stat3 = WeightsWatcher.singleStat(stat3)
+				stat1 = WeightsWatcher.singleStat(stat1, section)
+				stat2 = WeightsWatcher.singleStat(stat2, section)
+				stat3 = WeightsWatcher.singleStat(stat3, section)
 				if stat1 and stat2 and stat3 then
-					return stat1 + stat2 + stat3
+					return stat1.stats + stat2.stats + stat3.stats
 				else
 					ww_unparsed_lines[text][pattern].parsedTo = {stat1, stat2, stat3}
 				end
@@ -654,13 +648,13 @@ MultipleStatLines = {
 	},
 	-- used by some enchants
 	{"^(%a[%a ]+ rating )and (%a[%a ]+ rating )by( %d+)$",
-		function(text, pattern)
+		function(text, pattern, section)
 			local start, _, stat1, stat2, value = string.find(text, pattern)
 			if start then
-				stat1 = WeightsWatcher.singleStat(stat1 .. "by" .. value)
-				stat2 = WeightsWatcher.singleStat(stat2 .. "by" .. value)
+				stat1 = WeightsWatcher.singleStat(stat1 .. "by" .. value, section)
+				stat2 = WeightsWatcher.singleStat(stat2 .. "by" .. value, section)
 				if stat1 and stat2 then
-					return stat1 + stat2
+					return stat1.stats + stat2.stats
 				else
 					ww_unparsed_lines[text][pattern].parsedTo = {stat1, stat2}
 				end
@@ -669,13 +663,13 @@ MultipleStatLines = {
 		{"enchant"},
 	},
 	{"^(%a[%a ]+ )and (%a[%a ]+ )rating by( %d+)$",
-		function(text, pattern)
+		function(text, pattern, section)
 			local start, _, stat1, stat2, value = string.find(text, pattern)
 			if start then
-				stat1 = WeightsWatcher.singleStat(stat1 .. "rating by" .. value)
-				stat2 = WeightsWatcher.singleStat(stat2 .. "rating by" .. value)
+				stat1 = WeightsWatcher.singleStat(stat1 .. "rating by" .. value, section)
+				stat2 = WeightsWatcher.singleStat(stat2 .. "rating by" .. value, section)
 				if stat1 and stat2 then
-					return stat1 + stat2
+					return stat1.stats + stat2.stats
 				else
 					ww_unparsed_lines[text][pattern].parsedTo = {stat1, stat2}
 				end
@@ -825,7 +819,7 @@ SingleStatLines = {
 				return WeightsWatcher.newStatTable({[name] = -tonumber(value)})
 			end
 		end,
-		{"food", "useEffect"},
+		{"food"},
 	},
 	{"^resistance to all schools of magic by ([+-]?%d+)$",
 		function(text, pattern)
@@ -927,10 +921,10 @@ SingleStatLines = {
 	{"^(skinning) skill by (%d+)$", WeightsWatcher.statNameFirst, {"enchant"}},
 
 	{"^reduces? (%a[%a ]+) by (%d+)$",
-		function(text, pattern)
+		function(text, pattern, section)
 			local start, _, name, value = string.find(text, pattern)
 			if start then
-				local stats = WeightsWatcher.parseStats("-" .. value .. " " .. name)
+				local stats = parseStats("-" .. value .. " " .. name, section)
 				if stats then
 					return stats.stats
 				end
@@ -939,10 +933,10 @@ SingleStatLines = {
 		{"food", "useEffect"},
 	},
 	{"^decreases? (%a[%a ]+) by (%d+)$",
-		function(text, pattern)
+		function(text, pattern, section)
 			local start, _, name, value = string.find(text, pattern)
 			if start then
-				local stats = WeightsWatcher.parseStats("-" .. value .. " " .. name)
+				local stats = parseStats("-" .. value .. " " .. name, section)
 				if stats then
 					return stats.stats
 				end
@@ -953,10 +947,10 @@ SingleStatLines = {
 	-- Tends to eat other stats if not last
 	-- TODO: split this into a separate function instead of recursing?
 	{"^(%a+ ?%a+ ?%a+ ?%a+) by (%d+)$",
-		function(text, pattern)
+		function(text, pattern, section)
 			local start, _, name, value = string.find(text, pattern)
 			if start then
-				local stats = WeightsWatcher.parseStats(value .. " " .. name)
+				local stats = parseStats(value .. " " .. name, section)
 				if stats then
 					return stats.stats
 				end
@@ -993,7 +987,7 @@ SingleStatLines = {
 	{"^([+-]?%d+) (%a[%a ]+ rating)$", WeightsWatcher.statNumFirst, {"elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "useEffect"}},
 	{"^([+-]?%d+) (attack power)$", WeightsWatcher.statNumFirst, {"elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "useEffect"}},
 	{"^([+-]?%d+) (spell power)$", WeightsWatcher.statNumFirst, {"elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "useEffect"}},
-	{"^([+-]?%d+) (%a+ resistance)$", WeightsWatcher.statNumFirst, {"enchant", "equipEffect", "generic", "useEffect"}},
+	{"^([+-]?%d+) (%a+ resistance)$", WeightsWatcher.statNumFirst, {"enchant", "generic", "useEffect"}},
 	{"^([+-]?%d+) (all resistances)$", WeightsWatcher.statNumFirst, {"enchant", "equipEffect", "useEffect"}},
 	{"^([+-]?%d+) resist all$",
 		function(text, pattern)

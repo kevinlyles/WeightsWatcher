@@ -255,6 +255,8 @@ function WeightsWatcher.OnInitialize()
 		return
 	end
 
+	initializeParser()
+
 	initializeWeightsConfig()
 
 	SLASH_WEIGHTSWATCHER1="/ww"
@@ -942,19 +944,6 @@ function WeightsWatcher.getGemStats(...)
 end
 
 function WeightsWatcher.parseLine(textL, textR, link)
-	local start, _, value = string.find(textL, socketBonus)
-	if start then
-		local socketBonusStat = WeightsWatcher.singleStat(value)
-		if socketBonusStat then
-			return {socketBonusStat = socketBonusStat}
-		end
-	end
-	for _, regex in ipairs(SocketLines) do
-		local start, _, value = string.find(textL, regex)
-		if start then
-			return {socket = value}
-		end
-	end
 	for _, regex in ipairs(IgnoredLines) do
 		if string.find(textL, regex) then
 			ww_ignored_lines[textL][regex] = true
@@ -1000,10 +989,6 @@ function WeightsWatcher.parseLine(textL, textR, link)
 		end
 	end
 
-	local stats = WeightsWatcher.parseStats(textL)
-	if stats then
-		return stats
-	end
 	for _, regex in ipairs(UnweightedLines) do
 		if string.find(textL, regex) then
 			ww_unweighted_lines[textL][regex] = true
@@ -1012,22 +997,6 @@ function WeightsWatcher.parseLine(textL, textR, link)
 	end
 
 	ww_unparsed_lines[textL][link] = true
-end
-
-function WeightsWatcher.parseStats(text)
-	for _, regex in ipairs(MultipleStatLines) do
-		local pattern, func = unpack(regex)
-		if string.find(text, pattern) then
-			local stats = func(text, pattern)
-			if stats then
-				return {stats = stats}
-			end
-		end
-	end
-	local stat = WeightsWatcher.singleStat(text)
-	if stat then
-		return {stats = stat}
-	end
 end
 
 function WeightsWatcher.getItemStats(link)
