@@ -12,7 +12,7 @@ ww_normalStatsMetatable = {
 	__add = function(tbl1, tbl2)
 		local tbl = setmetatable({}, ww_normalStatsMetatable)
 
-		if tbl ~= nil then
+		if tbl1 ~= nil then
 			for k, v in pairs(tbl1) do
 				tbl[k] = v
 			end
