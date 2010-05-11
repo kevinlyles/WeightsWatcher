@@ -287,15 +287,21 @@ local EnchantAffixes = {
 }
 
 local FishingMatchLines = {
-	"^use: replace",
-	"^use: when applied to your fishing pole",
-	" increases? your skill in fishing ",
+	" fishing ",
+}
+
+local FishingPreProcessLines = {
+	{" skill increased ", " "},
+	{" for 10 min%. %(10 min cooldown%)$", ""},
 }
 
 local FishingAffixes = {
-	"^use: replaces the fishing line on your fishing pole with a %a[%a ]+%a line, increasing +",
-	"^use: when applied to your fishing pole, increases +",
-	"^use: makes you slightly tipsy and increases your skill in +",
+	"^use: +",
+	"^equip: +",
+	"^replaces the fishing line on your fishing pole with a %a[%a ]+%a line, increasing +",
+	"^when applied to your fishing pole, increases +",
+	"^makes you slightly tipsy and increases your skill in +",
+	"^attach a lure to your equipped fishing pole, increasing +",
 	"%.$",
 	"utes$",
 	" +3 min",
@@ -456,7 +462,7 @@ EffectHandlers = {
 	{FoodMatchLines, FoodIgnoreLines, FoodUnweightedLines, FoodPreprocessLines, FoodAffixes, parseStats, "food"},
 	{EnchantMatchLines, {}, EnchantUnweightedLines, EnchantPreprocessLines, EnchantAffixes, parseStats, "enchant"},
 	{ElixirMatchLines, {}, ElixirUnweightedLines, ElixirPreprocessLines, ElixirAffixes, parseStats, "elixir"},
-	{FishingMatchLines, {}, {}, {}, FishingAffixes, parseStats, "fishing"},
+	{FishingMatchLines, {}, {}, FishingPreProcessLines, FishingAffixes, parseStats, "fishing"},
 	{UseEffectMatchLines, UseEffectIgnoreLines, UseEffectUnweightedLines, UseEffectPreprocessLines, UseEffectAffixes, parseStats, "useEffect"},
 	{CooldownUseMatchLines, {}, {}, CooldownUsePreprocessLines, CooldownUseAffixes, function(text) local stat = WeightsWatcher.useEffect(text) if stat then return {useEffect = stat} end end, "cooldownUseEffect"},
 }
@@ -978,6 +984,7 @@ SingleStatLines = {
 
 	-- profession skills
 	{"^(fishing) skill by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "fishing"}},
+	{"^(fishing) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"elixir", "enchant", "equipEffect", "fishing", "food", "generic", "socketBonus", "useEffect"}},
 	{"^(herbalism) skill by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant"}},
 	{"^(mining) skill by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant"}},
 	{"^(skinning) skill by (%d+)$", WeightsWatcher.statNameFirst, {"enchant"}},
