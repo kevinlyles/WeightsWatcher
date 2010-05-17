@@ -50,7 +50,7 @@ ww_itemCacheMetatable = {
 		if #(sockets) > 0 then
 			socketBonusActive = true
 			for i = 1, #(sockets) do
-				if not gemStats[i] or not WeightsWatcher.matchesSocket(gemStats[i][1], sockets[i]) then
+				if not gemStats[i] or not WeightsWatcher.matchesSocket(gemStats[i][1][1], sockets[i]) then
 					socketBonusActive = false
 					break
 				end
