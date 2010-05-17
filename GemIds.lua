@@ -3041,8 +3041,8 @@ GemIds = {
 
 GemQualities = {}
 
-for gemType, gems in pairs(GemIds) do
-	for gemSource, gems in pairs(gems) do
+for gemSource, gems in pairs(GemIds) do
+	for gemType, gems in pairs(gems) do
 		for gemQuality, gems in pairs(gems) do
 			for gemId, gemInfo in pairs(gems) do
 				GemQualities[gemId] = {
