@@ -69,15 +69,7 @@ ww_itemCacheMetatable = {
 
 ww_weightCacheWeightMetatable = {
 	__index = function(tbl, key)
-		local itemStats = ww_bareItemCache[splitItemLink(key)]
-		local normalStats = itemStats.normalStats
-		local socketBonusStat = itemStats.socketBonusStat
-		local useEffects = itemStats.useEffects
-		itemStats = ww_itemCache[key]
-		local socketBonusActive = itemStats.socketBonusActive
-		local gemStats = itemStats.gemStats
-
-		tbl[key] = WeightsWatcher.calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, useEffects, tbl.weight)
+		tbl[key] = WeightsWatcher.calculateWeight(ww_bareItemCache[splitItemLink(key)], ww_itemCache[key], tbl.weight)
 		return tbl[key]
 	end,
 }
@@ -153,10 +145,10 @@ ww_weightIdealCacheWeightMetatable = {
 			end
 		end
 		gemStats = WeightsWatcher.getGemStats(bestGems)
-		weightVal = WeightsWatcher.calculateWeight(normalStats, true, socketBonusStat, gemStats, useEffects, tbl.weight)
+		weightVal = WeightsWatcher.calculateWeight(ww_bareItemCache[key], {socketBonusActive = true, gemStats = gemStats}, tbl.weight)
 		if breakSocketColors then
 			gemStatsIgnoreSockets = WeightsWatcher.getGemStats(bestGemsIgnoreSocket)
-			weightValIgnoreSockets = WeightsWatcher.calculateWeight(normalStats, false, socketBonusStat, gemStatsIgnoreSockets, useEffects, tbl.weight)
+			weightValIgnoreSockets = WeightsWatcher.calculateWeight(ww_bareItemCache[key], {socketBonusActive = false, gemStats = gemStatsIgnoreSockets}, tbl.weight)
 
 			if weightVal < weightValIgnoreSockets then
 				weightVal = weightValIgnoreSockets
@@ -608,6 +600,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 	_, _, _, _, _, itemType, _, stackSize = GetItemInfo(link)
 	if (IsEquippableItem(link) and itemType ~= "Container" and itemType ~= "Quiver") or (itemType == "Gem" and stackSize == 1) or (itemType == "Consumable") or (itemType == "Recipe") then
 		bareLink = splitItemLink(link)
+		local bareItemInfo = ww_bareItemCache[bareLink]
 
 		showWeights = keyDetectors[ww_vars.options.tooltip.showWeights]()
 		showIdealWeights = keyDetectors[ww_vars.options.tooltip.showIdealWeights]()
@@ -617,7 +610,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 
 		if ttname == "GameTooltip" and ww_vars.options.tooltip.showDifferences then
 			local currentSlot, compareSlot, compareSlot2, currentSubslot, compareSubslot, compareSubslot2
-			currentSlot = ww_bareItemCache[bareLink].nonStats["slot"]
+			currentSlot = bareItemInfo.nonStats["slot"]
 			if currentSlot and currentSlot ~= 0 then
 				currentSubslot = ww_bareItemCache[bareLink].nonStats["subslot"]
 				local compareSlots = slotConversion[currentSlot]
@@ -642,8 +635,6 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 		end
 
 		if showWeights then
-			sockets = ww_bareItemCache[bareLink].sockets
-
 			for _, class in ipairs(ww_charVars.activeWeights) do
 				if ww_vars.weightsList[class] then
 					for _, weight in pairs(ww_charVars.activeWeights[class]) do
@@ -656,7 +647,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 							end
 							if compareLink then
 								compareScore = ww_weightCache[class][weight][compareLink]
-								if showIdealWeights and #(sockets) == 0 then
+								if showIdealWeights and #(bareItemInfo.sockets) == 0 then
 									compareBareScore = ww_weightIdealCache[class][weight][compareBareLink].score
 									if compareScore < compareBareScore then
 										compareScore = compareBareScore
@@ -665,7 +656,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 							end
 							if compareLink2 then
 								compareScore2 = ww_weightCache[class][weight][compareLink2]
-								if showIdealWeights and #(sockets) == 0 then
+								if showIdealWeights and #(bareItemInfo.sockets) == 0 then
 									compareBareScore2 = ww_weightIdealCache[class][weight][compareBareLink2].score
 									if compareScore2 < compareBareScore2 then
 										compareScore2 = compareBareScore2
@@ -674,7 +665,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 							end
 							compareScore = computeDifference(compareMethod, compareScore, compareScore2, currentScore)
 							tooltip:AddDoubleLine(str, string.format(colorizeDifferences(compareScore), currentScore, compareScore))
-							if #(sockets) > 0 and showIdealWeights then
+							if #(bareItemInfo.sockets) > 0 and showIdealWeights then
 								local currentScore = ww_weightIdealCache[class][weight][bareLink].score
 								local compareScore, compareScore2
 								if compareBareLink then
@@ -782,7 +773,7 @@ function WeightsWatcher.bestGemForSocket(socketColor, weightScale, qualityLimit)
 						if gems[quality] then
 							for gemId, gemStats in pairs(gems[quality]) do
 								if WeightsWatcher.matchesSocket(gemStats[1], socketColor) then
-									weight = WeightsWatcher.calculateWeight({}, true, nil, {{gemStats}}, {}, weightScale)
+									weight = WeightsWatcher.calculateWeight({normalStats = {}}, {gemStats = {{gemStats}}}, weightScale)
 									if #(bestGem) == 0 or weight > bestWeight then
 										bestGem = {gemId}
 										bestWeight = weight
@@ -847,28 +838,28 @@ function WeightsWatcher.matchesSocket(gemId, socketColor)
 	return false
 end
 
-function WeightsWatcher.calculateWeight(normalStats, socketBonusActive, socketBonusStat, gemStats, useEffects, weightsScale)
+function WeightsWatcher.calculateWeight(bareItemStats, itemStats, weightsScale)
 	local weight = 0
 
-	for stat, value in pairs(normalStats) do
+	for stat, value in pairs(bareItemStats.normalStats) do
 		weight = weight + WeightsWatcher.getWeight(stat, value, weightsScale)
 	end
-	if normalStats["all stats"] and not weightsScale["all stats"] then
+	if bareItemStats.normalStats["all stats"] and not weightsScale["all stats"] then
 		for _, stat in pairs({"agility", "intellect", "spirit", "stamina", "strength"}) do
-			weight = weight + WeightsWatcher.getWeight(stat, normalStats["all stats"], weightsScale)
+			weight = weight + WeightsWatcher.getWeight(stat, bareItemStats.normalStats["all stats"], weightsScale)
 		end
 	end
-	if normalStats["all resistances"] and not weightsScale["all resistances"] then
+	if bareItemStats.normalStats["all resistances"] and not weightsScale["all resistances"] then
 		for _, school in pairs({"arcane", "fire", "frost", "nature", "shadow"}) do
-			weight = weight + WeightsWatcher.getWeight(school .. " resistance", normalStats["all resistances"], weightsScale)
+			weight = weight + WeightsWatcher.getWeight(school .. " resistance", bareItemStats.normalStats["all resistances"], weightsScale)
 		end
 	end
-	if socketBonusActive and socketBonusStat then
-		for stat, value in pairs(socketBonusStat) do
+	if itemStats.socketBonusActive and bareItemStats.socketBonusStat then
+		for stat, value in pairs(bareItemStats.socketBonusStat) do
 			weight = weight + WeightsWatcher.getWeight(stat, value, weightsScale)
 		end
 	end
-	for _, gems in pairs(gemStats) do
+	for _, gems in pairs(itemStats.gemStats) do
 		local maxWeight = 0
 		for _, gemInfo in pairs(gems) do
 			local weight = 0
@@ -891,8 +882,10 @@ function WeightsWatcher.calculateWeight(normalStats, socketBonusActive, socketBo
 		end
 		weight = weight + maxWeight
 	end
-	for _, useEffect in pairs(useEffects) do
-		weight = weight + WeightsWatcher.getWeight(useEffect.stat, useEffect.value * useEffect.duration / useEffect.cooldown * ww_vars.options.useEffects.uptimeRatio, weightsScale)
+	if bareItemStats.useEffects then
+		for _, useEffect in pairs(bareItemStats.useEffects) do
+			weight = weight + WeightsWatcher.getWeight(useEffect.stat, useEffect.value * useEffect.duration / useEffect.cooldown * ww_vars.options.useEffects.uptimeRatio, weightsScale)
+		end
 	end
 	if ww_vars.options.tooltip.normalizeWeights == true then
 		local total = 0
