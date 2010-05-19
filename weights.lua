@@ -180,8 +180,6 @@ end
 
 --opens a new config pane to edit stat weights
 function configSelectWeight(weightFrame)
-	local empty
-
 	if ww_weights.rightPanel.weightFrame then
 		ww_weights.rightPanel.weightFrame.text.highlightFrame:Hide()
 	end
@@ -195,7 +193,7 @@ function configSelectWeight(weightFrame)
 	configResetWeight()
 
 	for _, categoryFrame in ipairs(ww_weights.rightPanel.scrollFrame.categories) do
-		empty = true
+		local empty = true
 		for _, statFrame in ipairs({categoryFrame:GetChildren()}) do
 			if statFrame.statName then
 				if statFrame.statValue:GetText() ~= "" then
