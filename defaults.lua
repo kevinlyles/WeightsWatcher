@@ -91,6 +91,17 @@ trackedStats = {
 	},
 }
 
+triggerGroups = {
+	["meleeDamageDealt"] = {"meleeDamage"},
+	["rangedDamageDealt"] = {"rangedDamage"},
+	["spellDamageDealt"] = {"harmfulSpell"},
+	["damagingSpellCast"] = {"harmfulSpell"},
+	["harmfulSpellHit"] = {"harmfulSpell"},
+	["spellCast"] = {"harmfulSpell", "helpfulSpell"},
+	["healingSpellCast"] = {"helpfulSpell"},
+	["helpfulSpellCast"] = {"helpfulSpell"},
+}
+
 classNames = {
 	["DEATHKNIGHT"] = "Death Knight",
 	["DRUID"] = "Druid",

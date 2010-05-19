@@ -999,7 +999,7 @@ end
 
 function WeightsWatcher.getItemStats(link)
 	local textL, textR, pattern, func, start
-	local normalStats, nonStats, socketList, socketBonusStat, useEffects = WeightsWatcher.newStatTable(), {}, {}, WeightsWatcher.newStatTable(), {}
+	local normalStats, nonStats, socketList, socketBonusStat, useEffects, stackingEquipEffects = WeightsWatcher.newStatTable(), {}, {}, WeightsWatcher.newStatTable(), {}, {}
 	local ranged = false
 
 	-- Populate hidden tooltip
@@ -1039,6 +1039,11 @@ function WeightsWatcher.getItemStats(link)
 			if stats.useEffect then
 				table.insert(useEffects, stats.useEffect)
 			end
+			if stats.stackingEquipEffects then
+				for _, effect in ipairs(stats.stackingEquipEffects) do
+					table.insert(stackingEquipEffects, effect)
+				end
+			end
 		end
 	end
 
@@ -1053,6 +1058,7 @@ function WeightsWatcher.getItemStats(link)
 		sockets = socketList,
 		socketBonusStat = socketBonusStat,
 		useEffects = useEffects,
+		stackingEquipEffects = stackingEquipEffects,
 	}
 end
 
