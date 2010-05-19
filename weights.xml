@@ -197,6 +197,10 @@
 								changed = true
 								break
 							end
+							for _ in pairs(ww_weights.rightPanel.changedTriggers) do
+								changed = true
+								break
+							end
 							if not changed then
 								ww_weights.rightPanel.saveButton:Disable()
 								ww_weights.rightPanel.resetButton:Disable()
@@ -232,6 +236,73 @@
 					</OnEscapePressed>
 				</Scripts>
 			</EditBox>
+		</Frames>
+	</Frame>
+	<!--virtual frame used to allow for script generated frames with trigger information-->
+	<Frame name="ww_triggerFrame" virtual="true">
+		<Size>
+			<AbsDimension y="22"/>
+		</Size>
+		<Anchors>
+			<Anchor point="RIGHT">
+				<Offset>
+					<AbsDimension x="-5"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString name="$parentText" parentKey="text" inherits="GameFontNormal">
+					<Size>
+						<AbsDimension y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="40"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<CheckButton name="$parentActive" parentKey="active" inherits="UICheckButtonTemplate">
+				<Size>
+					<AbsDimension x="20" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT">
+						<Offset>
+							<AbsDimension x="20"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						if self:GetChecked() == ww_weights.rightPanel.statList.triggers[self:GetText()] then
+							ww_weights.rightPanel.changedTriggers[self] = nil
+							local changed = false
+							for _ in pairs(ww_weights.rightPanel.changedStats) do
+								changed = true
+								break
+							end
+							for _ in pairs(ww_weights.rightPanel.changedTriggers) do
+								changed = true
+								break
+							end
+							if not changed then
+								ww_weights.rightPanel.saveButton:Disable()
+								ww_weights.rightPanel.resetButton:Disable()
+							end
+						else
+							ww_weights.rightPanel.changedTriggers[self] = self:GetText()
+							ww_weights.rightPanel.saveButton:Enable()
+							ww_weights.rightPanel.resetButton:Enable()
+						end
+					</OnClick>
+				</Scripts>
+			</CheckButton>
 		</Frames>
 	</Frame>
 	<!--virtual frame used to allow for script generated frames with stat information-->

@@ -887,11 +887,23 @@ function WeightsWatcher.calculateWeight(bareItemStats, itemStats, weightsScale)
 			weight = weight + WeightsWatcher.getWeight(useEffect.stat, useEffect.value * useEffect.duration / useEffect.cooldown * ww_vars.options.useEffects.uptimeRatio, weightsScale)
 		end
 	end
+	if bareItemStats.stackingEquipEffects then
+		for _, effect in ipairs(bareItemStats.stackingEquipEffects) do
+			for trigger in pairs(effect.triggers) do
+				if weightsScale.triggers[trigger] then
+					weight = weight + WeightsWatcher.getWeight(effect.stat, effect.value * effect.numStacks, weightsScale)
+					break
+				end
+			end
+		end
+	end
 	if ww_vars.options.tooltip.normalizeWeights == true then
 		local total = 0
 
 		for _, value in pairs(weightsScale) do
-			total = total + abs(value)
+			if type(value) == "number" then
+				total = total + abs(value)
+			end
 		end
 		if total == 0 then
 			-- Avoids a divide by zero

@@ -188,17 +188,29 @@ function configSelectWeight(weightFrame)
 	ww_weights.rightPanel.weightFrame = weightFrame
 	ww_weights.rightPanel.statList = ww_vars.weightsList[weightFrame.category.class][weightFrame.name]
 	ww_weights.rightPanel.changedStats = {}
+	ww_weights.rightPanel.changedTriggers = {}
 
 	-- Fills the right panel with the current weight's stats
 	configResetWeight()
 
 	for _, categoryFrame in ipairs(ww_weights.rightPanel.scrollFrame.categories) do
 		local empty = true
-		for _, statFrame in ipairs({categoryFrame:GetChildren()}) do
-			if statFrame.statName then
-				if statFrame.statValue:GetText() ~= "" then
-					empty = false
-					break
+		if categoryFrame.name == "Triggers" then
+			for _, triggerFrame in ipairs({categoryFrame:GetChildren()}) do
+				if triggerFrame.active then
+					if triggerFrame.active:GetChecked() then
+						empty = false
+						break
+					end
+				end
+			end
+		else
+			for _, statFrame in ipairs({categoryFrame:GetChildren()}) do
+				if statFrame.statName then
+					if statFrame.statValue:GetText() ~= "" then
+						empty = false
+						break
+					end
 				end
 			end
 		end
@@ -225,6 +237,12 @@ function configResetWeight()
 			statValue:SetText(value)
 		end
 	end
+	if ww_weights.rightPanel.changedTriggers then
+		for triggerCheckButton, trigger in pairs(ww_weights.rightPanel.changedTriggers) do
+			changed = true
+			triggerCheckButton:SetChecked(ww_weights.rightPanel.statList.triggers[trigger])
+		end
+	end
 	if not changed then
 		for _, frame in pairs(ww_weights.rightPanel.scrollFrame.stats) do
 			if frame.statName then
@@ -235,9 +253,19 @@ function configResetWeight()
 				frame.statValue:SetText(value)
 			end
 		end
+		for _, categoryFrame in pairs(ww_weights.rightPanel.scrollFrame.categories) do
+			if categoryFrame.name == "Triggers" then
+				for _, triggerFrame in ipairs({categoryFrame:GetChildren()}) do
+					if triggerFrame.active then
+						triggerFrame.active:SetChecked(ww_weights.rightPanel.statList.triggers[triggerFrame.active:GetText()])
+					end
+				end
+			end
+		end
 	end
 
 	ww_weights.rightPanel.changedStats = {}
+	ww_weights.rightPanel.changedTriggers = {}
 	ww_weights.rightPanel.saveButton:Disable()
 	ww_weights.rightPanel.resetButton:Disable()
 end
@@ -254,15 +282,27 @@ function configSaveWeight()
 	ww_weightCache[weightFrame.category.class][weightFrame.name] = nil
 	ww_weightIdealCache[weightFrame.category.class][weightFrame.name] = nil
 
-	for statValue, statName in pairs(ww_weights.rightPanel.changedStats) do
-		number = statValue:GetNumber()
-		if number == 0 then
-			number = nil
+	if ww_weights.rightPanel.changedStats then
+		for statValue, statName in pairs(ww_weights.rightPanel.changedStats) do
+			number = statValue:GetNumber()
+			if number == 0 then
+				number = nil
+			end
+			ww_weights.rightPanel.statList[statName] = number
 		end
-		ww_weights.rightPanel.statList[statName] = number
+	end
+	if ww_weights.rightPanel.changedTriggers then
+		for triggerCheckButton, trigger in pairs(ww_weights.rightPanel.changedTriggers) do
+			if triggerCheckButton:GetChecked() then
+				ww_weights.rightPanel.statList.triggers[trigger] = true
+			else
+				ww_weights.rightPanel.statList.triggers[trigger] = nil
+			end
+		end
 	end
 
 	ww_weights.rightPanel.changedStats = {}
+	ww_weights.rightPanel.changedTriggers = {}
 	ww_weights.rightPanel.saveButton:Disable()
 	ww_weights.rightPanel.resetButton:Disable()
 end
@@ -437,11 +477,27 @@ function loadStatButtons()
 	createScrollableTieredList(trackedStats, ww_weights.rightPanel.scrollFrame, ww_weights.rightPanel.scrollContainer, "ww_statFrame", 22)
 
 	for _, categoryFrame in ipairs(ww_weights.rightPanel.scrollFrame.categories) do
-		local children = {categoryFrame:GetChildren()}
-		for i, statFrame in ipairs(children) do
-			if statFrame.name then
-				table.insert(stats, statFrame)
-				statFrame.statName = string.lower(statFrame.name)
+		if categoryFrame.name == "Triggers" then
+			for i, trigger in ipairs(triggerNames) do
+				local triggerFrame = CreateFrame("Frame", "WW_" .. trigger, categoryFrame, "ww_triggerFrame")
+				triggerFrame.position = i
+				triggerFrame.category = categoryFrame
+				triggerFrame.text:SetText(triggerNames[trigger])
+				triggerFrame.active:SetText(trigger)
+				triggerFrame.name = trigger
+				triggerFrame:SetPoint("TOPLEFT", 0, -ww_weights.rightPanel.scrollFrame.elementHeight * i)
+				table.insert(ww_weights.rightPanel.scrollFrame.shown, triggerFrame)
+				categoryFrame.length = categoryFrame.length + 1
+			end
+			categoryFrame:SetHeight(ww_weights.rightPanel.scrollFrame.elementHeight * categoryFrame.length)
+			categoryFrame.collapsed = false
+		else
+			local children = {categoryFrame:GetChildren()}
+			for i, statFrame in ipairs(children) do
+				if statFrame.name then
+					table.insert(stats, statFrame)
+					statFrame.statName = string.lower(statFrame.name)
+				end
 			end
 		end
 	end

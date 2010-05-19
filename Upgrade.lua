@@ -135,6 +135,59 @@ function noop_major_up(vars)
 	return vars
 end
 
+function upgradeAccountToTriggers(vars)
+	if vars.savedTriggers then
+		for _, class in ipairs(vars.savedTriggers) do
+			for _, weight in ipairs(vars.savedTriggers[class]) do
+				if vars.weightsList[class] and vars.weightsList[class][weight] then
+					vars.weightsList[class][weight].triggers = vars.savedTriggers[class][weight]
+				end
+			end
+		end
+	end
+	vars.savedTriggers = nil
+	for _, class in ipairs(vars.weightsList) do
+		for _, weight in ipairs(vars.weightsList[class]) do
+			if not vars.weightsList[class][weight].triggers then
+				vars.weightsList[class][weight].triggers = {}
+				if vars.weightsList[class][weight]["dps"] or (vars.weightsList[class][weight]["attack power"] and not vars.weightsList[class][weight]["ranged attack power"]) then
+					vars.weightsList[class][weight].triggers.meleeDamage = true
+				end
+				if vars.weightsList[class][weight]["ranged dps"] or vars.weightsList[class][weight]["ranged attack power"] then
+					vars.weightsList[class][weight].triggers.rangedDamage = true
+				end
+				if vars.weightsList[class][weight]["spell power"] and vars.weightsList[class][weight]["hit rating"] then
+					vars.weightsList[class][weight].triggers.harmfulSpell = true
+				end
+				if vars.weightsList[class][weight]["spell power"] and not vars.weightsList[class][weight]["hit rating"] then
+					vars.weightsList[class][weight].triggers.helpfulSpell = true
+				end
+			end
+		end
+	end
+
+	vars.dataMinorVersion = 12
+	return vars
+end
+
+downgradeAccountFromTriggers = [[
+	return function(vars)
+		vars.savedTriggers = {}
+		for i, class in ipairs(vars.weightsList) do
+			vars.savedTriggers[i] = class
+			vars.savedTriggers[class] = {}
+			for j, weight in ipairs(vars.weightsList[class]) do
+				vars.savedTriggers[class][j] = weight
+				vars.savedTriggers[class][weight] = vars.weightsList[class][weight].triggers
+				vars.weightsList[class][weight].triggers = nil
+			end
+		end
+
+		vars.dataMinorVersion = 11
+		return vars
+	end
+]]
+
 function upgradeAccountToUseEffectRatio(vars)
 	if not vars.options.useEffects then
 		vars.options.useEffects = {}
@@ -805,6 +858,7 @@ upgradeAccountFunctions = {
 		[8] = upgradeAccountToWorkingResistances,
 		[9] = upgradeAccountToWorkingMeleeDamage,
 		[10] = upgradeAccountToUseEffectRatio,
+		[11] = upgradeAccountToTriggers,
 	},
 }
 
@@ -833,6 +887,7 @@ downgradeAccountFunctions = {
 		[9] = noop_down,
 		[10] = noop_down,
 		[11] = noop_down,
+		[12] = downgradeAccountFromTriggers,
 	},
 }
 

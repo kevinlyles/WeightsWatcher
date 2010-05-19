@@ -5,6 +5,7 @@ trackedStats = {
 	[4] = "Caster",
 	[5] = "Meta Gem Stats",
 	[6] = "Resistances",
+	[7] = "Triggers",
 	["General"] = {
 		"Stamina",
 		"Critical Strike Rating",
@@ -89,6 +90,7 @@ trackedStats = {
 		["Nature"] = "nature resistance",
 		["Shadow"] = "shadow resistance",
 	},
+	["Triggers"] = {}
 }
 
 triggerGroups = {
@@ -100,6 +102,17 @@ triggerGroups = {
 	["spellCast"] = {"harmfulSpell", "helpfulSpell"},
 	["healingSpellCast"] = {"helpfulSpell"},
 	["helpfulSpellCast"] = {"helpfulSpell"},
+}
+
+triggerNames = {
+	[1] = "meleeDamage",
+	[2] = "rangedDamage",
+	[3] = "harmfulSpell",
+	[4] = "helpfulSpell",
+	["meleeDamage"] = "Melee damage dealt",
+	["rangedDamage"] = "Ranged damage dealt",
+	["harmfulSpell"] = "Harmful spell cast",
+	["helpfulSpell"] = "Helpful spell cast",
 }
 
 classNames = {
@@ -219,7 +232,7 @@ classNameOptions = {
 
 defaultVars = {
 	dataMajorVersion = 1,
-	dataMinorVersion = 11,
+	dataMinorVersion = 12,
 	weightsList = {
 		[1] = "DEATHKNIGHT",
 		[2] = "DRUID",
@@ -246,6 +259,9 @@ defaultVars = {
 				["haste rating"] = 55,
 				["attack power"] = 36,
 				["armor"] = 1,
+				triggers = {
+					meleeDamage = true,
+				}
 			},
 			["Frost DPS"] = {
 				["dps"] = 337,
@@ -257,6 +273,9 @@ defaultVars = {
 				["attack power"] = 35,
 				["haste rating"] = 28,
 				["armor"] = 1,
+				triggers = {
+					meleeDamage = true,
+				}
 			},
 			["Unholy DPS"] = {
 				["dps"] = 209,
@@ -268,6 +287,9 @@ defaultVars = {
 				["attack power"] = 34,
 				["armor penetration rating"] = 32,
 				["armor"] = 1,
+				triggers = {
+					meleeDamage = true,
+				}
 			},
 			["Tank"] = {
 				["dps"] = 419,
@@ -283,6 +305,9 @@ defaultVars = {
 				["attack power"] = 41,
 				["armor penetration rating"] = 31,
 				["armor"] = 5,
+				triggers = {
+					meleeDamage = true,
+				}
 			},
 		},
 		["DRUID"] = {
@@ -297,6 +322,9 @@ defaultVars = {
 				["critical strike rating"] = 43,
 				["spirit"] = 22,
 				["intellect"] = 22,
+				triggers = {
+					harmfulSpell = true,
+				}
 			},
 			["Feral DPS"] = {
 				["agility"] = 100,
@@ -308,6 +336,9 @@ defaultVars = {
 				["feral attack power"] = 40,
 				["attack power"] = 40,
 				["haste rating"] = 35,
+				triggers = {
+					meleeDamage = true,
+				}
 			},
 			["Feral Tank"] = {
 				["agility"] = 100,
@@ -322,6 +353,9 @@ defaultVars = {
 				["feral attack power"] = 4,
 				["attack power"] = 4,
 				["critical strike rating"] = 3,
+				triggers = {
+					meleeDamage = true,
+				}
 			},
 			["Restoration"] = {
 				["spell power"] = 100,
@@ -330,6 +364,9 @@ defaultVars = {
 				["intellect"] = 51,
 				["spirit"] = 32,
 				["critical strike rating"] = 11,
+				triggers = {
+					helpfulSpell = true,
+				}
 			},
 		},
 		["HUNTER"] = {
@@ -346,6 +383,9 @@ defaultVars = {
 				["ranged attack power"] = 30,
 				["armor penetration rating"] = 28,
 				["haste rating"] = 21,
+				triggers = {
+					rangedDamage = true,
+				}
 			},
 			["Marksmanship"] = {
 				["ranged dps"] = 379,
@@ -357,6 +397,9 @@ defaultVars = {
 				["attack power"] = 32,
 				["ranged attack power"] = 32,
 				["haste rating"] = 24,
+				triggers = {
+					rangedDamage = true,
+				}
 			},
 			["Survival"] = {
 				["ranged dps"] = 181,
@@ -368,6 +411,9 @@ defaultVars = {
 				["attack power"] = 29,
 				["ranged attack power"] = 29,
 				["armor penetration rating"] = 26,
+				triggers = {
+					rangedDamage = true,
+				}
 			},
 		},
 		["MAGE"] = {
@@ -384,6 +430,9 @@ defaultVars = {
 				["frost spell damage"] = 49,
 				["fire spell damage"] = 49,
 				["spirit"] = 14,
+				triggers = {
+					harmfulSpell = true,
+				}
 			},
 			["Fire"] = {
 				["hit rating"] = 100,
@@ -394,6 +443,9 @@ defaultVars = {
 				["frost spell damage"] = 23,
 				["arcane spell damage"] = 23,
 				["intellect"] = 13,
+				triggers = {
+					harmfulSpell = true,
+				}
 			},
 			["Frost"] = {
 				["hit rating"] = 100,
@@ -404,6 +456,9 @@ defaultVars = {
 				["fire spell damage"] = 19,
 				["critical strike rating"] = 19,
 				["intellect"] = 6,
+				triggers = {
+					harmfulSpell = true,
+				}
 			},
 		},
 		["PALADIN"] = {
@@ -416,6 +471,9 @@ defaultVars = {
 				["spell power"] = 58,
 				["critical strike rating"] = 46,
 				["haste rating"] = 35,
+				triggers = {
+					helpfulSpell = true,
+				}
 			},
 			["Protection"] = {
 				["stamina"] = 100,
@@ -432,6 +490,10 @@ defaultVars = {
 				["attack power"] = 6,
 				["spell power"] = 4,
 				["critical strike rating"] = 3,
+				triggers = {
+					harmfulSpell = true,
+					meleeDamage = true,
+				}
 			},
 			["Retribution"] = {
 				["dps"] = 470,
@@ -444,6 +506,10 @@ defaultVars = {
 				["haste rating"] = 30,
 				["armor penetration rating"] = 22,
 				["spell power"] = 9,
+				triggers = {
+					harmfulSpell = true,
+					meleeDamage = true,
+				}
 			},
 		},
 		["PRIEST"] = {
@@ -457,6 +523,9 @@ defaultVars = {
 				["haste rating"] = 59,
 				["critical strike rating"] = 48,
 				["spirit"] = 22,
+				triggers = {
+					helpfulSpell = true,
+				}
 			},
 			["Holy"] = {
 				["mp5"] = 100,
@@ -465,6 +534,9 @@ defaultVars = {
 				["spirit"] = 52,
 				["critical strike rating"] = 38,
 				["haste rating"] = 31,
+				triggers = {
+					helpfulSpell = true,
+				}
 			},
 			["Shadow"] = {
 				["hit rating"] = 100,
@@ -474,6 +546,9 @@ defaultVars = {
 				["haste rating"] = 50,
 				["spirit"] = 16,
 				["intellect"] = 16,
+				triggers = {
+					harmfulSpell = true,
+				}
 			},
 		},
 		["ROGUE"] = {
@@ -490,6 +565,9 @@ defaultVars = {
 				["armor penetration rating"] = 65,
 				["haste rating"] = 64,
 				["strength"] = 55,
+				triggers = {
+					meleeDamage = true,
+				}
 			},
 			["Combat"] = {
 				["dps"] = 220,
@@ -501,6 +579,9 @@ defaultVars = {
 				["haste rating"] = 73,
 				["strength"] = 55,
 				["attack power"] = 50,
+				triggers = {
+					meleeDamage = true,
+				}
 			},
 			["Subtlety"] = {
 				["dps"] = 228,
@@ -512,6 +593,9 @@ defaultVars = {
 				["haste rating"] = 75,
 				["strength"] = 55,
 				["attack power"] = 50,
+				triggers = {
+					meleeDamage = true,
+				}
 			},
 		},
 		["SHAMAN"] = {
@@ -524,6 +608,9 @@ defaultVars = {
 				["haste rating"] = 56,
 				["critical strike rating"] = 40,
 				["intellect"] = 11,
+				triggers = {
+					harmfulSpell = true,
+				}
 			},
 			["Enhancement"] = {
 				["dps"] = 135,
@@ -537,6 +624,10 @@ defaultVars = {
 				["attack power"] = 32,
 				["spell power"] = 29,
 				["armor penetration rating"] = 26,
+				triggers = {
+					harmfulSpell = true,
+					meleeDamage = true,
+				}
 			},
 			["Restoration"] = {
 				["mp5"] = 100,
@@ -544,6 +635,9 @@ defaultVars = {
 				["spell power"] = 77,
 				["critical strike rating"] = 62,
 				["haste rating"] = 35,
+				triggers = {
+					helpfulSpell = true,
+				}
 			},
 		},
 		["WARLOCK"] = {
@@ -559,6 +653,9 @@ defaultVars = {
 				["fire spell damage"] = 36,
 				["spirit"] = 34,
 				["intellect"] = 15,
+				triggers = {
+					harmfulSpell = true,
+				}
 			},
 			["Demonology"] = {
 				["hit rating"] = 100,
@@ -569,6 +666,9 @@ defaultVars = {
 				["critical strike rating"] = 31,
 				["spirit"] = 29,
 				["intellect"] = 13,
+				triggers = {
+					harmfulSpell = true,
+				}
 			},
 			["Destruction"] = {
 				["hit rating"] = 100,
@@ -579,6 +679,9 @@ defaultVars = {
 				["shadow spell damage"] = 23,
 				["critical strike rating"] = 16,
 				["intellect"] = 13,
+				triggers = {
+					harmfulSpell = true,
+				}
 			},
 		},
 		["WARRIOR"] = {
@@ -594,6 +697,9 @@ defaultVars = {
 				["haste rating"] = 36,
 				["attack power"] = 31,
 				["armor"] = 5,
+				triggers = {
+					meleeDamage = true,
+				}
 			},
 			["Protection"] = {
 				["stamina"] = 100,
@@ -611,6 +717,9 @@ defaultVars = {
 				["armor"] = 6,
 				["haste rating"] = 1,
 				["attack power"] = 1,
+				triggers = {
+					meleeDamage = true,
+				}
 			},
 		},
 	},
