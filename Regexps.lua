@@ -34,6 +34,27 @@ local function makePatternTables()
 			table.insert(ww_regexes[category].SingleStat, {pattern, func})
 		end
 	end
+	for _, category in pairs(patternCategories) do
+		local empty = true
+		for _ in pairs(ww_regexes[category].MultipleStat) do
+			empty = false
+			break
+		end
+		for _ in pairs(ww_regexes[category].SingleStat) do
+			empty = false
+			break
+		end
+		if empty then
+			for _, regex in ipairs(MultipleStatLines) do
+				pattern, func = unpack(regex)
+				table.insert(ww_regexes[category].MultipleStat, {pattern, func})
+			end
+			for _, regex in ipairs(SingleStatLines) do
+				pattern, func = unpack(regex)
+				table.insert(ww_regexes[category].SingleStat, {pattern, func})
+			end
+		end
+	end
 end
 
 function initializeParser()
