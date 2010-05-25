@@ -1,14 +1,16 @@
+local L = ww_localization
+
 local function printHelp()
-	print("WeightsWatcher help:")
-	print("Type /weightswatcher <arg> (or /ww <arg>)")
-	print("  config      opens the main configuration window")
-	print("  weights   opens the weights configuration window")
-	print("  version    displays version information")
-	print("  help         displays this message")
+	print(L["HELP_TEXT_HEADER"])
+	print(L["HELP_TEXT_GENERAL"])
+	print(L["HELP_TEXT_CONFIG"])
+	print(L["HELP_TEXT_WEIGHTS"])
+	print(L["HELP_TEXT_VERSION"])
+	print(L["HELP_TEXT_HELP"])
 end
 
 function ww_commandHandler(msg)
-	if msg == "config" then
+	if msg == L["config"] then
 		ww_weights:Hide()
 		-- TODO: make this work better with the confirmDiscardChanges dialog
 		if ww_weights:IsShown() then
@@ -19,7 +21,7 @@ function ww_commandHandler(msg)
 		else
 			ww_config:Show()
 		end
-	elseif msg == "weights" then
+	elseif msg == L["weights"] then
 		ww_config:Hide()
 		if ww_config:IsShown() then
 			return
@@ -29,10 +31,10 @@ function ww_commandHandler(msg)
 		else
 			ww_weights:Show()
 		end
-	elseif msg == "version" then
-		print("WeightsWatcher version: " .. WeightsWatcher.version)
-		print("  Account data version: " .. ww_vars.dataMajorVersion .. "." .. ww_vars.dataMinorVersion)
-		print("  Character data version: " .. ww_charVars.dataMajorVersion .. "." .. ww_charVars.dataMinorVersion)
+	elseif msg == L["version"] then
+		print(string.format(L["WW_VERSION"], WeightsWatcher.version))
+		print(string.format(L["ACCT_VERSION"], ww_vars.dataMajorVersion, L["DECIMAL_SEPARATOR"], ww_vars.dataMinorVersion))
+		print(string.format(L["CHAR_VERSION"], ww_charVars.dataMajorVersion, L["DECIMAL_SEPARATOR"], ww_charVars.dataMinorVersion))
 	else
 		printHelp()
 	end
