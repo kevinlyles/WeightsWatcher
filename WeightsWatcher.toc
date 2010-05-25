@@ -9,6 +9,8 @@
 ## X-Category: Interface Enhancements
 ## X-License: GPLv2
 
+Locales\locales.xml
+
 Libs\AceLibrary\AceLibrary.lua
 Libs\AceOO-2.0\AceOO-2.0.lua
 Libs\AceAddon-2.0\AceAddon-2.0.lua
