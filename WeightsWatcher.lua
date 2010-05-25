@@ -728,7 +728,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 
 		if not ww_vars.options.tooltip.hideHints then
 			if showWeights then
-				if not ww_vars.options.tooltip.hideHints and #(sockets) > 0 then
+				if not ww_vars.options.tooltip.hideHints and #(bareItemInfo.sockets) > 0 then
 					if not showIdealWeights then
 						if ww_vars.options.tooltip.showIdealWeights ~= "Never" then
 							tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealWeights .. " to show ideally-gemmed weights>")
