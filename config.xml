@@ -151,7 +151,7 @@
 				</Size>
 				<Layers>
 					<Layer level="ARTWORK">
-						<FontString name="$parentHeader" parentKey="header" text="Calculation Options" inherits="ww_headerFont"/>
+						<FontString name="$parentHeader" parentKey="header" inherits="ww_headerFont"/>
 					</Layer>
 				</Layers>
 				<Frames>
@@ -185,11 +185,11 @@
 						</Frames>
 						<Scripts>
 							<OnLoad>
-								self.label:SetText("Maximum Ideal Gem Quality:")
+								self.label:SetText(ww_localization["MAX_GEM_QUAL"])
 							</OnLoad>
 						</Scripts>
 					</Frame>
-					<CheckButton name="$parentUseUEGems" parentKey="useUEGems" inherits="ww_checkButton" text="Use Unique-Equipped Gems">
+					<CheckButton name="$parentUseUEGems" parentKey="useUEGems" inherits="ww_checkButton">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentGemQuality"/>
 						</Anchors>
@@ -204,11 +204,12 @@
 							</OnClick>
 							<OnLoad>
 								self.shouldBeChecked = function() return ww_vars.options.gems.types["Unique-Equipped"] end
-								self.ttText = "Consider gems that are Unique-Equipped"
+								self.ttText = ww_localization["USE_UE_GEMS_TT"]
+								self:SetText(ww_localization["USE_UE_GEMS"])
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
-					<CheckButton name="$parentUseJCOnlyGems" parentKey="useJCOnlyGems" inherits="ww_checkButton" text="Use Jewelcrafter-Only Gems">
+					<CheckButton name="$parentUseJCOnlyGems" parentKey="useJCOnlyGems" inherits="ww_checkButton">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseUEGems"/>
 						</Anchors>
@@ -223,11 +224,12 @@
 							</OnClick>
 							<OnLoad>
 								self.shouldBeChecked = function() return ww_vars.options.gems.types["Jewelcrafter-Only"] end
-								self.ttText = "Consider gems that are Jewelcrafter-Only"
+								self.ttText = ww_localization["USE_JC_GEMS_TT"]
+								self:SetText(ww_localization["USE_JC_GEMS"])
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
-					<CheckButton name="$parentUseVendorGems" parentKey="useVendorGems" inherits="ww_checkButton" text="Use Vendor-Purchasable Gems">
+					<CheckButton name="$parentUseVendorGems" parentKey="useVendorGems" inherits="ww_checkButton">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseJCOnlyGems"/>
 						</Anchors>
@@ -242,11 +244,12 @@
 							</OnClick>
 							<OnLoad>
 								self.shouldBeChecked = function() return ww_vars.options.gems.sources["Vendor"] end
-								self.ttText = "Consider gems that are purchasable with gold"
+								self.ttText = ww_localization["USE_VP_GEMS_TT"]
+								self:SetText(ww_localization["USE_VP_GEMS"])
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
-					<CheckButton name="$parentUsePVPVendorGems" parentKey="usePVPVendorGems" inherits="ww_checkButton" text="Use PVP Vendor-Purchasable Gems">
+					<CheckButton name="$parentUsePVPVendorGems" parentKey="usePVPVendorGems" inherits="ww_checkButton">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseVendorGems"/>
 						</Anchors>
@@ -261,11 +264,12 @@
 							</OnClick>
 							<OnLoad>
 								self.shouldBeChecked = function() return ww_vars.options.gems.sources["PVP-Vendor"] end
-								self.ttText = "Consider gems that are purchasable with PVP tokens"
+								self.ttText = ww_localization["USE_PVPVP_GEMS_TT"]
+								self:SetText(ww_localization["USE_PVPVP_GEMS"])
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
-					<CheckButton name="$parentUseCraftedGems" parentKey="useCraftedGems" inherits="ww_checkButton" text="Use Crafted Gems">
+					<CheckButton name="$parentUseCraftedGems" parentKey="useCraftedGems" inherits="ww_checkButton">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUsePVPVendorGems"/>
 						</Anchors>
@@ -282,11 +286,12 @@
 							</OnClick>
 							<OnLoad>
 								self.shouldBeChecked = function() return ww_vars.options.gems.sources["Crafted"] end
-								self.ttText = "Consider gems that are player crafted (usually but not always through Jewelcrafting)"
+								self.ttText = ww_localization["USE_PC_GEMS_TT"]
+								self:SetText(ww_localization["USE_PC_GEMS"])
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
-					<CheckButton name="$parentUseProcGems" parentKey="useProcGems" inherits="ww_checkButton" text="Use Procced Gems">
+					<CheckButton name="$parentUseProcGems" parentKey="useProcGems" inherits="ww_checkButton">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentUseCraftedGems">
 								<Offset>
@@ -306,11 +311,12 @@
 							<OnLoad>
 								self.shouldBeChecked = function() return ww_vars.options.gems.sources["Procced"] end
 								self.shouldBeEnabled = function() return ww_vars.options.gems.sources["Crafted"] end
-								self.ttText = "Consider gems that are created by a proc (i.e. Wrath \"Perfect\" gems)"
+								self.ttText = ww_localization["USE_P_GEMS_TT"]
+								self:SetText(ww_localization["USE_P_GEMS"])
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
-					<CheckButton name="$parentUseDropGems" parentKey="useDropGems" inherits="ww_checkButton" text="Use Dropped Gems">
+					<CheckButton name="$parentUseDropGems" parentKey="useDropGems" inherits="ww_checkButton">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseProcGems"/>
 						</Anchors>
@@ -325,11 +331,12 @@
 							</OnClick>
 							<OnLoad>
 								self.shouldBeChecked = function() return ww_vars.options.gems.sources["Drop"] end
-								self.ttText = "Consider gems that are dropped by a mob/zone"
+								self.ttText = ww_localization["USE_D_GEMS_TT"]
+								self:SetText(ww_localization["USE_D_GEMS"])
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
-					<CheckButton name="$parentUseQuestGems" parentKey="useQuestGems" inherits="ww_checkButton" text="Use Quest Reward Gems">
+					<CheckButton name="$parentUseQuestGems" parentKey="useQuestGems" inherits="ww_checkButton">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseDropGems"/>
 						</Anchors>
@@ -344,11 +351,12 @@
 							</OnClick>
 							<OnLoad>
 								self.shouldBeChecked = function() return ww_vars.options.gems.sources["Quest"] end
-								self.ttText = "Consider gems that are quest rewards"
+								self.ttText = ww_localization["USE_QR_GEMS_TT"]
+								self:SetText(ww_localization["USE_QR_GEMS"])
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
-					<CheckButton name="$parentObeySocketColors" parentKey="obeySocketColors" inherits="ww_checkButton" text="Obey socket colors">
+					<CheckButton name="$parentObeySocketColors" parentKey="obeySocketColors" inherits="ww_checkButton">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseQuestGems"/>
 						</Anchors>
@@ -365,11 +373,12 @@
 							</OnClick>
 							<OnLoad>
 								self.shouldBeChecked = function() return not ww_vars.options.gems.breakSocketColors end
-								self.ttText = "Chooses ideal gems that obey their socket color (even if that gives a lower overall score)"
+								self.ttText = ww_localization["MATCH_SOCKET_TT"]
+								self:SetText(ww_localization["MATCH_SOCKET"])
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
-					<CheckButton name="$parentAlwaysObeySocketColors" parentKey="alwaysObeySocketColors" inherits="ww_checkButton" text="Even if the socket bonus is worthless">
+					<CheckButton name="$parentAlwaysObeySocketColors" parentKey="alwaysObeySocketColors" inherits="ww_checkButton">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentObeySocketColors">
 								<Offset>
@@ -389,11 +398,12 @@
 							<OnLoad>
 								self.shouldBeChecked = function() return ww_vars.options.gems.neverBreakSocketColors end
 								self.shouldBeEnabled = function() return not ww_vars.options.gems.breakSocketColors end
-								self.ttText = "Forces ideal gems to obey their socket color (even if the socket bonus has a 0 or negative score for that weight)"
+								self.ttText = ww_localization["ALWAYS_MATCH_SOCKET_TT"]
+								self:SetText(ww_localization["ALWAYS_MATCH_SOCKET"])
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
-					<CheckButton name="$parentNormalizeWeights" parentKey="normalizeWeights" inherits="ww_checkButton" text="Normalize weights">
+					<CheckButton name="$parentNormalizeWeights" parentKey="normalizeWeights" inherits="ww_checkButton">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentAlwaysObeySocketColors"/>
 						</Anchors>
@@ -409,11 +419,12 @@
 							</OnClick>
 							<OnLoad>
 								self.shouldBeChecked = function() return ww_vars.options.tooltip.normalizeWeights end
-								self.ttText = "Divides item scores by the total of all stats' values in that weight"
+								self.ttText = ww_localization["NORMALIZE_TT"]
+								self:SetText(ww_localization["NORMALIZE"])
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
-					<Frame name="$parentUseEffectUptimeRatio" parentKey = "useEffectUptimeRatio" inherits="ww_labeledElement">
+					<Frame name="$parentUseEffectUptimeRatio" parentKey="useEffectUptimeRatio" inherits="ww_labeledElement">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentNormalizeWeights"/>
 						</Anchors>
@@ -480,11 +491,16 @@
 						</Frames>
 						<Scripts>
 							<OnLoad>
-								self.label:SetText("Percent of ideal use effect uptime:")
+								self.label:SetText(ww_localization["IDEAL_USE_UPTIME"])
 							</OnLoad>
 						</Scripts>
 					</Frame>
 				</Frames>
+				<Scripts>
+					<OnLoad>
+						self.header:SetText(ww_localization["CALC_OPTS"])
+					</OnLoad>
+				</Scripts>
 			</Frame>
 			<Frame name="$parentDisplayOptions" parentKey="displayOptions" inherits="ww_borderedFrame">
 				<Anchors>
@@ -493,7 +509,7 @@
 				</Anchors>
 				<Layers>
 					<Layer level="ARTWORK">
-						<FontString name="$parentHeader" parentKey="header" text="Display Options" inherits="ww_headerFont"/>
+						<FontString name="$parentHeader" parentKey="header" inherits="ww_headerFont"/>
 					</Layer>
 				</Layers>
 				<Frames>
@@ -503,7 +519,7 @@
 						</Anchors>
 						<Scripts>
 							<OnLoad>
-								self.label:SetText("Show weights:")
+								self.label:SetText(ww_localization["SHOW_WTS"])
 								self.dropdown:SetText("showWeights")
 							</OnLoad>
 						</Scripts>
@@ -519,7 +535,7 @@
 						</Anchors>
 						<Scripts>
 							<OnLoad>
-								self.label:SetText("Show ideally-gemmed weights:")
+								self.label:SetText(ww_localization["SHOW_IDEAL_WTS"])
 								self.dropdown:SetText("showIdealWeights")
 							</OnLoad>
 						</Scripts>
@@ -535,7 +551,7 @@
 						</Anchors>
 						<Scripts>
 							<OnLoad>
-								self.label:SetText("Show ideal gems:")
+								self.label:SetText(ww_localization["SHOW_IDEAL_GEMS"])
 								self.dropdown:SetText("showIdealGems")
 							</OnLoad>
 						</Scripts>
@@ -551,7 +567,7 @@
 						</Anchors>
 						<Scripts>
 							<OnLoad>
-								self.label:SetText("Show alternate ideal gems:")
+								self.label:SetText(ww_localization["SHOW_ALT_IDEAL_GEMS"])
 								self.dropdown:SetText("showAlternateGems")
 							</OnLoad>
 						</Scripts>
@@ -567,7 +583,7 @@
 						</Anchors>
 						<Scripts>
 							<OnLoad>
-								self.label:SetText("Show ideal gem stats:")
+								self.label:SetText(ww_localization["SHOW_IDEAL_GEM_STATS"])
 								self.dropdown:SetText("showIdealGemStats")
 							</OnLoad>
 						</Scripts>
@@ -575,20 +591,15 @@
 					<Frame name="$parentShowDebugInfo" parentKey="showDebugInfo" inherits="ww_modifierKeyDropDown">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowIdealGemStats"/>
-							<!--<Anchor point="LEFT" relativePoint="LEFT" relativeTo="$parentShowIdealGems">
-								<Offset>
-									<AbsDimension x="20"/>
-								</Offset>
-							</Anchor>-->
 						</Anchors>
 						<Scripts>
 							<OnLoad>
-								self.label:SetText("Show parser debug information:")
+								self.label:SetText(ww_localization["SHOW_DEBUG"])
 								self.dropdown:SetText("showDebugInfo")
 							</OnLoad>
 						</Scripts>
 					</Frame>
-					<CheckButton name="$parentHideTooltipHints" parentKey="hideTooltipHints" inherits="ww_checkButton" text="Hide tooltip hints">
+					<CheckButton name="$parentHideTooltipHints" parentKey="hideTooltipHints" inherits="ww_checkButton">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowDebugInfo"/>
 						</Anchors>
@@ -602,7 +613,8 @@
 							</OnClick>
 							<OnLoad>
 								self.shouldBeChecked = function() return ww_vars.options.tooltip.hideHints end
-								self.ttText = "Hides modifier key hints in tooltips"
+								self.ttText = ww_localization["HIDE_HINTS_TT"]
+								self:SetText(ww_localization["HIDE_HINTS"])
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -635,11 +647,11 @@
 						</Frames>
 						<Scripts>
 							<OnLoad>
-								self.label:SetText("Show class names:")
+								self.label:SetText(ww_localization["SHOW_CLASS"])
 							</OnLoad>
 						</Scripts>
 					</Frame>
-					<CheckButton name="$parentShowDifference" parentKey="showDifference" inherits="ww_checkButton" text="Show differences to current gear">
+					<CheckButton name="$parentShowDifference" parentKey="showDifference" inherits="ww_checkButton">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowClassNames"/>
 						</Anchors>
@@ -654,10 +666,16 @@
 							<OnLoad>
 								self.shouldBeChecked = function() return ww_vars.options.tooltip.showDifferences end
 								self.ttText = "Shows the change in score compared to the currently equipped gear"
+								self:SetText(ww_localization["SHOW_DIFF"])
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
 				</Frames>
+				<Scripts>
+					<OnLoad>
+						self.header:SetText(ww_localization["DISPLAY_OPTS"])
+					</OnLoad>
+				</Scripts>
 			</Frame>
 		</Frames>
 		<Scripts>
