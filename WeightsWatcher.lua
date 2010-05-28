@@ -609,7 +609,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 		showIdealGemStats = keyDetectors[ww_vars.options.tooltip.showIdealGemStats]()
 		showAlternateGems = keyDetectors[ww_vars.options.tooltip.showAlternateGems]()
 
-		if ttname == "GameTooltip" and ww_vars.options.tooltip.showDifferences then
+		if ttname ~= "ShoppingTooltip1" and ttname ~= "ShoppingTooltip2" and ww_vars.options.tooltip.showDifferences then
 			local currentSlot, compareSlot, compareSlot2, currentSubslot, compareSubslot, compareSubslot2
 			currentSlot = bareItemInfo.nonStats["slot"]
 			if currentSlot and currentSlot ~= 0 then
