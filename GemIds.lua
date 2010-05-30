@@ -465,7 +465,7 @@ GemIds = {
 					{["intellect"] = 12, ["chance to restore mana on spellcast"] = 1},
 				},
 				[2947] = {
-					"Prismatic",
+					"prismatic",
 					"Prismatic Sphere",
 					{["all resistances"] = 3},
 				},
@@ -552,7 +552,7 @@ GemIds = {
 			},
 			[4] = {
 				[2948] = {
-					"Prismatic",
+					"prismatic",
 					"Void Sphere",
 					{["all resistances"] = 4},
 				},
@@ -1947,21 +1947,21 @@ GemIds = {
 		["Unique-Equipped"] = {
 			[5] = {
 				[3749] = {
-					"Prismatic",
+					"prismatic",
 					"Enchanted Pearl",
 					{["all stats"] = 4},
 				},
 			},
 			[6] = {
 				[3750] = {
-					"Prismatic",
+					"prismatic",
 					"Enchanted Tear",
 					{["all stats"] = 6},
 				},
 			},
 			[7] = {
 				[3879] = {
-					"Prismatic",
+					"prismatic",
 					"Nightmare Tear",
 					{["all stats"] = 10},
 				},
