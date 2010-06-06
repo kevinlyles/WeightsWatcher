@@ -477,7 +477,9 @@ local function determineCompareMethod(currentSlot, compareSlot, compareSlot2, cu
 			return "empty"
 		end
 	elseif currentSlot == "one-hand" then
-		if checkForDualWield() then
+		if compareSlot == "two-hand" then
+			return "1"
+		elseif checkForDualWield() then
 			if compareSlot and compareSlot2 then
 				return "worst"
 			end
