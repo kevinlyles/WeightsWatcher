@@ -7,6 +7,14 @@
 			<Anchor point="LEFT"/>
 		</Anchors>
 	</FontString>
+	<!-- Localizes the button text automatically -->
+	<Button name="ww_localizedButton" inherits="UIPanelButtonTemplate" virtual="true">
+		<Scripts>
+			<OnLoad>
+				self:SetText(ww_localization[self:GetText()])
+			</OnLoad>
+		</Scripts>
+	</Button>
 	<!-- Adds a border that can be hidden/shown as a unit -->
 	<Frame name="ww_highlightedFrame" virtual="true" hidden="true">
 		<Layers>
@@ -318,7 +326,7 @@
 			<Anchor point="RIGHT"/>
 		</Anchors>
 		<Frames>
-			<CheckButton name="$parentCheckButton" parentKey="checkButton" inherits="UICheckButtonTemplate" text="Watch this Weight">
+			<CheckButton name="$parentCheckButton" parentKey="checkButton" inherits="UICheckButtonTemplate">
 				<Size>
 					<AbsDimension x="20" y="20"/>
 				</Size>
@@ -351,7 +359,7 @@
 					</OnClick>
 					<OnEnter>
 						GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
-						GameTooltip:AddLine("Watch this weight?", 1, 1, 1)
+						GameTooltip:AddLine(ww_localization["WATCH_TT"], 1, 1, 1)
 						GameTooltip:Show()
 					</OnEnter>
 					<OnLeave>
@@ -531,7 +539,7 @@
 				</Backdrop>
 				<Frames>
 					<!--Save button-->
-					<Button name="$parentSaveButton" parentKey="saveButton" inherits="UIPanelButtonTemplate" text="Save">
+					<Button name="$parentSaveButton" parentKey="saveButton" inherits="ww_localizedButton" text="Save">
 						<Size>
 							<AbsDimension x="80" y="22"/>
 						</Size>
@@ -549,15 +557,17 @@
 						</Scripts>
 					</Button>
 					<!--Copy button-->
+					<!-- Cannot inherit localized button as it needs its own onload handler -->
 					<Button name="$parentCopyButton" parentKey="copyButton" inherits="UIPanelButtonTemplate" text="Copy">
 						<Size>
 							<AbsDimension x="80" y="22"/>
 						</Size>
 						<Scripts>
 							<OnClick>
-								ww_configNewWeight(self:GetParent().weightFrame.category.class, "Copy of " .. self:GetParent().weightFrame.name, self:GetParent().statList)
+								ww_configNewWeight(self:GetParent().weightFrame.category.class, string.format(ww_localization["DEFAULT_COPY_NAME"], self:GetParent().weightFrame.name), self:GetParent().statList)
 							</OnClick>
 							<OnLoad>
+								self:SetText(ww_localization[self:GetText()])
 								local relTo = self:GetParent().saveButton
 								local _, _, _, relToXOffset = relTo:GetPoint(1)
 								self:SetPoint("CENTER", relTo, (self:GetParent():GetWidth() - self:GetWidth() - 2 * relToXOffset) / 3, 0)
@@ -565,7 +575,7 @@
 						</Scripts>
 					</Button>
 					<!--Reset button-->
-					<Button name="$parentResetButton" parentKey="resetButton" inherits="UIPanelButtonTemplate" text="Reset">
+					<Button name="$parentResetButton" parentKey="resetButton" inherits="ww_localizedButton" text="Reset">
 						<Size>
 							<AbsDimension x="80" y="22"/>
 						</Size>
@@ -583,6 +593,7 @@
 						</Scripts>
 					</Button>
 					<!--Delete button-->
+					<!-- Cannot inherit localized button as it needs its own onload handler -->
 					<Button name="$parentDeleteButton" parentKey="deleteButton" inherits="UIPanelButtonTemplate" text="Delete">
 						<Size>
 							<AbsDimension x="80" y="22"/>
@@ -592,6 +603,7 @@
 								ww_configDeleteWeight()
 							</OnClick>
 							<OnLoad>
+								self:SetText(ww_localization[self:GetText()])
 								local relTo = self:GetParent().resetButton
 								local _, _, _, relToXOffset = relTo:GetPoint(1)
 								self:SetPoint("CENTER", relTo, (self:GetWidth() - 2 * relToXOffset - self:GetParent():GetWidth()) / 3, 0)
@@ -640,7 +652,7 @@
 				</Anchors>
 			</Button>
 			<!--restore default button-->
-			<Button name="$parentDefaultsButton" parentKey="defaultsButton" inherits="UIPanelButtonTemplate" text="Restore Defaults">
+			<Button name="$parentDefaultsButton" parentKey="defaultsButton" inherits="ww_localizedButton" text="Restore Defaults">
 				<Size>
 					<AbsDimension x="150" y="22"/>
 				</Size>
@@ -660,7 +672,7 @@
 				</Scripts>
 			</Button>
 			<!--Create new weight button-->
-			<Button name="$parentNewWeightButton" parentKey="newWeightButton" inherits="UIPanelButtonTemplate" text="New Weight">
+			<Button name="$parentNewWeightButton" parentKey="newWeightButton" inherits="ww_localizedButton" text="New Weight">
 				<Size>
 					<AbsDimension x="100" y="22"/>
 				</Size>
@@ -717,6 +729,11 @@
 							</Offset>
 						</Anchor>
 					</Anchors>
+					<Scripts>
+						<OnLoad>
+							self:SetText(ww_localization[self:GetText])
+						</OnLoad>
+					</Scripts>
 				</FontString>
 			</Layer>
 			<Layer level="BACKGROUND">
@@ -828,7 +845,7 @@
 					</OnEscapePressed>
 				</Scripts>
 			</EditBox>
-			<Button name="$parentCreateButton" parentKey="createButton" inherits="UIPanelButtonTemplate" text="Create">
+			<Button name="$parentCreateButton" parentKey="createButton" inherits="ww_localizedButton" text="Create">
 				<Size>
 					<AbsDimension x="128" y="20"/>
 				</Size>
@@ -853,7 +870,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<Button name="$parentCancelButton" parentKey="cancelButton" inherits="UIPanelButtonTemplate" text="Cancel">
+			<Button name="$parentCancelButton" parentKey="cancelButton" inherits="ww_localizedButton" text="Cancel">
 				<Size>
 					<AbsDimension x="128" y="20"/>
 				</Size>
