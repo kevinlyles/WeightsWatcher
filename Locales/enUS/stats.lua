@@ -186,3 +186,21 @@ ww_statDisplayNames = {
 	[ww_localizedStats["threat (percent)"]] = "Threat (Percent)",
 	[ww_localizedStats["threat reduction (percent)"]] = "Threat Reduction (Percent)",
 }
+
+ww_statCategories = {
+	["General"] = "General",
+	["DPS"] = "DPS",
+	["Tanking"] = "Tanking",
+	["Physical DPS"] = "Physical DPS",
+	["Melee DPS"] = "Melee DPS",
+	["Ranged DPS"] = "Ranged DPS",
+	["Caster"] = "Caster",
+	["Caster DPS"] = "Caster DPS",
+	["Healing"] = "Healing",
+	["PVP"] = "PVP",
+	["CC Resists/Reductions"] = "CC Resists/Reductions",
+	["Resistances"] = "Resistances",
+	["Professions"] = "Professions",
+	["Triggers"] = "Triggers",
+	["Miscellaneous"] = "Miscellaneous",
+}

@@ -4,7 +4,7 @@ end
 
 local L = ww_localization
 
--- Strings in config.lua
+-- config.lua
 L["WW_VERSION"] = "WeightsWatcher version: %s"
 L["ACCT_VERSION"] = "  Account data version: %d%s%d"
 L["CHAR_VERSION"] = "  Character data version: %d%s%d"
@@ -19,7 +19,7 @@ L["version"] = "version"
 L["weights"] = "weights"
 L["DECIMAL_SEPARATOR"] = "."
 
--- Strings in config.xml
+-- config.xml
 L["CALC_OPTS"] = "Calculation Options"
 L["USE_UE_GEMS_TT"] = "Consider gems that are Unique-Equipped"
 L["USE_UE_GEMS"] = "Use Unique-Equipped Gems"

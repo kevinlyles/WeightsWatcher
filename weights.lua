@@ -364,7 +364,7 @@ end
 -- scrolledFrame is the frame that will hold everything
 -- elementType is the element template type
 -- elementHeight is the height of each element
-local function createScrollableTieredList(template, scrollFrame, scrolledFrame, elementType, elementHeight)
+local function createScrollableTieredList(template, scrollFrame, scrolledFrame, elementType, elementHeight, nameTable)
 	local categoryFrame, elementFrame
 
 	scrollFrame.categories = {}
@@ -388,8 +388,8 @@ local function createScrollableTieredList(template, scrollFrame, scrolledFrame, 
 			elementFrame = CreateFrame("Frame", "WW_" .. element, scrollFrame.categories[i], elementType)
 			elementFrame.position = j
 			elementFrame.category = categoryFrame
-			elementFrame.text:SetText(element)
-			elementFrame.name = template[category][element] or element
+			elementFrame.text:SetText(nameTable[element])
+			elementFrame.name = element
 			elementFrame:SetPoint("TOPLEFT", 0, -elementHeight * j)
 			table.insert(scrollFrame.shown, elementFrame)
 			categoryFrame.length = categoryFrame.length + 1
@@ -403,6 +403,11 @@ end
 --loads the various class buttons onto the config frame
 local function loadClassButtons()
 	local classes, revClassLookup, newClass = {}, {}
+	local metatable = {
+		__index = function(tbl, key)
+			return key
+		end
+	}
 
 	for i, class in ipairs(ww_vars.weightsList) do
 		newClass = ww_classDisplayNames[class]
@@ -414,7 +419,7 @@ local function loadClassButtons()
 		end
 	end
 
-	createScrollableTieredList(classes, ww_weights.leftPanel.scrollFrame, ww_weights.leftPanel.scrollContainer, "ww_weightFrame", 22)
+	createScrollableTieredList(classes, ww_weights.leftPanel.scrollFrame, ww_weights.leftPanel.scrollContainer, "ww_weightFrame", 22, setmetatable({}, metatable))
 
 	for _, classFrame in ipairs(ww_weights.leftPanel.scrollFrame.categories) do
 		classFrame.class = revClassLookup[classFrame.text:GetText()]
@@ -445,16 +450,21 @@ end
 
 local function loadStatButtons()
 	local stats = {}
+	local metatable = {
+		__index = function(tbl, key)
+			return ww_statDisplayNames[ww_localizedStats[key]]
+		end
+	}
 
-	createScrollableTieredList(ww_trackedStats, ww_weights.rightPanel.scrollFrame, ww_weights.rightPanel.scrollContainer, "ww_statFrame", 22)
+	createScrollableTieredList(ww_trackedStats, ww_weights.rightPanel.scrollFrame, ww_weights.rightPanel.scrollContainer, "ww_statFrame", 22, setmetatable({}, metatable))
 
 	for _, categoryFrame in ipairs(ww_weights.rightPanel.scrollFrame.categories) do
 		if categoryFrame.name == "Triggers" then
-			for i, trigger in ipairs(ww_triggerNames) do
+			for i, trigger in ipairs(ww_triggerTypes) do
 				local triggerFrame = CreateFrame("Frame", "WW_" .. trigger, categoryFrame, "ww_triggerFrame")
 				triggerFrame.position = i
 				triggerFrame.category = categoryFrame
-				triggerFrame.text:SetText(ww_triggerNames[trigger])
+				triggerFrame.text:SetText(ww_triggerDisplayNames[trigger])
 				triggerFrame.active:SetText(trigger)
 				triggerFrame.name = trigger
 				triggerFrame:SetPoint("TOPLEFT", 0, -ww_weights.rightPanel.scrollFrame.elementHeight * i)
@@ -468,7 +478,7 @@ local function loadStatButtons()
 			for i, statFrame in ipairs(children) do
 				if statFrame.name then
 					table.insert(stats, statFrame)
-					statFrame.statName = string.lower(statFrame.name)
+					statFrame.statName = statFrame.name
 				end
 			end
 		end

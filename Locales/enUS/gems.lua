@@ -603,3 +603,13 @@ ww_socketColorDisplayNames = {
 	[ww_localizedSocketColors["red"]] = "Red",
 	[ww_localizedSocketColors["yellow"]] = "Yellow",
 }
+
+ww_gemQualityNames = {
+	[1] = "Burning Crusade common",
+	[2] = "Burning Crusade uncommon",
+	[3] = "Burning Crusade rare",
+	[4] = "Burning Crusade epic",
+	[5] = "Wrath uncommon",
+	[6] = "Wrath rare",
+	[7] = "Wrath epic",
+}

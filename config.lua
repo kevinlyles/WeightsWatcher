@@ -70,7 +70,7 @@ function ww_ModifierKeyDropDownInitialize(dropdown)
 	info.func = ModifierKeyDropDownOnClick
 	info.arg1 = dropdown
 	for _, value in ipairs(ww_keyDetectors) do
-		info.text = value
+		info.text = ww_dropdownOptions[value]
 		info.value = value
 		info.checked = nil
 		UIDropDownMenu_AddButton(info)
@@ -88,7 +88,7 @@ function ww_ShowClassNameDropDownInitialize(dropdown)
 	info.func = ShowClassNameDropDownOnClick
 	info.arg1 = dropdown
 	for _, value in ipairs(ww_classNameOptions) do
-		info.text = ww_classNameOptions[value]
+		info.text = ww_dropdownOptions[value]
 		info.value = value
 		info.checked = nil
 		UIDropDownMenu_AddButton(info)

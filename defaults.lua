@@ -1,181 +1,139 @@
+local L = ww_localization
+
 ww_trackedStats = {
-	"General",
-	"DPS",
-	"Physical DPS",
-	"Melee DPS",
-	"Ranged DPS",
-	"Tanking",
-	"Caster",
-	"Caster DPS",
-	"Healing",
-	"PVP",
-	"CC Resists/Reductions",
-	"Resistances",
-	"Triggers",
-	"Professions",
-	"Miscellaneous",
-	["General"] = {
-		"Critical Strike Rating",
-		"Haste Rating",
+	ww_statCategories["General"],
+	ww_statCategories["DPS"],
+	ww_statCategories["Physical DPS"],
+	ww_statCategories["Melee DPS"],
+	ww_statCategories["Ranged DPS"],
+	ww_statCategories["Tanking"],
+	ww_statCategories["Caster"],
+	ww_statCategories["Caster DPS"],
+	ww_statCategories["Healing"],
+	ww_statCategories["PVP"],
+	ww_statCategories["CC Resists/Reductions"],
+	ww_statCategories["Resistances"],
+	ww_statCategories["Triggers"],
+	ww_statCategories["Professions"],
+	ww_statCategories["Miscellaneous"],
+	[ww_statCategories["General"]] = {
+		"critical strike rating",
+		"haste rating",
 	},
-	["DPS"] = {
-		"Critical Damage (Percent)",
-		"Hit Rating",
-		"Threat Reduction (Percent)",
+	[ww_statCategories["DPS"]] = {
+		"critical damage (percent)",
+		"hit rating",
+		"threat reduction (percent)",
 	},
-	["Physical DPS"] = {
-		"Agility",
-		"Armor Penetration Rating",
-		"Attack Power",
-		"Chance to Increase Physical Haste",
-		"Strength",
+	[ww_statCategories["Physical DPS"]] = {
+		"agility",
+		"armor penetration rating",
+		"attack power",
+		"chance to increase physical haste",
+		"strength",
 	},
-	["Melee DPS"] = {
-		"Feral Attack Power",
-		"Expertise Rating",
-		"Melee DPS",
-		"Average Melee Weapon Damage",
-		"Maximum Melee Weapon Damage",
-		"Melee Weapon Speed",
+	[ww_statCategories["Melee DPS"]] = {
+		"feral attack power",
+		"expertise rating",
+		"melee dps",
+		"average melee weapon damage",
+		"maximum melee weapon damage",
+		"melee weapon speed",
 	},
-	["Ranged DPS"] = {
-		"Ranged Attack Power",
-		"Ranged Critical Strike Rating",
-		"Ranged DPS",
-		"Ranged Haste Rating",
-		"Ranged Hit Rating",
-		"Average Ranged Weapon Damage",
-		"Maximum Ranged Weapon Damage",
-		"Ranged Weapon Speed",
+	[ww_statCategories["Ranged DPS"]] = {
+		"ranged attack power",
+		"ranged critical strike rating",
+		"ranged dps",
+		"ranged haste rating",
+		"ranged hit rating",
+		"average ranged weapon damage",
+		"maximum ranged weapon damage",
+		"ranged weapon speed",
 	},
-	["Tanking"] = {
-		"Armor",
-		"Armor from Items (Percent)",
-		"Block Rating",
-		"Block Value",
-		"Block Value (Percent)",
-		"Chance to Restore Health on Hit",
-		"Defense Rating",
-		"Dodge Rating",
-		"Health",
-		"HP5",
-		"Parry Rating",
-		"Spell Damage Taken Reduction (Percent)",
-		"Stamina",
-		"Threat (Percent)",
+	[ww_statCategories["Tanking"]] = {
+		"armor",
+		"armor from items (percent)",
+		"block rating",
+		"block value",
+		"block value (percent)",
+		"chance to restore health on hit",
+		"defense rating",
+		"dodge rating",
+		"health",
+		"hp5",
+		"parry rating",
+		"spell damage taken reduction (percent)",
+		"stamina",
+		"threat (percent)",
 	},
-	["Caster"] = {
-		"Chance to Increase Spell Haste",
-		"Intellect",
-		"Intellect (Percent)",
-		"Spell Critical Strike Rating",
-		"Spell Power",
-		"Spirit",
+	[ww_statCategories["Caster"]] = {
+		"chance to increase spell haste",
+		"intellect",
+		"intellect (percent)",
+		"spell critical strike rating",
+		"spell power",
+		"spirit",
 	},
-	["Caster DPS"] = {
-		"Spell Hit Rating",
-		"Arcane Spell Damage",
-		"Fire Spell Damage",
-		"Frost Spell Damage",
-		"Holy Spell Damage",
-		"Nature Spell Damage",
-		"Shadow Spell Damage",
+	[ww_statCategories["Caster DPS"]] = {
+		"spell hit rating",
+		"arcane spell damage",
+		"fire spell damage",
+		"frost spell damage",
+		"holy spell damage",
+		"nature spell damage",
+		"shadow spell damage",
 	},
-	["Healing"] = {
-		"Chance to Restore Mana on Spellcast",
-		"Critical Healing (Percent)",
-		"Mana",
-		"Mana (Percent)",
-		"MP5",
+	[ww_statCategories["Healing"]] = {
+		"chance to restore mana on spellcast",
+		"critical healing (percent)",
+		"mana",
+		"mana (percent)",
+		"mp5",
 	},
-	["PVP"] = {
-		"Chance to Stun Target",
-		"Increased Stealth",
-		"Minor Run Speed",
-		"Resilience Rating",
-		"Sometimes Heal on your Crits",
-		"Spell Penetration",
+	[ww_statCategories["PVP"]] = {
+		"chance to stun target",
+		"increased stealth",
+		"minor run speed",
+		"resilience rating",
+		"sometimes heal on your crits",
+		"spell penetration",
 	},
-	["CC Resists/Reductions"] = {
-		"Disarm Duration Reduction (Percent)",
-		"Disorient Resist Chance (Percent)",
-		"Fear Duration Reduction (Percent)",
-		"Fear Resist Chance (Percent)",
-		"Silence Duration Reduction (Percent)",
-		"Snare/Root Duration Reduction (Percent)",
-		"Spell Reflect (Percent)",
-		"Stun Duration Reduction (Percent)",
-		"Stun Resist Chance (Percent)",
+	[ww_statCategories["CC Resists/Reductions"]] = {
+		"disarm duration reduction (percent)",
+		"disorient resist chance (percent)",
+		"fear duration reduction (percent)",
+		"fear resist chance (percent)",
+		"silence duration reduction (percent)",
+		"snare/root duration reduction (percent)",
+		"spell reflect (percent)",
+		"stun duration reduction (percent)",
+		"stun resist chance (percent)",
 	},
-	["Resistances"] = {
-		"Arcane",
-		"Fire",
-		"Frost",
-		"Holy",
-		"Nature",
-		"Shadow",
-		["Arcane"] = "arcane resistance",
-		["Fire"] = "fire resistance",
-		["Frost"] = "frost resistance",
-		["Holy"] = "holy resistance",
-		["Nature"] = "nature resistance",
-		["Shadow"] = "shadow resistance",
+	[ww_statCategories["Resistances"]] = {
+		"arcane resistance",
+		"fire resistance",
+		"frost resistance",
+		"holy resistance",
+		"nature resistance",
+		"shadow resistance",
 	},
-	["Triggers"] = {},
-	["Professions"] = {
-		"Fishing",
-		"Herbalism",
-		"Mining",
-		"Skinning",
+	[ww_statCategories["Triggers"]] = {},
+	[ww_statCategories["Professions"]] = {
+		"fishing",
+		"herbalism",
+		"mining",
+		"skinning",
 	},
-	["Miscellaneous"] = {
-		"Mount Speed (Percent)",
+	[ww_statCategories["Miscellaneous"]] = {
+		"mount speed (percent)",
 	},
 }
 
-ww_triggerGroups = {
-	["meleeDamageDealt"] = {"meleeDamage"},
-	["rangedDamageDealt"] = {"rangedDamage"},
-	["spellDamageDealt"] = {"harmfulSpell"},
-	["damagingSpellCast"] = {"harmfulSpell"},
-	["harmfulSpellHit"] = {"harmfulSpell"},
-	["spellCast"] = {"harmfulSpell", "helpfulSpell"},
-	["healingSpellCast"] = {"helpfulSpell"},
-	["helpfulSpellCast"] = {"helpfulSpell"},
-}
-
-ww_triggerNames = {
+ww_triggerTypes = {
 	"meleeDamage",
 	"rangedDamage",
 	"harmfulSpell",
 	"helpfulSpell",
-	["meleeDamage"] = "Melee damage dealt",
-	["rangedDamage"] = "Ranged damage dealt",
-	["harmfulSpell"] = "Harmful spell cast",
-	["helpfulSpell"] = "Helpful spell cast",
-}
-
-ww_classDisplayNames = {
-	["DEATHKNIGHT"] = "Death Knight",
-	["DRUID"] = "Druid",
-	["HUNTER"] = "Hunter",
-	["MAGE"] = "Mage",
-	["PALADIN"] = "Paladin",
-	["PRIEST"] = "Priest",
-	["ROGUE"] = "Rogue",
-	["SHAMAN"] = "Shaman",
-	["WARLOCK"] = "Warlock",
-	["WARRIOR"] = "Warrior",
-}
-
-ww_gemQualityNames = {
-	"Burning Crusade common",
-	"Burning Crusade uncommon",
-	"Burning Crusade rare",
-	"Burning Crusade epic",
-	"Wrath uncommon",
-	"Wrath rare",
-	"Wrath epic",
 }
 
 ww_keyDetectors = {
@@ -205,16 +163,13 @@ ww_keyDetectors = {
 
 ww_classNameOptions = {
 	"Always",
-	"Others",
+	"Other Classes",
 	"Never",
-	["Always"] = "Always",
-	["Others"] = "Other Classes",
-	["Never"] = "Never",
 }
 
 ww_defaultVars = {
 	dataMajorVersion = 1,
-	dataMinorVersion = 20,
+	dataMinorVersion = 21,
 	weightsList = {
 		"DEATHKNIGHT",
 		"DRUID",
@@ -227,11 +182,11 @@ ww_defaultVars = {
 		"WARLOCK",
 		"WARRIOR",
 		["DEATHKNIGHT"] = {
-			"Blood DPS",
-			"Frost DPS",
-			"Unholy DPS",
-			"Tank",
-			["Blood DPS"] = {
+			ww_specNames["Blood DPS"],
+			ww_specNames["Frost DPS"],
+			ww_specNames["Unholy DPS"],
+			ww_specNames["Tank"],
+			[ww_specNames["Blood DPS"]] = {
 				["melee dps"] = 360,
 				["armor penetration rating"] = 100,
 				["strength"] = 99,
@@ -245,7 +200,7 @@ ww_defaultVars = {
 					meleeDamage = true,
 				}
 			},
-			["Frost DPS"] = {
+			[ww_specNames["Frost DPS"]] = {
 				["melee dps"] = 337,
 				["hit rating"] = 100,
 				["strength"] = 97,
@@ -259,7 +214,7 @@ ww_defaultVars = {
 					meleeDamage = true,
 				}
 			},
-			["Unholy DPS"] = {
+			[ww_specNames["Unholy DPS"]] = {
 				["melee dps"] = 209,
 				["strength"] = 100,
 				["hit rating"] = 66,
@@ -273,7 +228,7 @@ ww_defaultVars = {
 					meleeDamage = true,
 				}
 			},
-			["Tank"] = {
+			[ww_specNames["Tank"]] = {
 				["melee dps"] = 419,
 				["parry rating"] = 100,
 				["hit rating"] = 97,
@@ -293,11 +248,11 @@ ww_defaultVars = {
 			},
 		},
 		["DRUID"] = {
-			"Balance",
-			"Feral DPS",
-			"Feral Tank",
-			"Restoration",
-			["Balance"] = {
+			ww_specNames["Balance"],
+			ww_specNames["Feral DPS"],
+			ww_specNames["Feral Tank"],
+			ww_specNames["Restoration"],
+			[ww_specNames["Balance"]] = {
 				["hit rating"] = 100,
 				["spell hit rating"] = 100,
 				["spell power"] = 66,
@@ -310,7 +265,7 @@ ww_defaultVars = {
 					harmfulSpell = true,
 				}
 			},
-			["Feral DPS"] = {
+			[ww_specNames["Feral DPS"]] = {
 				["agility"] = 100,
 				["armor penetration rating"] = 90,
 				["strength"] = 80,
@@ -324,7 +279,7 @@ ww_defaultVars = {
 					meleeDamage = true,
 				}
 			},
-			["Feral Tank"] = {
+			[ww_specNames["Feral Tank"]] = {
 				["agility"] = 100,
 				["stamina"] = 75,
 				["dodge rating"] = 65,
@@ -341,7 +296,7 @@ ww_defaultVars = {
 					meleeDamage = true,
 				}
 			},
-			["Restoration"] = {
+			[ww_specNames["Restoration"]] = {
 				["spell power"] = 100,
 				["mp5"] = 73,
 				["haste rating"] = 57,
@@ -355,10 +310,10 @@ ww_defaultVars = {
 			},
 		},
 		["HUNTER"] = {
-			"Beast Mastery",
-			"Marksmanship",
-			"Survival",
-			["Beast Mastery"] = {
+			ww_specNames["Beast Mastery"],
+			ww_specNames["Marksmanship"],
+			ww_specNames["Survival"],
+			[ww_specNames["Beast Mastery"]] = {
 				["ranged dps"] = 213,
 				["hit rating"] = 100,
 				["ranged hit rating"] = 100,
@@ -375,7 +330,7 @@ ww_defaultVars = {
 					rangedDamage = true,
 				}
 			},
-			["Marksmanship"] = {
+			[ww_specNames["Marksmanship"]] = {
 				["ranged dps"] = 379,
 				["hit rating"] = 100,
 				["ranged hit rating"] = 100,
@@ -392,7 +347,7 @@ ww_defaultVars = {
 					rangedDamage = true,
 				}
 			},
-			["Survival"] = {
+			[ww_specNames["Survival"]] = {
 				["ranged dps"] = 181,
 				["hit rating"] = 100,
 				["ranged hit rating"] = 100,
@@ -411,10 +366,10 @@ ww_defaultVars = {
 			},
 		},
 		["MAGE"] = {
-			"Arcane",
-			"Fire",
-			"Frost",
-			["Arcane"] = {
+			ww_specNames["Arcane"],
+			ww_specNames["Fire"],
+			ww_specNames["Frost"],
+			[ww_specNames["Arcane"]] = {
 				["hit rating"] = 100,
 				["spell hit rating"] = 100,
 				["haste rating"] = 54,
@@ -430,7 +385,7 @@ ww_defaultVars = {
 					harmfulSpell = true,
 				}
 			},
-			["Fire"] = {
+			[ww_specNames["Fire"]] = {
 				["hit rating"] = 100,
 				["spell hit rating"] = 100,
 				["haste rating"] = 53,
@@ -445,7 +400,7 @@ ww_defaultVars = {
 					harmfulSpell = true,
 				}
 			},
-			["Frost"] = {
+			[ww_specNames["Frost"]] = {
 				["hit rating"] = 100,
 				["spell hit rating"] = 100,
 				["haste rating"] = 42,
@@ -462,10 +417,10 @@ ww_defaultVars = {
 			},
 		},
 		["PALADIN"] = {
-			"Holy",
-			"Protection",
-			"Retribution",
-			["Holy"] = {
+			ww_specNames["Holy"],
+			ww_specNames["Protection"],
+			ww_specNames["Retribution"],
+			[ww_specNames["Holy"]] = {
 				["intellect"] = 100,
 				["mp5"] = 88,
 				["spell power"] = 58,
@@ -476,7 +431,7 @@ ww_defaultVars = {
 					helpfulSpell = true,
 				}
 			},
-			["Protection"] = {
+			[ww_specNames["Protection"]] = {
 				["stamina"] = 100,
 				["dodge rating"] = 94,
 				["block value"] = 86,
@@ -496,7 +451,7 @@ ww_defaultVars = {
 					meleeDamage = true,
 				}
 			},
-			["Retribution"] = {
+			[ww_specNames["Retribution"]] = {
 				["melee dps"] = 470,
 				["hit rating"] = 100,
 				["strength"] = 80,
@@ -514,10 +469,10 @@ ww_defaultVars = {
 			},
 		},
 		["PRIEST"] = {
-			"Discipline",
-			"Holy",
-			"Shadow",
-			["Discipline"] = {
+			ww_specNames["Discipline"],
+			ww_specNames["Holy"],
+			ww_specNames["Shadow"],
+			[ww_specNames["Discipline"]] = {
 				["spell power"] = 100,
 				["mp5"] = 67,
 				["intellect"] = 65,
@@ -529,7 +484,7 @@ ww_defaultVars = {
 					helpfulSpell = true,
 				}
 			},
-			["Holy"] = {
+			[ww_specNames["Holy"]] = {
 				["mp5"] = 100,
 				["intellect"] = 69,
 				["spell power"] = 60,
@@ -541,7 +496,7 @@ ww_defaultVars = {
 					helpfulSpell = true,
 				}
 			},
-			["Shadow"] = {
+			[ww_specNames["Shadow"]] = {
 				["hit rating"] = 100,
 				["spell hit rating"] = 100,
 				["shadow spell damage"] = 76,
@@ -557,10 +512,10 @@ ww_defaultVars = {
 			},
 		},
 		["ROGUE"] = {
-			"Assassination",
-			"Combat",
-			"Subtlety",
-			["Assassination"] = {
+			ww_specNames["Assassination"],
+			ww_specNames["Combat"],
+			ww_specNames["Subtlety"],
+			[ww_specNames["Assassination"]] = {
 				["melee dps"] = 170,
 				["agility"] = 100,
 				["expertise rating"] = 87,
@@ -574,7 +529,7 @@ ww_defaultVars = {
 					meleeDamage = true,
 				}
 			},
-			["Combat"] = {
+			[ww_specNames["Combat"]] = {
 				["melee dps"] = 220,
 				["armor penetration rating"] = 100,
 				["agility"] = 100,
@@ -588,7 +543,7 @@ ww_defaultVars = {
 					meleeDamage = true,
 				}
 			},
-			["Subtlety"] = {
+			[ww_specNames["Subtlety"]] = {
 				["melee dps"] = 228,
 				["expertise rating"] = 100,
 				["agility"] = 100,
@@ -604,10 +559,10 @@ ww_defaultVars = {
 			},
 		},
 		["SHAMAN"] = {
-			"Elemental",
-			"Enhancement",
-			"Restoration",
-			["Elemental"] = {
+			ww_specNames["Elemental"],
+			ww_specNames["Enhancement"],
+			ww_specNames["Restoration"],
+			[ww_specNames["Elemental"]] = {
 				["hit rating"] = 100,
 				["spell hit rating"] = 100,
 				["spell power"] = 60,
@@ -619,7 +574,7 @@ ww_defaultVars = {
 					harmfulSpell = true,
 				}
 			},
-			["Enhancement"] = {
+			[ww_specNames["Enhancement"]] = {
 				["melee dps"] = 135,
 				["hit rating"] = 100,
 				["expertise rating"] = 84,
@@ -636,7 +591,7 @@ ww_defaultVars = {
 					meleeDamage = true,
 				}
 			},
-			["Restoration"] = {
+			[ww_specNames["Restoration"]] = {
 				["mp5"] = 100,
 				["intellect"] = 85,
 				["spell power"] = 77,
@@ -649,10 +604,10 @@ ww_defaultVars = {
 			},
 		},
 		["WARLOCK"] = {
-			"Affliction",
-			"Demonology",
-			"Destruction",
-			["Affliction"] = {
+			ww_specNames["Affliction"],
+			ww_specNames["Demonology"],
+			ww_specNames["Destruction"],
+			[ww_specNames["Affliction"]] = {
 				["hit rating"] = 100,
 				["spell hit rating"] = 100,
 				["shadow spell damage"] = 72,
@@ -667,7 +622,7 @@ ww_defaultVars = {
 					harmfulSpell = true,
 				}
 			},
-			["Demonology"] = {
+			[ww_specNames["Demonology"]] = {
 				["hit rating"] = 100,
 				["spell hit rating"] = 100,
 				["haste rating"] = 50,
@@ -682,7 +637,7 @@ ww_defaultVars = {
 					harmfulSpell = true,
 				}
 			},
-			["Destruction"] = {
+			[ww_specNames["Destruction"]] = {
 				["hit rating"] = 100,
 				["spell hit rating"] = 100,
 				["fire spell damage"] = 47,
@@ -699,9 +654,9 @@ ww_defaultVars = {
 			},
 		},
 		["WARRIOR"] = {
-			"DPS",
-			"Protection",
-			["DPS"] = {
+			ww_specNames["DPS"],
+			ww_specNames["Protection"],
+			[ww_specNames["DPS"]] = {
 				["expertise rating"] = 100,
 				["strength"] = 82,
 				["critical strike rating"] = 66,
@@ -715,7 +670,7 @@ ww_defaultVars = {
 					meleeDamage = true,
 				}
 			},
-			["Protection"] = {
+			[ww_specNames["Protection"]] = {
 				["stamina"] = 100,
 				["dodge rating"] = 90,
 				["defense rating"] = 86,
@@ -760,7 +715,7 @@ ww_defaultVars = {
 			hideHints = false,
 			normalizeWeights = true,
 			showAlternateGems = "Alt",
-			showClassNames = "Others",
+			showClassNames = "Other Classes",
 			showDebugInfo = "Never",
 			showDifferences = true,
 			showIdealGems = "Control",

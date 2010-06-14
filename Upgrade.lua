@@ -53,6 +53,26 @@ local function noop_major_up(vars)
 	return vars
 end
 
+local function upgradeAccountToNewClassNameDisplayOptions(vars)
+	if vars.options.tooltip.showClassNames == "Others" then
+		vars.options.tooltip.showClassNames = "Other Classes"
+	end
+
+	vars.dataMinorVersion = 21
+	return vars
+end
+
+local downgradeAccountFromNewClassNameDisplayOptions = [[
+	return function(vars)
+		if vars.options.tooltip.showClassNames == "Other Classes" then
+			vars.options.tooltip.showClassNames = "Others"
+		end
+
+		vars.dataMinorVersion = 20
+		return vars
+	end
+]]
+
 local function upgradeAccountToRangedCritHasteAndHit(vars)
 	for _, class in ipairs(vars.weightsList) do
 		for _, weight in ipairs(vars.weightsList[class]) do
@@ -982,6 +1002,7 @@ local upgradeAccountFunctions = {
 		[17] = upgradeAccountToNoMeleeDamage,
 		[18] = upgradeAccountToSpellHitAndCrit,
 		[19] = upgradeAccountToRangedCritHasteAndHit,
+		[20] = upgradeAccountToNewClassNameDisplayOptions,
 	},
 }
 
@@ -1019,6 +1040,7 @@ local downgradeAccountFunctions = {
 		[18] = noop_down,
 		[19] = noop_down,
 		[20] = noop_down,
+		[21] = downgradeAccountFromNewClassNameDisplayOptions,
 	},
 }
 

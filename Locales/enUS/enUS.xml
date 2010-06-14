@@ -4,4 +4,7 @@
 	<Script file="gems.lua"/>
 	<Script file="stats.lua"/>
 	<Script file="slots.lua"/>
+	<Script file="classes-specs.lua"/>
+	<Script file="triggers.lua"/>
+	<Script file="dropdown-options.lua"/>
 </Ui>
