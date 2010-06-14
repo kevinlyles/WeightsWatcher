@@ -1,3 +1,5 @@
+local L = ww_localization
+
 -- TODO: move this to a util(s).lua?
 function ww_deepTableCopy(object)
     local lookup_table = {}
@@ -1077,9 +1079,11 @@ function WeightsWatcher.Upgrade(dataType)
 		funcTable = upgradeCharFunctions
 		downgradeFunctions = downgradeCharFunctions
 	else
-		print("WeightsWatcher: error: invalid data type \"" .. dataType .. "\" passed to Upgrade().")
+		print(string.format(L["UPGRADE_ERR_INV_DATA_TYPE"], dataType))
 		return nil
 	end
+
+	dataType = L[dataType]
 
 	if vars then
 		oldMinorVersion = vars.dataMinorVersion
@@ -1097,36 +1101,36 @@ function WeightsWatcher.Upgrade(dataType)
 	end
 
 	if newMajorVersion > oldMajorVersion or (newMajorVersion == oldMajorVersion and newMinorVersion > oldMinorVersion) then
-		direction = "up"
+		direction = L["upgrade"]
 	else
-		direction = "down"
+		direction = L["downgrade"]
 		funcTable = stringsToFuncs(vars.downgradeFunctions)
 	end
 
 	if funcTable == nil then
-		print("WeightsWatcher: error: no " .. direction .. "grade function table found.")
+		print(string.format(L["UPGRADE_ERR_NO_FUNC_TBL"], direction))
 		return nil
 	end
 
 	if oldMajorVersion == 0 and oldMinorVersion == 0 then
-		print("WeightsWatcher: no " .. dataType .. " data found, loading defaults.")
+		print(string.format(L["LOADING_DEFAULTS"], dataType))
 	else
-		print("WeightsWatcher: attempting to " .. direction .. "grade " .. dataType .. " data from version " .. oldMajorVersion .. "." .. oldMinorVersion .. " to " .. newMajorVersion .. "." .. newMinorVersion .. ".")
+		print(string.format(L["UPGRADE_ATTEMPT"], direction, dataType, oldMajorVersion, L["DECIMAL_SEPARATOR"], oldMinorVersion, newMajorVersion, L["DECIMAL_SEPARATOR"], newMinorVersion))
 	end
 
 	local newVars = ww_deepTableCopy(vars)
 
 	while oldMajorVersion ~= newMajorVersion or oldMinorVersion ~= newMinorVersion do
 		if not funcTable[oldMajorVersion] or not funcTable[oldMajorVersion][oldMinorVersion] then
-			print("WeightsWatcher: error: No " .. dataType .. " data " .. direction .. "grade path found.")
+			print(string.format(L["UPGRADE_ERR_NO_PATH"], dataType, direction))
 			return nil
 		end
 		newVars = funcTable[oldMajorVersion][oldMinorVersion](newVars)
 		if not newVars or not newVars.dataMinorVersion then
-			print("WeightsWatcher: " .. dataType .. " data " .. direction .. "grade error.")
+			print(string.format(L["UPGRADE_ERR_GENERIC"], dataType, direction))
 			return nil
 		elseif oldMinorVersion == newVars.dataMinorVersion and oldMajorVersion == newVars.dataMajorVersion then
-			print("WeightsWatcher: error: infinite loop in " .. dataType .. " data " .. direction .. "grade.")
+			print(string.format(L["UPGRADE_ERR_INF_LOOP"], dataType, direction))
 			return nil
 		end
 		oldMinorVersion = newVars.dataMinorVersion
@@ -1139,7 +1143,7 @@ function WeightsWatcher.Upgrade(dataType)
 
 	newVars.downgradeFunctions = downgradeFunctions
 
-	print("WeightsWatcher: successfully " .. direction .. "graded " .. dataType .. " data.")
+	print(string.format(L["UPGRADE_SUCCESS"], dataType, direction))
 
 	return newVars
 end

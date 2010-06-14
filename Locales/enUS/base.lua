@@ -123,3 +123,17 @@ L["WT_RESTORE_DEFAULTS_CONFIRM"] = "Are you sure you want to restore default wei
 L["Okay"] = "Okay"
 L["WT_EXISTS"] = "The %s weight named \"%s\" already exists.  Pick a different name."
 L["CLASS_WEIGHT_HEADER_FORMAT"] = "%s - %s"
+
+-- Upgrade.lua
+L["UPGRADE_ERR_INV_DATA_TYPE"] = "WeightsWatcher: error: invalid data type \"%s\" passed to Upgrade()."
+L["upgrade"] = "upgrade"
+L["downgrade"] = "downgrade"
+L["UPGRADE_ERR_NO_FUNC_TBL"] = "WeightsWatcher: error: no %s function table found."
+L["LOADING_DEFAULTS"] = "WeightsWatcher: no %s data found, loading defaults."
+L["account"] = "account"
+L["character"] = "character"
+L["UPGRADE_ATTEMPT"] = "WeightsWatcher: attempting to %s %s data from version %d%s%d to %d%s%d."
+L["UPGRADE_ERR_NO_PATH"] = "WeightsWatcher: error: No %s data %s path found."
+L["UPGRADE_ERR_GENERIC"] = "WeightsWatcher: %s data %s error."
+L["UPGRADE_ERR_INF_LOOP"] = "WeightsWatcher: error: infinite loop in %s data %s."
+L["UPGRADE_SUCCESS"] = "WeightsWatcher: %s data %s successful."
