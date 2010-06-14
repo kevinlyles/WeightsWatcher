@@ -383,7 +383,9 @@ function configNewWeight(class, weight, statList)
 				ww_newWeight.editBox:SetText(weight)
 			end
 			if not statList then
-				statList = {}
+				statList = {
+					triggers = {}
+				}
 			end
 			ww_newWeight.statList = statList
 		end)
