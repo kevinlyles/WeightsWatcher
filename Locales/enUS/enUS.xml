@@ -3,4 +3,5 @@
 	<Script file="base.lua"/>
 	<Script file="gems.lua"/>
 	<Script file="stats.lua"/>
+	<Script file="slots.lua"/>
 </Ui>

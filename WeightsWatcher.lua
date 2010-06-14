@@ -1,3 +1,5 @@
+local L = ww_localization
+
 local currentHooks = {}
 
 local function splitItemLink(link)
@@ -256,8 +258,8 @@ function WeightsWatcher.OnInitialize()
 
 	ww_initializeWeightsConfig()
 
-	SLASH_WEIGHTSWATCHER1="/ww"
-	SLASH_WEIGHTSWATCHER2="/weightswatcher"
+	SLASH_WEIGHTSWATCHER1 = L["/ww"]
+	SLASH_WEIGHTSWATCHER2 = L["/weightswatcher"]
 	SlashCmdList["WEIGHTSWATCHER"] =
 		function(msg)
 			ww_commandHandler(msg)
@@ -265,9 +267,9 @@ function WeightsWatcher.OnInitialize()
 end
 
 StaticPopupDialogs["WW_INVALID_ACCOUNT_DATA"] = {
-	text = "Invalid account data found.  You can:                  \n       - Disable WeightsWatcher and reload your UI\n- Load the default settings                          \n\nWARNING: loading the default account settings will erase all weights and options you had set.",
-	button1 = "Load Defaults",
-	button2 = "Disable WeightsWatcher",
+	text = L["INVALID_ACCT_DATA"],
+	button1 = L["Load Defaults"],
+	button2 = L["Disable WeightsWatcher"],
 	OnAccept = function(self, func)
 			if not upgradeData("character", "ww_charVars") then
 				return
@@ -285,9 +287,9 @@ StaticPopupDialogs["WW_INVALID_ACCOUNT_DATA"] = {
 }
 
 StaticPopupDialogs["WW_INVALID_CHARACTER_DATA"] = {
-	text = "Invalid character data found.  You can:               \n       - Disable WeightsWatcher and reload your UI\n- Load the default settings                          \n\nLoading the default character settings will not affect your saved weights.",
-	button1 = "Load Defaults",
-	button2 = "Disable WeightsWatcher",
+	text = L["INVALID_CHAR_DATA"],
+	button1 = L["Load Defaults"],
+	button2 = L["Disable WeightsWatcher"],
 	OnAccept = function(self, func)
 			ww_charVars = copyDefaultCharVars()
 			ww_initializeWeightsConfig()
@@ -366,13 +368,13 @@ local function checkForTitansGrip()
 		return false
 	end
 	local name, _, _, _, rank = GetTalentInfo(2, 27, false, false)
-	if name == "Titan's Grip" then
+	if name == L["Titan's Grip"] then
 		return rank == 1
 	end
 	-- Minor rearranging of the tree
 	for i = 1, GetNumTalents(2, false, false) do
 		name, _, _, _, rank = GetTalentInfo(2, i, false, false)
-		if name == "Titan's Grip" then
+		if name == L["Titan's Grip"] then
 			return rank == 1
 		end
 	end
@@ -380,7 +382,7 @@ local function checkForTitansGrip()
 	for i = 1, GetNumTalentTabs(false, false) do
 		for j = 1, GetNumTalents(2, false, false) do
 			name, _, _, _, rank = GetNumTalents(i, j, false, false)
-			if name == "Titan's Grip" then
+			if name == L["Titan's Grip"] then
 				return rank == 1
 			end
 		end
@@ -391,13 +393,13 @@ end
 local function checkForDualWield()
 	local function checkForDualWield()
 		local name, _, _, _, rank = GetTalentInfo(2, 20, false, false)
-		if name == "Dual Wield" then
+		if name == L["Dual Wield"] then
 			return rank == 1
 		end
 		-- Minor rearranging of the tree
 		for i = 1, GetNumTalents(2, false, false) do
 			name, _, _, _, rank = GetTalentInfo(2, i, false, false)
-			if name == "Dual Wield" then
+			if name == L["Dual Wield"] then
 				return rank == 1
 			end
 		end
@@ -405,7 +407,7 @@ local function checkForDualWield()
 		for i = 1, GetNumTalentTabs(false, false) do
 			for j = 1, GetNumTalents(i, false, false) do
 				name, _, _, _, rank = GetNumTalents(i, j, false, false)
-				if name == "Dual Wield" then
+				if name == L["Dual Wield"] then
 					return rank == 1
 				end
 			end
@@ -429,37 +431,37 @@ local function determineCompareMethod(currentSlot, compareSlot, compareSlot2, cu
 		return "empty"
 	end
 
-	if checkForTitansGrip() and (compareSubslot == "axe" or compareSubslot == "mace" or compareSubslot == "sword") then
-		if currentSlot == "two-hand" then
-			currentSlot = "one-hand"
+	if checkForTitansGrip() and (compareSubslot == ww_localizedSlotNames["axe"] or compareSubslot == ww_localizedSlotNames["mace"] or compareSubslot == ww_localizedSlotNames["sword"]) then
+		if currentSlot == ww_localizedSlotNames["two-hand"] then
+			currentSlot = ww_localizedSlotNames["one-hand"]
 		end
-		if compareSlot == "two-hand" then
-			compareSlot = "one-hand"
+		if compareSlot == ww_localizedSlotNames["two-hand"] then
+			compareSlot = ww_localizedSlotNames["one-hand"]
 		end
-		if compareSlot2 == "two-hand" then
-			compareSlot2 = "one-hand"
+		if compareSlot2 == ww_localizedSlotNames["two-hand"] then
+			compareSlot2 = ww_localizedSlotNames["one-hand"]
 		end
 	end
 
-	if currentSlot == "two-hand" then
+	if currentSlot == ww_localizedSlotNames["two-hand"] then
 		return "both"
-	elseif currentSlot == "main hand" then
+	elseif currentSlot == ww_localizedSlotNames["main hand"] then
 		return "1"
-	elseif currentSlot == "off hand" or currentSlot == "held in off-hand" then
-		if compareSlot == "two-hand" then
+	elseif currentSlot == ww_localizedSlotNames["off hand"] or currentSlot == ww_localizedSlotNames["held in off-hand"] then
+		if compareSlot == ww_localizedSlotNames["two-hand"] then
 			return "1"
 		else
 			return "2"
 		end
-	elseif currentSlot == "one-hand" then
-		if compareSlot == "two-hand" then
+	elseif currentSlot == ww_localizedSlotNames["one-hand"] then
+		if compareSlot == ww_localizedSlotNames["two-hand"] then
 			return "1"
 		elseif checkForDualWield() then
 			return "worst"
 		else
 			return "1"
 		end
-	elseif currentSlot == "finger" or currentSlot == "trinket" then
+	elseif currentSlot == ww_localizedSlotNames["finger"] or currentSlot == ww_localizedSlotNames["trinket"] then
 		return "worst"
 	else
 		return "1"
@@ -495,29 +497,29 @@ local function colorizeDifferences(difference)
 end
 
 local slotConversion = {
-	["head"] = "HeadSlot",
-	["shoulder"] = "ShoulderSlot",
-	["chest"] = "ChestSlot",
-	["wrist"] = "WristSlot",
-	["hands"] = "HandsSlot",
-	["waist"] = "WaistSlot",
-	["legs"] = "LegsSlot",
-	["feet"] = "FeetSlot",
-	["main hand"] = {"MainHandSlot", "SecondaryHandSlot"},
-	["off hand"] = {"MainHandSlot", "SecondaryHandSlot"},
-	["one-hand"] = {"MainHandSlot", "SecondaryHandSlot"},
-	["two-hand"] = {"MainHandSlot", "SecondaryHandSlot"},
-	["relic"] = "RangedSlot",
-	["ranged"] = "RangedSlot",
-	["thrown"] = "RangedSlot",
-	["projectile"] = "AmmoSlot",
-	["neck"] = "NeckSlot",
-	["back"] = "BackSlot",
-	["shirt"] = "ShirtSlot",
-	["tabard"] = "TabardSlot",
-	["finger"] = {"Finger0Slot", "Finger1Slot"},
-	["trinket"] = {"Trinket0Slot", "Trinket1Slot"},
-	["held in off-hand"] = {"MainHandSlot", "SecondaryHandSlot"},
+	[ww_localizedSlotNames["head"]] = "HeadSlot",
+	[ww_localizedSlotNames["shoulder"]] = "ShoulderSlot",
+	[ww_localizedSlotNames["chest"]] = "ChestSlot",
+	[ww_localizedSlotNames["wrist"]] = "WristSlot",
+	[ww_localizedSlotNames["hands"]] = "HandsSlot",
+	[ww_localizedSlotNames["waist"]] = "WaistSlot",
+	[ww_localizedSlotNames["legs"]] = "LegsSlot",
+	[ww_localizedSlotNames["feet"]] = "FeetSlot",
+	[ww_localizedSlotNames["main hand"]] = {"MainHandSlot", "SecondaryHandSlot"},
+	[ww_localizedSlotNames["off hand"]] = {"MainHandSlot", "SecondaryHandSlot"},
+	[ww_localizedSlotNames["one-hand"]] = {"MainHandSlot", "SecondaryHandSlot"},
+	[ww_localizedSlotNames["two-hand"]] = {"MainHandSlot", "SecondaryHandSlot"},
+	[ww_localizedSlotNames["relic"]] = "RangedSlot",
+	[ww_localizedSlotNames["ranged"]] = "RangedSlot",
+	[ww_localizedSlotNames["thrown"]] = "RangedSlot",
+	[ww_localizedSlotNames["projectile"]] = "AmmoSlot",
+	[ww_localizedSlotNames["neck"]] = "NeckSlot",
+	[ww_localizedSlotNames["back"]] = "BackSlot",
+	[ww_localizedSlotNames["shirt"]] = "ShirtSlot",
+	[ww_localizedSlotNames["tabard"]] = "TabardSlot",
+	[ww_localizedSlotNames["finger"]] = {"Finger0Slot", "Finger1Slot"},
+	[ww_localizedSlotNames["trinket"]] = {"Trinket0Slot", "Trinket1Slot"},
+	[ww_localizedSlotNames["held in off-hand"]] = {"MainHandSlot", "SecondaryHandSlot"},
 }
 
 function WeightsWatcher.displayItemStats(tooltip, ttname)
@@ -533,7 +535,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 	end
 
 	_, _, _, _, _, itemType, _, stackSize = GetItemInfo(link)
-	if (IsEquippableItem(link) and itemType ~= "Container" and itemType ~= "Quiver") or (itemType == "Gem" and stackSize == 1) or (itemType == "Consumable") or (itemType == "Recipe") then
+	if (IsEquippableItem(link) and itemType ~= L["Container"] and itemType ~= L["Quiver"]) or (itemType == L["Gem"] and stackSize == 1) or (itemType == L["Consumable"]) or (itemType == L["Recipe"]) then
 		bareLink = splitItemLink(link)
 		local bareItemInfo = ww_bareItemCache[bareLink]
 
@@ -585,26 +587,26 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 			textL = WeightsWatcher.preprocess(origTextL:lower())
 			if rawget(ww_unparsed_lines, textL) then
 				if showDebugInfo then
-					ttleft:SetText(origTextL .. " |cffff00ff(U)|r")
+					ttleft:SetText(string.format("%s |cffff00ff(U)|r", origTextL))
 				else
-					ttleft:SetText(origTextL .. " |cffff0000*|r")
+					ttleft:SetText(string.format("%s |cffff0000*|r", origTextL))
 				end
 				numUnweightedEffects = numUnweightedEffects + 1
 			elseif rawget(ww_ignored_lines, textL) then
 				if showDebugInfo then
-					ttleft:SetText(origTextL .. " |cffffff00(I)|r")
+					ttleft:SetText(string.format("%s |cffffff00(I)|r", origTextL))
 				end
 			elseif rawget(ww_temp_ignored_lines, textL) then
 				if showDebugInfo then
-					ttleft:SetText(origTextL .. " |cffffff00(TI)|r")
+					ttleft:SetText(string.format("%s |cffffff00(TI)|r", origTextL))
 				end
 			elseif rawget(ww_unweighted_lines, textL) then
-				ttleft:SetText(origTextL .. " |cffff0000*|r")
+				ttleft:SetText(string.format("%s |cffff0000*|r", origTextL))
 				numUnweightedEffects = numUnweightedEffects + 1
 			end
 		end
 		if numUnweightedEffects > 0 then
-			tooltip:AddLine("|cffff0000* indicates unweighted effects|r (" .. numUnweightedEffects .. " total)")
+			tooltip:AddLine(string.format(L["UNWEIGHTED_HINT"], numUnweightedEffects))
 		end
 
 		if showDebugInfo then
@@ -612,24 +614,28 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 				if value == true then
 					tooltip:AddLine(name)
 				else
-					tooltip:AddDoubleLine(name, value)
+					if name == "slot" or name == "subslot" then
+						tooltip:AddDoubleLine(name, ww_slotDisplayNames[ww_englishSlotNames[value]])
+					else
+						tooltip:AddDoubleLine(name, value)
+					end
 				end
 			end
 			for name, value in pairs(bareItemInfo.normalStats) do
 				tooltip:AddDoubleLine(ww_statDisplayNames[name], value)
 			end
 			if #(bareItemInfo.useEffects) > 0 then
-				tooltip:AddLine("Use effects:")
+				tooltip:AddLine(L["Use effects:"])
 				for _, useEffect in pairs(bareItemInfo.useEffects) do
-					tooltip:AddDoubleLine("  " .. useEffect.value .. " " .. ww_statDisplayNames[useEffect.stat], useEffect.duration .. "/" .. useEffect.cooldown)
+					tooltip:AddDoubleLine(string.format(L["EFFECT_STAT_FORMAT"], useEffect.value, ww_statDisplayNames[useEffect.stat]), string.format(L["DURATION_COOLDOWN_FORMAT"], useEffect.duration, useEffect.cooldown))
 				end
 			end
 			if #(bareItemInfo.stackingEquipEffects) > 0 then
-				tooltip:AddLine("Stacking equip effects:")
+				tooltip:AddLine(L["Stacking equip effects:"])
 				for _, effect in pairs(bareItemInfo.stackingEquipEffects) do
-					tooltip:AddDoubleLine("  " .. effect.value .. " " .. ww_statDisplayNames[effect.stat], effect.numStacks)
+					tooltip:AddDoubleLine(string.format(L["EFFECT_STAT_FORMAT"], effect.value, ww_statDisplayNames[effect.stat]), effect.numStacks)
 					for trigger in pairs(effect.triggers) do
-						tooltip:AddLine("    on " .. trigger)
+						tooltip:AddLine(string.format(L["TRIGGER_FORMAT"], ww_triggerDisplayNames[trigger]))
 					end
 				end
 			end
@@ -637,27 +643,27 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 			local itemInfo = ww_itemCache[link]
 
 			if #(bareItemInfo.sockets) > 0 then
-				tooltip:AddLine("Sockets:")
+				tooltip:AddLine(L["Sockets:"])
 				for _, stat in pairs(bareItemInfo.sockets) do
-					tooltip:AddLine("  " .. ww_socketColorDisplayNames[stat])
+					tooltip:AddLine(string.format(L["INDENTED_STRING_FORMAT"], ww_socketColorDisplayNames[stat]))
 				end
 				if bareItemInfo.socketBonusStat then
 					if itemInfo.socketBonusActive then
-						tooltip:AddDoubleLine("Socket Bonus:", "Active")
+						tooltip:AddDoubleLine(L["Socket Bonus:"], L["Active"])
 					else
-						tooltip:AddDoubleLine("Socket Bonus:", "Inactive")
+						tooltip:AddDoubleLine(L["Socket Bonus:"], L["Inactive"])
 					end
 					for name, value in pairs(bareItemInfo.socketBonusStat) do
-						tooltip:AddDoubleLine("  " .. ww_statDisplayNames[name], value)
+						tooltip:AddDoubleLine(string.format(L["INDENTED_STRING_FORMAT"], ww_statDisplayNames[name]), value)
 					end
 				end
 				if #(itemInfo.gemStats) > 0 then
-					tooltip:AddLine("Gem Stats:")
+					tooltip:AddLine(L["Gem Stats:"])
 					for _, gems in pairs(itemInfo.gemStats) do
 						for _, gem in ipairs(gems) do
-							tooltip:AddLine("  " .. ww_gemDisplayNames[gem[2]] .. " (" .. ww_gemColorDisplayNames[gem[1]] .. ")")
+							tooltip:AddLine(string.format(L["GEM_NAME_COLOR_FORMAT"], ww_gemDisplayNames[gem[2]], ww_gemColorDisplayNames[gem[1]]))
 							for stat, value in pairs(gem[3]) do
-								tooltip:AddDoubleLine("    " .. ww_statDisplayNames[stat], value)
+								tooltip:AddDoubleLine(string.format(L["DOUBLY_INDENTED_STRING_FORMAT"], ww_statDisplayNames[stat]), value)
 							end
 						end
 					end
@@ -674,7 +680,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 							local compareScore, compareScore2, compareBareScore, compareBareScore2
 							str = weight
 							if ww_vars.options.tooltip.showClassNames == "Always" or (ww_vars.options.tooltip.showClassNames == "Others" and class ~= WeightsWatcher.playerClass) then
-								str = str .. " - " .. ww_classDisplayNames[class]
+								str = string.format(L["WEIGHT_CLASS_FORMAT"], str, ww_classDisplayNames[class])
 							end
 							if compareLink then
 								compareScore = ww_weightCache[class][weight][compareLink]
@@ -706,20 +712,20 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 									compareScore2 = ww_weightIdealCache[class][weight][compareBareLink2].score
 								end
 								compareScore = computeDifference(compareMethod, compareScore, compareScore2, currentScore)
-								tooltip:AddDoubleLine("  Ideally-gemmed:", string.format(colorizeDifferences(compareScore), currentScore, compareScore))
+								tooltip:AddDoubleLine(L["  Ideally-gemmed:"], string.format(colorizeDifferences(compareScore), currentScore, compareScore))
 								if showIdealGems then
 									gemStats = ww_weightIdealCache[class][weight][bareLink].gemStats
 									for _, gems in ipairs(gemStats) do
 										for i, gem in ipairs(gems) do
 											if #(gems) > 1 then
-												tooltip:AddDoubleLine("    (Option " .. i .. "/" .. #(gems) .. ") " .. ww_gemDisplayNames[gem[2]] .. " (" .. ww_gemColorDisplayNames[gem[1]] .. ")", " ")
+												tooltip:AddDoubleLine(string.format(L["MULTIPLE_GEM_FORMAT"], i, #(gems), ww_gemDisplayNames[gem[2]], ww_gemColorDisplayNames[gem[1]]), " ")
 												alternateGemsExist = true
 											else
-												tooltip:AddDoubleLine("    Using " .. ww_gemDisplayNames[gem[2]] .. " (" .. ww_gemColorDisplayNames[gem[1]] .. ")", " ")
+												tooltip:AddDoubleLine(string.format(L["SINGLE_GEM_FORMAT"], ww_gemDisplayNames[gem[2]], ww_gemColorDisplayNames[gem[1]]), " ")
 											end
 											if showIdealGemStats then
 												for stat, value in pairs(gem[3]) do
-													tooltip:AddDoubleLine("      " .. ww_statDisplayNames[stat] .. ": " .. value, " ")
+													tooltip:AddDoubleLine(string.format(L["TREBLY_INDENTED_STRING_FORMAT"], ww_statDisplayNames[stat]), value)
 												end
 											end
 											if not showAlternateGems then
@@ -740,31 +746,31 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 				if not ww_vars.options.tooltip.hideHints and #(bareItemInfo.sockets) > 0 then
 					if not showIdealWeights then
 						if ww_vars.options.tooltip.showIdealWeights ~= "Never" then
-							tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealWeights .. " to show ideally-gemmed weights>")
+							tooltip:AddLine(string.format(L["IDEAL_WTS_HINT"], ww_vars.options.tooltip.showIdealWeights))
 						end
 					elseif not showIdealGems then
 						if ww_vars.options.tooltip.showIdealGems ~= "Never" then
-							tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealGems .. " to show ideal gems>")
+							tooltip:AddLine(string.format(L["IDEAL_GEMS_HINT"], ww_vars.options.tooltip.showIdealGems))
 						end
 					else
 						if not showIdealGemStats then
 							if ww_vars.options.tooltip.showIdealGemStats ~= "Never" then
-								tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showIdealGemStats .. " to show ideal gem stats>")
+								tooltip:AddLine(string.format(L["IDEAL_GEM_STATS_HINT"], ww_vars.options.tooltip.showIdealGemStats))
 							end
 						end
 						if not showAlternateGems and alternateGemsExist then
 							if ww_vars.options.tooltip.showAlternateGems ~= "Never" then
-								tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showAlternateGems .. " to show alternate ideal gems>")
+								tooltip:AddLine(string.format(L["IDEAL_ALT_GEMS_HINT"], ww_vars.options.tooltip.showAlternateGems))
 							end
 						end
 					end
 				end
 			elseif ww_vars.options.tooltip.showWeights ~= "Never" then
-				tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showWeights .. " to show weights>")
+				tooltip:AddLine(string.format(L["WTS_HINT"], ww_vars.options.tooltip.showWeights))
 			end
 			if not showDebugInfo then
 				if ww_vars.options.tooltip.showDebugInfo ~= "Never" then
-					tooltip:AddLine("<Press " .. ww_vars.options.tooltip.showDebugInfo .. " to show debug info>")
+					tooltip:AddLine(string.format(L["DEBUG_HINT"], ww_vars.options.tooltip.showDebugInfo))
 				end
 			end
 		end
@@ -856,7 +862,8 @@ function WeightsWatcher.matchesSocket(gemId, socketColor)
 		if gemInfo then
 			gemColor = gemInfo.info[1]
 		else
-			print("WeightsWatcher: Unrecognized GemId: " .. gemId)
+			print(string.format(L["WARN_UNREC_GEMID"], gemId))
+			-- TODO: use the getgeminfo api to parse the gem?
 			return false
 		end
 	elseif type(gemId) == "string" then
@@ -864,7 +871,7 @@ function WeightsWatcher.matchesSocket(gemId, socketColor)
 	end
 
 	if not socketColors[socketColor] then
-		print("Warning: Unrecognized socket color: " .. socketColor)
+		print(string.format(L["WARN_UNREC_SOCKET_COLOR"], socketColor))
 		return false
 	end
 
@@ -957,10 +964,11 @@ function WeightsWatcher.getGemStats(...)
 				table.insert(innerStatTable, gemInfo.info)
 			else
 				if gemId ~= "0" then
-					print("WeightsWatcher: Unhandled gemId " .. gemId)
+					print(string.format(L["WARN_UNHAND_GEMID"], gemId))
+					-- TODO: use getgeminfo to parse the gem itself?
 				end
 				-- Ensures gems line up with their sockets
-				table.insert(innerStatTable, {"None", "N/A", {}})
+				table.insert(innerStatTable, {"N/A", "None", {}})
 			end
 		end
 		if #(innerStatTable) > 0 then
@@ -1088,7 +1096,7 @@ function WeightsWatcher.getItemStats(link)
 		end
 	end
 
-	if nonStats["slot"] == "ranged" or nonStats["slot"] == "thrown" or nonStats["slot"] == "projectile" then
+	if nonStats["slot"] == ww_localizedSlotNames["ranged"] or nonStats["slot"] == ww_localizedSlotNames["thrown"] or nonStats["slot"] == ww_localizedSlotNames["projectile"] then
 		for k, v in pairs(rangedConversions) do
 			normalStats[v] = rawget(normalStats, k)
 			normalStats[k] = nil
