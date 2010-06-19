@@ -818,6 +818,39 @@ function WeightsWatcher.bestGemForSocket(socketColor, weightScale, qualityLimit)
 	return bestGem, bestWeight
 end
 
+local socketColors = {
+	["blue"] = {
+		["blue"] = true,
+		["green"] = true,
+		["prismatic"] = true,
+		["purple"] = true,
+	},
+	["red"] = {
+		["orange"] = true,
+		["prismatic"] = true,
+		["purple"] = true,
+		["red"] = true,
+	},
+	["meta"] = {
+		["meta"] = true,
+	},
+	["prismatic"] = {
+		["blue"] = true,
+		["green"] = true,
+		["orange"] = true,
+		["prismatic"] = true,
+		["purple"] = true,
+		["red"] = true,
+		["yellow"] = true,
+	},
+	["yellow"] = {
+		["green"] = true,
+		["orange"] = true,
+		["prismatic"] = true,
+		["yellow"] = true,
+	},
+}
+
 function WeightsWatcher.matchesSocket(gemId, socketColor)
 	local gemColor
 
@@ -833,26 +866,12 @@ function WeightsWatcher.matchesSocket(gemId, socketColor)
 		gemColor = gemId
 	end
 
-	if socketColor == "red" then
-		if gemColor == "red" or gemColor == "orange" or gemColor == "purple" or gemColor == "prismatic" then
-			return true
-		end
-	elseif socketColor == "blue" then
-		if gemColor == "blue" or gemColor == "green" or gemColor == "purple" or gemColor == "prismatic" then
-			return true
-		end
-	elseif socketColor == "yellow" then
-		if gemColor == "yellow" or gemColor == "orange" or gemColor == "green" or gemColor == "prismatic" then
-			return true
-		end
-	elseif socketColor == "meta" then
-		if gemColor == "meta" then
-			return true
-		end
-	else
+	if not socketColors[socketColor] then
 		print("Warning: Unrecognized socket color: " .. socketColor)
+		return false
 	end
-	return false
+
+	return socketColors[socketColor][gemColor] == true
 end
 
 function WeightsWatcher.calculateWeight(bareItemStats, itemStats, weightsScale)
