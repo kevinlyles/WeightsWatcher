@@ -2939,12 +2939,12 @@ GemIds = {
 				[3162] = {
 					"meta",
 					"Potent Unstable Diamond",
-					{["attack power"] = 24, ["stun resistance (percent)"] = 5},
+					{["attack power"] = 24, ["stun resist chance (percent)"] = 5},
 				},
 				[3163] = {
 					"meta",
 					"Imbued Unstable Diamond",
-					{["spell power"] = 14, ["stun resistance (percent)"] = 5},
+					{["spell power"] = 14, ["stun resist chance (percent)"] = 5},
 				},
 			},
 			[4] = {

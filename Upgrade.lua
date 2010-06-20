@@ -135,6 +135,36 @@ function noop_major_up(vars)
 	return vars
 end
 
+function upgradeAccountToFixStunResistChance(vars)
+	for _, class in ipairs(vars.weightsList) do
+		for _, weight in ipairs(vars.weightsList[class]) do
+			if weight["stun resistance (percent)"] ~= nil then
+				weight["stun resist chance (percent)"] = weight["stun resistance (percent)"]
+				weight["stun resistance (percent)"] = nil
+			end
+		end
+	end
+
+	vars.dataMinorVersion = 14
+	return vars
+end
+
+downgradeAccountFromFixStunResistChance = [[
+	return function(vars)
+		for _, class in ipairs(vars.weightsList) do
+			for _, weight in ipairs(vars.weightsList[class]) do
+				if weight["stun resist chance (percent)"] ~= nil then
+					weight["stun resistance (percent)"] = weight["stun resist chance (percent)"]
+					weight["stun resist chance (percent)"] = nil
+				end
+			end
+		end
+
+		vars.dataMinorVersion = 13
+		return vars
+	end
+]]
+
 function upgradeAccountToDebugKey(vars)
 	if vars.options.tooltip.showDebugInfo == nil then
 		vars.options.tooltip.showDebugInfo = "Never"
@@ -869,6 +899,7 @@ upgradeAccountFunctions = {
 		[10] = upgradeAccountToUseEffectRatio,
 		[11] = upgradeAccountToTriggers,
 		[12] = upgradeAccountToDebugKey,
+		[13] = upgradeAccountToFixStunResistChance,
 	},
 }
 
@@ -899,6 +930,7 @@ downgradeAccountFunctions = {
 		[11] = noop_down,
 		[12] = downgradeAccountFromTriggers,
 		[13] = noop_down,
+		[14] = downgradeAccountFromFixStunResistChance,
 	},
 }
 

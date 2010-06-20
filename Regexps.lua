@@ -1384,7 +1384,7 @@ SingleStatLines = {
 	},
 	{"^(%d+)%% stun resistance$",
 		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "stun resistance (percent)")
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "stun resist chance (percent)")
 		end,
 		{"generic"},
 	},

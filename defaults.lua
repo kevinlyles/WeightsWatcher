@@ -72,7 +72,7 @@ trackedStats = {
 		"Spell Damage Taken Reduction (Percent)",
 		"Spell Reflect (Percent)",
 		"Stun Duration Reduction (Percent)",
-		"Stun Resistance (Percent)",
+		"Stun Resist Chance (Percent)",
 		"Threat (Percent)",
 		"Threat Reduction (Percent)",
 	},
@@ -186,7 +186,7 @@ statNames = {
 	["spell damage taken reduction (percent)"] = "Spell Damage Taken Reduction (Percent)",
 	["spell reflect (percent)"] = "Spell Reflect (Percent)",
 	["stun duration reduction (percent)"] = "Stun Duration Reduction (Percent)",
-	["stun resistance (percent)"] = "Stun Resistance (Percent)",
+	["stun resist chance (percent)"] = "Stun Resist Chance (Percent)",
 	["threat reduction (percent)"] = "Threat Reduction (Percent)",
 	["arcane resistance"] = "Arcane Resistance",
 	["fire resistance"] = "Fire Resistance",
@@ -232,7 +232,7 @@ classNameOptions = {
 
 defaultVars = {
 	dataMajorVersion = 1,
-	dataMinorVersion = 13,
+	dataMinorVersion = 14,
 	weightsList = {
 		[1] = "DEATHKNIGHT",
 		[2] = "DRUID",
