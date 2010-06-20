@@ -616,18 +616,18 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 				end
 			end
 			for name, value in pairs(bareItemInfo.normalStats) do
-				tooltip:AddDoubleLine(name, value)
+				tooltip:AddDoubleLine(ww_statDisplayNames[name], value)
 			end
 			if #(bareItemInfo.useEffects) > 0 then
 				tooltip:AddLine("Use effects:")
 				for _, useEffect in pairs(bareItemInfo.useEffects) do
-					tooltip:AddDoubleLine("  " .. useEffect.value .. " " .. useEffect.stat, useEffect.duration .. "/" .. useEffect.cooldown)
+					tooltip:AddDoubleLine("  " .. useEffect.value .. " " .. ww_statDisplayNames[useEffect.stat], useEffect.duration .. "/" .. useEffect.cooldown)
 				end
 			end
 			if #(bareItemInfo.stackingEquipEffects) > 0 then
 				tooltip:AddLine("Stacking equip effects:")
 				for _, effect in pairs(bareItemInfo.stackingEquipEffects) do
-					tooltip:AddDoubleLine("  " .. effect.value .. " " .. effect.stat, effect.numStacks)
+					tooltip:AddDoubleLine("  " .. effect.value .. " " .. ww_statDisplayNames[effect.stat], effect.numStacks)
 					for trigger in pairs(effect.triggers) do
 						tooltip:AddLine("    on " .. trigger)
 					end
@@ -648,7 +648,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 						tooltip:AddDoubleLine("Socket Bonus:", "Inactive")
 					end
 					for name, value in pairs(bareItemInfo.socketBonusStat) do
-						tooltip:AddDoubleLine("  " .. name, value)
+						tooltip:AddDoubleLine("  " .. ww_statDisplayNames[name], value)
 					end
 				end
 				if #(itemInfo.gemStats) > 0 then
@@ -657,7 +657,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 						for _, gem in ipairs(gems) do
 							tooltip:AddLine("  " .. ww_gemDisplayNames[gem[2]] .. " (" .. ww_gemColorDisplayNames[gem[1]] .. ")")
 							for stat, value in pairs(gem[3]) do
-								tooltip:AddDoubleLine("    " .. stat, value)
+								tooltip:AddDoubleLine("    " .. ww_statDisplayNames[stat], value)
 							end
 						end
 					end
@@ -719,7 +719,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 											end
 											if showIdealGemStats then
 												for stat, value in pairs(gem[3]) do
-													tooltip:AddDoubleLine("      " .. ww_statNames[stat] .. ": " .. value, " ")
+													tooltip:AddDoubleLine("      " .. ww_statDisplayNames[stat] .. ": " .. value, " ")
 												end
 											end
 											if not showAlternateGems then
@@ -875,7 +875,7 @@ function WeightsWatcher.calculateWeight(bareItemStats, itemStats, weightsScale)
 	local weight = 0
 
 	for stat, value in pairs(bareItemStats.normalStats) do
-		weight = weight + WeightsWatcher.getWeight(stat, value, weightsScale)
+		weight = weight + WeightsWatcher.getWeight(ww_englishStats[stat], value, weightsScale)
 	end
 	if itemStats.socketBonusActive and bareItemStats.socketBonusStat then
 		for stat, value in pairs(bareItemStats.socketBonusStat) do
@@ -887,7 +887,7 @@ function WeightsWatcher.calculateWeight(bareItemStats, itemStats, weightsScale)
 		for _, gemInfo in pairs(gems) do
 			local weight = 0
 			for stat, value in pairs(gemInfo[3]) do
-				weight = weight + WeightsWatcher.getWeight(stat, value, weightsScale)
+				weight = weight + WeightsWatcher.getWeight(ww_englishStats[stat], value, weightsScale)
 			end
 			if maxWeight < weight then
 				maxWeight = weight
@@ -897,14 +897,14 @@ function WeightsWatcher.calculateWeight(bareItemStats, itemStats, weightsScale)
 	end
 	if bareItemStats.useEffects then
 		for _, useEffect in pairs(bareItemStats.useEffects) do
-			weight = weight + WeightsWatcher.getWeight(useEffect.stat, useEffect.value * useEffect.duration / useEffect.cooldown * ww_vars.options.useEffects.uptimeRatio, weightsScale)
+			weight = weight + WeightsWatcher.getWeight(ww_englishStats[useEffect.stat], useEffect.value * useEffect.duration / useEffect.cooldown * ww_vars.options.useEffects.uptimeRatio, weightsScale)
 		end
 	end
 	if bareItemStats.stackingEquipEffects then
 		for _, effect in ipairs(bareItemStats.stackingEquipEffects) do
 			for trigger in pairs(effect.triggers) do
 				if weightsScale.triggers[trigger] then
-					weight = weight + WeightsWatcher.getWeight(effect.stat, effect.value * effect.numStacks, weightsScale)
+					weight = weight + WeightsWatcher.getWeight(ww_englishStats[effect.stat], effect.value * effect.numStacks, weightsScale)
 					break
 				end
 			end
@@ -1033,10 +1033,10 @@ function WeightsWatcher.parseLine(textL, textR, link)
 end
 
 local rangedConversions = {
-	["melee dps"] = "ranged dps",
-	["average melee weapon damage"] = "average ranged weapon damage",
-	["maximum melee weapon damage"] = "maximum ranged weapon damage",
-	["melee weapon speed"] = "ranged weapon speed",
+	[ww_localizedStats["melee dps"]] = ww_localizedStats["ranged dps"],
+	[ww_localizedStats["average melee weapon damage"]] = ww_localizedStats["average ranged weapon damage"],
+	[ww_localizedStats["maximum melee weapon damage"]] = ww_localizedStats["maximum ranged weapon damage"],
+	[ww_localizedStats["melee weapon speed"]] = ww_localizedStats["ranged weapon speed"],
 }
 
 function WeightsWatcher.getItemStats(link)
