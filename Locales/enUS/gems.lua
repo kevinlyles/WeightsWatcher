@@ -570,3 +570,15 @@ ww_gemDisplayNames = {
 	["Wicked Noble Topaz"] = "Wicked Noble Topaz",
 	["Wicked Pyrestone"] = "Wicked Pyrestone",
 }
+
+ww_gemColorDisplayNames = {
+	["blue"] = "Blue",
+	["green"] = "Green",
+	["meta"] = "Meta",
+	["orange"] = "Orange",
+	["prismatic"] = "Prismatic",
+	["purple"] = "Purple",
+	["red"] = "Red",
+	["yellow"] = "Yellow",
+	["N/A"] = "N/A",
+}

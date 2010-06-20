@@ -654,7 +654,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 					tooltip:AddLine("Gem Stats:")
 					for _, gems in pairs(itemInfo.gemStats) do
 						for _, gem in ipairs(gems) do
-							tooltip:AddLine("  " .. ww_gemDisplayNames[gem[2]] .. " (" .. gem[1] .. ")")
+							tooltip:AddLine("  " .. ww_gemDisplayNames[gem[2]] .. " (" .. ww_gemColorDisplayNames[gem[1]] .. ")")
 							for stat, value in pairs(gem[3]) do
 								tooltip:AddDoubleLine("    " .. stat, value)
 							end
@@ -711,10 +711,10 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 									for _, gems in ipairs(gemStats) do
 										for i, gem in ipairs(gems) do
 											if #(gems) > 1 then
-												tooltip:AddDoubleLine("    (Option " .. i .. "/" .. #(gems) .. ") " .. ww_gemDisplayNames[gem[2]] .. " (" .. gem[1] .. ")", " ")
+												tooltip:AddDoubleLine("    (Option " .. i .. "/" .. #(gems) .. ") " .. ww_gemDisplayNames[gem[2]] .. " (" .. ww_gemColorDisplayNames[gem[1]] .. ")", " ")
 												alternateGemsExist = true
 											else
-												tooltip:AddDoubleLine("    Using " .. ww_gemDisplayNames[gem[2]] .. " (" .. gem[1] .. ")", " ")
+												tooltip:AddDoubleLine("    Using " .. ww_gemDisplayNames[gem[2]] .. " (" .. ww_gemColorDisplayNames[gem[1]] .. ")", " ")
 											end
 											if showIdealGemStats then
 												for stat, value in pairs(gem[3]) do
