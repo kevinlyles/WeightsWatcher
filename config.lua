@@ -1,3 +1,12 @@
+local function printHelp()
+	print("WeightsWatcher help:")
+	print("Type /weightswatcher <arg> (or /ww <arg>)")
+	print("  config      opens the main configuration window")
+	print("  weights   opens the weights configuration window")
+	print("  version    displays version information")
+	print("  help         displays this message")
+end
+
 function commandHandler(msg)
 	if msg == "config" then
 		ww_weights:Hide()
@@ -29,13 +38,10 @@ function commandHandler(msg)
 	end
 end
 
-function printHelp()
-	print("WeightsWatcher help:")
-	print("Type /weightswatcher <arg> (or /ww <arg>)")
-	print("  config      opens the main configuration window")
-	print("  weights   opens the weights configuration window")
-	print("  version    displays version information")
-	print("  help         displays this message")
+local function GemQualityDropDownOnClick(choice, dropdown)
+	UIDropDownMenu_SetSelectedValue(dropdown, choice.value, false)
+	ww_vars.options.gems.qualityLimit = choice.value
+	ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
 end
 
 function GemQualityDropDownInitialize(dropdown)
@@ -51,10 +57,9 @@ function GemQualityDropDownInitialize(dropdown)
 	end
 end
 
-function GemQualityDropDownOnClick(choice, dropdown)
+local function ModifierKeyDropDownOnClick(choice, dropdown)
 	UIDropDownMenu_SetSelectedValue(dropdown, choice.value, false)
-	ww_vars.options.gems.qualityLimit = choice.value
-	ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+	ww_vars.options.tooltip[dropdown:GetText()] = choice.value
 end
 
 function ModifierKeyDropDownInitialize(dropdown)
@@ -70,9 +75,9 @@ function ModifierKeyDropDownInitialize(dropdown)
 	end
 end
 
-function ModifierKeyDropDownOnClick(choice, dropdown)
+local function ShowClassNameDropDownOnClick(choice, dropdown)
 	UIDropDownMenu_SetSelectedValue(dropdown, choice.value, false)
-	ww_vars.options.tooltip[dropdown:GetText()] = choice.value
+	ww_vars.options.tooltip.showClassNames = choice.value
 end
 
 function ShowClassNameDropDownInitialize(dropdown)
@@ -86,9 +91,4 @@ function ShowClassNameDropDownInitialize(dropdown)
 		info.checked = nil
 		UIDropDownMenu_AddButton(info)
 	end
-end
-
-function ShowClassNameDropDownOnClick(choice, dropdown)
-	UIDropDownMenu_SetSelectedValue(dropdown, choice.value, false)
-	ww_vars.options.tooltip.showClassNames = choice.value
 end

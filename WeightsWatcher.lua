@@ -1,4 +1,13 @@
-currentHooks = {}
+local currentHooks = {}
+
+local function splitItemLink(link)
+	local _, itemId, _, gemId1, gemId2, gemId3, gemId4, suffixId, uniqueId, linkLevel = strsplit(":", link)
+	-- Strip color codes
+	linkLevel = strsplit("|", linkLevel)
+	bareLink = strjoin(":", "item", itemId, "0:0:0:0:0", suffixId, uniqueId, linkLevel)
+
+	return bareLink, {{gemId1}, {gemId2}, {gemId3}, {gemId4}}
+end
 
 ww_normalStatsMetatable = {
 	-- Allows us to skip the nil check
@@ -221,6 +230,19 @@ function WeightsWatcher.ResetTables()
 	ww_unweighted_lines = setmetatable({}, metatable)
 end
 
+local function upgradeData(dataType, varsName)
+	local tempVars
+
+	tempVars = WeightsWatcher.Upgrade(dataType)
+	if tempVars then
+		_G[varsName] = tempVars
+		return true
+	else
+		WeightsWatcher.Broken(dataType)
+		return false
+	end
+end
+
 function WeightsWatcher.OnInitialize()
 	loadGeneralInfo()
 
@@ -283,19 +305,6 @@ StaticPopupDialogs["WW_INVALID_CHARACTER_DATA"] = {
 	hideOnEscape = false,
 }
 
-function upgradeData(dataType, varsName)
-	local tempVars
-
-	tempVars = WeightsWatcher.Upgrade(dataType)
-	if tempVars then
-		_G[varsName] = tempVars
-		return true
-	else
-		WeightsWatcher.Broken(dataType)
-		return false
-	end
-end
-
 function WeightsWatcher.Broken(dataType)
 	if dataType == "account" then
 		StaticPopup_Show("WW_INVALID_ACCOUNT_DATA")
@@ -353,15 +362,6 @@ function WeightsWatcher.OnDisable()
 		self:Unhook(unpack(hook))
 	end
 	currentHooks = {}
-end
-
-function splitItemLink(link)
-	local _, itemId, _, gemId1, gemId2, gemId3, gemId4, suffixId, uniqueId, linkLevel = strsplit(":", link)
-	-- Strip color codes
-	linkLevel = strsplit("|", linkLevel)
-	bareLink = strjoin(":", "item", itemId, "0:0:0:0:0", suffixId, uniqueId, linkLevel)
-
-	return bareLink, {{gemId1}, {gemId2}, {gemId3}, {gemId4}}
 end
 
 local function checkForTitansGrip()

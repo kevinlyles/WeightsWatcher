@@ -3037,18 +3037,18 @@ GemIds = {
 	},
 }
 
-GemQualities = {}
+local GemQualities = {}
 
 for gemSource, gems in pairs(GemIds) do
 	for gemType, gems in pairs(gems) do
 		for gemQuality, gems in pairs(gems) do
 			for gemId, gemInfo in pairs(gems) do
 				GemQualities[gemId] = {
-						source = gemSource,
-						type = gemType,
-						quality = gemQuality,
-						info = gemInfo,
-					}
+					source = gemSource,
+					type = gemType,
+					quality = gemQuality,
+					info = gemInfo,
+				}
 			end
 		end
 	end

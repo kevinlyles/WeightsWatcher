@@ -1,72 +1,3 @@
-StaticPopupDialogs["WW_CONFIRM_DISCARD_CHANGES"] = {
-	text = "You have unsaved changes for this weight.",
-	button1 = "Discard",
-	button3 = "Save",
-	button2 = "Cancel",
-	OnAccept = function(self, func)
-			func()
-		end,
-	OnAlt = function(self, func)
-			configSaveWeight()
-			func()
-		end,
-	showAlert = true,
-	timeout = 0,
-	whileDead = true,
-	hideOnEscape = true,
-}
-
-StaticPopupDialogs["WW_CONFIRM_WEIGHT_DELETE"] = {
-	text = "Are you sure you want to delete the %s weight named \"%s\"?",
-	button1 = "Delete",
-	button2 = "Cancel",
-	OnAccept = function()
-			deleteWeight()
-		end,
-	showAlert = true,
-	timeout = 0,
-	whileDead = true,
-	hideOnEscape = true,
-}
-
-StaticPopupDialogs["WW_CONFIRM_RESTORE_DEFAULTS"] = {
-	text = "Are you sure you want to restore default weights?\n\nWeights whose names are white will be overwritten (the others will be left as they are).",
-	button1 = "Restore Defaults",
-	button2 = "Cancel",
-	OnAccept = function()
-			for _, class in ipairs(defaultVars.weightsList) do
-				for _, weight in ipairs(defaultVars.weightsList[class]) do
-					setWeight(class, weight, defaultVars.weightsList[class][weight])
-					ww_weightCache[class][weight] = nil
-					ww_weightIdealCache[class][weight] = nil
-				end
-			end
-			if ww_weights.rightPanel:IsShown() then
-				configSelectWeight(ww_weights.rightPanel.weightFrame)
-			end
-		end,
-	showAlert = true,
-	timeout = 0,
-	whileDead = true,
-	hideOnEscape = true,
-}
-
-StaticPopupDialogs["WW_WEIGHT_EXISTS"] = {
-	text = "The %s weight named \"%s\" already exists.  Pick a different name.",
-	button1 = "Okay",
-	enterClicksFirstButton = true,
-	showAlert = true,
-	timeout = 0,
-	whileDead = true,
-	hideOnEscape = true,
-}
-
--- initializes weights config frames and variables
-function initializeWeightsConfig()
-	loadClassButtons()
-	loadStatButtons()
-end
-
 function validateNumber(newChar, newText)
 	if string.find(newChar, "^%d$") then
 		return true
@@ -303,7 +234,7 @@ function configSaveWeight()
 	ww_weights.rightPanel.resetButton:Disable()
 end
 
-function deleteWeight()
+local function deleteWeight()
 	local point, relativeTo, relativePoint, xOffset, yOffset, removed
 	local weight = ww_weights.rightPanel.weightFrame
 
@@ -426,8 +357,51 @@ function setWeight(class, weight, statList)
 	ww_vars.weightsList[class][weight] = deepTableCopy(statList)
 end
 
+-- Creates a tiered list that can be scrolled
+-- template is a table of key-value pairs with keys as the categories and values as a table of elements
+-- scrollFrame is the scrollframe that controls scrolledFrame
+-- NOTE: scrollFrame must have an OnShow handler that updates the scrollbar
+-- scrolledFrame is the frame that will hold everything
+-- elementType is the element template type
+-- elementHeight is the height of each element
+local function createScrollableTieredList(template, scrollFrame, scrolledFrame, elementType, elementHeight)
+	local categoryFrame, elementFrame
+
+	scrollFrame.categories = {}
+	scrollFrame.shown = {}
+	scrollFrame.elementHeight = elementHeight
+	for i, category in ipairs(template) do
+		--for each category print the header and then the print the list of stats
+		categoryFrame = CreateFrame("Frame", "WW_" .. category, scrolledFrame, "ww_categoryFrame")
+		categoryFrame.text:SetText(category)
+		categoryFrame.name = category
+		categoryFrame.length = 1
+		if i == 1 then
+			categoryFrame:SetPoint("TOPLEFT")
+		else
+			categoryFrame:SetPoint("TOPLEFT", scrollFrame.categories[i - 1], "BOTTOMLEFT")
+		end
+		table.insert(scrollFrame.categories, categoryFrame)
+		table.insert(scrollFrame.shown, categoryFrame.text)
+		categoryFrame.position = #(scrollFrame.shown)
+		for j, element in ipairs(template[category]) do
+			elementFrame = CreateFrame("Frame", "WW_" .. element, scrollFrame.categories[i], elementType)
+			elementFrame.position = j
+			elementFrame.category = categoryFrame
+			elementFrame.text:SetText(element)
+			elementFrame.name = template[category][element] or element
+			elementFrame:SetPoint("TOPLEFT", 0, -elementHeight * j)
+			table.insert(scrollFrame.shown, elementFrame)
+			categoryFrame.length = categoryFrame.length + 1
+		end
+
+		categoryFrame:SetHeight(elementHeight * categoryFrame.length)
+		categoryFrame.collapsed = false
+	end
+end
+
 --loads the various class buttons onto the config frame
-function loadClassButtons()
+local function loadClassButtons()
 	local classes, revClassLookup, newClass = {}, {}
 
 	for i, class in ipairs(ww_vars.weightsList) do
@@ -469,7 +443,7 @@ function loadClassButtons()
 	end
 end
 
-function loadStatButtons()
+local function loadStatButtons()
 	local stats = {}
 
 	createScrollableTieredList(trackedStats, ww_weights.rightPanel.scrollFrame, ww_weights.rightPanel.scrollContainer, "ww_statFrame", 22)
@@ -503,47 +477,10 @@ function loadStatButtons()
 	ww_weights.rightPanel.scrollFrame.stats = stats
 end
 
--- Creates a tiered list that can be scrolled
--- template is a table of key-value pairs with keys as the categories and values as a table of elements
--- scrollFrame is the scrollframe that controls scrolledFrame
--- NOTE: scrollFrame must have an OnShow handler that updates the scrollbar
--- scrolledFrame is the frame that will hold everything
--- elementType is the element template type
--- elementHeight is the height of each element
-function createScrollableTieredList(template, scrollFrame, scrolledFrame, elementType, elementHeight)
-	local categoryFrame, elementFrame
-
-	scrollFrame.categories = {}
-	scrollFrame.shown = {}
-	scrollFrame.elementHeight = elementHeight
-	for i, category in ipairs(template) do
-		--for each category print the header and then the print the list of stats
-		categoryFrame = CreateFrame("Frame", "WW_" .. category, scrolledFrame, "ww_categoryFrame")
-		categoryFrame.text:SetText(category)
-		categoryFrame.name = category
-		categoryFrame.length = 1
-		if i == 1 then
-			categoryFrame:SetPoint("TOPLEFT")
-		else
-			categoryFrame:SetPoint("TOPLEFT", scrollFrame.categories[i - 1], "BOTTOMLEFT")
-		end
-		table.insert(scrollFrame.categories, categoryFrame)
-		table.insert(scrollFrame.shown, categoryFrame.text)
-		categoryFrame.position = #(scrollFrame.shown)
-		for j, element in ipairs(template[category]) do
-			elementFrame = CreateFrame("Frame", "WW_" .. element, scrollFrame.categories[i], elementType)
-			elementFrame.position = j
-			elementFrame.category = categoryFrame
-			elementFrame.text:SetText(element)
-			elementFrame.name = template[category][element] or element
-			elementFrame:SetPoint("TOPLEFT", 0, -elementHeight * j)
-			table.insert(scrollFrame.shown, elementFrame)
-			categoryFrame.length = categoryFrame.length + 1
-		end
-
-		categoryFrame:SetHeight(elementHeight * categoryFrame.length)
-		categoryFrame.collapsed = false
-	end
+-- initializes weights config frames and variables
+function initializeWeightsConfig()
+	loadClassButtons()
+	loadStatButtons()
 end
 
 function toggleCollapse(categoryFrame, scrollFrame)
@@ -581,6 +518,10 @@ function toggleCollapse(categoryFrame, scrollFrame)
 	scrollFrame:GetScript("OnShow")(scrollFrame)
 end
 
+local function DropDownOnClick(choice, dropdown)
+	UIDropDownMenu_SetSelectedValue(dropdown, choice.value, false)
+end
+
 function ClassDropDownInitialize(dropdown)
 	local info = {}
 
@@ -594,6 +535,65 @@ function ClassDropDownInitialize(dropdown)
 	end
 end
 
-function DropDownOnClick(choice, dropdown)
-	UIDropDownMenu_SetSelectedValue(dropdown, choice.value, false)
-end
+StaticPopupDialogs["WW_CONFIRM_DISCARD_CHANGES"] = {
+	text = "You have unsaved changes for this weight.",
+	button1 = "Discard",
+	button3 = "Save",
+	button2 = "Cancel",
+	OnAccept = function(self, func)
+			func()
+		end,
+	OnAlt = function(self, func)
+			configSaveWeight()
+			func()
+		end,
+	showAlert = true,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = true,
+}
+
+StaticPopupDialogs["WW_CONFIRM_WEIGHT_DELETE"] = {
+	text = "Are you sure you want to delete the %s weight named \"%s\"?",
+	button1 = "Delete",
+	button2 = "Cancel",
+	OnAccept = function()
+			deleteWeight()
+		end,
+	showAlert = true,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = true,
+}
+
+StaticPopupDialogs["WW_CONFIRM_RESTORE_DEFAULTS"] = {
+	text = "Are you sure you want to restore default weights?\n\nWeights whose names are white will be overwritten (the others will be left as they are).",
+	button1 = "Restore Defaults",
+	button2 = "Cancel",
+	OnAccept = function()
+			for _, class in ipairs(defaultVars.weightsList) do
+				for _, weight in ipairs(defaultVars.weightsList[class]) do
+					setWeight(class, weight, defaultVars.weightsList[class][weight])
+					ww_weightCache[class][weight] = nil
+					ww_weightIdealCache[class][weight] = nil
+				end
+			end
+			if ww_weights.rightPanel:IsShown() then
+				configSelectWeight(ww_weights.rightPanel.weightFrame)
+			end
+		end,
+	showAlert = true,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = true,
+}
+
+StaticPopupDialogs["WW_WEIGHT_EXISTS"] = {
+	text = "The %s weight named \"%s\" already exists.  Pick a different name.",
+	button1 = "Okay",
+	enterClicksFirstButton = true,
+	showAlert = true,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = true,
+}
