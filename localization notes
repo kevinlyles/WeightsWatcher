@@ -1,0 +1,39 @@
+translation instructions:
+	minimum:
+		stats.lua
+		base.lua
+		gems.lua
+		patterns-base.lua
+		patterns.lua
+			NOTE: you can safely skip those patterns whose section table only includes cooldownUseEffects and/or stackingEquipEffects (or any other of the recommended and later files you're skipping)
+		classes-specs.lua
+		slots.lua
+		dropdown-options.lua
+		<locale name>.xml (which will include all the other localization files)
+	recommended (in recommended order of completion):
+		patterns-equip-stats.lua
+		patterns-elixirs.lua
+		patterns-use-effects.lua
+		patterns-food.lua
+		patterns-enchants.lua
+		patterns-fishing.lua
+	"extra" features (the UI will change if these are not done, but everything else should still work):
+		patterns-cooldown-use-effects.lua
+		patterns-stacking-equip-effects.lua
+
+Notes:
+	You must keep the names of all non-local variables/functions the same
+	All files should be saved in UTF-8 format
+	Most quoted strings that are not part of ww_localization ('L' in most files) are actually lua patterns.  These are similar to regular expressions, but vary in several important ways.  See http://www.lua.org/manual/5.1/manual.html#5.4.1 for more information about patterns.
+		A few specific notes:
+			to include a literal dash ('-') in a pattern, you must use "%-" or the pattern will not match
+				parentheses and periods are the same way
+	If you encounter a lua error, PLEASE let me know!  I have only one other language to test with, and I may have missed something.
+
+add bit about tekerr and tekkompare
+add bit about not splitting your regexes too soon
+add bit about triggerGroups being special
+note about localization.lua and enabling errors
+add notes about itemscanner to localization info
+	also notes about what is and is not localized in which part of the addon
+note about making unspecified stats melee (WeightsWatcher.lua converts them to ranged as needed)
