@@ -114,3 +114,12 @@ L["Quiver"] = "Quiver"
 L["Gem"] = "Gem"
 L["Consumable"] = "Consumable"
 L["Recipe"] = "Recipe"
+
+-- weights.lua
+L["Discard"] = "Discard"
+L["WT_UNSAVED_CHANGES"] = "You have unsaved changes for this weight."
+L["WT_DELETE_CONFIRM"] = "Are you sure you want to delete the %s weight named \"%s\"?"
+L["WT_RESTORE_DEFAULTS_CONFIRM"] = "Are you sure you want to restore default weights?\n\nWeights whose names are white will be overwritten (the others will be left as they are)."
+L["Okay"] = "Okay"
+L["WT_EXISTS"] = "The %s weight named \"%s\" already exists.  Pick a different name."
+L["CLASS_WEIGHT_HEADER_FORMAT"] = "%s - %s"

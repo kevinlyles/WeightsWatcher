@@ -1,3 +1,6 @@
+local L = ww_localization
+
+-- TODO: localize this function?
 function ww_validateNumber(newChar, newText)
 	if string.find(newChar, "^%d$") then
 		return true
@@ -122,7 +125,7 @@ function ww_configSelectWeight(weightFrame)
 
 	for _, categoryFrame in ipairs(ww_weights.rightPanel.scrollFrame.categories) do
 		local empty = true
-		if categoryFrame.name == "Triggers" then
+		if categoryFrame.name == L["Triggers"] then
 			for _, triggerFrame in ipairs({categoryFrame:GetChildren()}) do
 				if triggerFrame.active then
 					if triggerFrame.active:GetChecked() then
@@ -146,7 +149,7 @@ function ww_configSelectWeight(weightFrame)
 		end
 	end
 
-	ww_weights.rightPanel.header:SetText(weightFrame.category.name .. " - " .. weightFrame.name)
+	ww_weights.rightPanel.header:SetText(string.format(L["CLASS_WEIGHT_HEADER_FORMAT"], weightFrame.category.name, weightFrame.name))
 	ww_weights.rightPanel:Show()
 end
 
@@ -181,7 +184,7 @@ function ww_configResetWeight()
 			end
 		end
 		for _, categoryFrame in pairs(ww_weights.rightPanel.scrollFrame.categories) do
-			if categoryFrame.name == "Triggers" then
+			if categoryFrame.name == L["Triggers"] then
 				for _, triggerFrame in ipairs({categoryFrame:GetChildren()}) do
 					if triggerFrame.active then
 						triggerFrame.active:SetChecked(ww_weights.rightPanel.statList.triggers[triggerFrame.active:GetText()])
@@ -459,7 +462,7 @@ local function loadStatButtons()
 	createScrollableTieredList(ww_trackedStats, ww_weights.rightPanel.scrollFrame, ww_weights.rightPanel.scrollContainer, "ww_statFrame", 22, setmetatable({}, metatable))
 
 	for _, categoryFrame in ipairs(ww_weights.rightPanel.scrollFrame.categories) do
-		if categoryFrame.name == "Triggers" then
+		if categoryFrame.name == L["Triggers"] then
 			for i, trigger in ipairs(ww_triggerTypes) do
 				local triggerFrame = CreateFrame("Frame", "WW_" .. trigger, categoryFrame, "ww_triggerFrame")
 				triggerFrame.position = i
@@ -546,10 +549,10 @@ function ww_ClassDropDownInitialize(dropdown)
 end
 
 StaticPopupDialogs["WW_CONFIRM_DISCARD_CHANGES"] = {
-	text = "You have unsaved changes for this weight.",
-	button1 = "Discard",
-	button3 = "Save",
-	button2 = "Cancel",
+	text = L["WT_UNSAVED_CHANGES"],
+	button1 = L["Discard"],
+	button3 = L["Save"],
+	button2 = L["Cancel"],
 	OnAccept = function(self, func)
 			func()
 		end,
@@ -564,9 +567,9 @@ StaticPopupDialogs["WW_CONFIRM_DISCARD_CHANGES"] = {
 }
 
 StaticPopupDialogs["WW_CONFIRM_WEIGHT_DELETE"] = {
-	text = "Are you sure you want to delete the %s weight named \"%s\"?",
-	button1 = "Delete",
-	button2 = "Cancel",
+	text = L["WT_DELETE_CONFIRM"],
+	button1 = L["Delete"],
+	button2 = L["Cancel"],
 	OnAccept = function()
 			deleteWeight()
 		end,
@@ -577,9 +580,9 @@ StaticPopupDialogs["WW_CONFIRM_WEIGHT_DELETE"] = {
 }
 
 StaticPopupDialogs["WW_CONFIRM_RESTORE_DEFAULTS"] = {
-	text = "Are you sure you want to restore default weights?\n\nWeights whose names are white will be overwritten (the others will be left as they are).",
-	button1 = "Restore Defaults",
-	button2 = "Cancel",
+	text = L["WT_RESTORE_DEFAULTS_CONFIRM"],
+	button1 = L["Restore Defaults"],
+	button2 = L["Cancel"],
 	OnAccept = function()
 			for _, class in ipairs(ww_defaultVars.weightsList) do
 				for _, weight in ipairs(ww_defaultVars.weightsList[class]) do
@@ -599,8 +602,8 @@ StaticPopupDialogs["WW_CONFIRM_RESTORE_DEFAULTS"] = {
 }
 
 StaticPopupDialogs["WW_WEIGHT_EXISTS"] = {
-	text = "The %s weight named \"%s\" already exists.  Pick a different name.",
-	button1 = "Okay",
+	text = L["WT_EXISTS"],
+	button1 = L["Okay"],
 	enterClicksFirstButton = true,
 	showAlert = true,
 	timeout = 0,
