@@ -7,7 +7,7 @@ local function printHelp()
 	print("  help         displays this message")
 end
 
-function commandHandler(msg)
+function ww_commandHandler(msg)
 	if msg == "config" then
 		ww_weights:Hide()
 		-- TODO: make this work better with the confirmDiscardChanges dialog
@@ -44,12 +44,12 @@ local function GemQualityDropDownOnClick(choice, dropdown)
 	ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
 end
 
-function GemQualityDropDownInitialize(dropdown)
+function ww_GemQualityDropDownInitialize(dropdown)
 	local info = {}
 
 	info.func = GemQualityDropDownOnClick
 	info.arg1 = dropdown
-	for num, name in ipairs(gemQualityNames) do
+	for num, name in ipairs(ww_gemQualityNames) do
 		info.text = name
 		info.value = num
 		info.checked = nil
@@ -62,12 +62,12 @@ local function ModifierKeyDropDownOnClick(choice, dropdown)
 	ww_vars.options.tooltip[dropdown:GetText()] = choice.value
 end
 
-function ModifierKeyDropDownInitialize(dropdown)
+function ww_ModifierKeyDropDownInitialize(dropdown)
 	local info = {}
 
 	info.func = ModifierKeyDropDownOnClick
 	info.arg1 = dropdown
-	for _, value in ipairs(keyDetectors) do
+	for _, value in ipairs(ww_keyDetectors) do
 		info.text = value
 		info.value = value
 		info.checked = nil
@@ -80,13 +80,13 @@ local function ShowClassNameDropDownOnClick(choice, dropdown)
 	ww_vars.options.tooltip.showClassNames = choice.value
 end
 
-function ShowClassNameDropDownInitialize(dropdown)
+function ww_ShowClassNameDropDownInitialize(dropdown)
 	local info = {}
 
 	info.func = ShowClassNameDropDownOnClick
 	info.arg1 = dropdown
-	for _, value in ipairs(classNameOptions) do
-		info.text = classNameOptions[value]
+	for _, value in ipairs(ww_classNameOptions) do
+		info.text = ww_classNameOptions[value]
 		info.value = value
 		info.checked = nil
 		UIDropDownMenu_AddButton(info)

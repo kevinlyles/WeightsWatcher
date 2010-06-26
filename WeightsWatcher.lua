@@ -255,15 +255,15 @@ function WeightsWatcher.OnInitialize()
 		return
 	end
 
-	initializeParser()
+	ww_initializeParser()
 
-	initializeWeightsConfig()
+	ww_initializeWeightsConfig()
 
 	SLASH_WEIGHTSWATCHER1="/ww"
 	SLASH_WEIGHTSWATCHER2="/weightswatcher"
 	SlashCmdList["WEIGHTSWATCHER"] =
 		function(msg)
-			commandHandler(msg)
+			ww_commandHandler(msg)
 		end
 end
 
@@ -275,7 +275,7 @@ StaticPopupDialogs["WW_INVALID_ACCOUNT_DATA"] = {
 			if not upgradeData("character", "ww_charVars") then
 				return
 			end
-			initializeWeightsConfig()
+			ww_initializeWeightsConfig()
 		end,
 	OnCancel = function(self, func)
 			DisableAddOn("WeightsWatcher")
@@ -293,7 +293,7 @@ StaticPopupDialogs["WW_INVALID_CHARACTER_DATA"] = {
 	button2 = "Disable WeightsWatcher",
 	OnAccept = function(self, func)
 			ww_charVars = copyDefaultCharVars()
-			initializeWeightsConfig()
+			ww_initializeWeightsConfig()
 		end,
 	OnCancel = function(self, func)
 			DisableAddOn("WeightsWatcher")
@@ -540,12 +540,12 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 		bareLink = splitItemLink(link)
 		local bareItemInfo = ww_bareItemCache[bareLink]
 
-		showDebugInfo = keyDetectors[ww_vars.options.tooltip.showDebugInfo]()
-		showWeights = keyDetectors[ww_vars.options.tooltip.showWeights]()
-		showIdealWeights = keyDetectors[ww_vars.options.tooltip.showIdealWeights]()
-		showIdealGems = keyDetectors[ww_vars.options.tooltip.showIdealGems]()
-		showIdealGemStats = keyDetectors[ww_vars.options.tooltip.showIdealGemStats]()
-		showAlternateGems = keyDetectors[ww_vars.options.tooltip.showAlternateGems]()
+		showDebugInfo = ww_keyDetectors[ww_vars.options.tooltip.showDebugInfo]()
+		showWeights = ww_keyDetectors[ww_vars.options.tooltip.showWeights]()
+		showIdealWeights = ww_keyDetectors[ww_vars.options.tooltip.showIdealWeights]()
+		showIdealGems = ww_keyDetectors[ww_vars.options.tooltip.showIdealGems]()
+		showIdealGemStats = ww_keyDetectors[ww_vars.options.tooltip.showIdealGemStats]()
+		showAlternateGems = ww_keyDetectors[ww_vars.options.tooltip.showAlternateGems]()
 
 		if ttname ~= "ShoppingTooltip1" and ttname ~= "ShoppingTooltip2" and ww_vars.options.tooltip.showDifferences then
 			local currentSlot, compareSlot, compareSlot2, currentSubslot, compareSubslot, compareSubslot2
@@ -640,7 +640,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 							local compareScore, compareScore2, compareBareScore, compareBareScore2
 							str = weight
 							if ww_vars.options.tooltip.showClassNames == "Always" or (ww_vars.options.tooltip.showClassNames == "Others" and class ~= WeightsWatcher.playerClass) then
-								str = str .. " - " .. classNames[class]
+								str = str .. " - " .. ww_classDisplayNames[class]
 							end
 							if compareLink then
 								compareScore = ww_weightCache[class][weight][compareLink]
@@ -685,7 +685,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 											end
 											if showIdealGemStats then
 												for stat, value in pairs(gem[3]) do
-													tooltip:AddDoubleLine("      " .. statNames[stat] .. ": " .. value, " ")
+													tooltip:AddDoubleLine("      " .. ww_statNames[stat] .. ": " .. value, " ")
 												end
 											end
 											if not showAlternateGems then
@@ -779,10 +779,10 @@ end
 function WeightsWatcher.bestGemForSocket(socketColor, weightScale, qualityLimit)
 	local bestGem, bestWeight, weight = {}, 0
 	if not qualityLimit then
-		qualityLimit = #(GemIds["Normal"])
+		qualityLimit = #(ww_gems["Normal"])
 	end
 
-	for gemSource, gems in pairs(GemIds) do
+	for gemSource, gems in pairs(ww_gems) do
 		if ww_vars.options.gems.sources[gemSource] then
 			for gemType, gems in pairs(gems) do
 				if ww_vars.options.gems.types[gemType] then
@@ -961,24 +961,24 @@ function WeightsWatcher.getGemStats(...)
 end
 
 function WeightsWatcher.parseLine(textL, textR, link)
-	for _, regex in ipairs(IgnoredLines) do
+	for _, regex in ipairs(ww_IgnoredLines) do
 		if string.find(textL, regex) then
 			ww_ignored_lines[textL][regex] = true
 			return
 		end
 	end
-	for _, regex in ipairs(TempIgnoredLines) do
+	for _, regex in ipairs(ww_TempIgnoredLines) do
 		if string.find(textL, regex) then
 			ww_temp_ignored_lines[textL][regex] = true
 			return
 		end
 	end
-	for _, regex in ipairs(ItemInfoLines) do
+	for _, regex in ipairs(ww_ItemInfoLines) do
 		if string.find(textL, regex) then
 			return {info = {[textL] = true}}
 		end
 	end
-	for _, regex in ipairs(DoubleSlotLines) do
+	for _, regex in ipairs(ww_DoubleSlotLines) do
 		if string.find(textL, regex) then
 			local nonStats = {}
 			nonStats["slot"] = textL
@@ -986,7 +986,7 @@ function WeightsWatcher.parseLine(textL, textR, link)
 			return {info = nonStats}
 		end
 	end
-	for _, regex in ipairs(SingleSlotLines) do
+	for _, regex in ipairs(ww_SingleSlotLines) do
 		if string.find(textL, regex) then
 			return {info = {["slot"] = textL}}
 		end
@@ -996,7 +996,7 @@ function WeightsWatcher.parseLine(textL, textR, link)
 		return {stats = stats}
 	end
 
-	for _, args in ipairs(EffectHandlers) do
+	for _, args in ipairs(ww_EffectHandlers) do
 		local stats = WeightsWatcher.handleEffects(textL, unpack(args))
 		if stats then
 			if stats == true then
@@ -1006,7 +1006,7 @@ function WeightsWatcher.parseLine(textL, textR, link)
 		end
 	end
 
-	for _, regex in ipairs(UnweightedLines) do
+	for _, regex in ipairs(ww_UnweightedLines) do
 		if string.find(textL, regex) then
 			ww_unweighted_lines[textL][regex] = true
 			return
@@ -1081,7 +1081,7 @@ function WeightsWatcher.getItemStats(link)
 end
 
 function WeightsWatcher.preprocess(text)
-	for _, regex in ipairs(Preprocess) do
+	for _, regex in ipairs(ww_Preprocess) do
 		local pattern, replacement = unpack(regex)
 		if string.find(text, pattern) then
 			text = string.gsub(text, pattern, replacement)

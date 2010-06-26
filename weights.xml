@@ -102,7 +102,7 @@
 						self:SetFontString(fontString)
 					</OnLoad>
 					<OnClick>
-						toggleCollapse(self:GetParent(), self:GetParent():GetParent():GetParent().scrollFrame)
+						ww_toggleCollapse(self:GetParent(), self:GetParent():GetParent():GetParent().scrollFrame)
 						if self:GetParent().collapsed then
 							self:SetNormalTexture("Interface\\Buttons\\UI-PlusButton-UP")
 							self:SetPushedTexture("Interface\\Buttons\\UI-PlusButton-DOWN")
@@ -212,7 +212,7 @@
 						end
 					</OnTextChanged>
 					<OnChar>
-						if validateNumber(text, self:GetText()) then
+						if ww_validateNumber(text, self:GetText()) then
 							self.number = self:GetText()
 						else
 							local cursorPosition = self:GetCursorPosition() - 1
@@ -229,7 +229,7 @@
 						self:HighlightText(0,0)
 					</OnEditFocusLost>
 					<OnTabPressed>
-						changeFocus(self:GetParent())
+						ww_changeFocus(self:GetParent())
 					</OnTabPressed>
 					<OnEscapePressed>
 						self:ClearFocus()
@@ -399,8 +399,8 @@
 				</Frames>
 				<Scripts>
 					<OnClick>
-						configDiscardChanges(function()
-								configSelectWeight(self:GetParent())
+						ww_configDiscardChanges(function()
+								ww_configSelectWeight(self:GetParent())
 							end)
 					</OnClick>
 					<OnLoad>
@@ -477,7 +477,7 @@
 						</Anchors>
 						<Scripts>
 							<OnShow>
-								scrollBarUpdate(self, ww_weights.leftPanel.scrollContainer, 22, 0, 25)
+								ww_scrollBarUpdate(self, ww_weights.leftPanel.scrollContainer, 22, 0, 25)
 							</OnShow>
 							<OnVerticalScroll>
 								FauxScrollFrame_OnVerticalScroll(self, offset, 22, self:GetScript("OnShow"))
@@ -540,7 +540,7 @@
 						</Anchors>
 						<Scripts>
 							<OnClick>
-								configSaveWeight()
+								ww_configSaveWeight()
 							</OnClick>
 						</Scripts>
 					</Button>
@@ -558,7 +558,7 @@
 						</Anchors>
 						<Scripts>
 							<OnClick>
-								configNewWeight(self:GetParent().weightFrame.category.class, "Copy of " .. self:GetParent().weightFrame.name, self:GetParent().statList)
+								ww_configNewWeight(self:GetParent().weightFrame.category.class, "Copy of " .. self:GetParent().weightFrame.name, self:GetParent().statList)
 							</OnClick>
 						</Scripts>
 					</Button>
@@ -576,7 +576,7 @@
 						</Anchors>
 						<Scripts>
 							<OnClick>
-								configResetWeight()
+								ww_configResetWeight()
 							</OnClick>
 						</Scripts>
 					</Button>
@@ -594,7 +594,7 @@
 						</Anchors>
 						<Scripts>
 							<OnClick>
-								configDeleteWeight()
+								ww_configDeleteWeight()
 							</OnClick>
 						</Scripts>
 					</Button>
@@ -617,7 +617,7 @@
 						</Anchors>
 						<Scripts>
 							<OnShow>
-								scrollBarUpdate(self, ww_weights.rightPanel.scrollContainer, 22, -30, 22)
+								ww_scrollBarUpdate(self, ww_weights.rightPanel.scrollContainer, 22, -30, 22)
 							</OnShow>
 							<OnVerticalScroll>
 								FauxScrollFrame_OnVerticalScroll(self, offset, 22, self:GetScript("OnShow"))
@@ -628,7 +628,7 @@
 				<Scripts>
 					<OnShow>
 						if not ww_weights.popup then
-							changeFocus(self.scrollFrame.stats[#(self.scrollFrame.stats)])
+							ww_changeFocus(self.scrollFrame.stats[#(self.scrollFrame.stats)])
 						end
 					</OnShow>
 				</Scripts>
@@ -649,10 +649,10 @@
 				</Anchors>
 				<Scripts>
 					<OnClick>
-						if ww_weights.rightPanel.weightFrame and defaultVars.weightsList[ww_weights.rightPanel.weightFrame.category.class][ww_weights.rightPanel.weightFrame.name] then
+						if ww_weights.rightPanel.weightFrame and ww_defaultVars.weightsList[ww_weights.rightPanel.weightFrame.category.class][ww_weights.rightPanel.weightFrame.name] then
 							StaticPopup_Show("WW_CONFIRM_RESTORE_DEFAULTS")
 						else
-							configDiscardChanges(function()
+							ww_configDiscardChanges(function()
 									StaticPopup_Show("WW_CONFIRM_RESTORE_DEFAULTS")
 								end)
 						end
@@ -669,7 +669,7 @@
 				</Anchors>
 				<Scripts>
 					<OnClick>
-						configNewWeight()
+						ww_configNewWeight()
 					</OnClick>
 				</Scripts>
 			</Button>
@@ -684,11 +684,11 @@
 				else
 					self.popup = true
 					self:Show()
-					configDiscardChanges(function()
+					ww_configDiscardChanges(function()
 							self.reallyClose = true
-							<!-- Safe because configDiscardChanges will save the weight first -->
+							<!-- Safe because ww_configDiscardChanges will save the weight first -->
 							if self.rightPanel:IsShown() then
-								configResetWeight()
+								ww_configResetWeight()
 							end
 							self:Hide()
 						end)
@@ -844,10 +844,10 @@
 						local class = UIDropDownMenu_GetSelectedValue(self:GetParent().dropdown)
 						local name = self:GetParent().editBox:GetText()
 						if ww_vars.weightsList[class][name] then
-							local error = StaticPopup_Show("WW_WEIGHT_EXISTS", classNames[class], name)
+							local error = StaticPopup_Show("WW_WEIGHT_EXISTS", ww_classDisplayNames[class], name)
 						else
-							setWeight(class, name, self:GetParent().statList)
-							selectWeight(class, name)
+							ww_setWeight(class, name, self:GetParent().statList)
+							ww_selectWeight(class, name)
 							self:GetParent():Hide()
 						end
 					</OnClick>

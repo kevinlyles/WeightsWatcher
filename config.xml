@@ -51,7 +51,7 @@
 						UIDropDownMenu_JustifyText(self, "LEFT")
 					</OnLoad>
 					<OnShow>
-						UIDropDownMenu_Initialize(self, ModifierKeyDropDownInitialize)
+						UIDropDownMenu_Initialize(self, ww_ModifierKeyDropDownInitialize)
 						UIDropDownMenu_SetSelectedValue(self, ww_vars.options.tooltip[self:GetText()])
 					</OnShow>
 				</Scripts>
@@ -177,7 +177,7 @@
 										UIDropDownMenu_JustifyText(self, "LEFT")
 									</OnLoad>
 									<OnShow>
-										UIDropDownMenu_Initialize(self, GemQualityDropDownInitialize)
+										UIDropDownMenu_Initialize(self, ww_GemQualityDropDownInitialize)
 										UIDropDownMenu_SetSelectedValue(self, ww_vars.options.gems.qualityLimit)
 									</OnShow>
 								</Scripts>
@@ -461,7 +461,7 @@
 										end
 									</OnTextChanged>
 									<OnChar>
-										if validateNumber(text, self:GetText()) then
+										if ww_validateNumber(text, self:GetText()) then
 											self.number = self:GetText()
 											ww_vars.options.useEffects.uptimeRatio = self:GetNumber() / 100
 											ww_weightCache = setmetatable({}, ww_weightCacheMetatable)
@@ -627,7 +627,7 @@
 										UIDropDownMenu_JustifyText(self, "LEFT")
 									</OnLoad>
 									<OnShow>
-										UIDropDownMenu_Initialize(self, ShowClassNameDropDownInitialize)
+										UIDropDownMenu_Initialize(self, ww_ShowClassNameDropDownInitialize)
 										UIDropDownMenu_SetSelectedValue(self, ww_vars.options.tooltip.showClassNames)
 									</OnShow>
 								</Scripts>

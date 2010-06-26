@@ -1,4 +1,4 @@
-trackedStats = {
+ww_trackedStats = {
 	[1] = "General",
 	[2] = "Tanking",
 	[3] = "Melee",
@@ -93,7 +93,7 @@ trackedStats = {
 	["Triggers"] = {}
 }
 
-triggerGroups = {
+ww_triggerGroups = {
 	["meleeDamageDealt"] = {"meleeDamage"},
 	["rangedDamageDealt"] = {"rangedDamage"},
 	["spellDamageDealt"] = {"harmfulSpell"},
@@ -104,7 +104,7 @@ triggerGroups = {
 	["helpfulSpellCast"] = {"helpfulSpell"},
 }
 
-triggerNames = {
+ww_triggerNames = {
 	[1] = "meleeDamage",
 	[2] = "rangedDamage",
 	[3] = "harmfulSpell",
@@ -115,7 +115,7 @@ triggerNames = {
 	["helpfulSpell"] = "Helpful spell cast",
 }
 
-classNames = {
+ww_classDisplayNames = {
 	["DEATHKNIGHT"] = "Death Knight",
 	["DRUID"] = "Druid",
 	["HUNTER"] = "Hunter",
@@ -128,7 +128,7 @@ classNames = {
 	["WARRIOR"] = "Warrior",
 }
 
-gemQualityNames = {
+ww_gemQualityNames = {
 	[1] = "Burning Crusade common",
 	[2] = "Burning Crusade uncommon",
 	[3] = "Burning Crusade rare",
@@ -138,7 +138,7 @@ gemQualityNames = {
 	[7] = "Wrath epic",
 }
 
-statNames = {
+ww_statNames = {
 	["stamina"] = "Stamina",
 	["critical strike rating"] = "Critical Strike Rating",
 	["haste rating"] = "Haste Rating",
@@ -196,7 +196,7 @@ statNames = {
 	["shadow resistance"] = "Shadow Resistance",
 }
 
-keyDetectors = {
+ww_keyDetectors = {
 	[1] = "Always",
 	[2] = "Never",
 	[3] = "Shift",
@@ -221,7 +221,7 @@ keyDetectors = {
 	["Control"] = IsControlKeyDown,
 }
 
-classNameOptions = {
+ww_classNameOptions = {
 	[1] = "Always",
 	[2] = "Others",
 	[3] = "Never",
@@ -230,7 +230,7 @@ classNameOptions = {
 	["Never"] = "Never",
 }
 
-defaultVars = {
+ww_defaultVars = {
 	dataMajorVersion = 1,
 	dataMinorVersion = 14,
 	weightsList = {
@@ -760,7 +760,7 @@ defaultVars = {
 	},
 }
 
-defaultCharVars = {
+ww_defaultCharVars = {
 	dataMajorVersion = 1,
 	dataMinorVersion = 0,
 	activeWeights = {},

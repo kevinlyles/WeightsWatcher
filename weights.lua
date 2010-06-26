@@ -1,4 +1,4 @@
-function validateNumber(newChar, newText)
+function ww_validateNumber(newChar, newText)
 	if string.find(newChar, "^%d$") then
 		return true
 	elseif newChar == '.' then
@@ -15,7 +15,7 @@ function validateNumber(newChar, newText)
 	return false
 end
 
-function scrollBarUpdate(scrollFrame, scrolledFrame, buttonHeight, initialOffset, numShown)
+function ww_scrollBarUpdate(scrollFrame, scrolledFrame, buttonHeight, initialOffset, numShown)
 	local i
 	local offset = FauxScrollFrame_GetOffset(scrollFrame)
 	offset = offset / 5
@@ -42,7 +42,7 @@ function scrollBarUpdate(scrollFrame, scrolledFrame, buttonHeight, initialOffset
 end
 
 --moves the editbox focus to the next available edit box
-function changeFocus(currentStatFrame)
+function ww_changeFocus(currentStatFrame)
 	local frame, offset
 	local timesLooped = 0
 	local elements = ww_weights.rightPanel.scrollFrame.shown
@@ -84,7 +84,7 @@ function changeFocus(currentStatFrame)
 	end
 end
 
-function configDiscardChanges(func)
+function ww_configDiscardChanges(func)
 	if ww_weights.rightPanel:IsShown() and ww_weights.rightPanel.changedStats then
 		for _, _ in pairs(ww_weights.rightPanel.changedStats) do
 			local popup = StaticPopup_Show("WW_CONFIRM_DISCARD_CHANGES")
@@ -95,18 +95,18 @@ function configDiscardChanges(func)
 	func()
 end
 
-function selectWeight(class, name)
+function ww_selectWeight(class, name)
 	for _, classFrame in ipairs(ww_weights.leftPanel.scrollFrame.categories) do
 		if classFrame.class == class then
 			local children = {classFrame:GetChildren()}
-			configSelectWeight(children[classFrame:GetNumChildren()])
+			ww_configSelectWeight(children[classFrame:GetNumChildren()])
 			break
 		end
 	end
 end
 
 --opens a new config pane to edit stat weights
-function configSelectWeight(weightFrame)
+function ww_configSelectWeight(weightFrame)
 	if ww_weights.rightPanel.weightFrame then
 		ww_weights.rightPanel.weightFrame.text.highlightFrame:Hide()
 	end
@@ -118,7 +118,7 @@ function configSelectWeight(weightFrame)
 	ww_weights.rightPanel.changedTriggers = {}
 
 	-- Fills the right panel with the current weight's stats
-	configResetWeight()
+	ww_configResetWeight()
 
 	for _, categoryFrame in ipairs(ww_weights.rightPanel.scrollFrame.categories) do
 		local empty = true
@@ -150,7 +150,7 @@ function configSelectWeight(weightFrame)
 	ww_weights.rightPanel:Show()
 end
 
-function configResetWeight()
+function ww_configResetWeight()
 	local value
 	local changed = false
 
@@ -197,11 +197,11 @@ function configResetWeight()
 	ww_weights.rightPanel.resetButton:Disable()
 end
 
-function configDeleteWeight()
+function ww_configDeleteWeight()
 	StaticPopup_Show("WW_CONFIRM_WEIGHT_DELETE", ww_weights.rightPanel.weightFrame.category.name, ww_weights.rightPanel.weightFrame.name)
 end
 
-function configSaveWeight()
+function ww_configSaveWeight()
 	local number
 	local weightFrame = ww_weights.rightPanel.weightFrame
 
@@ -298,8 +298,8 @@ local function deleteWeight()
 	ww_weights.leftPanel.scrollFrame:GetScript("OnShow")(ww_weights.leftPanel.scrollFrame)
 end
 
-function configNewWeight(class, weight, statList)
-	configDiscardChanges(function()
+function ww_configNewWeight(class, weight, statList)
+	ww_configDiscardChanges(function()
 			-- Need to call show first to re-initialize the dropdown
 			ww_newWeight:Show()
 			if class then
@@ -318,7 +318,7 @@ function configNewWeight(class, weight, statList)
 		end)
 end
 
-function setWeight(class, weight, statList)
+function ww_setWeight(class, weight, statList)
 	local weightFrame, position
 
 	if not ww_vars.weightsList[class][weight] then
@@ -331,7 +331,7 @@ function setWeight(class, weight, statList)
 				weightFrame.text:SetText(weight)
 				weightFrame.name = weight
 				weightFrame:SetPoint("TOPLEFT", 0, -22 * position)
-				if defaultVars.weightsList[class] and defaultVars.weightsList[class][weight] then
+				if ww_defaultVars.weightsList[class] and ww_defaultVars.weightsList[class][weight] then
 					local fontString = weightFrame.text:GetFontString()
 					fontString:SetTextColor(1, 1, 1)
 					weightFrame.text:SetFontString(fontString)
@@ -354,7 +354,7 @@ function setWeight(class, weight, statList)
 		table.insert(ww_vars.weightsList[class], weight)
 		ww_weights.leftPanel.scrollFrame:GetScript("OnShow")(ww_weights.leftPanel.scrollFrame)
 	end
-	ww_vars.weightsList[class][weight] = deepTableCopy(statList)
+	ww_vars.weightsList[class][weight] = ww_deepTableCopy(statList)
 end
 
 -- Creates a tiered list that can be scrolled
@@ -405,7 +405,7 @@ local function loadClassButtons()
 	local classes, revClassLookup, newClass = {}, {}
 
 	for i, class in ipairs(ww_vars.weightsList) do
-		newClass = classNames[class]
+		newClass = ww_classDisplayNames[class]
 		revClassLookup[newClass] = class
 		classes[i] = newClass
 		classes[newClass] = {}
@@ -430,7 +430,7 @@ local function loadClassButtons()
 						end
 					end
 				end
-				if defaultVars.weightsList[classFrame.class] and defaultVars.weightsList[classFrame.class][weightFrame.name] then
+				if ww_defaultVars.weightsList[classFrame.class] and ww_defaultVars.weightsList[classFrame.class][weightFrame.name] then
 					local fontString = weightFrame.text:GetFontString()
 					fontString:SetTextColor(1, 1, 1)
 					weightFrame.text:SetFontString(fontString)
@@ -446,15 +446,15 @@ end
 local function loadStatButtons()
 	local stats = {}
 
-	createScrollableTieredList(trackedStats, ww_weights.rightPanel.scrollFrame, ww_weights.rightPanel.scrollContainer, "ww_statFrame", 22)
+	createScrollableTieredList(ww_trackedStats, ww_weights.rightPanel.scrollFrame, ww_weights.rightPanel.scrollContainer, "ww_statFrame", 22)
 
 	for _, categoryFrame in ipairs(ww_weights.rightPanel.scrollFrame.categories) do
 		if categoryFrame.name == "Triggers" then
-			for i, trigger in ipairs(triggerNames) do
+			for i, trigger in ipairs(ww_triggerNames) do
 				local triggerFrame = CreateFrame("Frame", "WW_" .. trigger, categoryFrame, "ww_triggerFrame")
 				triggerFrame.position = i
 				triggerFrame.category = categoryFrame
-				triggerFrame.text:SetText(triggerNames[trigger])
+				triggerFrame.text:SetText(ww_triggerNames[trigger])
 				triggerFrame.active:SetText(trigger)
 				triggerFrame.name = trigger
 				triggerFrame:SetPoint("TOPLEFT", 0, -ww_weights.rightPanel.scrollFrame.elementHeight * i)
@@ -478,12 +478,12 @@ local function loadStatButtons()
 end
 
 -- initializes weights config frames and variables
-function initializeWeightsConfig()
+function ww_initializeWeightsConfig()
 	loadClassButtons()
 	loadStatButtons()
 end
 
-function toggleCollapse(categoryFrame, scrollFrame)
+function ww_toggleCollapse(categoryFrame, scrollFrame)
 	if categoryFrame.length == 1 then
 		return
 	end
@@ -522,12 +522,12 @@ local function DropDownOnClick(choice, dropdown)
 	UIDropDownMenu_SetSelectedValue(dropdown, choice.value, false)
 end
 
-function ClassDropDownInitialize(dropdown)
+function ww_ClassDropDownInitialize(dropdown)
 	local info = {}
 
 	info.func = DropDownOnClick
 	info.arg1 = dropdown
-	for class, name in pairs(classNames) do
+	for class, name in pairs(ww_classDisplayNames) do
 		info.text = name
 		info.value = class
 		info.checked = nil
@@ -544,7 +544,7 @@ StaticPopupDialogs["WW_CONFIRM_DISCARD_CHANGES"] = {
 			func()
 		end,
 	OnAlt = function(self, func)
-			configSaveWeight()
+			ww_configSaveWeight()
 			func()
 		end,
 	showAlert = true,
@@ -571,15 +571,15 @@ StaticPopupDialogs["WW_CONFIRM_RESTORE_DEFAULTS"] = {
 	button1 = "Restore Defaults",
 	button2 = "Cancel",
 	OnAccept = function()
-			for _, class in ipairs(defaultVars.weightsList) do
-				for _, weight in ipairs(defaultVars.weightsList[class]) do
-					setWeight(class, weight, defaultVars.weightsList[class][weight])
+			for _, class in ipairs(ww_defaultVars.weightsList) do
+				for _, weight in ipairs(ww_defaultVars.weightsList[class]) do
+					ww_setWeight(class, weight, ww_defaultVars.weightsList[class][weight])
 					ww_weightCache[class][weight] = nil
 					ww_weightIdealCache[class][weight] = nil
 				end
 			end
 			if ww_weights.rightPanel:IsShown() then
-				configSelectWeight(ww_weights.rightPanel.weightFrame)
+				ww_configSelectWeight(ww_weights.rightPanel.weightFrame)
 			end
 		end,
 	showAlert = true,

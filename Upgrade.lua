@@ -1,4 +1,4 @@
-function deepTableCopy(object)
+function ww_deepTableCopy(object)
     local lookup_table = {}
     local function _copy(object)
         if type(object) ~= "table" then
@@ -648,7 +648,7 @@ end
 
 local function upgradeAccountToHandleModifierKeys(vars)
 	if not vars.options.tooltip then
-		vars.options.tooltip = deepTableCopy(defaultVars.options.tooltip)
+		vars.options.tooltip = ww_deepTableCopy(ww_defaultVars.options.tooltip)
 	end
 
 	vars.dataMinorVersion = 5
@@ -766,7 +766,7 @@ local function upgradeAccountToNormalization(vars)
 end
 
 function copyDefaultAccountVars()
-	return deepTableCopy(defaultVars)
+	return ww_deepTableCopy(ww_defaultVars)
 end
 
 local function createActiveWeights(class)
@@ -783,7 +783,7 @@ end
 local function copyDefaultCharVars()
 	local charVars
 
-	charVars = deepTableCopy(defaultCharVars)
+	charVars = ww_deepTableCopy(ww_defaultCharVars)
 	charVars.activeWeights = createActiveWeights(WeightsWatcher.playerClass)
 	return charVars
 end
@@ -873,14 +873,14 @@ function WeightsWatcher.Upgrade(dataType)
 
 	if dataType == "account" then
 		vars = ww_vars
-		newMinorVersion = defaultVars.dataMinorVersion
-		newMajorVersion = defaultVars.dataMajorVersion
+		newMinorVersion = ww_defaultVars.dataMinorVersion
+		newMajorVersion = ww_defaultVars.dataMajorVersion
 		funcTable = upgradeAccountFunctions
 		downgradeFunctions = downgradeAccountFunctions
 	elseif dataType == "character" then
 		vars = ww_charVars
-		newMinorVersion = defaultCharVars.dataMinorVersion
-		newMajorVersion = defaultCharVars.dataMajorVersion
+		newMinorVersion = ww_defaultCharVars.dataMinorVersion
+		newMajorVersion = ww_defaultCharVars.dataMajorVersion
 		funcTable = upgradeCharFunctions
 		downgradeFunctions = downgradeCharFunctions
 	else
@@ -921,7 +921,7 @@ function WeightsWatcher.Upgrade(dataType)
 		print("WeightsWatcher: attempting to " .. direction .. "grade " .. dataType .. " data from version " .. oldMajorVersion .. "." .. oldMinorVersion .. " to " .. newMajorVersion .. "." .. newMinorVersion .. ".")
 	end
 
-	local newVars = deepTableCopy(vars)
+	local newVars = ww_deepTableCopy(vars)
 
 	while oldMajorVersion ~= newMajorVersion or oldMinorVersion ~= newMinorVersion do
 		if not funcTable[oldMajorVersion] or not funcTable[oldMajorVersion][oldMinorVersion] then

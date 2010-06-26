@@ -35,7 +35,7 @@ WeightsWatcher = AceLibrary("AceAddon-2.0"):new("AceEvent-2.0", "AceHook-2.1")
 -- 	6: wrath blue
 -- 	7: wrath epic
 
-GemIds = {
+ww_gems = {
 	["Vendor"] = {
 		["Normal"] = {
 			[1] = {
@@ -3039,7 +3039,7 @@ GemIds = {
 
 local GemQualities = {}
 
-for gemSource, gems in pairs(GemIds) do
+for gemSource, gems in pairs(ww_gems) do
 	for gemType, gems in pairs(gems) do
 		for gemQuality, gems in pairs(gems) do
 			for gemId, gemInfo in pairs(gems) do

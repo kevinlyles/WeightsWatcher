@@ -19,13 +19,13 @@ local function makePatternTables()
 		ww_regexes[category].SingleStat = {}
 	end
 	local pattern, func, categories
-	for _, regex in ipairs(MultipleStatLines) do
+	for _, regex in ipairs(ww_MultipleStatLines) do
 		pattern, func, categories = unpack(regex)
 		for _, category in ipairs(categories) do
 			table.insert(ww_regexes[category].MultipleStat, {pattern, func})
 		end
 	end
-	for _, regex in ipairs(SingleStatLines) do
+	for _, regex in ipairs(ww_SingleStatLines) do
 		pattern, func, categories = unpack(regex)
 		for _, category in ipairs(categories) do
 			table.insert(ww_regexes[category].SingleStat, {pattern, func})
@@ -42,11 +42,11 @@ local function makePatternTables()
 			break
 		end
 		if empty then
-			for _, regex in ipairs(MultipleStatLines) do
+			for _, regex in ipairs(ww_MultipleStatLines) do
 				pattern, func = unpack(regex)
 				table.insert(ww_regexes[category].MultipleStat, {pattern, func})
 			end
-			for _, regex in ipairs(SingleStatLines) do
+			for _, regex in ipairs(ww_SingleStatLines) do
 				pattern, func = unpack(regex)
 				table.insert(ww_regexes[category].SingleStat, {pattern, func})
 			end
@@ -54,7 +54,7 @@ local function makePatternTables()
 	end
 end
 
-function initializeParser()
+function ww_initializeParser()
 	makePatternTables()
 end
 
@@ -499,7 +499,7 @@ local function parseStackingEquipEffectTriggers(trigger)
 				if subType == "" then
 					trigger = trigger:sub(1, 1):lower() .. trigger:sub(2)
 				end
-				for _, group in ipairs(triggerGroups[subType .. trigger]) do
+				for _, group in ipairs(ww_triggerGroups[subType .. trigger]) do
 					triggers[group] = true
 				end
 			end
@@ -585,7 +585,7 @@ local function parseSocketBonusStat(text, section)
 	return {socketBonusStat = stats.stats}
 end
 
-EffectHandlers = {
+ww_EffectHandlers = {
 	{EquipStatsMatchLines, {}, EquipStatsUnweightedLines, EquipStatsPreprocessLines, EquipStatsAffixes, parseStats, "equipEffect"},
 	{{" socket$"}, {}, {}, {}, {" socket$"}, function(text) return {socket = text} end, "socket"},
 	{{"^[^:]+$"}, {}, {}, {}, {}, parseStats, "generic"},
@@ -732,19 +732,19 @@ function WeightsWatcher.useEffect(text)
 	end
 end
 
-Preprocess = {
+ww_Preprocess = {
 	{"|c[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9]([^|]+)|r", "%1"},
 	{" +$", ""},
 }
 
-ignoredInvalidStats = {
+ww_ignoredInvalidStats = {
 	"item level",
 	"requires level",
 	"all stats",
 	"all resistances",
 }
 
-IgnoredLines = {
+ww_IgnoredLines = {
 	"^$",
 	-- Reputation and materials requirements
 	"^requires ",
@@ -776,7 +776,7 @@ IgnoredLines = {
 	"^zul'aman$",
 }
 
-TempIgnoredLines = {
+ww_TempIgnoredLines = {
 	"^item level %d+$",
 	"^use: restores %d+ to %d+ %a+",
 	"^use: teaches .* %(rank %d+%)%.$",
@@ -805,7 +805,7 @@ TempIgnoredLines = {
 	"^use: teaches you how to turn ",
 }
 
-UnweightedLines = {
+ww_UnweightedLines = {
 	"^%(%d%) set: ",
 	"^set: ", -- In-game only?
 	-- Some relics that boost stats for certain abilities only
@@ -818,7 +818,7 @@ UnweightedLines = {
 	"^equip: causes your ",
 }
 
-MultipleStatLines = {
+ww_MultipleStatLines = {
 	{"^([^,]+) and ([^,]+)$", WeightsWatcher.twoStats, {"elixir", "enchant", "food", "generic", "useEffect"}},
 	{"^([+-]?%d+ )(%a[%a ]+%a) and (%a[%a ]+%a)$", WeightsWatcher.multipleStatsOneNumber, {"elixir", "food"}},
 	{"^([%a%d][%a%d ]+[%a%d]), ([%a%d][%a%d ]+[%a%d]),? and ([%a%d][%a%d ]+[%a%d])$",
@@ -983,7 +983,7 @@ MultipleStatLines = {
 	},
 }
 
-SingleStatLines = {
+ww_SingleStatLines = {
 	{"^([+-]?%d+) (armor)$", WeightsWatcher.statNumFirst, {"elixir", "enchant", "equipEffect", "generic", "useEffect"}},
 	{"^([+-]?%d+) (agility)$", WeightsWatcher.statNumFirst, {"elixir", "enchant", "food", "generic", "socketBonus", "useEffect"}},
 	{"^([+-]?%d+) (intellect)$", WeightsWatcher.statNumFirst, {"elixir", "enchant", "food", "generic", "socketBonus", "useEffect"}},
@@ -1383,7 +1383,7 @@ SingleStatLines = {
 	},
 }
 
-ItemInfoLines = {
+ww_ItemInfoLines = {
 	"^binds ",
 	"^unique",
 	"^soulbound$",
@@ -1391,7 +1391,7 @@ ItemInfoLines = {
 	"^quest item$",
 }
 
-DoubleSlotLines = {
+ww_DoubleSlotLines = {
 	"^head$",
 	"^shoulder$",
 	"^chest$",
@@ -1410,7 +1410,7 @@ DoubleSlotLines = {
 	"^projectile$",
 }
 
-SingleSlotLines = {
+ww_SingleSlotLines = {
 	"^finger$",
 	"^back$",
 	"^neck$",
