@@ -1,7 +1,3 @@
-if not WeightsWatcher then
-	WeightsWatcher = AceLibrary("AceAddon-2.0"):new("AceEvent-2.0", "AceHook-2.1")
-end
-
 function commandHandler(msg)
 	if msg == "config" then
 		ww_weights:Hide()

@@ -1,7 +1,3 @@
-if not WeightsWatcher then
-	WeightsWatcher = AceLibrary("AceAddon-2.0"):new("AceEvent-2.0", "AceHook-2.1")
-end
-
 StaticPopupDialogs["WW_CONFIRM_DISCARD_CHANGES"] = {
 	text = "You have unsaved changes for this weight.",
 	button1 = "Discard",
