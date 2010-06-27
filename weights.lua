@@ -598,11 +598,6 @@ function ClassDropDownInitialize(dropdown)
 	end
 end
 
-function ClassDropDownOnShow(dropdown)
-	UIDropDownMenu_Initialize(dropdown, ClassDropDownInitialize);
-	UIDropDownMenu_SetSelectedValue(dropdown, WeightsWatcher.playerClass)
-end
-
 function DropDownOnClick(choice, dropdown)
 	UIDropDownMenu_SetSelectedValue(dropdown, choice.value, false)
 end

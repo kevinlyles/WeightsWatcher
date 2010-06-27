@@ -744,7 +744,8 @@
 				</Anchors>
 				<Scripts>
 					<OnShow>
-						ClassDropDownOnShow(self);
+						UIDropDownMenu_Initialize(self, ww_ClassDropDownInitialize);
+						UIDropDownMenu_SetSelectedValue(self, WeightsWatcher.playerClass)
 					</OnShow>
 				</Scripts>
 			</Button>
