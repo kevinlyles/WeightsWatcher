@@ -822,15 +822,6 @@ UnweightedLines = {
 	"^equip: causes your ",
 }
 
-socketBonus = "^socket bonus: (.*)"
-
-SocketLines = {
-	"^(red) socket$",
-	"^(yellow) socket$",
-	"^(blue) socket$",
-	"^(meta) socket$",
-}
-
 MultipleStatLines = {
 	{"^([^,]+) and ([^,]+)$", WeightsWatcher.twoStats, {"elixir", "enchant", "food", "generic", "useEffect"}},
 	{"^([+-]?%d+ )(%a[%a ]+%a) and (%a[%a ]+%a)$", WeightsWatcher.multipleStatsOneNumber, {"elixir", "food"}},
