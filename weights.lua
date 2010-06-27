@@ -125,7 +125,7 @@ function ww_configSelectWeight(weightFrame)
 
 	for _, categoryFrame in ipairs(ww_weights.rightPanel.scrollFrame.categories) do
 		local empty = true
-		if categoryFrame.name == L["Triggers"] then
+		if ww_stackingEquipEffects and categoryFrame.name == L["Triggers"] then
 			for _, triggerFrame in ipairs({categoryFrame:GetChildren()}) do
 				if triggerFrame.active then
 					if triggerFrame.active:GetChecked() then
@@ -183,11 +183,13 @@ function ww_configResetWeight()
 				frame.statValue:SetText(value)
 			end
 		end
-		for _, categoryFrame in pairs(ww_weights.rightPanel.scrollFrame.categories) do
-			if categoryFrame.name == L["Triggers"] then
-				for _, triggerFrame in ipairs({categoryFrame:GetChildren()}) do
-					if triggerFrame.active then
-						triggerFrame.active:SetChecked(ww_weights.rightPanel.statList.triggers[triggerFrame.active:GetText()])
+		if ww_stackingEquipEffects then
+			for _, categoryFrame in pairs(ww_weights.rightPanel.scrollFrame.categories) do
+				if categoryFrame.name == L["Triggers"] then
+					for _, triggerFrame in ipairs({categoryFrame:GetChildren()}) do
+						if triggerFrame.active then
+							triggerFrame.active:SetChecked(ww_weights.rightPanel.statList.triggers[triggerFrame.active:GetText()])
+						end
 					end
 				end
 			end
@@ -462,7 +464,8 @@ local function loadStatButtons()
 	createScrollableTieredList(ww_trackedStats, ww_weights.rightPanel.scrollFrame, ww_weights.rightPanel.scrollContainer, "ww_statFrame", 22, setmetatable({}, metatable))
 
 	for _, categoryFrame in ipairs(ww_weights.rightPanel.scrollFrame.categories) do
-		if categoryFrame.name == L["Triggers"] then
+		-- TODO: avoid this check entirely if triggers aren't translated?
+		if ww_stackingEquipEffects and categoryFrame.name == L["Triggers"] then
 			for i, trigger in ipairs(ww_triggerTypes) do
 				local triggerFrame = CreateFrame("Frame", "WW_" .. trigger, categoryFrame, "ww_triggerFrame")
 				triggerFrame.position = i

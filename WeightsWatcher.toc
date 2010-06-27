@@ -9,18 +9,19 @@
 ## X-Category: Interface Enhancements
 ## X-License: GPLv2
 
-Locales\locales.xml
-
 Libs\AceLibrary\AceLibrary.lua
 Libs\AceOO-2.0\AceOO-2.0.lua
 Libs\AceAddon-2.0\AceAddon-2.0.lua
 Libs\AceEvent-2.0\AceEvent-2.0.lua
 Libs\AceHook-2.1\AceHook-2.1.lua
 
+Regexps.lua
+
+Locales\locales.xml
+
 GemIds.lua
 config.xml
 weights.xml
-Regexps.lua
 Upgrade.lua
 defaults.lua
 HiddenTooltip.xml

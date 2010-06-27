@@ -13,7 +13,6 @@ ww_trackedStats = {
 	ww_statCategories["PVP"],
 	ww_statCategories["CC Resists/Reductions"],
 	ww_statCategories["Resistances"],
-	ww_statCategories["Triggers"],
 	ww_statCategories["Professions"],
 	ww_statCategories["Miscellaneous"],
 	[ww_statCategories["General"]] = {
@@ -117,7 +116,6 @@ ww_trackedStats = {
 		"nature resistance",
 		"shadow resistance",
 	},
-	[ww_statCategories["Triggers"]] = {},
 	[ww_statCategories["Professions"]] = {
 		"fishing",
 		"herbalism",
@@ -129,12 +127,12 @@ ww_trackedStats = {
 	},
 }
 
-ww_triggerTypes = {
-	"meleeDamage",
-	"rangedDamage",
-	"harmfulSpell",
-	"helpfulSpell",
-}
+if ww_stackingEquipEffects then
+	table.insert(ww_trackedStats, 12, L["Triggers"])
+	ww_trackedStats[L["Triggers"]] = {}
+
+	ww_triggerTypes = {"meleeDamage", "rangedDamage", "harmfulSpell", "helpfulSpell"}
+end
 
 ww_keyDetectors = {
 	"Always",

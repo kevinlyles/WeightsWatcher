@@ -1,5 +1,3 @@
-WeightsWatcher = AceLibrary("AceAddon-2.0"):new("AceEvent-2.0", "AceHook-2.1")
-
 local L = ww_localizedStats
 
 -- format:

@@ -491,7 +491,12 @@
 						</Frames>
 						<Scripts>
 							<OnLoad>
-								self.label:SetText(ww_localization["IDEAL_USE_UPTIME"])
+								if ww_cooldownUseEffects then
+									self.label:SetText(ww_localization["IDEAL_USE_UPTIME"])
+								else
+									self:SetParent(nil)
+									self:Hide()
+								end
 							</OnLoad>
 						</Scripts>
 					</Frame>

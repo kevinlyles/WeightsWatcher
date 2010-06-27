@@ -201,6 +201,5 @@ ww_statCategories = {
 	["CC Resists/Reductions"] = "CC Resists/Reductions",
 	["Resistances"] = "Resistances",
 	["Professions"] = "Professions",
-	["Triggers"] = "Triggers",
 	["Miscellaneous"] = "Miscellaneous",
 }
