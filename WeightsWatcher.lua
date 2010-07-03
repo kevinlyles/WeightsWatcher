@@ -983,7 +983,7 @@ function WeightsWatcher.calculateWeight(bareItemStats, itemStats, weightsScale)
 
 		for _, value in pairs(weightsScale) do
 			if type(value) == "number" then
-				total = total + abs(value)
+				total = total + math.abs(value)
 			end
 		end
 		if total == 0 then
