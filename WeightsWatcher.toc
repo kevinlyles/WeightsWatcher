@@ -2,7 +2,7 @@
 ## Title: Weights Watcher
 ## Notes: Ranks gear according to customizable stat weights
 ## Author: The Flying Squirrels
-## Version: 1.2b8
+## Version: 1.2b9
 ## OptionalDeps: AtlasLoot
 ## SavedVariables: ww_vars
 ## SavedVariablesPerCharacter: ww_charVars
