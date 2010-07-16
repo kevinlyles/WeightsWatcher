@@ -38,7 +38,10 @@ ww_trackedStats = {
 	},
 	["Ranged DPS"] = {
 		"Ranged Attack Power",
+		"Ranged Critical Strike Rating",
 		"Ranged DPS",
+		"Ranged Haste Rating",
+		"Ranged Hit Rating",
 		"Average Ranged Weapon Damage",
 		"Maximum Ranged Weapon Damage",
 		"Ranged Weapon Speed",
@@ -255,7 +258,7 @@ ww_classNameOptions = {
 
 ww_defaultVars = {
 	dataMajorVersion = 1,
-	dataMinorVersion = 19,
+	dataMinorVersion = 20,
 	weightsList = {
 		"DEATHKNIGHT",
 		"DRUID",
@@ -402,13 +405,16 @@ ww_defaultVars = {
 			["Beast Mastery"] = {
 				["ranged dps"] = 213,
 				["hit rating"] = 100,
+				["ranged hit rating"] = 100,
 				["agility"] = 58,
 				["critical strike rating"] = 40,
+				["ranged critical strike rating"] = 40,
 				["intellect"] = 37,
 				["attack power"] = 30,
 				["ranged attack power"] = 30,
 				["armor penetration rating"] = 28,
 				["haste rating"] = 21,
+				["ranged haste rating"] = 21,
 				triggers = {
 					rangedDamage = true,
 				}
@@ -416,13 +422,16 @@ ww_defaultVars = {
 			["Marksmanship"] = {
 				["ranged dps"] = 379,
 				["hit rating"] = 100,
+				["ranged hit rating"] = 100,
 				["agility"] = 74,
 				["critical strike rating"] = 57,
+				["ranged critical strike rating"] = 57,
 				["armor penetration rating"] = 40,
 				["intellect"] = 39,
 				["attack power"] = 32,
 				["ranged attack power"] = 32,
 				["haste rating"] = 24,
+				["ranged haste rating"] = 24,
 				triggers = {
 					rangedDamage = true,
 				}
@@ -430,10 +439,13 @@ ww_defaultVars = {
 			["Survival"] = {
 				["ranged dps"] = 181,
 				["hit rating"] = 100,
+				["ranged hit rating"] = 100,
 				["agility"] = 76,
 				["critical strike rating"] = 42,
+				["ranged critical strike rating"] = 42,
 				["intellect"] = 35,
 				["haste rating"] = 31,
+				["ranged haste rating"] = 31,
 				["attack power"] = 29,
 				["ranged attack power"] = 29,
 				["armor penetration rating"] = 26,

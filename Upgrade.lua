@@ -53,6 +53,27 @@ local function noop_major_up(vars)
 	return vars
 end
 
+local function upgradeAccountToRangedCritHasteAndHit(vars)
+	for _, class in ipairs(vars.weightsList) do
+		for _, weight in ipairs(vars.weightsList[class]) do
+			if vars.weightsList[class][weight]["ranged attack power"] ~= nil or vars.weightsList[class][weight]["ranged dps"] ~= nil then
+				if vars.weightsList[class][weight]["ranged critical strike rating"] == nil then
+					vars.weightsList[class][weight]["ranged critical strike rating"] = vars.weightsList[class][weight]["critical strike rating"]
+				end
+				if vars.weightsList[class][weight]["ranged haste rating"] == nil then
+					vars.weightsList[class][weight]["ranged haste rating"] = vars.weightsList[class][weight]["haste rating"]
+				end
+				if vars.weightsList[class][weight]["ranged hit rating"] == nil then
+					vars.weightsList[class][weight]["ranged hit rating"] = vars.weightsList[class][weight]["hit rating"]
+				end
+			end
+		end
+	end
+
+	vars.dataMinorVersion = 20
+	return vars
+end
+
 local function upgradeAccountToSpellHitAndCrit(vars)
 	for _, class in ipairs(vars.weightsList) do
 		for _, weight in ipairs(vars.weightsList[class]) do
@@ -960,6 +981,7 @@ local upgradeAccountFunctions = {
 		[16] = upgradeAccountToAverageWeaponDamage,
 		[17] = upgradeAccountToNoMeleeDamage,
 		[18] = upgradeAccountToSpellHitAndCrit,
+		[19] = upgradeAccountToRangedCritHasteAndHit,
 	},
 }
 
@@ -996,6 +1018,7 @@ local downgradeAccountFunctions = {
 		[17] = downgradeAccountFromAverageWeaponDamage,
 		[18] = noop_down,
 		[19] = noop_down,
+		[20] = noop_down,
 	},
 }
 
