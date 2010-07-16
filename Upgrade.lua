@@ -53,6 +53,65 @@ local function noop_major_up(vars)
 	return vars
 end
 
+local function upgradeAccountToMeleeStatsAndRangedWeaponDamage(vars)
+	for _, class in ipairs(vars.weightsList) do
+		for _, weight in ipairs(vars.weightsList[class]) do
+			if vars.weightsList[class][weight]["ranged attack power"] ~= nil or vars.weightsList[class][weight]["ranged dps"] ~= nil then
+				if vars.weightsList[class][weight]["maximum ranged weapon damage"] == nil then
+					vars.weightsList[class][weight]["maximum ranged weapon damage"] = vars.weightsList[class][weight]["maximum weapon damage"]
+				end
+				vars.weightsList[class][weight]["maximum weapon damage"] = nil
+				if vars.weightsList[class][weight]["minimum ranged weapon damage"] == nil then
+					vars.weightsList[class][weight]["minimum ranged weapon damage"] = vars.weightsList[class][weight]["minimum weapon damage"]
+				end
+				vars.weightsList[class][weight]["minimum weapon damage"] = nil
+			end
+			if vars.weightsList[class][weight]["melee dps"] == nil then
+				vars.weightsList[class][weight]["melee dps"] = vars.weightsList[class][weight]["dps"]
+			end
+			vars.weightsList[class][weight]["dps"] = nil
+			if vars.weightsList[class][weight]["minimum melee weapon damage"] == nil then
+				vars.weightsList[class][weight]["minimum melee weapon damage"] = vars.weightsList[class][weight]["minimum weapon damage"]
+			end
+			vars.weightsList[class][weight]["minimum weapon damage"] = nil
+			if vars.weightsList[class][weight]["maximum melee weapon damage"] == nil then
+				vars.weightsList[class][weight]["maximum melee weapon damage"] = vars.weightsList[class][weight]["maximum weapon damage"]
+			end
+			vars.weightsList[class][weight]["maximum weapon damage"] = nil
+		end
+	end
+
+	vars.dataMinorVersion = 16
+	return vars
+end
+
+local downgradeAccountFromMeleeStatsAndRangedWeaponDamage = [[
+	return function(vars)
+		for _, class in ipairs(vars.weightsList) do
+			for _, weight in ipairs(vars.weightsList[class]) do
+				if vars.weightsList[class][weight]["maximum weapon damage"] == nil then
+					vars.weightsList[class][weight]["maximum weapon damage"] = vars.weightsList[class][weight]["maximum ranged weapon damage"]
+				end
+				if vars.weightsList[class][weight]["minimum weapon damage"] == nil then
+					vars.weightsList[class][weight]["minimum weapon damage"] = vars.weightsList[class][weight]["minimum ranged weapon damage"]
+				end
+				if vars.weightsList[class][weight]["dps"] == nil then
+					vars.weightsList[class][weight]["dps"] = vars.weightsList[class][weight]["melee dps"]
+				end
+				if vars.weightsList[class][weight]["minimum weapon damage"] == nil then
+					vars.weightsList[class][weight]["minimum weapon damage"] = vars.weightsList[class][weight]["minimum melee weapon damage"]
+				end
+				if vars.weightsList[class][weight]["maximum weapon damage"] == nil then
+					vars.weightsList[class][weight]["maximum weapon damage"] = vars.weightsList[class][weight]["maximum melee weapon damage"]
+				end
+			end
+		end
+
+		vars.dataMinorVersion = 15
+		return vars
+	end
+]]
+
 local function upgradeAccountToFixStunResistChance(vars)
 	for _, class in ipairs(vars.weightsList) do
 		for _, weight in ipairs(vars.weightsList[class]) do
@@ -826,6 +885,7 @@ local upgradeAccountFunctions = {
 		[12] = upgradeAccountToDebugKey,
 		[13] = upgradeAccountToFixStunResistChance,
 		[14] = FixStunResistChance,
+		[15] = upgradeAccountToMeleeStatsAndRangedWeaponDamage,
 	},
 }
 
@@ -858,6 +918,7 @@ local downgradeAccountFunctions = {
 		[13] = noop_down,
 		[14] = downgradeAccountFromFixStunResistChance,
 		[15] = noop_down,
+		[16] = downgradeAccountFromMeleeStatsAndRangedWeaponDamage,
 	},
 }
 

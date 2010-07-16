@@ -1031,6 +1031,12 @@ function WeightsWatcher.parseLine(textL, textR, link)
 	ww_unparsed_lines[textL][link] = true
 end
 
+local rangedConversions = {
+	["melee dps"] = "ranged dps",
+	["maximum melee weapon damage"] = "maximum ranged weapon damage",
+	["minimum melee weapon damage"] = "minimum ranged weapon damage",
+}
+
 function WeightsWatcher.getItemStats(link)
 	local textL, textR, pattern, func, start
 	local normalStats, nonStats, socketList, socketBonusStat, useEffects, stackingEquipEffects = WeightsWatcher.newStatTable(), {}, {}, WeightsWatcher.newStatTable(), {}, {}
@@ -1081,8 +1087,10 @@ function WeightsWatcher.getItemStats(link)
 	end
 
 	if nonStats["slot"] == "ranged" or nonStats["slot"] == "thrown" or nonStats["slot"] == "projectile" then
-		normalStats["ranged dps"] = rawget(normalStats, "dps")
-		normalStats["dps"] = nil
+		for k, v in pairs(rangedConversions) do
+			normalStats[v] = rawget(normalStats, k)
+			normalStats[k] = nil
+		end
 	end
 
 	return {

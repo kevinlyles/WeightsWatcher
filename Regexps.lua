@@ -627,8 +627,8 @@ function WeightsWatcher.damageRange(textL, textR)
 	local start, _, minimum, maximum = string.find(textL, "^(%d+) %- (%d+) damage$")
 	if start then
 		stats = WeightsWatcher.newStatTable()
-		stats["minimum weapon damage"] = tonumber(minimum)
-		stats["maximum weapon damage"] = tonumber(maximum)
+		stats["minimum melee weapon damage"] = tonumber(minimum)
+		stats["maximum melee weapon damage"] = tonumber(maximum)
 	else
 		local start, _, minimum, maximum, school = string.find(textL, "^(%d+) %- (%d+) (%a+) damage$")
 		if start then
@@ -645,8 +645,8 @@ function WeightsWatcher.damageRange(textL, textR)
 				local start, _, damage = string.find(textL, "^(%d+) damage$")
 				if start then
 					stats = WeightsWatcher.newStatTable()
-					stats["minimum weapon damage"] = tonumber(damage)
-					stats["maximum weapon damage"] = tonumber(damage)
+					stats["minimum melee weapon damage"] = tonumber(damage)
+					stats["maximum melee weapon damage"] = tonumber(damage)
 				end
 			end
 		end
@@ -1165,7 +1165,7 @@ ww_SingleStatLines = {
 
 	{"^%((%d+%.?%d*) damage per second%)$",
 		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "dps")
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "melee dps")
 		end,
 		{"generic"},
 	},
@@ -1208,7 +1208,7 @@ ww_SingleStatLines = {
 	{"^([+-]?%d+) (spell penetration)$", WeightsWatcher.statNumFirst, {"enchant", "equipEffect", "generic"}},
 	{"^adds (%d[%d%.]*) damage per second$",
 		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "dps")
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "melee dps")
 		end,
 		{"generic"},
 	},

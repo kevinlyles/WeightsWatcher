@@ -3,6 +3,7 @@ ww_trackedStats = {
 	"Tanking",
 	"Melee",
 	"Caster",
+	"Ranged",
 	"Meta Gem Stats",
 	"Resistances",
 	"Triggers",
@@ -27,14 +28,12 @@ ww_trackedStats = {
 		"Agility",
 		"Attack Power",
 		"Feral Attack Power",
-		"Ranged Attack Power",
 		"Strength",
 		"Armor Penetration Rating",
 		"Expertise Rating",
-		"DPS",
-		"Ranged DPS",
-		"Minimum Weapon Damage",
-		"Maximum Weapon Damage",
+		"Melee DPS",
+		"Minimum Melee Weapon Damage",
+		"Maximum Melee Weapon Damage",
 	},
 	["Caster"] = {
 		"Intellect",
@@ -49,6 +48,12 @@ ww_trackedStats = {
 		"Holy Spell Damage",
 		"Nature Spell Damage",
 		"Shadow Spell Damage",
+	},
+	["Ranged"] = {
+		"Ranged Attack Power",
+		"Ranged DPS",
+		"Minimum Ranged Weapon Damage",
+		"Maximum Ranged Weapon Damage",
 	},
 	["Meta Gem Stats"] = {
 		"Armor from Items (Percent)",
@@ -232,7 +237,7 @@ ww_classNameOptions = {
 
 ww_defaultVars = {
 	dataMajorVersion = 1,
-	dataMinorVersion = 15,
+	dataMinorVersion = 16,
 	weightsList = {
 		"DEATHKNIGHT",
 		"DRUID",
@@ -250,7 +255,7 @@ ww_defaultVars = {
 			"Unholy DPS",
 			"Tank",
 			["Blood DPS"] = {
-				["dps"] = 360,
+				["melee dps"] = 360,
 				["armor penetration rating"] = 100,
 				["strength"] = 99,
 				["hit rating"] = 91,
@@ -264,7 +269,7 @@ ww_defaultVars = {
 				}
 			},
 			["Frost DPS"] = {
-				["dps"] = 337,
+				["melee dps"] = 337,
 				["hit rating"] = 100,
 				["strength"] = 97,
 				["expertise rating"] = 81,
@@ -278,7 +283,7 @@ ww_defaultVars = {
 				}
 			},
 			["Unholy DPS"] = {
-				["dps"] = 209,
+				["melee dps"] = 209,
 				["strength"] = 100,
 				["hit rating"] = 66,
 				["expertise rating"] = 51,
@@ -292,7 +297,7 @@ ww_defaultVars = {
 				}
 			},
 			["Tank"] = {
-				["dps"] = 419,
+				["melee dps"] = 419,
 				["parry rating"] = 100,
 				["hit rating"] = 97,
 				["strength"] = 96,
@@ -496,7 +501,7 @@ ww_defaultVars = {
 				}
 			},
 			["Retribution"] = {
-				["dps"] = 470,
+				["melee dps"] = 470,
 				["hit rating"] = 100,
 				["strength"] = 80,
 				["expertise rating"] = 66,
@@ -556,7 +561,7 @@ ww_defaultVars = {
 			"Combat",
 			"Subtlety",
 			["Assassination"] = {
-				["dps"] = 170,
+				["melee dps"] = 170,
 				["agility"] = 100,
 				["expertise rating"] = 87,
 				["hit rating"] = 83,
@@ -570,7 +575,7 @@ ww_defaultVars = {
 				}
 			},
 			["Combat"] = {
-				["dps"] = 220,
+				["melee dps"] = 220,
 				["armor penetration rating"] = 100,
 				["agility"] = 100,
 				["expertise rating"] = 82,
@@ -584,7 +589,7 @@ ww_defaultVars = {
 				}
 			},
 			["Subtlety"] = {
-				["dps"] = 228,
+				["melee dps"] = 228,
 				["expertise rating"] = 100,
 				["agility"] = 100,
 				["hit rating"] = 80,
@@ -613,7 +618,7 @@ ww_defaultVars = {
 				}
 			},
 			["Enhancement"] = {
-				["dps"] = 135,
+				["melee dps"] = 135,
 				["hit rating"] = 100,
 				["expertise rating"] = 84,
 				["agility"] = 55,
