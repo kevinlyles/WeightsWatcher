@@ -63,6 +63,7 @@ ww_itemCacheMetatable = {
 			socketBonusActive = socketBonusActive,
 			gemStats = gemStats
 		}
+
 		return tbl[key]
 	end,
 }
@@ -99,66 +100,53 @@ ww_weightIdealCacheWeightMetatable = {
 			bestGems.yellow, bestGems.yellowScore = WeightsWatcher.bestGemForSocket("yellow", tbl.weight, ww_vars.options.gems.qualityLimit)
 			bestGems.blue, bestGems.blueScore = WeightsWatcher.bestGemForSocket("blue", tbl.weight, ww_vars.options.gems.qualityLimit)
 			bestGems.meta, bestGems.metaScore = WeightsWatcher.bestGemForSocket("meta", tbl.weight, ww_vars.options.gems.qualityLimit)
+
 			bestGems.overall = bestGems.red
 			bestGems.overallScore = bestGems.redScore
-			if bestGems.blueScore > bestGems.overallScore then
+			if bestGems.overallScore < bestGems.blueScore then
 				bestGems.overall = bestGems.blue
 				bestGems.overallScore = bestGems.blueScore
 			end
-			if bestGems.yellowScore > bestGems.overallScore then
+			if bestGems.overallScore < bestGems.yellowScore then
 				bestGems.overall = bestGems.yellow
 				bestGems.overallScore = bestGems.yellowScore
 			end
 			tbl.bestGems = bestGems
+
 			return bestGems
 		end
 
-		local gemId, gemIdIgnoreSocket, weightVal, weightValIgnoreSockets, bestGems, bestGemsIgnoreSocket
 		local itemStats = ww_bareItemCache[key]
-		local normalStats = itemStats.normalStats
-		local sockets = itemStats.sockets
-		local socketBonusStat = itemStats.socketBonusStat
-		local useEffects = itemStats.useEffects
 		local socketBonusWeight = 0
-		if socketBonusStat then
-			for stat, value in pairs(socketBonusStat) do
-				socketBonusWeight = socketBonusWeight + (tbl.weight[stat] or 0) * value
-			end
+		for stat, value in pairs(itemStats.socketBonusStat) do
+			socketBonusWeight = socketBonusWeight + (tbl.weight[stat] or 0) * value
 		end
 		local breakSocketColors = ww_vars.options.gems.breakSocketColors or (not ww_vars.options.gems.neverBreakSocketColors and socketBonusWeight <= 0)
 
-		bestGems, bestGemsIgnoreSocket = {}, {}
-		gemScore, gemScoreIgnoreSocket = 0, 0
-		for _, color in pairs(sockets) do
-			gemId = tbl.bestGems[color]
-			-- TODO: get rid of the if check?
-			if #(gemId) > 0 then
-				table.insert(bestGems, gemId)
-				gemScore = gemScore + tbl.bestGems[color .. "Score"]
-			end
+		local socketBonusActive = true
+		local bestGems, bestGemsIgnoreSocket = {}, {}
+		local gemScore, gemScoreIgnoreSocket = 0, 0
+		for _, color in pairs(itemStats.sockets) do
+			table.insert(bestGems, tbl.bestGems[color])
+			gemScore = gemScore + tbl.bestGems[color .. "Score"]
 			if breakSocketColors and color ~= "meta" then
-				gemIdIgnoreSocket = tbl.bestGems.overall
-				if #(gemIdIgnoreSocket) > 0 then
-					table.insert(bestGemsIgnoreSocket, gemIdIgnoreSocket)
-					gemScoreIgnoreSocket = gemScoreIgnoreSocket + tbl.bestGems.overallScore
-				end
+				table.insert(bestGemsIgnoreSocket, tbl.bestGems.overall)
+				gemScoreIgnoreSocket = gemScoreIgnoreSocket + tbl.bestGems.overallScore
 			end
 		end
 		gemStats = WeightsWatcher.getGemStats(bestGems)
-		weightVal = WeightsWatcher.calculateWeight(ww_bareItemCache[key], {socketBonusActive = true, gemStats = gemStats}, tbl.weight)
+		gemScore = gemScore + socketBonusWeight
 		if breakSocketColors then
-			gemStatsIgnoreSockets = WeightsWatcher.getGemStats(bestGemsIgnoreSocket)
-			weightValIgnoreSockets = WeightsWatcher.calculateWeight(ww_bareItemCache[key], {socketBonusActive = false, gemStats = gemStatsIgnoreSockets}, tbl.weight)
-
-			if weightVal < weightValIgnoreSockets then
-				weightVal = weightValIgnoreSockets
-				gemStats = gemStatsIgnoreSockets
+			if gemScore < gemScoreIgnoreSocket then
+				socketBonusActive = false
+				gemScore = gemScoreIgnoreSocket
+				gemStats = WeightsWatcher.getGemStats(bestGemsIgnoreSocket)
 			end
 		end
 
 		tbl[key] = {
 			gemStats = gemStats,
-			score = weightVal,
+			score = WeightsWatcher.calculateWeight(itemStats, {socketBonusActive = socketBonusActive, gemStats = gemStats}, tbl.weight),
 		}
 		return tbl[key]
 	end,
@@ -463,35 +451,23 @@ local function determineCompareMethod(currentSlot, compareSlot, compareSlot2, cu
 	if currentSlot == "two-hand" then
 		return "both"
 	elseif currentSlot == "main hand" then
-		if compareSlot then
-			return "1"
-		else
-			return "empty"
-		end
+		return "1"
 	elseif currentSlot == "off hand" or currentSlot == "held in off-hand" then
 		if compareSlot == "two-hand" then
 			return "1"
-		elseif compareSlot2 then
-			return "2"
 		else
-			return "empty"
+			return "2"
 		end
 	elseif currentSlot == "one-hand" then
 		if compareSlot == "two-hand" then
 			return "1"
 		elseif checkForDualWield() then
-			if compareSlot and compareSlot2 then
-				return "worst"
-			end
-			return "empty"
+			return "worst"
 		else
 			return "1"
 		end
 	elseif currentSlot == "finger" or currentSlot == "trinket" then
-		if compareSlot and compareSlot2 then
-			return "worst"
-		end
-		return "empty"
+		return "worst"
 	else
 		return "1"
 	end
@@ -501,49 +477,13 @@ local function computeDifference(compareMethod, compareScore, compareScore2, cur
 	if compareMethod == "empty" then
 		return currentScore
 	elseif compareMethod == "1" then
-		if compareScore then
-			return currentScore - compareScore
-		else
-			return currentScore
-		end
+		return currentScore - (compareScore or 0)
 	elseif compareMethod == "2" then
-		if compareScore2 then
-			return currentScore - compareScore2
-		else
-			return currentScore
-		end
+		return currentScore - (compareScore2 or 0)
 	elseif compareMethod == "both" then
-		if compareScore then
-			if compareScore2 then
-				return currentScore - (compareScore + compareScore2)
-			else
-				return currentScore - compareScore
-			end
-		else
-			if compareScore2 then
-				return currentScore - compareScore2
-			else
-				return currentScore
-			end
-		end
+		return currentScore - ((compareScore or 0) + (compareScore2 or 0))
 	elseif compareMethod == "worst" then
-		if compareScore then
-			if compareScore2 then
-				if compareScore < compareScore2 then
-					return currentScore - compareScore
-				else
-					return currentScore - compareScore2
-				end
-			else
-				return currentScore - compareScore
-			end
-		else
-			if compareScore2 then
-				return currentScore - compareScore2
-			else
-				return currentScore
-			end
-		end
+		return currentScore - math.min(compareScore or 0, compareScore2 or 0)
 	end
 end
 
@@ -925,16 +865,6 @@ function WeightsWatcher.calculateWeight(bareItemStats, itemStats, weightsScale)
 	for stat, value in pairs(bareItemStats.normalStats) do
 		weight = weight + WeightsWatcher.getWeight(stat, value, weightsScale)
 	end
-	if bareItemStats.normalStats["all stats"] and not weightsScale["all stats"] then
-		for _, stat in pairs({"agility", "intellect", "spirit", "stamina", "strength"}) do
-			weight = weight + WeightsWatcher.getWeight(stat, bareItemStats.normalStats["all stats"], weightsScale)
-		end
-	end
-	if bareItemStats.normalStats["all resistances"] and not weightsScale["all resistances"] then
-		for _, school in pairs({"arcane", "fire", "frost", "nature", "shadow"}) do
-			weight = weight + WeightsWatcher.getWeight(school .. " resistance", bareItemStats.normalStats["all resistances"], weightsScale)
-		end
-	end
 	if itemStats.socketBonusActive and bareItemStats.socketBonusStat then
 		for stat, value in pairs(bareItemStats.socketBonusStat) do
 			weight = weight + WeightsWatcher.getWeight(stat, value, weightsScale)
@@ -947,17 +877,7 @@ function WeightsWatcher.calculateWeight(bareItemStats, itemStats, weightsScale)
 			for stat, value in pairs(gemInfo[3]) do
 				weight = weight + WeightsWatcher.getWeight(stat, value, weightsScale)
 			end
-			if gemInfo[3]["all stats"] and not weightsScale["all stats"] then
-				for _, stat in pairs({"agility", "intellect", "spirit", "stamina", "strength"}) do
-					weight = weight + WeightsWatcher.getWeight(stat, gemInfo[3]["all stats"], weightsScale)
-				end
-			end
-			if gemInfo[3]["all resistances"] and not weightsScale["all resistances"] then
-				for _, school in pairs({"arcane", "fire", "frost", "nature", "shadow"}) do
-					weight = weight + WeightsWatcher.getWeight(school .. " resistance", gemInfo[3]["all resistances"], weightsScale)
-				end
-			end
-			if weight > maxWeight then
+			if maxWeight < weight then
 				maxWeight = weight
 			end
 		end
@@ -996,11 +916,21 @@ function WeightsWatcher.calculateWeight(bareItemStats, itemStats, weightsScale)
 end
 
 function WeightsWatcher.getWeight(stat, value, weightsScale)
+	local weight = 0
+
 	if weightsScale[stat] then
-		return weightsScale[stat] * value
-	else
-		return 0
+		weight = weightsScale[stat] * value
+	elseif stat == "all stats" then
+		for _, stat in pairs({"agility", "intellect", "spirit", "stamina", "strength"}) do
+			weight = weight + WeightsWatcher.getWeight(stat, value, weightsScale)
+		end
+	elseif stat == "all resistances" then
+		for _, school in pairs({"arcane", "fire", "frost", "nature", "shadow"}) do
+			weight = weight + WeightsWatcher.getWeight(school .. " resistance", value, weightsScale)
+		end
 	end
+
+	return weight
 end
 
 function WeightsWatcher.getGemStats(...)
