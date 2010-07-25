@@ -1035,6 +1035,7 @@ local rangedConversions = {
 	["melee dps"] = "ranged dps",
 	["maximum melee weapon damage"] = "maximum ranged weapon damage",
 	["minimum melee weapon damage"] = "minimum ranged weapon damage",
+	["melee weapon speed"] = "ranged weapon speed",
 }
 
 function WeightsWatcher.getItemStats(link)

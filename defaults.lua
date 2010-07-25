@@ -34,6 +34,7 @@ ww_trackedStats = {
 		"Melee DPS",
 		"Minimum Melee Weapon Damage",
 		"Maximum Melee Weapon Damage",
+		"Melee Weapon Speed",
 	},
 	["Caster"] = {
 		"Intellect",
@@ -54,6 +55,7 @@ ww_trackedStats = {
 		"Ranged DPS",
 		"Minimum Ranged Weapon Damage",
 		"Maximum Ranged Weapon Damage",
+		"Ranged Weapon Speed",
 	},
 	["Meta Gem Stats"] = {
 		"Armor from Items (Percent)",

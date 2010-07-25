@@ -654,7 +654,7 @@ function WeightsWatcher.damageRange(textL, textR)
 	if stats and textR then
 		local start, _, speed = string.find(textR, "^speed (%d+%.?%d*)$")
 		if start then
-			stats["speed"] = tonumber(speed)
+			stats["melee weapon speed"] = tonumber(speed)
 		end
 	end
 	return stats
