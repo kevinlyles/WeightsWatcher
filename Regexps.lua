@@ -31,6 +31,7 @@ local function makePatternTables()
 			table.insert(ww_regexes[category].SingleStat, {pattern, func})
 		end
 	end
+	-- TODO: remove this in production?
 	for _, category in pairs(patternCategories) do
 		local empty = true
 		for _ in pairs(ww_regexes[category].MultipleStat) do

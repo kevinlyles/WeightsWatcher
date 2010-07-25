@@ -1,3 +1,4 @@
+-- TODO: move this to a util(s).lua?
 function ww_deepTableCopy(object)
     local lookup_table = {}
     local function _copy(object)
