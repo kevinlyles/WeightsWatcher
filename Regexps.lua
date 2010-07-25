@@ -627,26 +627,30 @@ function WeightsWatcher.damageRange(textL, textR)
 	local start, _, minimum, maximum = string.find(textL, "^(%d+) %- (%d+) damage$")
 	if start then
 		stats = WeightsWatcher.newStatTable()
-		stats["minimum melee weapon damage"] = tonumber(minimum)
-		stats["maximum melee weapon damage"] = tonumber(maximum)
+		maximum = tonumber(maximum)
+		stats["average melee weapon damage"] = (minimum + maximum) / 2
+		stats["maximum melee weapon damage"] = maximum
 	else
 		local start, _, minimum, maximum, school = string.find(textL, "^(%d+) %- (%d+) (%a+) damage$")
 		if start then
 			stats = WeightsWatcher.newStatTable()
-			stats["minimum wand " .. school .. " damage"] = tonumber(minimum)
-			stats["maximum wand " .. school .. " damage"] = tonumber(maximum)
+			maximum = tonumber(maximum)
+			stats["average wand " .. school .. " damage"] = (minimum + maximum) / 2
+			stats["maximum wand " .. school .. " damage"] = maximum
 		else
 			local start, _, minimum, maximum, school = string.find(textL, "^%+(%d+) %- (%d+) (%a+) damage$")
 			if start then
 				stats = WeightsWatcher.newStatTable()
-				stats["minimum added " .. school .. " damage"] = tonumber(minimum)
-				stats["maximum added " .. school .. " damage"] = tonumber(maximum)
+				maximum = tonumber(maximum)
+				stats["average added " .. school .. " damage"] = (minimum + maximum) / 2
+				stats["maximum added " .. school .. " damage"] = maximum
 			else
 				local start, _, damage = string.find(textL, "^(%d+) damage$")
 				if start then
 					stats = WeightsWatcher.newStatTable()
-					stats["minimum melee weapon damage"] = tonumber(damage)
-					stats["maximum melee weapon damage"] = tonumber(damage)
+					damage = tonumber(damage)
+					stats["average melee weapon damage"] = damage
+					stats["maximum melee weapon damage"] = damage
 				end
 			end
 		end
@@ -1215,7 +1219,12 @@ ww_SingleStatLines = {
 	{"^([+-]?%d+) (ranged attack power)$", WeightsWatcher.statNumFirst, {"equipEffect", "generic"}},
 	{"^([+-]?%d+) (all stats)$", WeightsWatcher.statNumFirst, {"elixir", "enchant", "generic", "useEffect"}},
 	{"^([+-]?%d+) to (all stats)$", WeightsWatcher.statNumFirst, {"generic"}},
-	{"^([+-]?%d+) (ranged damage)$", WeightsWatcher.statNumFirst, {"enchant"}},
+	{"^([+-]?%d+) ranged damage$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "average ranged weapon damage") + WeightsWatcher.singleStatValueOnly(text, pattern, "maximum ranged weapon damage")
+		end,
+		{"enchant"},
+	},
 
 	{"^chance to resist (%a+) effects by (%d+)%%$",
 		function(text, pattern)

@@ -1033,8 +1033,8 @@ end
 
 local rangedConversions = {
 	["melee dps"] = "ranged dps",
+	["average melee weapon damage"] = "average ranged weapon damage",
 	["maximum melee weapon damage"] = "maximum ranged weapon damage",
-	["minimum melee weapon damage"] = "minimum ranged weapon damage",
 	["melee weapon speed"] = "ranged weapon speed",
 }
 

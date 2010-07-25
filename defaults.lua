@@ -32,7 +32,7 @@ ww_trackedStats = {
 		"Armor Penetration Rating",
 		"Expertise Rating",
 		"Melee DPS",
-		"Minimum Melee Weapon Damage",
+		"Average Melee Weapon Damage",
 		"Maximum Melee Weapon Damage",
 		"Melee Weapon Speed",
 	},
@@ -53,7 +53,7 @@ ww_trackedStats = {
 	["Ranged"] = {
 		"Ranged Attack Power",
 		"Ranged DPS",
-		"Minimum Ranged Weapon Damage",
+		"Average Ranged Weapon Damage",
 		"Maximum Ranged Weapon Damage",
 		"Ranged Weapon Speed",
 	},
@@ -239,7 +239,7 @@ ww_classNameOptions = {
 
 ww_defaultVars = {
 	dataMajorVersion = 1,
-	dataMinorVersion = 16,
+	dataMinorVersion = 17,
 	weightsList = {
 		"DEATHKNIGHT",
 		"DRUID",
