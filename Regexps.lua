@@ -226,7 +226,7 @@ local EnchantPreprocessLines = {
 	{" melee weapon to do (%d+) additional points? of damage", " %1 melee damage"},
 	{" armor value ", " armor "},
 	{" a slight movement speed increase", " a minor movement speed increase"},
-	{"^use: attaches a permanent scope to a bow or gun that increases its damage by ", "increases ranged damage by "},
+	{"^use: attaches a permanent scope to a bow or gun that increases its damage by ", "increases ranged weapon damage by "},
 	{" resistance to (%a+) by ", " %1 resistance by "},
 	{" resistance to all schools of magic by ", " all resistances by "},
 	{" to all ", " all "},
@@ -1219,7 +1219,7 @@ ww_SingleStatLines = {
 	{"^([+-]?%d+) (ranged attack power)$", WeightsWatcher.statNumFirst, {"equipEffect", "generic"}},
 	{"^([+-]?%d+) (all stats)$", WeightsWatcher.statNumFirst, {"elixir", "enchant", "generic", "useEffect"}},
 	{"^([+-]?%d+) to (all stats)$", WeightsWatcher.statNumFirst, {"generic"}},
-	{"^([+-]?%d+) ranged damage$",
+	{"^([+-]?%d+) ranged weapon damage$",
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "average ranged weapon damage") + WeightsWatcher.singleStatValueOnly(text, pattern, "maximum ranged weapon damage")
 		end,
