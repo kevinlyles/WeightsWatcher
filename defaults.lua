@@ -95,7 +95,9 @@ ww_trackedStats = {
 	},
 	["CC Resists/Reductions"] = {
 		"Disarm Duration Reduction (Percent)",
+		"Disorient Resist Chance (Percent)",
 		"Fear Duration Reduction (Percent)",
+		"Fear Resist Chance (Percent)",
 		"Silence Duration Reduction (Percent)",
 		"Snare/Root Duration Reduction (Percent)",
 		"Spell Reflect (Percent)",
