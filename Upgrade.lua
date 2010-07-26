@@ -53,6 +53,23 @@ local function noop_major_up(vars)
 	return vars
 end
 
+local function upgradeAccountToNoMeleeDamage(vars)
+	for _, class in ipairs(vars.weightsList) do
+		for _, weight in ipairs(vars.weightsList[class]) do
+			if vars.weightsList[class][weight]["average melee weapon damage"] == nil then
+				vars.weightsList[class][weight]["average melee weapon damage"] = vars.weightsList[class][weight]["melee damage"]
+			end
+			if vars.weightsList[class][weight]["maximum melee weapon damage"] == nil then
+				vars.weightsList[class][weight]["maximum melee weapon damage"] = vars.weightsList[class][weight]["melee damage"]
+			end
+			vars.weightsList[class][weight]["melee damage"] = nil
+		end
+	end
+
+	vars.dataMinorVersion = 18
+	return vars
+end
+
 local function upgradeAccountToAverageWeaponDamage(vars)
 	for _, class in ipairs(vars.weightsList) do
 		for _, weight in ipairs(vars.weightsList[class]) do
@@ -923,6 +940,7 @@ local upgradeAccountFunctions = {
 		[14] = FixStunResistChance,
 		[15] = upgradeAccountToMeleeStatsAndRangedWeaponDamage,
 		[16] = upgradeAccountToAverageWeaponDamage,
+		[17] = upgradeAccountToNoMeleeDamage,
 	},
 }
 
@@ -957,6 +975,7 @@ local downgradeAccountFunctions = {
 		[15] = noop_down,
 		[16] = downgradeAccountFromMeleeStatsAndRangedWeaponDamage,
 		[17] = downgradeAccountFromAverageWeaponDamage,
+		[18] = noop_down,
 	},
 }
 

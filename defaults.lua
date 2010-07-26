@@ -71,7 +71,6 @@ ww_trackedStats = {
 		"Fear Duration Reduction (Percent)",
 		"Intellect (Percent)",
 		"Mana (Percent)",
-		"Melee Damage",
 		"Minor Run Speed",
 		"Silence Duration Reduction (Percent)",
 		"Snare/Root Duration Reduction (Percent)",
@@ -239,7 +238,7 @@ ww_classNameOptions = {
 
 ww_defaultVars = {
 	dataMajorVersion = 1,
-	dataMinorVersion = 17,
+	dataMinorVersion = 18,
 	weightsList = {
 		"DEATHKNIGHT",
 		"DRUID",

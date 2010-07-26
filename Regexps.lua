@@ -624,35 +624,19 @@ end
 
 function WeightsWatcher.damageRange(textL, textR)
 	local stats
-	local start, _, minimum, maximum = string.find(textL, "^(%d+) %- (%d+) damage$")
+	local start, _, minimum, maximum = string.find(textL, "^%+?(%d+) %- (%d+) %a* ?damage$")
 	if start then
 		stats = WeightsWatcher.newStatTable()
 		maximum = tonumber(maximum)
 		stats["average melee weapon damage"] = (minimum + maximum) / 2
 		stats["maximum melee weapon damage"] = maximum
 	else
-		local start, _, minimum, maximum, school = string.find(textL, "^(%d+) %- (%d+) (%a+) damage$")
+		local start, _, damage = string.find(textL, "^(%d+) damage$")
 		if start then
 			stats = WeightsWatcher.newStatTable()
-			maximum = tonumber(maximum)
-			stats["average wand " .. school .. " damage"] = (minimum + maximum) / 2
-			stats["maximum wand " .. school .. " damage"] = maximum
-		else
-			local start, _, minimum, maximum, school = string.find(textL, "^%+(%d+) %- (%d+) (%a+) damage$")
-			if start then
-				stats = WeightsWatcher.newStatTable()
-				maximum = tonumber(maximum)
-				stats["average added " .. school .. " damage"] = (minimum + maximum) / 2
-				stats["maximum added " .. school .. " damage"] = maximum
-			else
-				local start, _, damage = string.find(textL, "^(%d+) damage$")
-				if start then
-					stats = WeightsWatcher.newStatTable()
-					damage = tonumber(damage)
-					stats["average melee weapon damage"] = damage
-					stats["maximum melee weapon damage"] = damage
-				end
-			end
+			damage = tonumber(damage)
+			stats["average melee weapon damage"] = damage
+			stats["maximum melee weapon damage"] = damage
 		end
 	end
 	if stats and textR then
@@ -1334,7 +1318,18 @@ ww_SingleStatLines = {
 		end,
 		{"generic"},
 	},
-	{"^([+-]?%d+) (%a+ damage)$", WeightsWatcher.statNumFirst, {"enchant", "generic"}},
+	{"^([+-]?%d+) melee damage$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "average melee weapon damage") + WeightsWatcher.singleStatValueOnly(text, pattern, "maximum melee weapon damage")
+		end,
+		{"enchant", "generic"},
+	},
+	{"^([+-]?%d+) physical damage$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "average melee weapon damage") + WeightsWatcher.singleStatValueOnly(text, pattern, "maximum melee weapon damage") + WeightsWatcher.singleStatValueOnly(text, pattern, "average ranged weapon damage") + WeightsWatcher.singleStatValueOnly(text, pattern, "maximum ranged weapon damage")
+		end,
+		{"enchant"},
+	},
 	{"^minor run speed increase$",
 		function(text, pattern)
 			return WeightsWatcher.newStatTable({["minor run speed"] = 1})

@@ -455,7 +455,7 @@ ww_gems = {
 				[2834] = {
 					"meta",
 					"Brutal Earthstorm Diamond",
-					{["melee damage"] = 3, ["chance to stun target"] = 1},
+					{["average melee weapon damage"] = 3, ["maximum melee weapon damage"] = 3, ["chance to stun target"] = 1},
 				},
 				[2835] = {
 					"meta",
