@@ -12,6 +12,8 @@ ww_trackedStats = {
 	"CC Resists/Reductions",
 	"Resistances",
 	"Triggers",
+	"Professions",
+	"Miscellaneous",
 	["General"] = {
 		"Critical Strike Rating",
 		"Haste Rating",
@@ -88,6 +90,7 @@ ww_trackedStats = {
 	},
 	["PVP"] = {
 		"Chance to Stun Target",
+		"Increased Stealth",
 		"Minor Run Speed",
 		"Resilience Rating",
 		"Sometimes Heal on your Crits",
@@ -119,6 +122,15 @@ ww_trackedStats = {
 		["Shadow"] = "shadow resistance",
 	},
 	["Triggers"] = {},
+	["Professions"] = {
+		"Fishing",
+		"Herbalism",
+		"Mining",
+		"Skinning",
+	},
+	["Miscellaneous"] = {
+		"Mount Speed (Percent)",
+	},
 }
 
 ww_triggerGroups = {
