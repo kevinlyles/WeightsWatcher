@@ -53,6 +53,24 @@ local function noop_major_up(vars)
 	return vars
 end
 
+local function upgradeAccountToSpellHitAndCrit(vars)
+	for _, class in ipairs(vars.weightsList) do
+		for _, weight in ipairs(vars.weightsList[class]) do
+			if vars.weightsList[class][weight]["spell power"] ~= nil and vars.weightsList[class][weight]["attack power"] == nil then
+				if vars.weightsList[class][weight]["spell critical strike rating"] == nil then
+					vars.weightsList[class][weight]["spell critical strike rating"] = vars.weightsList[class][weight]["critical strike rating"]
+				end
+				if vars.weightsList[class][weight]["spell hit rating"] == nil then
+					vars.weightsList[class][weight]["spell hit rating"] = vars.weightsList[class][weight]["hit rating"]
+				end
+			end
+		end
+	end
+
+	vars.dataMinorVersion = 19
+	return vars
+end
+
 local function upgradeAccountToNoMeleeDamage(vars)
 	for _, class in ipairs(vars.weightsList) do
 		for _, weight in ipairs(vars.weightsList[class]) do
@@ -941,6 +959,7 @@ local upgradeAccountFunctions = {
 		[15] = upgradeAccountToMeleeStatsAndRangedWeaponDamage,
 		[16] = upgradeAccountToAverageWeaponDamage,
 		[17] = upgradeAccountToNoMeleeDamage,
+		[18] = upgradeAccountToSpellHitAndCrit,
 	},
 }
 
@@ -976,6 +995,7 @@ local downgradeAccountFunctions = {
 		[16] = downgradeAccountFromMeleeStatsAndRangedWeaponDamage,
 		[17] = downgradeAccountFromAverageWeaponDamage,
 		[18] = noop_down,
+		[19] = noop_down,
 	},
 }
 

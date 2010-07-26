@@ -63,10 +63,12 @@ ww_trackedStats = {
 		"Chance to Increase Spell Haste",
 		"Intellect",
 		"Intellect (Percent)",
+		"Spell Critical Strike Rating",
 		"Spell Power",
 		"Spirit",
 	},
 	["Caster DPS"] = {
+		"Spell Hit Rating",
 		"Arcane Spell Damage",
 		"Fire Spell Damage",
 		"Frost Spell Damage",
@@ -253,7 +255,7 @@ ww_classNameOptions = {
 
 ww_defaultVars = {
 	dataMajorVersion = 1,
-	dataMinorVersion = 18,
+	dataMinorVersion = 19,
 	weightsList = {
 		"DEATHKNIGHT",
 		"DRUID",
@@ -338,9 +340,11 @@ ww_defaultVars = {
 			"Restoration",
 			["Balance"] = {
 				["hit rating"] = 100,
+				["spell hit rating"] = 100,
 				["spell power"] = 66,
 				["haste rating"] = 54,
 				["critical strike rating"] = 43,
+				["spell critical strike rating"] = 43,
 				["spirit"] = 22,
 				["intellect"] = 22,
 				triggers = {
@@ -385,6 +389,7 @@ ww_defaultVars = {
 				["intellect"] = 51,
 				["spirit"] = 32,
 				["critical strike rating"] = 11,
+				["spell critical strike rating"] = 11,
 				triggers = {
 					helpfulSpell = true,
 				}
@@ -443,10 +448,12 @@ ww_defaultVars = {
 			"Frost",
 			["Arcane"] = {
 				["hit rating"] = 100,
+				["spell hit rating"] = 100,
 				["haste rating"] = 54,
 				["arcane spell damage"] = 49,
 				["spell power"] = 49,
 				["critical strike rating"] = 37,
+				["spell critical strike rating"] = 37,
 				["intellect"] = 34,
 				["frost spell damage"] = 49,
 				["fire spell damage"] = 49,
@@ -457,10 +464,12 @@ ww_defaultVars = {
 			},
 			["Fire"] = {
 				["hit rating"] = 100,
+				["spell hit rating"] = 100,
 				["haste rating"] = 53,
 				["fire spell damage"] = 46,
 				["spell power"] = 46,
 				["critical strike rating"] = 43,
+				["spell critical strike rating"] = 43,
 				["frost spell damage"] = 23,
 				["arcane spell damage"] = 23,
 				["intellect"] = 13,
@@ -470,12 +479,14 @@ ww_defaultVars = {
 			},
 			["Frost"] = {
 				["hit rating"] = 100,
+				["spell hit rating"] = 100,
 				["haste rating"] = 42,
 				["frost spell damage"] = 39,
 				["spell power"] = 39,
 				["arcane spell damage"] = 19,
 				["fire spell damage"] = 19,
 				["critical strike rating"] = 19,
+				["spell critical strike rating"] = 19,
 				["intellect"] = 6,
 				triggers = {
 					harmfulSpell = true,
@@ -491,6 +502,7 @@ ww_defaultVars = {
 				["mp5"] = 88,
 				["spell power"] = 58,
 				["critical strike rating"] = 46,
+				["spell critical strike rating"] = 46,
 				["haste rating"] = 35,
 				triggers = {
 					helpfulSpell = true,
@@ -543,6 +555,7 @@ ww_defaultVars = {
 				["intellect"] = 65,
 				["haste rating"] = 59,
 				["critical strike rating"] = 48,
+				["spell critical strike rating"] = 48,
 				["spirit"] = 22,
 				triggers = {
 					helpfulSpell = true,
@@ -554,6 +567,7 @@ ww_defaultVars = {
 				["spell power"] = 60,
 				["spirit"] = 52,
 				["critical strike rating"] = 38,
+				["spell critical strike rating"] = 38,
 				["haste rating"] = 31,
 				triggers = {
 					helpfulSpell = true,
@@ -561,9 +575,11 @@ ww_defaultVars = {
 			},
 			["Shadow"] = {
 				["hit rating"] = 100,
+				["spell hit rating"] = 100,
 				["shadow spell damage"] = 76,
 				["spell power"] = 76,
 				["critical strike rating"] = 54,
+				["spell critical strike rating"] = 54,
 				["haste rating"] = 50,
 				["spirit"] = 16,
 				["intellect"] = 16,
@@ -625,9 +641,11 @@ ww_defaultVars = {
 			"Restoration",
 			["Elemental"] = {
 				["hit rating"] = 100,
+				["spell hit rating"] = 100,
 				["spell power"] = 60,
 				["haste rating"] = 56,
 				["critical strike rating"] = 40,
+				["spell critical strike rating"] = 40,
 				["intellect"] = 11,
 				triggers = {
 					harmfulSpell = true,
@@ -655,6 +673,7 @@ ww_defaultVars = {
 				["intellect"] = 85,
 				["spell power"] = 77,
 				["critical strike rating"] = 62,
+				["spell critical strike rating"] = 62,
 				["haste rating"] = 35,
 				triggers = {
 					helpfulSpell = true,
@@ -667,10 +686,12 @@ ww_defaultVars = {
 			"Destruction",
 			["Affliction"] = {
 				["hit rating"] = 100,
+				["spell hit rating"] = 100,
 				["shadow spell damage"] = 72,
 				["spell power"] = 72,
 				["haste rating"] = 61,
 				["critical strike rating"] = 38,
+				["spell critical strike rating"] = 38,
 				["fire spell damage"] = 36,
 				["spirit"] = 34,
 				["intellect"] = 15,
@@ -680,11 +701,13 @@ ww_defaultVars = {
 			},
 			["Demonology"] = {
 				["hit rating"] = 100,
+				["spell hit rating"] = 100,
 				["haste rating"] = 50,
 				["fire spell damage"] = 45,
 				["shadow spell damage"] = 45,
 				["spell power"] = 45,
 				["critical strike rating"] = 31,
+				["spell critical strike rating"] = 31,
 				["spirit"] = 29,
 				["intellect"] = 13,
 				triggers = {
@@ -693,12 +716,14 @@ ww_defaultVars = {
 			},
 			["Destruction"] = {
 				["hit rating"] = 100,
+				["spell hit rating"] = 100,
 				["fire spell damage"] = 47,
 				["spell power"] = 47,
 				["haste rating"] = 46,
 				["spirit"] = 26,
 				["shadow spell damage"] = 23,
 				["critical strike rating"] = 16,
+				["spell critical strike rating"] = 16,
 				["intellect"] = 13,
 				triggers = {
 					harmfulSpell = true,
