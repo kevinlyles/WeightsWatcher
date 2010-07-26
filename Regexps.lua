@@ -637,6 +637,15 @@ function WeightsWatcher.damageRange(textL, textR)
 			damage = tonumber(damage)
 			stats["average melee weapon damage"] = damage
 			stats["maximum melee weapon damage"] = damage
+		else
+			-- item 7730
+			local start, _, damage = string.find(textL, "^%+(%d+) frost damage$")
+			if start then
+				stats = WeightsWatcher.newStatTable()
+				damage = tonumber(damage)
+				stats["average melee weapon damage"] = damage
+				stats["maximum melee weapon damage"] = damage
+			end
 		end
 	end
 	if stats and textR then
