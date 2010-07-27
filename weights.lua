@@ -22,34 +22,33 @@ function ww_scrollBarUpdate(scrollFrame, scrolledFrame, buttonHeight, initialOff
 	local i
 	local offset = FauxScrollFrame_GetOffset(scrollFrame)
 	offset = offset / 5
-	if numShown > #(scrollFrame.shown) then
-		numShown = #(scrollFrame.shown)
+	if numShown > #(scrolledFrame.shown) then
+		numShown = #(scrolledFrame.shown)
 	end
-	if offset > #(scrollFrame.shown) - numShown then
-		offset = #(scrollFrame.shown) - numShown
+	if offset > #(scrolledFrame.shown) - numShown then
+		offset = #(scrolledFrame.shown) - numShown
 	end
 	if offset < 0 then
 		offset = 0
 	end
-	FauxScrollFrame_Update(scrollFrame, #(scrollFrame.shown), numShown, buttonHeight * 5)
+	FauxScrollFrame_Update(scrollFrame, #(scrolledFrame.shown), numShown, buttonHeight * 5)
 	scrolledFrame:SetPoint("TOPLEFT", 0, initialOffset + buttonHeight * offset)
 	for i = 1, offset do
-		scrollFrame.shown[i]:Hide()
+		scrolledFrame.shown[i]:Hide()
 	end
 	for i = offset + 1, offset + numShown do
-		scrollFrame.shown[i]:Show()
+		scrolledFrame.shown[i]:Show()
 	end
-	for i = offset + numShown + 1, #(scrollFrame.shown) do
-		scrollFrame.shown[i]:Hide()
+	for i = offset + numShown + 1, #(scrolledFrame.shown) do
+		scrolledFrame.shown[i]:Hide()
 	end
 end
 
 --moves the editbox focus to the next available edit box
 function ww_changeFocus(currentStatFrame)
-	local frame, offset
-	local timesLooped = 0
-	local elements = ww_weights.rightPanel.scrollFrame.shown
-	local position = currentStatFrame.category.position + currentStatFrame.position
+	local frame, offset, looped
+	local elements = ww_weights.rightPanel.scrollContainer.shown
+	local position = currentStatFrame.position
 
 	if IsShiftKeyDown() then
 		direction = -1
@@ -59,18 +58,17 @@ function ww_changeFocus(currentStatFrame)
 	repeat
 		position = position + direction
 		if not elements[position] then
+			if looped then
+				return
+			end
+			looped = true
 			if direction < 0 then
 				position = #(elements)
 			else
 				position = 1
 			end
-			timesLooped = timesLooped + 1
 		end
-	until timesLooped == 2 or elements[position].statName
-
-	if timesLooped == 2 then
-		return
-	end
+	until elements[position].statName
 
 	frame = elements[position]
 	if frame then
@@ -99,7 +97,7 @@ function ww_configDiscardChanges(func)
 end
 
 function ww_selectWeight(class, name)
-	for _, classFrame in ipairs(ww_weights.leftPanel.scrollFrame.categories) do
+	for _, classFrame in ipairs(ww_weights.leftPanel.scrollFrame.elements) do
 		if classFrame.class == class then
 			local children = {classFrame:GetChildren()}
 			ww_configSelectWeight(children[classFrame:GetNumChildren()])
@@ -123,30 +121,37 @@ function ww_configSelectWeight(weightFrame)
 	-- Fills the right panel with the current weight's stats
 	ww_configResetWeight()
 
-	for _, categoryFrame in ipairs(ww_weights.rightPanel.scrollFrame.categories) do
+	local function isEmpty(frame)
 		local empty = true
-		if ww_stackingEquipEffects and categoryFrame.name == L["Triggers"] then
-			for _, triggerFrame in ipairs({categoryFrame:GetChildren()}) do
-				if triggerFrame.active then
-					if triggerFrame.active:GetChecked() then
-						empty = false
-						break
+
+		if frame.elements then
+			if frame.collapsed then
+				frame.text:Click()
+			end
+			for _, element in ipairs(frame.elements) do
+				if element.name then
+					local subElementEmpty = isEmpty(element)
+					if empty then
+						empty = subElementEmpty
 					end
 				end
+			end
+			if empty ~= frame.collapsed then
+				frame.text:Click()
 			end
 		else
-			for _, statFrame in ipairs({categoryFrame:GetChildren()}) do
-				if statFrame.statName then
-					if statFrame.statValue:GetText() ~= "" then
-						empty = false
-						break
-					end
-				end
+			if frame.active then
+				return not frame.active:GetChecked()
+			else
+				return frame.statValue:GetText() == ""
 			end
 		end
-		if (categoryFrame.collapsed and not empty) or (not categoryFrame.collapsed and empty) then
-			categoryFrame.text:Click()
-		end
+
+		return empty
+	end
+
+	for _, frame in ipairs(ww_weights.rightPanel.scrollContainer.elements) do
+		isEmpty(frame)
 	end
 
 	ww_weights.rightPanel.header:SetText(string.format(L["CLASS_WEIGHT_HEADER_FORMAT"], weightFrame.category.name, weightFrame.name))
@@ -174,7 +179,7 @@ function ww_configResetWeight()
 		end
 	end
 	if not changed then
-		for _, frame in pairs(ww_weights.rightPanel.scrollFrame.stats) do
+		for _, frame in pairs(ww_weights.rightPanel.scrollContainer.stats) do
 			if frame.statName then
 				value = ww_weights.rightPanel.statList[frame.statName]
 				if not value then
@@ -183,15 +188,9 @@ function ww_configResetWeight()
 				frame.statValue:SetText(value)
 			end
 		end
-		if ww_stackingEquipEffects then
-			for _, categoryFrame in pairs(ww_weights.rightPanel.scrollFrame.categories) do
-				if categoryFrame.name == L["Triggers"] then
-					for _, triggerFrame in ipairs({categoryFrame:GetChildren()}) do
-						if triggerFrame.active then
-							triggerFrame.active:SetChecked(ww_weights.rightPanel.statList.triggers[triggerFrame.active:GetText()])
-						end
-					end
-				end
+		for _, frame in pairs(ww_weights.rightPanel.scrollContainer.triggers) do
+			if frame.active then
+				frame.active:SetChecked(ww_weights.rightPanel.statList.triggers[frame.active:GetText()])
 			end
 		end
 	end
@@ -265,7 +264,7 @@ local function deleteWeight()
 		end
 	end
 	if not weight.category.collapsed then
-		for _, classFrame in ipairs(ww_weights.leftPanel.scrollFrame.categories) do
+		for _, classFrame in ipairs(ww_weights.leftPanel.scrollFrame.elements) do
 			if classFrame.position > weight.category.position then
 				classFrame.position = classFrame.position - 1
 			end
@@ -327,7 +326,7 @@ function ww_setWeight(class, weight, statList)
 	local weightFrame, position
 
 	if not ww_vars.weightsList[class][weight] then
-		for _, classFrame in ipairs(ww_weights.leftPanel.scrollFrame.categories) do
+		for _, classFrame in ipairs(ww_weights.leftPanel.scrollFrame.elements) do
 			if classFrame.class == class then
 				position = classFrame.length
 				weightFrame = CreateFrame("Frame", weight, classFrame, "ww_weightFrame")
@@ -347,7 +346,7 @@ function ww_setWeight(class, weight, statList)
 				else
 					classFrame:SetHeight(22 * classFrame.length)
 					table.insert(ww_weights.leftPanel.scrollFrame.shown, classFrame.position + position, weightFrame)
-					for _, class in ipairs(ww_weights.leftPanel.scrollFrame.categories) do
+					for _, class in ipairs(ww_weights.leftPanel.scrollFrame.elements) do
 						if class.position > classFrame.position then
 							class.position = class.position + 1
 						end
@@ -362,6 +361,75 @@ function ww_setWeight(class, weight, statList)
 	ww_vars.weightsList[class][weight] = ww_deepTableCopy(statList)
 end
 
+-- returns the number of elements created
+local function createSublist(template, containingFrame, categoryType, defaultElementType, elementHeight, nameTable, elements, shown, hOffset)
+	local numElements, frame, elementType = 0
+	local elementsOffset = #(elements)
+
+	for i, element in ipairs(template) do
+		elementType = template[element]
+		if type(elementType) == "table" then
+			-- create another sublist
+			frame = CreateFrame("Frame", nil, containingFrame, categoryType)
+			frame.text:SetText(element)
+			frame.name = element
+			frame.collapsed = false
+			table.insert(shown, frame.text)
+			frame.elements = {frame.text}
+			frame.position = #(shown)
+			local numSubElements = createSublist(elementType, frame, categoryType, defaultElementType, elementHeight, nameTable, frame.elements, shown, 20)
+			frame.length = numSubElements + 1
+			numElements = numElements + numSubElements
+		else
+			if type(elementType) == "string" then
+				-- make an element with the type specified
+				frame = CreateFrame("Frame", nil, containingFrame, elementType)
+				if elementType == "ww_triggerFrame" then
+					if ww_stackingEquipEffects then
+						frame.active:SetText(element)
+					else
+						frame:Hide()
+						frame:SetParent(nil)
+						frame = nil
+					end
+				end
+			elseif elementType == nil then
+				-- make a defaultElementType element
+				frame = CreateFrame("Frame", nil, containingFrame, defaultElementType)
+			else
+				-- error
+				frame = nil
+			end
+			if frame then
+				frame.text:SetText(nameTable[element])
+				frame.name = element
+				frame.length = 1
+				table.insert(shown, frame)
+				frame.position = #(shown)
+			end
+		end
+
+		if frame then
+			if i + elementsOffset == 1 then
+				frame:SetPoint("TOPLEFT", hOffset, 0)
+			else
+				frame:SetPoint("TOP", elements[i + elementsOffset - 1], "BOTTOM")
+				frame:SetPoint("LEFT", hOffset, 0)
+			end
+			table.insert(elements, frame)
+			frame.relativePosition = #(elements)
+			frame:SetHeight(elementHeight * frame.length)
+
+			numElements = numElements + 1
+		else
+			elementsOffset = elementsOffset - 1
+		end
+	end
+
+	return numElements
+end
+
+-- TODO: update the notes here
 -- Creates a tiered list that can be scrolled
 -- template is a table of key-value pairs with keys as the categories and values as a table of elements
 -- scrollFrame is the scrollframe that controls scrolledFrame
@@ -369,40 +437,15 @@ end
 -- scrolledFrame is the frame that will hold everything
 -- elementType is the element template type
 -- elementHeight is the height of each element
-local function createScrollableTieredList(template, scrollFrame, scrolledFrame, elementType, elementHeight, nameTable)
+local function createScrollableTieredList(template, scrollFrame, scrolledFrame, categoryType, elementType, elementHeight, nameTable, hOffset)
 	local categoryFrame, elementFrame
 
-	scrollFrame.categories = {}
-	scrollFrame.shown = {}
-	scrollFrame.elementHeight = elementHeight
-	for i, category in ipairs(template) do
-		--for each category print the header and then the print the list of stats
-		categoryFrame = CreateFrame("Frame", "WW_" .. category, scrolledFrame, "ww_categoryFrame")
-		categoryFrame.text:SetText(category)
-		categoryFrame.name = category
-		categoryFrame.length = 1
-		if i == 1 then
-			categoryFrame:SetPoint("TOPLEFT")
-		else
-			categoryFrame:SetPoint("TOPLEFT", scrollFrame.categories[i - 1], "BOTTOMLEFT")
-		end
-		table.insert(scrollFrame.categories, categoryFrame)
-		table.insert(scrollFrame.shown, categoryFrame.text)
-		categoryFrame.position = #(scrollFrame.shown)
-		for j, element in ipairs(template[category]) do
-			elementFrame = CreateFrame("Frame", "WW_" .. element, scrollFrame.categories[i], elementType)
-			elementFrame.position = j
-			elementFrame.category = categoryFrame
-			elementFrame.text:SetText(nameTable[element])
-			elementFrame.name = element
-			elementFrame:SetPoint("TOPLEFT", 0, -elementHeight * j)
-			table.insert(scrollFrame.shown, elementFrame)
-			categoryFrame.length = categoryFrame.length + 1
-		end
+	scrolledFrame.elements = {}
+	scrolledFrame.shown = {}
+	scrolledFrame.elementHeight = elementHeight
+	scrolledFrame.scrollFrame = scrollFrame
 
-		categoryFrame:SetHeight(elementHeight * categoryFrame.length)
-		categoryFrame.collapsed = false
-	end
+	createSublist(template, scrolledFrame, categoryType, elementType, elementHeight, nameTable, scrolledFrame.elements, scrolledFrame.shown, hOffset or 0)
 end
 
 --loads the various class buttons onto the config frame
@@ -424,13 +467,14 @@ local function loadClassButtons()
 		end
 	end
 
-	createScrollableTieredList(classes, ww_weights.leftPanel.scrollFrame, ww_weights.leftPanel.scrollContainer, "ww_weightFrame", 22, setmetatable({}, metatable))
+	createScrollableTieredList(classes, ww_weights.leftPanel.scrollFrame, ww_weights.leftPanel.scrollContainer, "ww_classFrame", "ww_weightFrame", 22, setmetatable({}, metatable))
 
-	for _, classFrame in ipairs(ww_weights.leftPanel.scrollFrame.categories) do
+	for _, classFrame in ipairs(ww_weights.leftPanel.scrollContainer.elements) do
 		classFrame.class = revClassLookup[classFrame.text:GetText()]
 		local used = (classFrame.class == WeightsWatcher.playerClass)
 		for i, weightFrame in ipairs({classFrame:GetChildren()}) do
 			if weightFrame.name then
+				weightFrame.category = classFrame
 				if ww_charVars.activeWeights[classFrame.class] then
 					for _, weight in ipairs(ww_charVars.activeWeights[classFrame.class]) do
 						if weight == weightFrame.name then
@@ -453,85 +497,132 @@ local function loadClassButtons()
 	end
 end
 
-local function loadStatButtons()
-	local stats = {}
-	local metatable = {
-		__index = function(tbl, key)
-			return ww_statDisplayNames[ww_localizedStats[key]]
-		end
-	}
+-- NOTE: in the following functions, the following conditions hold:
+--		elements contains the shown direct children of the given frame
+--		shown is the global list of shown elements
+--		you can use {GetChildren()} to get a list of all direct children
+--		length is changed alongside shown
+--		elements of the collapsing frame (but not of its children) is changed alongside shown
+--		position is the global position (within shown)
+--		relativePosition is the position within parent's GetChildren (and doesn't change)
 
-	createScrollableTieredList(ww_trackedStats, ww_weights.rightPanel.scrollFrame, ww_weights.rightPanel.scrollContainer, "ww_statFrame", 22, setmetatable({}, metatable))
+local function insertRecursive(shown, elements, start)
+	local offset = 0
 
-	for _, categoryFrame in ipairs(ww_weights.rightPanel.scrollFrame.categories) do
-		-- TODO: avoid this check entirely if triggers aren't translated?
-		if ww_stackingEquipEffects and categoryFrame.name == L["Triggers"] then
-			for i, trigger in ipairs(ww_triggerTypes) do
-				local triggerFrame = CreateFrame("Frame", "WW_" .. trigger, categoryFrame, "ww_triggerFrame")
-				triggerFrame.position = i
-				triggerFrame.category = categoryFrame
-				triggerFrame.text:SetText(ww_triggerDisplayNames[trigger])
-				triggerFrame.active:SetText(trigger)
-				triggerFrame.name = trigger
-				triggerFrame:SetPoint("TOPLEFT", 0, -ww_weights.rightPanel.scrollFrame.elementHeight * i)
-				table.insert(ww_weights.rightPanel.scrollFrame.shown, triggerFrame)
-				categoryFrame.length = categoryFrame.length + 1
-			end
-			categoryFrame:SetHeight(ww_weights.rightPanel.scrollFrame.elementHeight * categoryFrame.length)
-			categoryFrame.collapsed = false
-		else
-			local children = {categoryFrame:GetChildren()}
-			for i, statFrame in ipairs(children) do
-				if statFrame.name then
-					table.insert(stats, statFrame)
-					statFrame.statName = statFrame.name
-				end
+	for i, element in ipairs(elements) do
+		if element.name then
+			local position = start + i + offset - 1
+			if element.elements then
+				table.insert(shown, position, element.text)
+				offset = offset + element.length - 1
+				insertRecursive(shown, element.elements, position)
+			else
+				table.insert(shown, position, element)
 			end
 		end
 	end
 
-	ww_weights.rightPanel.scrollFrame.stats = stats
+	return offset
+end
+
+local function removeRecursive(shown, elements, start)
+	local offset = 0
+
+	for i, element in ipairs(elements) do
+		if element.name then
+			table.remove(shown, start)
+			if element.elements then
+				offset = offset + element.length - 1
+				removeRecursive(shown, element.elements, start)
+				element.text:Hide()
+			else
+				element:Hide()
+			end
+		end
+	end
+
+	return offset
+end
+
+function ww_toggleCollapse(frame)
+	local scrolledFrame = frame
+	while scrolledFrame and not scrolledFrame.shown do
+		scrolledFrame = scrolledFrame:GetParent()
+	end
+	if frame.collapsed then
+		local lengthChange = insertRecursive(scrolledFrame.shown, {frame:GetChildren()}, frame.position)
+		for _, element in ipairs({frame:GetChildren()}) do
+			if element.name then
+				table.insert(frame.elements, element)
+			end
+		end
+		lengthChange = #(frame.elements) + lengthChange - 1
+		frame.length = frame.length + lengthChange
+		frame.collapsed = false
+		frame:SetHeight(scrolledFrame.elementHeight * frame.length)
+		local parent = frame:GetParent()
+		while parent.length do
+			parent.length = parent.length + lengthChange
+			parent:SetHeight(scrolledFrame.elementHeight * parent.length)
+			parent = parent:GetParent()
+		end
+	else
+		local lengthChange = removeRecursive(scrolledFrame.shown, frame.elements, frame.position + 1)
+		lengthChange = #(frame.elements) + lengthChange - 1
+		frame.length = frame.length - lengthChange
+		frame.elements = {frame.text}
+		frame.collapsed = true
+		frame:SetHeight(scrolledFrame.elementHeight)
+		local parent = frame:GetParent()
+		while parent.length do
+			parent.length = parent.length - lengthChange
+			parent:SetHeight(scrolledFrame.elementHeight * parent.length)
+			parent = parent:GetParent()
+		end
+	end
+	for i, element in ipairs(scrolledFrame.shown) do
+		if element.position then
+			element.position = i
+		else
+			element:GetParent().position = i
+		end
+	end
+	scrolledFrame.scrollFrame:GetScript("OnShow")(scrolledFrame.scrollFrame)
+end
+
+local function loadStatButtons()
+	local metatable = {
+		__index = function(tbl, key)
+			local text = ww_statDisplayNames[ww_localizedStats[key]]
+			if not text and ww_stackingEquipEffects then
+				text = ww_triggerDisplayNames[key]
+			end
+			return text
+		end
+	}
+
+	createScrollableTieredList(ww_trackedStats, ww_weights.rightPanel.scrollFrame, ww_weights.rightPanel.scrollContainer, "ww_categoryFrame", "ww_statFrame", 22, setmetatable({}, metatable), 5)
+
+	local stats, triggers = {}, {}
+	for _, element in ipairs(ww_weights.rightPanel.scrollContainer.shown) do
+		if element.name then
+			if element.active then
+				table.insert(triggers, element)
+			else
+				table.insert(stats, element)
+				element.statName = element.name
+			end
+		end
+	end
+
+	ww_weights.rightPanel.scrollContainer.stats = stats
+	ww_weights.rightPanel.scrollContainer.triggers = triggers
 end
 
 -- initializes weights config frames and variables
 function ww_initializeWeightsConfig()
 	loadClassButtons()
 	loadStatButtons()
-end
-
-function ww_toggleCollapse(categoryFrame, scrollFrame)
-	if categoryFrame.length == 1 then
-		return
-	end
-	if categoryFrame.collapsed then
-		for i, stat in ipairs({categoryFrame:GetChildren()}) do
-			if stat.name then
-				table.insert(scrollFrame.shown, categoryFrame.position + i - 1, stat)
-			end
-		end
-		for _, category in ipairs(scrollFrame.categories) do
-			if category.position > categoryFrame.position then
-				category.position = category.position + categoryFrame.length - 1
-			end
-		end
-		categoryFrame.collapsed = false
-		categoryFrame:SetHeight(scrollFrame.elementHeight * categoryFrame.length)
-	else
-		for _, stat in ipairs({categoryFrame:GetChildren()}) do
-			if stat.name then
-				stat:Hide()
-				table.remove(scrollFrame.shown, categoryFrame.position + 1)
-			end
-		end
-		for _, category in ipairs(scrollFrame.categories) do
-			if category.position > categoryFrame.position then
-				category.position = category.position - categoryFrame.length + 1
-			end
-		end
-		categoryFrame.collapsed = true
-		categoryFrame:SetHeight(scrollFrame.elementHeight)
-	end
-	scrollFrame:GetScript("OnShow")(scrollFrame)
 end
 
 local function DropDownOnClick(choice, dropdown)

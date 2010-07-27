@@ -58,8 +58,8 @@
 			</Layer>
 		</Layers>
 	</Frame>
-	<!-- virtual frame used for categories in tiered lists -->
-	<Frame name="ww_categoryFrame" virtual="true">
+	<!-- virtual frame used for classes in tiered lists -->
+	<Frame name="ww_classFrame" virtual="true">
 		<Size>
 			<AbsDimension y="22"/>
 		</Size>
@@ -123,6 +123,71 @@
 			</Button>
 		</Frames>
 	</Frame>
+	<!-- virtual frame used for categories in tiered lists -->
+	<Frame name="ww_categoryFrame" virtual="true">
+		<Size>
+			<AbsDimension y="22"/>
+		</Size>
+		<Anchors>
+			<Anchor point="RIGHT"/>
+		</Anchors>
+		<Frames>
+			<Button name="$parentText" parentKey="text">
+				<Size>
+					<AbsDimension y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="0" y="-1"/>
+						</Offset>
+					</Anchor>
+					<Anchor point="RIGHT"/>
+				</Anchors>
+				<NormalTexture file="Interface\Buttons\UI-MinusButton-UP">
+					<Size>
+						<AbsDimension x="16" y="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT"/>
+					</Anchors>
+				</NormalTexture>
+				<PushedTexture file="Interface\Buttons\UI-MinusButton-DOWN">
+					<Size>
+						<AbsDimension x="16" y="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT"/>
+					</Anchors>
+				</PushedTexture>
+				<HighlightTexture file="Interface\Buttons\UI-PlusButton-Hilight" alphaMode="ADD">
+					<Size>
+						<AbsDimension x="16" y="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT"/>
+					</Anchors>
+				</HighlightTexture>
+				<Scripts>
+					<OnLoad>
+						local fontString = self:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+						fontString:SetPoint("LEFT", 20, 0)
+						self:SetFontString(fontString)
+					</OnLoad>
+					<OnClick>
+						ww_toggleCollapse(self:GetParent())
+						if self:GetParent().collapsed then
+							self:SetNormalTexture("Interface\\Buttons\\UI-PlusButton-UP")
+							self:SetPushedTexture("Interface\\Buttons\\UI-PlusButton-DOWN")
+						else
+							self:SetNormalTexture("Interface\\Buttons\\UI-MinusButton-UP")
+							self:SetPushedTexture("Interface\\Buttons\\UI-MinusButton-DOWN")
+						end
+					</OnClick>
+				</Scripts>
+			</Button>
+		</Frames>
+	</Frame>
 	<!--virtual frame used to allow for script generated frames with stat information-->
 	<Frame name="ww_statFrame" virtual="true">
 		<Size>
@@ -142,11 +207,7 @@
 						<AbsDimension y="20"/>
 					</Size>
 					<Anchors>
-						<Anchor point="LEFT">
-							<Offset>
-								<AbsDimension x="20"/>
-							</Offset>
-						</Anchor>
+						<Anchor point="LEFT"/>
 					</Anchors>
 				</FontString>
 			</Layer>
@@ -156,7 +217,7 @@
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>
-							<AbsDimension x="15" y="-1"/>
+							<AbsDimension x="-5" y="-1"/>
 						</Offset>
 					</Anchor>
 					<Anchor point="BOTTOMRIGHT">
@@ -268,11 +329,7 @@
 						<AbsDimension y="20"/>
 					</Size>
 					<Anchors>
-						<Anchor point="LEFT">
-							<Offset>
-								<AbsDimension x="40"/>
-							</Offset>
-						</Anchor>
+						<Anchor point="LEFT"/>
 					</Anchors>
 				</FontString>
 			</Layer>
@@ -283,9 +340,9 @@
 					<AbsDimension x="20" y="20"/>
 				</Size>
 				<Anchors>
-					<Anchor point="LEFT">
+					<Anchor point="RIGHT">
 						<Offset>
-							<AbsDimension x="20"/>
+							<AbsDimension x="-112"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -425,7 +482,7 @@
 	<!-- The frame containing all weight-related content -->
 	<Frame name="ww_weights" parent="UIParent" hidden="true" frameStrata="HIGH">
 		<Size>
-			<AbsDimension x="600" y="600"/>
+			<AbsDimension x="650" y="600"/>
 		</Size>
 		<Anchors>
 			<Anchor point="CENTER"/>
@@ -640,7 +697,7 @@
 				<Scripts>
 					<OnShow>
 						if not ww_weights.popup then
-							ww_changeFocus(self.scrollFrame.stats[#(self.scrollFrame.stats)])
+							ww_changeFocus(self.scrollContainer.stats[#(self.scrollContainer.stats)])
 						end
 					</OnShow>
 				</Scripts>

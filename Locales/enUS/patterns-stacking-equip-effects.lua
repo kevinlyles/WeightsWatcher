@@ -2,8 +2,6 @@ if GetLocale() ~= "enUS" then
 	return
 end
 
-ww_localization["Triggers"] = "Triggers"
-
 ww_triggerDisplayNames = {
 	["meleeDamage"] = "Melee damage dealt",
 	["rangedDamage"] = "Ranged damage dealt",
