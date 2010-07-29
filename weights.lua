@@ -423,8 +423,8 @@ local function loadClassButtons()
 			if weightFrame.name then
 				if ww_charVars.activeWeights[classFrame.class] then
 					for _, weight in ipairs(ww_charVars.activeWeights[classFrame.class]) do
-						used = true
 						if weight == weightFrame.name then
+							used = true
 							weightFrame.checkButton:SetChecked(true)
 							break
 						end
