@@ -553,17 +553,15 @@
 						<Size>
 							<AbsDimension x="80" y="22"/>
 						</Size>
-						<Anchors>
-							<Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parentSaveButton">
-								<Offset>
-									<AbsDimension x="27"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
 						<Scripts>
 							<OnClick>
 								ww_configNewWeight(self:GetParent().weightFrame.category.class, "Copy of " .. self:GetParent().weightFrame.name, self:GetParent().statList)
 							</OnClick>
+							<OnLoad>
+								local relTo = self:GetParent().saveButton
+								local _, _, _, relToXOffset = relTo:GetPoint(1)
+								self:SetPoint("CENTER", relTo, (self:GetParent():GetWidth() - self:GetWidth() - 2 * relToXOffset) / 3, 0)
+							</OnLoad>
 						</Scripts>
 					</Button>
 					<!--Reset button-->
@@ -589,17 +587,15 @@
 						<Size>
 							<AbsDimension x="80" y="22"/>
 						</Size>
-						<Anchors>
-							<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parentResetButton">
-								<Offset>
-									<AbsDimension x="-27"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
 						<Scripts>
 							<OnClick>
 								ww_configDeleteWeight()
 							</OnClick>
+							<OnLoad>
+								local relTo = self:GetParent().resetButton
+								local _, _, _, relToXOffset = relTo:GetPoint(1)
+								self:SetPoint("CENTER", relTo, (self:GetWidth() - 2 * relToXOffset - self:GetParent():GetWidth()) / 3, 0)
+							</OnLoad>
 						</Scripts>
 					</Button>
 					<!--used to hold a series of stat frames to maintain absolute position when scrolling-->
