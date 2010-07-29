@@ -283,7 +283,8 @@
 				</Anchors>
 				<Scripts>
 					<OnClick>
-						if self:GetChecked() == ww_weights.rightPanel.statList.triggers[self:GetText()] then
+						-- The nots convert things to boolean (instead of 1/nil)
+						if not self:GetChecked() == not ww_weights.rightPanel.statList.triggers[self:GetText()] then
 							ww_weights.rightPanel.changedTriggers[self] = nil
 							local changed = false
 							for _ in pairs(ww_weights.rightPanel.changedStats) do
