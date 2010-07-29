@@ -1,11 +1,11 @@
 ww_trackedStats = {
-	[1] = "General",
-	[2] = "Tanking",
-	[3] = "Melee",
-	[4] = "Caster",
-	[5] = "Meta Gem Stats",
-	[6] = "Resistances",
-	[7] = "Triggers",
+	"General",
+	"Tanking",
+	"Melee",
+	"Caster",
+	"Meta Gem Stats",
+	"Resistances",
+	"Triggers",
 	["General"] = {
 		"Stamina",
 		"Critical Strike Rating",
@@ -105,10 +105,10 @@ ww_triggerGroups = {
 }
 
 ww_triggerNames = {
-	[1] = "meleeDamage",
-	[2] = "rangedDamage",
-	[3] = "harmfulSpell",
-	[4] = "helpfulSpell",
+	"meleeDamage",
+	"rangedDamage",
+	"harmfulSpell",
+	"helpfulSpell",
 	["meleeDamage"] = "Melee damage dealt",
 	["rangedDamage"] = "Ranged damage dealt",
 	["harmfulSpell"] = "Harmful spell cast",
@@ -129,13 +129,13 @@ ww_classDisplayNames = {
 }
 
 ww_gemQualityNames = {
-	[1] = "Burning Crusade common",
-	[2] = "Burning Crusade uncommon",
-	[3] = "Burning Crusade rare",
-	[4] = "Burning Crusade epic",
-	[5] = "Wrath uncommon",
-	[6] = "Wrath rare",
-	[7] = "Wrath epic",
+	"Burning Crusade common",
+	"Burning Crusade uncommon",
+	"Burning Crusade rare",
+	"Burning Crusade epic",
+	"Wrath uncommon",
+	"Wrath rare",
+	"Wrath epic",
 }
 
 ww_statNames = {
@@ -197,17 +197,17 @@ ww_statNames = {
 }
 
 ww_keyDetectors = {
-	[1] = "Always",
-	[2] = "Never",
-	[3] = "Shift",
-	[4] = "Control",
-	[5] = "Alt",
-	[6] = "Left Shift",
-	[7] = "Right Shift",
-	[8] = "Left Control",
-	[9] = "Right Control",
-	[10] = "Left Alt",
-	[11] = "Right Alt",
+	"Always",
+	"Never",
+	"Shift",
+	"Control",
+	"Alt",
+	"Left Shift",
+	"Right Shift",
+	"Left Control",
+	"Right Control",
+	"Left Alt",
+	"Right Alt",
 	["Always"] = function() return true end,
 	["Never"] = function() return false end,
 	["Left Shift"] = IsLeftShiftKeyDown,
@@ -222,9 +222,9 @@ ww_keyDetectors = {
 }
 
 ww_classNameOptions = {
-	[1] = "Always",
-	[2] = "Others",
-	[3] = "Never",
+	"Always",
+	"Others",
+	"Never",
 	["Always"] = "Always",
 	["Others"] = "Other Classes",
 	["Never"] = "Never",
@@ -234,21 +234,21 @@ ww_defaultVars = {
 	dataMajorVersion = 1,
 	dataMinorVersion = 15,
 	weightsList = {
-		[1] = "DEATHKNIGHT",
-		[2] = "DRUID",
-		[3] = "HUNTER",
-		[4] = "MAGE",
-		[5] = "PALADIN",
-		[6] = "PRIEST",
-		[7] = "ROGUE",
-		[8] = "SHAMAN",
-		[9] = "WARLOCK",
-		[10] = "WARRIOR",
+		"DEATHKNIGHT",
+		"DRUID",
+		"HUNTER",
+		"MAGE",
+		"PALADIN",
+		"PRIEST",
+		"ROGUE",
+		"SHAMAN",
+		"WARLOCK",
+		"WARRIOR",
 		["DEATHKNIGHT"] = {
-			[1] = "Blood DPS",
-			[2] = "Frost DPS",
-			[3] = "Unholy DPS",
-			[4] = "Tank",
+			"Blood DPS",
+			"Frost DPS",
+			"Unholy DPS",
+			"Tank",
 			["Blood DPS"] = {
 				["dps"] = 360,
 				["armor penetration rating"] = 100,
@@ -311,10 +311,10 @@ ww_defaultVars = {
 			},
 		},
 		["DRUID"] = {
-			[1] = "Balance",
-			[2] = "Feral DPS",
-			[3] = "Feral Tank",
-			[4] = "Restoration",
+			"Balance",
+			"Feral DPS",
+			"Feral Tank",
+			"Restoration",
 			["Balance"] = {
 				["hit rating"] = 100,
 				["spell power"] = 66,
@@ -370,9 +370,9 @@ ww_defaultVars = {
 			},
 		},
 		["HUNTER"] = {
-			[1] = "Beast Mastery",
-			[2] = "Marksmanship",
-			[3] = "Survival",
+			"Beast Mastery",
+			"Marksmanship",
+			"Survival",
 			["Beast Mastery"] = {
 				["ranged dps"] = 213,
 				["hit rating"] = 100,
@@ -417,9 +417,9 @@ ww_defaultVars = {
 			},
 		},
 		["MAGE"] = {
-			[1] = "Arcane",
-			[2] = "Fire",
-			[3] = "Frost",
+			"Arcane",
+			"Fire",
+			"Frost",
 			["Arcane"] = {
 				["hit rating"] = 100,
 				["haste rating"] = 54,
@@ -462,9 +462,9 @@ ww_defaultVars = {
 			},
 		},
 		["PALADIN"] = {
-			[1] = "Holy",
-			[2] = "Protection",
-			[3] = "Retribution",
+			"Holy",
+			"Protection",
+			"Retribution",
 			["Holy"] = {
 				["intellect"] = 100,
 				["mp5"] = 88,
@@ -513,9 +513,9 @@ ww_defaultVars = {
 			},
 		},
 		["PRIEST"] = {
-			[1] = "Discipline",
-			[2] = "Holy",
-			[3] = "Shadow",
+			"Discipline",
+			"Holy",
+			"Shadow",
 			["Discipline"] = {
 				["spell power"] = 100,
 				["mp5"] = 67,
@@ -552,9 +552,9 @@ ww_defaultVars = {
 			},
 		},
 		["ROGUE"] = {
-			[1] = "Assassination",
-			[2] = "Combat",
-			[3] = "Subtlety",
+			"Assassination",
+			"Combat",
+			"Subtlety",
 			["Assassination"] = {
 				["dps"] = 170,
 				["agility"] = 100,
@@ -599,9 +599,9 @@ ww_defaultVars = {
 			},
 		},
 		["SHAMAN"] = {
-			[1] = "Elemental",
-			[2] = "Enhancement",
-			[3] = "Restoration",
+			"Elemental",
+			"Enhancement",
+			"Restoration",
 			["Elemental"] = {
 				["hit rating"] = 100,
 				["spell power"] = 60,
@@ -641,9 +641,9 @@ ww_defaultVars = {
 			},
 		},
 		["WARLOCK"] = {
-			[1] = "Affliction",
-			[2] = "Demonology",
-			[3] = "Destruction",
+			"Affliction",
+			"Demonology",
+			"Destruction",
 			["Affliction"] = {
 				["hit rating"] = 100,
 				["shadow spell damage"] = 72,
@@ -685,8 +685,8 @@ ww_defaultVars = {
 			},
 		},
 		["WARRIOR"] = {
-			[1] = "DPS",
-			[2] = "Protection",
+			"DPS",
+			"Protection",
 			["DPS"] = {
 				["expertise rating"] = 100,
 				["strength"] = 82,
