@@ -2,13 +2,13 @@ function ww_validateNumber(newChar, newText)
 	if string.find(newChar, "^%d$") then
 		return true
 	elseif newChar == '.' then
-		local first = newText:find("%.", 1, true)
-		local second = newText:find("%.", first + 1, true)
+		local first = newText:find(".", 1, true)
+		local second = newText:find(".", first + 1, true)
 		if not second then
 			return true
 		end
 	elseif newChar == '-' then
-		if not string.find(newText, "%-", 2) then
+		if not string.find(newText, "-", 2, true) then
 			return true
 		end
 	end
@@ -211,7 +211,7 @@ function ww_configSaveWeight()
 
 	if ww_weights.rightPanel.changedStats then
 		for statValue, statName in pairs(ww_weights.rightPanel.changedStats) do
-			number = statValue:GetNumber()
+			number = tonumber(statValue:GetText())
 			if number == 0 then
 				number = nil
 			end

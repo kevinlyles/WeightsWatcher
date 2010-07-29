@@ -187,10 +187,13 @@
 					</OnLoad>
 					<OnTextChanged>
 						local text = self:GetText()
-						if self:GetNumber() ~= 0 or text:match("^[0.]+$") or text == "" then
-							self.number = text
+						local number = tonumber(text)
+						if number then
+							self.number = number
+						elseif text:match("^[0.]*$") then
+							self.number = 0
 						end
-						if self:GetNumber() == ww_weights.rightPanel.statList[self:GetParent().statName] or (self:GetNumber() == 0 and not ww_weights.rightPanel.statList[self:GetParent().statName]) then
+						if number == ww_weights.rightPanel.statList[self:GetParent().statName] or (number == 0 and ww_weights.rightPanel.statList[self:GetParent().statName] == nil) then
 							ww_weights.rightPanel.changedStats[self] = nil
 							local changed = false
 							for _ in pairs(ww_weights.rightPanel.changedStats) do
@@ -213,7 +216,7 @@
 					</OnTextChanged>
 					<OnChar>
 						if ww_validateNumber(text, self:GetText()) then
-							self.number = self:GetText()
+							self.number = tonumber(self:GetText()) or 0
 						else
 							local cursorPosition = self:GetCursorPosition() - 1
 							self:SetText(self.number)
