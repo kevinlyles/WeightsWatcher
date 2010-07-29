@@ -204,9 +204,10 @@ ww_defaultVars = {
 		"WARRIOR",
 		["DEATHKNIGHT"] = {
 			ww_specNames["Blood DPS"],
+			ww_specNames["Blood Tank"],
 			ww_specNames["Frost DPS"],
+			ww_specNames["Frost Tank"],
 			ww_specNames["Unholy DPS"],
-			ww_specNames["Tank"],
 			[ww_specNames["Blood DPS"]] = {
 				["melee dps"] = 360,
 				["armor penetration rating"] = 100,
@@ -217,6 +218,25 @@ ww_defaultVars = {
 				["haste rating"] = 55,
 				["attack power"] = 36,
 				["armor"] = 1,
+				triggers = {
+					meleeDamage = true,
+				}
+			},
+			[ww_specNames["Blood Tank"]] = {
+				["melee dps"] = 500,
+				["stamina"] = 100,
+				["defense rating"] = 90,
+				["agility"] = 69,
+				["dodge rating"] = 50,
+				["parry rating"] = 43,
+				["expertise rating"] = 38,
+				["strength"] = 31,
+				["armor penetration rating"] = 26,
+				["critical strike rating"] = 22,
+				["armor"] = 18,
+				["hit rating"] = 16,
+				["haste rating"] = 16,
+				["attack power"] = 8,
 				triggers = {
 					meleeDamage = true,
 				}
@@ -235,21 +255,7 @@ ww_defaultVars = {
 					meleeDamage = true,
 				}
 			},
-			[ww_specNames["Unholy DPS"]] = {
-				["melee dps"] = 209,
-				["strength"] = 100,
-				["hit rating"] = 66,
-				["expertise rating"] = 51,
-				["haste rating"] = 48,
-				["critical strike rating"] = 45,
-				["attack power"] = 34,
-				["armor penetration rating"] = 32,
-				["armor"] = 1,
-				triggers = {
-					meleeDamage = true,
-				}
-			},
-			[ww_specNames["Tank"]] = {
+			[ww_specNames["Frost Tank"]] = {
 				["melee dps"] = 419,
 				["parry rating"] = 100,
 				["hit rating"] = 97,
@@ -263,6 +269,20 @@ ww_defaultVars = {
 				["attack power"] = 41,
 				["armor penetration rating"] = 31,
 				["armor"] = 5,
+				triggers = {
+					meleeDamage = true,
+				}
+			},
+			[ww_specNames["Unholy DPS"]] = {
+				["melee dps"] = 209,
+				["strength"] = 100,
+				["hit rating"] = 66,
+				["expertise rating"] = 51,
+				["haste rating"] = 48,
+				["critical strike rating"] = 45,
+				["attack power"] = 34,
+				["armor penetration rating"] = 32,
+				["armor"] = 1,
 				triggers = {
 					meleeDamage = true,
 				}
@@ -399,8 +419,8 @@ ww_defaultVars = {
 				["critical strike rating"] = 37,
 				["spell critical strike rating"] = 37,
 				["intellect"] = 34,
-				["frost spell damage"] = 49,
-				["fire spell damage"] = 49,
+				["frost spell damage"] = 24,
+				["fire spell damage"] = 24,
 				["spirit"] = 14,
 				triggers = {
 					harmfulSpell = true,
@@ -454,19 +474,15 @@ ww_defaultVars = {
 			},
 			[ww_specNames["Protection"]] = {
 				["stamina"] = 100,
-				["dodge rating"] = 94,
-				["block value"] = 86,
-				["defense rating"] = 86,
-				["expertise rating"] = 79,
-				["agility"] = 76,
-				["parry rating"] = 76,
-				["hit rating"] = 58,
-				["block rating"] = 52,
-				["strength"] = 50,
-				["armor"] = 6,
-				["attack power"] = 6,
-				["spell power"] = 4,
-				["critical strike rating"] = 3,
+				["agility"] = 60,
+				["expertise rating"] = 59,
+				["dodge rating"] = 55,
+				["defense rating"] = 45,
+				["parry rating"] = 30,
+				["strength"] = 16,
+				["armor"] = 8,
+				["block rating"] = 7,
+				["block value"] = 6,
 				triggers = {
 					harmfulSpell = true,
 					meleeDamage = true,
@@ -675,9 +691,24 @@ ww_defaultVars = {
 			},
 		},
 		["WARRIOR"] = {
-			ww_specNames["DPS"],
+			ww_specNames["Arms"],
+			ww_specNames["Fury"],
 			ww_specNames["Protection"],
-			[ww_specNames["DPS"]] = {
+			[ww_specNames["Arms"]] = {
+				["strength"] = 100,
+				["hit rating"] = 90,
+				["expertise rating"] = 85,
+				["critical strike rating"] = 80,
+				["agility"] = 65,
+				["armor penetration rating"] = 65,
+				["haste rating"] = 50,
+				["attack power"] = 45,
+				["armor"] = 1,
+				triggers = {
+					meleeDamage = true,
+				}
+			},
+			[ww_specNames["Fury"]] = {
 				["expertise rating"] = 100,
 				["strength"] = 82,
 				["critical strike rating"] = 66,
