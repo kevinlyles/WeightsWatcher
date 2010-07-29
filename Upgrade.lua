@@ -56,9 +56,9 @@ end
 local function upgradeAccountToFixStunResistChance(vars)
 	for _, class in ipairs(vars.weightsList) do
 		for _, weight in ipairs(vars.weightsList[class]) do
-			if weight["stun resistance (percent)"] ~= nil then
-				weight["stun resist chance (percent)"] = weight["stun resistance (percent)"]
-				weight["stun resistance (percent)"] = nil
+			if vars.weightsList[class][weight]["stun resist chance (percent)"] == nil then
+				vars.weightsList[class][weight]["stun resist chance (percent)"] = vars.weightsList[class][weight]["stun resistance (percent)"]
+				vars.weightsList[class][weight]["stun resistance (percent)"] = nil
 			end
 		end
 	end
@@ -67,13 +67,20 @@ local function upgradeAccountToFixStunResistChance(vars)
 	return vars
 end
 
+local function FixStunResistChance(vars)
+	vars = upgradeAccountToFixStunResistChance(vars)
+
+	vars.dataMinorVersion = 15
+	return vars
+end
+
 local downgradeAccountFromFixStunResistChance = [[
 	return function(vars)
 		for _, class in ipairs(vars.weightsList) do
 			for _, weight in ipairs(vars.weightsList[class]) do
-				if weight["stun resist chance (percent)"] ~= nil then
-					weight["stun resistance (percent)"] = weight["stun resist chance (percent)"]
-					weight["stun resist chance (percent)"] = nil
+				if vars.weightsList[class][weight]["stun resistance (percent)"] == nil then
+					vars.weightsList[class][weight]["stun resistance (percent)"] = vars.weightsList[class][weight]["stun resist chance (percent)"]
+					vars.weightsList[class][weight]["stun resist chance (percent)"] = nil
 				end
 			end
 		end
@@ -818,6 +825,7 @@ local upgradeAccountFunctions = {
 		[11] = upgradeAccountToTriggers,
 		[12] = upgradeAccountToDebugKey,
 		[13] = upgradeAccountToFixStunResistChance,
+		[14] = FixStunResistChance,
 	},
 }
 
@@ -849,6 +857,7 @@ local downgradeAccountFunctions = {
 		[12] = downgradeAccountFromTriggers,
 		[13] = noop_down,
 		[14] = downgradeAccountFromFixStunResistChance,
+		[15] = noop_down,
 	},
 }
 
