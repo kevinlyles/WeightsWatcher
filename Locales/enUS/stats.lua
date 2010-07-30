@@ -202,4 +202,5 @@ ww_statCategories = {
 	["Resistances"] = "Resistances",
 	["Professions"] = "Professions",
 	["Miscellaneous"] = "Miscellaneous",
+	["Enchant/Meta Gem Effects"] = "Enchant/Meta Gem Effects",
 }
