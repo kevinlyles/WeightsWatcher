@@ -20,6 +20,7 @@ L["weights"] = "weights"
 L["DECIMAL_SEPARATOR"] = "."
 
 -- config.xml
+L["CONFIG_TITLE"] = "WeightsWatcher Configuration"
 L["CALC_OPTS"] = "Calculation Options"
 L["USE_UE_GEMS_TT"] = "Consider gems that are Unique-Equipped"
 L["USE_UE_GEMS"] = "Use Unique-Equipped Gems"
@@ -58,6 +59,7 @@ L["SHOW_DIFF"] = "Show differences to current gear"
 L["SHOW_DIFF_TT"] = "Shows the change in score compared to the currently equipped gear"
 
 -- weights.xml
+L["WEIGHTS_TITLE"] = "WeightsWatcher Weight Values"
 L["WATCH_TT"] = "Watch this weight?"
 L["Save"] = "Save"
 L["Copy"] = "Copy"

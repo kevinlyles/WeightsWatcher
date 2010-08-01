@@ -488,6 +488,17 @@
 			<Anchor point="CENTER"/>
 		</Anchors>
 		<Layers>
+			<Layer level="OVERLAY">
+				<FontString name="$parentTitle" parentKey="title" inherits="GameFontNormalLarge" text="WEIGHTS_TITLE">
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension y="-5"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
 			<Layer level="BACKGROUND">
 				<Texture setAllPoints="true">
 					<!--Plain black background with 50% alpha-->
@@ -745,6 +756,7 @@
 		</Frames>
 		<Scripts>
 			<OnLoad>
+				self.title:SetText(ww_localization[self.title:GetText()])
 				table.insert(UISpecialFrames, self:GetName());
 			</OnLoad>
 			<OnHide>
