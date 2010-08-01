@@ -122,15 +122,12 @@ ww_weightIdealCacheWeightMetatable = {
 		end
 
 		local itemStats = ww_bareItemCache[key]
-		local socketBonusWeight = 0
-		for stat, value in pairs(itemStats.socketBonusStat) do
-			socketBonusWeight = socketBonusWeight + (tbl.weight[stat] or 0) * value
-		end
+		local socketBonusWeight = WeightsWatcher.calculateWeight({normalStats = {}, socketBonusStat = itemStats.socketBonusStat}, {socketBonusActive = socketBonusActive, gemStats = {}}, tbl.weight)
 		local breakSocketColors = ww_vars.options.gems.breakSocketColors or (not ww_vars.options.gems.neverBreakSocketColors and socketBonusWeight <= 0)
 
 		local socketBonusActive = true
 		local bestGems, bestGemsIgnoreSocket = {}, {}
-		local gemScore, gemScoreIgnoreSocket = 0, 0
+		local gemScore, gemScoreIgnoreSocket = socketBonusWeight, 0
 		for _, color in pairs(itemStats.sockets) do
 			table.insert(bestGems, tbl.bestGems[color])
 			gemScore = gemScore + tbl.bestGems[color .. "Score"]
@@ -140,7 +137,6 @@ ww_weightIdealCacheWeightMetatable = {
 			end
 		end
 		gemStats = WeightsWatcher.getGemStats(bestGems)
-		gemScore = gemScore + socketBonusWeight
 		if breakSocketColors then
 			if gemScore < gemScoreIgnoreSocket then
 				socketBonusActive = false
