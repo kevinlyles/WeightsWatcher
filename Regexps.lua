@@ -831,8 +831,6 @@ ww_MultipleStatLines = {
 				stat3 = WeightsWatcher.singleStat(stat3, section)
 				if stat1 and stat2 and stat3 then
 					return stat1.stats + stat2.stats + stat3.stats
-				else
-					ww_unparsed_lines[text][pattern].parsedTo = {stat1, stat2, stat3}
 				end
 			end
 		end,
