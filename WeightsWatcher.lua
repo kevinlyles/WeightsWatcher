@@ -569,6 +569,43 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 			end
 		end
 
+		local start, ttleft, origTextL, textL
+		local numUnweightedEffects = 0
+		-- Skip item name and "currently equipped"
+		if WeightsWatcherHiddenTooltipTextLeft1:GetText() == CURRENTLY_EQUIPPED then
+			start = 3
+		else
+			start = 2
+		end
+
+		for i = start, tooltip:NumLines() do
+			ttleft = getglobal(ttname .. "TextLeft" .. i)
+			origTextL = ttleft:GetText()
+			textL = WeightsWatcher.preprocess(origTextL:lower())
+			if rawget(ww_unparsed_lines, textL) then
+				if showDebugInfo then
+					ttleft:SetText(origTextL .. " |cffff00ff(U)|r")
+				else
+					ttleft:SetText(origTextL .. " |cffff0000*|r")
+				end
+				numUnweightedEffects = numUnweightedEffects + 1
+			elseif rawget(ww_ignored_lines, textL) then
+				if showDebugInfo then
+					ttleft:SetText(origTextL .. " |cffffff00(I)|r")
+				end
+			elseif rawget(ww_temp_ignored_lines, textL) then
+				if showDebugInfo then
+					ttleft:SetText(origTextL .. " |cffffff00(TI)|r")
+				end
+			elseif rawget(ww_unweighted_lines, textL) then
+				ttleft:SetText(origTextL .. " |cffff0000*|r")
+				numUnweightedEffects = numUnweightedEffects + 1
+			end
+		end
+		if numUnweightedEffects > 0 then
+			tooltip:AddLine("|cffff0000* indicates unweighted effects|r (" .. numUnweightedEffects .. " total)")
+		end
+
 		if showDebugInfo then
 			for name, value in pairs(bareItemInfo.nonStats) do
 				if value == true then
@@ -695,43 +732,6 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 					end
 				end
 			end
-		end
-
-		local start, ttleft, origTextL, textL
-		local numUnweightedEffects = 0
-		-- Skip item name and "currently equipped"
-		if WeightsWatcherHiddenTooltipTextLeft1:GetText() == CURRENTLY_EQUIPPED then
-			start = 3
-		else
-			start = 2
-		end
-
-		for i = start, tooltip:NumLines() do
-			ttleft = getglobal(ttname .. "TextLeft" .. i)
-			origTextL = ttleft:GetText()
-			textL = WeightsWatcher.preprocess(origTextL:lower())
-			if rawget(ww_unparsed_lines, textL) then
-				if showDebugInfo then
-					ttleft:SetText(origTextL .. " |cffff00ff(U)|r")
-				else
-					ttleft:SetText(origTextL .. " |cffff0000*|r")
-				end
-				numUnweightedEffects = numUnweightedEffects + 1
-			elseif rawget(ww_ignored_lines, textL) then
-				if showDebugInfo then
-					ttleft:SetText(origTextL .. " |cffffff00(I)|r")
-				end
-			elseif rawget(ww_temp_ignored_lines, textL) then
-				if showDebugInfo then
-					ttleft:SetText(origTextL .. " |cffffff00(TI)|r")
-				end
-			elseif rawget(ww_unweighted_lines, textL) then
-				ttleft:SetText(origTextL .. " |cffff0000*|r")
-				numUnweightedEffects = numUnweightedEffects + 1
-			end
-		end
-		if numUnweightedEffects > 0 then
-			tooltip:AddLine("|cffff0000* indicates unweighted effects|r (" .. numUnweightedEffects .. " total)")
 		end
 
 		if not ww_vars.options.tooltip.hideHints then
