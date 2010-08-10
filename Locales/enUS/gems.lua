@@ -582,3 +582,24 @@ ww_gemColorDisplayNames = {
 	["yellow"] = "Yellow",
 	["N/A"] = "N/A",
 }
+
+ww_localizedSocketColors = {
+	["blue"] = "blue",
+	["meta"] = "meta",
+	["prismatic"] = "prismatic",
+	["red"] = "red",
+	["yellow"] = "yellow",
+}
+
+ww_englishSocketColors = {}
+for k, v in pairs(ww_localizedSocketColors) do
+	ww_englishSocketColors[v] = k
+end
+
+ww_socketColorDisplayNames = {
+	[ww_localizedSocketColors["blue"]] = "Blue",
+	[ww_localizedSocketColors["meta"]] = "Meta",
+	[ww_localizedSocketColors["prismatic"]] = "Prismatic",
+	[ww_localizedSocketColors["red"]] = "Red",
+	[ww_localizedSocketColors["yellow"]] = "Yellow",
+}

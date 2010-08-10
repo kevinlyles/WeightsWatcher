@@ -55,7 +55,7 @@ ww_itemCacheMetatable = {
 		if #(sockets) > 0 then
 			socketBonusActive = true
 			for i = 1, #(sockets) do
-				if not gemStats[i] or not WeightsWatcher.matchesSocket(gemStats[i][1][1], sockets[i]) then
+				if not gemStats[i] or not WeightsWatcher.matchesSocket(gemStats[i][1][1], ww_englishSocketColors[sockets[i]]) then
 					socketBonusActive = false
 					break
 				end
@@ -129,6 +129,7 @@ ww_weightIdealCacheWeightMetatable = {
 		local bestGems, bestGemsIgnoreSocket = {}, {}
 		local gemScore, gemScoreIgnoreSocket = socketBonusWeight, 0
 		for _, color in pairs(itemStats.sockets) do
+			color = ww_englishSocketColors[color]
 			table.insert(bestGems, tbl.bestGems[color])
 			gemScore = gemScore + tbl.bestGems[color .. "Score"]
 			if breakSocketColors and color ~= "meta" then
@@ -638,7 +639,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 			if #(bareItemInfo.sockets) > 0 then
 				tooltip:AddLine("Sockets:")
 				for _, stat in pairs(bareItemInfo.sockets) do
-					tooltip:AddLine("  " .. stat)
+					tooltip:AddLine("  " .. ww_socketColorDisplayNames[stat])
 				end
 				if bareItemInfo.socketBonusStat then
 					if itemInfo.socketBonusActive then
