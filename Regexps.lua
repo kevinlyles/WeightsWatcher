@@ -207,7 +207,7 @@ local EquipStatsAffixes = {
 local EnchantMatchLines = {
 	"^use: permanently ",
 	"^use: teaches you how to permanently enchant ",
-	"^use: attach",
+	"^use: attaches ",
 	"^use: enchants? ",
 }
 
