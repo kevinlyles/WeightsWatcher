@@ -983,7 +983,7 @@ function WeightsWatcher.getGemStats(...)
 	return statTable
 end
 
-function WeightsWatcher.parseLine(textL, textR, link)
+local function parseLineUnchecked(textL, textR, link)
 	for _, regex in ipairs(ww_IgnoredLines) do
 		if string.find(textL, regex) then
 			ww_ignored_lines[textL][regex] = true
@@ -1037,6 +1037,55 @@ function WeightsWatcher.parseLine(textL, textR, link)
 	end
 
 	ww_unparsed_lines[textL][link] = true
+end
+
+function WeightsWatcher.parseLine(textL, textR, link)
+	local stats = parseLineUnchecked(textL, textR, link)
+
+	if not stats then
+		return
+	end
+
+	if stats.stats then
+		for stat, value in pairs(stats.stats) do
+			if not ww_statDisplayNames[stat] and not ww_ignoredInvalidStats[ww_englishStats[stat]] then
+				return
+			end
+		end
+	end
+	if stats.info then
+		for name, value in pairs(stats.info) do
+			if (name == "slot" or name == "subslot") and not ww_slotDisplayNames[ww_englishSlotNames[value]] then
+				return
+			end
+		end
+	end
+	if stats.socket then
+		if not ww_socketColorDisplayNames[stats.socket] then
+			return
+		end
+	end
+	if stats.socketBonusStat then
+		for stat, value in pairs(stats.socketBonusStat) do
+			if not ww_statDisplayNames[stat] and not ww_ignoredInvalidStats[ww_englishStats[stat]] then
+				return
+			end
+		end
+	end
+	if stats.useEffect then
+		if not ww_statDisplayNames[stats.useEffect.stat] and not ww_ignoredInvalidStats[ww_englishStats[stats.useEffect.stat]] then
+			return
+		end
+	end
+	if stats.stackingEquipEffects then
+		for i, effect in ipairs(stats.stackingEquipEffects) do
+			if not ww_statDisplayNames[effect.stat] and not ww_ignoredInvalidStats[ww_englishStats[effect.stat]] then
+				return
+			end
+		end
+	end
+
+	return stats
 end
 
 local rangedConversions = {
