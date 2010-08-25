@@ -90,7 +90,7 @@ ww_trackedStats = {
 		["Nature"] = "nature resistance",
 		["Shadow"] = "shadow resistance",
 	},
-	["Triggers"] = {}
+	["Triggers"] = {},
 }
 
 ww_triggerGroups = {
