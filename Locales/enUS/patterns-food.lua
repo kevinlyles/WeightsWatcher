@@ -30,7 +30,10 @@ local FoodPreprocessLines = {
 	{" of your (%a+) ", " %1 "},
 	{" every seco?n?d? for ", " over "},
 	{" per seco?n?d? for ", " over "},
+	{" reduces ", " decreases "},
 	{", but decreases ", " and decreases "},
+	{" all stats are reduced by ", " decreases all stats by "},
+	{" resistance to all schools of magic ", " all resistances "},
 }
 
 local FoodAffixes = {
