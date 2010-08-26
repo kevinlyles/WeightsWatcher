@@ -7,6 +7,12 @@ ww_localization["IDEAL_USE_UPTIME"] = "Percent of ideal use effect uptime:"
 local CooldownUseMatchLines = {
 	"^use: grants? .* cooldown%)$",
 	"^use: increases? .* cooldown%)$",
+	"^use: restores .* every .* cooldown%)$",
+}
+
+local CooldownUseUnweightedLines = {
+	" party members ",
+	" damage taken ",
 }
 
 local CooldownUsePreprocessLines = {
@@ -18,22 +24,39 @@ local CooldownUsePreprocessLines = {
 	{" (shadow spell) power ", " %1 damage "},
 	{" your stats ", " all stats "},
 	{" dodge by ", " dodge rating by "},
+	{" the block value of your shield ", " block value "},
+	{" resistances to all schools of magic ", " all resistances "},
+	{" by up t?o? ?", " by "},
+	{"%. +effect lasts ", " "},
+	{"%. +lasts ", " for "},
+	{" and increases ", " and "},
+	{" and your ", " and "},
+	-- item 20512
+	{" critical strike rating and spell critical strike rating ", " critical strike rating "},
+	{" melee and ranged attack power ", " attack power "},
+	-- item 12450
+	{" spell, ranged,? and melee haste rating ", " haste rating "},
 }
 
 local CooldownUseAffixes = {
 	"^use: +",
 	"^grants? +",
 	"^increases? +",
+	"^restores +",
 	"^your +",
 	"^the target's +",
 	"^maximum +",
+	" +shares cooldown with o?t?h?e?r? ?battlemaster's trinkets%.",
+	-- item 12459
+	" +guardian elixir%.",
+	-- item 12450
+	" +battle elixir%.",
+	-- item 19341
+	" +after the effects wear off, you will lose the extra maximum health%.",
 }
 
 local function useEffect(text, section)
-	local start, _, stat, duration, cooldown = string.find(text, "^(%a+ ?%a+ ?%a+ ?%a+ ?%a* ?%a* by [+-]?%d+) for (%d+ %a+ ?%d* ?%a*)%. +%((%d+ %a+ ?%d* ?%a*) cooldown%)$")
-	if not start then
-		start, _, stat, duration, cooldown = string.find(text, "^([+-]?%d+ %a+ ?%a+ ?%a+ ?%a+ ?%a* ?%a*) for (%d+ %a+ ?%d* ?%a*)%. +%((%d+ %a+ ?%d* ?%a*) cooldown%)$")
-	end
+	local start, _, stat, duration, cooldown = string.find(text, "^([%a%d, +-]+) for (%d+ %a+ ?%d* ?%a*)%. +%((%d+ %a+ ?%d* ?%a*) cooldown%)$")
 	if start then
 		cooldown = WeightsWatcher.convertToSeconds(cooldown)
 		duration = WeightsWatcher.convertToSeconds(duration)
@@ -56,4 +79,4 @@ local function cooldownUseEffect(text, section)
 	end
 end
 
-ww_cooldownUseEffects = {CooldownUseMatchLines, {}, {}, CooldownUsePreprocessLines, CooldownUseAffixes, cooldownUseEffect, "cooldownUseEffect"}
+ww_cooldownUseEffects = {CooldownUseMatchLines, {}, CooldownUseUnweightedLines, CooldownUsePreprocessLines, CooldownUseAffixes, cooldownUseEffect, "cooldownUseEffect"}
