@@ -526,8 +526,7 @@ ww_SingleStatLines = {
 	{"^([+-]?%d+) (%a[%a ]+ rating)$", WeightsWatcher.statNumFirst, {"elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "useEffect"}},
 	{"^([+-]?%d+) (attack power)$", WeightsWatcher.statNumFirst, {"elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "stackingEquipEffect", "useEffect"}},
 	{"^([+-]?%d+) (spell power)$", WeightsWatcher.statNumFirst, {"elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "stackingEquipEffect", "useEffect"}},
-	{"^([+-]?%d+) (%a+ resistance)$", WeightsWatcher.statNumFirst, {"enchant", "generic", "useEffect"}},
-	{"^([+-]?%d+) (all resistances)$", WeightsWatcher.statNumFirst, {"enchant", "equipEffect", "useEffect"}},
+	{"^([+-]?%d+) (%a+ resistances?)$", WeightsWatcher.statNumFirst, {"enchant", "equipEffect", "generic", "useEffect"}},
 	{"^([+-]?%d+) resist all$",
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "all resistances")
