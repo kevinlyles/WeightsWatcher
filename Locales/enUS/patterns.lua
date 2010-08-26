@@ -517,7 +517,7 @@ ww_SingleStatLines = {
 		end,
 		{"generic"},
 	},
-	{"^([+-]?%d+) mana %a+ 5 seco?n?d?s?%.?$",
+	{"^([+-]?%d+) mana [ep]v?ery? 5 seco?n?d?s?%.?$",
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "mp5")
 		end,
@@ -547,7 +547,7 @@ ww_SingleStatLines = {
 		{"generic"},
 	},
 	{"^([+-]?%d+) (block value)$", WeightsWatcher.statNumFirst, {"enchant", "socketBonus"}},
-	{"^([+-]?%d+) health %a+ 5 seco?n?d?s?%.?$",
+	{"^([+-]?%d+) health [ep]v?ery? 5 seco?n?d?s?%.?$",
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "hp5")
 		end,
