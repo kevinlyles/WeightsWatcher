@@ -9,6 +9,7 @@ local FishingMatchLines = {
 local FishingPreProcessLines = {
 	{" skill increased ", " "},
 	{" for 10 min%. %(10 min cooldown%)$", ""},
+	{" skill by ", " by "},
 }
 
 local FishingAffixes = {

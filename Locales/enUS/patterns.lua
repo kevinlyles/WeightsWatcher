@@ -396,8 +396,7 @@ ww_SingleStatLines = {
 	},
 
 	-- profession skills
-	{"^(fishing) skill by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"fishing"}},
-	{"^(fishing) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "fishing", "food", "generic", "socketBonus", "useEffect"}},
+	{"^(fishing) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "fishing", "food", "generic", "useEffect"}},
 	{"^(herbalism) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "equipEffect"}},
 	{"^(mining) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "equipEffect"}},
 	{"^(skinning) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "equipEffect"}},
