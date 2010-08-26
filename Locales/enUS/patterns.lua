@@ -353,7 +353,7 @@ ww_SingleStatLines = {
 	{"^([+-]?%d+) (spirit)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "stackingEquipEffect", "useEffect"}},
 	{"^([+-]?%d+) (stamina)$", WeightsWatcher.statNumFirst, {"elixir", "enchant", "food", "generic", "socketBonus", "useEffect"}},
 	{"^([+-]?%d+) (strength)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "food", "generic", "socketBonus", "useEffect"}},
-	{"^([+-]?%d+) (health)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect"}},
+	{"^([+-]?%d+) (health)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir"}},
 
 
 	{"^the (block value) of your shield by (%d+)$", WeightsWatcher.statNameFirst, {"equipEffect"}},
@@ -375,12 +375,6 @@ ww_SingleStatLines = {
 			end
 		end,
 		{"food"},
-	},
-	{"^resistance to all schools of magic by ([+-]?%d+)$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "all resistances")
-		end,
-		{"elixir"},
 	},
 	{"^(%a+ spell )power by ([+-]?%d+)$",
 		function(text, pattern)
@@ -471,7 +465,7 @@ ww_SingleStatLines = {
 
 	-- profession skills
 	{"^(fishing) skill by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "fishing"}},
-	{"^(fishing) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"elixir", "enchant", "equipEffect", "fishing", "food", "generic", "socketBonus", "useEffect"}},
+	{"^(fishing) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "equipEffect", "fishing", "food", "generic", "socketBonus", "useEffect"}},
 	{"^(herbalism) skill by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant"}},
 	{"^(mining) skill by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant"}},
 	{"^(skinning) skill by (%d+)$", WeightsWatcher.statNameFirst, {"enchant"}},
@@ -543,7 +537,7 @@ ww_SingleStatLines = {
 	{"^([+-]?%d+) (%a[%a ]+ rating)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "useEffect"}},
 	{"^([+-]?%d+) (attack power)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "stackingEquipEffect", "useEffect"}},
 	{"^([+-]?%d+) (spell power)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "stackingEquipEffect", "useEffect"}},
-	{"^([+-]?%d+) (%a+ resistances?)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "enchant", "equipEffect", "generic", "useEffect"}},
+	{"^([+-]?%d+) (%a+ resistances?)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "generic", "useEffect"}},
 	{"^([+-]?%d+) resist all$",
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "all resistances")
