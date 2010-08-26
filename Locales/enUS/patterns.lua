@@ -333,7 +333,7 @@ ww_SingleStatLines = {
 	{"^([+-]?%d+) (spirit)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "stackingEquipEffect", "useEffect"}},
 	{"^([+-]?%d+) (stamina)$", WeightsWatcher.statNumFirst, {"elixir", "enchant", "food", "generic", "socketBonus", "useEffect"}},
 	{"^([+-]?%d+) (strength)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "food", "generic", "socketBonus", "useEffect"}},
-	{"^([+-]?%d+) (health)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant"}},
+	{"^([+-]?%d+) (health)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "useEffect"}},
 	{"^([+-]?%d+) (mana)$", WeightsWatcher.statNumFirst, {"enchant"}},
 
 	{"^(%a+ spell )power by ([+-]?%d+)$",
@@ -374,23 +374,11 @@ ww_SingleStatLines = {
 	},
 
 	-- profession skills
-	{"^(fishing) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "fishing", "useEffect"}},
+	{"^(fishing) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "fishing"}},
 	{"^(herbalism) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "equipEffect"}},
 	{"^(mining) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "equipEffect"}},
 	{"^(skinning) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "equipEffect"}},
 
-	{"^reduces? (%a[%a ]+) by (%d+)$",
-		function(text, pattern, section)
-			local start, _, name, value = string.find(text, pattern)
-			if start then
-				local stats = WeightsWatcher.parseStats("-" .. value .. " " .. name, section)
-				if stats then
-					return stats.stats
-				end
-			end
-		end,
-		{"useEffect"},
-	},
 	{"^decreases? (%a[%a ]+) by (%d+)$",
 		function(text, pattern, section)
 			local start, _, name, value = string.find(text, pattern)

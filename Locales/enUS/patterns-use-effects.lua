@@ -17,6 +17,7 @@ local UseEffectIgnoreLines = {
 	"^use: throw into ",
 	"^use: a strangely glowing alcoholic beverage",
 	"^use: instantly restores ",
+	"^use: reduces ",
 }
 
 local UseEffectUnweightedLines = {
@@ -49,6 +50,7 @@ local UseEffectAffixes = {
 	" +1 hour%.$",
 	" +for$",
 	" +lasts$",
+	" +and attracts those wearing %a+%.$",
 	" +for all party and raid members$",
 	"%.$",
 }
