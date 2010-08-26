@@ -15,19 +15,42 @@ local EnchantUnweightedLines = {
 	" often ",
 	" damage to ",
 	" occasionally ",
+	" against ",
 }
 
 local EnchantPreprocessLines = {
 	{" socket ", " prismatic socket "},
 	{" and increase?i?n?g? ", " and "},
 	{" and your ", " and "},
+	-- item 23547
+	{" and restore ", " and "},
 	{" melee weapon to do (%d+) additional points? of damage", " %1 melee damage"},
 	{" armor value ", " armor "},
+	{" additional ", " "},
 	{" a slight movement speed increase", " a minor movement speed increase"},
-	{"^use: attaches a permanent scope to a bow or gun that increases its damage by ", "increases ranged weapon damage by "},
+	{"^use: attaches a permanent scope to a bow or gun that increases its damage by ", "increases ranged damage by "},
 	{" resistance to (%a+) by ", " %1 resistance by "},
 	{" resistance to all schools of magic by ", " all resistances by "},
+	-- items 18182 and 29187
+	{" resistance to all magic schools ", " all resistances "},
 	{" to all ", " all "},
+	{" skill by ", " by "},
+	-- item 19782
+	{" shield block ", " block "},
+	{" resist ", " resistance "},
+	-- item 23548
+	{" attacker power ", " attack power "},
+	-- item 20076
+	{" adds to a shoulder slot item increased ", " "},
+	{" resilience by ", " resilience rating by "},
+	{" mounted movement speed ", " mount speed "},
+	{" stealth slightly ", " effective stealth level by 1 "},
+	{" stealth%.$", " effective stealth level by 1"},
+	{" decrease threat from all attacks and spells ", " reduced threat "},
+	{" from all attacks and spells ", " caused "},
+	{" reduce threat slightly ", " 2%% reduced threat "},
+	{" a minor movement speed ", " minor run speed "},
+	{" reducing the duration of disarm effects by ", " disarm duration reduced by "},
 }
 
 local EnchantAffixes = {
@@ -55,6 +78,7 @@ local EnchantAffixes = {
 	"^weapon +",
 	"^staff +",
 	"^ring +",
+	"^shoulder slot item +",
 
 	"^%a+ l?e?g? ?armor onto pants +",
 	"^embroiders spellthread into pants, +",
@@ -92,12 +116,15 @@ local EnchantAffixes = {
 	" +only the enchanter's rings can be enchanted,? and enchanting a ring will cause it to become soulbound%.$",
 	-- TODO: flag this somehow and handle it in scoring
 	" +does not stack with other similar effects%.",
+	" +does not stack with other enchantments for the selected equipment slot%.",
 
 	"^eternal belt buckle onto a belt, adding a +",
 	" +to the belt%.$",
+	" +to shoulder armor%.$",
 	" +t?of? an item worn on the %a[%a ,]+ or %a+",
+	" +to a %a[%a ,]+ slot item%.?$",
 	" +on a pair of gloves",
-	"additional points? of +",
+	"points of +",
 	"^mana regeneration by +",
 
 	"%.$",
