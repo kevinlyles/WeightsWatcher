@@ -3,17 +3,11 @@ if GetLocale() ~= "enUS" then
 end
 
 local EquipStatsMatchLines = {
-	"^equip: increases [^t].* by ",
-	"^equip: increases your effective stealth level",
-	"^equip: increases effective stealth level",
-	"^equip: improves [^t].* by ",
-	"^equip: restores ",
-	"^equip: increases the block value of your shield by ",
-	"^equip: [+-]?%d+ all resistances%.$",
-	"^equip: [+-]?%d+ armor%.$",
+	"^equip: ",
 }
 
 local EquipStatsUnweightedLines = {
+	"^equip: reduces ",
 	" when fighting ",
 	" spell power of ",
 	" pet[' ]",
@@ -25,7 +19,15 @@ local EquipStatsUnweightedLines = {
 }
 
 local EquipStatsPreprocessLines = {
-	{" effective stealth level%.$", " effective stealth level by 1."},
+	{" the block value of your shield ", " block value "},
+	{" shield block rating ", " block rating "},
+	{" effective stealth level%.$", " effective stealth level by 1"},
+	{" stealth slightly%.$", " effective stealth level by 1"},
+	{" run speed increased slightly%.$", " minor run speed increase"},
+	{" %+(%d+%%) stun resistance%.$", " chance to resist stun effects by %1"},
+	{" herbalism ", " herbalism by "},
+	{" mining ", " mining by "},
+	{" skinning ", " skinning by "},
 }
 
 local EquipStatsAffixes = {

@@ -281,21 +281,6 @@ ww_MultipleStatLines = {
 		end,
 		{"enchant"},
 	},
-	-- Convert this and following to re-use the parser?
-	-- item 10779
-	{"(%a[%a ]+) by (%d+), (%a[%a ]+) by (%d+),? and your normal health regeneration by (%d+)",
-		function(text, pattern)
-			local start, _, stat1, val1, stat2, val2, val3 = string.find(text, pattern)
-			if start then
-				local stats = WeightsWatcher.newStatTable()
-				stats[stat1] = tonumber(val1)
-				stats[stat2] = tonumber(val2)
-				stats["hp5"] = tonumber(val3)
-				return stats
-			end
-		end,
-		{"equipEffect"},
-	},
 	{"^(%a+), (%a+), and (%a+) by (%d+)$",
 		function(text, pattern)
 			local start, _, stat1, stat2, stat3, value = string.find(text, pattern)
@@ -355,8 +340,6 @@ ww_SingleStatLines = {
 	{"^([+-]?%d+) (health)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant"}},
 	{"^([+-]?%d+) (mana)$", WeightsWatcher.statNumFirst, {"enchant"}},
 
-	{"^the (block value) of your shield by (%d+)$", WeightsWatcher.statNameFirst, {"equipEffect"}},
-	{"^shield (block rating) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"equipEffect"}},
 	{"^(all stats) are reduced by (%d+)$",
 		function(text, pattern)
 			local start, _, name, value = string.find(text, pattern)
@@ -414,10 +397,10 @@ ww_SingleStatLines = {
 
 	-- profession skills
 	{"^(fishing) skill by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"fishing"}},
-	{"^(fishing) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "equipEffect", "fishing", "food", "generic", "socketBonus", "useEffect"}},
-	{"^(herbalism) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant"}},
-	{"^(mining) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant"}},
-	{"^(skinning) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant"}},
+	{"^(fishing) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "fishing", "food", "generic", "socketBonus", "useEffect"}},
+	{"^(herbalism) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "equipEffect"}},
+	{"^(mining) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "equipEffect"}},
+	{"^(skinning) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "equipEffect"}},
 
 	{"^reduces? (%a[%a ]+) by (%d+)$",
 		function(text, pattern, section)
@@ -499,7 +482,7 @@ ww_SingleStatLines = {
 		end,
 		{"generic"},
 	},
-	{"^([+-]?%d+) (block value)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "enchant", "socketBonus"}},
+	{"^([+-]?%d+) (block value)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "enchant", "equipEffect", "socketBonus"}},
 	{"^([+-]?%d+) health [ep]v?ery? 5 seco?n?d?s?%.?$",
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "hp5")
@@ -656,7 +639,7 @@ ww_SingleStatLines = {
 		function(text, pattern)
 			return WeightsWatcher.newStatTable({["minor run speed"] = 1})
 		end,
-		{"enchant", "generic"},
+		{"enchant", "equipEffect", "generic"},
 	},
 	{"^silence duration reduced by (%d+)%%$",
 		function(text, pattern)
