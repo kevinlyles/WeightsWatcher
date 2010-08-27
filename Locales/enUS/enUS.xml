@@ -5,7 +5,9 @@
 	<Script file="stats.lua"/>
 	<Script file="slots.lua"/>
 	<Script file="classes-specs.lua"/>
-	<Script file="patterns-base.lua"/>
+	<Script file="patterns-generic.lua"/>
+	<Script file="patterns-sockets.lua"/>
+	<Script file="patterns-socket-bonuses.lua"/>
 	<Script file="patterns-equip-stats.lua"/>
 	<Script file="patterns-elixirs.lua"/>
 	<Script file="patterns-food.lua"/>
