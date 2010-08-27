@@ -295,10 +295,6 @@ ww_MultipleStatLines = {
 		end,
 		{"enchant"},
 	},
-	-- currently used only by items 31864 and 31872
-	{"^([^,]+) & ([^,]+)$", WeightsWatcher.twoStats, {"generic"}},
-	-- currently only used by item 28363
-	{"^([^,]+), ([^,]+)$", WeightsWatcher.twoStats, {"generic"}},
 	{"^chance to resist (%a+) and (%a+) effects by (%d+)%%$",
 		function(text, pattern)
 			local start, _, effect1, effect2, value = string.find(text, pattern)
@@ -378,7 +374,7 @@ ww_SingleStatLines = {
 	},
 
 	-- profession skills
-	{"^(fishing) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "fishing", "generic", "useEffect"}},
+	{"^(fishing) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "fishing", "useEffect"}},
 	{"^(herbalism) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "equipEffect"}},
 	{"^(mining) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "equipEffect"}},
 	{"^(skinning) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "equipEffect"}},
@@ -422,14 +418,7 @@ ww_SingleStatLines = {
 		{"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "useEffect"},
 	},
 
-	{"^reduce threat slightly$",
-		function(text, pattern)
-			return WeightsWatcher.newStatTable({["threat reduction (percent)"] = 2})
-		end,
-		{"generic"},
-	},
-
-	{"^%((%d+%.?%d*) damage per second%)$",
+	{"^%(?(%d+%.?%d*) damage per second%)?$",
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "melee dps")
 		end,
@@ -445,19 +434,7 @@ ww_SingleStatLines = {
 	{"^([+-]?%d+) (attack power)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "stackingEquipEffect", "useEffect"}},
 	{"^([+-]?%d+) (spell power)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "stackingEquipEffect", "useEffect"}},
 	{"^([+-]?%d+) (%a+ resistances?)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "useEffect"}},
-	{"^([+-]?%d+) resist all$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "all resistances")
-		end,
-		{"generic"},
-	},
-	{"^(%d+) block$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "block value")
-		end,
-		{"generic"},
-	},
-	{"^([+-]?%d+) (block value)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "enchant", "equipEffect", "socketBonus"}},
+	{"^([+-]?%d+) (block value)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "enchant", "equipEffect", "generic", "socketBonus"}},
 	{"^([+-]?%d+) health [ep]v?ery? 5 seco?n?d?s?%.?$",
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "hp5")
@@ -465,15 +442,8 @@ ww_SingleStatLines = {
 		{"cooldownUseEffect", "elixir", "equipEffect", "food", "generic", "useEffect"},
 	},
 	{"^([+-]?%d+) (spell penetration)$", WeightsWatcher.statNumFirst, {"enchant", "equipEffect", "generic"}},
-	{"^adds (%d[%d%.]*) damage per second$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "melee dps")
-		end,
-		{"generic"},
-	},
 	{"^([+-]?%d+) (ranged attack power)$", WeightsWatcher.statNumFirst, {"equipEffect", "generic"}},
 	{"^([+-]?%d+) (all stats)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "food", "generic", "useEffect"}},
-	{"^([+-]?%d+) to (all stats)$", WeightsWatcher.statNumFirst, {"generic"}},
 	{"^([+-]?%d+) ranged damage$",
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "average ranged weapon damage") + WeightsWatcher.singleStatValueOnly(text, pattern, "maximum ranged weapon damage")
@@ -488,25 +458,11 @@ ww_SingleStatLines = {
 				return WeightsWatcher.newStatTable({[effect .. " resist chance (percent)"] = tonumber(value)})
 			end
 		end,
-		{"equipEffect"},
+		{"equipEffect", "generic"},
 	},
 
 	-- random suffix enchants
 	{"^([+-]?%d+) (%a+ spell damage)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "generic"}},
-	-- Used only for random enchant id 1470
-	{"^([+-]?%d+) resist shadow$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "shadow resistance")
-		end,
-		{"generic"},
-	},
-	-- currently only used by random enchant id -55 (of the Nightmare)
-	{"^([+-]?%d+) shadow damage$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "shadow spell damage")
-		end,
-		{"generic"},
-	},
 
 	-- druid only
 	{"^increases attack power by (%d+) in cat, bear, dire bear, and moonkin forms only%.$",
@@ -578,13 +534,7 @@ ww_SingleStatLines = {
 				return WeightsWatcher.newStatTable({[name .. "reduction (percent)"] = tonumber(value)})
 			end
 		end,
-		{"enchant"},
-	},
-	{"^fear duration reduced by (%d+)%%$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "fear duration reduction (percent)")
-		end,
-		{"generic"},
+		{"enchant", "generic"},
 	},
 	{"^([+-]?%d+)%% intellect$",
 		function(text, pattern)
@@ -616,18 +566,6 @@ ww_SingleStatLines = {
 		end,
 		{"enchant", "equipEffect", "generic"},
 	},
-	{"^silence duration reduced by (%d+)%%$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "silence duration reduction (percent)")
-		end,
-		{"generic"},
-	},
-	{"^reduces snare/root duration by (%d+)%%$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "snare/root duration reduction (percent)")
-		end,
-		{"generic"},
-	},
 	{"^sometimes heal on your crits$",
 		function(text, pattern)
 			return WeightsWatcher.newStatTable({[text] = 1})
@@ -645,18 +583,6 @@ ww_SingleStatLines = {
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "spell reflect (percent)")
 		end,
 		{"elixir", "generic"},
-	},
-	{"^stun duration reduced by (%d+)%%$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "stun duration reduction (percent)")
-		end,
-		{"generic"},
-	},
-	{"^(%d+)%% stun resistance$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "stun resist chance (percent)")
-		end,
-		{"generic"},
 	},
 	{"^(%d+)%% reduced threat$",
 		function(text, pattern)
