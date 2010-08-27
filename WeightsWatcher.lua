@@ -626,13 +626,17 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 			if #(bareItemInfo.useEffects) > 0 then
 				tooltip:AddLine(L["Use effects:"])
 				for _, useEffect in pairs(bareItemInfo.useEffects) do
-					tooltip:AddDoubleLine(string.format(L["EFFECT_STAT_FORMAT"], useEffect.value, ww_statDisplayNames[useEffect.stat]), string.format(L["DURATION_COOLDOWN_FORMAT"], useEffect.duration, useEffect.cooldown))
+					tooltip:AddLine(string.format(L["DURATION_COOLDOWN_FORMAT"], useEffect.duration, useEffect.cooldown))
+					tooltip:AddLine(string.format(L["INDENTED_STRING_FORMAT"], "Stats:"))
+					for stat, value in pairs(useEffect.stats) do
+						tooltip:AddDoubleLine(string.format(L["DOUBLY_INDENTED_STRING_FORMAT"], ww_statDisplayNames[stat]), value)
+					end
 				end
 			end
 			if #(bareItemInfo.stackingEquipEffects) > 0 then
 				tooltip:AddLine(L["Stacking equip effects:"])
 				for _, effect in pairs(bareItemInfo.stackingEquipEffects) do
-					tooltip:AddDoubleLine(string.format(L["EFFECT_STAT_FORMAT"], effect.value, ww_statDisplayNames[effect.stat]), effect.numStacks)
+					tooltip:AddDoubleLine(string.format(L["EFFECT_STAT_FORMAT"], effect.value, ww_statDisplayNames[effect.stat]), string.format(L["EFFECT_STACKS_FORMAT"], effect.numStacks))
 					for trigger in pairs(effect.triggers) do
 						tooltip:AddLine(string.format(L["TRIGGER_FORMAT"], ww_triggerDisplayNames[trigger]))
 					end
@@ -903,7 +907,10 @@ function WeightsWatcher.calculateWeight(bareItemStats, itemStats, weightsScale)
 	end
 	if bareItemStats.useEffects then
 		for _, useEffect in pairs(bareItemStats.useEffects) do
-			weight = weight + WeightsWatcher.getWeight(ww_englishStats[useEffect.stat], useEffect.value * useEffect.duration / useEffect.cooldown * ww_vars.options.useEffects.uptimeRatio, weightsScale)
+			local factor = useEffect.duration / useEffect.cooldown * ww_vars.options.useEffects.uptimeRatio
+			for stat, value in pairs(useEffect.stats) do
+				weight = weight + WeightsWatcher.getWeight(ww_englishStats[stat], value * factor, weightsScale)
+			end
 		end
 	end
 	if bareItemStats.stackingEquipEffects then
@@ -1073,8 +1080,10 @@ function WeightsWatcher.parseLine(textL, textR, link)
 		end
 	end
 	if stats.useEffect then
-		if not ww_statDisplayNames[stats.useEffect.stat] and not ww_ignoredInvalidStats[ww_englishStats[stats.useEffect.stat]] then
-			return
+		for stat, value in pairs(stats.useEffect.stats) do
+			if not ww_statDisplayNames[stat] and not ww_ignoredInvalidStats[ww_englishStats[stat]] then
+				return
+			end
 		end
 	end
 	if stats.stackingEquipEffects then

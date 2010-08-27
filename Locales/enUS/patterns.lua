@@ -70,23 +70,6 @@ function WeightsWatcher.convertToSeconds(duration)
 	end
 end
 
-function WeightsWatcher.useEffect(text)
-	local start, _, stat, value, duration, cooldown = string.find(text, "^(%a+ ?%a+ ?%a+ ?%a+) by ([+-]?%d+) for (%d+ %a+ ?%d* ?%a*)%. +%((%d+ %a+ ?%d* ?%a*) cooldown%)$")
-	if not start then
-		start, _, value, stat, duration, cooldown = string.find(text, "^([+-]?%d+) (%a+ ?%a+ ?%a+ ?%a+) for (%d+ %a+ ?%d* ?%a*)%. +%((%d+ %a+ ?%d* ?%a*) cooldown%)$")
-	end
-	if start then
-		cooldown = WeightsWatcher.convertToSeconds(cooldown)
-		duration = WeightsWatcher.convertToSeconds(duration)
-		return {
-			stat = stat,
-			value = value,
-			duration = duration,
-			cooldown = cooldown,
-		}
-	end
-end
-
 ww_Preprocess = {
 	{"|c[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9]([^|]+)|r", "%1"},
 	{" +$", ""},

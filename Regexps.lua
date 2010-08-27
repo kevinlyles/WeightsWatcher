@@ -9,6 +9,7 @@ local patternCategories = {
 	"generic",
 	"socketBonus",
 	"useEffect",
+	"cooldownUseEffect",
 	"stackingEquipEffect",
 }
 
