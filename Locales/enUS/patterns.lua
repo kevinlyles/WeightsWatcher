@@ -184,6 +184,19 @@ ww_MultipleStatLines = {
 		end,
 		{"elixir", "enchant", "food", "useEffect"},
 	},
+	{"^(%a+) and (%a+) spell power by (%d+)$",
+		function(text, pattern)
+			local start, _, stat1, stat2, value = string.find(text, pattern)
+			if start then
+				value = tonumber(value)
+				local stats = WeightsWatcher.newStatTable()
+				stats[stat1 .. " spell damage"] = value
+				stats[stat2 .. " spell damage"] = value
+				return stats
+			end
+		end,
+		{"enchant"},
+	},
 	{"^(%a[%a ]+ rating )and (%a[%a ]+ rating )by( %d+)$",
 		function(text, pattern, section)
 			local start, _, stat1, stat2, value = string.find(text, pattern)
@@ -210,6 +223,32 @@ ww_MultipleStatLines = {
 				else
 					ww_unparsed_lines[text][pattern].parsedTo = {stat1, stat2}
 				end
+			end
+		end,
+		{"enchant"},
+	},
+	{"^([+-]?%d+) health and mana every 5 seco?n?d?s?$",
+		function(text, pattern)
+			local start, _, value = string.find(text, pattern)
+			if start then
+				value = tonumber(value)
+				local stats = WeightsWatcher.newStatTable()
+				stats["mp5"] = value
+				stats["hp5"] = value
+				return stats
+			end
+		end,
+		{"enchant"},
+	},
+	{"^([+-]?%d+) mana and health every 5 seco?n?d?s?$",
+		function(text, pattern)
+			local start, _, value = string.find(text, pattern)
+			if start then
+				value = tonumber(value)
+				local stats = WeightsWatcher.newStatTable()
+				stats["mp5"] = value
+				stats["hp5"] = value
+				return stats
 			end
 		end,
 		{"enchant"},
@@ -242,44 +281,21 @@ ww_MultipleStatLines = {
 		end,
 		{"elixir"},
 	},
-	{"^(%a+) and (%a+) spell power by (%d+)$",
+	{"^resistance to (%a+), (%a+), (%a+), (%a+),? and (%a+) spells by (%d+)$",
 		function(text, pattern)
-			local start, _, stat1, stat2, value = string.find(text, pattern)
+			local start, _, school1, school2, school3, school4, school5, value = string.find(text, pattern)
 			if start then
 				value = tonumber(value)
 				local stats = WeightsWatcher.newStatTable()
-				stats[stat1 .. " spell damage"] = value
-				stats[stat2 .. " spell damage"] = value
+				stats[school1 .. " resistance"] = value
+				stats[school2 .. " resistance"] = value
+				stats[school3 .. " resistance"] = value
+				stats[school4 .. " resistance"] = value
+				stats[school5 .. " resistance"] = value
 				return stats
 			end
 		end,
-		{"enchant"},
-	},
-	{"^([+-]?%d+) mana and health every 5 seco?n?d?s?$",
-		function(text, pattern)
-			local start, _, value = string.find(text, pattern)
-			if start then
-				value = tonumber(value)
-				local stats = WeightsWatcher.newStatTable()
-				stats["mp5"] = value
-				stats["hp5"] = value
-				return stats
-			end
-		end,
-		{"enchant"},
-	},
-	{"^([+-]?%d+) health and mana every 5 seco?n?d?s?$",
-		function(text, pattern)
-			local start, _, value = string.find(text, pattern)
-			if start then
-				value = tonumber(value)
-				local stats = WeightsWatcher.newStatTable()
-				stats["mp5"] = value
-				stats["hp5"] = value
-				return stats
-			end
-		end,
-		{"enchant"},
+		{"cooldownUseEffect"},
 	},
 	{"^(%a+), (%a+), and (%a+) by (%d+)$",
 		function(text, pattern)
@@ -308,34 +324,58 @@ ww_MultipleStatLines = {
 		end,
 		{"equipEffect"},
 	},
-	{"^resistance to (%a+), (%a+), (%a+), (%a+),? and (%a+) spells by (%d+)$",
-		function(text, pattern)
-			local start, _, school1, school2, school3, school4, school5, value = string.find(text, pattern)
-			if start then
-				value = tonumber(value)
-				local stats = WeightsWatcher.newStatTable()
-				stats[school1 .. " resistance"] = value
-				stats[school2 .. " resistance"] = value
-				stats[school3 .. " resistance"] = value
-				stats[school4 .. " resistance"] = value
-				stats[school5 .. " resistance"] = value
-				return stats
-			end
-		end,
-		{"cooldownUseEffect"},
-	},
 }
 
 ww_SingleStatLines = {
+	{"^([+-]?%d+) (%a[%a ]+ rating)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "useEffect"}},
 	{"^([+-]?%d+) (armor)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "generic", "useEffect"}},
-	{"^([+-]?%d+) (agility)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "food", "generic", "socketBonus", "useEffect"}},
-	{"^([+-]?%d+) (intellect)$", WeightsWatcher.statNumFirst, {"elixir", "enchant", "food", "generic", "socketBonus", "useEffect"}},
-	{"^([+-]?%d+) (spirit)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "stackingEquipEffect", "useEffect"}},
 	{"^([+-]?%d+) (stamina)$", WeightsWatcher.statNumFirst, {"elixir", "enchant", "food", "generic", "socketBonus", "useEffect"}},
+	{"^([+-]?%d+) (intellect)$", WeightsWatcher.statNumFirst, {"elixir", "enchant", "food", "generic", "socketBonus", "useEffect"}},
+	{"^([+-]?%d+) (spell power)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "stackingEquipEffect", "useEffect"}},
+	{"^([+-]?%d+) (agility)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "food", "generic", "socketBonus", "useEffect"}},
 	{"^([+-]?%d+) (strength)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "food", "generic", "socketBonus", "useEffect"}},
+	{"^%(?(%d+%.?%d*) damage per second%)?$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "melee dps")
+		end,
+		{"generic"},
+	},
+	{"^([+-]?%d+) (attack power)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "stackingEquipEffect", "useEffect"}},
+	{"^([+-]?%d+) (spirit)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "stackingEquipEffect", "useEffect"}},
+	{"^([+-]?%d+) mana [ep]v?ery? 5 seco?n?d?s?%.?$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "mp5")
+		end,
+		{"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "stackingEquipEffect"},
+	},
+	-- druid only
+	{"^increases attack power by (%d+) in cat, bear, dire bear, and moonkin forms only%.$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "feral attack power")
+		end,
+		{"generic"},
+	},
+	{"^([+-]?%d+) (%a+ resistances?)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "useEffect"}},
+	{"^([+-]?%d+) (block value)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "enchant", "equipEffect", "generic", "socketBonus"}},
+	-- random suffix enchants
+	{"^([+-]?%d+) (%a+ spell damage)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "generic"}},
+	{"^([+-]?%d+) (spell penetration)$", WeightsWatcher.statNumFirst, {"enchant", "equipEffect", "generic"}},
+	{"^([+-]?%d+) health [ep]v?ery? 5 seco?n?d?s?%.?$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "hp5")
+		end,
+		{"cooldownUseEffect", "elixir", "equipEffect", "food", "generic", "useEffect"},
+	},
+	{"^minor run speed increase$",
+		function(text, pattern)
+			return WeightsWatcher.newStatTable({["minor run speed"] = 1})
+		end,
+		{"enchant", "equipEffect", "generic"},
+	},
+	{"^([+-]?%d+) (ranged attack power)$", WeightsWatcher.statNumFirst, {"equipEffect", "generic"}},
 	{"^([+-]?%d+) (health)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "useEffect"}},
-	{"^([+-]?%d+) (mana)$", WeightsWatcher.statNumFirst, {"enchant"}},
-
+	{"^(fishing) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "fishing"}},
+	{"^([+-]?%d+) (all stats)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "food", "generic", "useEffect"}},
 	{"^(%a+ spell )power by ([+-]?%d+)$",
 		function(text, pattern)
 			local start, _, name, value = string.find(text, pattern)
@@ -345,11 +385,12 @@ ww_SingleStatLines = {
 		end,
 		{"elixir", "enchant"},
 	},
-	{"^mount speed by ([+-]?%d+)%%$",
+	{"^([+-]?%d+) (mana)$", WeightsWatcher.statNumFirst, {"enchant"}},
+	{"^([+-]?%d+) ranged damage$",
 		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "mount speed (percent)")
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "average ranged weapon damage") + WeightsWatcher.singleStatValueOnly(text, pattern, "maximum ranged weapon damage")
 		end,
-		{"enchant", "equipEffect"},
+		{"enchant"},
 	},
 	{"^effective stealth level by (%d+)$",
 		function(text, pattern)
@@ -357,6 +398,27 @@ ww_SingleStatLines = {
 		end,
 		{"enchant", "equipEffect"},
 	},
+	{"^decreases? (%a[%a ]+) by (%d+)$",
+		function(text, pattern, section)
+			local start, _, name, value = string.find(text, pattern)
+			if start then
+				local stats = WeightsWatcher.parseStats("-" .. value .. " " .. name, section)
+				if stats then
+					return stats.stats
+				end
+			end
+		end,
+		{"elixir", "food", "useEffect"},
+	},
+	{"^mount speed by ([+-]?%d+)%%$",
+		function(text, pattern)
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "mount speed (percent)")
+		end,
+		{"enchant", "equipEffect"},
+	},
+	{"^(herbalism) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "equipEffect"}},
+	{"^(mining) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "equipEffect"}},
+	{"^(skinning) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "equipEffect"}},
 	{"^threat caused by (%d+)%%$",
 		function(text, pattern)
 			local start, _, value = string.find(text, pattern)
@@ -373,72 +435,6 @@ ww_SingleStatLines = {
 		{"enchant"},
 	},
 
-	-- profession skills
-	{"^(fishing) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "fishing"}},
-	{"^(herbalism) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "equipEffect"}},
-	{"^(mining) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "equipEffect"}},
-	{"^(skinning) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "equipEffect"}},
-
-	{"^decreases? (%a[%a ]+) by (%d+)$",
-		function(text, pattern, section)
-			local start, _, name, value = string.find(text, pattern)
-			if start then
-				local stats = WeightsWatcher.parseStats("-" .. value .. " " .. name, section)
-				if stats then
-					return stats.stats
-				end
-			end
-		end,
-		{"elixir", "food", "useEffect"},
-	},
-	-- Tends to eat other stats if not last
-	-- TODO: split this into a separate function instead of recursing?
-	{"^(%a+ ?%a+ ?%a+ ?%a+) by ([+-]?%d+%%?)$",
-		function(text, pattern, section)
-			local start, _, name, value = string.find(text, pattern)
-			if start then
-				local stats = parseStats(value .. " " .. name, section)
-				if stats then
-					return stats.stats
-				end
-			end
-		end,
-		{"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "useEffect"},
-	},
-
-	{"^%(?(%d+%.?%d*) damage per second%)?$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "melee dps")
-		end,
-		{"generic"},
-	},
-	{"^([+-]?%d+) mana [ep]v?ery? 5 seco?n?d?s?%.?$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "mp5")
-		end,
-		{"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "stackingEquipEffect"},
-	},
-	{"^([+-]?%d+) (%a[%a ]+ rating)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "useEffect"}},
-	{"^([+-]?%d+) (attack power)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "stackingEquipEffect", "useEffect"}},
-	{"^([+-]?%d+) (spell power)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "stackingEquipEffect", "useEffect"}},
-	{"^([+-]?%d+) (%a+ resistances?)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "useEffect"}},
-	{"^([+-]?%d+) (block value)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "enchant", "equipEffect", "generic", "socketBonus"}},
-	{"^([+-]?%d+) health [ep]v?ery? 5 seco?n?d?s?%.?$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "hp5")
-		end,
-		{"cooldownUseEffect", "elixir", "equipEffect", "food", "generic", "useEffect"},
-	},
-	{"^([+-]?%d+) (spell penetration)$", WeightsWatcher.statNumFirst, {"enchant", "equipEffect", "generic"}},
-	{"^([+-]?%d+) (ranged attack power)$", WeightsWatcher.statNumFirst, {"equipEffect", "generic"}},
-	{"^([+-]?%d+) (all stats)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "food", "generic", "useEffect"}},
-	{"^([+-]?%d+) ranged damage$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "average ranged weapon damage") + WeightsWatcher.singleStatValueOnly(text, pattern, "maximum ranged weapon damage")
-		end,
-		{"enchant"},
-	},
-
 	{"^chance to resist (%a+) effects by (%d+)%%$",
 		function(text, pattern)
 			local start, _, effect, value = string.find(text, pattern)
@@ -449,18 +445,21 @@ ww_SingleStatLines = {
 		{"equipEffect", "generic"},
 	},
 
-	-- random suffix enchants
-	{"^([+-]?%d+) (%a+ spell damage)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "generic"}},
-
-	-- druid only
-	{"^increases attack power by (%d+) in cat, bear, dire bear, and moonkin forms only%.$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "feral attack power")
+	-- Tends to eat other stats if not last
+	{"^(%a+ ?%a+ ?%a+ ?%a+) by ([+-]?%d+%%?)$",
+		function(text, pattern, section)
+			local start, _, name, value = string.find(text, pattern)
+			if start then
+				local stats = WeightsWatcher.parseStats(value .. " " .. name, section)
+				if stats then
+					return stats.stats
+				end
+			end
 		end,
-		{"generic"},
+		{"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "useEffect"},
 	},
 
-	-- meta effects
+	-- meta/enchant effects
 	{"^(%d+)%% increased armor value from items$",
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "armor from items (percent)")
@@ -547,12 +546,6 @@ ww_SingleStatLines = {
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "average melee weapon damage") + WeightsWatcher.singleStatValueOnly(text, pattern, "maximum melee weapon damage") + WeightsWatcher.singleStatValueOnly(text, pattern, "average ranged weapon damage") + WeightsWatcher.singleStatValueOnly(text, pattern, "maximum ranged weapon damage")
 		end,
 		{"enchant"},
-	},
-	{"^minor run speed increase$",
-		function(text, pattern)
-			return WeightsWatcher.newStatTable({["minor run speed"] = 1})
-		end,
-		{"enchant", "equipEffect", "generic"},
 	},
 	{"^sometimes heal on your crits$",
 		function(text, pattern)
