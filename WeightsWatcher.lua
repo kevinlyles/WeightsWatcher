@@ -241,18 +241,7 @@ local function upgradeData(dataType, varsName)
 	end
 end
 
-function WeightsWatcher.OnInitialize()
-	loadGeneralInfo()
-
-	WeightsWatcher.ResetTables()
-
-	if not upgradeData("account", "ww_vars") then
-		return
-	end
-	if not upgradeData("character", "ww_charVars") then
-		return
-	end
-
+local function initializeAfterDataUpgrade()
 	ww_initializeParser()
 
 	ww_initializeWeightsConfig()
@@ -265,15 +254,31 @@ function WeightsWatcher.OnInitialize()
 		end
 end
 
+function WeightsWatcher.OnInitialize()
+	loadGeneralInfo()
+
+	WeightsWatcher.ResetTables()
+
+	if not upgradeData("account", "ww_vars") then
+		return
+	end
+	if not upgradeData("character", "ww_charVars") then
+		return
+	end
+
+	initializeAfterDataUpgrade()
+end
+
 StaticPopupDialogs["WW_INVALID_ACCOUNT_DATA"] = {
 	text = L["INVALID_ACCT_DATA"],
 	button1 = L["Load Defaults"],
 	button2 = L["Disable WeightsWatcher"],
 	OnAccept = function(self, func)
+			ww_vars = copyDefaultAccountVars()
 			if not upgradeData("character", "ww_charVars") then
 				return
 			end
-			ww_initializeWeightsConfig()
+			initializeAfterDataUpgrade()
 		end,
 	OnCancel = function(self, func)
 			DisableAddOn("WeightsWatcher")
@@ -291,7 +296,7 @@ StaticPopupDialogs["WW_INVALID_CHARACTER_DATA"] = {
 	button2 = L["Disable WeightsWatcher"],
 	OnAccept = function(self, func)
 			ww_charVars = copyDefaultCharVars()
-			ww_initializeWeightsConfig()
+			initializeAfterDataUpgrade()
 		end,
 	OnCancel = function(self, func)
 			DisableAddOn("WeightsWatcher")
