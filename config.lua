@@ -7,6 +7,7 @@ local function printHelp()
 	print(L["HELP_TEXT_WEIGHTS"])
 	print(L["HELP_TEXT_VERSION"])
 	print(L["HELP_TEXT_HELP"])
+	print(L["HELP_TEXT_BUGS"])
 end
 
 function ww_commandHandler(msg)
