@@ -225,7 +225,6 @@ function WeightsWatcher.ResetTables()
 	ww_handle_effects_unparsed_lines = setmetatable({}, metatable)
 	ww_ignored_lines = setmetatable({}, metatable)
 	ww_temp_ignored_lines = setmetatable({}, metatable)
-	ww_unparsed_items = setmetatable({}, metatable)
 	ww_unweighted_lines = setmetatable({}, metatable)
 end
 
