@@ -1,6 +1,7 @@
 local L = ww_localization
 
 -- TODO: localize this function?
+	-- probably not, lua doesn't seem to be localized
 function ww_validateNumber(newChar, newText)
 	if string.find(newChar, "^%d$") then
 		return true
@@ -431,12 +432,14 @@ end
 
 -- TODO: update the notes here
 -- Creates a tiered list that can be scrolled
--- template is a table of key-value pairs with keys as the categories and values as a table of elements
+-- template is a table of key-value pairs with text keys as the categories their values as a template, and numeric keys's values as items
 -- scrollFrame is the scrollframe that controls scrolledFrame
 -- NOTE: scrollFrame must have an OnShow handler that updates the scrollbar
 -- scrolledFrame is the frame that will hold everything
 -- elementType is the element template type
 -- elementHeight is the height of each element
+-- nameTable is a table that will return the display name for each item and category name
+-- hOffset is the initial horizontal offset
 local function createScrollableTieredList(template, scrollFrame, scrolledFrame, categoryType, elementType, elementHeight, nameTable, hOffset)
 	local categoryFrame, elementFrame
 
@@ -504,7 +507,6 @@ end
 --		length is changed alongside shown
 --		elements of the collapsing frame (but not of its children) is changed alongside shown
 --		position is the global position (within shown)
---		relativePosition is the position within parent's GetChildren (and doesn't change)
 
 local function insertRecursive(shown, elements, start)
 	local offset = 0
