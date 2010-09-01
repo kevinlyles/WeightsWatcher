@@ -479,15 +479,36 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 
 	_, _, _, _, _, itemType, _, stackSize = GetItemInfo(link)
 	if (IsEquippableItem(link) and itemType ~= L["Container"] and itemType ~= L["Quiver"]) or (itemType == L["Gem"] and stackSize == 1) or (itemType == L["Consumable"]) or (itemType == L["Recipe"]) then
-		bareLink = splitItemLink(link)
-		local bareItemInfo = ww_bareItemCache[bareLink]
+		local weightsShown = false
+		for _, class in ipairs(ww_charVars.activeWeights) do
+			if ww_vars.weightsList[class] then
+				for _, weight in pairs(ww_charVars.activeWeights[class]) do
+					if ww_vars.weightsList[class][weight] then
+						if ww_vars.options.tooltip.showZeroScores or ww_weightCache[class][weight][link] > 0 then
+							weightsShown = true
+							break
+						end
+					end
+				end
+			end
+			if weightsShown then
+				break
+			end
+		end
 
 		local showDebugInfo = ww_keyDetectors[ww_vars.options.tooltip.showDebugInfo]()
+		if not weightsShown and not showDebugInfo then
+			return
+		end
+
 		local showWeights = ww_keyDetectors[ww_vars.options.tooltip.showWeights]()
 		local showIdealWeights = ww_keyDetectors[ww_vars.options.tooltip.showIdealWeights]()
 		local showIdealGems = ww_keyDetectors[ww_vars.options.tooltip.showIdealGems]()
 		local showIdealGemStats = ww_keyDetectors[ww_vars.options.tooltip.showIdealGemStats]()
 		local showAlternateGems = ww_keyDetectors[ww_vars.options.tooltip.showAlternateGems]()
+
+		bareLink = splitItemLink(link)
+		local bareItemInfo = ww_bareItemCache[bareLink]
 
 		if ttname ~= "ShoppingTooltip1" and ttname ~= "ShoppingTooltip2" and ww_vars.options.tooltip.showDifferences then
 			local currentSlot, compareSlot, compareSlot2, currentSubslot, compareSubslot, compareSubslot2
@@ -638,59 +659,61 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 					for _, weight in pairs(ww_charVars.activeWeights[class]) do
 						if ww_vars.weightsList[class][weight] then
 							local currentScore = ww_weightCache[class][weight][link]
-							local compareScore, compareScore2, compareBareScore, compareBareScore2
-							str = weight
-							if ww_vars.options.tooltip.showClassNames == "Always" or (ww_vars.options.tooltip.showClassNames == "Others" and class ~= WeightsWatcher.playerClass) then
-								str = string.format(L["WEIGHT_CLASS_FORMAT"], str, ww_classDisplayNames[class])
-							end
-							if compareLink then
-								compareScore = ww_weightCache[class][weight][compareLink]
-								if showIdealWeights and #(bareItemInfo.sockets) == 0 then
-									compareBareScore = ww_weightIdealCache[class][weight][compareBareLink].score
-									if compareScore < compareBareScore then
-										compareScore = compareBareScore
+							if ww_vars.options.tooltip.showZeroScores or currentScore > 0 then
+								local compareScore, compareScore2, compareBareScore, compareBareScore2
+								str = weight
+								if ww_vars.options.tooltip.showClassNames == "Always" or (ww_vars.options.tooltip.showClassNames == "Others" and class ~= WeightsWatcher.playerClass) then
+									str = string.format(L["WEIGHT_CLASS_FORMAT"], str, ww_classDisplayNames[class])
+								end
+								if compareLink then
+									compareScore = ww_weightCache[class][weight][compareLink]
+									if showIdealWeights and #(bareItemInfo.sockets) == 0 then
+										compareBareScore = ww_weightIdealCache[class][weight][compareBareLink].score
+										if compareScore < compareBareScore then
+											compareScore = compareBareScore
+										end
 									end
 								end
-							end
-							if compareLink2 then
-								compareScore2 = ww_weightCache[class][weight][compareLink2]
-								if showIdealWeights and #(bareItemInfo.sockets) == 0 then
-									compareBareScore2 = ww_weightIdealCache[class][weight][compareBareLink2].score
-									if compareScore2 < compareBareScore2 then
-										compareScore2 = compareBareScore2
+								if compareLink2 then
+									compareScore2 = ww_weightCache[class][weight][compareLink2]
+									if showIdealWeights and #(bareItemInfo.sockets) == 0 then
+										compareBareScore2 = ww_weightIdealCache[class][weight][compareBareLink2].score
+										if compareScore2 < compareBareScore2 then
+											compareScore2 = compareBareScore2
+										end
 									end
-								end
-							end
-							compareScore = computeDifference(compareMethod, compareScore, compareScore2, currentScore)
-							tooltip:AddDoubleLine(str, string.format(colorizeDifferences(compareScore), currentScore, compareScore))
-							if #(bareItemInfo.sockets) > 0 and showIdealWeights then
-								local currentScore = ww_weightIdealCache[class][weight][bareLink].score
-								local compareScore, compareScore2
-								if compareBareLink then
-									compareScore = ww_weightIdealCache[class][weight][compareBareLink].score
-								end
-								if compareBareLink2 then
-									compareScore2 = ww_weightIdealCache[class][weight][compareBareLink2].score
 								end
 								compareScore = computeDifference(compareMethod, compareScore, compareScore2, currentScore)
-								tooltip:AddDoubleLine(L["  Ideally-gemmed:"], string.format(colorizeDifferences(compareScore), currentScore, compareScore))
-								if showIdealGems then
-									gemStats = ww_weightIdealCache[class][weight][bareLink].gemStats
-									for _, gems in ipairs(gemStats) do
-										for i, gem in ipairs(gems) do
-											if #(gems) > 1 then
-												tooltip:AddDoubleLine(string.format(L["MULTIPLE_GEM_FORMAT"], i, #(gems), ww_gemDisplayNames[gem[2]], ww_gemColorDisplayNames[gem[1]]), " ")
-												alternateGemsExist = true
-											else
-												tooltip:AddDoubleLine(string.format(L["SINGLE_GEM_FORMAT"], ww_gemDisplayNames[gem[2]], ww_gemColorDisplayNames[gem[1]]), " ")
-											end
-											if showIdealGemStats then
-												for stat, value in pairs(gem[3]) do
-													tooltip:AddDoubleLine(string.format(L["TREBLY_INDENTED_STRING_FORMAT"], ww_statDisplayNames[stat]), value)
+								tooltip:AddDoubleLine(str, string.format(colorizeDifferences(compareScore), currentScore, compareScore))
+								if #(bareItemInfo.sockets) > 0 and showIdealWeights then
+									local currentScore = ww_weightIdealCache[class][weight][bareLink].score
+									local compareScore, compareScore2
+									if compareBareLink then
+										compareScore = ww_weightIdealCache[class][weight][compareBareLink].score
+									end
+									if compareBareLink2 then
+										compareScore2 = ww_weightIdealCache[class][weight][compareBareLink2].score
+									end
+									compareScore = computeDifference(compareMethod, compareScore, compareScore2, currentScore)
+									tooltip:AddDoubleLine(L["  Ideally-gemmed:"], string.format(colorizeDifferences(compareScore), currentScore, compareScore))
+									if showIdealGems then
+										gemStats = ww_weightIdealCache[class][weight][bareLink].gemStats
+										for _, gems in ipairs(gemStats) do
+											for i, gem in ipairs(gems) do
+												if #(gems) > 1 then
+													tooltip:AddDoubleLine(string.format(L["MULTIPLE_GEM_FORMAT"], i, #(gems), ww_gemDisplayNames[gem[2]], ww_gemColorDisplayNames[gem[1]]), " ")
+													alternateGemsExist = true
+												else
+													tooltip:AddDoubleLine(string.format(L["SINGLE_GEM_FORMAT"], ww_gemDisplayNames[gem[2]], ww_gemColorDisplayNames[gem[1]]), " ")
 												end
-											end
-											if not showAlternateGems then
-												break
+												if showIdealGemStats then
+													for stat, value in pairs(gem[3]) do
+														tooltip:AddDoubleLine(string.format(L["TREBLY_INDENTED_STRING_FORMAT"], ww_statDisplayNames[stat]), value)
+													end
+												end
+												if not showAlternateGems then
+													break
+												end
 											end
 										end
 									end

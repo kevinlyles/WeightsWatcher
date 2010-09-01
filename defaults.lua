@@ -192,7 +192,7 @@ ww_classNameOptions = {
 
 ww_defaultVars = {
 	dataMajorVersion = 1,
-	dataMinorVersion = 24,
+	dataMinorVersion = 25,
 	weightsList = {
 		"DEATHKNIGHT",
 		"DRUID",
@@ -741,6 +741,7 @@ ww_defaultVars = {
 			showIdealGemStats = "Always",
 			showIdealWeights = "Shift",
 			showWeights = "Always",
+			showZeroScores = false,
 		},
 		useEffects = {
 			uptimeRatio = 0.8,

@@ -55,6 +55,15 @@ local function noop_major_up(vars)
 	return vars
 end
 
+local function UpgradeAccountToShowZeroScores(vars)
+	if vars.options.tooltip.showZeroScores == nil then
+		vars.options.tooltip.showZeroScores = false
+	end
+
+	vars.dataMinorVersion = 25
+	return vars
+end
+
 local function upgradeAccountToCataclysmGems(vars)
 	if vars.options.gems.qualityLimit == 7 then
 		vars.options.gems.qualityLimit = 10
@@ -1049,6 +1058,7 @@ local upgradeAccountFunctions = {
 		[21] = upgradeAccountToMastery,
 		[22] = upgradeAccountToMeleeCrit,
 		[23] = upgradeAccountToCataclysmGems,
+		[24] = UpgradeAccountToShowZeroScores,
 	},
 }
 
@@ -1090,6 +1100,7 @@ local downgradeAccountFunctions = {
 		[22] = noop_down,
 		[23] = noop_down,
 		[24] = noop_down,
+		[25] = noop_down,
 	},
 }
 

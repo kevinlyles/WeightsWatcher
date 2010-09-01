@@ -118,10 +118,12 @@
 	</FontString>
 	<Frame name="ww_config" parent="UIParent" hidden="true" frameStrata="HIGH">
 		<Size>
-			<AbsDimension x="600" y="425"/>
+			<AbsDimension x="600" y="450"/>
 		</Size>
 		<Anchors>
-			<Anchor point="CENTER"/>
+			<Anchor point="CENTER">
+				<Offset y="50"/>
+			</Anchor>
 		</Anchors>
 		<Layers>
 			<Layer level="OVERLAY">
@@ -668,9 +670,28 @@
 							</OnLoad>
 						</Scripts>
 					</Frame>
-					<CheckButton name="$parentShowDifference" parentKey="showDifference" inherits="ww_checkButton">
+					<CheckButton name="$parentShowZeroScores" parentKey="showZeroScores" inherits="ww_checkButton">
 						<Anchors>
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowClassNames"/>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								if self:GetChecked() then
+									ww_vars.options.tooltip.showZeroScores = true
+								else
+									ww_vars.options.tooltip.showZeroScores = false
+								end
+							</OnClick>
+							<OnLoad>
+								self.shouldBeChecked = function() return ww_vars.options.tooltip.showZeroScores end
+								self.ttText = ww_localization["SHOW_ZEROES_TT"]
+								self:SetText(ww_localization["SHOW_ZEROES"])
+							</OnLoad>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="$parentShowDifference" parentKey="showDifference" inherits="ww_checkButton">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowZeroScores"/>
 						</Anchors>
 						<Scripts>
 							<OnClick>

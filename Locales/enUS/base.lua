@@ -58,6 +58,8 @@ L["HIDE_HINTS"] = "Hide tooltip hints"
 L["SHOW_CLASS"] = "Show class names:"
 L["SHOW_DIFF"] = "Show differences to current gear"
 L["SHOW_DIFF_TT"] = "Shows the change in score compared to the currently equipped gear"
+L["SHOW_ZEROES"] = "Show zero scores"
+L["SHOW_ZEROES_TT"] = "Shows scores for weights that are zero (or negative)"
 
 -- weights.xml
 L["WEIGHTS_TITLE"] = "WeightsWatcher Weight Values"
