@@ -681,7 +681,7 @@
 							</OnClick>
 							<OnLoad>
 								self.shouldBeChecked = function() return ww_vars.options.tooltip.showDifferences end
-								self.ttText = "Shows the change in score compared to the currently equipped gear"
+								self.ttText = ww_localization["SHOW_DIFF_TT"]
 								self:SetText(ww_localization["SHOW_DIFF"])
 							</OnLoad>
 						</Scripts>
