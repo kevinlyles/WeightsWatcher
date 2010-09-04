@@ -30,17 +30,17 @@
 				</Texture>
 				<Texture file="Interface\Buttons\UI-Panel-Button-Glow" alphaMode="ADD">
 					<Size>
-						<AbsDimension y="22"/>
+						<AbsDimension x="0" y="22"/>
 					</Size>
 					<Anchors>
 						<Anchor point="LEFT">
 							<Offset>
-								<AbsDimension x="16"/>
+								<AbsDimension x="16" y="0"/>
 							</Offset>
 						</Anchor>
 						<Anchor point="RIGHT">
 							<Offset>
-								<AbsDimension x="-16"/>
+								<AbsDimension x="-16" y="0"/>
 							</Offset>
 						</Anchor>
 					</Anchors>
@@ -61,7 +61,7 @@
 	<!-- virtual frame used for classes in tiered lists -->
 	<Frame name="ww_classFrame" virtual="true">
 		<Size>
-			<AbsDimension y="22"/>
+			<AbsDimension x="0" y="22"/>
 		</Size>
 		<Anchors>
 			<Anchor point="RIGHT"/>
@@ -69,7 +69,7 @@
 		<Frames>
 			<Button name="$parentText" parentKey="text">
 				<Size>
-					<AbsDimension y="20"/>
+					<AbsDimension x="0" y="20"/>
 				</Size>
 				<Anchors>
 					<Anchor point="TOPLEFT">
@@ -126,7 +126,7 @@
 	<!-- virtual frame used for categories in tiered lists -->
 	<Frame name="ww_categoryFrame" virtual="true">
 		<Size>
-			<AbsDimension y="22"/>
+			<AbsDimension x="0" y="22"/>
 		</Size>
 		<Anchors>
 			<Anchor point="RIGHT"/>
@@ -134,7 +134,7 @@
 		<Frames>
 			<Button name="$parentText" parentKey="text">
 				<Size>
-					<AbsDimension y="20"/>
+					<AbsDimension x="0" y="20"/>
 				</Size>
 				<Anchors>
 					<Anchor point="TOPLEFT">
@@ -191,12 +191,12 @@
 	<!--virtual frame used to allow for script generated frames with stat information-->
 	<Frame name="ww_statFrame" virtual="true">
 		<Size>
-			<AbsDimension y="22"/>
+			<AbsDimension x="0" y="22"/>
 		</Size>
 		<Anchors>
 			<Anchor point="RIGHT">
 				<Offset>
-					<AbsDimension x="-5"/>
+					<AbsDimension x="-5" y="0"/>
 				</Offset>
 			</Anchor>
 		</Anchors>
@@ -204,7 +204,7 @@
 			<Layer level="OVERLAY">
 				<FontString name="$parentText" parentKey="text" inherits="GameFontNormal">
 					<Size>
-						<AbsDimension y="20"/>
+						<AbsDimension x="0" y="20"/>
 					</Size>
 					<Anchors>
 						<Anchor point="LEFT"/>
@@ -313,12 +313,12 @@
 	<!--virtual frame used to allow for script generated frames with trigger information-->
 	<Frame name="ww_triggerFrame" virtual="true">
 		<Size>
-			<AbsDimension y="22"/>
+			<AbsDimension x="0" y="22"/>
 		</Size>
 		<Anchors>
 			<Anchor point="RIGHT">
 				<Offset>
-					<AbsDimension x="-5"/>
+					<AbsDimension x="-5" y="0"/>
 				</Offset>
 			</Anchor>
 		</Anchors>
@@ -326,7 +326,7 @@
 			<Layer level="OVERLAY">
 				<FontString name="$parentText" parentKey="text" inherits="GameFontNormal">
 					<Size>
-						<AbsDimension y="20"/>
+						<AbsDimension x="0" y="20"/>
 					</Size>
 					<Anchors>
 						<Anchor point="LEFT"/>
@@ -342,7 +342,7 @@
 				<Anchors>
 					<Anchor point="RIGHT">
 						<Offset>
-							<AbsDimension x="-112"/>
+							<AbsDimension x="-112" y="0"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -377,7 +377,7 @@
 	<!--virtual frame used to allow for script generated frames with stat information-->
 	<Frame name="ww_weightFrame" virtual="true">
 		<Size>
-			<AbsDimension y="22"/>
+			<AbsDimension x="0" y="22"/>
 		</Size>
 		<Anchors>
 			<Anchor point="RIGHT"/>
@@ -390,7 +390,7 @@
 				<Anchors>
 					<Anchor point="LEFT">
 						<Offset>
-							<AbsDimension x="10"/>
+							<AbsDimension x="10" y="0"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -426,12 +426,12 @@
 			</CheckButton>
 			<Button name="$parentText" parentKey="text">
 				<Size>
-					<AbsDimension y="20"/>
+					<AbsDimension x="0" y="20"/>
 				</Size>
 				<Anchors>
 					<Anchor point="LEFT">
 						<Offset>
-							<AbsDimension x="40"/>
+							<AbsDimension x="40" y="0"/>
 						</Offset>
 					</Anchor>
 					<Anchor point="RIGHT"/>
@@ -445,7 +445,7 @@
 						</Anchor>
 						<Anchor point="BOTTOMRIGHT">
 							<Offset>
-								<AbsDimension x="-7"/>
+								<AbsDimension x="-7" y="0"/>
 							</Offset>
 						</Anchor>
 					</Anchors>
@@ -493,7 +493,7 @@
 					<Anchors>
 						<Anchor point="TOP">
 							<Offset>
-								<AbsDimension y="-5"/>
+								<AbsDimension x="0" y="-5"/>
 							</Offset>
 						</Anchor>
 					</Anchors>
@@ -511,18 +511,18 @@
 			<!--The Class Selection Frame-->
 			<Frame name="$parentLeftPanel" parentKey="leftPanel">
 				<Size>
-					<AbsDimension x="150"/>
+					<AbsDimension x="150" y="0"/>
 				</Size>
 				<Anchors>
 					<Anchor point="TOP">
 						<Offset>
-							<AbsDimension y="-25"/>
+							<AbsDimension x="0" y="-25"/>
 						</Offset>
 					</Anchor>
 					<Anchor point="LEFT"/>
 					<Anchor point="BOTTOM">
 						<Offset>
-							<AbsDimension y="25"/>
+							<AbsDimension x="0" y="25"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -551,7 +551,7 @@
 							<Anchor point="TOPLEFT"/>
 							<Anchor point="BOTTOMRIGHT">
 								<Offset>
-									<AbsDimension x="-5"/>
+									<AbsDimension x="-5" y="0"/>
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -571,13 +571,13 @@
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parentLeftPanel" relativePoint="TOPRIGHT">
 						<Offset>
-							<AbsDimension x="20"/>
+							<AbsDimension x="20" y="0"/>
 						</Offset>
 					</Anchor>
 					<Anchor point="BOTTOM" relativeTo="$parentLeftPanel"/>
 					<Anchor point="RIGHT">
 						<Offset>
-							<AbsDimension x="-20"/>
+							<AbsDimension x="-20" y="0"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -587,7 +587,7 @@
 							<Anchors>
 								<Anchor point="TOP">
 									<Offset>
-										<AbsDimension y="-5"/>
+										<AbsDimension x="0" y="-5"/>
 									</Offset>
 								</Anchor>
 							</Anchors>
@@ -691,7 +691,7 @@
 							<Anchor point="TOPLEFT"/>
 							<Anchor point="BOTTOMRIGHT">
 								<Offset>
-									<AbsDimension x="-5"/>
+									<AbsDimension x="-5" y="0"/>
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -837,7 +837,7 @@
 			</Button>
 			<EditBox letters="50" name="$parentEditBox" parentKey="editBox">
 				<Size>
-					<AbsDimension y="32"/>
+					<AbsDimension x="0" y="32"/>
 				</Size>
 				<Anchors>
 					<Anchor point="BOTTOM" >
@@ -847,12 +847,12 @@
 					</Anchor>
 					<Anchor point="RIGHT">
 						<Offset>
-							<AbsDimension x="-25"/>
+							<AbsDimension x="-25" y="0"/>
 						</Offset>
 					</Anchor>
 					<Anchor point="LEFT" relativeTo="$parentDropDown" relativePoint="RIGHT">
 						<Offset>
-							<AbsDimension x="125"/>
+							<AbsDimension x="125" y="0"/>
 						</Offset>
 					</Anchor>
 				</Anchors>

@@ -35,7 +35,7 @@
 	</Frame>
 	<Frame name="ww_modifierKeyDropDown" inherits="ww_labeledElement" virtual="true">
 		<Size>
-			<AbsDimension y="45"/>
+			<AbsDimension x="0" y="45"/>
 		</Size>
 		<Frames>
 			<Button name="$parentDropdown" parentKey="dropdown" inherits="UIDropDownMenuTemplate">
@@ -70,7 +70,7 @@
 		<Anchors>
 			<Anchor point="LEFT">
 				<Offset>
-					<AbsDimension x="5"/>
+					<AbsDimension x="5" y="0"/>
 				</Offset>
 			</Anchor>
 		</Anchors>
@@ -111,7 +111,7 @@
 		<Anchors>
 			<Anchor point="TOP">
 				<Offset>
-					<AbsDimension y="-5"/>
+					<AbsDimension x="0" y="-5"/>
 				</Offset>
 			</Anchor>
 		</Anchors>
@@ -129,7 +129,7 @@
 					<Anchors>
 						<Anchor point="TOP">
 							<Offset>
-								<AbsDimension y="-5"/>
+								<AbsDimension x="0" y="-5"/>
 							</Offset>
 						</Anchor>
 					</Anchors>
@@ -152,13 +152,13 @@
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>
-							<AbsDimension y="-25"/>
+							<AbsDimension x="0" y="-25"/>
 						</Offset>
 					</Anchor>
 					<Anchor point="BOTTOM"/>
 				</Anchors>
 				<Size>
-					<AbsDimension x="300"/>
+					<AbsDimension x="300" y="0"/>
 				</Size>
 				<Layers>
 					<Layer level="ARTWORK">
@@ -171,7 +171,7 @@
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentHeader"/>
 						</Anchors>
 						<Size>
-							<AbsDimension y="45"/>
+							<AbsDimension x="0" y="45"/>
 						</Size>
 						<Frames>
 							<Button name="$parentDropdown" parentKey="dropdown" inherits="UIDropDownMenuTemplate">
@@ -197,6 +197,7 @@
 						<Scripts>
 							<OnLoad>
 								self.label:SetText(ww_localization["MAX_GEM_QUAL"])
+								self:SetBackdropColor(1, 0, 0, 0.5)
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -306,7 +307,7 @@
 						<Anchors>
 							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentUseCraftedGems">
 								<Offset>
-									<AbsDimension x="20"/>
+									<AbsDimension x="20" y="0"/>
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -393,7 +394,7 @@
 						<Anchors>
 							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentObeySocketColors">
 								<Offset>
-									<AbsDimension x="20"/>
+									<AbsDimension x="20" y="0"/>
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -440,7 +441,7 @@
 							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentNormalizeWeights"/>
 						</Anchors>
 						<Size>
-							<AbsDimension y="25"/>
+							<AbsDimension x="0" y="25"/>
 						</Size>
 						<Frames>
 							<EditBox letters="16" name="$parentRatio" parentKey="ratio" autoFocus="false">
@@ -545,7 +546,7 @@
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowWeights"/>
 							<Anchor point="LEFT" relativePoint="LEFT" relativeTo="$parentShowWeights">
 								<Offset>
-									<AbsDimension x="20"/>
+									<AbsDimension x="20" y="0"/>
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -561,7 +562,7 @@
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowIdealWeights"/>
 							<Anchor point="LEFT" relativePoint="LEFT" relativeTo="$parentShowIdealWeights">
 								<Offset>
-									<AbsDimension x="20"/>
+									<AbsDimension x="20" y="0"/>
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -577,7 +578,7 @@
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowIdealGems"/>
 							<Anchor point="LEFT" relativePoint="LEFT" relativeTo="$parentShowIdealGems">
 								<Offset>
-									<AbsDimension x="20"/>
+									<AbsDimension x="20" y="0"/>
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -593,7 +594,7 @@
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowAlternateGems"/>
 							<Anchor point="LEFT" relativePoint="LEFT" relativeTo="$parentShowIdealGems">
 								<Offset>
-									<AbsDimension x="20"/>
+									<AbsDimension x="20" y="0"/>
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -639,7 +640,7 @@
 							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentHideTooltipHints"/>
 						</Anchors>
 						<Size>
-							<AbsDimension y="45"/>
+							<AbsDimension x="0" y="45"/>
 						</Size>
 						<Frames>
 							<Button name="$parentDropdown" parentKey="dropdown" inherits="UIDropDownMenuTemplate">
