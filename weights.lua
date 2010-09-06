@@ -98,7 +98,7 @@ function ww_configDiscardChanges(func)
 end
 
 function ww_selectWeight(class, name)
-	for _, classFrame in ipairs(ww_weights.leftPanel.scrollFrame.elements) do
+	for _, classFrame in ipairs(ww_weights.leftPanel.scrollContainer.elements) do
 		if classFrame.class == class then
 			local children = {classFrame:GetChildren()}
 			ww_configSelectWeight(children[classFrame:GetNumChildren()])
@@ -166,7 +166,7 @@ function ww_configResetWeight()
 	if ww_weights.rightPanel.changedStats then
 		for statValue, statName in pairs(ww_weights.rightPanel.changedStats) do
 			changed = true
-			value = ww_weights.rightPanel.statList[statName]
+			value = ww_weights.rightPanel.statList and ww_weights.rightPanel.statList[statName]
 			if not value then
 				value = ""
 			end
@@ -176,13 +176,13 @@ function ww_configResetWeight()
 	if ww_weights.rightPanel.changedTriggers then
 		for triggerCheckButton, trigger in pairs(ww_weights.rightPanel.changedTriggers) do
 			changed = true
-			triggerCheckButton:SetChecked(ww_weights.rightPanel.statList.triggers[trigger])
+			triggerCheckButton:SetChecked(ww_weights.rightPanel.statList and ww_weights.rightPanel.statList.triggers[trigger])
 		end
 	end
 	if not changed then
 		for _, frame in pairs(ww_weights.rightPanel.scrollContainer.stats) do
 			if frame.statName then
-				value = ww_weights.rightPanel.statList[frame.statName]
+				value = ww_weights.rightPanel.statList and ww_weights.rightPanel.statList[frame.statName]
 				if not value then
 					value = ""
 				end
@@ -191,7 +191,7 @@ function ww_configResetWeight()
 		end
 		for _, frame in pairs(ww_weights.rightPanel.scrollContainer.triggers) do
 			if frame.active then
-				frame.active:SetChecked(ww_weights.rightPanel.statList.triggers[frame.active:GetText()])
+				frame.active:SetChecked(ww_weights.rightPanel.statList and ww_weights.rightPanel.statList.triggers[frame.active:GetText()])
 			end
 		end
 	end
@@ -265,12 +265,12 @@ local function deleteWeight()
 		end
 	end
 	if not weight.category.collapsed then
-		for _, classFrame in ipairs(ww_weights.leftPanel.scrollFrame.elements) do
+		for _, classFrame in ipairs(ww_weights.leftPanel.scrollContainer.elements) do
 			if classFrame.position > weight.category.position then
 				classFrame.position = classFrame.position - 1
 			end
 		end
-		table.remove(ww_weights.leftPanel.scrollFrame.shown, weight.category.position + weight.position)
+		table.remove(ww_weights.leftPanel.scrollContainer.shown, weight.category.position + weight.position)
 		weight.category:SetHeight(22 * weight.category.length)
 	end
 	weight:Hide()
@@ -327,15 +327,15 @@ function ww_setWeight(class, weight, statList)
 	local weightFrame, position
 
 	if not ww_vars.weightsList[class][weight] then
-		for _, classFrame in ipairs(ww_weights.leftPanel.scrollFrame.elements) do
+		for _, classFrame in ipairs(ww_weights.leftPanel.scrollContainer.elements) do
 			if classFrame.class == class then
 				position = classFrame.length
-				weightFrame = CreateFrame("Frame", weight, classFrame, "ww_weightFrame")
+				weightFrame = CreateFrame("Frame", nil, classFrame, "ww_weightFrame")
 				weightFrame.position = position
 				weightFrame.category = classFrame
 				weightFrame.text:SetText(weight)
 				weightFrame.name = weight
-				weightFrame:SetPoint("TOPLEFT", 0, -22 * position)
+				weightFrame:SetPoint("TOPLEFT", 20, -22 * position)
 				if ww_defaultVars.weightsList[class] and ww_defaultVars.weightsList[class][weight] then
 					local fontString = weightFrame.text:GetFontString()
 					fontString:SetTextColor(1, 1, 1)
@@ -346,8 +346,8 @@ function ww_setWeight(class, weight, statList)
 					weightFrame:Hide()
 				else
 					classFrame:SetHeight(22 * classFrame.length)
-					table.insert(ww_weights.leftPanel.scrollFrame.shown, classFrame.position + position, weightFrame)
-					for _, class in ipairs(ww_weights.leftPanel.scrollFrame.elements) do
+					table.insert(ww_weights.leftPanel.scrollContainer.shown, classFrame.position + position, weightFrame)
+					for _, class in ipairs(ww_weights.leftPanel.scrollContainer.elements) do
 						if class.position > classFrame.position then
 							class.position = class.position + 1
 						end
