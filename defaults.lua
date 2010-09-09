@@ -10,6 +10,7 @@ ww_trackedStats = {
 	[ww_statCategories["General"]] = {
 		"critical strike rating",
 		"haste rating",
+		"mastery rating",
 		ww_statCategories["DPS"],
 		[ww_statCategories["DPS"]] = {
 			"hit rating",
@@ -190,7 +191,7 @@ ww_classNameOptions = {
 
 ww_defaultVars = {
 	dataMajorVersion = 1,
-	dataMinorVersion = 21,
+	dataMinorVersion = 22,
 	weightsList = {
 		"DEATHKNIGHT",
 		"DRUID",
@@ -203,28 +204,13 @@ ww_defaultVars = {
 		"WARLOCK",
 		"WARRIOR",
 		["DEATHKNIGHT"] = {
-			ww_specNames["Blood DPS"],
-			ww_specNames["Blood Tank"],
-			ww_specNames["Frost DPS"],
-			ww_specNames["Frost Tank"],
-			ww_specNames["Unholy DPS"],
-			[ww_specNames["Blood DPS"]] = {
-				["melee dps"] = 360,
-				["armor penetration rating"] = 100,
-				["strength"] = 99,
-				["hit rating"] = 91,
-				["expertise rating"] = 90,
-				["critical strike rating"] = 57,
-				["haste rating"] = 55,
-				["attack power"] = 36,
-				["armor"] = 1,
-				triggers = {
-					meleeDamage = true,
-				}
-			},
-			[ww_specNames["Blood Tank"]] = {
+			ww_specNames["Blood"],
+			ww_specNames["Frost"],
+			ww_specNames["Unholy"],
+			[ww_specNames["Blood"]] = {
 				["melee dps"] = 500,
 				["stamina"] = 100,
+				["mastery rating"] = 100,
 				["defense rating"] = 90,
 				["agility"] = 69,
 				["dodge rating"] = 50,
@@ -241,9 +227,10 @@ ww_defaultVars = {
 					meleeDamage = true,
 				}
 			},
-			[ww_specNames["Frost DPS"]] = {
+			[ww_specNames["Frost"]] = {
 				["melee dps"] = 337,
 				["hit rating"] = 100,
+				["mastery rating"] = 100,
 				["strength"] = 97,
 				["expertise rating"] = 81,
 				["armor penetration rating"] = 61,
@@ -255,27 +242,10 @@ ww_defaultVars = {
 					meleeDamage = true,
 				}
 			},
-			[ww_specNames["Frost Tank"]] = {
-				["melee dps"] = 419,
-				["parry rating"] = 100,
-				["hit rating"] = 97,
-				["strength"] = 96,
-				["defense rating"] = 85,
-				["expertise rating"] = 69,
-				["dodge rating"] = 61,
-				["agility"] = 61,
-				["stamina"] = 61,
-				["critical strike rating"] = 49,
-				["attack power"] = 41,
-				["armor penetration rating"] = 31,
-				["armor"] = 5,
-				triggers = {
-					meleeDamage = true,
-				}
-			},
-			[ww_specNames["Unholy DPS"]] = {
+			[ww_specNames["Unholy"]] = {
 				["melee dps"] = 209,
 				["strength"] = 100,
+				["mastery rating"] = 100,
 				["hit rating"] = 66,
 				["expertise rating"] = 51,
 				["haste rating"] = 48,
@@ -296,6 +266,7 @@ ww_defaultVars = {
 			[ww_specNames["Balance"]] = {
 				["hit rating"] = 100,
 				["spell hit rating"] = 100,
+				["mastery rating"] = 100,
 				["spell power"] = 66,
 				["haste rating"] = 54,
 				["critical strike rating"] = 43,
@@ -308,6 +279,7 @@ ww_defaultVars = {
 			},
 			[ww_specNames["Feral DPS"]] = {
 				["agility"] = 100,
+				["mastery rating"] = 100,
 				["armor penetration rating"] = 90,
 				["strength"] = 80,
 				["critical strike rating"] = 55,
@@ -322,6 +294,7 @@ ww_defaultVars = {
 			},
 			[ww_specNames["Feral Tank"]] = {
 				["agility"] = 100,
+				["mastery rating"] = 100,
 				["stamina"] = 75,
 				["dodge rating"] = 65,
 				["defense rating"] = 60,
@@ -339,6 +312,7 @@ ww_defaultVars = {
 			},
 			[ww_specNames["Restoration"]] = {
 				["spell power"] = 100,
+				["mastery rating"] = 100,
 				["mp5"] = 73,
 				["haste rating"] = 57,
 				["intellect"] = 51,
@@ -358,6 +332,7 @@ ww_defaultVars = {
 				["ranged dps"] = 213,
 				["hit rating"] = 100,
 				["ranged hit rating"] = 100,
+				["mastery rating"] = 100,
 				["agility"] = 58,
 				["critical strike rating"] = 40,
 				["ranged critical strike rating"] = 40,
@@ -375,6 +350,7 @@ ww_defaultVars = {
 				["ranged dps"] = 379,
 				["hit rating"] = 100,
 				["ranged hit rating"] = 100,
+				["mastery rating"] = 100,
 				["agility"] = 74,
 				["critical strike rating"] = 57,
 				["ranged critical strike rating"] = 57,
@@ -392,6 +368,7 @@ ww_defaultVars = {
 				["ranged dps"] = 181,
 				["hit rating"] = 100,
 				["ranged hit rating"] = 100,
+				["mastery rating"] = 100,
 				["agility"] = 76,
 				["critical strike rating"] = 42,
 				["ranged critical strike rating"] = 42,
@@ -413,6 +390,7 @@ ww_defaultVars = {
 			[ww_specNames["Arcane"]] = {
 				["hit rating"] = 100,
 				["spell hit rating"] = 100,
+				["mastery rating"] = 100,
 				["haste rating"] = 54,
 				["arcane spell damage"] = 49,
 				["spell power"] = 49,
@@ -429,6 +407,7 @@ ww_defaultVars = {
 			[ww_specNames["Fire"]] = {
 				["hit rating"] = 100,
 				["spell hit rating"] = 100,
+				["mastery rating"] = 100,
 				["haste rating"] = 53,
 				["fire spell damage"] = 46,
 				["spell power"] = 46,
@@ -444,6 +423,7 @@ ww_defaultVars = {
 			[ww_specNames["Frost"]] = {
 				["hit rating"] = 100,
 				["spell hit rating"] = 100,
+				["mastery rating"] = 100,
 				["haste rating"] = 42,
 				["frost spell damage"] = 39,
 				["spell power"] = 39,
@@ -463,6 +443,7 @@ ww_defaultVars = {
 			ww_specNames["Retribution"],
 			[ww_specNames["Holy"]] = {
 				["intellect"] = 100,
+				["mastery rating"] = 100,
 				["mp5"] = 88,
 				["spell power"] = 58,
 				["critical strike rating"] = 46,
@@ -474,6 +455,7 @@ ww_defaultVars = {
 			},
 			[ww_specNames["Protection"]] = {
 				["stamina"] = 100,
+				["mastery rating"] = 100,
 				["agility"] = 60,
 				["expertise rating"] = 59,
 				["dodge rating"] = 55,
@@ -491,6 +473,7 @@ ww_defaultVars = {
 			[ww_specNames["Retribution"]] = {
 				["melee dps"] = 470,
 				["hit rating"] = 100,
+				["mastery rating"] = 100,
 				["strength"] = 80,
 				["expertise rating"] = 66,
 				["critical strike rating"] = 40,
@@ -511,6 +494,7 @@ ww_defaultVars = {
 			ww_specNames["Shadow"],
 			[ww_specNames["Discipline"]] = {
 				["spell power"] = 100,
+				["mastery rating"] = 100,
 				["mp5"] = 67,
 				["intellect"] = 65,
 				["haste rating"] = 59,
@@ -523,6 +507,7 @@ ww_defaultVars = {
 			},
 			[ww_specNames["Holy"]] = {
 				["mp5"] = 100,
+				["mastery rating"] = 100,
 				["intellect"] = 69,
 				["spell power"] = 60,
 				["spirit"] = 52,
@@ -536,6 +521,7 @@ ww_defaultVars = {
 			[ww_specNames["Shadow"]] = {
 				["hit rating"] = 100,
 				["spell hit rating"] = 100,
+				["mastery rating"] = 100,
 				["shadow spell damage"] = 76,
 				["spell power"] = 76,
 				["critical strike rating"] = 54,
@@ -555,6 +541,7 @@ ww_defaultVars = {
 			[ww_specNames["Assassination"]] = {
 				["melee dps"] = 170,
 				["agility"] = 100,
+				["mastery rating"] = 100,
 				["expertise rating"] = 87,
 				["hit rating"] = 83,
 				["critical strike rating"] = 81,
@@ -570,6 +557,7 @@ ww_defaultVars = {
 				["melee dps"] = 220,
 				["armor penetration rating"] = 100,
 				["agility"] = 100,
+				["mastery rating"] = 100,
 				["expertise rating"] = 82,
 				["hit rating"] = 80,
 				["critical strike rating"] = 75,
@@ -584,6 +572,7 @@ ww_defaultVars = {
 				["melee dps"] = 228,
 				["expertise rating"] = 100,
 				["agility"] = 100,
+				["mastery rating"] = 100,
 				["hit rating"] = 80,
 				["armor penetration rating"] = 75,
 				["critical strike rating"] = 75,
@@ -602,6 +591,7 @@ ww_defaultVars = {
 			[ww_specNames["Elemental"]] = {
 				["hit rating"] = 100,
 				["spell hit rating"] = 100,
+				["mastery rating"] = 100,
 				["spell power"] = 60,
 				["haste rating"] = 56,
 				["critical strike rating"] = 40,
@@ -614,6 +604,7 @@ ww_defaultVars = {
 			[ww_specNames["Enhancement"]] = {
 				["melee dps"] = 135,
 				["hit rating"] = 100,
+				["mastery rating"] = 100,
 				["expertise rating"] = 84,
 				["agility"] = 55,
 				["intellect"] = 55,
@@ -630,6 +621,7 @@ ww_defaultVars = {
 			},
 			[ww_specNames["Restoration"]] = {
 				["mp5"] = 100,
+				["mastery rating"] = 100,
 				["intellect"] = 85,
 				["spell power"] = 77,
 				["critical strike rating"] = 62,
@@ -647,6 +639,7 @@ ww_defaultVars = {
 			[ww_specNames["Affliction"]] = {
 				["hit rating"] = 100,
 				["spell hit rating"] = 100,
+				["mastery rating"] = 100,
 				["shadow spell damage"] = 72,
 				["spell power"] = 72,
 				["haste rating"] = 61,
@@ -662,6 +655,7 @@ ww_defaultVars = {
 			[ww_specNames["Demonology"]] = {
 				["hit rating"] = 100,
 				["spell hit rating"] = 100,
+				["mastery rating"] = 100,
 				["haste rating"] = 50,
 				["fire spell damage"] = 45,
 				["shadow spell damage"] = 45,
@@ -677,6 +671,7 @@ ww_defaultVars = {
 			[ww_specNames["Destruction"]] = {
 				["hit rating"] = 100,
 				["spell hit rating"] = 100,
+				["mastery rating"] = 100,
 				["fire spell damage"] = 47,
 				["spell power"] = 47,
 				["haste rating"] = 46,
@@ -696,6 +691,7 @@ ww_defaultVars = {
 			ww_specNames["Protection"],
 			[ww_specNames["Arms"]] = {
 				["strength"] = 100,
+				["mastery rating"] = 100,
 				["hit rating"] = 90,
 				["expertise rating"] = 85,
 				["critical strike rating"] = 80,
@@ -710,6 +706,7 @@ ww_defaultVars = {
 			},
 			[ww_specNames["Fury"]] = {
 				["expertise rating"] = 100,
+				["mastery rating"] = 100,
 				["strength"] = 82,
 				["critical strike rating"] = 66,
 				["agility"] = 53,
@@ -724,6 +721,7 @@ ww_defaultVars = {
 			},
 			[ww_specNames["Protection"]] = {
 				["stamina"] = 100,
+				["mastery rating"] = 100,
 				["dodge rating"] = 90,
 				["defense rating"] = 86,
 				["block value"] = 81,

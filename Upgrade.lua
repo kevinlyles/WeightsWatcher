@@ -55,6 +55,23 @@ local function noop_major_up(vars)
 	return vars
 end
 
+local function upgradeAccountToMastery(vars)
+	for _, class in ipairs(vars.weightsList) do
+		for _, weight in ipairs(vars.weightsList[class]) do
+			if vars.weightsList[class][weight]["mastery rating"] == nil then
+				if ww_defaultVars.weightsList[class][weight] then
+					vars.weightsList[class][weight]["mastery rating"] = ww_defaultVars.weightsList[class][weight]["mastery rating"] or 100
+				else
+					vars.weightsList[class][weight]["mastery rating"] = 100
+				end
+			end
+		end
+	end
+
+	vars.dataMinorVersion = 22
+	return vars
+end
+
 local function upgradeAccountToNewClassNameDisplayOptions(vars)
 	if vars.options.tooltip.showClassNames == "Others" then
 		vars.options.tooltip.showClassNames = "Other Classes"
@@ -1005,6 +1022,7 @@ local upgradeAccountFunctions = {
 		[18] = upgradeAccountToSpellHitAndCrit,
 		[19] = upgradeAccountToRangedCritHasteAndHit,
 		[20] = upgradeAccountToNewClassNameDisplayOptions,
+		[21] = upgradeAccountToMastery,
 	},
 }
 
@@ -1043,6 +1061,7 @@ local downgradeAccountFunctions = {
 		[19] = noop_down,
 		[20] = noop_down,
 		[21] = downgradeAccountFromNewClassNameDisplayOptions,
+		[22] = noop_down,
 	},
 }
 

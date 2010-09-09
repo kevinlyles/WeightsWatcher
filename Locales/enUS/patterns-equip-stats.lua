@@ -37,6 +37,7 @@ local EquipStatsAffixes = {
 	"^restores +",
 	"^your +",
 	" +does not work for players above level %d+%.$",
+	" +%([%a ]+%)$",
 	"%.$",
 }
 
