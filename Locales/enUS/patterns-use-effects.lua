@@ -18,6 +18,14 @@ local UseEffectIgnoreLines = {
 	"^use: a strangely glowing alcoholic beverage",
 	"^use: instantly restores ",
 	"^use: reduces ",
+	"^use: combines? ",
+	"^use: inflicts? ",
+	"^use: increases the range ",
+	"^use: increases the radius ",
+	"^use: increases the duration ",
+	"^use: summons? ",
+	"^use: turns? ",
+	"^use: unlocks? ",
 }
 
 local UseEffectUnweightedLines = {

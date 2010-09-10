@@ -11,8 +11,8 @@ ww_EffectHandlers = {
 	ww_enchants,
 	ww_elixirs,
 	ww_fishing,
-	ww_useEffects,
 	ww_cooldownUseEffects,
+	ww_useEffects,
 	ww_stackingEquipEffects,
 }
 
@@ -97,8 +97,12 @@ ww_IgnoredLines = {
 	"^use: right click to ",
 	"^this item begins a quest$",
 	"^already known$",
+	"^prime glyph$",
 	"^major glyph$",
 	"^minor glyph$",
+	"^<.*>$",
+	-- TODO: add these for ALL professions
+	"^prospectable$",
 	-- Zone names
 	"^alterac valley$",
 	"^black temple$",
@@ -108,6 +112,7 @@ ww_IgnoredLines = {
 	"^drak'tharon keep$",
 	"^grizzly hills$",
 	"^icecrown citadel$",
+	"^icecrown$",
 	"^isle of conquest$",
 	"^karazhan$",
 	"^shadowmoon valley",
@@ -120,6 +125,7 @@ ww_IgnoredLines = {
 	"^the escape from durnholde$",
 	"^the oculus$",
 	"^utgarde pinnacle$",
+	"^violet hold$",
 	"^wintergrasp$",
 	"^zul'aman$",
 	"^zul'drak$",
@@ -212,6 +218,21 @@ ww_MultipleStatLines = {
 		end,
 		{"enchant"},
 	},
+	{"^(%a+ )and (%a[%a ]+ )by( %d+)$",
+		function(text, pattern, section)
+			local start, _, stat1, stat2, value = string.find(text, pattern)
+			if start then
+				stat1 = WeightsWatcher.singleStat(stat1 .. "by" .. value, section)
+				stat2 = WeightsWatcher.singleStat(stat2 .. "by" .. value, section)
+				if stat1 and stat2 then
+					return stat1.stats + stat2.stats
+				else
+					ww_unparsed_lines[text][pattern].parsedTo = {stat1, stat2}
+				end
+			end
+		end,
+		{"enchant"},
+	},
 	{"^(%a[%a ]+ )and (%a[%a ]+ )rating by( %d+)$",
 		function(text, pattern, section)
 			local start, _, stat1, stat2, value = string.find(text, pattern)
@@ -226,6 +247,21 @@ ww_MultipleStatLines = {
 			end
 		end,
 		{"enchant"},
+	},
+	{"^(%a[%a ]+ )and (%a[%a ]+ )by( %d+)$",
+		function(text, pattern, section)
+			local start, _, stat1, stat2, value = string.find(text, pattern)
+			if start then
+				stat1 = WeightsWatcher.singleStat(stat1 .. "by" .. value, section)
+				stat2 = WeightsWatcher.singleStat(stat2 .. "by" .. value, section)
+				if stat1 and stat2 then
+					return stat1.stats + stat2.stats
+				else
+					ww_unparsed_lines[text][pattern].parsedTo = {stat1, stat2}
+				end
+			end
+		end,
+		{"elixir"},
 	},
 	{"^([+-]?%d+) health and mana every 5 seco?n?d?s?$",
 		function(text, pattern)
@@ -385,7 +421,7 @@ ww_SingleStatLines = {
 		end,
 		{"elixir", "enchant"},
 	},
-	{"^([+-]?%d+) (mana)$", WeightsWatcher.statNumFirst, {"enchant"}},
+	{"^([+-]?%d+) (mana)$", WeightsWatcher.statNumFirst, {"enchant", "elixir"}},
 	{"^([+-]?%d+) ranged damage$",
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "average ranged weapon damage") + WeightsWatcher.singleStatValueOnly(text, pattern, "maximum ranged weapon damage")

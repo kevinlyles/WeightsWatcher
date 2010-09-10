@@ -20,6 +20,7 @@ local GenericPreprocessLines = {
 	{" to all ", " all "},
 	{" (%d+%%) stun resistance$", " chance to resist stun effects by %1"},
 	{" reduces snare/root duration by ", " snare/root duration reduced by "},
+	{" maximum mana$", " mana"},
 }
 
 local GenericAffixes = {

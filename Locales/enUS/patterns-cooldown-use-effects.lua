@@ -44,7 +44,8 @@ local CooldownUseAffixes = {
 	"^increases? +",
 	"^restores +",
 	"^your +",
-	"^the target's +",
+	"^the +",
+	"^target's +",
 	"^maximum +",
 	" +shares cooldown with o?t?h?e?r? ?battlemaster's trinkets%.",
 	-- item 12459

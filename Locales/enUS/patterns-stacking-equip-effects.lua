@@ -22,11 +22,13 @@ local triggerGroups = {
 
 local StackingEquipMatchLines = {
 	"^equip: each .* stack",
+	"^equip: your spells grant .* stack",
 }
 
 local stackingEquipPreprocessLines = {
 	{"%. +each time you ", " SPLIT "},
 	{"%. +stacks ", ", stacking "},
+	{" your spells grant ", " each time you cast a spell you gain "},
 }
 
 local StackingEquipAffixes = {
