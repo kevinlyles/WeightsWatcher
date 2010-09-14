@@ -47,7 +47,7 @@ end
 
 --moves the editbox focus to the next available edit box
 function ww_changeFocus(currentStatFrame)
-	local frame, offset, looped
+	local frame, offset, looped, direction
 	local elements = ww_weights.rightPanel.scrollContainer.shown
 	local position = currentStatFrame.position
 

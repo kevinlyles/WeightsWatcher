@@ -529,7 +529,7 @@ local downgradeAccountFromFixedConfigOptions = [[
 ]]
 
 local function upgradeAccountToPartitionedGems(vars)
-	qualityConversion = {
+	local qualityConversion = {
 		[1] = 1,
 		[2] = 2,
 		[3] = 3,
@@ -568,7 +568,7 @@ end
 
 local downgradeAccountFromPartitionedGems = [[
 	return function(vars)
-		qualityConversion = {
+		local qualityConversion = {
 			[1] = 1,
 			[2] = 2,
 			[3] = 3,
@@ -946,7 +946,7 @@ local function upgradeAccountToNormalization(vars)
 	return vars
 end
 
-function copyDefaultAccountVars()
+function ww_copyDefaultAccountVars()
 	return ww_deepTableCopy(ww_defaultVars)
 end
 
@@ -961,7 +961,7 @@ local function createActiveWeights(class)
 	return activeWeights
 end
 
-local function copyDefaultCharVars()
+local function ww_copyDefaultCharVars()
 	local charVars
 
 	charVars = ww_deepTableCopy(ww_defaultCharVars)
@@ -971,7 +971,7 @@ end
 
 local upgradeAccountFunctions = {
 	[0] = {
-		[0] = copyDefaultAccountVars,
+		[0] = ww_copyDefaultAccountVars,
 		[1] = upgradeAccountToNormalization,
 		[2] = upgradeAccountToGemQuality,
 		[3] = upgradeAccountToOrderedLists,
@@ -1048,7 +1048,7 @@ local downgradeAccountFunctions = {
 
 local upgradeCharFunctions = {
 	[0] = {
-		[0] = copyDefaultCharVars,
+		[0] = ww_copyDefaultCharVars,
 		[1] = upgradeCharToOrderedLists,
 		[2] = noop_major_up,
 	},

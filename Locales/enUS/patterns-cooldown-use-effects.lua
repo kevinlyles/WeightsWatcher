@@ -60,7 +60,7 @@ local function useEffect(text, section)
 	if start then
 		cooldown = WeightsWatcher.convertToSeconds(cooldown)
 		duration = WeightsWatcher.convertToSeconds(duration)
-		stats = WeightsWatcher.parseStats(stat, section)
+		local stats = WeightsWatcher.parseStats(stat, section)
 		if stats and stats.stats then
 			return {
 				stats = stats.stats,

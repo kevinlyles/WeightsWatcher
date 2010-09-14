@@ -6,7 +6,7 @@ local function splitItemLink(link)
 	local _, itemId, _, gemId1, gemId2, gemId3, gemId4, suffixId, uniqueId, linkLevel = strsplit(":", link)
 	-- Strip color codes
 	linkLevel = strsplit("|", linkLevel)
-	bareLink = strjoin(":", "item", itemId, "0:0:0:0:0", suffixId, uniqueId, linkLevel)
+	local bareLink = strjoin(":", "item", itemId, "0:0:0:0:0", suffixId, uniqueId, linkLevel)
 
 	return bareLink, {{gemId1}, {gemId2}, {gemId3}, {gemId4}}
 end
@@ -124,7 +124,7 @@ ww_weightIdealCacheWeightMetatable = {
 		end
 
 		local itemStats = ww_bareItemCache[key]
-		local socketBonusWeight = WeightsWatcher.calculateWeight({normalStats = {}, socketBonusStat = itemStats.socketBonusStat}, {socketBonusActive = socketBonusActive, gemStats = {}}, tbl.weight)
+		local socketBonusWeight = WeightsWatcher.calculateWeight({normalStats = {}, socketBonusStat = itemStats.socketBonusStat}, {socketBonusActive = true, gemStats = {}}, tbl.weight)
 		local breakSocketColors = ww_vars.options.gems.breakSocketColors or (not ww_vars.options.gems.neverBreakSocketColors and socketBonusWeight <= 0)
 
 		local socketBonusActive = true
@@ -139,7 +139,7 @@ ww_weightIdealCacheWeightMetatable = {
 				gemScoreIgnoreSocket = gemScoreIgnoreSocket + tbl.bestGems.overallScore
 			end
 		end
-		gemStats = WeightsWatcher.getGemStats(bestGems)
+		local gemStats = WeightsWatcher.getGemStats(bestGems)
 		if breakSocketColors then
 			if gemScore < gemScoreIgnoreSocket then
 				socketBonusActive = false
@@ -274,7 +274,7 @@ StaticPopupDialogs["WW_INVALID_ACCOUNT_DATA"] = {
 	button1 = L["Load Defaults"],
 	button2 = L["Disable WeightsWatcher"],
 	OnAccept = function(self, func)
-			ww_vars = copyDefaultAccountVars()
+			ww_vars = ww_copyDefaultAccountVars()
 			if not upgradeData("character", "ww_charVars") then
 				return
 			end
@@ -295,7 +295,7 @@ StaticPopupDialogs["WW_INVALID_CHARACTER_DATA"] = {
 	button1 = L["Load Defaults"],
 	button2 = L["Disable WeightsWatcher"],
 	OnAccept = function(self, func)
-			ww_charVars = copyDefaultCharVars()
+			ww_charVars = ww_copyDefaultCharVars()
 			initializeAfterDataUpgrade()
 		end,
 	OnCancel = function(self, func)
@@ -320,7 +320,8 @@ function WeightsWatcher.Broken(dataType)
 end
 
 function WeightsWatcher.HookTooltip(objectName, funcName)
-	local object = getglobal(objectName)
+	local object = _G[objectName]
+	local func = _G[funcName]
 	WeightsWatcher:SecureHook(object, funcName, function(self, ...) WeightsWatcher.displayItemStats(self, objectName, ...) end)
 	table.insert(currentHooks, {object, func})
 end
@@ -362,7 +363,7 @@ end
 
 function WeightsWatcher.OnDisable()
 	for _, hook in currentHooks do
-		self:Unhook(unpack(hook))
+		WeightsWatcher:Unhook(unpack(hook))
 	end
 	currentHooks = {}
 end
@@ -527,13 +528,12 @@ local slotConversion = {
 }
 
 function WeightsWatcher.displayItemStats(tooltip, ttname)
-	local link, bareLink, itemType, stackSize, sockets, gemStats
+	local bareLink, itemType, stackSize, sockets, gemStats
 	local stat, value, str, formatStr
 	local compareLink, compareBareLink, compareLink2, compareBareLink2, compareMethod
-	local showWeights, showIdealWeights, showIdealGems, showIdealGemStats, showAlternateGems
 	local alternateGemsExist = false
 
-	_, link = tooltip:GetItem()
+	local _, link = tooltip:GetItem()
 	if link == nil then
 		return
 	end
@@ -543,12 +543,12 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 		bareLink = splitItemLink(link)
 		local bareItemInfo = ww_bareItemCache[bareLink]
 
-		showDebugInfo = ww_keyDetectors[ww_vars.options.tooltip.showDebugInfo]()
-		showWeights = ww_keyDetectors[ww_vars.options.tooltip.showWeights]()
-		showIdealWeights = ww_keyDetectors[ww_vars.options.tooltip.showIdealWeights]()
-		showIdealGems = ww_keyDetectors[ww_vars.options.tooltip.showIdealGems]()
-		showIdealGemStats = ww_keyDetectors[ww_vars.options.tooltip.showIdealGemStats]()
-		showAlternateGems = ww_keyDetectors[ww_vars.options.tooltip.showAlternateGems]()
+		local showDebugInfo = ww_keyDetectors[ww_vars.options.tooltip.showDebugInfo]()
+		local showWeights = ww_keyDetectors[ww_vars.options.tooltip.showWeights]()
+		local showIdealWeights = ww_keyDetectors[ww_vars.options.tooltip.showIdealWeights]()
+		local showIdealGems = ww_keyDetectors[ww_vars.options.tooltip.showIdealGems]()
+		local showIdealGemStats = ww_keyDetectors[ww_vars.options.tooltip.showIdealGemStats]()
+		local showAlternateGems = ww_keyDetectors[ww_vars.options.tooltip.showAlternateGems]()
 
 		if ttname ~= "ShoppingTooltip1" and ttname ~= "ShoppingTooltip2" and ww_vars.options.tooltip.showDifferences then
 			local currentSlot, compareSlot, compareSlot2, currentSubslot, compareSubslot, compareSubslot2
@@ -586,7 +586,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 		end
 
 		for i = start, tooltip:NumLines() do
-			ttleft = getglobal(ttname .. "TextLeft" .. i)
+			ttleft = _G[ttname .. "TextLeft" .. i]
 			origTextL = ttleft:GetText()
 			textL = WeightsWatcher.preprocess(origTextL:lower())
 			if rawget(ww_unparsed_lines, textL) then
@@ -1125,8 +1125,8 @@ function WeightsWatcher.getItemStats(link)
 	end
 
 	for i = start, WeightsWatcherHiddenTooltip:NumLines() do
-		textL = WeightsWatcher.preprocess(getglobal("WeightsWatcherHiddenTooltipTextLeft" .. i):GetText():lower())
-		textR = getglobal("WeightsWatcherHiddenTooltipTextRight" .. i):GetText()
+		textL = WeightsWatcher.preprocess(_G["WeightsWatcherHiddenTooltipTextLeft" .. i]:GetText():lower())
+		textR = _G["WeightsWatcherHiddenTooltipTextRight" .. i]:GetText()
 		if textR then
 			textR = textR:lower()
 		end

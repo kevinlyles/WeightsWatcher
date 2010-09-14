@@ -81,7 +81,7 @@ local function parseStackingEquipEffect(text, section)
 		return
 	end
 
-	triggers = parseStackingEquipEffectTriggers(trigger)
+	local triggers = parseStackingEquipEffectTriggers(trigger)
 	if not triggers then
 		return
 	end
