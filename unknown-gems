@@ -1,3 +1,153 @@
+				[3264] = {
+					"UNKNOWN",
+					"Heavy Tonk Armor",
+				},
+				[3317] = {
+					"blue",
+					"Solid Sky Sapphire",
+					{[L["stamina"]] = 21},
+				},
+				[3321] = {
+					"red",
+					"Test Living Ruby",
+					{[L["armor"]] = 150},
+				},
+				[3333] = {
+					"purple",
+					"QA Test Blank Purple Gem",
+				},
+				[3334] = {
+					"UNKNOWN",
+					"Riding Crop",
+				},
+				[3591] = {
+					"green",
+					"Test Dazzling Talasite",
+				},
+				-- May be in-game, may not
+				[3884] = {
+					"purple",
+					"Strange Gem",
+					{[L["agility"]] = 24, [L["stamina"]] = 24},
+				},
+				-- Probably a test gem, but not sure
+				[4119] = {
+					"red",
+					"Stackable Ruby",
+					{[L["strength"]] = 50},
+				},
+				-- Not handling cogwheels for the time being
+				[4166] = {
+					"UNKNOWN",
+					"Subtle Cogwheel",
+					{[L["dodge rating"]] = 208},
+				},
+				[4167] = {
+					"UNKNOWN",
+					"Smooth Cogwheel",
+					{[L["critical strike rating"]] = 208},
+				},
+				[4168] = {
+					"UNKNOWN",
+					"Quick Cogwheel",
+					{[L["haste rating"]] = 208},
+				},
+				[4169] = {
+					"UNKNOWN",
+					"Fractured Cogwheel",
+					{[L["mastery rating"]] = 208},
+				},
+				[4170] = {
+					"UNKNOWN",
+					"Precise Cogwheel",
+					{[L["expertise rating"]] = 208},
+				},
+				[4171] = {
+					"UNKNOWN",
+					"Flashing Cogwheel",
+					{[L["parry rating"]] = 208},
+				},
+				[4172] = {
+					"UNKNOWN",
+					"Rigid Cogwheel",
+					{[L["hit rating"]] = 208},
+				},
+				[4173] = {
+					"UNKNOWN",
+					"Sparkling Cogwheel",
+					{[L["spirit"]] = 208},
+				},
+				[2703] = {
+					"UNKNOWN",
+					"zzDEPRECATEDHeart of the Sky",
+				},
+				[2704] = {
+					"UNKNOWN",
+					"zzDEPRECATEDPerfect Diamond",
+				},
+				[2894] = {
+					"red",
+					"zzOLDMighty Blood Garnet",
+					{[L["strength"]] = 7},
+				},
+				[2911] = {
+					"red",
+					"zzOLDBold Ornate Ruby",
+					{[L["strength"]] = 10},
+				},
+				[2915] = {
+					"orange",
+					"zzOLDEnscribed Ornate Topaz",
+				},
+				[2917] = {
+					"UNKNOWN",
+					"Extended Cost Copying Bryanite",
+				},
+				[2922] = {
+					"red",
+					"zzOLDMighty Blood Garnet",
+					{[L["strength"]] = 7},
+				},
+				[2949] = {
+					"red",
+					"TCHILTON TEST RUBY",
+					{[L["agility"]] = 10},
+				},
+				[2950] = {
+					"yellow",
+					"TCHILTON TEST DAWNSTONE",
+					{[L["critical strike rating"]] = 10},
+				},
+				[3197] = {
+					"red",
+					"Delicate Spencerite",
+					{[L["agility"]] = 10},
+				},
+				[3206] = {
+					"prismatic",
+					"Soulbound Test Gem",
+					{[L["agility"]] = 8},
+				},
+				[3214] = {
+					"blue",
+					"Sparkling Falling Star",
+					{[L["spirit"]] = 12},
+				},
+				[3216] = {
+					"red",
+					"Brilliant Bladestone",
+					{[L["intellect"]] = 12},
+				},
+				[3218] = {
+					"blue",
+					"Rigid Bladestone",
+					{[L["hit rating"]] = 12},
+				},
+				[3219] = {
+					"yellow",
+					"Rigid Bladestone",
+					{[L["hit rating"]] = 12},
+				},
 -- unknown source
 				[2686] = {
 					"UNKNOWN",
@@ -34,6 +184,7 @@
 					"Chromatic Sphere",
 					{[L["all stats"]] = 4},
 				},
+				-- No longer available
 				[4212] = {
 					"red",
 					"Bold Blood Garnet",
@@ -45,10 +196,3 @@
 					{[L["strength"]] = 7},
 				},
 			}
-
--- no longer in game?
-				[2949] = {
-					"red",
-					"Bold Ornate Ruby",
-					{[L["attack power"]] = 20},
-				},
