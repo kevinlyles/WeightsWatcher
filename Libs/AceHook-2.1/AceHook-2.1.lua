@@ -63,7 +63,7 @@ do
 		list[t] = nil
 		return t
 	end
-	
+
 	function del(t)
 		setmetatable(t, nil)
 		for k in pairs(t) do
@@ -171,11 +171,11 @@ end
 
 local function hookFunction(self, func, handler, secure)
 	local orig = _G[func]
-	
+
 	if not orig or type(orig) ~= "function" then
 		AceHook:error("Attempt to hook a non-existant function %q", func)
 	end
-	
+
 	if not handler then
 		handler = func
 	end
@@ -186,7 +186,7 @@ local function hookFunction(self, func, handler, secure)
 			-- We have an active hook from this source.  Don't multi-hook
 			AceHook:error("%q already has an active hook from this source.", func)
 		end
-		
+
 		if handlers[uid] == handler then
 			-- The hook is inactive, so reactivate it
 			actives[uid] = true
@@ -198,7 +198,7 @@ local function hookFunction(self, func, handler, secure)
 			uid = nil
 		end
 	end
-	
+
 	if type(handler) == "string" then
 		if type(self[handler]) ~= "function" then
 			AceHook:error("Could not find the the handler %q when hooking function %q", handler, func)
@@ -206,12 +206,12 @@ local function hookFunction(self, func, handler, secure)
 	elseif type(handler) ~= "function" then
 		AceHook:error("Could not find the handler you supplied when hooking %q", func)
 	end
-	
+
 	uid = createFunctionHook(self, func, handler, orig, secure)
 	registry[self][func] = uid
 	actives[uid] = true
 	handlers[uid] = handler
-	
+
 	if not secure then
 		_G[func] = uid
 		self.hooks[func] = orig
@@ -224,9 +224,9 @@ local function unhookFunction(self, func)
 	if not registry[self][func] then
 		AceHook:error("Tried to unhook %q which is not currently hooked.", func)
 	end
-	
+
 	local uid = registry[self][func]
-	
+
 	if actives[uid] then
 		-- See if we own the global function
 		if self.hooks[func] and _G[func] == uid then
@@ -248,18 +248,18 @@ local function hookMethod(self, obj, method, handler, script, secure)
 	if not handler then
 		handler = method
 	end
-	
+
 	if not obj or type(obj) ~= "table" then
 		AceHook:error("The object you supplied could not be found, or isn't a table.")
 	end
-	
+
 	local uid = registry[self][obj] and registry[self][obj][method]
 	if uid then
 		if actives[uid] then
 			-- We have an active hook from this source.  Don't multi-hook
 			AceHook:error("%q already has an active hook from this source.", method)
 		end
-		
+
 		if handlers[uid] == handler then
 			-- The hook is inactive, reactivate it.
 			actives[uid] = true
@@ -275,7 +275,7 @@ local function hookMethod(self, obj, method, handler, script, secure)
 			uid = nil
 		end
 	end
-	
+
 	if type(handler) == "string" then
 		if type(self[handler]) ~= "function" then
 			AceHook:error("Could not find the handler %q you supplied when hooking method %q", handler, method)
@@ -283,7 +283,7 @@ local function hookMethod(self, obj, method, handler, script, secure)
 	elseif type(handler) ~= "function" then
 		AceHook:error("Could not find the handler you supplied when hooking method %q", method)
 	end
-	
+
 	local orig
 	if script then
 		if not obj.GetScript then
@@ -292,7 +292,7 @@ local function hookMethod(self, obj, method, handler, script, secure)
 		if not obj:HasScript(method) then
 			AceHook:error("The object you supplied doesn't allow the %q method.", method)
 		end
-		
+
 		orig = obj:GetScript(method)
 		if type(orig) ~= "function" then
 			-- Sometimes there is not a original function for a script.
@@ -304,20 +304,20 @@ local function hookMethod(self, obj, method, handler, script, secure)
 	if not orig then
 		AceHook:error("Could not find the method or script %q you are trying to hook.", method)
 	end
-	
+
 	if not self.hooks[obj] then
 		self.hooks[obj] = new()
 	end
 	if not registry[self][obj] then
 		registry[self][obj] = new()
 	end
-	
+
 	local uid = createMethodHook(self, obj, method, handler, orig, secure)
 	registry[self][obj][method] = uid
 	actives[uid] = true
 	handlers[uid] = handler
 	scripts[uid] = script and true or nil
-	
+
 	if script then
 		if not secure then
 			obj:SetScript(method, uid)
@@ -340,9 +340,9 @@ local function unhookMethod(self, obj, method)
 		AceHook:error("Attempt to unhook a method %q that is not currently hooked.", method)
 		return
 	end
-	
+
 	local uid = registry[self][obj][method]
-	
+
 	if actives[uid] then
 		if scripts[uid] then -- If this is a script
 			if obj:GetScript(method) == uid then
@@ -469,7 +469,7 @@ function AceHook:IsHooked(obj, method)
 			return true, handlers[registry[self][obj][method]]
 		end
 	end
-	
+
 	return false, nil
 end
 
@@ -502,7 +502,7 @@ function AceHook:HookReport()
 	if not next(registry[self]) then
 		DEFAULT_CHAT_FRAME:AddMessage("No hooks")
 	end
-	
+
 	for key, value in pairs(registry[self]) do
 		if type(value) == "table" then
 			for method, uid in pairs(value) do
@@ -531,21 +531,21 @@ end
 
 local function activate(self, oldLib, oldDeactivate)
 	AceHook = self
-	
+
 	self.handlers = oldLib and oldLib.handlers or {}
 	self.registry = oldLib and oldLib.registry or {}
 	self.scripts = oldLib and oldLib.scripts or {}
 	self.actives = oldLib and oldLib.actives or {}
 	self.onceSecure = oldLib and oldLib.onceSecure or {}
-	
+
 	handlers = self.handlers
 	registry = self.registry
 	scripts = self.scripts
 	actives = self.actives
 	onceSecure = self.onceSecure
-	
+
 	self:activate(oldLib, oldDeactivate)
-	
+
 	if oldDeactivate then
 		oldDeactivate(oldLib)
 	end
