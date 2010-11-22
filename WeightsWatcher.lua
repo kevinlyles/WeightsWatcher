@@ -585,9 +585,23 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 			start = 2
 		end
 
+		local offset = 0
 		for i = start, tooltip:NumLines() do
-			ttleft = _G[ttname .. "TextLeft" .. i]
-			origTextL = ttleft:GetText()
+			while true do
+				ttleft = _G[ttname .. "TextLeft" .. i + offset]
+				if ttleft == nil then
+					break
+				end
+				origTextL = ttleft:GetText()
+				if origTextL == nil then
+					offset = offset + 1
+				else
+					break
+				end
+			end
+			if ttleft == nil or origTextL == nil then
+				break
+			end
 			textL = WeightsWatcher.preprocess(origTextL:lower())
 			if rawget(ww_unparsed_lines, textL) then
 				if showDebugInfo then
