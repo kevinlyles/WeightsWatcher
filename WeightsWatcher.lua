@@ -108,15 +108,15 @@ ww_weightIdealCacheWeightMetatable = {
 			bestGems.blue, bestGems.blueScore = WeightsWatcher.bestGemForSocket("blue", tbl.weight, ww_vars.options.gems.qualityLimit)
 			bestGems.meta, bestGems.metaScore = WeightsWatcher.bestGemForSocket("meta", tbl.weight, ww_vars.options.gems.qualityLimit)
 
-			bestGems.overall = bestGems.red
-			bestGems.overallScore = bestGems.redScore
-			if bestGems.overallScore < bestGems.blueScore then
-				bestGems.overall = bestGems.blue
-				bestGems.overallScore = bestGems.blueScore
+			bestGems.prismatic = bestGems.red
+			bestGems.prismaticScore = bestGems.redScore
+			if bestGems.prismaticScore < bestGems.blueScore then
+				bestGems.prismatic = bestGems.blue
+				bestGems.prismaticScore = bestGems.blueScore
 			end
-			if bestGems.overallScore < bestGems.yellowScore then
-				bestGems.overall = bestGems.yellow
-				bestGems.overallScore = bestGems.yellowScore
+			if bestGems.prismaticScore < bestGems.yellowScore then
+				bestGems.prismatic = bestGems.yellow
+				bestGems.prismaticScore = bestGems.yellowScore
 			end
 			tbl.bestGems = bestGems
 
@@ -135,8 +135,8 @@ ww_weightIdealCacheWeightMetatable = {
 			table.insert(bestGems, tbl.bestGems[color])
 			gemScore = gemScore + tbl.bestGems[color .. "Score"]
 			if breakSocketColors and color ~= "meta" then
-				table.insert(bestGemsIgnoreSocket, tbl.bestGems.overall)
-				gemScoreIgnoreSocket = gemScoreIgnoreSocket + tbl.bestGems.overallScore
+				table.insert(bestGemsIgnoreSocket, tbl.bestGems.prismatic)
+				gemScoreIgnoreSocket = gemScoreIgnoreSocket + tbl.bestGems.prismaticScore
 			end
 		end
 		local gemStats = WeightsWatcher.getGemStats(bestGems)
