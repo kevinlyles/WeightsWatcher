@@ -32,6 +32,7 @@ ww_trackedStats = {
 		[ww_statCategories["Melee DPS"]] = {
 			"feral attack power",
 			"expertise rating",
+			"melee critical strike rating",
 			"melee dps",
 			"average melee weapon damage",
 			"maximum melee weapon damage",
@@ -191,7 +192,7 @@ ww_classNameOptions = {
 
 ww_defaultVars = {
 	dataMajorVersion = 1,
-	dataMinorVersion = 22,
+	dataMinorVersion = 23,
 	weightsList = {
 		"DEATHKNIGHT",
 		"DRUID",
@@ -218,6 +219,7 @@ ww_defaultVars = {
 				["expertise rating"] = 38,
 				["strength"] = 31,
 				["critical strike rating"] = 22,
+				["melee critical strike rating"] = 22,
 				["armor"] = 18,
 				["haste rating"] = 16,
 				["hit rating"] = 16,
@@ -234,6 +236,7 @@ ww_defaultVars = {
 				["mastery rating"] = 35,
 				["attack power"] = 32,
 				["critical strike rating"] = 26,
+				["melee critical strike rating"] = 26,
 				triggers = {
 					meleeDamage = true,
 				}
@@ -246,6 +249,7 @@ ww_defaultVars = {
 				["attack power"] = 23,
 				["expertise rating"] = 21,
 				["critical strike rating"] = 20,
+				["melee critical strike rating"] = 20,
 				["mastery rating"] = 8,
 				triggers = {
 					meleeDamage = true,
@@ -282,6 +286,7 @@ ww_defaultVars = {
 				["expertise rating"] = 29,
 				["hit rating"] = 28,
 				["critical strike rating"] = 28,
+				["melee critical strike rating"] = 28,
 				triggers = {
 					meleeDamage = true,
 				}
@@ -293,6 +298,7 @@ ww_defaultVars = {
 				["dodge rating"] = 41,
 				["mastery rating"] = 16,
 				["critical strike rating"] = 13,
+				["melee critical strike rating"] = 13,
 				["strength"] = 10,
 				["expertise rating"] = 10,
 				["health"] = 7,
@@ -457,6 +463,7 @@ ww_defaultVars = {
 				["strength"] = 80,
 				["expertise rating"] = 66,
 				["critical strike rating"] = 40,
+				["melee critical strike rating"] = 40,
 				["agility"] = 32,
 				["haste rating"] = 30,
 				["spell power"] = 9,
@@ -522,6 +529,7 @@ ww_defaultVars = {
 				["haste rating"] = 46,
 				["expertise rating"] = 42,
 				["critical strike rating"] = 35,
+				["melee critical strike rating"] = 35,
 				triggers = {
 					meleeDamage = true,
 				}
@@ -533,6 +541,7 @@ ww_defaultVars = {
 				["expertise rating"] = 59,
 				["haste rating"] = 56,
 				["critical strike rating"] = 35,
+				["melee critical strike rating"] = 35,
 				["mastery rating"] = 33,
 				triggers = {
 					meleeDamage = true,
@@ -545,6 +554,7 @@ ww_defaultVars = {
 				["haste rating"] = 37,
 				["expertise rating"] = 33,
 				["critical strike rating"] = 31,
+				["melee critical strike rating"] = 31,
 				["mastery rating"] = 20,
 				triggers = {
 					meleeDamage = true,
@@ -579,6 +589,7 @@ ww_defaultVars = {
 				["intellect"] = 36,
 				["spell power"] = 36,
 				["critical strike rating"] = 28,
+				["melee critical strike rating"] = 28,
 				["haste rating"] = 16,
 				triggers = {
 					harmfulSpell = true,
@@ -662,6 +673,7 @@ ww_defaultVars = {
 				["hit rating"] = 90,
 				["expertise rating"] = 85,
 				["critical strike rating"] = 80,
+				["melee critical strike rating"] = 80,
 				["agility"] = 65,
 				["haste rating"] = 50,
 				["armor"] = 1,
@@ -674,6 +686,7 @@ ww_defaultVars = {
 				["mastery rating"] = 100,
 				["strength"] = 82,
 				["critical strike rating"] = 66,
+				["melee critical strike rating"] = 66,
 				["agility"] = 53,
 				["hit rating"] = 48,
 				["haste rating"] = 36,
@@ -691,6 +704,7 @@ ww_defaultVars = {
 				["expertise rating"] = 19,
 				["hit rating"] = 10,
 				["critical strike rating"] = 7,
+				["melee critical strike rating"] = 7,
 				["armor"] = 6,
 				["haste rating"] = 1,
 				triggers = {

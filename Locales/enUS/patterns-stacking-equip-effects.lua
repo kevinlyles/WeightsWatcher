@@ -22,17 +22,25 @@ local triggerGroups = {
 
 local StackingEquipMatchLines = {
 	"^equip: each .* stack",
-	"^equip: your spells grant .* stack",
+	"^equip: your %a* ?spells grant .* stack",
+	"^equip: your .*attacks grant .* stack",
 }
 
 local stackingEquipPreprocessLines = {
 	{"%. +each time you ", " SPLIT "},
+	{"%. +lasts ", " for "},
 	{"%. +stacks ", ", stacking "},
-	{" your spells grant ", " each time you cast a spell you gain "},
+	{" and stacking ", ", stacking "},
+	{" grant heart's revelation, increasing ", " grant "},
+	{" grant inner eye, increasing ", " grant "},
+	{" your (%a* ?)spells grant ", " each time you cast a %1spell you gain "},
+	{" damage spell ", " damaging spell "},
 }
 
 local StackingEquipAffixes = {
-	"^equip: each time you +",
+	"^equip: +",
+	"^each time +",
+	"^your? +",
 	" t?on? an opponent,",
 	" the next",
 	"[%.,]",
@@ -42,7 +50,8 @@ local function parseStackingEquipEffectTriggers(trigger)
 	local triggerPatterns = {
 		{"^cast a ?(.*) spell$", "SpellCast"},
 		{"^deal ?(.*) damage$", "DamageDealt"},
-		{"^land a (.*) spell$", "SpellHit"},
+		{"^land a ?(.*) spell$", "SpellHit"},
+		{"^(.+) attacks$", "DamageDealt"},
 	}
 
 	for _, regex in ipairs(triggerPatterns) do
@@ -53,7 +62,7 @@ local function parseStackingEquipEffectTriggers(trigger)
 			if not triggerSubTypes then
 				triggerSubTypes = ""
 			end
-			triggerSubTypes = triggerSubTypes:gsub(" or ", " OR ")
+			triggerSubTypes = triggerSubTypes:gsub(" or ", " OR "):gsub(" and ", " OR ")
 			local start, finish, left = string.find(triggerSubTypes, "^([^A-Z]*) OR ")
 			while start do
 				table.insert(subTypes, left)
@@ -80,7 +89,10 @@ end
 local function parseStackingEquipEffect(text, section)
 	local start, _, trigger, stat, duration, numStacks = string.find(text, "^(.*) you gain (.*) for (.*) stacking up to (%d+) times$")
 	if not start then
-		return
+		start, _, trigger, stat, duration, numStacks = string.find(text, "^(.*) grant (.*) for (.*) stacking up to (%d+) times$")
+		if not start then
+			return
+		end
 	end
 
 	local triggers = parseStackingEquipEffectTriggers(trigger)
@@ -92,6 +104,7 @@ local function parseStackingEquipEffect(text, section)
 	if not stat or not stat.stats then
 		return
 	end
+	-- TODO: figure out/fix this?
 	local amount
 	for name, value in pairs(stat.stats) do
 		stat = name

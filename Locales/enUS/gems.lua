@@ -590,6 +590,7 @@ ww_gemColorDisplayNames = {
 
 ww_localizedSocketColors = {
 	["blue"] = "blue",
+	["cogwheel"] = "cogwheel",
 	["meta"] = "meta",
 	["prismatic"] = "prismatic",
 	["red"] = "red",
@@ -603,6 +604,7 @@ end
 
 ww_socketColorDisplayNames = {
 	[ww_localizedSocketColors["blue"]] = "Blue",
+	[ww_localizedSocketColors["cogwheel"]] = "Cogwheel",
 	[ww_localizedSocketColors["meta"]] = "Meta",
 	[ww_localizedSocketColors["prismatic"]] = "Prismatic",
 	[ww_localizedSocketColors["red"]] = "Red",

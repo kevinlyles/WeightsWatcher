@@ -55,6 +55,21 @@ local function noop_major_up(vars)
 	return vars
 end
 
+local function upgradeAccountToMeleeCrit(vars)
+	for _, class in ipairs(vars.weightsList) do
+		for _, weight in ipairs(vars.weightsList[class]) do
+			if vars.weightsList[class][weight]["melee dps"] or vars.weightsList[class][weight]["feral attack power"] or vars.weightsList[class][weight]["expertise rating"] then
+				if vars.weightsList[class][weight]["melee critical strike rating"] == nil then
+					vars.weightsList[class][weight]["melee critical strike rating"] = vars.weightsList[class][weight]["critical strike rating"]
+				end
+			end
+		end
+	end
+
+	vars.dataMinorVersion = 23
+	return vars
+end
+
 local function upgradeAccountToMastery(vars)
 	for _, class in ipairs(vars.weightsList) do
 		for _, weight in ipairs(vars.weightsList[class]) do
@@ -1023,6 +1038,7 @@ local upgradeAccountFunctions = {
 		[19] = upgradeAccountToRangedCritHasteAndHit,
 		[20] = upgradeAccountToNewClassNameDisplayOptions,
 		[21] = upgradeAccountToMastery,
+		[22] = upgradeAccountToMeleeCrit,
 	},
 }
 
@@ -1062,6 +1078,7 @@ local downgradeAccountFunctions = {
 		[20] = noop_down,
 		[21] = downgradeAccountFromNewClassNameDisplayOptions,
 		[22] = noop_down,
+		[23] = noop_down,
 	},
 }
 

@@ -7,6 +7,7 @@ local EnchantMatchLines = {
 	"^use: teaches you how to permanently enchant ",
 	"^use: attaches ",
 	"^use: enchants? ",
+	"^use: removes the safety mechanism from +",
 }
 
 local EnchantUnweightedLines = {
@@ -52,10 +53,13 @@ local EnchantPreprocessLines = {
 	{" reduce threat slightly ", " 2%% reduced threat "},
 	{" a minor movement speed ", " minor run speed "},
 	{" reducing the duration of disarm effects by ", " disarm duration reduced by "},
+	-- items 62368 and 62422
+	{" mastery strike rating ", " mastery rating "},
 }
 
 local EnchantAffixes = {
 	"^use: +",
+	"^removes the safety mechanism from a bow or gun, +",
 	"^teaches you how to +",
 	"^permanently +",
 	"^enchants? +",
@@ -81,6 +85,7 @@ local EnchantAffixes = {
 	"^staff +",
 	"^ring +",
 	"^shoulder slot item +",
+	"^or held item +",
 
 	"^%a+ l?e?g? ?armor onto pants +",
 	"^embroiders spellthread into pants, +",
@@ -122,6 +127,7 @@ local EnchantAffixes = {
 	-- TODO: flag this somehow and handle it in scoring
 	" +does not stack with other similar effects%.",
 	" +does not stack with other enchantments for the selected equipment slot%.",
+	"[\r\n]+wearer must be level %d+ or higher to receive the benefits of this armor kit%.$",
 
 	"^eternal belt buckle onto a belt, adding a +",
 	" +to the belt%.$",

@@ -110,6 +110,7 @@ ww_IgnoredLines = {
 	"^blade's edge mountains$",
 	"^dire maul$",
 	"^drak'tharon keep$",
+	"^ebon hold$",
 	"^grizzly hills$",
 	"^icecrown citadel$",
 	"^icecrown$",
@@ -366,10 +367,10 @@ ww_SingleStatLines = {
 	{"^([+-]?%d+) (%a[%a ]+ rating)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "useEffect"}},
 	{"^([+-]?%d+) (armor)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "generic", "useEffect"}},
 	{"^([+-]?%d+) (stamina)$", WeightsWatcher.statNumFirst, {"elixir", "enchant", "food", "generic", "socketBonus", "useEffect"}},
-	{"^([+-]?%d+) (intellect)$", WeightsWatcher.statNumFirst, {"elixir", "enchant", "food", "generic", "socketBonus", "useEffect"}},
+	{"^([+-]?%d+) (intellect)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "food", "generic", "socketBonus", "useEffect"}},
 	{"^([+-]?%d+) (spell power)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "stackingEquipEffect", "useEffect"}},
-	{"^([+-]?%d+) (agility)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "food", "generic", "socketBonus", "useEffect"}},
-	{"^([+-]?%d+) (strength)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "food", "generic", "socketBonus", "useEffect"}},
+	{"^([+-]?%d+) (agility)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "food", "generic", "socketBonus", "stackingEquipEffect", "useEffect"}},
+	{"^([+-]?%d+) (strength)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "food", "generic", "socketBonus", "stackingEquipEffect", "useEffect"}},
 	{"^%(?(%d+%.?%d*) damage per second%)?$",
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "melee dps")
@@ -492,7 +493,7 @@ ww_SingleStatLines = {
 				end
 			end
 		end,
-		{"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "useEffect"},
+		{"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "stackingEquipEffect", "useEffect"},
 	},
 
 	-- meta/enchant effects

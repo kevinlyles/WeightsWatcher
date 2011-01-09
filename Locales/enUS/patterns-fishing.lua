@@ -21,7 +21,7 @@ local FishingAffixes = {
 	"^attach a lure to your equipped fishing pole, increasing +",
 	"%.$",
 	"utes$",
-	" +3 min",
+	" +[35] min",
 	" +10 min$",
 	" +1 hour$",
 	" +for$",

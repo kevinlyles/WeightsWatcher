@@ -36,6 +36,8 @@ local CooldownUsePreprocessLines = {
 	{" melee and ranged attack power ", " attack power "},
 	-- item 12450
 	{" spell, ranged,? and melee haste rating ", " haste rating "},
+	-- item 66879
+	{" crit rating ", " critical strike rating "},
 }
 
 local CooldownUseAffixes = {
