@@ -2659,7 +2659,7 @@ ww_gems = {
 					{[L["spell penetration"]] = 43},
 				},
 			},
-			[9] = {
+			[10] = {
 				[4031] = {
 					"red",
 					"Bold Chimera's Eye",
