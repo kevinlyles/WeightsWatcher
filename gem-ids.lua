@@ -5962,56 +5962,56 @@ gemIdInfo = {
 		},
 	},
 	[4166] = {
-		[1] = "UNKNOWN",
+		[1] = "cogwheel",
 		[2] = "Subtle Cogwheel",
 		[3] = {
 			["dodge rating"] = 208,
 		},
 	},
 	[4167] = {
-		[1] = "UNKNOWN",
+		[1] = "cogwheel",
 		[2] = "Smooth Cogwheel",
 		[3] = {
 			["critical strike rating"] = 208,
 		},
 	},
 	[4168] = {
-		[1] = "UNKNOWN",
+		[1] = "cogwheel",
 		[2] = "Quick Cogwheel",
 		[3] = {
 			["haste rating"] = 208,
 		},
 	},
 	[4169] = {
-		[1] = "UNKNOWN",
+		[1] = "cogwheel",
 		[2] = "Fractured Cogwheel",
 		[3] = {
 			["mastery rating"] = 208,
 		},
 	},
 	[4170] = {
-		[1] = "UNKNOWN",
+		[1] = "cogwheel",
 		[2] = "Precise Cogwheel",
 		[3] = {
 			["expertise rating"] = 208,
 		},
 	},
 	[4171] = {
-		[1] = "UNKNOWN",
+		[1] = "cogwheel",
 		[2] = "Flashing Cogwheel",
 		[3] = {
 			["parry rating"] = 208,
 		},
 	},
 	[4172] = {
-		[1] = "UNKNOWN",
+		[1] = "cogwheel",
 		[2] = "Rigid Cogwheel",
 		[3] = {
 			["hit rating"] = 208,
 		},
 	},
 	[4173] = {
-		[1] = "UNKNOWN",
+		[1] = "cogwheel",
 		[2] = "Sparkling Cogwheel",
 		[3] = {
 			spirit = 208,

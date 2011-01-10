@@ -100,6 +100,7 @@ ww_IgnoredLines = {
 	"^prime glyph$",
 	"^major glyph$",
 	"^minor glyph$",
+	"^cogwheel$",
 	"^<.*>$",
 	-- TODO: add these for ALL professions
 	"^prospectable$",

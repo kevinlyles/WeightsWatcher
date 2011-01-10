@@ -36,47 +36,6 @@
 					"Stackable Ruby",
 					{[L["strength"]] = 50},
 				},
-				-- Not handling cogwheels for the time being
-				[4166] = {
-					"UNKNOWN",
-					"Subtle Cogwheel",
-					{[L["dodge rating"]] = 208},
-				},
-				[4167] = {
-					"UNKNOWN",
-					"Smooth Cogwheel",
-					{[L["critical strike rating"]] = 208},
-				},
-				[4168] = {
-					"UNKNOWN",
-					"Quick Cogwheel",
-					{[L["haste rating"]] = 208},
-				},
-				[4169] = {
-					"UNKNOWN",
-					"Fractured Cogwheel",
-					{[L["mastery rating"]] = 208},
-				},
-				[4170] = {
-					"UNKNOWN",
-					"Precise Cogwheel",
-					{[L["expertise rating"]] = 208},
-				},
-				[4171] = {
-					"UNKNOWN",
-					"Flashing Cogwheel",
-					{[L["parry rating"]] = 208},
-				},
-				[4172] = {
-					"UNKNOWN",
-					"Rigid Cogwheel",
-					{[L["hit rating"]] = 208},
-				},
-				[4173] = {
-					"UNKNOWN",
-					"Sparkling Cogwheel",
-					{[L["spirit"]] = 208},
-				},
 				[2703] = {
 					"UNKNOWN",
 					"zzDEPRECATEDHeart of the Sky",

@@ -34,6 +34,9 @@ local L = ww_localizedStats
 -- 	5: wrath green
 -- 	6: wrath blue
 -- 	7: wrath epic
+-- 	8: wrath epic
+-- 	9: wrath epic
+-- 	10: wrath epic
 
 ww_gems = {
 	["Vendor"] = {
@@ -103,6 +106,48 @@ ww_gems = {
 					"yellow",
 					"Subtle Amber",
 					{[L["dodge rating"]] = 4},
+				},
+			},
+			[9] = {
+				[4166] = {
+					"cogwheel",
+					"Subtle Cogwheel",
+					{[L["dodge rating"]] = 208},
+				},
+				[4167] = {
+					"cogwheel",
+					"Smooth Cogwheel",
+					{[L["critical strike rating"]] = 208},
+				},
+				[4168] = {
+					"cogwheel",
+					"Quick Cogwheel",
+					{[L["haste rating"]] = 208},
+				},
+				[4169] = {
+					"cogwheel",
+					"Fractured Cogwheel",
+					{[L["mastery rating"]] = 208},
+				},
+				[4170] = {
+					"cogwheel",
+					"Precise Cogwheel",
+					{[L["expertise rating"]] = 208},
+				},
+				[4171] = {
+					"cogwheel",
+					"Flashing Cogwheel",
+					{[L["parry rating"]] = 208},
+				},
+				[4172] = {
+					"cogwheel",
+					"Rigid Cogwheel",
+					{[L["hit rating"]] = 208},
+				},
+				[4173] = {
+					"cogwheel",
+					"Sparkling Cogwheel",
+					{[L["spirit"]] = 208},
 				},
 			},
 		},
@@ -2659,7 +2704,7 @@ ww_gems = {
 					{[L["spell penetration"]] = 43},
 				},
 			},
-			[9] = {
+			[10] = {
 				[4031] = {
 					"red",
 					"Bold Chimera's Eye",

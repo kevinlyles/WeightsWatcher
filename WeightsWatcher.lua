@@ -103,10 +103,9 @@ ww_weightIdealCacheWeightMetatable = {
 		if key == "bestGems" then
 			local bestGems = {}
 
-			bestGems.red, bestGems.redScore = WeightsWatcher.bestGemForSocket("red", tbl.weight, ww_vars.options.gems.qualityLimit)
-			bestGems.yellow, bestGems.yellowScore = WeightsWatcher.bestGemForSocket("yellow", tbl.weight, ww_vars.options.gems.qualityLimit)
-			bestGems.blue, bestGems.blueScore = WeightsWatcher.bestGemForSocket("blue", tbl.weight, ww_vars.options.gems.qualityLimit)
-			bestGems.meta, bestGems.metaScore = WeightsWatcher.bestGemForSocket("meta", tbl.weight, ww_vars.options.gems.qualityLimit)
+			for color in pairs(ww_localizedSocketColors) do
+				bestGems[color], bestGems[color .. "Score"] = WeightsWatcher.bestGemForSocket(color, tbl.weight, ww_vars.options.gems.qualityLimit)
+			end
 
 			bestGems.prismatic = bestGems.red
 			bestGems.prismaticScore = bestGems.redScore
@@ -134,7 +133,7 @@ ww_weightIdealCacheWeightMetatable = {
 			color = ww_englishSocketColors[color]
 			table.insert(bestGems, tbl.bestGems[color])
 			gemScore = gemScore + tbl.bestGems[color .. "Score"]
-			if breakSocketColors and color ~= "meta" then
+			if breakSocketColors and color ~= "meta" and color ~= "cogwheel" then
 				table.insert(bestGemsIgnoreSocket, tbl.bestGems.prismatic)
 				gemScoreIgnoreSocket = gemScoreIgnoreSocket + tbl.bestGems.prismaticScore
 			end
@@ -850,11 +849,8 @@ local socketColors = {
 		["prismatic"] = true,
 		["purple"] = true,
 	},
-	["red"] = {
-		["orange"] = true,
-		["prismatic"] = true,
-		["purple"] = true,
-		["red"] = true,
+	["cogwheel"] = {
+		["cogwheel"] = true,
 	},
 	["meta"] = {
 		["meta"] = true,
@@ -867,6 +863,12 @@ local socketColors = {
 		["purple"] = true,
 		["red"] = true,
 		["yellow"] = true,
+	},
+	["red"] = {
+		["orange"] = true,
+		["prismatic"] = true,
+		["purple"] = true,
+		["red"] = true,
 	},
 	["yellow"] = {
 		["green"] = true,

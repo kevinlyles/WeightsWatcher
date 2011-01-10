@@ -157,6 +157,11 @@ for gemId, gemInfo in pairs(gem_ids_to_item_info) do
 			if start then
 				break
 			end
+			start = line.left:find("Only fits in a Cogwheel socket")
+			if start then
+				color = "cogwheel"
+				break
+			end
 		end
 	end
 	if not color then
