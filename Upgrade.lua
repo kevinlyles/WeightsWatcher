@@ -55,6 +55,15 @@ local function noop_major_up(vars)
 	return vars
 end
 
+local function upgradeAccountToCataclysmGems(vars)
+	if vars.options.gems.qualityLimit == 7 then
+		vars.options.gems.qualityLimit = 10
+	end
+
+	vars.dataMinorVersion = 24
+	return vars
+end
+
 local function upgradeAccountToMeleeCrit(vars)
 	for _, class in ipairs(vars.weightsList) do
 		for _, weight in ipairs(vars.weightsList[class]) do
@@ -1039,6 +1048,7 @@ local upgradeAccountFunctions = {
 		[20] = upgradeAccountToNewClassNameDisplayOptions,
 		[21] = upgradeAccountToMastery,
 		[22] = upgradeAccountToMeleeCrit,
+		[23] = upgradeAccountToCataclysmGems,
 	},
 }
 
@@ -1079,6 +1089,7 @@ local downgradeAccountFunctions = {
 		[21] = downgradeAccountFromNewClassNameDisplayOptions,
 		[22] = noop_down,
 		[23] = noop_down,
+		[24] = noop_down,
 	},
 }
 

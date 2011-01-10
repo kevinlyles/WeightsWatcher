@@ -803,7 +803,7 @@ end
 function WeightsWatcher.bestGemForSocket(socketColor, weightScale, qualityLimit)
 	local bestGem, bestWeight, weight = {}, 0
 	if not qualityLimit then
-		qualityLimit = #(ww_gems["Normal"])
+		qualityLimit = #(ww_gemQualityNames)
 	end
 
 	for gemSource, gems in pairs(ww_gems) do

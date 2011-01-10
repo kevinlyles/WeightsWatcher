@@ -192,7 +192,7 @@ ww_classNameOptions = {
 
 ww_defaultVars = {
 	dataMajorVersion = 1,
-	dataMinorVersion = 23,
+	dataMinorVersion = 24,
 	weightsList = {
 		"DEATHKNIGHT",
 		"DRUID",
@@ -715,7 +715,7 @@ ww_defaultVars = {
 	},
 	options = {
 		gems = {
-			qualityLimit = 7,
+			qualityLimit = 10,
 			breakSocketColors = true,
 			neverBreakSocketColors = false,
 			types = {
