@@ -355,7 +355,7 @@ local function checkForTitansGrip()
 	if WeightsWatcher.playerClass ~= "WARRIOR" then
 		return false
 	end
-	local name, _, _, _, rank = GetTalentInfo(2, 27, false, false)
+	local name, _, _, _, rank = GetTalentInfo(2, 20, false, false)
 	if name == L["Titan's Grip"] then
 		return rank == 1
 	end
@@ -379,37 +379,15 @@ local function checkForTitansGrip()
 end
 
 local function checkForDualWield()
-	local function checkForDualWield()
-		local name, _, _, _, rank = GetTalentInfo(2, 20, false, false)
-		if name == L["Dual Wield"] then
-			return rank == 1
-		end
-		-- Minor rearranging of the tree
-		for i = 1, GetNumTalents(2, false, false) do
-			name, _, _, _, rank = GetTalentInfo(2, i, false, false)
-			if name == L["Dual Wield"] then
-				return rank == 1
-			end
-		end
-		-- Major rearranging of the tree
-		for i = 1, GetNumTalentTabs(false, false) do
-			for j = 1, GetNumTalents(i, false, false) do
-				name, _, _, _, rank = GetNumTalents(i, j, false, false)
-				if name == L["Dual Wield"] then
-					return rank == 1
-				end
-			end
-		end
-		return false
-	end
-
 	local class = WeightsWatcher.playerClass
 	if class == "ROGUE" or class == "DEATHKNIGHT" then
 		return true
-	elseif (class == "HUNTER" or class == "WARRIOR") and UnitLevel("player") >= 20 then
+	elseif class == "HUNTER" and UnitLevel("player") >= 20 then
 		return true
 	elseif class == "SHAMAN" then
-		return checkForDualWield()
+		return GetPrimaryTalentTree() == 2
+	elseif class == "WARRIOR" then
+		return GetPrimaryTalentTree() == 2
 	end
 	return false
 end
