@@ -108,6 +108,8 @@ ww_gems = {
 					{[L["dodge rating"]] = 4},
 				},
 			},
+		},
+		["Unique-Equipped"] = {
 			[9] = {
 				[4166] = {
 					"cogwheel",
