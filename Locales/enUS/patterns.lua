@@ -76,7 +76,6 @@ ww_Preprocess = {
 }
 
 ww_ignoredInvalidStats = {
-	"item level",
 	"requires level",
 	"all stats",
 	"all resistances",
@@ -134,7 +133,6 @@ ww_IgnoredLines = {
 }
 
 ww_TempIgnoredLines = {
-	"^item level %d+$",
 	"^use: restores %d+ to %d+ %a+",
 	"^use: teaches .* %(rank %d+%)%.$",
 	"^%d+ slot ",
@@ -365,6 +363,7 @@ ww_MultipleStatLines = {
 }
 
 ww_SingleStatLines = {
+	{"^(item level) (%d+)$", WeightsWatcher.statNameFirst, {"generic"}},
 	{"^([+-]?%d+) (%a[%a ]+ rating)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "useEffect"}},
 	{"^([+-]?%d+) (armor)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "generic", "useEffect"}},
 	{"^([+-]?%d+) (stamina)$", WeightsWatcher.statNumFirst, {"elixir", "enchant", "food", "generic", "socketBonus", "useEffect"}},

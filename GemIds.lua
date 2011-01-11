@@ -3962,6 +3962,8 @@ ww_gems = {
 
 local GemQualities = {}
 
+local ilvls = {}
+
 for gemSource, gems in pairs(ww_gems) do
 	for gemType, gems in pairs(gems) do
 		for gemQuality, gems in pairs(gems) do
@@ -3971,11 +3973,20 @@ for gemSource, gems in pairs(ww_gems) do
 					type = gemType,
 					quality = gemQuality,
 					info = gemInfo,
+					minIlvl = gemQuality > 7 and 285 or 0,
 				}
+				ilvls[GemQualities[gemId].minIlvl] = true
 			end
 		end
 	end
 end
+
+ww_gemMinIlvls = {}
+
+for ilvl in pairs(ilvls) do
+	table.insert(ww_gemMinIlvls, ilvl)
+end
+table.sort(ww_gemMinIlvls)
 
 function WeightsWatcher.GemInfo(gemId)
 	if type(gemId) == "string" then

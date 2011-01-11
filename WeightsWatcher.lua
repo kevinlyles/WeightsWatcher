@@ -3,10 +3,10 @@ local L = ww_localization
 local currentHooks = {}
 
 local function splitItemLink(link)
-	local _, itemId, _, gemId1, gemId2, gemId3, gemId4, suffixId, uniqueId, linkLevel = strsplit(":", link)
+	local _, itemId, _, gemId1, gemId2, gemId3, gemId4, suffixId, uniqueId, linkLevel, reforgeInfo = strsplit(":", link)
 	-- Strip color codes
 	linkLevel = strsplit("|", linkLevel)
-	local bareLink = strjoin(":", "item", itemId, "0:0:0:0:0", suffixId, uniqueId, linkLevel)
+	local bareLink = strjoin(":", "item", itemId, "0:0:0:0:0", suffixId, uniqueId, linkLevel, reforgeInfo)
 
 	return bareLink, {{gemId1}, {gemId2}, {gemId3}, {gemId4}}
 end
@@ -101,41 +101,25 @@ ww_weightCacheMetatable = {
 ww_weightIdealCacheWeightMetatable = {
 	__index = function(tbl, key)
 		if key == "bestGems" then
-			local bestGems = {}
-
-			for color in pairs(ww_localizedSocketColors) do
-				bestGems[color], bestGems[color .. "Score"] = WeightsWatcher.bestGemForSocket(color, tbl.weight, ww_vars.options.gems.qualityLimit)
-			end
-
-			bestGems.prismatic = bestGems.red
-			bestGems.prismaticScore = bestGems.redScore
-			if bestGems.prismaticScore < bestGems.blueScore then
-				bestGems.prismatic = bestGems.blue
-				bestGems.prismaticScore = bestGems.blueScore
-			end
-			if bestGems.prismaticScore < bestGems.yellowScore then
-				bestGems.prismatic = bestGems.yellow
-				bestGems.prismaticScore = bestGems.yellowScore
-			end
-			tbl.bestGems = bestGems
-
-			return bestGems
+			tbl.bestGems = WeightsWatcher.bestGemsForWeight(tbl.weight)
+			return tbl.bestGems
 		end
 
 		local itemStats = ww_bareItemCache[key]
 		local socketBonusWeight = WeightsWatcher.calculateWeight({normalStats = {}, socketBonusStat = itemStats.socketBonusStat}, {socketBonusActive = true, gemStats = {}}, tbl.weight)
 		local breakSocketColors = ww_vars.options.gems.breakSocketColors or (not ww_vars.options.gems.neverBreakSocketColors and socketBonusWeight <= 0)
+		local idealGems = tbl.bestGems[itemStats.normalStats["item level"]]
 
 		local socketBonusActive = true
 		local bestGems, bestGemsIgnoreSocket = {}, {}
 		local gemScore, gemScoreIgnoreSocket = socketBonusWeight, 0
 		for _, color in pairs(itemStats.sockets) do
 			color = ww_englishSocketColors[color]
-			table.insert(bestGems, tbl.bestGems[color])
-			gemScore = gemScore + tbl.bestGems[color .. "Score"]
+			table.insert(bestGems, idealGems[color])
+			gemScore = gemScore + idealGems[color .. "Score"]
 			if breakSocketColors and color ~= "meta" and color ~= "cogwheel" then
-				table.insert(bestGemsIgnoreSocket, tbl.bestGems.prismatic)
-				gemScoreIgnoreSocket = gemScoreIgnoreSocket + tbl.bestGems.prismaticScore
+				table.insert(bestGemsIgnoreSocket, idealGems.prismatic)
+				gemScoreIgnoreSocket = gemScoreIgnoreSocket + idealGems.prismaticScore
 			end
 		end
 		local gemStats = WeightsWatcher.getGemStats(bestGems)
@@ -800,12 +784,33 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 	end
 end
 
-function WeightsWatcher.bestGemForSocket(socketColor, weightScale, qualityLimit)
-	local bestGem, bestWeight, weight = {}, 0
+function WeightsWatcher.bestGemsForWeight(weightScale)
+	local metatable = {
+		__index = function(tbl, key)
+			if key > 0 then
+				for i = key, 0, -1 do
+					if rawget(tbl, i) then
+						for j = i, key do
+							tbl[j] = tbl[i]
+						end
+						return tbl[i]
+					end
+				end
+			end
+		end
+	}
+	local bestGems = setmetatable({}, metatable)
+
 	if not qualityLimit then
 		qualityLimit = #(ww_gemQualityNames)
 	end
 
+	for _, ilvl in ipairs(ww_gemMinIlvls) do
+		bestGems[ilvl] = {}
+		for color in pairs(ww_localizedSocketColors) do
+			bestGems[ilvl][color], bestGems[ilvl][color .. "Score"] = {}, 0
+		end
+	end
 	for gemSource, gems in pairs(ww_gems) do
 		if ww_vars.options.gems.sources[gemSource] then
 			for gemType, gems in pairs(gems) do
@@ -813,21 +818,29 @@ function WeightsWatcher.bestGemForSocket(socketColor, weightScale, qualityLimit)
 					for quality = qualityLimit, 1, -1 do
 						if gems[quality] then
 							for gemId, gemStats in pairs(gems[quality]) do
-								if WeightsWatcher.matchesSocket(gemStats[1], socketColor) then
-									weight = WeightsWatcher.calculateWeight({normalStats = {}}, {gemStats = {{gemStats}}}, weightScale)
-									if #(bestGem) == 0 or weight > bestWeight then
-										bestGem = {gemId}
-										bestWeight = weight
-									elseif weight == bestWeight then
-										local duplicate = false
-										for _, gem in pairs(bestGem) do
-											if WeightsWatcher.GemInfo(gem).info[2] == gemStats[2] then
-												duplicate = true
+								weight = WeightsWatcher.calculateWeight({normalStats = {}}, {gemStats = {{gemStats}}}, weightScale)
+								for socketColor in pairs(ww_localizedSocketColors) do
+									if WeightsWatcher.matchesSocket(gemStats[1], socketColor) then
+										for i = #(ww_gemMinIlvls), 1, -1 do
+											local ilvl = ww_gemMinIlvls[i]
+											if ilvl < WeightsWatcher.GemInfo(gemId).minIlvl then
 												break
 											end
-										end
-										if not duplicate then
-											table.insert(bestGem, gemId)
+											if weight > bestGems[ilvl][socketColor .. "Score"] then
+												bestGems[ilvl][socketColor] = {gemId}
+												bestGems[ilvl][socketColor .. "Score"] = weight
+											elseif weight == bestGems[ilvl][socketColor .. "Score"] then
+												local duplicate = false
+												for _, gem in pairs(bestGems[ilvl][socketColor]) do
+													if WeightsWatcher.GemInfo(gem).info[2] == gemStats[2] then
+														duplicate = true
+														break
+													end
+												end
+												if not duplicate then
+													table.insert(bestGems[ilvl][socketColor], gemId)
+												end
+											end
 										end
 									end
 								end
@@ -839,7 +852,7 @@ function WeightsWatcher.bestGemForSocket(socketColor, weightScale, qualityLimit)
 		end
 	end
 
-	return bestGem, bestWeight
+	return bestGems
 end
 
 local socketColors = {
