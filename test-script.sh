@@ -45,4 +45,5 @@ luac -l -p $* \
 | grep -v '; error$' \
 | grep -v '; Is\([A-Z][a-z]\+\)\+KeyDown$' \
 | grep -v '; FauxScrollFrame_\([GS]etOffset\|Update\)$' \
+| grep -v '; GetPrimaryTalentTree$' \
 | grep -v sort

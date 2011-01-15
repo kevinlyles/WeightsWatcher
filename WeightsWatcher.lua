@@ -11,37 +11,14 @@ local function splitItemLink(link)
 	return bareLink, {{gemId1}, {gemId2}, {gemId3}, {gemId4}}
 end
 
-ww_normalStatsMetatable = {
-	-- Allows us to skip the nil check
-	__index = function()
-		return 0
-	end,
-	__add = function(tbl1, tbl2)
-		local tbl = setmetatable({}, ww_normalStatsMetatable)
-
-		if tbl1 ~= nil then
-			for k, v in pairs(tbl1) do
-				tbl[k] = v
-			end
-		end
-		if tbl2 ~= nil then
-			for k, v in pairs(tbl2) do
-				tbl[k] = tbl[k] + v
-			end
-		end
-
-		return tbl
-	end,
-}
-
-ww_bareItemCacheMetatable = {
+local ww_bareItemCacheMetatable = {
 	__index = function(tbl, key)
 		tbl[key] = WeightsWatcher.getItemStats(key)
 		return tbl[key]
 	end,
 }
 
-ww_itemCacheMetatable = {
+local ww_itemCacheMetatable = {
 	__index = function(tbl, key)
 		local gemStats, socketBonusActive
 		local bareLink, gems = splitItemLink(key)
@@ -75,14 +52,14 @@ ww_itemCacheMetatable = {
 	end,
 }
 
-ww_weightCacheWeightMetatable = {
+local ww_weightCacheWeightMetatable = {
 	__index = function(tbl, key)
 		tbl[key] = WeightsWatcher.calculateWeight(ww_bareItemCache[splitItemLink(key)], ww_itemCache[key], tbl.weight)
 		return tbl[key]
 	end,
 }
 
-ww_weightCacheClassMetatable = {
+local ww_weightCacheClassMetatable = {
 	__index = function(tbl, key)
 		tbl[key] = setmetatable({}, ww_weightCacheWeightMetatable)
 		tbl[key].weight = tbl.class[key]
@@ -98,7 +75,7 @@ ww_weightCacheMetatable = {
 	end,
 }
 
-ww_weightIdealCacheWeightMetatable = {
+local ww_weightIdealCacheWeightMetatable = {
 	__index = function(tbl, key)
 		if key == "bestGems" then
 			tbl.bestGems = WeightsWatcher.bestGemsForWeight(tbl.weight)
@@ -139,7 +116,7 @@ ww_weightIdealCacheWeightMetatable = {
 	end,
 }
 
-ww_weightIdealCacheClassMetatable = {
+local ww_weightIdealCacheClassMetatable = {
 	__index = function(tbl, key)
 		tbl[key] = setmetatable({}, ww_weightIdealCacheWeightMetatable)
 		tbl[key].weight = tbl.class[key]

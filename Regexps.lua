@@ -158,6 +158,30 @@ function WeightsWatcher.statNameFirst(text, pattern)
 	end
 end
 
+local normalStatsMetatable = {
+	-- Allows us to skip the nil check
+	__index = function()
+		return 0
+	end
+}
+
 function WeightsWatcher.newStatTable(tbl)
-	return setmetatable(tbl or {}, ww_normalStatsMetatable)
+	return setmetatable(tbl or {}, normalStatsMetatable)
+end
+
+normalStatsMetatable.__add = function(tbl1, tbl2)
+	local tbl = WeightsWatcher.newStatTable()
+
+	if tbl1 ~= nil then
+		for k, v in pairs(tbl1) do
+			tbl[k] = v
+		end
+	end
+	if tbl2 ~= nil then
+		for k, v in pairs(tbl2) do
+			tbl[k] = tbl[k] + v
+		end
+	end
+
+	return tbl
 end
