@@ -772,30 +772,28 @@ function WeightsWatcher.bestGemsForWeight(weightScale)
 			for gemType, gems in pairs(gems) do
 				if ww_vars.options.gems.types[gemType] then
 					for quality = qualityLimit, 1, -1 do
-						if gems[quality] then
-							for gemId, gemStats in pairs(gems[quality]) do
-								weight = WeightsWatcher.calculateWeight({normalStats = {}}, {gemStats = {{gemStats}}}, weightScale)
-								for socketColor in pairs(ww_localizedSocketColors) do
-									if WeightsWatcher.matchesSocket(gemStats[1], socketColor) then
-										for i = #(ww_gemMinIlvls), 1, -1 do
-											local ilvl = ww_gemMinIlvls[i]
-											if ilvl < WeightsWatcher.GemInfo(gemId).minIlvl then
-												break
+						for gemId, gemStats in pairs(gems[quality] or {}) do
+							weight = WeightsWatcher.calculateWeight({normalStats = {}}, {gemStats = {{gemStats}}}, weightScale)
+							for socketColor in pairs(ww_localizedSocketColors) do
+								if WeightsWatcher.matchesSocket(gemStats[1], socketColor) then
+									for i = #(ww_gemMinIlvls), 1, -1 do
+										local ilvl = ww_gemMinIlvls[i]
+										if ilvl < WeightsWatcher.GemInfo(gemId).minIlvl then
+											break
+										end
+										if weight > bestGems[ilvl][socketColor .. "Score"] then
+											bestGems[ilvl][socketColor] = {gemId}
+											bestGems[ilvl][socketColor .. "Score"] = weight
+										elseif weight == bestGems[ilvl][socketColor .. "Score"] then
+											local duplicate = false
+											for _, gem in pairs(bestGems[ilvl][socketColor]) do
+												if WeightsWatcher.GemInfo(gem).info[2] == gemStats[2] then
+													duplicate = true
+													break
+												end
 											end
-											if weight > bestGems[ilvl][socketColor .. "Score"] then
-												bestGems[ilvl][socketColor] = {gemId}
-												bestGems[ilvl][socketColor .. "Score"] = weight
-											elseif weight == bestGems[ilvl][socketColor .. "Score"] then
-												local duplicate = false
-												for _, gem in pairs(bestGems[ilvl][socketColor]) do
-													if WeightsWatcher.GemInfo(gem).info[2] == gemStats[2] then
-														duplicate = true
-														break
-													end
-												end
-												if not duplicate then
-													table.insert(bestGems[ilvl][socketColor], gemId)
-												end
+											if not duplicate then
+												table.insert(bestGems[ilvl][socketColor], gemId)
 											end
 										end
 									end
