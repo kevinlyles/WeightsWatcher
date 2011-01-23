@@ -780,9 +780,7 @@ function WeightsWatcher.bestGemsForWeight(weightScale)
 	}
 	local bestGems = setmetatable({}, metatable)
 
-	if not qualityLimit then
-		qualityLimit = #(ww_gemQualityNames)
-	end
+	local qualityLimit = ww_vars.options.gems.qualityLimit or #(ww_gemQualityNames)
 
 	for _, ilvl in ipairs(ww_gemMinIlvls) do
 		bestGems[ilvl] = {}
