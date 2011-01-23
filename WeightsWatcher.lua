@@ -591,7 +591,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 					tooltip:AddLine(name)
 				else
 					if name == "slot" or name == "subslot" then
-						tooltip:AddDoubleLine(name, ww_slotDisplayNames[ww_englishSlotNames[value]])
+						tooltip:AddDoubleLine(name, ww_slotDisplayNames[value])
 					else
 						tooltip:AddDoubleLine(name, value)
 					end
@@ -1069,7 +1069,7 @@ function WeightsWatcher.parseLine(textL, textR, link)
 	end
 	if stats.info then
 		for name, value in pairs(stats.info) do
-			if (name == "slot" or name == "subslot") and not ww_slotDisplayNames[ww_englishSlotNames[value]] then
+			if (name == "slot" or name == "subslot") and not ww_slotDisplayNames[value] then
 				return
 			end
 		end
