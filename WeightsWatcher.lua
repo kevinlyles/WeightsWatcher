@@ -467,9 +467,6 @@ local slotConversion = {
 }
 
 function WeightsWatcher.displayItemStats(tooltip, ttname)
-	local bareLink, itemType, stackSize, sockets, gemStats
-	local stat, value, str, formatStr
-	local compareLink, compareBareLink, compareLink2, compareBareLink2, compareMethod
 	local alternateGemsExist = false
 
 	local _, link = tooltip:GetItem()
@@ -477,7 +474,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 		return
 	end
 
-	_, _, _, _, _, itemType, _, stackSize = GetItemInfo(link)
+	local _, _, _, _, _, itemType, _, stackSize = GetItemInfo(link)
 	if (IsEquippableItem(link) and itemType ~= L["Container"] and itemType ~= L["Quiver"]) or (itemType == L["Gem"] and stackSize == 1) or (itemType == L["Consumable"]) or (itemType == L["Recipe"]) then
 		local weightsShown = false
 		for _, class in ipairs(ww_charVars.activeWeights) do
@@ -507,9 +504,10 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 		local showIdealGemStats = ww_keyDetectors[ww_vars.options.tooltip.showIdealGemStats]()
 		local showAlternateGems = ww_keyDetectors[ww_vars.options.tooltip.showAlternateGems]()
 
-		bareLink = splitItemLink(link)
+		local bareLink = splitItemLink(link)
 		local bareItemInfo = ww_bareItemCache[bareLink]
 
+		local compareLink, compareLink2, compareBareLink, compareBareLink2, compareMethod
 		if ttname ~= "ShoppingTooltip1" and ttname ~= "ShoppingTooltip2" and ww_vars.options.tooltip.showDifferences then
 			local currentSlot, compareSlot, compareSlot2, currentSubslot, compareSubslot, compareSubslot2
 			currentSlot = bareItemInfo.nonStats["slot"]
@@ -661,7 +659,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 							local currentScore = ww_weightCache[class][weight][link]
 							if ww_vars.options.tooltip.showZeroScores or currentScore > 0 then
 								local compareScore, compareScore2, compareBareScore, compareBareScore2
-								str = weight
+								local str = weight
 								if ww_vars.options.tooltip.showClassNames == "Always" or (ww_vars.options.tooltip.showClassNames == "Others" and class ~= WeightsWatcher.playerClass) then
 									str = string.format(L["WEIGHT_CLASS_FORMAT"], str, ww_classDisplayNames[class])
 								end
@@ -697,7 +695,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 									compareScore = computeDifference(compareMethod, compareScore, compareScore2, currentScore)
 									tooltip:AddDoubleLine(L["  Ideally-gemmed:"], string.format(colorizeDifferences(compareScore), currentScore, compareScore))
 									if showIdealGems then
-										gemStats = ww_weightIdealCache[class][weight][bareLink].gemStats
+										local gemStats = ww_weightIdealCache[class][weight][bareLink].gemStats
 										for _, gems in ipairs(gemStats) do
 											for i, gem in ipairs(gems) do
 												if #(gems) > 1 then
@@ -794,7 +792,7 @@ function WeightsWatcher.bestGemsForWeight(weightScale)
 				if ww_vars.options.gems.types[gemType] then
 					for quality = qualityLimit, 1, -1 do
 						for gemId, gemStats in pairs(gems[quality] or {}) do
-							weight = WeightsWatcher.calculateWeight({normalStats = {}}, {gemStats = {{gemStats}}}, weightScale)
+							local weight = WeightsWatcher.calculateWeight({normalStats = {}}, {gemStats = {{gemStats}}}, weightScale)
 							for socketColor in pairs(ww_localizedSocketColors) do
 								if WeightsWatcher.matchesSocket(gemStats[1], socketColor) then
 									for i = #(ww_gemMinIlvls), 1, -1 do
