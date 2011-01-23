@@ -466,6 +466,178 @@ local slotConversion = {
 	[ww_localizedSlotNames["held in off-hand"]] = {"MainHandSlot", "SecondaryHandSlot"},
 }
 
+local function getCompareInfo(ttname, bareLink, bareItemInfo)
+	if ttname ~= "ShoppingTooltip1" and ttname ~= "ShoppingTooltip2" and ww_vars.options.tooltip.showDifferences then
+		local compareLink, compareBareLink, compareLink2, compareBareLink2
+		local currentSlot, compareSlot, compareSlot2, currentSubslot, compareSubslot, compareSubslot2
+		currentSlot = bareItemInfo.nonStats["slot"]
+		if currentSlot and currentSlot ~= 0 then
+			currentSubslot = ww_bareItemCache[bareLink].nonStats["subslot"]
+			local compareSlots = slotConversion[currentSlot]
+			if type(compareSlots) == "string" then
+				compareLink = GetInventoryItemLink("player", WeightsWatcher.slotList[compareSlots])
+			else
+				compareLink = GetInventoryItemLink("player", WeightsWatcher.slotList[compareSlots[1]])
+				compareLink2 = GetInventoryItemLink("player", WeightsWatcher.slotList[compareSlots[2]])
+			end
+			if compareLink then
+				compareBareLink = splitItemLink(compareLink)
+				compareSlot = ww_bareItemCache[compareBareLink].nonStats["slot"]
+				compareSubslot = ww_bareItemCache[compareBareLink].nonStats["subslot"]
+			end
+			if compareLink2 then
+				compareBareLink2 = splitItemLink(compareLink2)
+				compareSlot2 = ww_bareItemCache[compareBareLink2].nonStats["slot"]
+				compareSubslot2 = ww_bareItemCache[compareBareLink2].nonStats["subslot"]
+			end
+			local compareMethod = determineCompareMethod(currentSlot, compareSlot, compareSlot2, currentSubslot, compareSubslot, compareSubslot2)
+			return compareMethod, compareLink, compareBareLink, compareLink2, compareBareLink2
+		end
+	end
+end
+
+local function markTooltipLines(tooltip, ttname, showDebugInfo)
+	local start, ttleft, origTextL, textL
+	local numUnweightedEffects = 0
+	-- Skip item name and "currently equipped"
+	if WeightsWatcherHiddenTooltipTextLeft1:GetText() == CURRENTLY_EQUIPPED then
+		start = 3
+	else
+		start = 2
+	end
+
+	local offset = 0
+	for i = start, tooltip:NumLines() do
+		while true do
+			ttleft = _G[ttname .. "TextLeft" .. i + offset]
+			if ttleft == nil then
+				break
+			end
+			origTextL = ttleft:GetText()
+			if origTextL == nil then
+				offset = offset + 1
+			else
+				break
+			end
+		end
+		if ttleft == nil or origTextL == nil then
+			break
+		end
+		textL = WeightsWatcher.preprocess(origTextL:lower())
+		if rawget(ww_unparsed_lines, textL) then
+			if showDebugInfo then
+				ttleft:SetText(string.format("%s |cffff00ff(U)|r", string.gsub(origTextL, "(.)([\r\n]\+)", "%1 |cffff00ff(U)|r%2")))
+			else
+				ttleft:SetText(string.format("%s |cffff0000*|r", string.gsub(origTextL, "(.)([\r\n]\+)", "%1 |cffff0000*|r%2")))
+			end
+			numUnweightedEffects = numUnweightedEffects + 1
+		elseif rawget(ww_ignored_lines, textL) then
+			if showDebugInfo then
+				ttleft:SetText(string.format("%s |cffffff00(I)|r", string.gsub(origTextL, "(.)([\r\n]\+)", "%1 |cffffff00(I)|r%2")))
+			end
+		elseif rawget(ww_temp_ignored_lines, textL) then
+			if showDebugInfo then
+				ttleft:SetText(string.format("%s |cffffff00(TI)|r", string.gsub(origTextL, "(.)([\r\n]\+)", "%1 |cffffff00(TI)|r%2")))
+			end
+		elseif rawget(ww_unweighted_lines, textL) then
+			ttleft:SetText(string.format("%s |cffff0000*|r", string.gsub(origTextL, "(.)([\r\n]\+)", "%1 |cffff0000*|r%2")))
+			numUnweightedEffects = numUnweightedEffects + 1
+		end
+	end
+	if numUnweightedEffects > 0 then
+		tooltip:AddLine(string.format(L["UNWEIGHTED_HINT"], numUnweightedEffects))
+	end
+end
+
+local function addDebugInfo(tooltip, bareItemInfo, link)
+	for name, value in pairs(bareItemInfo.nonStats) do
+		if value == true then
+			tooltip:AddLine(name)
+		else
+			if name == "slot" or name == "subslot" then
+				tooltip:AddDoubleLine(name, ww_slotDisplayNames[value])
+			else
+				tooltip:AddDoubleLine(name, value)
+			end
+		end
+	end
+	for name, value in pairs(bareItemInfo.normalStats) do
+		tooltip:AddDoubleLine(ww_statDisplayNames[name], value)
+	end
+	if #(bareItemInfo.useEffects) > 0 then
+		tooltip:AddLine(L["Use effects:"])
+		for _, useEffect in pairs(bareItemInfo.useEffects) do
+			tooltip:AddLine(string.format(L["DURATION_COOLDOWN_FORMAT"], useEffect.duration, useEffect.cooldown))
+			tooltip:AddLine(string.format(L["INDENTED_STRING_FORMAT"], "Stats:"))
+			for stat, value in pairs(useEffect.stats) do
+				tooltip:AddDoubleLine(string.format(L["DOUBLY_INDENTED_STRING_FORMAT"], ww_statDisplayNames[stat]), value)
+			end
+		end
+	end
+	if #(bareItemInfo.stackingEquipEffects) > 0 then
+		tooltip:AddLine(L["Stacking equip effects:"])
+		for _, effect in pairs(bareItemInfo.stackingEquipEffects) do
+			tooltip:AddDoubleLine(string.format(L["EFFECT_STAT_FORMAT"], effect.value, ww_statDisplayNames[effect.stat]), string.format(L["EFFECT_STACKS_FORMAT"], effect.numStacks))
+			for trigger in pairs(effect.triggers) do
+				tooltip:AddLine(string.format(L["TRIGGER_FORMAT"], ww_triggerDisplayNames[trigger]))
+			end
+		end
+	end
+
+	local itemInfo = ww_itemCache[link]
+
+	if #(bareItemInfo.sockets) > 0 then
+		tooltip:AddLine(L["Sockets:"])
+		for _, stat in pairs(bareItemInfo.sockets) do
+			tooltip:AddLine(string.format(L["INDENTED_STRING_FORMAT"], ww_socketColorDisplayNames[stat]))
+		end
+		if bareItemInfo.socketBonusStat then
+			if itemInfo.socketBonusActive then
+				tooltip:AddDoubleLine(L["Socket Bonus:"], L["Active"])
+			else
+				tooltip:AddDoubleLine(L["Socket Bonus:"], L["Inactive"])
+			end
+			for name, value in pairs(bareItemInfo.socketBonusStat) do
+				tooltip:AddDoubleLine(string.format(L["INDENTED_STRING_FORMAT"], ww_statDisplayNames[name]), value)
+			end
+		end
+		if #(itemInfo.gemStats) > 0 then
+			tooltip:AddLine(L["Gem Stats:"])
+			for _, gems in pairs(itemInfo.gemStats) do
+				for _, gem in ipairs(gems) do
+					tooltip:AddLine(string.format(L["GEM_NAME_COLOR_FORMAT"], ww_gemDisplayNames[gem[2]], ww_gemColorDisplayNames[gem[1]]))
+					for stat, value in pairs(gem[3]) do
+						tooltip:AddDoubleLine(string.format(L["DOUBLY_INDENTED_STRING_FORMAT"], ww_statDisplayNames[stat]), value)
+					end
+				end
+			end
+		end
+	end
+end
+
+local function addIdealGemInfo(tooltip, gemStats, showIdealGemStats, showAlternateGems)
+	local alternateGemsExist = false
+	for _, gems in ipairs(gemStats) do
+		for i, gem in ipairs(gems) do
+			if #(gems) > 1 then
+				tooltip:AddDoubleLine(string.format(L["MULTIPLE_GEM_FORMAT"], i, #(gems), ww_gemDisplayNames[gem[2]], ww_gemColorDisplayNames[gem[1]]), " ")
+				alternateGemsExist = true
+			else
+				tooltip:AddDoubleLine(string.format(L["SINGLE_GEM_FORMAT"], ww_gemDisplayNames[gem[2]], ww_gemColorDisplayNames[gem[1]]), " ")
+			end
+			if showIdealGemStats then
+				for stat, value in pairs(gem[3]) do
+					tooltip:AddDoubleLine(string.format(L["TREBLY_INDENTED_STRING_FORMAT"], ww_statDisplayNames[stat]), value)
+				end
+			end
+			if not showAlternateGems then
+				break
+			end
+		end
+	end
+	return alternateGemsExist
+end
+
 function WeightsWatcher.displayItemStats(tooltip, ttname)
 	local alternateGemsExist = false
 
@@ -507,148 +679,12 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 		local bareLink = splitItemLink(link)
 		local bareItemInfo = ww_bareItemCache[bareLink]
 
-		local compareLink, compareLink2, compareBareLink, compareBareLink2, compareMethod
-		if ttname ~= "ShoppingTooltip1" and ttname ~= "ShoppingTooltip2" and ww_vars.options.tooltip.showDifferences then
-			local currentSlot, compareSlot, compareSlot2, currentSubslot, compareSubslot, compareSubslot2
-			currentSlot = bareItemInfo.nonStats["slot"]
-			if currentSlot and currentSlot ~= 0 then
-				currentSubslot = ww_bareItemCache[bareLink].nonStats["subslot"]
-				local compareSlots = slotConversion[currentSlot]
-				if type(compareSlots) == "string" then
-					compareLink = GetInventoryItemLink("player", WeightsWatcher.slotList[compareSlots])
-				else
-					compareLink = GetInventoryItemLink("player", WeightsWatcher.slotList[compareSlots[1]])
-					compareLink2 = GetInventoryItemLink("player", WeightsWatcher.slotList[compareSlots[2]])
-				end
-				if compareLink then
-					compareBareLink = splitItemLink(compareLink)
-					compareSlot = ww_bareItemCache[compareBareLink].nonStats["slot"]
-					compareSubslot = ww_bareItemCache[compareBareLink].nonStats["subslot"]
-				end
-				if compareLink2 then
-					compareBareLink2 = splitItemLink(compareLink2)
-					compareSlot2 = ww_bareItemCache[compareBareLink2].nonStats["slot"]
-					compareSubslot2 = ww_bareItemCache[compareBareLink2].nonStats["subslot"]
-				end
-				compareMethod = determineCompareMethod(currentSlot, compareSlot, compareSlot2, currentSubslot, compareSubslot, compareSubslot2)
-			end
-		end
+		local compareMethod, compareLink, compareBareLink, compareLink2, compareBareLink2 = getCompareInfo(ttname, bareLink, bareItemInfo)
 
-		local start, ttleft, origTextL, textL
-		local numUnweightedEffects = 0
-		-- Skip item name and "currently equipped"
-		if WeightsWatcherHiddenTooltipTextLeft1:GetText() == CURRENTLY_EQUIPPED then
-			start = 3
-		else
-			start = 2
-		end
-
-		local offset = 0
-		for i = start, tooltip:NumLines() do
-			while true do
-				ttleft = _G[ttname .. "TextLeft" .. i + offset]
-				if ttleft == nil then
-					break
-				end
-				origTextL = ttleft:GetText()
-				if origTextL == nil then
-					offset = offset + 1
-				else
-					break
-				end
-			end
-			if ttleft == nil or origTextL == nil then
-				break
-			end
-			textL = WeightsWatcher.preprocess(origTextL:lower())
-			if rawget(ww_unparsed_lines, textL) then
-				if showDebugInfo then
-					ttleft:SetText(string.format("%s |cffff00ff(U)|r", string.gsub(origTextL, "(.)([\r\n]\+)", "%1 |cffff00ff(U)|r%2")))
-				else
-					ttleft:SetText(string.format("%s |cffff0000*|r", string.gsub(origTextL, "(.)([\r\n]\+)", "%1 |cffff0000*|r%2")))
-				end
-				numUnweightedEffects = numUnweightedEffects + 1
-			elseif rawget(ww_ignored_lines, textL) then
-				if showDebugInfo then
-					ttleft:SetText(string.format("%s |cffffff00(I)|r", string.gsub(origTextL, "(.)([\r\n]\+)", "%1 |cffffff00(I)|r%2")))
-				end
-			elseif rawget(ww_temp_ignored_lines, textL) then
-				if showDebugInfo then
-					ttleft:SetText(string.format("%s |cffffff00(TI)|r", string.gsub(origTextL, "(.)([\r\n]\+)", "%1 |cffffff00(TI)|r%2")))
-				end
-			elseif rawget(ww_unweighted_lines, textL) then
-				ttleft:SetText(string.format("%s |cffff0000*|r", string.gsub(origTextL, "(.)([\r\n]\+)", "%1 |cffff0000*|r%2")))
-				numUnweightedEffects = numUnweightedEffects + 1
-			end
-		end
-		if numUnweightedEffects > 0 then
-			tooltip:AddLine(string.format(L["UNWEIGHTED_HINT"], numUnweightedEffects))
-		end
+		markTooltipLines(tooltip, ttname, showDebugInfo)
 
 		if showDebugInfo then
-			for name, value in pairs(bareItemInfo.nonStats) do
-				if value == true then
-					tooltip:AddLine(name)
-				else
-					if name == "slot" or name == "subslot" then
-						tooltip:AddDoubleLine(name, ww_slotDisplayNames[value])
-					else
-						tooltip:AddDoubleLine(name, value)
-					end
-				end
-			end
-			for name, value in pairs(bareItemInfo.normalStats) do
-				tooltip:AddDoubleLine(ww_statDisplayNames[name], value)
-			end
-			if #(bareItemInfo.useEffects) > 0 then
-				tooltip:AddLine(L["Use effects:"])
-				for _, useEffect in pairs(bareItemInfo.useEffects) do
-					tooltip:AddLine(string.format(L["DURATION_COOLDOWN_FORMAT"], useEffect.duration, useEffect.cooldown))
-					tooltip:AddLine(string.format(L["INDENTED_STRING_FORMAT"], "Stats:"))
-					for stat, value in pairs(useEffect.stats) do
-						tooltip:AddDoubleLine(string.format(L["DOUBLY_INDENTED_STRING_FORMAT"], ww_statDisplayNames[stat]), value)
-					end
-				end
-			end
-			if #(bareItemInfo.stackingEquipEffects) > 0 then
-				tooltip:AddLine(L["Stacking equip effects:"])
-				for _, effect in pairs(bareItemInfo.stackingEquipEffects) do
-					tooltip:AddDoubleLine(string.format(L["EFFECT_STAT_FORMAT"], effect.value, ww_statDisplayNames[effect.stat]), string.format(L["EFFECT_STACKS_FORMAT"], effect.numStacks))
-					for trigger in pairs(effect.triggers) do
-						tooltip:AddLine(string.format(L["TRIGGER_FORMAT"], ww_triggerDisplayNames[trigger]))
-					end
-				end
-			end
-
-			local itemInfo = ww_itemCache[link]
-
-			if #(bareItemInfo.sockets) > 0 then
-				tooltip:AddLine(L["Sockets:"])
-				for _, stat in pairs(bareItemInfo.sockets) do
-					tooltip:AddLine(string.format(L["INDENTED_STRING_FORMAT"], ww_socketColorDisplayNames[stat]))
-				end
-				if bareItemInfo.socketBonusStat then
-					if itemInfo.socketBonusActive then
-						tooltip:AddDoubleLine(L["Socket Bonus:"], L["Active"])
-					else
-						tooltip:AddDoubleLine(L["Socket Bonus:"], L["Inactive"])
-					end
-					for name, value in pairs(bareItemInfo.socketBonusStat) do
-						tooltip:AddDoubleLine(string.format(L["INDENTED_STRING_FORMAT"], ww_statDisplayNames[name]), value)
-					end
-				end
-				if #(itemInfo.gemStats) > 0 then
-					tooltip:AddLine(L["Gem Stats:"])
-					for _, gems in pairs(itemInfo.gemStats) do
-						for _, gem in ipairs(gems) do
-							tooltip:AddLine(string.format(L["GEM_NAME_COLOR_FORMAT"], ww_gemDisplayNames[gem[2]], ww_gemColorDisplayNames[gem[1]]))
-							for stat, value in pairs(gem[3]) do
-								tooltip:AddDoubleLine(string.format(L["DOUBLY_INDENTED_STRING_FORMAT"], ww_statDisplayNames[stat]), value)
-							end
-						end
-					end
-				end
-			end
+			addDebugInfo(tooltip, bareItemInfo, link)
 		end
 
 		if showWeights then
@@ -696,23 +732,8 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 									tooltip:AddDoubleLine(L["  Ideally-gemmed:"], string.format(colorizeDifferences(compareScore), currentScore, compareScore))
 									if showIdealGems then
 										local gemStats = ww_weightIdealCache[class][weight][bareLink].gemStats
-										for _, gems in ipairs(gemStats) do
-											for i, gem in ipairs(gems) do
-												if #(gems) > 1 then
-													tooltip:AddDoubleLine(string.format(L["MULTIPLE_GEM_FORMAT"], i, #(gems), ww_gemDisplayNames[gem[2]], ww_gemColorDisplayNames[gem[1]]), " ")
-													alternateGemsExist = true
-												else
-													tooltip:AddDoubleLine(string.format(L["SINGLE_GEM_FORMAT"], ww_gemDisplayNames[gem[2]], ww_gemColorDisplayNames[gem[1]]), " ")
-												end
-												if showIdealGemStats then
-													for stat, value in pairs(gem[3]) do
-														tooltip:AddDoubleLine(string.format(L["TREBLY_INDENTED_STRING_FORMAT"], ww_statDisplayNames[stat]), value)
-													end
-												end
-												if not showAlternateGems then
-													break
-												end
-											end
+										if addIdealGemInfo(tooltip, gemStats, showIdealGemStats, showAlternateGems) then
+											alternateGemsExist = true
 										end
 									end
 								end
