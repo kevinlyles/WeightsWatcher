@@ -3554,3 +3554,16 @@ EnchantIDs = {
 		},
 	},
 }
+
+-- Each level holds the first rep value over that level
+ww_reputations = {
+	[0] = -42000, -- minimum (completely hated)
+	[1] = -6000, -- Hated,
+	[2] = -3000, -- Hostile
+	[3] = 0, -- Unfriendly
+	[4] = 3000, -- Neutral
+	[5] = 9000, -- Friendly
+	[6] = 21000, -- Honored
+	[7] = 42000, -- Revered
+	[8] = 43000, -- Exalted
+}
