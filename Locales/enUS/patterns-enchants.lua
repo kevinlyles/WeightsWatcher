@@ -53,8 +53,6 @@ local EnchantPreprocessLines = {
 	{" reduce threat slightly ", " 2%% reduced threat "},
 	{" a minor movement speed ", " minor run speed "},
 	{" reducing the duration of disarm effects by ", " disarm duration reduced by "},
-	-- items 62368 and 62422
-	{" mastery strike rating ", " mastery rating "},
 }
 
 local EnchantAffixes = {

@@ -22,7 +22,7 @@ local FishingAffixes = {
 	"%.$",
 	"utes$",
 	" +[35] min",
-	" +10 min$",
+	" +1[05] min$",
 	" +1 hour$",
 	" +for$",
 }
