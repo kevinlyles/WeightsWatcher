@@ -116,7 +116,7 @@ local EnchantAffixes = {
 	" +requires a level %d+ or higher l?e?v?e?l? ?item%.$",
 	" +must be level %d+ or lower to gain this benefit%.$",
 	" +wearer must be level %d+ or higher%.$",
-	" +cannot be used on items level 300 or higher%.$",
+	" +cannot be used on items level %d+ or higher%.$",
 	"[\r\n]+%a+ing [%a ]+ causes [%a ]+ to become soulbound%.$",
 	"[\r\n]+can only be attached to [%a ]+ in your inventory%.$",
 	" +only the enchanter's rings can be enchanted,? and enchanting a ring will cause it to become soulbound%.$",
@@ -127,7 +127,7 @@ local EnchantAffixes = {
 	" +does not stack with other enchantments for the selected equipment slot%.",
 	"[\r\n]+wearer must be level %d+ or higher to receive the benefits of this armor kit%.$",
 
-	"^eternal belt buckle onto a belt, adding a +",
+	"^%a+ belt buckle onto a belt, adding a +",
 	" +to the belt%.$",
 	" +to shoulder armor%.$",
 	" +t?o[fn]? any? item worn on the %a[%a ,]+ or %a+",
