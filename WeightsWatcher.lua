@@ -45,7 +45,7 @@ local ww_itemCacheMetatable = {
 
 		tbl[key] = {
 			socketBonusActive = socketBonusActive,
-			gemStats = gemStats
+			gemStats = gemStats,
 		}
 
 		return tbl[key]
