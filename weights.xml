@@ -787,7 +787,7 @@
 		</Anchors>
 		<Layers>
 			<Layer level="ARTWORK">
-				<FontString name="$parentText" parentKey="text" inherits="GameFontHighlight" text="Please choose a class and name for your new weight:">
+				<FontString name="$parentText" parentKey="text" inherits="GameFontHighlight" text="CHOOSE_WEIGHT_NAME">
 					<Size>
 						<AbsDimension x="380" y="0"/>
 					</Size>
@@ -798,11 +798,6 @@
 							</Offset>
 						</Anchor>
 					</Anchors>
-					<Scripts>
-						<OnLoad>
-							self:SetText(ww_localization[self:GetText])
-						</OnLoad>
-					</Scripts>
 				</FontString>
 			</Layer>
 			<Layer level="BACKGROUND">
@@ -958,6 +953,9 @@
 			</Button>
 		</Frames>
 		<Scripts>
+			<OnLoad>
+				self.text:SetText(ww_localization[self.text:GetText()])
+			</OnLoad>
 			<OnShow>
 				self.editBox:SetFocus()
 			</OnShow>
