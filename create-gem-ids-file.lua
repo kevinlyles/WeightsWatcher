@@ -116,6 +116,7 @@ function WeightsWatcherHiddenTooltip:NumLines()
 end
 
 includeFile("wrapper-functions.lua")
+WeightsWatcher = {}
 includeFile("WeightsWatcher.toc")
 ww_vars = ww_copyDefaultAccountVars()
 

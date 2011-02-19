@@ -1894,7 +1894,7 @@ gem_ids_to_item_info = {
 			left = "+14 Critical Strike Rating and 1% Spell Reflect",
 		},
 		[3] = {
-			left = "  |cffffffffRequires at least 2 Red gems|r\n  |cff808080Requires at least 2 Blue gems|r\n  |cff808080Requires at least 2 Yellow gems|r",
+			left = "  |cffffffffRequires at least 2 Red gems|r\n  |cffffffffRequires at least 2 Blue gems|r\n  |cff808080Requires at least 2 Yellow gems|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -1930,7 +1930,7 @@ gem_ids_to_item_info = {
 			left = "Chance to Increase Spell Cast Speed",
 		},
 		[3] = {
-			left = "  |cff808080Requires more Blue gems than Yellow gems|r",
+			left = "  |cffffffffRequires more Blue gems than Yellow gems|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -2038,7 +2038,7 @@ gem_ids_to_item_info = {
 			left = "+18 Stamina and Stun Duration Reduced by 10%",
 		},
 		[3] = {
-			left = "  |cff808080Requires at least 3 Blue gems|r",
+			left = "  |cffffffffRequires at least 3 Blue gems|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -2146,7 +2146,7 @@ gem_ids_to_item_info = {
 			left = "+3 Melee Damage and Chance to Stun Target",
 		},
 		[3] = {
-			left = "  |cffffffffRequires at least 2 Red gems|r\n  |cff808080Requires at least 2 Yellow gems|r\n  |cff808080Requires at least 2 Blue gems|r",
+			left = "  |cffffffffRequires at least 2 Red gems|r\n  |cff808080Requires at least 2 Yellow gems|r\n  |cffffffffRequires at least 2 Blue gems|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -2182,7 +2182,7 @@ gem_ids_to_item_info = {
 			left = "+12 Intellect and Chance to restore mana on spellcast",
 		},
 		[3] = {
-			left = "  |cffffffffRequires at least 2 Red gems|r\n  |cff808080Requires at least 2 Yellow gems|r\n  |cff808080Requires at least 2 Blue gems|r",
+			left = "  |cffffffffRequires at least 2 Red gems|r\n  |cff808080Requires at least 2 Yellow gems|r\n  |cffffffffRequires at least 2 Blue gems|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -6896,7 +6896,7 @@ gem_ids_to_item_info = {
 			left = "+12 Agility and 3% Increased Critical Damage",
 		},
 		[3] = {
-			left = "  |cff808080Requires more Blue gems than Red gems|r",
+			left = "  |cffffffffRequires at least 3 Red gems|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -6932,7 +6932,7 @@ gem_ids_to_item_info = {
 			left = "Chance to Increase Melee/Ranged Attack Speed ",
 		},
 		[3] = {
-			left = "  |cffffffffRequires at least 2 Red gems|r\n  |cff808080Requires at least 2 Blue gems|r\n  |cff808080Requires at least 2 Yellow gems|r",
+			left = "  |cffffffffRequires at least 2 Red gems|r\n  |cffffffffRequires at least 2 Blue gems|r\n  |cff808080Requires at least 2 Yellow gems|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -7217,7 +7217,7 @@ gem_ids_to_item_info = {
 			left = "+12 Critical Strike Rating and 5% Stun Resistance",
 		},
 		[4] = {
-			left = "  |cff808080Requires more Blue gems than Yellow gems|r",
+			left = "  |cffffffffRequires more Blue gems than Yellow gems|r",
 		},
 		[5] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -8061,7 +8061,7 @@ gem_ids_to_item_info = {
 			left = "+12 Critical Strike Rating and 3% Increased Critical Damage",
 		},
 		[3] = {
-			left = "  |cff808080Requires more Blue gems than Blue gems|r",
+			left = "  |cffffffffRequires at least 3 Red gems|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -8305,7 +8305,7 @@ gem_ids_to_item_info = {
 			left = "+12 Dodge Rating and +1% Shield Block Value",
 		},
 		[3] = {
-			left = "  |cff808080Requires at least 2 Blue gems|r\n  |cff808080Requires at least 1 Yellow gem|r",
+			left = "  |cffffffffRequires at least 2 Blue gems|r\n  |cffffffffRequires at least 1 Yellow gem|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -8341,7 +8341,7 @@ gem_ids_to_item_info = {
 			left = "+12 Intellect and +2% Maximum Mana",
 		},
 		[3] = {
-			left = "  |cff808080Requires at least 3 Red gems|r",
+			left = "  |cffffffffRequires at least 3 Red gems|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -16367,7 +16367,7 @@ gem_ids_to_item_info = {
 			left = "+21 Critical Strike Rating and 3% Increased Critical Damage",
 		},
 		[3] = {
-			left = "  |cff808080Requires more Blue gems than Red gems|r",
+			left = "  |cffffffffRequires at least 3 Red gems|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -16403,7 +16403,7 @@ gem_ids_to_item_info = {
 			left = "+25 Critical Strike Rating and 1% Spell Reflect",
 		},
 		[3] = {
-			left = "  |cffffffffRequires at least 1 Red gem|r\n  |cff808080Requires at least 1 Yellow gem|r\n  |cff808080Requires at least 1 Blue gem|r",
+			left = "  |cffffffffRequires at least 1 Red gem|r\n  |cffffffffRequires at least 1 Yellow gem|r\n  |cffffffffRequires at least 1 Blue gem|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -16439,7 +16439,7 @@ gem_ids_to_item_info = {
 			left = "+21 Intellect and +2% Maximum Mana",
 		},
 		[3] = {
-			left = "  |cff808080Requires at least 3 Red gems|r",
+			left = "  |cffffffffRequires at least 3 Red gems|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -16475,7 +16475,7 @@ gem_ids_to_item_info = {
 			left = "+21 Critical Strike Rating and Reduces Snare/Root Duration by 10%",
 		},
 		[3] = {
-			left = "  |cffffffffRequires at least 2 Red gems|r\n  |cff808080Requires at least 1 Yellow gem|r",
+			left = "  |cffffffffRequires at least 2 Red gems|r\n  |cffffffffRequires at least 1 Yellow gem|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -16547,7 +16547,7 @@ gem_ids_to_item_info = {
 			left = "+21 Intellect and 2% Reduced Threat",
 		},
 		[3] = {
-			left = "  |cffffffffRequires at least 2 Red gems|r\n  |cff808080Requires at least 1 Blue gem|r",
+			left = "  |cffffffffRequires at least 2 Red gems|r\n  |cffffffffRequires at least 1 Blue gem|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -16583,7 +16583,7 @@ gem_ids_to_item_info = {
 			left = "+21 Intellect and Chance to restore mana on spellcast",
 		},
 		[3] = {
-			left = "  |cffffffffRequires at least 1 Red gem|r\n  |cff808080Requires at least 1 Yellow gem|r\n  |cff808080Requires at least 1 Blue gem|r",
+			left = "  |cffffffffRequires at least 1 Red gem|r\n  |cffffffffRequires at least 1 Yellow gem|r\n  |cffffffffRequires at least 1 Blue gem|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -16619,7 +16619,7 @@ gem_ids_to_item_info = {
 			left = "+21 Agility and 3% Increased Critical Damage",
 		},
 		[3] = {
-			left = "  |cff808080Requires more Blue gems than Red gems|r",
+			left = "  |cffffffffRequires at least 3 Red gems|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -16655,7 +16655,7 @@ gem_ids_to_item_info = {
 			left = "+21 Dodge Rating and +1% Shield Block Value",
 		},
 		[3] = {
-			left = "  |cffffffffRequires at least 2 Red gems|r\n  |cff808080Requires at least 1 Blue gem|r",
+			left = "  |cffffffffRequires at least 2 Red gems|r\n  |cffffffffRequires at least 1 Blue gem|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -16691,7 +16691,7 @@ gem_ids_to_item_info = {
 			left = "+21 Intellect and Minor Run Speed Increase",
 		},
 		[3] = {
-			left = "  |cffffffffRequires at least 1 Red gem|r\n  |cff808080Requires at least 1 Blue gem|r\n  |cff808080Requires at least 1 Yellow gem|r",
+			left = "  |cffffffffRequires at least 1 Red gem|r\n  |cffffffffRequires at least 1 Blue gem|r\n  |cffffffffRequires at least 1 Yellow gem|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -16763,7 +16763,7 @@ gem_ids_to_item_info = {
 			left = "+32 Stamina and Reduce Spell Damage Taken by 2%",
 		},
 		[3] = {
-			left = "  |cff808080Requires at least 2 Blue gems|r\n  |cffffffffRequires at least 1 Red gem|r",
+			left = "  |cffffffffRequires at least 2 Blue gems|r\n  |cffffffffRequires at least 1 Red gem|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -16799,7 +16799,7 @@ gem_ids_to_item_info = {
 			left = "+21 Intellect and Silence Duration Reduced by 10%",
 		},
 		[3] = {
-			left = "  |cff808080Requires at least 2 Yellow gems|r\n  |cff808080Requires at least 1 Blue gem|r",
+			left = "  |cff808080Requires at least 2 Yellow gems|r\n  |cffffffffRequires at least 1 Blue gem|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -16835,7 +16835,7 @@ gem_ids_to_item_info = {
 			left = "+21 Critical Strike Rating and Fear Duration Reduced by 10%",
 		},
 		[3] = {
-			left = "  |cffffffffRequires at least 2 Red gems|r\n  |cff808080Requires at least 1 Blue gem|r",
+			left = "  |cffffffffRequires at least 2 Red gems|r\n  |cffffffffRequires at least 1 Blue gem|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -16871,7 +16871,7 @@ gem_ids_to_item_info = {
 			left = "+32 Stamina and 2% Increased Armor Value from Items",
 		},
 		[3] = {
-			left = "  |cff808080Requires at least 2 Blue gems|r\n  |cffffffffRequires at least 1 Red gem|r",
+			left = "  |cffffffffRequires at least 2 Blue gems|r\n  |cffffffffRequires at least 1 Red gem|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -16907,7 +16907,7 @@ gem_ids_to_item_info = {
 			left = "+21 Critical Strike Rating and Stun Duration Reduced by 10%",
 		},
 		[3] = {
-			left = "  |cff808080Requires at least 2 Yellow gems|r\n  |cff808080Requires at least 1 Blue gem|r",
+			left = "  |cff808080Requires at least 2 Yellow gems|r\n  |cffffffffRequires at least 1 Blue gem|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -16943,7 +16943,7 @@ gem_ids_to_item_info = {
 			left = "+21 Intellect and Stun Duration Reduced by 10%",
 		},
 		[3] = {
-			left = "  |cffffffffRequires at least 1 Red gem|r\n  |cff808080Requires at least 1 Yellow gem|r\n  |cff808080Requires at least 1 Blue gem|r",
+			left = "  |cffffffffRequires at least 1 Red gem|r\n  |cffffffffRequires at least 1 Yellow gem|r\n  |cffffffffRequires at least 1 Blue gem|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -16979,7 +16979,7 @@ gem_ids_to_item_info = {
 			left = "+21 Haste Rating and Sometimes Heal on Your Crits",
 		},
 		[3] = {
-			left = "  |cff808080Requires at least 2 Blue gems|r\n  |cffffffffRequires at least 1 Red gem|r",
+			left = "  |cffffffffRequires at least 2 Blue gems|r\n  |cffffffffRequires at least 1 Red gem|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -17015,7 +17015,7 @@ gem_ids_to_item_info = {
 			left = "+21 Critical Strike Rating and +2% Mana",
 		},
 		[3] = {
-			left = "  |cffffffffRequires at least 2 Red gems|r\n  |cff808080Requires at least 1 Yellow gem|r",
+			left = "  |cffffffffRequires at least 2 Red gems|r\n  |cffffffffRequires at least 1 Yellow gem|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -17051,7 +17051,7 @@ gem_ids_to_item_info = {
 			left = "+32 Stamina and Stun Duration Reduced by 10%",
 		},
 		[3] = {
-			left = "  |cff808080Requires at least 3 Blue gems|r",
+			left = "  |cffffffffRequires at least 3 Blue gems|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -17087,7 +17087,7 @@ gem_ids_to_item_info = {
 			left = "Chance to Increase Melee/Ranged Attack Speed ",
 		},
 		[3] = {
-			left = "  |cffffffffRequires at least 1 Red gem|r\n  |cff808080Requires at least 1 Yellow gem|r\n  |cff808080Requires at least 1 Blue gem|r",
+			left = "  |cffffffffRequires at least 1 Red gem|r\n  |cffffffffRequires at least 1 Yellow gem|r\n  |cffffffffRequires at least 1 Blue gem|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -20341,7 +20341,7 @@ gem_ids_to_item_info = {
 			left = "+17 Intellect and Minor Run Speed Increase",
 		},
 		[3] = {
-			left = "  |cffffffffRequires at least 1 Red gem|r\n  |cff808080Requires at least 1 Blue gem|r\n  |cff808080Requires at least 1 Yellow gem|r",
+			left = "  |cffffffffRequires at least 1 Red gem|r\n  |cffffffffRequires at least 1 Blue gem|r\n  |cffffffffRequires at least 1 Yellow gem|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -20374,7 +20374,7 @@ gem_ids_to_item_info = {
 			left = "+17 Critical Strike Rating and Fear Duration Reduced by 10%",
 		},
 		[3] = {
-			left = "  |cff808080Requires at least 2 Blue gems|r\n  |cffffffffRequires at least 1 Red gem|r",
+			left = "  |cffffffffRequires at least 2 Blue gems|r\n  |cffffffffRequires at least 1 Red gem|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -20407,7 +20407,7 @@ gem_ids_to_item_info = {
 			left = "+17 Critical Strike Rating and Reduces Snare/Root Duration by 10%",
 		},
 		[3] = {
-			left = "  |cffffffffRequires at least 2 Red gems|r\n  |cff808080Requires at least 1 Blue gem|r",
+			left = "  |cffffffffRequires at least 2 Red gems|r\n  |cffffffffRequires at least 1 Blue gem|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -20440,7 +20440,7 @@ gem_ids_to_item_info = {
 			left = "+17 Intellect and Silence Duration Reduced by 10%",
 		},
 		[3] = {
-			left = "  |cff808080Requires at least 2 Yellow gems|r\n  |cff808080Requires at least 1 Blue gem|r",
+			left = "  |cff808080Requires at least 2 Yellow gems|r\n  |cffffffffRequires at least 1 Blue gem|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -20473,7 +20473,7 @@ gem_ids_to_item_info = {
 			left = "+17 Critical Strike Rating and Stun Duration Reduced by 10%",
 		},
 		[3] = {
-			left = "  |cff808080Requires at least 3 Blue gems|r",
+			left = "  |cffffffffRequires at least 3 Blue gems|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -20506,7 +20506,7 @@ gem_ids_to_item_info = {
 			left = "+26 Stamina and Stun Duration Reduced by 10%",
 		},
 		[3] = {
-			left = "  |cff808080Requires at least 2 Blue gems|r\n  |cff808080Requires at least 1 Yellow gem|r",
+			left = "  |cffffffffRequires at least 2 Blue gems|r\n  |cffffffffRequires at least 1 Yellow gem|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -20539,7 +20539,7 @@ gem_ids_to_item_info = {
 			left = "+17 Intellect and Stun Duration Reduced by 10%",
 		},
 		[3] = {
-			left = "  |cffffffffRequires at least 1 Red gem|r\n  |cff808080Requires at least 1 Yellow gem|r\n  |cff808080Requires at least 1 Blue gem|r",
+			left = "  |cffffffffRequires at least 1 Red gem|r\n  |cffffffffRequires at least 1 Yellow gem|r\n  |cffffffffRequires at least 1 Blue gem|r",
 		},
 		[4] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -26771,7 +26771,7 @@ gem_ids_to_item_info = {
 			left = "+54 Critical Strike Rating and 3% Increased Critical Damage",
 		},
 		[5] = {
-			left = "  |cff808080Requires more Blue gems than Red gems|r",
+			left = "  |cffffffffRequires at least 3 Red gems|r",
 		},
 		[6] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -26815,7 +26815,7 @@ gem_ids_to_item_info = {
 			left = "+54 Intellect and 2% Reduced Threat",
 		},
 		[5] = {
-			left = "  |cff808080Requires at least 1 Blue gem|r\n  |cff808080Requires at least 1 Yellow gem|r",
+			left = "  |cffffffffRequires at least 1 Blue gem|r\n  |cffffffffRequires at least 1 Yellow gem|r",
 		},
 		[6] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -26856,10 +26856,10 @@ gem_ids_to_item_info = {
 			left = "Requires Item Level: 285",
 		},
 		[4] = {
-			left = "+81 Stamina and +5% Shield Block Value",
+			left = "+81 Stamina and +1% Shield Block Value",
 		},
 		[5] = {
-			left = "  |cff808080Requires at least 3 Blue gems|r",
+			left = "  |cffffffffRequires at least 3 Blue gems|r",
 		},
 		[6] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -26947,7 +26947,7 @@ gem_ids_to_item_info = {
 			left = "+81 Stamina and Reduce Spell Damage Taken by 2%",
 		},
 		[5] = {
-			left = "  |cffffffffRequires at least 1 Red gem|r\n  |cff808080Requires at least 1 Yellow gem|r",
+			left = "  |cffffffffRequires at least 1 Red gem|r\n  |cffffffffRequires at least 1 Yellow gem|r",
 		},
 		[6] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -27035,7 +27035,7 @@ gem_ids_to_item_info = {
 			left = "+54 Spirit and 3% Increased Critical Healing Effect",
 		},
 		[5] = {
-			left = "  |cff808080Requires at least 1 Blue gem|r\n  |cff808080Requires at least 1 Yellow gem|r",
+			left = "  |cffffffffRequires at least 1 Blue gem|r\n  |cffffffffRequires at least 1 Yellow gem|r",
 		},
 		[6] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -27123,7 +27123,7 @@ gem_ids_to_item_info = {
 			left = "+81 Stamina and Stun Duration Reduced by 10%",
 		},
 		[5] = {
-			left = "  |cff808080Requires at least 2 Blue gems|r",
+			left = "  |cffffffffRequires at least 2 Blue gems|r",
 		},
 		[6] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -27167,7 +27167,7 @@ gem_ids_to_item_info = {
 			left = "+54 Critical Strike Rating and Reduces Snare/Root Duration by 10%",
 		},
 		[5] = {
-			left = "  |cff808080Requires at least 1 Blue gem|r\n  |cff808080Requires at least 1 Yellow gem|r",
+			left = "  |cffffffffRequires at least 1 Blue gem|r\n  |cffffffffRequires at least 1 Yellow gem|r",
 		},
 		[6] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -27211,7 +27211,7 @@ gem_ids_to_item_info = {
 			left = "+54 Critical Strike Rating and Fear Duration Reduced by 10%",
 		},
 		[5] = {
-			left = "  |cff808080Requires at least 1 Blue gem|r\n  |cff808080Requires at least 1 Yellow gem|r",
+			left = "  |cffffffffRequires at least 1 Blue gem|r\n  |cffffffffRequires at least 1 Yellow gem|r",
 		},
 		[6] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -27255,7 +27255,7 @@ gem_ids_to_item_info = {
 			left = "+54 Intellect and Silence Duration Reduced by 10%",
 		},
 		[5] = {
-			left = "  |cff808080Requires at least 1 Blue gem|r\n  |cffffffffRequires at least 1 Red gem|r",
+			left = "  |cffffffffRequires at least 1 Blue gem|r\n  |cffffffffRequires at least 1 Red gem|r",
 		},
 		[6] = {
 			left = "\"Only fits in a meta gem slot.\"",
@@ -27826,6 +27826,215 @@ gem_ids_to_item_info = {
 		itemSpell = {
 		},
 		itemUniqueness = {
+		},
+		statTable = {
+		},
+	},
+	[4239] = {
+		[1] = {
+			left = "Mystic Cogwheel",
+		},
+		[2] = {
+			left = "Unique-Equipped",
+		},
+		[3] = {
+			left = "Cogwheel",
+		},
+		[4] = {
+			left = "+208 Resilience Rating",
+		},
+		[5] = {
+			left = "Requires Engineering (525)",
+		},
+		[6] = {
+			left = "\"Only fits in a Cogwheel socket.\"",
+		},
+		itemInfo = {
+			[1] = "Mystic Cogwheel",
+			[2] = "|cff0070dd|Hitem:68660:0:0:0:0:0:0:0:85:0|h[Mystic Cogwheel]|h|r",
+			[3] = 3,
+			[4] = 359,
+			[5] = 0,
+			[6] = "Gem",
+			[7] = "Cogwheel",
+			[8] = 1,
+			[9] = "",
+			[10] = "Interface\\Icons\\inv_misc_enggizmos_30",
+			[11] = 0,
+		},
+		itemSpell = {
+		},
+		itemUniqueness = {
+			[1] = -1,
+			[2] = 1,
+		},
+		statTable = {
+		},
+	},
+	[4244] = {
+		[1] = {
+			left = "Vivid Dream Emerald",
+		},
+		[2] = {
+			left = "Requires Item Level: 285",
+		},
+		[3] = {
+			left = "+20 Resilience Rating and +20 Spell Penetration",
+		},
+		[4] = {
+			left = "\"Matches a Blue or Yellow Socket.\"",
+		},
+		[5] = {
+			left = " ",
+		},
+		itemInfo = {
+			[1] = "Vivid Dream Emerald",
+			[2] = "|cff0070dd|Hitem:68741:0:0:0:0:0:0:0:85:0|h[Vivid Dream Emerald]|h|r",
+			[3] = 3,
+			[4] = 85,
+			[5] = 0,
+			[6] = "Gem",
+			[7] = "Green",
+			[8] = 1,
+			[9] = "",
+			[10] = "Interface\\Icons\\inv_misc_cutgemsuperior5",
+			[11] = 37500,
+		},
+		itemSpell = {
+		},
+		itemUniqueness = {
+		},
+		statTable = {
+		},
+	},
+	[4251] = {
+		[1] = {
+			left = "Agile Shadowspirit Diamond",
+		},
+		[2] = {
+			left = "Unique-Equipped",
+		},
+		[3] = {
+			left = "Requires Item Level: 285",
+		},
+		[4] = {
+			left = "+54 Agility and 3% Increased Critical Damage",
+		},
+		[5] = {
+			left = "  |cffffffffRequires at least 3 Red gems|r",
+		},
+		[6] = {
+			left = "\"Only fits in a meta gem slot.\"",
+		},
+		[7] = {
+			left = " ",
+		},
+		itemInfo = {
+			[1] = "Agile Shadowspirit Diamond",
+			[2] = "|cff0070dd|Hitem:68778:0:0:0:0:0:0:0:85:0|h[Agile Shadowspirit Diamond]|h|r",
+			[3] = 3,
+			[4] = 85,
+			[5] = 0,
+			[6] = "Gem",
+			[7] = "Meta",
+			[8] = 1,
+			[9] = "",
+			[10] = "Interface\\Icons\\inv_misc_metagem_b",
+			[11] = 37500,
+		},
+		itemSpell = {
+		},
+		itemUniqueness = {
+			[1] = -1,
+			[2] = 1,
+		},
+		statTable = {
+		},
+	},
+	[4252] = {
+		[1] = {
+			left = "Reverberating Shadowspirit Diamond",
+		},
+		[2] = {
+			left = "Unique-Equipped",
+		},
+		[3] = {
+			left = "Requires Item Level: 285",
+		},
+		[4] = {
+			left = "+54 Strength and 3% Increased Critical Damage",
+		},
+		[5] = {
+			left = "  |cffffffffRequires at least 3 Red gems|r",
+		},
+		[6] = {
+			left = "\"Only fits in a meta gem slot.\"",
+		},
+		[7] = {
+			left = " ",
+		},
+		itemInfo = {
+			[1] = "Reverberating Shadowspirit Diamond",
+			[2] = "|cff0070dd|Hitem:68779:0:0:0:0:0:0:0:85:0|h[Reverberating Shadowspirit Diamond]|h|r",
+			[3] = 3,
+			[4] = 85,
+			[5] = 0,
+			[6] = "Gem",
+			[7] = "Meta",
+			[8] = 1,
+			[9] = "",
+			[10] = "Interface\\Icons\\inv_misc_metagem_b",
+			[11] = 37500,
+		},
+		itemSpell = {
+		},
+		itemUniqueness = {
+			[1] = -1,
+			[2] = 1,
+		},
+		statTable = {
+		},
+	},
+	[4253] = {
+		[1] = {
+			left = "Burning Shadowspirit Diamond",
+		},
+		[2] = {
+			left = "Unique-Equipped",
+		},
+		[3] = {
+			left = "Requires Item Level: 285",
+		},
+		[4] = {
+			left = "+54 Intellect and 3% Increased Critical Damage",
+		},
+		[5] = {
+			left = "  |cffffffffRequires at least 3 Red gems|r",
+		},
+		[6] = {
+			left = "\"Only fits in a meta gem slot.\"",
+		},
+		[7] = {
+			left = " ",
+		},
+		itemInfo = {
+			[1] = "Burning Shadowspirit Diamond",
+			[2] = "|cff0070dd|Hitem:68780:0:0:0:0:0:0:0:85:0|h[Burning Shadowspirit Diamond]|h|r",
+			[3] = 3,
+			[4] = 85,
+			[5] = 0,
+			[6] = "Gem",
+			[7] = "Meta",
+			[8] = 1,
+			[9] = "",
+			[10] = "Interface\\Icons\\inv_misc_metagem_b",
+			[11] = 37500,
+		},
+		itemSpell = {
+		},
+		itemUniqueness = {
+			[1] = -1,
+			[2] = 1,
 		},
 		statTable = {
 		},

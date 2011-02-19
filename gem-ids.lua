@@ -5878,7 +5878,7 @@ gemIdInfo = {
 		[1] = "meta",
 		[2] = "Eternal Shadowspirit Diamond",
 		[3] = {
-			["block value (percent)"] = 5,
+			["block value (percent)"] = 1,
 			stamina = 81,
 		},
 	},
@@ -6053,6 +6053,45 @@ gemIdInfo = {
 		[3] = {
 			["resilience rating"] = 20,
 			strength = 20,
+		},
+	},
+	[4239] = {
+		[1] = "cogwheel",
+		[2] = "Mystic Cogwheel",
+		[3] = {
+			["resilience rating"] = 208,
+		},
+	},
+	[4244] = {
+		[1] = "green",
+		[2] = "Vivid Dream Emerald",
+		[3] = {
+			["resilience rating"] = 20,
+			["spell penetration"] = 20,
+		},
+	},
+	[4251] = {
+		[1] = "meta",
+		[2] = "Agile Shadowspirit Diamond",
+		[3] = {
+			agility = 54,
+			["critical damage (percent)"] = 3,
+		},
+	},
+	[4252] = {
+		[1] = "meta",
+		[2] = "Reverberating Shadowspirit Diamond",
+		[3] = {
+			["critical damage (percent)"] = 3,
+			strength = 54,
+		},
+	},
+	[4253] = {
+		[1] = "meta",
+		[2] = "Burning Shadowspirit Diamond",
+		[3] = {
+			["critical damage (percent)"] = 3,
+			intellect = 54,
 		},
 	},
 }

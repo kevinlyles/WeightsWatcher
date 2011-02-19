@@ -1,40 +1,17 @@
-				[3264] = {
+				[2686] = {
 					"UNKNOWN",
-					"Heavy Tonk Armor",
+					"Bold Red Bryanite",
+					{[L["strength"]] = 8},
 				},
-				[3317] = {
-					"blue",
-					"Solid Sky Sapphire",
-					{[L["stamina"]] = 21},
-				},
-				[3321] = {
-					"red",
-					"Test Living Ruby",
-					{[L["armor"]] = 150},
-				},
-				[3333] = {
-					"purple",
-					"QA Test Blank Purple Gem",
-				},
-				[3334] = {
+				[2687] = {
 					"UNKNOWN",
-					"Riding Crop",
+					"Delicate Blue Bryanite",
+					{[L["agility"]] = 8},
 				},
-				[3591] = {
-					"green",
-					"Test Dazzling Talasite",
-				},
-				-- May be in-game, may not
-				[3884] = {
-					"purple",
-					"Strange Gem",
-					{[L["agility"]] = 24, [L["stamina"]] = 24},
-				},
-				-- Probably a test gem, but not sure
-				[4119] = {
-					"red",
-					"Stackable Ruby",
-					{[L["strength"]] = 50},
+				[2688] = {
+					"UNKNOWN",
+					"Solid Yellow Bryanite",
+					{[L["stamina"]] = 8},
 				},
 				[2703] = {
 					"UNKNOWN",
@@ -87,10 +64,20 @@
 					"Soulbound Test Gem",
 					{[L["agility"]] = 8},
 				},
+				[3209] = {
+					"red",
+					"Delicate Fire Ruby",
+					{[L["agility"]] = 12},
+				},
 				[3214] = {
 					"blue",
 					"Sparkling Falling Star",
 					{[L["spirit"]] = 12},
+				},
+				[3215] = {
+					"yellow",
+					"Mystic Bladestone",
+					{[L["resilience rating"]] = 12},
 				},
 				[3216] = {
 					"red",
@@ -107,32 +94,6 @@
 					"Rigid Bladestone",
 					{[L["hit rating"]] = 12},
 				},
--- unknown source
-				[2686] = {
-					"UNKNOWN",
-					"Bold Red Bryanite",
-					{[L["strength"]] = 8},
-				},
-				[2687] = {
-					"UNKNOWN",
-					"Delicate Blue Bryanite",
-					{[L["agility"]] = 8},
-				},
-				[2688] = {
-					"UNKNOWN",
-					"Solid Yellow Bryanite",
-					{[L["stamina"]] = 8},
-				},
-				[3209] = {
-					"red",
-					"Delicate Fire Ruby",
-					{[L["agility"]] = 12},
-				},
-				[3215] = {
-					"yellow",
-					"Mystic Bladestone",
-					{[L["resilience rating"]] = 12},
-				},
 				[3242] = {
 					"prismatic",
 					"Infinite Sphere",
@@ -142,6 +103,44 @@
 					"prismatic",
 					"Chromatic Sphere",
 					{[L["all stats"]] = 4},
+				},
+				[3264] = {
+					"UNKNOWN",
+					"Heavy Tonk Armor",
+				},
+				[3317] = {
+					"blue",
+					"Solid Sky Sapphire",
+					{[L["stamina"]] = 21},
+				},
+				[3321] = {
+					"red",
+					"Test Living Ruby",
+					{[L["armor"]] = 150},
+				},
+				[3333] = {
+					"purple",
+					"QA Test Blank Purple Gem",
+				},
+				[3334] = {
+					"UNKNOWN",
+					"Riding Crop",
+				},
+				[3591] = {
+					"green",
+					"Test Dazzling Talasite",
+				},
+				-- May be in-game, may not
+				[3884] = {
+					"purple",
+					"Strange Gem",
+					{[L["agility"]] = 24, [L["stamina"]] = 24},
+				},
+				-- Probably a test gem, but not sure
+				[4119] = {
+					"red",
+					"Stackable Ruby",
+					{[L["strength"]] = 50},
 				},
 				-- No longer available
 				[4212] = {

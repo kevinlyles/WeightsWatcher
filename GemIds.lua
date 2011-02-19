@@ -151,6 +151,11 @@ ww_gems = {
 					"Sparkling Cogwheel",
 					{[L["spirit"]] = 208},
 				},
+				[4239] = {
+					"cogwheel",
+					"Mystic Cogwheel",
+					{[L["resilience rating"]] = 208},
+				},
 			},
 		},
 	},
@@ -2489,7 +2494,7 @@ ww_gems = {
 				[4048] = {
 					"meta",
 					"Eternal Shadowspirit Diamond",
-					{[L["block value (percent)"]] = 5, [L["stamina"]] = 81},
+					{[L["block value (percent)"]] = 1, [L["stamina"]] = 81},
 				},
 				[4049] = {
 					"meta",
@@ -2550,6 +2555,26 @@ ww_gems = {
 					"orange",
 					"Resplendent Ember Topaz",
 					{[L["resilience rating"]] = 20, [L["strength"]] = 20},
+				},
+				[4244] = {
+					"green",
+					"Vivid Dream Emerald",
+					{[L["resilience rating"]] = 20, [L["spell penetration"]] = 20},
+				},
+				[4251] = {
+					"meta",
+					"Agile Shadowspirit Diamond",
+					{[L["agility"]] = 54, [L["critical damage (percent)"]] = 3},
+				},
+				[4252] = {
+					"meta",
+					"Reverberating Shadowspirit Diamond",
+					{[L["critical damage (percent)"]] = 3, [L["strength"]] = 54},
+				},
+				[4253] = {
+					"meta",
+					"Burning Shadowspirit Diamond",
+					{[L["critical damage (percent)"]] = 3, [L["intellect"]] = 54},
 				},
 			},
 		},

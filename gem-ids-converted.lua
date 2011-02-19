@@ -34,9 +34,9 @@ local L = ww_localizedStats
 -- 	5: wrath green
 -- 	6: wrath blue
 -- 	7: wrath epic
--- 	8: wrath epic
--- 	9: wrath epic
--- 	10: wrath epic
+-- 	8: cataclysm epic
+-- 	9: cataclysm epic
+-- 	10: cataclysm epic
 
 ww_gems = {
 	["Vendor"] = {
@@ -108,6 +108,8 @@ ww_gems = {
 					{[L["dodge rating"]] = 4},
 				},
 			},
+		},
+		["Unique-Equipped"] = {
 			[9] = {
 				[4166] = {
 					"cogwheel",
@@ -148,6 +150,11 @@ ww_gems = {
 					"cogwheel",
 					"Sparkling Cogwheel",
 					{[L["spirit"]] = 208},
+				},
+				[4239] = {
+					"cogwheel",
+					"Mystic Cogwheel",
+					{[L["resilience rating"]] = 208},
 				},
 			},
 		},
@@ -2487,7 +2494,7 @@ ww_gems = {
 				[4048] = {
 					"meta",
 					"Eternal Shadowspirit Diamond",
-					{[L["block value (percent)"]] = 5, [L["stamina"]] = 81},
+					{[L["block value (percent)"]] = 1, [L["stamina"]] = 81},
 				},
 				[4049] = {
 					"meta",
@@ -2548,6 +2555,26 @@ ww_gems = {
 					"orange",
 					"Resplendent Ember Topaz",
 					{[L["resilience rating"]] = 20, [L["strength"]] = 20},
+				},
+				[4244] = {
+					"green",
+					"Vivid Dream Emerald",
+					{[L["resilience rating"]] = 20, [L["spell penetration"]] = 20},
+				},
+				[4251] = {
+					"meta",
+					"Agile Shadowspirit Diamond",
+					{[L["agility"]] = 54, [L["critical damage (percent)"]] = 3},
+				},
+				[4252] = {
+					"meta",
+					"Reverberating Shadowspirit Diamond",
+					{[L["critical damage (percent)"]] = 3, [L["strength"]] = 54},
+				},
+				[4253] = {
+					"meta",
+					"Burning Shadowspirit Diamond",
+					{[L["critical damage (percent)"]] = 3, [L["intellect"]] = 54},
 				},
 			},
 		},
@@ -3962,6 +3989,8 @@ ww_gems = {
 
 local GemQualities = {}
 
+local ilvls = {}
+
 for gemSource, gems in pairs(ww_gems) do
 	for gemType, gems in pairs(gems) do
 		for gemQuality, gems in pairs(gems) do
@@ -3971,11 +4000,20 @@ for gemSource, gems in pairs(ww_gems) do
 					type = gemType,
 					quality = gemQuality,
 					info = gemInfo,
+					minIlvl = gemQuality > 7 and 285 or 0,
 				}
+				ilvls[GemQualities[gemId].minIlvl] = true
 			end
 		end
 	end
 end
+
+ww_gemMinIlvls = {}
+
+for ilvl in pairs(ilvls) do
+	table.insert(ww_gemMinIlvls, ilvl)
+end
+table.sort(ww_gemMinIlvls)
 
 function WeightsWatcher.GemInfo(gemId)
 	if type(gemId) == "string" then
