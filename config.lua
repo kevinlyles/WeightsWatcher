@@ -33,7 +33,7 @@ function ww_commandHandler(msg)
 			ww_weights:Show()
 		end
 	elseif msg == L["version"] then
-		print(string.format(L["WW_VERSION"], WeightsWatcher.version))
+		print(string.format(L["WW_VERSION"], GetAddOnMetadata("WeightsWatcher", "Version")))
 		print(string.format(L["ACCT_VERSION"], ww_vars.dataMajorVersion, L["DECIMAL_SEPARATOR"], ww_vars.dataMinorVersion))
 		print(string.format(L["CHAR_VERSION"], ww_charVars.dataMajorVersion, L["DECIMAL_SEPARATOR"], ww_charVars.dataMinorVersion))
 	else
