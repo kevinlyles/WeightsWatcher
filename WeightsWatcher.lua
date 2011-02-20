@@ -245,6 +245,8 @@ function WeightsWatcher.ResetTables()
 	ww_ignored_lines = setmetatable({}, metatable)
 	ww_temp_ignored_lines = setmetatable({}, metatable)
 	ww_unweighted_lines = setmetatable({}, metatable)
+
+	WeightsWatcher.ResetEnchantCache()
 end
 
 local function upgradeData(dataType, varsName)

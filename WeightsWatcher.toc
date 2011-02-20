@@ -19,6 +19,8 @@ Locales\locales.xml
 GemIds.lua
 config.xml
 weights.xml
+IntervalTree.lua
+slots.lua
 EnchantIDs.lua
 Upgrade.lua
 defaults.lua

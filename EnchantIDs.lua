@@ -2,7 +2,7 @@ local normalWeapon = { "weapon", weapon = { [false] = { "fishing pole", "shield"
 local normalTwoHand = { "two-hand", ["two-hand"] = { [false] = { "fishing pole" } } }
 local normalRanged = { "ranged", ranged = { [false] = { "wand" } } }
 
-EnchantIDs = {
+local EnchantIDs = {
 	[15] = {
 		itemID = { 2304 },
 		name = {
@@ -5097,7 +5097,7 @@ ww_reputations = {
 	[8] = 43000, -- Exalted
 }
 
-EnchantItems = {
+local EnchantItems = {
 	[2304] = {
 		enchID = 15,
 		name = "Light Armor Kit",
@@ -8261,7 +8261,7 @@ EnchantItems = {
 	},
 }
 
-EnchantSpells = {
+local EnchantSpells = {
 	[7418] = {
 		enchID = 41,
 		name = "Enchant Bracer - Minor Health",
@@ -10891,3 +10891,269 @@ EnchantSpells = {
 		source = "Crafted",
 	},
 }
+
+local EnchantOptions = {}
+
+ww_slotsToCheck = {
+	back = {"back"},
+	chest = {"chest"},
+	feet = {"feet"},
+	finger = {"finger"},
+	hands = {"hands"},
+	head = {"head"},
+	["held in off-hand"] = {"held in off-hand"},
+	legs = {"legs"},
+	["main hand"] = {"main hand", "one hand", "weapon"},
+	neck = {"neck"},
+	["off hand"] = {"off hand", "one hand", "weapon"},
+	["one-hand"] = {"one-hand", "weapon"},
+	projectile = {"projectile"},
+	ranged = {"ranged"},
+	relic = {"relic"},
+	shirt = {"shirt"},
+	shoulder = {"shoulder"},
+	tabard = {"tabard"},
+	thrown = {"thrown"},
+	trinket = {"trinket"},
+	["two-hand"] = {"two-hand", "weapon"},
+	waist = {"waist"},
+	wrist = {"wrist"},
+}
+
+ww_factionsToTrack = {}
+
+for item, info in pairs(EnchantItems) do
+	if info.enchID and info.source ~= "Unavailable" then
+		local class = info.class or "all"
+		if not EnchantOptions[class] then
+			EnchantOptions[class] = {}
+		end
+		for _, slot in ipairs(info.slot) do
+			if not EnchantOptions[class][slot] then
+				EnchantOptions[class][slot] = {}
+			end
+			local subslots = {}
+			if info.slot[slot] then
+				if info.slot[slot][true] then
+					for _, subslot in ipairs(info.slot[slot][true]) do
+						subslots[subslot] = true
+					end
+				elseif info.slot[slot][false] then
+					for subslot in pairs(ww_slotsToSubslots[slot]) do
+						subslots[subslot] = true
+					end
+					for _, subslot in ipairs(info.slot[slot][false]) do
+						subslots[subslot] = nil
+					end
+				end
+			else
+				subslots["all"] = true
+			end
+			for subslot in pairs(subslots) do
+				if not EnchantOptions[class][slot][subslot] then
+					EnchantOptions[class][slot][subslot] = {}
+				end
+				if not EnchantOptions[class][slot][subslot][info.source] then
+					EnchantOptions[class][slot][subslot][info.source] = {}
+				end
+				if not EnchantOptions[class][slot][subslot][info.source][info.boa or false] then
+					EnchantOptions[class][slot][subslot][info.source][info.boa or false] = {}
+				end
+				local reputations = info.rep or { ["none"] = 0 }
+				for faction, reputation in pairs(reputations) do
+					ww_factionsToTrack[faction] = true
+					if not EnchantOptions[class][slot][subslot][info.source][info.boa or false][faction] then
+						EnchantOptions[class][slot][subslot][info.source][info.boa or false][faction] = IntervalTree.create()
+					end
+					local repInterval = EnchantOptions[class][slot][subslot][info.source][info.boa or false][faction].findInterval(reputation, math.huge)
+					if not repInterval then
+						repInterval = {}
+						EnchantOptions[class][slot][subslot][info.source][info.boa or false][faction].insert(reputation, math.huge, repInterval)
+					end
+					local skills = info.skill or { ["none"] = 0 }
+					for skill, level in pairs(skills) do
+						if not repInterval[skill] then
+							repInterval[skill] = IntervalTree.create()
+						end
+						local skillInterval = repInterval[skill].findInterval(level, math.huge)
+						if not skillInterval then
+							skillInterval = IntervalTree.create()
+							repInterval[skill].insert(level, math.huge, skillInterval)
+						end
+						local iLvlInterval = skillInterval.findInterval(info.minIlvl or 0, info.maxIlvl or math.huge)
+						if not iLvlInterval then
+							iLvlInterval = IntervalTree.create()
+							skillInterval.insert(info.minIlvl or 0, info.maxIlvl or math.huge, iLvlInterval)
+						end
+						local pLvlInterval = iLvlInterval.findInterval(info.minLvl or 0, info.maxLvl or math.huge)
+						if not pLvlInterval then
+							pLvlInterval = {}
+							iLvlInterval.insert(info.minLvl or 0, info.maxLvl or math.huge, pLvlInterval)
+						end
+						if not pLvlInterval[info.name] then
+							pLvlInterval[info.name] = {}
+						end
+						pLvlInterval[info.name][info.enchID] = true
+					end
+				end
+			end
+		end
+	end
+end
+
+for item, info in pairs(EnchantSpells) do
+	if info.source ~= "Unavailable" and info.source ~= "Crafted (undetectable)" then
+		local class = info.class or "all"
+		if not EnchantOptions[class] then
+			EnchantOptions[class] = {}
+		end
+		for _, slot in ipairs(info.slot) do
+			if not EnchantOptions[class][slot] then
+				EnchantOptions[class][slot] = {}
+			end
+			local subslots = {}
+			if info.slot[slot] then
+				if info.slot[slot][true] then
+					for _, subslot in ipairs(info.slot[slot][true]) do
+						subslots[subslot] = true
+					end
+				elseif info.slot[slot][false] then
+					for subslot in pairs(ww_slotsToSubslots[slot]) do
+						subslots[subslot] = true
+					end
+					for _, subslot in ipairs(info.slot[slot][false]) do
+						subslots[subslot] = nil
+					end
+				end
+			else
+				subslots["all"] = true
+			end
+			for subslot in pairs(subslots) do
+				if not EnchantOptions[class][slot][subslot] then
+					EnchantOptions[class][slot][subslot] = {}
+				end
+				if not EnchantOptions[class][slot][subslot][info.source] then
+					EnchantOptions[class][slot][subslot][info.source] = {}
+				end
+				if not EnchantOptions[class][slot][subslot][info.source][info.boa or false] then
+					EnchantOptions[class][slot][subslot][info.source][info.boa or false] = {}
+				end
+				local reputations = info.rep or { ["none"] = 0 }
+				for faction, reputation in pairs(reputations) do
+					ww_factionsToTrack[faction] = true
+					if not EnchantOptions[class][slot][subslot][info.source][info.boa or false][faction] then
+						EnchantOptions[class][slot][subslot][info.source][info.boa or false][faction] = IntervalTree.create()
+					end
+					local repInterval = EnchantOptions[class][slot][subslot][info.source][info.boa or false][faction].findInterval(reputation, math.huge)
+					if not repInterval then
+						repInterval = {}
+						EnchantOptions[class][slot][subslot][info.source][info.boa or false][faction].insert(reputation, math.huge, repInterval)
+					end
+					local skills = info.skill or { ["none"] = 0 }
+					for skill, level in pairs(skills) do
+						if not repInterval[skill] then
+							repInterval[skill] = IntervalTree.create()
+						end
+						local skillInterval = repInterval[skill].findInterval(level, math.huge)
+						if not skillInterval then
+							skillInterval = IntervalTree.create()
+							repInterval[skill].insert(level, math.huge, skillInterval)
+						end
+						local iLvlInterval = skillInterval.findInterval(info.minIlvl or 0, info.maxIlvl or math.huge)
+						if not iLvlInterval then
+							iLvlInterval = IntervalTree.create()
+							skillInterval.insert(info.minIlvl or 0, info.maxIlvl or math.huge, iLvlInterval)
+						end
+						local pLvlInterval = iLvlInterval.findInterval(info.minLvl or 0, info.maxLvl or math.huge)
+						if not pLvlInterval then
+							pLvlInterval = {}
+							iLvlInterval.insert(info.minLvl or 0, info.maxLvl or math.huge, pLvlInterval)
+						end
+						if not pLvlInterval[info.name] then
+							pLvlInterval[info.name] = {}
+						end
+						pLvlInterval[info.name][info.enchID] = true
+					end
+				end
+			end
+		end
+	end
+end
+
+local enchantItemMetatable = {
+	__index = function(tbl, key)
+		local bestScore, bestEnchants = 0, {}
+		local bareStats = ww_bareItemCache[key]
+		for _, choices in ipairs(tbl.enchants) do
+			for _, slot in ipairs(ww_slotsToCheck[bareStats.nonStats.slot]) do
+				if choices[slot] then
+					local subslots = { "all" }
+					table.insert(subslots, bareStats.nonStats.subslot)
+					for _, subslot in ipairs(subslots) do
+						for source, enchants in pairs(choices[slot][subslot] or {}) do
+							for boa, enchants in pairs(enchants) do
+								for faction, enchantIntervals in pairs(enchants) do
+									for _, enchants in ipairs(enchantIntervals.find(ww_vars.options.useBoa and boa and #(ww_reputations) or getRep(faction))) do
+										for profession, intervals in pairs(enchants) do
+											for _, intervals in ipairs(intervals.find(getSkill(profession))) do
+												for _, intervals in ipairs(intervals.find(bareStats.normalStats["item level"] or 1)) do
+													for _, interval in ipairs(intervals.find(WeightsWatcher.playerLevel or 85)) do
+														for name, ids in pairs(interval) do
+															for id in pairs(ids) do
+																local score = WeightsWatcher.calculateWeight({}, { enchantStats = WeightsWatcher.enchantStats(id).stats }, tbl.weight)
+																if score > bestScore then
+																	bestScore = score
+																	bestEnchants = { [name] = { id } }
+																elseif score == bestScore then
+																	if not bestEnchants[name] then
+																		bestEnchants[name] = {}
+																	end
+																	table.insert(bestEnchants[name], id)
+																end
+															end
+														end
+													end
+												end
+											end
+										end
+									end
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+		tbl[key] = bestEnchants
+		return tbl[key]
+	end,
+}
+
+local enchantWeightMetatable = {
+	__index = function(tbl, key)
+		tbl[key] = setmetatable({ enchants = tbl.enchants, weight = ww_vars.weightsList[tbl.class][key] }, enchantItemMetatable)
+		return tbl[key]
+	end,
+}
+
+local enchantClassMetatable = {
+	__index = function(tbl, key)
+		local enchants = {}
+		for _, class in ipairs({ key, "all" }) do
+			table.insert(enchants, EnchantOptions[class])
+		end
+		tbl[key] = setmetatable({ class = key, enchants = enchants }, enchantWeightMetatable)
+		return tbl[key]
+	end,
+}
+
+function WeightsWatcher.ResetEnchantCache()
+	ww_bestEnchantsCache = setmetatable({}, enchantClassMetatable)
+end
+
+function WeightsWatcher.enchantStats(id)
+	if type(id) == "string" then
+		id = tonumber(id)
+	end
+	return EnchantIDs[id] or {}
+end
