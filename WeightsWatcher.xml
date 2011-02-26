@@ -8,6 +8,7 @@
 			<OnEvent>
 				if event == "ADDON_LOADED" and ... == "WeightsWatcher" then
 					self:OnInitialize()
+					self:UnregisterEvent("ADDON_LOADED")
 				end
 			</OnEvent>
 		</Scripts>
