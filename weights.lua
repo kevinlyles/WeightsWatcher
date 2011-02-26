@@ -497,7 +497,7 @@ local function loadClassButtons()
 
 	for _, classFrame in ipairs(ww_weights.leftPanel.scrollContainer.elements) do
 		classFrame.class = revClassLookup[classFrame.text:GetText()]
-		local used = (classFrame.class == WeightsWatcher.playerClass)
+		local used = (classFrame.class == WeightsWatcher.player.class)
 		for i, weightFrame in ipairs({classFrame:GetChildren()}) do
 			if weightFrame.name then
 				weightFrame.category = classFrame

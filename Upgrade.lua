@@ -996,7 +996,7 @@ local function ww_copyDefaultCharVars()
 	local charVars
 
 	charVars = ww_deepTableCopy(ww_defaultCharVars)
-	charVars.activeWeights = createActiveWeights(WeightsWatcher.playerClass)
+	charVars.activeWeights = createActiveWeights(WeightsWatcher.player.class)
 	return charVars
 end
 

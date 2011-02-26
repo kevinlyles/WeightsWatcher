@@ -10921,6 +10921,7 @@ ww_slotsToCheck = {
 }
 
 ww_factionsToTrack = {}
+ww_professionsToTrack = {}
 
 for item, info in pairs(EnchantItems) do
 	if info.enchID and info.source ~= "Unavailable" then
@@ -10972,6 +10973,7 @@ for item, info in pairs(EnchantItems) do
 					end
 					local skills = info.skill or { ["none"] = 0 }
 					for skill, level in pairs(skills) do
+						ww_professionsToTrack[skill] = true
 						if not repInterval[skill] then
 							repInterval[skill] = IntervalTree.create()
 						end
@@ -11051,6 +11053,7 @@ for item, info in pairs(EnchantSpells) do
 					end
 					local skills = info.skill or { ["none"] = 0 }
 					for skill, level in pairs(skills) do
+						ww_professionsToTrack[skill] = true
 						if not repInterval[skill] then
 							repInterval[skill] = IntervalTree.create()
 						end
@@ -11084,31 +11087,33 @@ local enchantItemMetatable = {
 	__index = function(tbl, key)
 		local bestScore, bestEnchants = 0, {}
 		local bareStats = ww_bareItemCache[key]
-		for _, choices in ipairs(tbl.enchants) do
-			for _, slot in ipairs(ww_slotsToCheck[bareStats.nonStats.slot]) do
-				if choices[slot] then
-					local subslots = { "all" }
-					table.insert(subslots, bareStats.nonStats.subslot)
-					for _, subslot in ipairs(subslots) do
-						for source, enchants in pairs(choices[slot][subslot] or {}) do
-							for boa, enchants in pairs(enchants) do
-								for faction, enchantIntervals in pairs(enchants) do
-									for _, enchants in ipairs(enchantIntervals.find(ww_vars.options.useBoa and boa and #(ww_reputations) or getRep(faction))) do
-										for profession, intervals in pairs(enchants) do
-											for _, intervals in ipairs(intervals.find(getSkill(profession))) do
-												for _, intervals in ipairs(intervals.find(bareStats.normalStats["item level"] or 1)) do
-													for _, interval in ipairs(intervals.find(WeightsWatcher.playerLevel or 85)) do
-														for name, ids in pairs(interval) do
-															for id in pairs(ids) do
-																local score = WeightsWatcher.calculateWeight({}, { enchantStats = WeightsWatcher.enchantStats(id).stats }, tbl.weight)
-																if score > bestScore then
-																	bestScore = score
-																	bestEnchants = { [name] = { id } }
-																elseif score == bestScore then
-																	if not bestEnchants[name] then
-																		bestEnchants[name] = {}
+		if bareStats.nonStats.slot then
+			for _, choices in ipairs(tbl.enchants) do
+				for _, slot in ipairs(ww_slotsToCheck[bareStats.nonStats.slot]) do
+					if choices[slot] then
+						local subslots = { "all" }
+						table.insert(subslots, bareStats.nonStats.subslot)
+						for _, subslot in ipairs(subslots) do
+							for source, enchants in pairs(choices[slot][subslot] or {}) do
+								for boa, enchants in pairs(enchants) do
+									for faction, enchantIntervals in pairs(enchants) do
+										for _, enchants in ipairs(enchantIntervals.find(ww_vars.options.useBoa and boa and #(ww_reputations) or WeightsWatcher.getRepLevel(faction))) do
+											for profession, intervals in pairs(enchants) do
+												for _, intervals in ipairs(intervals.find(WeightsWatcher.getSkillLevel(profession))) do
+													for _, intervals in ipairs(intervals.find(bareStats.normalStats["item level"] or 1)) do
+														for _, interval in ipairs(intervals.find(WeightsWatcher.player.level)) do
+															for name, ids in pairs(interval) do
+																for id in pairs(ids) do
+																	local score = WeightsWatcher.calculateWeight({}, { enchantStats = WeightsWatcher.enchantStats(id) }, tbl.weight)
+																	if score > bestScore then
+																		bestScore = score
+																		bestEnchants = { [name] = { id } }
+																	elseif score == bestScore then
+																		if not bestEnchants[name] then
+																			bestEnchants[name] = {}
+																		end
+																		table.insert(bestEnchants[name], id)
 																	end
-																	table.insert(bestEnchants[name], id)
 																end
 															end
 														end

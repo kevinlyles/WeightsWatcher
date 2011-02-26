@@ -198,7 +198,8 @@ ww_weightNormalizationCache = setmetatable({}, ww_weightNormalizationCacheMetata
 
 local function loadGeneralInfo()
 	local _, class = UnitClass("player")
-	WeightsWatcher.playerClass = class
+	WeightsWatcher.player = {}
+	WeightsWatcher.player.class = class
 
 	local slotList = {
 		"AmmoSlot",
@@ -267,6 +268,120 @@ local function hookTooltip(objectName, funcName)
 	hooksecurefunc(object, funcName, function(self, ...) WeightsWatcher.displayItemStats(self, objectName, ...) end)
 end
 
+local function populateProfessions()
+	local professions = {}
+	for _, idx in ipairs({ GetProfessions() }) do
+		local name, _, rank = GetProfessionInfo(idx)
+		if ww_professionsToTrack[name] then
+			professions[name] = rank
+		end
+	end
+	WeightsWatcher.player.professions = professions
+	WeightsWatcher.ResetEnchantCache()
+end
+
+local function populateReputations()
+	local rep = {}
+	ExpandAllFactionHeaders()
+	for i = 1, GetNumFactions() do
+		local name, _, standingID, barMin, barMax, barValue, _, _, isHeader, _, hasRep = GetFactionInfo(i)
+		if not isHeader or hasRep then
+			if ww_factionsToTrack[name] then
+				rep[name] = {
+					level = standingID,
+					min = barMin,
+					max = barMax,
+					value = barValue,
+				}
+			end
+		end
+	end
+	WeightsWatcher.player.reputation = rep
+	WeightsWatcher.ResetEnchantCache()
+end
+
+function WeightsWatcher:eventHandler(event, message, ...)
+	if event == "PLAYER_LEVEL_UP" then
+		WeightsWatcher.player.level = tonumber(message)
+	elseif event == "CHAT_MSG_SKILL" then
+		-- "Your skill in x has increased to y."
+		local skill, level = message:match("^Your skill in ([A-Z][A-Za-z '-]+) has increased to (%d+)%.$")
+		if skill then
+			if WeightsWatcher.player.professions[skill] then
+				WeightsWatcher.player.professions[skill] = tonumber(level)
+				WeightsWatcher.ResetEnchantCache()
+			end
+		else
+			print("WeightsWatcher: warning: unhandled profession event \"" .. message .. "\"")
+			populateProfessions()
+		end
+	elseif event == "CHAT_MSG_COMBAT_FACTION_CHANGE" then
+		-- "Reputation with X (in|de)creased by y."
+		local faction, direction, reputation = message:match("^Reputation with ([A-Z][A-Za-z '-]+) ([di][en]creased) by (%d+)%.$")
+		if faction then
+			if not WeightsWatcher.player.reputation then
+				populateReputations()
+				return
+			end
+			local rep = WeightsWatcher.player.reputation[faction]
+			if not rep then
+				return
+			end
+			reputation = tonumber(reputation)
+			if direction == "increased" then
+				rep.value = rep.value + reputation
+				if rep.value > rep.max then
+					while rep.level < #(ww_reputations) and ww_reputations[rep.level] <= rep.value do
+						rep.level = rep.level + 1
+					end
+					rep.min = ww_reputations[rep.level - 1]
+					rep.max = ww_reputations[rep.level]
+					if rep.value >= rep.max then
+						rep.value = rep.max - 1
+					end
+					WeightsWatcher.ResetEnchantCache()
+				end
+			else
+				rep.value = rep.value - reputation
+				if rep.value < rep.min then
+					while rep.level > 0 and ww_reputations[rep.level - 1] > rep.value do
+						rep.level = rep.level - 1
+					end
+					rep.min = ww_reputations[rep.level - 1]
+					rep.max = ww_reputations[rep.level]
+					if rep.value < rep.min then
+						rep.value = rep.min
+					end
+					WeightsWatcher.ResetEnchantCache()
+				end
+			end
+		else
+			print("WeightsWatcher: warning: unhandled reputation event \"" .. message .. "\"")
+			populateReputations()
+		end
+	elseif event == "SKILL_LINES_CHANGED" then
+		populateProfessions()
+	else
+		print("WeightsWatcher: warning: unhandled event \"" .. tostring(event) .. "\"")
+	end
+end
+
+function WeightsWatcher.getRepLevel(faction)
+	if not WeightsWatcher.player.reputation then
+		populateReputations()
+	end
+
+	if not WeightsWatcher.player.reputation[faction] then
+		return 0
+	end
+
+	return WeightsWatcher.player.reputation[faction].level
+end
+
+function WeightsWatcher.getSkillLevel(profession)
+	return WeightsWatcher.player.professions[profession] or 0
+end
+
 local function initializeAfterDataUpgrade()
 	ww_initializeParser()
 
@@ -312,6 +427,16 @@ local function initializeAfterDataUpgrade()
 	if AtlasLootTooltip then
 		hookTooltip("AtlasLootTooltip", "SetHyperlink")
 	end
+
+	populateProfessions()
+	WeightsWatcher.player.level = UnitLevel("player")
+
+	WeightsWatcher:SetScript("OnEvent", WeightsWatcher.eventHandler)
+
+	WeightsWatcher:RegisterEvent("CHAT_MSG_COMBAT_FACTION_CHANGE")
+	WeightsWatcher:RegisterEvent("CHAT_MSG_SKILL")
+	WeightsWatcher:RegisterEvent("SKILL_LINES_CHANGED")
+	WeightsWatcher:RegisterEvent("PLAYER_LEVEL_UP")
 end
 
 function WeightsWatcher.OnInitialize()
@@ -380,7 +505,7 @@ function WeightsWatcher.Broken(dataType)
 end
 
 local function checkForTitansGrip()
-	if WeightsWatcher.playerClass ~= "WARRIOR" then
+	if WeightsWatcher.player.class ~= "WARRIOR" then
 		return false
 	end
 	local name, _, _, _, rank = GetTalentInfo(2, 20, false, false)
@@ -407,7 +532,7 @@ local function checkForTitansGrip()
 end
 
 local function checkForDualWield()
-	local class = WeightsWatcher.playerClass
+	local class = WeightsWatcher.player.class
 	if class == "ROGUE" or class == "DEATHKNIGHT" then
 		return true
 	elseif class == "HUNTER" and UnitLevel("player") >= 20 then
@@ -746,7 +871,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 							if ww_vars.options.tooltip.showZeroScores or currentScore > 0 then
 								local compareScore, compareScore2, compareBareScore, compareBareScore2
 								local str = weight
-								if ww_vars.options.tooltip.showClassNames == "Always" or (ww_vars.options.tooltip.showClassNames == "Others" and class ~= WeightsWatcher.playerClass) then
+								if ww_vars.options.tooltip.showClassNames == "Always" or (ww_vars.options.tooltip.showClassNames == "Others" and class ~= WeightsWatcher.player.class) then
 									str = string.format(L["WEIGHT_CLASS_FORMAT"], str, ww_classDisplayNames[class])
 								end
 								if compareLink then
