@@ -94,9 +94,12 @@ local ww_weightIdealCacheWeightMetatable = {
 			color = ww_englishSocketColors[color]
 			table.insert(bestGems, idealGems[color])
 			gemScore = gemScore + idealGems[color .. "Score"]
-			if breakSocketColors and color ~= "meta" and color ~= "cogwheel" then
-				table.insert(bestGemsIgnoreSocket, idealGems.prismatic)
-				gemScoreIgnoreSocket = gemScoreIgnoreSocket + idealGems.prismaticScore
+			if breakSocketColors then
+				if color ~= "meta" and color ~= "cogwheel" then
+					color = "prismatic"
+				end
+				table.insert(bestGemsIgnoreSocket, idealGems[color])
+				gemScoreIgnoreSocket = gemScoreIgnoreSocket + idealGems[color .. "Score"]
 			end
 		end
 		local gemStats = WeightsWatcher.getGemStats(bestGems)
