@@ -10,6 +10,7 @@
 ## X-Compatible-With: 40000
 ## X-License: GPLv2
 
+utils.lua
 WeightsWatcher.xml
 Regexps.lua
 
