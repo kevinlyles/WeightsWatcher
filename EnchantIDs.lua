@@ -5,30 +5,57 @@ local normalRanged = { "ranged", ranged = { [false] = { "wand" } } }
 EnchantIDs = {
 	[15] = {
 		itemID = { 2304 },
+		name = {
+			chest = "Light Armor Kit",
+			feet = "Light Armor Kit",
+			hands = "Light Armor Kit",
+			legs = "Light Armor Kit",
+		},
 		stats = {
 			armor = 8,
 		},
 	},
 	[16] = {
 		itemID = { 2313 },
+		name = {
+			chest = "Medium Armor Kit",
+			feet = "Medium Armor Kit",
+			hands = "Medium Armor Kit",
+			legs = "Medium Armor Kit",
+		},
 		stats = {
 			armor = 16,
 		},
 	},
 	[17] = {
 		itemID = { 4265 },
+		name = {
+			chest = "Heavy Armor Kit",
+			feet = "Heavy Armor Kit",
+			hands = "Heavy Armor Kit",
+			legs = "Heavy Armor Kit",
+		},
 		stats = {
 			armor = 24,
 		},
 	},
 	[18] = {
 		itemID = { 8173 },
+		name = {
+			chest = "Thick Armor Kit",
+			feet = "Thick Armor Kit",
+			hands = "Thick Armor Kit",
+			legs = "Thick Armor Kit",
+		},
 		stats = {
 			armor = 32,
 		},
 	},
 	[24] = {
 		itemID = { 38769 },
+		name = {
+			chest = "Enchant Chest - Minor Mana",
+		},
 		spellID = { 7443 },
 		stats = {
 			mana = 5,
@@ -36,6 +63,9 @@ EnchantIDs = {
 	},
 	[30] = {
 		itemID = { 4405 },
+		name = {
+			ranged = "Crude Scope",
+		},
 		stats = {
 			["average ranged weapon damage"] = 1,
 			["maximum ranged weapon damage"] = 1,
@@ -43,6 +73,9 @@ EnchantIDs = {
 	},
 	[32] = {
 		itemID = { 4406 },
+		name = {
+			ranged = "Standard Scope",
+		},
 		stats = {
 			["average ranged weapon damage"] = 2,
 			["maximum ranged weapon damage"] = 2,
@@ -50,6 +83,9 @@ EnchantIDs = {
 	},
 	[33] = {
 		itemID = { 4407 },
+		name = {
+			ranged = "Accurate Scope",
+		},
 		stats = {
 			["average ranged weapon damage"] = 3,
 			["maximum ranged weapon damage"] = 3,
@@ -57,24 +93,37 @@ EnchantIDs = {
 	},
 	[34] = {
 		itemID = { 6043 },
+		name = {
+			["two-hand"] = "Iron Counterweight",
+		},
 		stats = {
 			["haste rating"] = 20,
 		},
 	},
 	[36] = {
 		itemID = { 5421 },
+		name = {
+			weapon = "Fiery Blaze Enchantment",
+		},
 		stats = {
 			["enchant: fiery blaze"] = 1,
 		},
 	},
 	[37] = {
 		itemID = { 6041 },
+		name = {
+			weapon = "Steel Weapon Chain",
+		},
 		stats = {
 			["disarm duration reduction (percent)"] = 60,
 		},
 	},
 	[41] = {
 		itemID = { 38679, 38766 },
+		name = {
+			chest = "Enchant Chest - Minor Health",
+			wrist = "Enchant Bracer - Minor Health",
+		},
 		spellID = { 7418, 7420 },
 		stats = {
 			health = 5,
@@ -82,6 +131,9 @@ EnchantIDs = {
 	},
 	[43] = {
 		itemID = { 6042 },
+		name = {
+			["off hand"] = "Iron Shield Spike",
+		},
 		stats = {
 			["maximum damage dealt on block"] = 12,
 			["minimum damage dealt on block"] = 8,
@@ -89,6 +141,9 @@ EnchantIDs = {
 	},
 	[44] = {
 		itemID = { 38767 },
+		name = {
+			chest = "Enchant Chest - Minor Absorption",
+		},
 		spellID = { 7426 },
 		stats = {
 			["damage absorption (2% chance)"] = 10,
@@ -96,6 +151,9 @@ EnchantIDs = {
 	},
 	[63] = {
 		itemID = { 38798 },
+		name = {
+			chest = "Enchant Chest - Lesser Absorption",
+		},
 		spellID = { 13538 },
 		stats = {
 			["damage absorption (5% chance)"] = 25,
@@ -103,6 +161,9 @@ EnchantIDs = {
 	},
 	[65] = {
 		itemID = { 38770 },
+		name = {
+			back = "Enchant Cloak - Minor Resistance",
+		},
 		spellID = { 7454 },
 		stats = {
 			["all resistances"] = 1,
@@ -110,6 +171,11 @@ EnchantIDs = {
 	},
 	[66] = {
 		itemID = { 38771, 38785, 38787 },
+		name = {
+			feet = "Enchant Boots - Minor Stamina",
+			["off hand"] = "Enchant Shield - Minor Stamina",
+			wrist = "Enchant Bracer - Minor Stamina",
+		},
 		spellID = { 7457, 7863, 13378 },
 		stats = {
 			stamina = 1,
@@ -117,6 +183,10 @@ EnchantIDs = {
 	},
 	[241] = {
 		itemID = { 38772, 38794 },
+		name = {
+			["two-hand"] = "Enchant 2H Weapon - Minor Impact",
+			weapon = "Enchant Weapon - Lesser Striking",
+		},
 		spellID = { 7745, 13503 },
 		stats = {
 			["average melee weapon damage"] = 2,
@@ -125,6 +195,9 @@ EnchantIDs = {
 	},
 	[242] = {
 		itemID = { 38773 },
+		name = {
+			chest = "Enchant Chest - Lesser Health",
+		},
 		spellID = { 7748 },
 		stats = {
 			health = 15,
@@ -132,6 +205,9 @@ EnchantIDs = {
 	},
 	[243] = {
 		itemID = { 38774 },
+		name = {
+			wrist = "Enchant Bracer - Minor Spirit",
+		},
 		spellID = { 7766 },
 		stats = {
 			spirit = 1,
@@ -139,6 +215,9 @@ EnchantIDs = {
 	},
 	[246] = {
 		itemID = { 38776 },
+		name = {
+			chest = "Enchant Chest - Lesser Mana",
+		},
 		spellID = { 7776 },
 		stats = {
 			mana = 20,
@@ -146,6 +225,11 @@ EnchantIDs = {
 	},
 	[247] = {
 		itemID = { 38777, 38786, 38789 },
+		name = {
+			back = "Enchant Cloak - Minor Agility",
+			feet = "Enchant Boots - Minor Agility",
+			wrist = "Enchant Bracer - Minor Agility",
+		},
 		spellID = { 7779, 7867, 13419 },
 		stats = {
 			agility = 1,
@@ -153,6 +237,9 @@ EnchantIDs = {
 	},
 	[248] = {
 		itemID = { 38778 },
+		name = {
+			wrist = "Enchant Bracer - Minor Strength",
+		},
 		spellID = { 7782 },
 		stats = {
 			strength = 1,
@@ -160,6 +247,9 @@ EnchantIDs = {
 	},
 	[249] = {
 		itemID = { 38779 },
+		name = {
+			weapon = "Enchant Weapon - Minor Beastslayer",
+		},
 		spellID = { 7786 },
 		stats = {
 			["melee damage to beasts"] = 2,
@@ -167,6 +257,9 @@ EnchantIDs = {
 	},
 	[250] = {
 		itemID = { 38780 },
+		name = {
+			weapon = "Enchant Weapon - Minor Striking",
+		},
 		spellID = { 7788 },
 		stats = {
 			["average melee weapon damage"] = 1,
@@ -175,6 +268,9 @@ EnchantIDs = {
 	},
 	[254] = {
 		itemID = { 38782 },
+		name = {
+			chest = "Enchant Chest - Health",
+		},
 		spellID = { 7857 },
 		stats = {
 			health = 25,
@@ -182,6 +278,12 @@ EnchantIDs = {
 	},
 	[255] = {
 		itemID = { 38783, 38788, 38792, 38819 },
+		name = {
+			feet = "Enchant Boots - Lesser Spirit",
+			["off hand"] = "Enchant Shield - Lesser Spirit",
+			["two-hand"] = "Enchant 2H Weapon - Lesser Spirit",
+			wrist = "Enchant Bracer - Lesser Spirit",
+		},
 		spellID = { 7859, 13380, 13485, 13687 },
 		stats = {
 			spirit = 3,
@@ -189,6 +291,9 @@ EnchantIDs = {
 	},
 	[256] = {
 		itemID = { 38784 },
+		name = {
+			back = "Enchant Cloak - Lesser Fire Resistance",
+		},
 		spellID = { 7861 },
 		stats = {
 			["fire resistance"] = 5,
@@ -196,6 +301,9 @@ EnchantIDs = {
 	},
 	[368] = {
 		itemID = { 38940 },
+		name = {
+			back = "Enchant Cloak - Greater Agility",
+		},
 		spellID = { 34004 },
 		stats = {
 			agility = 12,
@@ -203,6 +311,9 @@ EnchantIDs = {
 	},
 	[369] = {
 		itemID = { 38937 },
+		name = {
+			wrist = "Enchant Bracer - Major Intellect",
+		},
 		spellID = { 34001 },
 		stats = {
 			intellect = 12,
@@ -210,6 +321,9 @@ EnchantIDs = {
 	},
 	[463] = {
 		itemID = { 7967 },
+		name = {
+			["off hand"] = "Mithril Shield Spike",
+		},
 		stats = {
 			["maximum damage dealt on block"] = 20,
 			["minimum damage dealt on block"] = 16,
@@ -217,12 +331,18 @@ EnchantIDs = {
 	},
 	[464] = {
 		itemID = { 7969 },
+		name = {
+			feet = "Mithril Spurs",
+		},
 		stats = {
 			["mount speed (percent)"] = 4,
 		},
 	},
 	[663] = {
 		itemID = { 10546 },
+		name = {
+			ranged = "Deadly Scope",
+		},
 		stats = {
 			["average ranged weapon damage"] = 5,
 			["maximum ranged weapon damage"] = 5,
@@ -230,6 +350,9 @@ EnchantIDs = {
 	},
 	[664] = {
 		itemID = { 10548 },
+		name = {
+			ranged = "Sniper Scope",
+		},
 		stats = {
 			["average ranged weapon damage"] = 7,
 			["maximum ranged weapon damage"] = 7,
@@ -237,6 +360,9 @@ EnchantIDs = {
 	},
 	[684] = {
 		itemID = { 38933 },
+		name = {
+			hands = "Enchant Gloves - Major Strength",
+		},
 		spellID = { 33995 },
 		stats = {
 			strength = 15,
@@ -244,6 +370,10 @@ EnchantIDs = {
 	},
 	[723] = {
 		itemID = { 38781, 38803 },
+		name = {
+			["two-hand"] = "Enchant 2H Weapon - Lesser Intellect",
+			wrist = "Enchant Bracer - Lesser Intellect",
+		},
 		spellID = { 7793, 13622 },
 		stats = {
 			intellect = 3,
@@ -251,6 +381,11 @@ EnchantIDs = {
 	},
 	[724] = {
 		itemID = { 38793, 38805, 38810 },
+		name = {
+			feet = "Enchant Boots - Lesser Stamina",
+			["off hand"] = "Enchant Shield - Lesser Stamina",
+			wrist = "Enchant Bracer - Lesser Stamina",
+		},
 		spellID = { 13501, 13631, 13644 },
 		stats = {
 			stamina = 3,
@@ -258,6 +393,9 @@ EnchantIDs = {
 	},
 	[744] = {
 		itemID = { 38790 },
+		name = {
+			back = "Enchant Cloak - Lesser Protection",
+		},
 		spellID = { 13421 },
 		stats = {
 			armor = 20,
@@ -265,6 +403,9 @@ EnchantIDs = {
 	},
 	[783] = {
 		itemID = { 38775 },
+		name = {
+			back = "Enchant Cloak - Minor Protection",
+		},
 		spellID = { 7771 },
 		stats = {
 			armor = 10,
@@ -272,6 +413,9 @@ EnchantIDs = {
 	},
 	[803] = {
 		itemID = { 38838 },
+		name = {
+			weapon = "Enchant Weapon - Fiery Weapon",
+		},
 		spellID = { 13898 },
 		stats = {
 			["fiery weapon"] = 1,
@@ -279,6 +423,9 @@ EnchantIDs = {
 	},
 	[804] = {
 		itemID = { 38795 },
+		name = {
+			back = "Enchant Cloak - Lesser Shadow Resistance",
+		},
 		spellID = { 13522 },
 		stats = {
 			["shadow resistance"] = 10,
@@ -286,6 +433,9 @@ EnchantIDs = {
 	},
 	[805] = {
 		itemID = { 38848 },
+		name = {
+			weapon = "Enchant Weapon - Greater Striking",
+		},
 		spellID = { 13943 },
 		stats = {
 			["average melee weapon damage"] = 4,
@@ -294,6 +444,9 @@ EnchantIDs = {
 	},
 	[823] = {
 		itemID = { 38797 },
+		name = {
+			wrist = "Enchant Bracer - Lesser Strength",
+		},
 		spellID = { 13536 },
 		stats = {
 			strength = 3,
@@ -301,6 +454,9 @@ EnchantIDs = {
 	},
 	[843] = {
 		itemID = { 38799 },
+		name = {
+			chest = "Enchant Chest - Mana",
+		},
 		spellID = { 13607 },
 		stats = {
 			mana = 30,
@@ -308,6 +464,9 @@ EnchantIDs = {
 	},
 	[844] = {
 		itemID = { 38800 },
+		name = {
+			hands = "Enchant Gloves - Mining",
+		},
 		spellID = { 13612 },
 		stats = {
 			mining = 2,
@@ -315,6 +474,9 @@ EnchantIDs = {
 	},
 	[845] = {
 		itemID = { 38801 },
+		name = {
+			hands = "Enchant Gloves - Herbalism",
+		},
 		spellID = { 13617 },
 		stats = {
 			herbalism = 2,
@@ -322,6 +484,10 @@ EnchantIDs = {
 	},
 	[846] = {
 		itemID = { 19971, 50816 },
+		name = {
+			hands = "Enchant Gloves - Angler",
+			["two-hand"] = "High Test Eternium Fishing Line",
+		},
 		spellID = { 71692 },
 		stats = {
 			fishing = 5,
@@ -329,6 +495,9 @@ EnchantIDs = {
 	},
 	[847] = {
 		itemID = { 38804 },
+		name = {
+			chest = "Enchant Chest - Minor Stats",
+		},
 		spellID = { 13626 },
 		stats = {
 			["all stats"] = 1,
@@ -336,6 +505,10 @@ EnchantIDs = {
 	},
 	[848] = {
 		itemID = { 38791, 38806 },
+		name = {
+			back = "Enchant Cloak - Defense",
+			["off hand"] = "Enchant Shield - Lesser Protection",
+		},
 		spellID = { 13464, 13635 },
 		stats = {
 			armor = 30,
@@ -343,6 +516,10 @@ EnchantIDs = {
 	},
 	[849] = {
 		itemID = { 38807, 38835 },
+		name = {
+			back = "Enchant Cloak - Lesser Agility",
+			feet = "Enchant Boots - Lesser Agility",
+		},
 		spellID = { 13637, 13882 },
 		stats = {
 			agility = 3,
@@ -350,6 +527,9 @@ EnchantIDs = {
 	},
 	[850] = {
 		itemID = { 38808 },
+		name = {
+			chest = "Enchant Chest - Greater Health",
+		},
 		spellID = { 13640 },
 		stats = {
 			health = 35,
@@ -357,6 +537,11 @@ EnchantIDs = {
 	},
 	[851] = {
 		itemID = { 38809, 38816, 38864 },
+		name = {
+			feet = "Enchant Boots - Spirit",
+			["off hand"] = "Enchant Shield - Spirit",
+			wrist = "Enchant Bracer - Spirit",
+		},
 		spellID = { 13642, 13659, 20024 },
 		stats = {
 			spirit = 5,
@@ -364,6 +549,11 @@ EnchantIDs = {
 	},
 	[852] = {
 		itemID = { 38812, 38828, 38830 },
+		name = {
+			feet = "Enchant Boots - Stamina",
+			["off hand"] = "Enchant Shield - Stamina",
+			wrist = "Enchant Bracer - Stamina",
+		},
 		spellID = { 13648, 13817, 13836 },
 		stats = {
 			stamina = 5,
@@ -371,6 +561,9 @@ EnchantIDs = {
 	},
 	[853] = {
 		itemID = { 38813 },
+		name = {
+			weapon = "Enchant Weapon - Lesser Beastslayer",
+		},
 		spellID = { 13653 },
 		stats = {
 			["melee damage to beasts"] = 6,
@@ -378,6 +571,9 @@ EnchantIDs = {
 	},
 	[854] = {
 		itemID = { 38814 },
+		name = {
+			weapon = "Enchant Weapon - Lesser Elemental Slayer",
+		},
 		spellID = { 13655 },
 		stats = {
 			["melee damage to elementals"] = 6,
@@ -385,6 +581,10 @@ EnchantIDs = {
 	},
 	[856] = {
 		itemID = { 38817, 38836 },
+		name = {
+			hands = "Enchant Gloves - Strength",
+			wrist = "Enchant Bracer - Strength",
+		},
 		spellID = { 13661, 13887 },
 		stats = {
 			strength = 5,
@@ -392,6 +592,9 @@ EnchantIDs = {
 	},
 	[857] = {
 		itemID = { 38818 },
+		name = {
+			chest = "Enchant Chest - Greater Mana",
+		},
 		spellID = { 13663 },
 		stats = {
 			mana = 50,
@@ -399,6 +602,9 @@ EnchantIDs = {
 	},
 	[863] = {
 		itemID = { 38820 },
+		name = {
+			["off hand"] = "Enchant Shield - Lesser Block",
+		},
 		spellID = { 13689 },
 		stats = {
 			["parry rating"] = 10,
@@ -406,6 +612,9 @@ EnchantIDs = {
 	},
 	[865] = {
 		itemID = { 38823 },
+		name = {
+			hands = "Enchant Gloves - Skinning",
+		},
 		spellID = { 13698 },
 		stats = {
 			skinning = 5,
@@ -413,6 +622,9 @@ EnchantIDs = {
 	},
 	[866] = {
 		itemID = { 38824 },
+		name = {
+			chest = "Enchant Chest - Lesser Stats",
+		},
 		spellID = { 13700 },
 		stats = {
 			["all stats"] = 2,
@@ -420,6 +632,9 @@ EnchantIDs = {
 	},
 	[884] = {
 		itemID = { 38825 },
+		name = {
+			back = "Enchant Cloak - Greater Defense",
+		},
 		spellID = { 13746 },
 		stats = {
 			armor = 50,
@@ -427,6 +642,9 @@ EnchantIDs = {
 	},
 	[903] = {
 		itemID = { 38826 },
+		name = {
+			back = "Enchant Cloak - Resistance",
+		},
 		spellID = { 13794 },
 		stats = {
 			["all resistances"] = 3,
@@ -434,6 +652,10 @@ EnchantIDs = {
 	},
 	[904] = {
 		itemID = { 38827, 38844 },
+		name = {
+			feet = "Enchant Boots - Agility",
+			hands = "Enchant Gloves - Agility",
+		},
 		spellID = { 13815, 13935 },
 		stats = {
 			agility = 5,
@@ -441,6 +663,9 @@ EnchantIDs = {
 	},
 	[905] = {
 		itemID = { 38829 },
+		name = {
+			wrist = "Enchant Bracer - Intellect",
+		},
 		spellID = { 13822 },
 		stats = {
 			intellect = 5,
@@ -448,6 +673,9 @@ EnchantIDs = {
 	},
 	[906] = {
 		itemID = { 38831 },
+		name = {
+			hands = "Enchant Gloves - Advanced Mining",
+		},
 		spellID = { 13841 },
 		stats = {
 			mining = 5,
@@ -455,6 +683,10 @@ EnchantIDs = {
 	},
 	[907] = {
 		itemID = { 38832, 38839 },
+		name = {
+			["off hand"] = "Enchant Shield - Greater Spirit",
+			wrist = "Enchant Bracer - Greater Spirit",
+		},
 		spellID = { 13846, 13905 },
 		stats = {
 			spirit = 7,
@@ -462,6 +694,9 @@ EnchantIDs = {
 	},
 	[908] = {
 		itemID = { 38833 },
+		name = {
+			chest = "Enchant Chest - Superior Health",
+		},
 		spellID = { 13858 },
 		stats = {
 			health = 50,
@@ -469,6 +704,9 @@ EnchantIDs = {
 	},
 	[909] = {
 		itemID = { 38834 },
+		name = {
+			hands = "Enchant Gloves - Advanced Herbalism",
+		},
 		spellID = { 13868 },
 		stats = {
 			herbalism = 5,
@@ -476,6 +714,9 @@ EnchantIDs = {
 	},
 	[910] = {
 		itemID = { 38893 },
+		name = {
+			back = "Enchant Cloak - Stealth",
+		},
 		spellID = { 25083 },
 		stats = {
 			agility = 8,
@@ -484,6 +725,9 @@ EnchantIDs = {
 	},
 	[911] = {
 		itemID = { 38837 },
+		name = {
+			feet = "Enchant Boots - Minor Speed",
+		},
 		spellID = { 13890 },
 		stats = {
 			["minor run speed"] = 1,
@@ -491,6 +735,9 @@ EnchantIDs = {
 	},
 	[912] = {
 		itemID = { 38840 },
+		name = {
+			weapon = "Enchant Weapon - Demonslaying",
+		},
 		spellID = { 13915 },
 		stats = {
 			demonslaying = 1,
@@ -498,6 +745,9 @@ EnchantIDs = {
 	},
 	[913] = {
 		itemID = { 38841 },
+		name = {
+			chest = "Enchant Chest - Superior Mana",
+		},
 		spellID = { 13917 },
 		stats = {
 			mana = 65,
@@ -505,6 +755,9 @@ EnchantIDs = {
 	},
 	[923] = {
 		itemID = { 38842 },
+		name = {
+			wrist = "Enchant Bracer - Deflection",
+		},
 		spellID = { 13931 },
 		stats = {
 			["dodge rating"] = 5,
@@ -512,6 +765,9 @@ EnchantIDs = {
 	},
 	[924] = {
 		itemID = { 38768 },
+		name = {
+			wrist = "Enchant Bracer - Minor Deflection",
+		},
 		spellID = { 7428 },
 		stats = {
 			["dodge rating"] = 2,
@@ -519,6 +775,9 @@ EnchantIDs = {
 	},
 	[925] = {
 		itemID = { 38811 },
+		name = {
+			wrist = "Enchant Bracer - Lesser Deflection",
+		},
 		spellID = { 13646 },
 		stats = {
 			["dodge rating"] = 3,
@@ -526,6 +785,9 @@ EnchantIDs = {
 	},
 	[926] = {
 		itemID = { 38843 },
+		name = {
+			["off hand"] = "Enchant Shield - Frost Resistance",
+		},
 		spellID = { 13933 },
 		stats = {
 			["frost resistance"] = 8,
@@ -533,6 +795,10 @@ EnchantIDs = {
 	},
 	[927] = {
 		itemID = { 38846, 38857 },
+		name = {
+			hands = "Enchant Gloves - Greater Strength",
+			wrist = "Enchant Bracer - Greater Strength",
+		},
 		spellID = { 13939, 20013 },
 		stats = {
 			strength = 7,
@@ -540,6 +806,9 @@ EnchantIDs = {
 	},
 	[928] = {
 		itemID = { 38847 },
+		name = {
+			chest = "Enchant Chest - Stats",
+		},
 		spellID = { 13941 },
 		stats = {
 			["all stats"] = 3,
@@ -547,6 +816,11 @@ EnchantIDs = {
 	},
 	[929] = {
 		itemID = { 38849, 38861, 38862 },
+		name = {
+			feet = "Enchant Boots - Greater Stamina",
+			["off hand"] = "Enchant Shield - Greater Stamina",
+			wrist = "Enchant Bracer - Greater Stamina",
+		},
 		spellID = { 13945, 20017, 20020 },
 		stats = {
 			stamina = 7,
@@ -554,6 +828,9 @@ EnchantIDs = {
 	},
 	[930] = {
 		itemID = { 38850 },
+		name = {
+			hands = "Enchant Gloves - Riding Skill",
+		},
 		spellID = { 13947 },
 		stats = {
 			["mount speed (percent)"] = 2,
@@ -561,6 +838,9 @@ EnchantIDs = {
 	},
 	[931] = {
 		itemID = { 38851 },
+		name = {
+			hands = "Enchant Gloves - Minor Haste",
+		},
 		spellID = { 13948 },
 		stats = {
 			["haste rating"] = 10,
@@ -568,6 +848,10 @@ EnchantIDs = {
 	},
 	[943] = {
 		itemID = { 38796, 38821 },
+		name = {
+			["two-hand"] = "Enchant 2H Weapon - Lesser Impact",
+			weapon = "Enchant Weapon - Striking",
+		},
 		spellID = { 13529, 13693 },
 		stats = {
 			["average melee weapon damage"] = 3,
@@ -576,6 +860,10 @@ EnchantIDs = {
 	},
 	[963] = {
 		itemID = { 38845, 38917 },
+		name = {
+			["two-hand"] = "Enchant 2H Weapon - Greater Impact",
+			weapon = "Enchant Weapon - Major Striking",
+		},
 		spellID = { 13937, 27967 },
 		stats = {
 			["average melee weapon damage"] = 7,
@@ -584,6 +872,10 @@ EnchantIDs = {
 	},
 	[983] = {
 		itemID = { 38959, 38976 },
+		name = {
+			back = "Enchant Cloak - Superior Agility",
+			feet = "Enchant Boots - Superior Agility",
+		},
 		spellID = { 44500, 44589 },
 		stats = {
 			agility = 16,
@@ -591,6 +883,9 @@ EnchantIDs = {
 	},
 	[1071] = {
 		itemID = { 38945 },
+		name = {
+			["off hand"] = "Enchant Shield - Major Stamina",
+		},
 		spellID = { 34009 },
 		stats = {
 			stamina = 18,
@@ -598,6 +893,9 @@ EnchantIDs = {
 	},
 	[1075] = {
 		itemID = { 38966 },
+		name = {
+			feet = "Enchant Boots - Greater Fortitude",
+		},
 		spellID = { 44528 },
 		stats = {
 			stamina = 22,
@@ -605,6 +903,9 @@ EnchantIDs = {
 	},
 	[1099] = {
 		itemID = { 44457 },
+		name = {
+			back = "Enchant Cloak - Major Agility",
+		},
 		spellID = { 60663 },
 		stats = {
 			agility = 22,
@@ -612,6 +913,9 @@ EnchantIDs = {
 	},
 	[1103] = {
 		itemID = { 38995 },
+		name = {
+			weapon = "Enchant Weapon - Exceptional Agility",
+		},
 		spellID = { 44633 },
 		stats = {
 			agility = 26,
@@ -619,6 +923,9 @@ EnchantIDs = {
 	},
 	[1119] = {
 		itemID = { 38968 },
+		name = {
+			wrist = "Enchant Bracers - Exceptional Intellect",
+		},
 		spellID = { 44555 },
 		stats = {
 			intellect = 16,
@@ -626,6 +933,9 @@ EnchantIDs = {
 	},
 	[1128] = {
 		itemID = { 44455 },
+		name = {
+			["off hand"] = "Enchant Shield - Greater Intellect",
+		},
 		spellID = { 60653 },
 		stats = {
 			intellect = 25,
@@ -633,6 +943,9 @@ EnchantIDs = {
 	},
 	[1144] = {
 		itemID = { 38928 },
+		name = {
+			chest = "Enchant Chest - Major Spirit",
+		},
 		spellID = { 33990 },
 		stats = {
 			spirit = 15,
@@ -640,6 +953,10 @@ EnchantIDs = {
 	},
 	[1147] = {
 		itemID = { 38961, 38980 },
+		name = {
+			feet = "Enchant Boots - Greater Spirit",
+			wrist = "Enchant Bracers - Major Spirit",
+		},
 		spellID = { 44508, 44593 },
 		stats = {
 			spirit = 18,
@@ -647,6 +964,9 @@ EnchantIDs = {
 	},
 	[1257] = {
 		itemID = { 38941 },
+		name = {
+			back = "Enchant Cloak - Greater Arcane Resistance",
+		},
 		spellID = { 34005 },
 		stats = {
 			["arcane resistance"] = 15,
@@ -654,6 +974,9 @@ EnchantIDs = {
 	},
 	[1262] = {
 		itemID = { 38982 },
+		name = {
+			back = "Enchant Cloak - Superior Arcane Resistance",
+		},
 		spellID = { 44596 },
 		stats = {
 			["arcane resistance"] = 20,
@@ -661,6 +984,9 @@ EnchantIDs = {
 	},
 	[1354] = {
 		itemID = { 38969 },
+		name = {
+			back = "Enchant Cloak - Superior Fire Resistance",
+		},
 		spellID = { 44556 },
 		stats = {
 			["fire resistance"] = 20,
@@ -668,6 +994,9 @@ EnchantIDs = {
 	},
 	[1400] = {
 		itemID = { 38956 },
+		name = {
+			back = "Enchant Cloak - Superior Nature Resistance",
+		},
 		spellID = { 44494 },
 		stats = {
 			["nature resistance"] = 20,
@@ -675,6 +1004,9 @@ EnchantIDs = {
 	},
 	[1441] = {
 		itemID = { 38942 },
+		name = {
+			back = "Enchant Cloak - Greater Shadow Resistance",
+		},
 		spellID = { 34006 },
 		stats = {
 			["shadow resistance"] = 15,
@@ -682,6 +1014,9 @@ EnchantIDs = {
 	},
 	[1446] = {
 		itemID = { 38977 },
+		name = {
+			back = "Enchant Cloak - Superior Shadow Resistance",
+		},
 		spellID = { 44590 },
 		stats = {
 			["shadow resistance"] = 20,
@@ -689,60 +1024,99 @@ EnchantIDs = {
 	},
 	[1483] = {
 		itemID = { 11622 },
+		name = {
+			head = "Lesser Arcanum of Rumination",
+			legs = "Lesser Arcanum of Rumination",
+		},
 		stats = {
 			mana = 150,
 		},
 	},
 	[1503] = {
 		itemID = { 11642 },
+		name = {
+			head = "Lesser Arcanum of Constitution",
+			legs = "Lesser Arcanum of Constitution",
+		},
 		stats = {
 			health = 100,
 		},
 	},
 	[1504] = {
 		itemID = { 11643 },
+		name = {
+			head = "Lesser Arcanum of Tenacity",
+			legs = "Lesser Arcanum of Tenacity",
+		},
 		stats = {
 			armor = 125,
 		},
 	},
 	[1505] = {
 		itemID = { 11644 },
+		name = {
+			head = "Lesser Arcanum of Resilience",
+			legs = "Lesser Arcanum of Resilience",
+		},
 		stats = {
 			["fire resistance"] = 20,
 		},
 	},
 	[1506] = {
 		itemID = { 11645 },
+		name = {
+			head = "Lesser Arcanum of Voracity",
+			legs = "Lesser Arcanum of Voracity",
+		},
 		stats = {
 			strength = 8,
 		},
 	},
 	[1507] = {
 		itemID = { 11646 },
+		name = {
+			head = "Lesser Arcanum of Voracity",
+			legs = "Lesser Arcanum of Voracity",
+		},
 		stats = {
 			stamina = 8,
 		},
 	},
 	[1508] = {
 		itemID = { 11647 },
+		name = {
+			head = "Lesser Arcanum of Voracity",
+			legs = "Lesser Arcanum of Voracity",
+		},
 		stats = {
 			agility = 8,
 		},
 	},
 	[1509] = {
 		itemID = { 11648 },
+		name = {
+			head = "Lesser Arcanum of Voracity",
+			legs = "Lesser Arcanum of Voracity",
+		},
 		stats = {
 			intellect = 8,
 		},
 	},
 	[1510] = {
 		itemID = { 11649 },
+		name = {
+			head = "Lesser Arcanum of Voracity",
+			legs = "Lesser Arcanum of Voracity",
+		},
 		stats = {
 			spirit = 8,
 		},
 	},
 	[1593] = {
 		itemID = { 38938 },
+		name = {
+			wrist = "Enchant Bracer - Assault",
+		},
 		spellID = { 34002 },
 		stats = {
 			["attack power"] = 24,
@@ -750,6 +1124,9 @@ EnchantIDs = {
 	},
 	[1594] = {
 		itemID = { 38934 },
+		name = {
+			hands = "Enchant Gloves - Assault",
+		},
 		spellID = { 33996 },
 		stats = {
 			["attack power"] = 26,
@@ -757,6 +1134,9 @@ EnchantIDs = {
 	},
 	[1597] = {
 		itemID = { 44469 },
+		name = {
+			feet = "Enchant Boots - Greater Assault",
+		},
 		spellID = { 60763 },
 		stats = {
 			["attack power"] = 32,
@@ -764,6 +1144,9 @@ EnchantIDs = {
 	},
 	[1600] = {
 		itemID = { 38971 },
+		name = {
+			wrist = "Enchant Bracers - Striking",
+		},
 		spellID = { 60616 },
 		stats = {
 			["attack power"] = 38,
@@ -771,6 +1154,9 @@ EnchantIDs = {
 	},
 	[1603] = {
 		itemID = { 44458 },
+		name = {
+			hands = "Enchant Gloves - Crusher",
+		},
 		spellID = { 60668 },
 		stats = {
 			["attack power"] = 44,
@@ -778,6 +1164,9 @@ EnchantIDs = {
 	},
 	[1606] = {
 		itemID = { 44453 },
+		name = {
+			weapon = "Enchant Weapon - Greater Potency",
+		},
 		spellID = { 60621 },
 		stats = {
 			["attack power"] = 50,
@@ -785,6 +1174,9 @@ EnchantIDs = {
 	},
 	[1704] = {
 		itemID = { 12645 },
+		name = {
+			["off hand"] = "Thorium Shield Spike",
+		},
 		stats = {
 			["maximum damage dealt on block"] = 30,
 			["minimum damage dealt on block"] = 20,
@@ -792,12 +1184,21 @@ EnchantIDs = {
 	},
 	[1843] = {
 		itemID = { 15564 },
+		name = {
+			chest = "Rugged Armor Kit",
+			feet = "Rugged Armor Kit",
+			hands = "Rugged Armor Kit",
+			legs = "Rugged Armor Kit",
+		},
 		stats = {
 			armor = 40,
 		},
 	},
 	[1883] = {
 		itemID = { 38852 },
+		name = {
+			wrist = "Enchant Bracer - Greater Intellect",
+		},
 		spellID = { 20008 },
 		stats = {
 			intellect = 7,
@@ -805,6 +1206,9 @@ EnchantIDs = {
 	},
 	[1884] = {
 		itemID = { 38853 },
+		name = {
+			wrist = "Enchant Bracer - Superior Spirit",
+		},
 		spellID = { 20009 },
 		stats = {
 			spirit = 9,
@@ -812,6 +1216,9 @@ EnchantIDs = {
 	},
 	[1885] = {
 		itemID = { 38854 },
+		name = {
+			wrist = "Enchant Bracer - Superior Strength",
+		},
 		spellID = { 20010 },
 		stats = {
 			strength = 9,
@@ -819,6 +1226,9 @@ EnchantIDs = {
 	},
 	[1886] = {
 		itemID = { 38855 },
+		name = {
+			wrist = "Enchant Bracer - Superior Stamina",
+		},
 		spellID = { 20011 },
 		stats = {
 			stamina = 9,
@@ -826,6 +1236,10 @@ EnchantIDs = {
 	},
 	[1887] = {
 		itemID = { 38856, 38863 },
+		name = {
+			feet = "Enchant Boots - Greater Agility",
+			hands = "Enchant Gloves - Greater Agility",
+		},
 		spellID = { 20012, 20023 },
 		stats = {
 			agility = 7,
@@ -833,6 +1247,10 @@ EnchantIDs = {
 	},
 	[1888] = {
 		itemID = { 38858, 38907 },
+		name = {
+			back = "Enchant Cloak - Greater Resistance",
+			["off hand"] = "Enchant Shield - Resistance",
+		},
 		spellID = { 20014, 27947 },
 		stats = {
 			["all resistances"] = 5,
@@ -840,6 +1258,9 @@ EnchantIDs = {
 	},
 	[1889] = {
 		itemID = { 38859 },
+		name = {
+			back = "Enchant Cloak - Superior Defense",
+		},
 		spellID = { 20015 },
 		stats = {
 			armor = 70,
@@ -847,6 +1268,9 @@ EnchantIDs = {
 	},
 	[1890] = {
 		itemID = { 38860 },
+		name = {
+			["off hand"] = "Enchant Shield - Vitality",
+		},
 		spellID = { 20016 },
 		stats = {
 			spirit = 10,
@@ -855,6 +1279,10 @@ EnchantIDs = {
 	},
 	[1891] = {
 		itemID = { 38865, 38898 },
+		name = {
+			chest = "Enchant Chest - Greater Stats",
+			wrist = "Enchant Bracer - Stats",
+		},
 		spellID = { 20025, 27905 },
 		stats = {
 			["all stats"] = 4,
@@ -862,6 +1290,9 @@ EnchantIDs = {
 	},
 	[1892] = {
 		itemID = { 38866 },
+		name = {
+			chest = "Enchant Chest - Major Health",
+		},
 		spellID = { 20026 },
 		stats = {
 			health = 100,
@@ -869,6 +1300,9 @@ EnchantIDs = {
 	},
 	[1893] = {
 		itemID = { 38867 },
+		name = {
+			chest = "Enchant Chest - Major Mana",
+		},
 		spellID = { 20028 },
 		stats = {
 			mana = 100,
@@ -876,6 +1310,9 @@ EnchantIDs = {
 	},
 	[1894] = {
 		itemID = { 38868 },
+		name = {
+			weapon = "Enchant Weapon - Icy Chill",
+		},
 		spellID = { 20029 },
 		stats = {
 			["icy chill"] = 1,
@@ -883,6 +1320,9 @@ EnchantIDs = {
 	},
 	[1896] = {
 		itemID = { 38869 },
+		name = {
+			["two-hand"] = "Enchant 2H Weapon - Superior Impact",
+		},
 		spellID = { 20030 },
 		stats = {
 			["average melee weapon damage"] = 9,
@@ -891,6 +1331,10 @@ EnchantIDs = {
 	},
 	[1897] = {
 		itemID = { 38822, 38870 },
+		name = {
+			["two-hand"] = "Enchant 2H Weapon - Impact",
+			weapon = "Enchant Weapon - Superior Striking",
+		},
 		spellID = { 13695, 20031 },
 		stats = {
 			["average melee weapon damage"] = 5,
@@ -899,6 +1343,9 @@ EnchantIDs = {
 	},
 	[1898] = {
 		itemID = { 38871 },
+		name = {
+			weapon = "Enchant Weapon - Lifestealing",
+		},
 		spellID = { 20032 },
 		stats = {
 			lifestealing = 1,
@@ -906,6 +1353,9 @@ EnchantIDs = {
 	},
 	[1899] = {
 		itemID = { 38872 },
+		name = {
+			weapon = "Enchant Weapon - Unholy Weapon",
+		},
 		spellID = { 20033 },
 		stats = {
 			["unholy weapon"] = 1,
@@ -913,6 +1363,9 @@ EnchantIDs = {
 	},
 	[1900] = {
 		itemID = { 38873 },
+		name = {
+			weapon = "Enchant Weapon - Crusader",
+		},
 		spellID = { 20034 },
 		stats = {
 			crusader = 1,
@@ -920,6 +1373,9 @@ EnchantIDs = {
 	},
 	[1903] = {
 		itemID = { 38874 },
+		name = {
+			["two-hand"] = "Enchant 2H Weapon - Major Spirit",
+		},
 		spellID = { 20035 },
 		stats = {
 			spirit = 9,
@@ -927,6 +1383,9 @@ EnchantIDs = {
 	},
 	[1904] = {
 		itemID = { 38875 },
+		name = {
+			["two-hand"] = "Enchant 2H Weapon - Major Intellect",
+		},
 		spellID = { 20036 },
 		stats = {
 			intellect = 9,
@@ -934,6 +1393,10 @@ EnchantIDs = {
 	},
 	[1951] = {
 		itemID = { 38978, 38999 },
+		name = {
+			back = "Enchant Cloak - Titanweave",
+			chest = "Enchant Chest - Dodge",
+		},
 		spellID = { 44591, 46594 },
 		stats = {
 			["dodge rating"] = 16,
@@ -941,6 +1404,9 @@ EnchantIDs = {
 	},
 	[1952] = {
 		itemID = { 38954 },
+		name = {
+			["off hand"] = "Enchant Shield - Dodge",
+		},
 		spellID = { 44489 },
 		stats = {
 			["dodge rating"] = 20,
@@ -948,6 +1414,9 @@ EnchantIDs = {
 	},
 	[1953] = {
 		itemID = { 39002 },
+		name = {
+			chest = "Enchant Chest - Greater Dodge",
+		},
 		spellID = { 47766 },
 		stats = {
 			["dodge rating"] = 22,
@@ -955,6 +1424,9 @@ EnchantIDs = {
 	},
 	[2322] = {
 		itemID = { 38936 },
+		name = {
+			hands = "Enchant Gloves - Major Healing",
+		},
 		spellID = { 33999 },
 		stats = {
 			["spell power"] = 19,
@@ -962,6 +1434,9 @@ EnchantIDs = {
 	},
 	[2326] = {
 		itemID = { 38997 },
+		name = {
+			wrist = "Enchant Bracers - Greater Spellpower",
+		},
 		spellID = { 44635 },
 		stats = {
 			["spell power"] = 23,
@@ -969,6 +1444,9 @@ EnchantIDs = {
 	},
 	[2332] = {
 		itemID = { 44470 },
+		name = {
+			wrist = "Enchant Bracer - Superior Spellpower",
+		},
 		spellID = { 60767 },
 		stats = {
 			["spell power"] = 30,
@@ -976,6 +1454,9 @@ EnchantIDs = {
 	},
 	[2381] = {
 		itemID = { 38962 },
+		name = {
+			chest = "Enchant Chest - Greater Mana Restoration",
+		},
 		spellID = { 44509 },
 		stats = {
 			spirit = 20,
@@ -983,6 +1464,9 @@ EnchantIDs = {
 	},
 	[2443] = {
 		itemID = { 38876 },
+		name = {
+			weapon = "Enchant Weapon - Winter's Might",
+		},
 		spellID = { 21931 },
 		stats = {
 			["frost spell damage"] = 7,
@@ -990,6 +1474,9 @@ EnchantIDs = {
 	},
 	[2463] = {
 		itemID = { 38815 },
+		name = {
+			back = "Enchant Cloak - Fire Resistance",
+		},
 		spellID = { 13657 },
 		stats = {
 			["fire resistance"] = 7,
@@ -997,48 +1484,75 @@ EnchantIDs = {
 	},
 	[2483] = {
 		itemID = { 18169 },
+		name = {
+			shoulder = "Flame Mantle of the Dawn",
+		},
 		stats = {
 			["fire resistance"] = 5,
 		},
 	},
 	[2484] = {
 		itemID = { 18170 },
+		name = {
+			shoulder = "Frost Mantle of the Dawn",
+		},
 		stats = {
 			["frost resistance"] = 5,
 		},
 	},
 	[2485] = {
 		itemID = { 18171 },
+		name = {
+			shoulder = "Arcane Mantle of the Dawn",
+		},
 		stats = {
 			["arcane resistance"] = 5,
 		},
 	},
 	[2486] = {
 		itemID = { 18172 },
+		name = {
+			shoulder = "Nature Mantle of the Dawn",
+		},
 		stats = {
 			["nature resistance"] = 5,
 		},
 	},
 	[2487] = {
 		itemID = { 18173 },
+		name = {
+			shoulder = "Shadow Mantle of the Dawn",
+		},
 		stats = {
 			["shadow resistance"] = 5,
 		},
 	},
 	[2488] = {
 		itemID = { 18182 },
+		name = {
+			shoulder = "Chromatic Mantle of the Dawn",
+		},
 		stats = {
 			["all resistances"] = 5,
 		},
 	},
 	[2503] = {
 		itemID = { 18251 },
+		name = {
+			chest = "Core Armor Kit",
+			feet = "Core Armor Kit",
+			hands = "Core Armor Kit",
+			legs = "Core Armor Kit",
+		},
 		stats = {
 			["dodge rating"] = 5,
 		},
 	},
 	[2504] = {
 		itemID = { 38877 },
+		name = {
+			weapon = "Enchant Weapon - Spellpower",
+		},
 		spellID = { 22749 },
 		stats = {
 			["spell power"] = 30,
@@ -1046,6 +1560,9 @@ EnchantIDs = {
 	},
 	[2505] = {
 		itemID = { 38878 },
+		name = {
+			weapon = "Enchant Weapon - Healing Power",
+		},
 		spellID = { 22750 },
 		stats = {
 			["spell power"] = 29,
@@ -1053,30 +1570,48 @@ EnchantIDs = {
 	},
 	[2523] = {
 		itemID = { 18283 },
+		name = {
+			ranged = "Biznicks 247x128 Accurascope",
+		},
 		stats = {
 			["ranged hit rating"] = 30,
 		},
 	},
 	[2543] = {
 		itemID = { 18329 },
+		name = {
+			head = "Arcanum of Rapidity",
+			legs = "Arcanum of Rapidity",
+		},
 		stats = {
 			["haste rating"] = 10,
 		},
 	},
 	[2544] = {
 		itemID = { 18330 },
+		name = {
+			head = "Arcanum of Focus",
+			legs = "Arcanum of Focus",
+		},
 		stats = {
 			["spell power"] = 8,
 		},
 	},
 	[2545] = {
 		itemID = { 18331 },
+		name = {
+			head = "Arcanum of Protection",
+			legs = "Arcanum of Protection",
+		},
 		stats = {
 			["dodge rating"] = 12,
 		},
 	},
 	[2563] = {
 		itemID = { 38879 },
+		name = {
+			weapon = "Enchant Weapon - Strength",
+		},
 		spellID = { 23799 },
 		stats = {
 			strength = 15,
@@ -1084,6 +1619,10 @@ EnchantIDs = {
 	},
 	[2564] = {
 		itemID = { 38880, 38890 },
+		name = {
+			hands = "Enchant Gloves - Superior Agility",
+			weapon = "Enchant Weapon - Agility",
+		},
 		spellID = { 23800, 25080 },
 		stats = {
 			agility = 15,
@@ -1091,6 +1630,9 @@ EnchantIDs = {
 	},
 	[2565] = {
 		itemID = { 38881 },
+		name = {
+			wrist = "Enchant Bracer - Mana Regeneration",
+		},
 		spellID = { 23801 },
 		stats = {
 			spirit = 9,
@@ -1098,6 +1640,9 @@ EnchantIDs = {
 	},
 	[2567] = {
 		itemID = { 38883 },
+		name = {
+			weapon = "Enchant Weapon - Mighty Spirit",
+		},
 		spellID = { 23803 },
 		stats = {
 			spirit = 20,
@@ -1105,6 +1650,9 @@ EnchantIDs = {
 	},
 	[2568] = {
 		itemID = { 38884 },
+		name = {
+			weapon = "Enchant Weapon - Mighty Intellect",
+		},
 		spellID = { 23804 },
 		stats = {
 			intellect = 22,
@@ -1112,6 +1660,10 @@ EnchantIDs = {
 	},
 	[2583] = {
 		itemID = { 19782 },
+		name = {
+			head = "Presence of Might",
+			legs = "Presence of Might",
+		},
 		stats = {
 			["dodge rating"] = 10,
 			["parry rating"] = 10,
@@ -1120,6 +1672,10 @@ EnchantIDs = {
 	},
 	[2584] = {
 		itemID = { 19783 },
+		name = {
+			head = "Syncretist's Sigil",
+			legs = "Syncretist's Sigil",
+		},
 		stats = {
 			["dodge rating"] = 10,
 			intellect = 10,
@@ -1128,6 +1684,10 @@ EnchantIDs = {
 	},
 	[2587] = {
 		itemID = { 19786 },
+		name = {
+			head = "Vodouisant's Vigilant Embrace",
+			legs = "Vodouisant's Vigilant Embrace",
+		},
 		stats = {
 			intellect = 15,
 			["spell power"] = 13,
@@ -1135,6 +1695,10 @@ EnchantIDs = {
 	},
 	[2588] = {
 		itemID = { 19787 },
+		name = {
+			head = "Presence of Sight",
+			legs = "Presence of Sight",
+		},
 		stats = {
 			["hit rating"] = 8,
 			["spell power"] = 18,
@@ -1142,6 +1706,10 @@ EnchantIDs = {
 	},
 	[2589] = {
 		itemID = { 19788 },
+		name = {
+			head = "Hoodoo Hex",
+			legs = "Hoodoo Hex",
+		},
 		stats = {
 			["spell power"] = 18,
 			stamina = 10,
@@ -1149,6 +1717,10 @@ EnchantIDs = {
 	},
 	[2590] = {
 		itemID = { 19789 },
+		name = {
+			head = "Prophetic Aura",
+			legs = "Prophetic Aura",
+		},
 		stats = {
 			mp5 = 5,
 			["spell power"] = 13,
@@ -1157,6 +1729,10 @@ EnchantIDs = {
 	},
 	[2591] = {
 		itemID = { 19790 },
+		name = {
+			head = "Animist's Caress",
+			legs = "Animist's Caress",
+		},
 		stats = {
 			intellect = 10,
 			["spell power"] = 12,
@@ -1165,6 +1741,9 @@ EnchantIDs = {
 	},
 	[2603] = {
 		itemID = { 38802 },
+		name = {
+			hands = "Enchant Gloves - Fishing",
+		},
 		spellID = { 13620 },
 		stats = {
 			fishing = 2,
@@ -1172,24 +1751,36 @@ EnchantIDs = {
 	},
 	[2604] = {
 		itemID = { 20078 },
+		name = {
+			shoulder = "Zandalar Signet of Serenity",
+		},
 		stats = {
 			["spell power"] = 18,
 		},
 	},
 	[2605] = {
 		itemID = { 20076 },
+		name = {
+			shoulder = "Zandalar Signet of Mojo",
+		},
 		stats = {
 			["spell power"] = 18,
 		},
 	},
 	[2606] = {
 		itemID = { 20077 },
+		name = {
+			shoulder = "Zandalar Signet of Might",
+		},
 		stats = {
 			["attack power"] = 30,
 		},
 	},
 	[2613] = {
 		itemID = { 38885 },
+		name = {
+			hands = "Enchant Gloves - Threat",
+		},
 		spellID = { 25072 },
 		stats = {
 			["threat (percent)"] = 2,
@@ -1197,6 +1788,9 @@ EnchantIDs = {
 	},
 	[2614] = {
 		itemID = { 38886 },
+		name = {
+			hands = "Enchant Gloves - Shadow Power",
+		},
 		spellID = { 25073 },
 		stats = {
 			["shadow spell damage"] = 20,
@@ -1204,6 +1798,9 @@ EnchantIDs = {
 	},
 	[2615] = {
 		itemID = { 38887 },
+		name = {
+			hands = "Enchant Gloves - Frost Power",
+		},
 		spellID = { 25074 },
 		stats = {
 			["frost spell damage"] = 20,
@@ -1211,6 +1808,9 @@ EnchantIDs = {
 	},
 	[2616] = {
 		itemID = { 38888 },
+		name = {
+			hands = "Enchant Gloves - Fire Power",
+		},
 		spellID = { 25078 },
 		stats = {
 			["fire spell damage"] = 20,
@@ -1218,6 +1818,9 @@ EnchantIDs = {
 	},
 	[2617] = {
 		itemID = { 38889 },
+		name = {
+			hands = "Enchant Gloves - Healing Power",
+		},
 		spellID = { 25079 },
 		stats = {
 			["spell power"] = 16,
@@ -1225,6 +1828,9 @@ EnchantIDs = {
 	},
 	[2619] = {
 		itemID = { 38891 },
+		name = {
+			back = "Enchant Cloak - Greater Fire Resistance",
+		},
 		spellID = { 25081 },
 		stats = {
 			["fire resistance"] = 15,
@@ -1232,6 +1838,9 @@ EnchantIDs = {
 	},
 	[2620] = {
 		itemID = { 38892 },
+		name = {
+			back = "Enchant Cloak - Greater Nature Resistance",
+		},
 		spellID = { 25082 },
 		stats = {
 			["nature resistance"] = 15,
@@ -1239,6 +1848,9 @@ EnchantIDs = {
 	},
 	[2621] = {
 		itemID = { 38894 },
+		name = {
+			back = "Enchant Cloak - Subtlety",
+		},
 		spellID = { 25084 },
 		stats = {
 			["threat reduction (percent)"] = 2,
@@ -1246,6 +1858,9 @@ EnchantIDs = {
 	},
 	[2622] = {
 		itemID = { 38895 },
+		name = {
+			back = "Enchant Cloak - Dodge",
+		},
 		spellID = { 25086 },
 		stats = {
 			["dodge rating"] = 12,
@@ -1253,6 +1868,9 @@ EnchantIDs = {
 	},
 	[2646] = {
 		itemID = { 38896 },
+		name = {
+			["two-hand"] = "Enchant 2H Weapon - Agility",
+		},
 		spellID = { 27837 },
 		stats = {
 			agility = 25,
@@ -1260,6 +1878,9 @@ EnchantIDs = {
 	},
 	[2647] = {
 		itemID = { 38897 },
+		name = {
+			wrist = "Enchant Bracer - Brawn",
+		},
 		spellID = { 27899 },
 		stats = {
 			strength = 12,
@@ -1267,6 +1888,10 @@ EnchantIDs = {
 	},
 	[2648] = {
 		itemID = { 38899, 39000 },
+		name = {
+			back = "Enchant Cloak - Steelweave",
+			wrist = "Enchant Bracer - Greater Dodge",
+		},
 		spellID = { 27906, 47051 },
 		stats = {
 			["dodge rating"] = 12,
@@ -1274,6 +1899,10 @@ EnchantIDs = {
 	},
 	[2649] = {
 		itemID = { 38902, 38909 },
+		name = {
+			feet = "Enchant Boots - Fortitude",
+			wrist = "Enchant Bracer - Fortitude",
+		},
 		spellID = { 27914, 27950 },
 		stats = {
 			stamina = 12,
@@ -1281,6 +1910,9 @@ EnchantIDs = {
 	},
 	[2650] = {
 		itemID = { 38882, 38900, 38903 },
+		name = {
+			wrist = { "Enchant Bracer - Healing Power", "Enchant Bracer - Spellpower", "Enchant Bracer - Superior Healing" },
+		},
 		spellID = { 23802, 27911, 27917 },
 		stats = {
 			["spell power"] = 15,
@@ -1288,6 +1920,9 @@ EnchantIDs = {
 	},
 	[2653] = {
 		itemID = { 38904 },
+		name = {
+			["off hand"] = "Enchant Shield - Tough Shield",
+		},
 		spellID = { 27944 },
 		stats = {
 			["dodge rating"] = 12,
@@ -1295,6 +1930,9 @@ EnchantIDs = {
 	},
 	[2654] = {
 		itemID = { 38905 },
+		name = {
+			["off hand"] = "Enchant Shield - Intellect",
+		},
 		spellID = { 27945 },
 		stats = {
 			intellect = 12,
@@ -1302,6 +1940,9 @@ EnchantIDs = {
 	},
 	[2655] = {
 		itemID = { 38906 },
+		name = {
+			["off hand"] = "Enchant Shield - Shield Block",
+		},
 		spellID = { 27946 },
 		stats = {
 			["parry rating"] = 15,
@@ -1309,6 +1950,9 @@ EnchantIDs = {
 	},
 	[2656] = {
 		itemID = { 38908 },
+		name = {
+			feet = "Enchant Boots - Vitality",
+		},
 		spellID = { 27948 },
 		stats = {
 			spirit = 10,
@@ -1317,6 +1961,9 @@ EnchantIDs = {
 	},
 	[2657] = {
 		itemID = { 37603 },
+		name = {
+			feet = "Enchant Boots - Dexterity",
+		},
 		spellID = { 27951 },
 		stats = {
 			agility = 12,
@@ -1324,6 +1971,9 @@ EnchantIDs = {
 	},
 	[2658] = {
 		itemID = { 38910 },
+		name = {
+			feet = "Enchant Boots - Surefooted",
+		},
 		spellID = { 27954 },
 		stats = {
 			["critical strike rating"] = 10,
@@ -1332,6 +1982,9 @@ EnchantIDs = {
 	},
 	[2659] = {
 		itemID = { 38911 },
+		name = {
+			chest = "Enchant Chest - Exceptional Health",
+		},
 		spellID = { 27957 },
 		stats = {
 			health = 150,
@@ -1339,6 +1992,10 @@ EnchantIDs = {
 	},
 	[2661] = {
 		itemID = { 38987 },
+		name = {
+			chest = "Enchant Chest - Exceptional Stats",
+			wrist = "Enchant Bracers - Greater Stats",
+		},
 		spellID = { 27960, 44616 },
 		stats = {
 			["all stats"] = 6,
@@ -1346,6 +2003,9 @@ EnchantIDs = {
 	},
 	[2662] = {
 		itemID = { 38914 },
+		name = {
+			back = "Enchant Cloak - Major Armor",
+		},
 		spellID = { 27961 },
 		stats = {
 			armor = 120,
@@ -1353,6 +2013,9 @@ EnchantIDs = {
 	},
 	[2664] = {
 		itemID = { 38915 },
+		name = {
+			back = "Enchant Cloak - Major Resistance",
+		},
 		spellID = { 27962 },
 		stats = {
 			["all resistances"] = 7,
@@ -1360,6 +2023,9 @@ EnchantIDs = {
 	},
 	[2666] = {
 		itemID = { 38918 },
+		name = {
+			weapon = "Enchant Weapon - Major Intellect",
+		},
 		spellID = { 27968 },
 		stats = {
 			intellect = 30,
@@ -1367,6 +2033,9 @@ EnchantIDs = {
 	},
 	[2667] = {
 		itemID = { 38919 },
+		name = {
+			["two-hand"] = "Enchant 2H Weapon - Savagery",
+		},
 		spellID = { 27971 },
 		stats = {
 			["attack power"] = 70,
@@ -1374,6 +2043,9 @@ EnchantIDs = {
 	},
 	[2668] = {
 		itemID = { 38920 },
+		name = {
+			weapon = "Enchant Weapon - Potency",
+		},
 		spellID = { 27972 },
 		stats = {
 			strength = 20,
@@ -1381,6 +2053,9 @@ EnchantIDs = {
 	},
 	[2669] = {
 		itemID = { 38921 },
+		name = {
+			weapon = "Enchant Weapon - Major Spellpower",
+		},
 		spellID = { 27975 },
 		stats = {
 			["spell power"] = 40,
@@ -1388,6 +2063,9 @@ EnchantIDs = {
 	},
 	[2670] = {
 		itemID = { 38922 },
+		name = {
+			["two-hand"] = "Enchant 2H Weapon - Major Agility",
+		},
 		spellID = { 27977 },
 		stats = {
 			agility = 35,
@@ -1395,6 +2073,9 @@ EnchantIDs = {
 	},
 	[2671] = {
 		itemID = { 38923 },
+		name = {
+			weapon = "Enchant Weapon - Sunfire",
+		},
 		spellID = { 27981 },
 		stats = {
 			["arcane spell damage"] = 50,
@@ -1403,6 +2084,9 @@ EnchantIDs = {
 	},
 	[2672] = {
 		itemID = { 38924 },
+		name = {
+			weapon = "Enchant Weapon - Soulfrost",
+		},
 		spellID = { 27982 },
 		stats = {
 			["frost spell damage"] = 54,
@@ -1411,6 +2095,9 @@ EnchantIDs = {
 	},
 	[2673] = {
 		itemID = { 38925 },
+		name = {
+			weapon = "Enchant Weapon - Mongoose",
+		},
 		spellID = { 27984 },
 		stats = {
 			mongoose = 1,
@@ -1418,6 +2105,9 @@ EnchantIDs = {
 	},
 	[2674] = {
 		itemID = { 38926 },
+		name = {
+			weapon = "Enchant Weapon - Spellsurge",
+		},
 		spellID = { 28003 },
 		stats = {
 			spellsurge = 1,
@@ -1425,6 +2115,9 @@ EnchantIDs = {
 	},
 	[2675] = {
 		itemID = { 38927 },
+		name = {
+			weapon = "Enchant Weapon - Battlemaster",
+		},
 		spellID = { 28004 },
 		stats = {
 			battlemaster = 1,
@@ -1432,6 +2125,9 @@ EnchantIDs = {
 	},
 	[2679] = {
 		itemID = { 38901 },
+		name = {
+			wrist = "Enchant Bracer - Restore Mana Prime",
+		},
 		spellID = { 27913 },
 		stats = {
 			spirit = 12,
@@ -1439,24 +2135,39 @@ EnchantIDs = {
 	},
 	[2681] = {
 		itemID = { 22635 },
+		name = {
+			head = "Savage Guard",
+			legs = "Savage Guard",
+		},
 		stats = {
 			["nature resistance"] = 10,
 		},
 	},
 	[2682] = {
 		itemID = { 22636 },
+		name = {
+			head = "Ice Guard",
+			legs = "Ice Guard",
+		},
 		stats = {
 			["frost resistance"] = 10,
 		},
 	},
 	[2683] = {
 		itemID = { 22638 },
+		name = {
+			head = "Shadow Guard",
+			legs = "Shadow Guard",
+		},
 		stats = {
 			["shadow resistance"] = 10,
 		},
 	},
 	[2714] = {
 		itemID = { 23530 },
+		name = {
+			["off hand"] = "Felsteel Shield Spike",
+		},
 		stats = {
 			["maximum damage dealt on block"] = 38,
 			["minimum damage dealt on block"] = 26,
@@ -1464,6 +2175,9 @@ EnchantIDs = {
 	},
 	[2715] = {
 		itemID = { 23547 },
+		name = {
+			shoulder = "Resilience of the Scourge",
+		},
 		stats = {
 			mp5 = 6,
 			["spell power"] = 16,
@@ -1471,6 +2185,9 @@ EnchantIDs = {
 	},
 	[2716] = {
 		itemID = { 23549 },
+		name = {
+			shoulder = "Fortitude of the Scourge",
+		},
 		stats = {
 			armor = 100,
 			stamina = 16,
@@ -1478,6 +2195,9 @@ EnchantIDs = {
 	},
 	[2717] = {
 		itemID = { 23548 },
+		name = {
+			shoulder = "Might of the Scourge",
+		},
 		stats = {
 			["attack power"] = 26,
 			["critical strike rating"] = 14,
@@ -1485,6 +2205,9 @@ EnchantIDs = {
 	},
 	[2721] = {
 		itemID = { 23545 },
+		name = {
+			shoulder = "Power of the Scourge",
+		},
 		stats = {
 			["critical strike rating"] = 14,
 			["spell power"] = 15,
@@ -1492,6 +2215,9 @@ EnchantIDs = {
 	},
 	[2722] = {
 		itemID = { 23764 },
+		name = {
+			ranged = "Adamantite Scope",
+		},
 		stats = {
 			["average ranged weapon damage"] = 10,
 			["maximum ranged weapon damage"] = 10,
@@ -1499,6 +2225,9 @@ EnchantIDs = {
 	},
 	[2723] = {
 		itemID = { 23765 },
+		name = {
+			ranged = "Khorium Scope",
+		},
 		stats = {
 			["average ranged weapon damage"] = 12,
 			["maximum ranged weapon damage"] = 12,
@@ -1506,12 +2235,18 @@ EnchantIDs = {
 	},
 	[2724] = {
 		itemID = { 23766 },
+		name = {
+			ranged = "Stabilized Eternium Scope",
+		},
 		stats = {
 			["critical strike rating"] = 28,
 		},
 	},
 	[2745] = {
 		itemID = { 24275 },
+		name = {
+			legs = "Silver Spellthread",
+		},
 		stats = {
 			["spell power"] = 25,
 			stamina = 15,
@@ -1519,6 +2254,9 @@ EnchantIDs = {
 	},
 	[2746] = {
 		itemID = { 24276 },
+		name = {
+			legs = "Golden Spellthread",
+		},
 		stats = {
 			["spell power"] = 35,
 			stamina = 20,
@@ -1526,6 +2264,9 @@ EnchantIDs = {
 	},
 	[2747] = {
 		itemID = { 24273 },
+		name = {
+			legs = "Mystic Spellthread",
+		},
 		stats = {
 			["spell power"] = 25,
 			stamina = 15,
@@ -1533,6 +2274,9 @@ EnchantIDs = {
 	},
 	[2748] = {
 		itemID = { 24274 },
+		name = {
+			legs = "Runic Spellthread",
+		},
 		stats = {
 			["spell power"] = 35,
 			stamina = 20,
@@ -1540,35 +2284,67 @@ EnchantIDs = {
 	},
 	[2792] = {
 		itemID = { 25650 },
+		name = {
+			chest = "Knothide Armor Kit",
+			feet = "Knothide Armor Kit",
+			hands = "Knothide Armor Kit",
+			legs = "Knothide Armor Kit",
+		},
 		stats = {
 			stamina = 8,
 		},
 	},
 	[2793] = {
 		itemID = { 25651 },
+		name = {
+			chest = "Vindicator's Armor Kit",
+			feet = "Vindicator's Armor Kit",
+			hands = "Vindicator's Armor Kit",
+			legs = "Vindicator's Armor Kit",
+		},
 		stats = {
 			["dodge rating"] = 8,
 		},
 	},
 	[2794] = {
 		itemID = { 25652 },
+		name = {
+			chest = "Magister's Armor Kit",
+			feet = "Magister's Armor Kit",
+			hands = "Magister's Armor Kit",
+			legs = "Magister's Armor Kit",
+		},
 		stats = {
 			spirit = 8,
 		},
 	},
 	[2841] = {
 		itemID = { 34330 },
+		name = {
+			chest = "Heavy Knothide Armor Kit",
+			feet = "Heavy Knothide Armor Kit",
+			hands = "Heavy Knothide Armor Kit",
+			head = "Heavy Knothide Armor Kit",
+			legs = "Heavy Knothide Armor Kit",
+			shoulder = "Heavy Knothide Armor Kit",
+		},
 		stats = {
 			stamina = 10,
 		},
 	},
 	[2928] = {
+		name = {
+			finger = "Enchant Ring - Spellpower",
+		},
 		spellID = { 27924 },
 		stats = {
 			["spell power"] = 12,
 		},
 	},
 	[2929] = {
+		name = {
+			finger = "Enchant Ring - Striking",
+		},
 		spellID = { 27920 },
 		stats = {
 			["average melee weapon damage"] = 2,
@@ -1578,12 +2354,18 @@ EnchantIDs = {
 		},
 	},
 	[2930] = {
+		name = {
+			finger = "Enchant Ring - Healing Power",
+		},
 		spellID = { 27926 },
 		stats = {
 			["spell power"] = 12,
 		},
 	},
 	[2931] = {
+		name = {
+			finger = "Enchant Ring - Stats",
+		},
 		spellID = { 27927 },
 		stats = {
 			["all stats"] = 4,
@@ -1591,6 +2373,9 @@ EnchantIDs = {
 	},
 	[2933] = {
 		itemID = { 38930 },
+		name = {
+			chest = "Enchant Chest - Major Resilience",
+		},
 		spellID = { 33992 },
 		stats = {
 			["resilience rating"] = 15,
@@ -1598,6 +2383,9 @@ EnchantIDs = {
 	},
 	[2934] = {
 		itemID = { 38931 },
+		name = {
+			hands = "Enchant Gloves - Blasting",
+		},
 		spellID = { 33993 },
 		stats = {
 			["critical strike rating"] = 10,
@@ -1605,6 +2393,9 @@ EnchantIDs = {
 	},
 	[2935] = {
 		itemID = { 38932 },
+		name = {
+			hands = "Enchant Gloves - Precise Strikes",
+		},
 		spellID = { 33994 },
 		stats = {
 			["hit rating"] = 15,
@@ -1612,6 +2403,9 @@ EnchantIDs = {
 	},
 	[2937] = {
 		itemID = { 38935 },
+		name = {
+			hands = "Enchant Gloves - Major Spellpower",
+		},
 		spellID = { 33997 },
 		stats = {
 			["spell power"] = 20,
@@ -1619,6 +2413,9 @@ EnchantIDs = {
 	},
 	[2938] = {
 		itemID = { 38939 },
+		name = {
+			back = "Enchant Cloak - Spell Penetration",
+		},
 		spellID = { 34003 },
 		stats = {
 			["spell penetration"] = 20,
@@ -1626,6 +2423,9 @@ EnchantIDs = {
 	},
 	[2939] = {
 		itemID = { 38943 },
+		name = {
+			feet = "Enchant Boots - Cat's Swiftness",
+		},
 		spellID = { 34007 },
 		stats = {
 			agility = 6,
@@ -1634,6 +2434,9 @@ EnchantIDs = {
 	},
 	[2940] = {
 		itemID = { 38944 },
+		name = {
+			feet = "Enchant Boots - Boar's Speed",
+		},
 		spellID = { 34008 },
 		stats = {
 			["minor run speed"] = 1,
@@ -1642,12 +2445,18 @@ EnchantIDs = {
 	},
 	[2977] = {
 		itemID = { 28882 },
+		name = {
+			shoulder = "Inscription of Warding",
+		},
 		stats = {
 			["dodge rating"] = 13,
 		},
 	},
 	[2978] = {
 		itemID = { 28889 },
+		name = {
+			shoulder = "Greater Inscription of Warding",
+		},
 		stats = {
 			["dodge rating"] = 15,
 			stamina = 15,
@@ -1655,12 +2464,18 @@ EnchantIDs = {
 	},
 	[2979] = {
 		itemID = { 28878 },
+		name = {
+			shoulder = "Inscription of Faith",
+		},
 		stats = {
 			["spell power"] = 15,
 		},
 	},
 	[2980] = {
 		itemID = { 28887 },
+		name = {
+			shoulder = "Greater Inscription of Faith",
+		},
 		stats = {
 			intellect = 15,
 			spirit = 10,
@@ -1668,12 +2483,18 @@ EnchantIDs = {
 	},
 	[2981] = {
 		itemID = { 28881 },
+		name = {
+			shoulder = "Inscription of Discipline",
+		},
 		stats = {
 			["spell power"] = 15,
 		},
 	},
 	[2982] = {
 		itemID = { 28886 },
+		name = {
+			shoulder = "Greater Inscription of Discipline",
+		},
 		stats = {
 			["critical strike rating"] = 10,
 			["spell power"] = 18,
@@ -1681,24 +2502,42 @@ EnchantIDs = {
 	},
 	[2983] = {
 		itemID = { 28885 },
+		name = {
+			shoulder = "Inscription of Vengeance",
+		},
 		stats = {
 			["attack power"] = 26,
 		},
 	},
 	[2984] = {
 		itemID = { 29483 },
+		name = {
+			chest = "Shadow Armor Kit",
+			feet = "Shadow Armor Kit",
+			hands = "Shadow Armor Kit",
+			legs = "Shadow Armor Kit",
+		},
 		stats = {
 			["shadow resistance"] = 8,
 		},
 	},
 	[2985] = {
 		itemID = { 29485 },
+		name = {
+			chest = "Flame Armor Kit",
+			feet = "Flame Armor Kit",
+			hands = "Flame Armor Kit",
+			legs = "Flame Armor Kit",
+		},
 		stats = {
 			["fire resistance"] = 8,
 		},
 	},
 	[2986] = {
 		itemID = { 28888 },
+		name = {
+			shoulder = "Greater Inscription of Vengeance",
+		},
 		stats = {
 			["attack power"] = 30,
 			["critical strike rating"] = 10,
@@ -1706,30 +2545,54 @@ EnchantIDs = {
 	},
 	[2987] = {
 		itemID = { 29486 },
+		name = {
+			chest = "Frost Armor Kit",
+			feet = "Frost Armor Kit",
+			hands = "Frost Armor Kit",
+			legs = "Frost Armor Kit",
+		},
 		stats = {
 			["frost resistance"] = 8,
 		},
 	},
 	[2988] = {
 		itemID = { 29487 },
+		name = {
+			chest = "Nature Armor Kit",
+			feet = "Nature Armor Kit",
+			hands = "Nature Armor Kit",
+			legs = "Nature Armor Kit",
+		},
 		stats = {
 			["nature resistance"] = 8,
 		},
 	},
 	[2989] = {
 		itemID = { 29488 },
+		name = {
+			chest = "Arcane Armor Kit",
+			feet = "Arcane Armor Kit",
+			hands = "Arcane Armor Kit",
+			legs = "Arcane Armor Kit",
+		},
 		stats = {
 			["arcane resistance"] = 8,
 		},
 	},
 	[2990] = {
 		itemID = { 28908 },
+		name = {
+			shoulder = "Inscription of the Knight",
+		},
 		stats = {
 			["dodge rating"] = 13,
 		},
 	},
 	[2991] = {
 		itemID = { 28911 },
+		name = {
+			shoulder = "Greater Inscription of the Knight",
+		},
 		stats = {
 			["dodge rating"] = 10,
 			["parry rating"] = 15,
@@ -1737,12 +2600,18 @@ EnchantIDs = {
 	},
 	[2992] = {
 		itemID = { 28904 },
+		name = {
+			shoulder = "Inscription of the Oracle",
+		},
 		stats = {
 			spirit = 12,
 		},
 	},
 	[2993] = {
 		itemID = { 28912 },
+		name = {
+			shoulder = "Greater Inscription of the Oracle",
+		},
 		stats = {
 			intellect = 10,
 			spirit = 16,
@@ -1750,12 +2619,18 @@ EnchantIDs = {
 	},
 	[2994] = {
 		itemID = { 28903 },
+		name = {
+			shoulder = "Inscription of the Orb",
+		},
 		stats = {
 			["critical strike rating"] = 13,
 		},
 	},
 	[2995] = {
 		itemID = { 28909 },
+		name = {
+			shoulder = "Greater Inscription of the Orb",
+		},
 		stats = {
 			["critical strike rating"] = 15,
 			["spell power"] = 12,
@@ -1763,12 +2638,18 @@ EnchantIDs = {
 	},
 	[2996] = {
 		itemID = { 28907 },
+		name = {
+			shoulder = "Inscription of the Blade",
+		},
 		stats = {
 			["critical strike rating"] = 13,
 		},
 	},
 	[2997] = {
 		itemID = { 28910 },
+		name = {
+			shoulder = "Greater Inscription of the Blade",
+		},
 		stats = {
 			["attack power"] = 20,
 			["critical strike rating"] = 15,
@@ -1776,12 +2657,18 @@ EnchantIDs = {
 	},
 	[2998] = {
 		itemID = { 29187 },
+		name = {
+			shoulder = "Inscription of Endurance",
+		},
 		stats = {
 			["all resistances"] = 7,
 		},
 	},
 	[2999] = {
 		itemID = { 29186 },
+		name = {
+			head = "Arcanum of the Defender",
+		},
 		stats = {
 			["dodge rating"] = 17,
 			["parry rating"] = 16,
@@ -1789,6 +2676,9 @@ EnchantIDs = {
 	},
 	[3001] = {
 		itemID = { 29189, 29190 },
+		name = {
+			head = "Arcanum of Renewal",
+		},
 		stats = {
 			intellect = 16,
 			spirit = 18,
@@ -1796,6 +2686,9 @@ EnchantIDs = {
 	},
 	[3002] = {
 		itemID = { 29191 },
+		name = {
+			head = "Arcanum of Power",
+		},
 		stats = {
 			["hit rating"] = 14,
 			["spell power"] = 22,
@@ -1803,6 +2696,9 @@ EnchantIDs = {
 	},
 	[3003] = {
 		itemID = { 29192 },
+		name = {
+			head = "Arcanum of Ferocity",
+		},
 		stats = {
 			["attack power"] = 34,
 			["hit rating"] = 16,
@@ -1810,6 +2706,9 @@ EnchantIDs = {
 	},
 	[3004] = {
 		itemID = { 29193 },
+		name = {
+			head = "Arcanum of the Gladiator",
+		},
 		stats = {
 			["resilience rating"] = 20,
 			stamina = 18,
@@ -1817,36 +2716,54 @@ EnchantIDs = {
 	},
 	[3005] = {
 		itemID = { 29194 },
+		name = {
+			head = "Arcanum of Nature Warding",
+		},
 		stats = {
 			["nature resistance"] = 20,
 		},
 	},
 	[3006] = {
 		itemID = { 29195 },
+		name = {
+			head = "Arcanum of Arcane Warding",
+		},
 		stats = {
 			["arcane resistance"] = 20,
 		},
 	},
 	[3007] = {
 		itemID = { 29196, 29197 },
+		name = {
+			head = "Arcanum of Fire Warding",
+		},
 		stats = {
 			["fire resistance"] = 20,
 		},
 	},
 	[3008] = {
 		itemID = { 29198 },
+		name = {
+			head = "Arcanum of Frost Warding",
+		},
 		stats = {
 			["frost resistance"] = 20,
 		},
 	},
 	[3009] = {
 		itemID = { 29199 },
+		name = {
+			head = "Arcanum of Shadow Warding",
+		},
 		stats = {
 			["shadow resistance"] = 20,
 		},
 	},
 	[3010] = {
 		itemID = { 29533 },
+		name = {
+			legs = "Cobrahide Leg Armor",
+		},
 		stats = {
 			["attack power"] = 40,
 			["critical strike rating"] = 10,
@@ -1854,6 +2771,9 @@ EnchantIDs = {
 	},
 	[3011] = {
 		itemID = { 29534 },
+		name = {
+			legs = "Clefthide Leg Armor",
+		},
 		stats = {
 			agility = 10,
 			stamina = 30,
@@ -1861,6 +2781,9 @@ EnchantIDs = {
 	},
 	[3012] = {
 		itemID = { 29535 },
+		name = {
+			legs = "Nethercobra Leg Armor",
+		},
 		stats = {
 			["attack power"] = 50,
 			["critical strike rating"] = 12,
@@ -1868,6 +2791,9 @@ EnchantIDs = {
 	},
 	[3013] = {
 		itemID = { 29536 },
+		name = {
+			legs = "Nethercleft Leg Armor",
+		},
 		stats = {
 			agility = 12,
 			stamina = 40,
@@ -1875,6 +2801,9 @@ EnchantIDs = {
 	},
 	[3096] = {
 		itemID = { 30846 },
+		name = {
+			head = "Arcanum of the Outcast",
+		},
 		stats = {
 			intellect = 16,
 			strength = 17,
@@ -1882,6 +2811,9 @@ EnchantIDs = {
 	},
 	[3150] = {
 		itemID = { 38929 },
+		name = {
+			chest = "Enchant Chest - Restore Mana Prime",
+		},
 		spellID = { 33991 },
 		stats = {
 			spirit = 14,
@@ -1889,6 +2821,10 @@ EnchantIDs = {
 	},
 	[3222] = {
 		itemID = { 38947, 38967 },
+		name = {
+			hands = "Enchant Gloves - Major Agility",
+			weapon = "Enchant Weapon - Greater Agility",
+		},
 		spellID = { 42620, 44529 },
 		stats = {
 			agility = 20,
@@ -1896,6 +2832,9 @@ EnchantIDs = {
 	},
 	[3223] = {
 		itemID = { 33185 },
+		name = {
+			weapon = "Adamantite Weapon Chain",
+		},
 		stats = {
 			["disarm duration reduction (percent)"] = 60,
 			["parry rating"] = 15,
@@ -1903,6 +2842,9 @@ EnchantIDs = {
 	},
 	[3225] = {
 		itemID = { 38948 },
+		name = {
+			weapon = "Enchant Weapon - Executioner",
+		},
 		spellID = { 42974 },
 		stats = {
 			executioner = 1,
@@ -1910,6 +2852,9 @@ EnchantIDs = {
 	},
 	[3229] = {
 		itemID = { 38949 },
+		name = {
+			["off hand"] = "Enchant Shield - Resilience",
+		},
 		spellID = { 44383 },
 		stats = {
 			["resilience rating"] = 12,
@@ -1917,6 +2862,9 @@ EnchantIDs = {
 	},
 	[3230] = {
 		itemID = { 38950 },
+		name = {
+			back = "Enchant Cloak - Superior Frost Resistance",
+		},
 		spellID = { 44483 },
 		stats = {
 			["frost resistance"] = 20,
@@ -1924,6 +2872,10 @@ EnchantIDs = {
 	},
 	[3231] = {
 		itemID = { 38951, 38984 },
+		name = {
+			hands = "Enchant Gloves - Expertise",
+			wrist = "Enchant Bracer - Expertise",
+		},
 		spellID = { 44484, 44598 },
 		stats = {
 			["expertise rating"] = 15,
@@ -1931,6 +2883,9 @@ EnchantIDs = {
 	},
 	[3232] = {
 		itemID = { 39006 },
+		name = {
+			feet = "Enchant Boots - Tuskarr's Vitality",
+		},
 		spellID = { 47901 },
 		stats = {
 			["minor run speed"] = 1,
@@ -1939,6 +2894,9 @@ EnchantIDs = {
 	},
 	[3233] = {
 		itemID = { 38912 },
+		name = {
+			chest = "Enchant Chest - Exceptional Mana",
+		},
 		spellID = { 27958 },
 		stats = {
 			mana = 250,
@@ -1946,6 +2904,9 @@ EnchantIDs = {
 	},
 	[3234] = {
 		itemID = { 38953 },
+		name = {
+			hands = "Enchant Gloves - Precision",
+		},
 		spellID = { 44488 },
 		stats = {
 			["hit rating"] = 20,
@@ -1953,6 +2914,9 @@ EnchantIDs = {
 	},
 	[3236] = {
 		itemID = { 38955 },
+		name = {
+			chest = "Enchant Chest - Mighty Health",
+		},
 		spellID = { 44492 },
 		stats = {
 			health = 200,
@@ -1960,6 +2924,9 @@ EnchantIDs = {
 	},
 	[3238] = {
 		itemID = { 38960 },
+		name = {
+			hands = "Enchant Gloves - Gatherer",
+		},
 		spellID = { 44506 },
 		stats = {
 			herbalism = 5,
@@ -1969,6 +2936,9 @@ EnchantIDs = {
 	},
 	[3239] = {
 		itemID = { 38965 },
+		name = {
+			weapon = "Enchant Weapon - Icebreaker",
+		},
 		spellID = { 44524 },
 		stats = {
 			icebreaker = 1,
@@ -1976,6 +2946,9 @@ EnchantIDs = {
 	},
 	[3241] = {
 		itemID = { 38972 },
+		name = {
+			weapon = "Enchant Weapon - Lifeward",
+		},
 		spellID = { 44576 },
 		stats = {
 			lifeward = 1,
@@ -1983,6 +2956,9 @@ EnchantIDs = {
 	},
 	[3243] = {
 		itemID = { 38973 },
+		name = {
+			back = "Enchant Cloak - Spell Piercing",
+		},
 		spellID = { 44582 },
 		stats = {
 			["spell penetration"] = 35,
@@ -1990,6 +2966,9 @@ EnchantIDs = {
 	},
 	[3244] = {
 		itemID = { 38974 },
+		name = {
+			feet = "Enchant Boots - Greater Vitality",
+		},
 		spellID = { 44584 },
 		stats = {
 			spirit = 14,
@@ -1998,6 +2977,9 @@ EnchantIDs = {
 	},
 	[3245] = {
 		itemID = { 38975 },
+		name = {
+			chest = "Enchant Chest - Exceptional Resilience",
+		},
 		spellID = { 44588 },
 		stats = {
 			["resilience rating"] = 20,
@@ -2005,6 +2987,9 @@ EnchantIDs = {
 	},
 	[3246] = {
 		itemID = { 38979 },
+		name = {
+			hands = "Enchant Gloves - Exceptional Spellpower",
+		},
 		spellID = { 44592 },
 		stats = {
 			["spell power"] = 28,
@@ -2012,6 +2997,9 @@ EnchantIDs = {
 	},
 	[3247] = {
 		itemID = { 38981 },
+		name = {
+			["two-hand"] = "Enchant 2H Weapon - Scourgebane",
+		},
 		spellID = { 44595 },
 		stats = {
 			["attack power against undead"] = 140,
@@ -2019,6 +3007,9 @@ EnchantIDs = {
 	},
 	[3251] = {
 		itemID = { 38988 },
+		name = {
+			weapon = "Enchant Weapon - Giant Slayer",
+		},
 		spellID = { 44621 },
 		stats = {
 			["giant slayer"] = 1,
@@ -2026,6 +3017,9 @@ EnchantIDs = {
 	},
 	[3252] = {
 		itemID = { 38989 },
+		name = {
+			chest = "Enchant Chest - Super Stats",
+		},
 		spellID = { 44623 },
 		stats = {
 			["all stats"] = 8,
@@ -2033,6 +3027,9 @@ EnchantIDs = {
 	},
 	[3253] = {
 		itemID = { 38990 },
+		name = {
+			hands = "Enchant Gloves - Armsman",
+		},
 		spellID = { 44625 },
 		stats = {
 			["parry rating"] = 10,
@@ -2041,6 +3038,9 @@ EnchantIDs = {
 	},
 	[3256] = {
 		itemID = { 38993 },
+		name = {
+			back = "Enchant Cloak - Shadow Armor",
+		},
 		spellID = { 44631 },
 		stats = {
 			agility = 10,
@@ -2049,18 +3049,27 @@ EnchantIDs = {
 	},
 	[3260] = {
 		itemID = { 34207 },
+		name = {
+			hands = "Glove Reinforcements",
+		},
 		stats = {
 			armor = 240,
 		},
 	},
 	[3269] = {
 		itemID = { 34836 },
+		name = {
+			["two-hand"] = "Spun Truesilver Fishing Line",
+		},
 		stats = {
 			fishing = 3,
 		},
 	},
 	[3273] = {
 		itemID = { 38998 },
+		name = {
+			weapon = "Enchant Weapon - Deathfrost",
+		},
 		spellID = { 46578 },
 		stats = {
 			deathfrost = 1,
@@ -2068,6 +3077,9 @@ EnchantIDs = {
 	},
 	[3294] = {
 		itemID = { 39001 },
+		name = {
+			back = "Enchant Cloak - Mighty Armor",
+		},
 		spellID = { 47672 },
 		stats = {
 			armor = 225,
@@ -2075,6 +3087,9 @@ EnchantIDs = {
 	},
 	[3296] = {
 		itemID = { 39004 },
+		name = {
+			back = "Enchant Cloak - Wisdom",
+		},
 		spellID = { 47899 },
 		stats = {
 			spirit = 10,
@@ -2083,19 +3098,24 @@ EnchantIDs = {
 	},
 	[3297] = {
 		itemID = { 39005 },
+		name = {
+			chest = "Enchant Chest - Super Health",
+		},
 		spellID = { 47900 },
 		stats = {
 			health = 275,
 		},
 	},
-	[3315] = {
---		itemID = { 37312 },
-		stats = {
-			["mount speed (percent)"] = 3,
-		},
-	},
+-- 	[3315] = {
+-- 		stats = {
+-- 			["mount speed (percent)"] = 3,
+-- 		},
+-- 	},
 	[3325] = {
 		itemID = { 38371 },
+		name = {
+			legs = "Jormungar Leg Armor",
+		},
 		stats = {
 			agility = 15,
 			stamina = 45,
@@ -2103,12 +3123,18 @@ EnchantIDs = {
 	},
 	[3326] = {
 		itemID = { 38372 },
+		name = {
+			legs = "Nerubian Leg Armor",
+		},
 		stats = {
 			["attack power"] = 55,
 			["critical strike rating"] = 15,
 		},
 	},
 	[3327] = {
+		name = {
+			legs = "Jormungar Leg Reinforcements",
+		},
 		spellID = { 60583 },
 		stats = {
 			agility = 22,
@@ -2116,6 +3142,9 @@ EnchantIDs = {
 		},
 	},
 	[3328] = {
+		name = {
+			legs = "Nerubian Leg Reinforcements",
+		},
 		spellID = { 60584 },
 		stats = {
 			["attack power"] = 75,
@@ -2124,17 +3153,36 @@ EnchantIDs = {
 	},
 	[3329] = {
 		itemID = { 38375 },
+		name = {
+			chest = "Borean Armor Kit",
+			feet = "Borean Armor Kit",
+			hands = "Borean Armor Kit",
+			head = "Borean Armor Kit",
+			legs = "Borean Armor Kit",
+			shoulder = "Borean Armor Kit",
+		},
 		stats = {
 			stamina = 12,
 		},
 	},
 	[3330] = {
 		itemID = { 38376 },
+		name = {
+			chest = "Heavy Borean Armor Kit",
+			feet = "Heavy Borean Armor Kit",
+			hands = "Heavy Borean Armor Kit",
+			head = "Heavy Borean Armor Kit",
+			legs = "Heavy Borean Armor Kit",
+			shoulder = "Heavy Borean Armor Kit",
+		},
 		stats = {
 			stamina = 18,
 		},
 	},
 	[3365] = {
+		name = {
+			["two-hand"] = "Rune of Swordshattering",
+		},
 		spellID = { 53323 },
 		stats = {
 			["disarm duration reduction (percent)"] = 60,
@@ -2142,6 +3190,9 @@ EnchantIDs = {
 		},
 	},
 	[3366] = {
+		name = {
+			weapon = "Rune of Lichbane",
+		},
 		spellID = { 53331 },
 		stats = {
 			["weapon damage (percent)"] = 2,
@@ -2149,6 +3200,9 @@ EnchantIDs = {
 		},
 	},
 	[3367] = {
+		name = {
+			["two-hand"] = "Rune of Spellshattering",
+		},
 		spellID = { 53342 },
 		stats = {
 			["silence duration reduction (percent)"] = 50,
@@ -2156,24 +3210,36 @@ EnchantIDs = {
 		},
 	},
 	[3368] = {
+		name = {
+			weapon = "Rune of the Fallen Crusader",
+		},
 		spellID = { 53344 },
 		stats = {
 			["rune of the fallen crusader"] = 1,
 		},
 	},
 	[3369] = {
+		name = {
+			weapon = "Rune of Cinderglacier",
+		},
 		spellID = { 53341 },
 		stats = {
 			["rune of cinderglacier"] = 1,
 		},
 	},
 	[3370] = {
+		name = {
+			weapon = "Rune of Razorice",
+		},
 		spellID = { 53343 },
 		stats = {
 			["rune of razorice"] = 1,
 		},
 	},
 	[3594] = {
+		name = {
+			["one-hand"] = "Rune of Swordbreaking",
+		},
 		spellID = { 54446 },
 		stats = {
 			["disarm duration reduction (percent)"] = 60,
@@ -2181,62 +3247,38 @@ EnchantIDs = {
 		},
 	},
 	[3595] = {
+		name = {
+			["one-hand"] = "Rune of Spellbreaking",
+		},
 		spellID = { 54447 },
 		stats = {
 			["silence duration reduction (percent)"] = 50,
 			["spell damage taken reduction (percent)"] = 2,
 		},
 	},
--- 	[3599] = {
--- 		spellID = { 54736 },
--- 		stats = {
--- 			["personal electromagnetic pulse generator"] = 1,
--- 		},
--- 	},
--- 	[3601] = {
--- 		spellID = { 54793 },
--- 		stats = {
--- 			["frag belt"] = 1,
--- 		},
--- 	},
--- 	[3603] = {
--- 		spellID = { 54998 },
--- 		stats = {
--- 			["hand-mounted pyro rocket"] = 1,
--- 		},
--- 	},
--- 	[3604] = {
--- 		spellID = { 54999 },
--- 		stats = {
--- 			["hyperspeed accelerators"] = 1,
--- 		},
--- 	},
--- 	[3605] = {
--- 		spellID = { 55002 },
--- 		stats = {
--- 			["flexweave underlay"] = 1,
--- 		},
--- 	},
 	[3607] = {
 		itemID = { 41146 },
+		name = {
+			ranged = "Sun Scope",
+		},
 		stats = {
 			["ranged haste rating"] = 40,
 		},
 	},
 	[3608] = {
 		itemID = { 41167 },
+		name = {
+			ranged = "Heartseeker Scope",
+		},
 		stats = {
 			["ranged critical strike rating"] = 40,
 		},
 	},
--- 	[3717] = {
--- 		spellID = { 55628 },
--- 		stats = {
--- 			["prismatic socket"] = 1,
--- 		},
--- 	},
 	[3718] = {
 		itemID = { 41601 },
+		name = {
+			legs = "Shining Spellthread",
+		},
 		stats = {
 			["spell power"] = 35,
 			spirit = 12,
@@ -2244,6 +3286,9 @@ EnchantIDs = {
 	},
 	[3719] = {
 		itemID = { 41602 },
+		name = {
+			legs = "Brilliant Spellthread",
+		},
 		stats = {
 			["spell power"] = 50,
 			spirit = 20,
@@ -2251,6 +3296,9 @@ EnchantIDs = {
 	},
 	[3720] = {
 		itemID = { 41603 },
+		name = {
+			legs = "Azure Spellthread",
+		},
 		stats = {
 			["spell power"] = 35,
 			stamina = 20,
@@ -2258,46 +3306,55 @@ EnchantIDs = {
 	},
 	[3721] = {
 		itemID = { 41604 },
+		name = {
+			legs = "Sapphire Spellthread",
+		},
 		stats = {
 			["spell power"] = 50,
 			stamina = 30,
 		},
 	},
 	[3722] = {
+		name = {
+			back = "Lightweave Embroidery",
+		},
 		spellID = { 55642 },
 		stats = {
-			-- TODO: properly handle this when procs are handled
 			["lightweave embroidery"] = 1,
 		},
 	},
--- 	[3723] = {
--- 		spellID = { 55641 },
--- 		stats = {
--- 			["prismatic socket"] = 1,
--- 		},
--- 	},
 	[3728] = {
+		name = {
+			back = "Darkglow Embroidery",
+		},
 		spellID = { 55769 },
 		stats = {
-			-- TODO: properly handle this when procs are handled
 			["darkglow embroidery"] = 1,
 		},
 	},
 	[3729] = {
 		itemID = { 41611, 55054 },
+		name = {
+			waist = { "Ebonsteel Belt Buckle", "Eternal Belt Buckle" },
+		},
 		stats = {
 			["prismatic socket"] = 1,
 		},
 	},
 	[3730] = {
+		name = {
+			back = "Swordguard Embroidery",
+		},
 		spellID = { 55777 },
 		stats = {
-			-- TODO: properly handle this when procs are handled
 			["swordguard embroidery"] = 1,
 		},
 	},
 	[3731] = {
 		itemID = { 41976 },
+		name = {
+			weapon = "Titanium Weapon Chain",
+		},
 		stats = {
 			["disarm duration reduction (percent)"] = 60,
 			["hit rating"] = 28,
@@ -2305,6 +3362,9 @@ EnchantIDs = {
 	},
 	[3748] = {
 		itemID = { 42500 },
+		name = {
+			["off hand"] = "Titanium Shield Spike",
+		},
 		stats = {
 			["maximum damage dealt on block"] = 67,
 			["minimum damage dealt on block"] = 45,
@@ -2312,6 +3372,10 @@ EnchantIDs = {
 	},
 	[3754] = {
 		itemID = { 19785 },
+		name = {
+			head = "Falcon's Call",
+			legs = "Falcon's Call",
+		},
 		stats = {
 			["attack power"] = 24,
 			["hit rating"] = 10,
@@ -2320,54 +3384,82 @@ EnchantIDs = {
 	},
 	[3755] = {
 		itemID = { 19784 },
+		name = {
+			head = "Death's Embrace",
+			legs = "Death's Embrace",
+		},
 		stats = {
 			["attack power"] = 28,
 			["dodge rating"] = 12,
 		},
 	},
 	[3756] = {
+		name = {
+			wrist = "Fur Lining - Attack Power",
+		},
 		spellID = { 57683 },
 		stats = {
 			["attack power"] = 130,
 		},
 	},
 	[3757] = {
+		name = {
+			wrist = "Fur Lining - Stamina",
+		},
 		spellID = { 57690 },
 		stats = {
 			stamina = 102,
 		},
 	},
 	[3758] = {
+		name = {
+			wrist = "Fur Lining - Spell Power",
+		},
 		spellID = { 57691 },
 		stats = {
 			["spell power"] = 76,
 		},
 	},
 	[3759] = {
+		name = {
+			wrist = "Fur Lining - Fire Resist",
+		},
 		spellID = { 57692 },
 		stats = {
 			["fire resistance"] = 70,
 		},
 	},
 	[3760] = {
+		name = {
+			wrist = "Fur Lining - Frost Resist",
+		},
 		spellID = { 57694 },
 		stats = {
 			["frost resistance"] = 70,
 		},
 	},
 	[3761] = {
+		name = {
+			wrist = "Fur Lining - Shadow Resist",
+		},
 		spellID = { 57696 },
 		stats = {
 			["shadow resistance"] = 70,
 		},
 	},
 	[3762] = {
+		name = {
+			wrist = "Fur Lining - Nature Resist",
+		},
 		spellID = { 57699 },
 		stats = {
 			["nature resistance"] = 70,
 		},
 	},
 	[3763] = {
+		name = {
+			wrist = "Fur Lining - Arcane Resist",
+		},
 		spellID = { 57701 },
 		stats = {
 			["arcane resistance"] = 70,
@@ -2375,6 +3467,9 @@ EnchantIDs = {
 	},
 	[3788] = {
 		itemID = { 44497 },
+		name = {
+			weapon = "Enchant Weapon - Accuracy",
+		},
 		spellID = { 59619 },
 		stats = {
 			["critical strike rating"] = 25,
@@ -2383,6 +3478,9 @@ EnchantIDs = {
 	},
 	[3789] = {
 		itemID = { 44493 },
+		name = {
+			weapon = "Enchant Weapon - Berserking",
+		},
 		spellID = { 59621 },
 		stats = {
 			berserking = 1,
@@ -2390,12 +3488,18 @@ EnchantIDs = {
 	},
 	[3790] = {
 		itemID = { 43987 },
+		name = {
+			weapon = "Enchant Weapon - Black Magic",
+		},
 		spellID = { 59625 },
 		stats = {
 			["black magic"] = 1,
 		},
 	},
 	[3791] = {
+		name = {
+			finger = "Enchant Ring - Stamina",
+		},
 		spellID = { 59636 },
 		stats = {
 			stamina = 30,
@@ -2403,6 +3507,9 @@ EnchantIDs = {
 	},
 	[3793] = {
 		itemID = { 44067 },
+		name = {
+			shoulder = "Inscription of Triumph",
+		},
 		stats = {
 			["attack power"] = 40,
 			["resilience rating"] = 15,
@@ -2410,6 +3517,9 @@ EnchantIDs = {
 	},
 	[3794] = {
 		itemID = { 44068 },
+		name = {
+			shoulder = "Inscription of Dominance",
+		},
 		stats = {
 			["resilience rating"] = 15,
 			["spell power"] = 23,
@@ -2417,6 +3527,9 @@ EnchantIDs = {
 	},
 	[3795] = {
 		itemID = { 44069 },
+		name = {
+			head = "Arcanum of Triumph",
+		},
 		stats = {
 			["attack power"] = 50,
 			["resilience rating"] = 20,
@@ -2424,6 +3537,9 @@ EnchantIDs = {
 	},
 	[3797] = {
 		itemID = { 44075 },
+		name = {
+			head = "Arcanum of Dominance",
+		},
 		stats = {
 			["resilience rating"] = 20,
 			["spell power"] = 29,
@@ -2431,6 +3547,9 @@ EnchantIDs = {
 	},
 	[3806] = {
 		itemID = { 44129 },
+		name = {
+			shoulder = "Lesser Inscription of the Storm",
+		},
 		stats = {
 			["critical strike rating"] = 10,
 			["spell power"] = 18,
@@ -2438,6 +3557,9 @@ EnchantIDs = {
 	},
 	[3807] = {
 		itemID = { 44130 },
+		name = {
+			shoulder = "Lesser Inscription of the Crag",
+		},
 		stats = {
 			intellect = 15,
 			spirit = 10,
@@ -2445,6 +3567,9 @@ EnchantIDs = {
 	},
 	[3808] = {
 		itemID = { 44133, 50335 },
+		name = {
+			shoulder = "Greater Inscription of the Axe",
+		},
 		stats = {
 			["attack power"] = 40,
 			["critical strike rating"] = 15,
@@ -2452,6 +3577,9 @@ EnchantIDs = {
 	},
 	[3809] = {
 		itemID = { 44134, 50336 },
+		name = {
+			shoulder = "Greater Inscription of the Crag",
+		},
 		stats = {
 			intellect = 21,
 			spirit = 16,
@@ -2459,6 +3587,9 @@ EnchantIDs = {
 	},
 	[3810] = {
 		itemID = { 44135, 50338 },
+		name = {
+			shoulder = "Greater Inscription of the Storm",
+		},
 		stats = {
 			["critical strike rating"] = 15,
 			["spell power"] = 24,
@@ -2466,6 +3597,9 @@ EnchantIDs = {
 	},
 	[3811] = {
 		itemID = { 44136, 50337 },
+		name = {
+			shoulder = "Greater Inscription of the Pinnacle",
+		},
 		stats = {
 			["dodge rating"] = 20,
 			stamina = 22,
@@ -2473,6 +3607,9 @@ EnchantIDs = {
 	},
 	[3812] = {
 		itemID = { 44137 },
+		name = {
+			head = "Arcanum of the Frosty Soul",
+		},
 		stats = {
 			["frost resistance"] = 25,
 			stamina = 30,
@@ -2480,6 +3617,9 @@ EnchantIDs = {
 	},
 	[3813] = {
 		itemID = { 44138 },
+		name = {
+			head = "Arcanum of Toxic Warding",
+		},
 		stats = {
 			["nature resistance"] = 25,
 			stamina = 30,
@@ -2487,6 +3627,9 @@ EnchantIDs = {
 	},
 	[3814] = {
 		itemID = { 44139 },
+		name = {
+			head = "Arcanum of the Fleeing Shadow",
+		},
 		stats = {
 			["shadow resistance"] = 25,
 			stamina = 30,
@@ -2494,6 +3637,9 @@ EnchantIDs = {
 	},
 	[3815] = {
 		itemID = { 44140 },
+		name = {
+			head = "Arcanum of the Eclipsed Moon",
+		},
 		stats = {
 			["arcane resistance"] = 25,
 			stamina = 30,
@@ -2501,6 +3647,9 @@ EnchantIDs = {
 	},
 	[3816] = {
 		itemID = { 44141 },
+		name = {
+			head = "Arcanum of the Flame's Soul",
+		},
 		stats = {
 			["fire resistance"] = 25,
 			stamina = 30,
@@ -2508,6 +3657,9 @@ EnchantIDs = {
 	},
 	[3817] = {
 		itemID = { 44149, 50367 },
+		name = {
+			head = "Arcanum of Torment",
+		},
 		stats = {
 			["attack power"] = 50,
 			["critical strike rating"] = 20,
@@ -2515,6 +3667,9 @@ EnchantIDs = {
 	},
 	[3818] = {
 		itemID = { 44150, 50369 },
+		name = {
+			head = "Arcanum of the Stalwart Protector",
+		},
 		stats = {
 			["dodge rating"] = 20,
 			stamina = 37,
@@ -2522,6 +3677,9 @@ EnchantIDs = {
 	},
 	[3819] = {
 		itemID = { 44152, 50370 },
+		name = {
+			head = "Arcanum of Blissful Mending",
+		},
 		stats = {
 			intellect = 26,
 			spirit = 20,
@@ -2529,6 +3687,9 @@ EnchantIDs = {
 	},
 	[3820] = {
 		itemID = { 44159, 50368 },
+		name = {
+			head = "Arcanum of Burning Mysteries",
+		},
 		stats = {
 			["critical strike rating"] = 20,
 			intellect = 26,
@@ -2536,6 +3697,9 @@ EnchantIDs = {
 	},
 	[3822] = {
 		itemID = { 38373 },
+		name = {
+			legs = "Frosthide Leg Armor",
+		},
 		stats = {
 			agility = 22,
 			stamina = 55,
@@ -2543,6 +3707,9 @@ EnchantIDs = {
 	},
 	[3823] = {
 		itemID = { 38374 },
+		name = {
+			legs = "Icescale Leg Armor",
+		},
 		stats = {
 			["attack power"] = 75,
 			["critical strike rating"] = 22,
@@ -2550,6 +3717,9 @@ EnchantIDs = {
 	},
 	[3824] = {
 		itemID = { 44449 },
+		name = {
+			feet = "Enchant Boots - Assault",
+		},
 		spellID = { 60606 },
 		stats = {
 			["attack power"] = 24,
@@ -2557,6 +3727,9 @@ EnchantIDs = {
 	},
 	[3825] = {
 		itemID = { 44456 },
+		name = {
+			back = "Enchant Cloak - Speed",
+		},
 		spellID = { 60609 },
 		stats = {
 			["haste rating"] = 15,
@@ -2564,6 +3737,9 @@ EnchantIDs = {
 	},
 	[3826] = {
 		itemID = { 38986 },
+		name = {
+			feet = "Enchant Boots - Icewalker",
+		},
 		spellID = { 60623 },
 		stats = {
 			["critical strike rating"] = 12,
@@ -2572,6 +3748,9 @@ EnchantIDs = {
 	},
 	[3827] = {
 		itemID = { 44463 },
+		name = {
+			["two-hand"] = "Enchant 2H Weapon - Massacre",
+		},
 		spellID = { 60691 },
 		stats = {
 			["attack power"] = 110,
@@ -2579,6 +3758,9 @@ EnchantIDs = {
 	},
 	[3828] = {
 		itemID = { 38992 },
+		name = {
+			["two-hand"] = "Enchant 2H Weapon - Greater Savagery",
+		},
 		spellID = { 44630 },
 		stats = {
 			["attack power"] = 85,
@@ -2586,6 +3768,9 @@ EnchantIDs = {
 	},
 	[3829] = {
 		itemID = { 38964 },
+		name = {
+			hands = "Enchant Gloves - Greater Assault",
+		},
 		spellID = { 44513 },
 		stats = {
 			["attack power"] = 35,
@@ -2593,6 +3778,9 @@ EnchantIDs = {
 	},
 	[3830] = {
 		itemID = { 38991 },
+		name = {
+			weapon = "Enchant Weapon - Exceptional Spellpower",
+		},
 		spellID = { 44629 },
 		stats = {
 			["spell power"] = 50,
@@ -2600,6 +3788,9 @@ EnchantIDs = {
 	},
 	[3831] = {
 		itemID = { 39003 },
+		name = {
+			back = "Enchant Cloak - Greater Speed",
+		},
 		spellID = { 47898 },
 		stats = {
 			["haste rating"] = 23,
@@ -2607,6 +3798,9 @@ EnchantIDs = {
 	},
 	[3832] = {
 		itemID = { 44465 },
+		name = {
+			chest = "Enchant Chest - Powerful Stats",
+		},
 		spellID = { 60692 },
 		stats = {
 			["all stats"] = 10,
@@ -2614,6 +3808,9 @@ EnchantIDs = {
 	},
 	[3833] = {
 		itemID = { 44466 },
+		name = {
+			weapon = "Enchant Weapon - Superior Potency",
+		},
 		spellID = { 60707 },
 		stats = {
 			["attack power"] = 65,
@@ -2621,12 +3818,18 @@ EnchantIDs = {
 	},
 	[3834] = {
 		itemID = { 44467 },
+		name = {
+			weapon = "Enchant Weapon - Mighty Spellpower",
+		},
 		spellID = { 60714 },
 		stats = {
 			["spell power"] = 63,
 		},
 	},
 	[3835] = {
+		name = {
+			shoulder = "Master's Inscription of the Axe",
+		},
 		spellID = { 61117 },
 		stats = {
 			["attack power"] = 120,
@@ -2634,6 +3837,9 @@ EnchantIDs = {
 		},
 	},
 	[3836] = {
+		name = {
+			shoulder = "Master's Inscription of the Crag",
+		},
 		spellID = { 61118 },
 		stats = {
 			intellect = 60,
@@ -2641,6 +3847,9 @@ EnchantIDs = {
 		},
 	},
 	[3837] = {
+		name = {
+			shoulder = "Master's Inscription of the Pinnacle",
+		},
 		spellID = { 61119 },
 		stats = {
 			["dodge rating"] = 60,
@@ -2648,6 +3857,9 @@ EnchantIDs = {
 		},
 	},
 	[3838] = {
+		name = {
+			shoulder = "Master's Inscription of the Storm",
+		},
 		spellID = { 61120 },
 		stats = {
 			["critical strike rating"] = 15,
@@ -2655,12 +3867,18 @@ EnchantIDs = {
 		},
 	},
 	[3839] = {
+		name = {
+			finger = "Enchant Ring - Assault",
+		},
 		spellID = { 44645 },
 		stats = {
 			["attack power"] = 40,
 		},
 	},
 	[3840] = {
+		name = {
+			finger = "Enchant Ring - Greater Spellpower",
+		},
 		spellID = { 44636 },
 		stats = {
 			["spell power"] = 23,
@@ -2668,6 +3886,9 @@ EnchantIDs = {
 	},
 	[3842] = {
 		itemID = { 44701, 44702, 50372, 50373 },
+		name = {
+			head = "Arcanum of the Savage Gladiator",
+		},
 		stats = {
 			["resilience rating"] = 25,
 			stamina = 30,
@@ -2675,6 +3896,9 @@ EnchantIDs = {
 	},
 	[3843] = {
 		itemID = { 44739 },
+		name = {
+			ranged = "Diamond-Cut Refractor Scope",
+		},
 		stats = {
 			["average ranged weapon damage"] = 15,
 			["maximum ranged weapon damage"] = 15,
@@ -2682,6 +3906,9 @@ EnchantIDs = {
 	},
 	[3844] = {
 		itemID = { 38963 },
+		name = {
+			weapon = "Enchant Weapon - Exceptional Spirit",
+		},
 		spellID = { 44510 },
 		stats = {
 			spirit = 45,
@@ -2689,6 +3916,9 @@ EnchantIDs = {
 	},
 	[3845] = {
 		itemID = { 44815 },
+		name = {
+			wrist = "Enchant Bracers - Greater Assault",
+		},
 		spellID = { 44575 },
 		stats = {
 			["attack power"] = 50,
@@ -2696,12 +3926,18 @@ EnchantIDs = {
 	},
 	[3846] = {
 		itemID = { 38946 },
+		name = {
+			weapon = "Enchant Weapon - Major Healing",
+		},
 		spellID = { 34010 },
 		stats = {
 			["spell power"] = 40,
 		},
 	},
 	[3847] = {
+		name = {
+			["two-hand"] = "Rune of the Stoneskin Gargoyle",
+		},
 		spellID = { 62158 },
 		stats = {
 			["armor (percent)"] = 4,
@@ -2710,6 +3946,9 @@ EnchantIDs = {
 	},
 	[3849] = {
 		itemID = { 44936 },
+		name = {
+			["off hand"] = "Titanium Plating",
+		},
 		stats = {
 			["disarm duration reduction (percent)"] = 60,
 			["parry rating"] = 26,
@@ -2717,6 +3956,9 @@ EnchantIDs = {
 	},
 	[3850] = {
 		itemID = { 44947 },
+		name = {
+			wrist = "Enchant Bracer - Major Stamina",
+		},
 		spellID = { 62256 },
 		stats = {
 			stamina = 40,
@@ -2724,6 +3966,9 @@ EnchantIDs = {
 	},
 	[3852] = {
 		itemID = { 44957 },
+		name = {
+			shoulder = "Greater Inscription of the Gladiator",
+		},
 		stats = {
 			["resilience rating"] = 15,
 			stamina = 30,
@@ -2731,6 +3976,9 @@ EnchantIDs = {
 	},
 	[3853] = {
 		itemID = { 44963 },
+		name = {
+			legs = "Earthen Leg Armor",
+		},
 		stats = {
 			["resilience rating"] = 40,
 			stamina = 28,
@@ -2738,6 +3986,9 @@ EnchantIDs = {
 	},
 	[3854] = {
 		itemID = { 45056 },
+		name = {
+			["two-hand"] = "Enchant Staff - Greater Spellpower",
+		},
 		spellID = { 62948 },
 		stats = {
 			["spell power"] = 81,
@@ -2745,6 +3996,9 @@ EnchantIDs = {
 	},
 	[3855] = {
 		itemID = { 45060 },
+		name = {
+			["two-hand"] = "Enchant Staff - Spellpower",
+		},
 		spellID = { 62959 },
 		stats = {
 			["spell power"] = 69,
@@ -2752,19 +4006,19 @@ EnchantIDs = {
 	},
 	[3858] = {
 		itemID = { 45628 },
+		name = {
+			feet = "Enchant Boots - Lesser Accuracy",
+		},
 		spellID = { 63746 },
 		stats = {
 			["hit rating"] = 5,
 		},
 	},
--- 	[3860] = {
--- 		spellID = { 63770 },
--- 		stats = {
--- 			armor = 885,
--- 		},
--- 	},
 	[3869] = {
 		itemID = { 46026 },
+		name = {
+			weapon = "Enchant Weapon - Blade Ward",
+		},
 		spellID = { 64441 },
 		stats = {
 			["blade ward"] = 1,
@@ -2772,12 +4026,18 @@ EnchantIDs = {
 	},
 	[3870] = {
 		itemID = { 46098 },
+		name = {
+			weapon = "Enchant Weapon - Blood Draining",
+		},
 		spellID = { 64579 },
 		stats = {
 			["blood draining"] = 1,
 		},
 	},
 	[3872] = {
+		name = {
+			legs = "Sanctified Spellthread",
+		},
 		spellID = { 56039 },
 		stats = {
 			["spell power"] = 50,
@@ -2785,6 +4045,9 @@ EnchantIDs = {
 		},
 	},
 	[3873] = {
+		name = {
+			legs = "Master's Spellthread",
+		},
 		spellID = { 56034 },
 		stats = {
 			["spell power"] = 50,
@@ -2793,6 +4056,9 @@ EnchantIDs = {
 	},
 	[3875] = {
 		itemID = { 44131 },
+		name = {
+			shoulder = "Lesser Inscription of the Axe",
+		},
 		stats = {
 			["attack power"] = 30,
 			["critical strike rating"] = 10,
@@ -2800,12 +4066,18 @@ EnchantIDs = {
 	},
 	[3876] = {
 		itemID = { 44132 },
+		name = {
+			shoulder = "Lesser Inscription of the Pinnacle",
+		},
 		stats = {
 			["dodge rating"] = 15,
 			["parry rating"] = 10,
 		},
 	},
 	[3883] = {
+		name = {
+			["one-hand"] = "Rune of the Nerubian Carapace",
+		},
 		spellID = { 70164 },
 		stats = {
 			["armor (percent)"] = 2,
@@ -2814,6 +4086,9 @@ EnchantIDs = {
 	},
 	[4061] = {
 		itemID = { 52687 },
+		name = {
+			hands = "Enchant Gloves - Mastery",
+		},
 		spellID = { 74132 },
 		stats = {
 			["mastery rating"] = 50,
@@ -2821,6 +4096,9 @@ EnchantIDs = {
 	},
 	[4062] = {
 		itemID = { 52743 },
+		name = {
+			feet = "Enchant Boots - Earthen Vitality",
+		},
 		spellID = { 74189 },
 		stats = {
 			["minor run speed"] = 1,
@@ -2829,6 +4107,9 @@ EnchantIDs = {
 	},
 	[4063] = {
 		itemID = { 52744 },
+		name = {
+			chest = "Enchant Chest - Mighty Stats",
+		},
 		spellID = { 74191 },
 		stats = {
 			["all stats"] = 15,
@@ -2836,6 +4117,9 @@ EnchantIDs = {
 	},
 	[4064] = {
 		itemID = { 52745 },
+		name = {
+			back = "Enchant Cloak - Greater Spell Piercing",
+		},
 		spellID = { 74192 },
 		stats = {
 			["spell penetration"] = 70,
@@ -2843,6 +4127,9 @@ EnchantIDs = {
 	},
 	[4065] = {
 		itemID = { 52746 },
+		name = {
+			wrist = "Enchant Bracer - Speed",
+		},
 		spellID = { 74193 },
 		stats = {
 			["haste rating"] = 50,
@@ -2850,6 +4137,9 @@ EnchantIDs = {
 	},
 	[4066] = {
 		itemID = { 52747 },
+		name = {
+			weapon = "Enchant Weapon - Mending",
+		},
 		spellID = { 74195 },
 		stats = {
 			["sometimes heal you when you deal damage"] = 1,
@@ -2857,6 +4147,9 @@ EnchantIDs = {
 	},
 	[4067] = {
 		itemID = { 52748 },
+		name = {
+			weapon = "Enchant Weapon - Avalanche",
+		},
 		spellID = { 74197 },
 		stats = {
 			avalanche = 1,
@@ -2864,6 +4157,9 @@ EnchantIDs = {
 	},
 	[4068] = {
 		itemID = { 52749 },
+		name = {
+			hands = "Enchant Gloves - Haste",
+		},
 		spellID = { 74198 },
 		stats = {
 			["haste rating"] = 50,
@@ -2871,6 +4167,9 @@ EnchantIDs = {
 	},
 	[4069] = {
 		itemID = { 52750 },
+		name = {
+			feet = "Enchant Boots - Haste",
+		},
 		spellID = { 74199 },
 		stats = {
 			["haste rating"] = 50,
@@ -2878,6 +4177,9 @@ EnchantIDs = {
 	},
 	[4070] = {
 		itemID = { 52751 },
+		name = {
+			chest = "Enchant Chest - Stamina",
+		},
 		spellID = { 74200 },
 		stats = {
 			stamina = 55,
@@ -2885,6 +4187,9 @@ EnchantIDs = {
 	},
 	[4071] = {
 		itemID = { 52752 },
+		name = {
+			wrist = "Enchant Bracer - Critical Strike",
+		},
 		spellID = { 74201 },
 		stats = {
 			["critical strike rating"] = 50,
@@ -2892,6 +4197,9 @@ EnchantIDs = {
 	},
 	[4072] = {
 		itemID = { 52753 },
+		name = {
+			back = "Enchant Cloak - Intellect",
+		},
 		spellID = { 74202 },
 		stats = {
 			intellect = 30,
@@ -2899,6 +4207,9 @@ EnchantIDs = {
 	},
 	[4073] = {
 		itemID = { 52754 },
+		name = {
+			["off hand"] = "Enchant Shield - Protection",
+		},
 		spellID = { 74207 },
 		stats = {
 			armor = 160,
@@ -2906,6 +4217,9 @@ EnchantIDs = {
 	},
 	[4074] = {
 		itemID = { 52755 },
+		name = {
+			weapon = "Enchant Weapon - Elemental Slayer",
+		},
 		spellID = { 74211 },
 		stats = {
 			["Elemental Slayer"] = 1,
@@ -2913,6 +4227,9 @@ EnchantIDs = {
 	},
 	[4075] = {
 		itemID = { 52756 },
+		name = {
+			hands = "Enchant Gloves - Exceptional Strength",
+		},
 		spellID = { 74212 },
 		stats = {
 			strength = 35,
@@ -2920,6 +4237,9 @@ EnchantIDs = {
 	},
 	[4076] = {
 		itemID = { 52757 },
+		name = {
+			feet = "Enchant Boots - Major Agility",
+		},
 		spellID = { 74213 },
 		stats = {
 			agility = 35,
@@ -2927,30 +4247,45 @@ EnchantIDs = {
 	},
 	[4077] = {
 		itemID = { 52758 },
+		name = {
+			chest = "Enchant Chest - Mighty Resilience",
+		},
 		spellID = { 74214 },
 		stats = {
 			["resilience rating"] = 40,
 		},
 	},
 	[4078] = {
+		name = {
+			finger = "Enchant Ring - Strength",
+		},
 		spellID = { 74215 },
 		stats = {
 			strength = 40,
 		},
 	},
 	[4079] = {
+		name = {
+			finger = "Enchant Ring - Agility",
+		},
 		spellID = { 74216 },
 		stats = {
 			agility = 40,
 		},
 	},
 	[4080] = {
+		name = {
+			finger = "Enchant Ring - Intellect",
+		},
 		spellID = { 74217 },
 		stats = {
 			intellect = 40,
 		},
 	},
 	[4081] = {
+		name = {
+			finger = "Enchant Ring - Greater Stamina",
+		},
 		spellID = { 74218 },
 		stats = {
 			stamina = 60,
@@ -2958,6 +4293,9 @@ EnchantIDs = {
 	},
 	[4082] = {
 		itemID = { 52759 },
+		name = {
+			hands = "Enchant Gloves - Greater Expertise",
+		},
 		spellID = { 74220 },
 		stats = {
 			["expertise rating"] = 50,
@@ -2965,6 +4303,9 @@ EnchantIDs = {
 	},
 	[4083] = {
 		itemID = { 52760 },
+		name = {
+			weapon = "Enchant Weapon - Hurricane",
+		},
 		spellID = { 74223 },
 		stats = {
 			hurricane = 1,
@@ -2972,6 +4313,9 @@ EnchantIDs = {
 	},
 	[4084] = {
 		itemID = { 52761 },
+		name = {
+			weapon = "Enchant Weapon - Heartsong",
+		},
 		spellID = { 74225 },
 		stats = {
 			heartsong = 1,
@@ -2979,6 +4323,9 @@ EnchantIDs = {
 	},
 	[4085] = {
 		itemID = { 52762 },
+		name = {
+			["off hand"] = "Enchant Shield - Mastery",
+		},
 		spellID = { 74226 },
 		stats = {
 			["mastery rating"] = 50,
@@ -2986,6 +4333,9 @@ EnchantIDs = {
 	},
 	[4086] = {
 		itemID = { 52763 },
+		name = {
+			wrist = "Enchant Bracer - Dodge",
+		},
 		spellID = { 74229 },
 		stats = {
 			["dodge rating"] = 50,
@@ -2993,6 +4343,9 @@ EnchantIDs = {
 	},
 	[4087] = {
 		itemID = { 52764 },
+		name = {
+			back = "Enchant Cloak - Critical Strike",
+		},
 		spellID = { 74230 },
 		stats = {
 			["critical strike rating"] = 50,
@@ -3000,6 +4353,9 @@ EnchantIDs = {
 	},
 	[4088] = {
 		itemID = { 52765 },
+		name = {
+			chest = "Enchant Chest - Exceptional Spirit",
+		},
 		spellID = { 74231 },
 		stats = {
 			spirit = 40,
@@ -3007,6 +4363,9 @@ EnchantIDs = {
 	},
 	[4089] = {
 		itemID = { 52766 },
+		name = {
+			wrist = "Enchant Bracer - Precision",
+		},
 		spellID = { 74232 },
 		stats = {
 			["hit rating"] = 50,
@@ -3014,6 +4373,9 @@ EnchantIDs = {
 	},
 	[4090] = {
 		itemID = { 52767 },
+		name = {
+			back = "Enchant Cloak - Protection",
+		},
 		spellID = { 74234 },
 		stats = {
 			armor = 250,
@@ -3021,6 +4383,10 @@ EnchantIDs = {
 	},
 	[4091] = {
 		itemID = { 52768 },
+		name = {
+			["held in off-hand"] = "Enchant Off-Hand - Superior Intellect",
+			["off hand"] = "Enchant Off-Hand - Superior Intellect",
+		},
 		spellID = { 74235 },
 		stats = {
 			intellect = 40,
@@ -3028,6 +4394,9 @@ EnchantIDs = {
 	},
 	[4092] = {
 		itemID = { 52769 },
+		name = {
+			feet = "Enchant Boots - Precision",
+		},
 		spellID = { 74236 },
 		stats = {
 			["hit rating"] = 50,
@@ -3035,6 +4404,9 @@ EnchantIDs = {
 	},
 	[4093] = {
 		itemID = { 52770 },
+		name = {
+			wrist = "Enchant Bracer - Exceptional Spirit",
+		},
 		spellID = { 74237 },
 		stats = {
 			spirit = 50,
@@ -3042,6 +4414,9 @@ EnchantIDs = {
 	},
 	[4094] = {
 		itemID = { 52771 },
+		name = {
+			feet = "Enchant Boots - Mastery",
+		},
 		spellID = { 74238 },
 		stats = {
 			["mastery rating"] = 50,
@@ -3049,6 +4424,9 @@ EnchantIDs = {
 	},
 	[4095] = {
 		itemID = { 52772 },
+		name = {
+			wrist = "Enchant Bracer - Greater Expertise",
+		},
 		spellID = { 74239 },
 		stats = {
 			["expertise rating"] = 50,
@@ -3056,6 +4434,9 @@ EnchantIDs = {
 	},
 	[4096] = {
 		itemID = { 52773 },
+		name = {
+			back = "Enchant Cloak - Greater Intellect",
+		},
 		spellID = { 74240 },
 		stats = {
 			intellect = 50,
@@ -3063,6 +4444,9 @@ EnchantIDs = {
 	},
 	[4097] = {
 		itemID = { 52774 },
+		name = {
+			weapon = "Enchant Weapon - Power Torrent",
+		},
 		spellID = { 74242 },
 		stats = {
 			["Power Torrent"] = 1,
@@ -3070,6 +4454,9 @@ EnchantIDs = {
 	},
 	[4098] = {
 		itemID = { 52775 },
+		name = {
+			weapon = "Enchant Weapon - Windwalk",
+		},
 		spellID = { 74244 },
 		stats = {
 			windwalk = 1,
@@ -3077,6 +4464,9 @@ EnchantIDs = {
 	},
 	[4099] = {
 		itemID = { 52776 },
+		name = {
+			weapon = "Enchant Weapon - Landslide",
+		},
 		spellID = { 74246 },
 		stats = {
 			landslide = 1,
@@ -3084,6 +4474,9 @@ EnchantIDs = {
 	},
 	[4100] = {
 		itemID = { 52777 },
+		name = {
+			back = "Enchant Cloak - Greater Critical Strike",
+		},
 		spellID = { 74247 },
 		stats = {
 			["critical strike rating"] = 65,
@@ -3091,6 +4484,9 @@ EnchantIDs = {
 	},
 	[4101] = {
 		itemID = { 52778 },
+		name = {
+			wrist = "Enchant Bracer - Greater Critical Strike",
+		},
 		spellID = { 74248 },
 		stats = {
 			["critical strike rating"] = 65,
@@ -3098,6 +4494,9 @@ EnchantIDs = {
 	},
 	[4102] = {
 		itemID = { 52779 },
+		name = {
+			chest = "Enchant Chest - Peerless Stats",
+		},
 		spellID = { 74250 },
 		stats = {
 			["all stats"] = 20,
@@ -3105,6 +4504,9 @@ EnchantIDs = {
 	},
 	[4103] = {
 		itemID = { 52780 },
+		name = {
+			chest = "Enchant Chest - Greater Stamina",
+		},
 		spellID = { 74251 },
 		stats = {
 			stamina = 75,
@@ -3112,6 +4514,9 @@ EnchantIDs = {
 	},
 	[4104] = {
 		itemID = { 52782 },
+		name = {
+			feet = "Enchant Boots - Lavawalker",
+		},
 		spellID = { 74253 },
 		stats = {
 			["mastery rating"] = 35,
@@ -3120,6 +4525,9 @@ EnchantIDs = {
 	},
 	[4105] = {
 		itemID = { 52781 },
+		name = {
+			feet = "Enchant Boots - Assassin's Step",
+		},
 		spellID = { 74252 },
 		stats = {
 			agility = 25,
@@ -3128,6 +4536,9 @@ EnchantIDs = {
 	},
 	[4106] = {
 		itemID = { 52783 },
+		name = {
+			hands = "Enchant Gloves - Mighty Strength",
+		},
 		spellID = { 74254 },
 		stats = {
 			strength = 50,
@@ -3135,6 +4546,9 @@ EnchantIDs = {
 	},
 	[4107] = {
 		itemID = { 52784 },
+		name = {
+			hands = "Enchant Gloves - Greater Mastery",
+		},
 		spellID = { 74255 },
 		stats = {
 			["mastery rating"] = 65,
@@ -3142,6 +4556,9 @@ EnchantIDs = {
 	},
 	[4108] = {
 		itemID = { 52785 },
+		name = {
+			wrist = "Enchant Bracer - Greater Speed",
+		},
 		spellID = { 74256 },
 		stats = {
 			["haste rating"] = 65,
@@ -3149,6 +4566,9 @@ EnchantIDs = {
 	},
 	[4109] = {
 		itemID = { 54449 },
+		name = {
+			legs = "Ghostly Spellthread",
+		},
 		stats = {
 			intellect = 55,
 			spirit = 45,
@@ -3156,6 +4576,9 @@ EnchantIDs = {
 	},
 	[4110] = {
 		itemID = { 54450 },
+		name = {
+			legs = "Powerful Ghostly Spellthread",
+		},
 		stats = {
 			intellect = 95,
 			spirit = 55,
@@ -3163,6 +4586,9 @@ EnchantIDs = {
 	},
 	[4111] = {
 		itemID = { 54447 },
+		name = {
+			legs = "Enchanted Spellthread",
+		},
 		stats = {
 			intellect = 55,
 			stamina = 65,
@@ -3170,12 +4596,18 @@ EnchantIDs = {
 	},
 	[4112] = {
 		itemID = { 54448 },
+		name = {
+			legs = "Powerful Enchanted Spellthread",
+		},
 		stats = {
 			intellect = 95,
 			stamina = 80,
 		},
 	},
 	[4113] = {
+		name = {
+			legs = "Master's Spellthread",
+		},
 		spellID = { 75154 },
 		stats = {
 			intellect = 95,
@@ -3183,6 +4615,9 @@ EnchantIDs = {
 		},
 	},
 	[4114] = {
+		name = {
+			legs = "Sanctified Spellthread",
+		},
 		spellID = { 75155 },
 		stats = {
 			intellect = 95,
@@ -3190,6 +4625,9 @@ EnchantIDs = {
 		},
 	},
 	[4115] = {
+		name = {
+			back = "Lightweave Embroidery",
+		},
 		spellID = { 75172 },
 		stats = {
 			-- TODO: properly handle this when procs are handled
@@ -3197,6 +4635,9 @@ EnchantIDs = {
 		},
 	},
 	[4116] = {
+		name = {
+			back = "Darkglow Ebroidery",
+		},
 		spellID = { 75175 },
 		stats = {
 			-- TODO: properly handle this when procs are handled
@@ -3204,6 +4645,9 @@ EnchantIDs = {
 		},
 	},
 	[4118] = {
+		name = {
+			back = "Swordguard Embroidery",
+		},
 		spellID = { 75178 },
 		stats = {
 			-- TODO: properly handle this when procs are handled
@@ -3212,18 +4656,37 @@ EnchantIDs = {
 	},
 	[4120] = {
 		itemID = { 56477 },
+		name = {
+			chest = "Savage Armor Kit",
+			feet = "Savage Armor Kit",
+			hands = "Savage Armor Kit",
+			head = "Savage Armor Kit",
+			legs = "Savage Armor Kit",
+			shoulder = "Savage Armor Kit",
+		},
 		stats = {
 			stamina = 36,
 		},
 	},
 	[4121] = {
 		itemID = { 56517 },
+		name = {
+			chest = "Heavy Savage Armor Kit",
+			feet = "Heavy Savage Armor Kit",
+			hands = "Heavy Savage Armor Kit",
+			head = "Heavy Savage Armor Kit",
+			legs = "Heavy Savage Armor Kit",
+			shoulder = "Heavy Savage Armor Kit",
+		},
 		stats = {
 			stamina = 44,
 		},
 	},
 	[4122] = {
 		itemID = { 56502 },
+		name = {
+			legs = "Scorched Leg Armor",
+		},
 		stats = {
 			["attack power"] = 110,
 			["critical strike rating"] = 45,
@@ -3231,6 +4694,9 @@ EnchantIDs = {
 	},
 	[4124] = {
 		itemID = { 56503 },
+		name = {
+			legs = "Twilight Leg Armor",
+		},
 		stats = {
 			agility = 45,
 			stamina = 85,
@@ -3238,6 +4704,9 @@ EnchantIDs = {
 	},
 	[4126] = {
 		itemID = { 56550 },
+		name = {
+			legs = { "Dragonbone Leg Reinforcements", "Dragonscale Leg Armor" },
+		},
 		spellID = { 85067 },
 		stats = {
 			["attack power"] = 190,
@@ -3246,6 +4715,9 @@ EnchantIDs = {
 	},
 	[4127] = {
 		itemID = { 56551 },
+		name = {
+			legs = { "Charscale Leg Armor", "Charscale Leg Reinforcements" },
+		},
 		spellID = { 85068 },
 		stats = {
 			agility = 55,
@@ -3254,89 +4726,71 @@ EnchantIDs = {
 	},
 	[4175] = {
 		itemID = { 59594 },
+		name = {
+			ranged = "Gnomish X-Ray Scope",
+		},
 		stats = {
 			["gnomish x-ray scope"] = 1,
 		},
 	},
 	[4176] = {
 		itemID = { 59595 },
+		name = {
+			ranged = "R19 Threatfinder",
+		},
 		stats = {
 			["ranged hit rating"] = 88,
 		},
 	},
 	[4177] = {
 		itemID = { 59596 },
+		name = {
+			ranged = "Safety Catch Removal Kit",
+		},
 		stats = {
 			["ranged haste rating"] = 88,
 		},
 	},
--- 	[4179] = {
--- 		spellID = { 82175 },
--- 		stats = {
--- 			["synapse springs"] = 1,
--- 		},
--- 	},
--- 	[4180] = {
--- 		spellID = { 82177 },
--- 		stats = {
--- 			["quickflip deflection plates"] = 1,
--- 		},
--- 	},
--- 	[4181] = {
--- 		spellID = { 82180 },
--- 		stats = {
--- 			["tazik shocker"] = 1,
--- 		},
--- 	},
--- 	[4182] = {
--- 		spellID = { 82200 },
--- 		stats = {
--- 			["spinal healing injector"] = 1,
--- 		},
--- 	},
--- 	[4183] = {
--- 		spellID = { 82201 },
--- 		stats = {
--- 			["z50 mana gulper"] = 1,
--- 		},
--- 	},
--- 	[4187] = {
--- 		spellID = { 84424 },
--- 		stats = {
--- 			["invisibility field"] = 1,
--- 		},
--- 	},
--- 	[4188] = {
--- 		spellID = { 84427 },
--- 		stats = {
--- 			["grounded plasma shield"] = 1,
--- 		},
--- 	},
 	[4189] = {
+		name = {
+			wrist = "Draconic Embossment - Stamina",
+		},
 		spellID = { 85007 },
 		stats = {
 			stamina = 195,
 		},
 	},
 	[4190] = {
+		name = {
+			wrist = "Draconic Embossment - Agility",
+		},
 		spellID = { 85008 },
 		stats = {
 			agility = 130,
 		},
 	},
 	[4191] = {
+		name = {
+			wrist = "Draconic Embossment - Strength",
+		},
 		spellID = { 85009 },
 		stats = {
 			strength = 130,
 		},
 	},
 	[4192] = {
+		name = {
+			wrist = "Draconic Embossment - Intellect",
+		},
 		spellID = { 85010 },
 		stats = {
 			intellect = 130,
 		},
 	},
 	[4193] = {
+		name = {
+			shoulder = "Swiftsteel Inscription",
+		},
 		spellID = { 86375 },
 		stats = {
 			agility = 130,
@@ -3344,6 +4798,9 @@ EnchantIDs = {
 		},
 	},
 	[4194] = {
+		name = {
+			shoulder = "Lionsmane Inscription",
+		},
 		spellID = { 86401 },
 		stats = {
 			["critical strike rating"] = 25,
@@ -3351,6 +4808,9 @@ EnchantIDs = {
 		},
 	},
 	[4195] = {
+		name = {
+			shoulder = "Inscription of the Earth Prince",
+		},
 		spellID = { 86402 },
 		stats = {
 			["dodge rating"] = 25,
@@ -3358,6 +4818,9 @@ EnchantIDs = {
 		},
 	},
 	[4196] = {
+		name = {
+			shoulder = "Felfire Inscription",
+		},
 		spellID = { 86403 },
 		stats = {
 			["haste rating"] = 25,
@@ -3366,6 +4829,9 @@ EnchantIDs = {
 	},
 	[4197] = {
 		itemID = { 62321 },
+		name = {
+			shoulder = "Lesser Inscription of Unbreakable Quartz",
+		},
 		stats = {
 			["dodge rating"] = 20,
 			stamina = 45,
@@ -3373,6 +4839,9 @@ EnchantIDs = {
 	},
 	[4198] = {
 		itemID = { 62333 },
+		name = {
+			shoulder = "Greater Inscription of Unbreakable Quartz",
+		},
 		stats = {
 			["dodge rating"] = 25,
 			stamina = 75,
@@ -3380,6 +4849,9 @@ EnchantIDs = {
 	},
 	[4199] = {
 		itemID = { 62342 },
+		name = {
+			shoulder = "Lesser Inscription of Charged Lodestone",
+		},
 		stats = {
 			["haste rating"] = 20,
 			intellect = 30,
@@ -3387,6 +4859,9 @@ EnchantIDs = {
 	},
 	[4200] = {
 		itemID = { 62343 },
+		name = {
+			shoulder = "Greater Inscription of Charged Lodestone",
+		},
 		stats = {
 			["haste rating"] = 25,
 			intellect = 50,
@@ -3394,6 +4869,9 @@ EnchantIDs = {
 	},
 	[4201] = {
 		itemID = { 62344 },
+		name = {
+			shoulder = "Lesser Inscription of Jagged Stone",
+		},
 		stats = {
 			["critical strike rating"] = 20,
 			strength = 30,
@@ -3401,6 +4879,9 @@ EnchantIDs = {
 	},
 	[4202] = {
 		itemID = { 62345 },
+		name = {
+			shoulder = "Greater Inscription of Jagged Stone",
+		},
 		stats = {
 			["critical strike rating"] = 25,
 			strength = 50,
@@ -3408,6 +4889,9 @@ EnchantIDs = {
 	},
 	[4204] = {
 		itemID = { 62346 },
+		name = {
+			shoulder = "Greater Inscription of Shattered Crystal",
+		},
 		stats = {
 			agility = 50,
 			["mastery rating"] = 25,
@@ -3415,6 +4899,9 @@ EnchantIDs = {
 	},
 	[4205] = {
 		itemID = { 62347 },
+		name = {
+			shoulder = "Lesser Inscription of Shattered Crystal",
+		},
 		stats = {
 			agility = 30,
 			["mastery rating"] = 20,
@@ -3422,6 +4909,9 @@ EnchantIDs = {
 	},
 	[4206] = {
 		itemID = { 62366 },
+		name = {
+			head = "Arcanum of the Earthen Ring",
+		},
 		stats = {
 			["dodge rating"] = 35,
 			stamina = 90,
@@ -3429,6 +4919,9 @@ EnchantIDs = {
 	},
 	[4207] = {
 		itemID = { 62367 },
+		name = {
+			head = "Arcanum of Hyjal",
+		},
 		stats = {
 			["critical strike rating"] = 35,
 			intellect = 60,
@@ -3436,6 +4929,9 @@ EnchantIDs = {
 	},
 	[4208] = {
 		itemID = { 62368, 62422 },
+		name = {
+			head = { "Arcanum of the Dragonmaw", "Arcanum of the Wildhammer" },
+		},
 		stats = {
 			["mastery rating"] = 35,
 			strength = 60,
@@ -3443,51 +4939,48 @@ EnchantIDs = {
 	},
 	[4209] = {
 		itemID = { 62369 },
+		name = {
+			head = "Arcanum of the Ramkahen",
+		},
 		stats = {
 			agility = 60,
 			["haste rating"] = 35,
 		},
 	},
--- 	[4214] = {
--- 		spellID = { 84425 },
--- 		stats = {
--- 			["cardboard assassin"] = 1,
--- 		},
--- 	},
 	[4215] = {
 		itemID = { 55055 },
+		name = {
+			["off hand"] = "Elementium Shield Spike",
+		},
 		stats = {
 			["elementium shield spike"] = 1,
 		},
 	},
 	[4216] = {
 		itemID = { 55056 },
+		name = {
+			["off hand"] = "Pyrium Shield Spike",
+		},
 		stats = {
 			["pyrium shield spike"] = 1,
 		},
 	},
 	[4217] = {
 		itemID = { 55057 },
+		name = {
+			weapon = "Pyrium Weapon Chain",
+		},
 		stacks = false,
 		stats = {
 			["disarm duration reduction (percent)"] = 60,
 			["hit rating"] = 40,
 		},
 	},
--- 	[4222] = {
--- 		spellID = { 67839 },
--- 		stats = {
--- 			["mind amplification dish"] = 1,
--- 		},
--- 	},
--- 	[4223] = {
--- 		spellID = { 55016 },
--- 		stats = {
--- 			["nitro boosts"] = 1,
--- 		},
--- 	},
 	[4227] = {
 		itemID = { 68134 },
+		name = {
+			["two-hand"] = "Enchant 2H Weapon - Mighty Agility",
+		},
 		spellID = { 95471 },
 		stats = {
 			agility = 130,
@@ -3495,6 +4988,9 @@ EnchantIDs = {
 	},
 	[4245] = {
 		itemID = { 68770 },
+		name = {
+			head = "Arcanum of Vicious Intellect",
+		},
 		stats = {
 			intellect = 60,
 			["resilience rating"] = 35,
@@ -3502,6 +4998,9 @@ EnchantIDs = {
 	},
 	[4246] = {
 		itemID = { 68769 },
+		name = {
+			head = "Arcanum of Vicious Agility",
+		},
 		stats = {
 			agility = 60,
 			["resilience rating"] = 35,
@@ -3509,6 +5008,9 @@ EnchantIDs = {
 	},
 	[4247] = {
 		itemID = { 68768 },
+		name = {
+			head = "Arcanum of Vicious Strength",
+		},
 		stats = {
 			["resilience rating"] = 35,
 			strength = 60,
@@ -3516,6 +5018,9 @@ EnchantIDs = {
 	},
 	[4248] = {
 		itemID = { 68772 },
+		name = {
+			shoulder = "Greater Inscription of Vicious Intellect",
+		},
 		stats = {
 			intellect = 50,
 			["resilience rating"] = 25,
@@ -3523,6 +5028,9 @@ EnchantIDs = {
 	},
 	[4249] = {
 		itemID = { 68773 },
+		name = {
+			shoulder = "Greater Inscription of Vicious Strength",
+		},
 		stats = {
 			["resilience rating"] = 25,
 			strength = 50,
@@ -3530,24 +5038,36 @@ EnchantIDs = {
 	},
 	[4250] = {
 		itemID = { 68774 },
+		name = {
+			shoulder = "Greater Inscription of Vicious Agility",
+		},
 		stats = {
 			agility = 50,
 			["resilience rating"] = 25,
 		},
 	},
 	[4256] = {
+		name = {
+			wrist = "Enchant Bracer - Major Strength",
+		},
 		spellID = { 96261 },
 		stats = {
 			strength = 50,
 		},
 	},
 	[4257] = {
+		name = {
+			wrist = "Enchant Bracer - Mighty Intellect",
+		},
 		spellID = { 96262 },
 		stats = {
 			intellect = 50,
 		},
 	},
 	[4258] = {
+		name = {
+			wrist = "Enchant Bracer - Agility",
+		},
 		spellID = { 96264 },
 		stats = {
 			agility = 50,
@@ -3555,6 +5075,9 @@ EnchantIDs = {
 	},
 	[4259] = {
 		itemID = { 68796 },
+		name = {
+			["two-hand"] = "Reinforced Fishing Line",
+		},
 		stats = {
 			fishing = 1,
 		},
