@@ -960,7 +960,7 @@ end
 function WeightsWatcher.calculateWeight(bareItemStats, itemStats, weightsScale)
 	local weight = 0
 
-	for stat, value in pairs(bareItemStats.normalStats) do
+	for stat, value in pairs(bareItemStats.normalStats or {}) do
 		weight = weight + WeightsWatcher.getWeight(ww_englishStats[stat], value, weightsScale)
 	end
 	if itemStats.socketBonusActive and bareItemStats.socketBonusStat then
@@ -968,7 +968,7 @@ function WeightsWatcher.calculateWeight(bareItemStats, itemStats, weightsScale)
 			weight = weight + WeightsWatcher.getWeight(stat, value, weightsScale)
 		end
 	end
-	for _, gems in pairs(itemStats.gemStats) do
+	for _, gems in pairs(itemStats.gemStats or {}) do
 		local maxWeight = 0
 		for _, gemInfo in pairs(gems) do
 			local weight = 0
@@ -981,21 +981,17 @@ function WeightsWatcher.calculateWeight(bareItemStats, itemStats, weightsScale)
 		end
 		weight = weight + maxWeight
 	end
-	if bareItemStats.useEffects then
-		for _, useEffect in pairs(bareItemStats.useEffects) do
-			local factor = useEffect.duration / useEffect.cooldown * ww_vars.options.useEffects.uptimeRatio
-			for stat, value in pairs(useEffect.stats) do
-				weight = weight + WeightsWatcher.getWeight(ww_englishStats[stat], value * factor, weightsScale)
-			end
+	for _, useEffect in pairs(bareItemStats.useEffects or {}) do
+		local factor = useEffect.duration / useEffect.cooldown * ww_vars.options.useEffects.uptimeRatio
+		for stat, value in pairs(useEffect.stats) do
+			weight = weight + WeightsWatcher.getWeight(ww_englishStats[stat], value * factor, weightsScale)
 		end
 	end
-	if bareItemStats.stackingEquipEffects then
-		for _, effect in ipairs(bareItemStats.stackingEquipEffects) do
-			for trigger in pairs(effect.triggers) do
-				if weightsScale.triggers[trigger] then
-					weight = weight + WeightsWatcher.getWeight(ww_englishStats[effect.stat], effect.value * effect.numStacks, weightsScale)
-					break
-				end
+	for _, effect in ipairs(bareItemStats.stackingEquipEffects or {}) do
+		for trigger in pairs(effect.triggers) do
+			if weightsScale.triggers[trigger] then
+				weight = weight + WeightsWatcher.getWeight(ww_englishStats[effect.stat], effect.value * effect.numStacks, weightsScale)
+				break
 			end
 		end
 	end
