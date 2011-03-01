@@ -52,7 +52,7 @@
 					</OnLoad>
 				</Scripts>
 			</Frame>
-			<Frame name="$parentShowIdealGems" parentKey="showIdealGems" inherits="ww_modifierKeyDropDown">
+			<Frame name="$parentShowEnhancements" parentKey="showEnhancements" inherits="ww_modifierKeyDropDown">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentShowIdealWeights">
 						<Offset>
@@ -62,14 +62,14 @@
 				</Anchors>
 				<Scripts>
 					<OnLoad>
-						self.label:SetText(ww_localization["SHOW_IDEAL_GEMS"])
-						self.dropdown:SetText("showIdealGems")
+						self.label:SetText(ww_localization["SHOW_IDEAL_ENHANCEMENTS"])
+						self.dropdown:SetText("showEnhancements")
 					</OnLoad>
 				</Scripts>
 			</Frame>
-			<Frame name="$parentShowAlternateGems" parentKey="showIdealGemStats" inherits="ww_modifierKeyDropDown">
+			<Frame name="$parentShowAlternateEnhancements" parentKey="showAlternateEnhancements" inherits="ww_modifierKeyDropDown">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentShowIdealGems">
+					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentShowEnhancements">
 						<Offset>
 							<AbsDimension x="20" y="0"/>
 						</Offset>
@@ -77,25 +77,25 @@
 				</Anchors>
 				<Scripts>
 					<OnLoad>
-						self.label:SetText(ww_localization["SHOW_ALT_IDEAL_GEMS"])
-						self.dropdown:SetText("showAlternateGems")
+						self.label:SetText(ww_localization["SHOW_ALT_IDEAL_ENHANCEMENTS"])
+						self.dropdown:SetText("showAlternateEnhancements")
 					</OnLoad>
 				</Scripts>
 			</Frame>
-			<Frame name="$parentShowIdealGemStats" parentKey="showIdealGemStats" inherits="ww_modifierKeyDropDown">
+			<Frame name="$parentShowEnhancementStats" parentKey="showEnhancementStats" inherits="ww_modifierKeyDropDown">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentShowAlternateGems"/>
+					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentShowAlternateEnhancements"/>
 				</Anchors>
 				<Scripts>
 					<OnLoad>
-						self.label:SetText(ww_localization["SHOW_IDEAL_GEM_STATS"])
-						self.dropdown:SetText("showIdealGemStats")
+						self.label:SetText(ww_localization["SHOW_IDEAL_ENHANCEMENT_STATS"])
+						self.dropdown:SetText("showEnhancementStats")
 					</OnLoad>
 				</Scripts>
 			</Frame>
 			<Frame name="$parentShowDebugInfo" parentKey="showDebugInfo" inherits="ww_modifierKeyDropDown">
 				<Anchors>
-					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowIdealGemStats"/>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowEnhancementStats"/>
 					<Anchor point="LEFT">
 						<Offset>
 							<AbsDimension x="9" y="0"/>
@@ -109,9 +109,47 @@
 					</OnLoad>
 				</Scripts>
 			</Frame>
-			<CheckButton name="$parentHideTooltipHints" parentKey="hideTooltipHints" inherits="ww_checkButton">
+			<Frame name="$parentShowEnhancementsWhen" parentKey="showEnhancementsWhen" inherits="ww_labeledElement">
 				<Anchors>
 					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowDebugInfo"/>
+					<Anchor point="LEFT">
+						<Offset>
+							<AbsDimension x="9" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Size>
+					<AbsDimension x="0" y="30"/>
+				</Size>
+				<Frames>
+					<Button name="$parentDropdown" parentKey="dropdown" inherits="UIDropDownMenuTemplate">
+						<Anchors>
+							<Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parentLabel">
+								<Offset>
+									<AbsDimension x="-15" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								UIDropDownMenu_JustifyText(self, "LEFT")
+							</OnLoad>
+							<OnShow>
+								UIDropDownMenu_Initialize(self, ww_ShowEnhancementsWhenDropDownInitialize)
+								UIDropDownMenu_SetSelectedValue(self, ww_vars.options.tooltip.showEnhancementsWhen)
+							</OnShow>
+						</Scripts>
+					</Button>
+				</Frames>
+				<Scripts>
+					<OnLoad>
+						self.label:SetText(ww_localization["SHOW_ENHANCEMENTS_WHEN"])
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<CheckButton name="$parentHideTooltipHints" parentKey="hideTooltipHints" inherits="ww_checkButton">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowEnhancementsWhen"/>
 				</Anchors>
 				<Scripts>
 					<OnClick>

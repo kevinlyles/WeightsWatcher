@@ -36,6 +36,70 @@ local function noop_major_up(vars)
 	return vars
 end
 
+local function upgradeAccountToEnchants(vars)
+	if not vars.options.calculation then
+		vars.options.calculation = {}
+	end
+	if not vars.options.calculation.useEffectUptimeRatio then
+		vars.options.calculation.useEffectUptimeRatio = vars.options.useEffects.uptimeRatio or ww_defaultVars.options.calculation.useEffectUptimeRatio
+	end
+	vars.options.useEffects = nil
+
+	if vars.options.tooltip.showAlternateEnhancements == nil then
+		vars.options.tooltip.showAlternateEnhancements = vars.options.tooltip.showAlternateGems or ww_defaultVars.options.tooltip.showAlternateEnhancements
+	end
+	vars.options.tooltip.showAlternateGems = nil
+	if vars.options.tooltip.showEnhancements == nil then
+		vars.options.tooltip.showEnhancements = vars.options.tooltip.showIdealGems or ww_defaultVars.options.tooltip.showEnhancements
+	end
+	vars.options.tooltip.showIdealGems = nil
+	if vars.options.tooltip.showEnhancementStats == nil then
+		vars.options.tooltip.showEnhancementStats = vars.options.tooltip.showIdealGemStats or ww_defaultVars.options.tooltip.showEnhancementStats
+	end
+	vars.options.tooltip.showIdealGemStats = nil
+	if vars.options.tooltip.showEnhancementsWhen == nil then
+		vars.options.tooltip.showEnhancementsWhen = ww_defaultVars.options.tooltip.showEnhancementsWhen
+	end
+
+	if not vars.options.enchants then
+		vars.options.enchants = ww_deepTableCopy(ww_defaultVars.options.enchants)
+	end
+
+	vars.dataMajorVersion = 2
+	vars.dataMinorVersion = 0
+
+	return vars
+end
+
+local downgradeAccountFromEnchants = [[
+	return function(vars)
+		if not vars.options.useEffects then
+			vars.options.useEffects = {}
+		end
+		if not vars.options.useEffects.uptimeRatio then
+			vars.options.useEffects.uptimeRatio = vars.options.calculation.useEffectUptimeRatio or ww_defaultVars.options.useEffects.uptimeRatio
+		end
+
+		if vars.options.tooltip.showAlternateGems == nil then
+			vars.options.tooltip.showAlternateGems = vars.options.tooltip.showAlternateEnhancements or ww_defaultVars.options.tooltip.showAlternateGems
+		end
+		vars.options.tooltip.showAlternateEnhancements = nil
+		if vars.options.tooltip.showIdealGems == nil then
+			vars.options.tooltip.showIdealGems = vars.options.tooltip.showEnhancements or ww_defaultVars.options.tooltip.showIdealGems
+		end
+		vars.options.tooltip.showEnhancements = nil
+		if vars.options.tooltip.showIdealGemStats == nil then
+			vars.options.tooltip.showIdealGemStats = vars.options.tooltip.showEnhancementStats or ww_defaultVars.options.tooltip.showIdealGemStats
+		end
+		vars.options.tooltip.showEnhancementStats = nil
+
+		vars.dataMajorVersion = 1
+		vars.dataMinorVersion = 25
+
+		return vars
+	end
+]]
+
 local function UpgradeAccountToShowZeroScores(vars)
 	if vars.options.tooltip.showZeroScores == nil then
 		vars.options.tooltip.showZeroScores = false
@@ -1040,6 +1104,7 @@ local upgradeAccountFunctions = {
 		[22] = upgradeAccountToMeleeCrit,
 		[23] = upgradeAccountToCataclysmGems,
 		[24] = UpgradeAccountToShowZeroScores,
+		[25] = upgradeAccountToEnchants,
 	},
 }
 
@@ -1082,6 +1147,9 @@ local downgradeAccountFunctions = {
 		[23] = noop_down,
 		[24] = noop_down,
 		[25] = noop_down,
+	},
+	[2] = {
+		[0] = downgradeAccountFromEnchants,
 	},
 }
 

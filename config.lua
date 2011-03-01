@@ -114,3 +114,66 @@ function ww_ShowClassNameDropDownInitialize(dropdown)
 		UIDropDownMenu_AddButton(info)
 	end
 end
+
+local function RepOptionsDropDownOnClick(choice, dropdown)
+	UIDropDownMenu_SetSelectedValue(dropdown, choice.value, false)
+	ww_vars.options.enchants.considerRep = choice.value
+	if choice.value == "Any" then
+		ww_configEnchantOptions.considerBoa:Disable()
+	else
+		ww_configEnchantOptions.considerBoa:Enable()
+	end
+	WeightsWatcher.ResetEnchantCache()
+	ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+end
+
+function ww_RepOptionsDropDownInitialize(dropdown)
+	local info = {}
+
+	info.func = RepOptionsDropDownOnClick
+	info.arg1 = dropdown
+	for _, value in ipairs({ "High enough", "Neutral or better", "Any" }) do
+		info.text = value
+		info.value = value
+		info.checked = nil
+		UIDropDownMenu_AddButton(info)
+	end
+end
+
+local function ProfessionOptionsDropDownOnClick(choice, dropdown)
+	UIDropDownMenu_SetSelectedValue(dropdown, choice.value, false)
+	ww_vars.options.enchants.considerProfessions = choice.value
+	WeightsWatcher.ResetEnchantCache()
+	ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+end
+
+function ww_ProfessionOptionsDropDownInitialize(dropdown)
+	local info = {}
+
+	info.func = ProfessionOptionsDropDownOnClick
+	info.arg1 = dropdown
+	for _, value in ipairs({ "High enough", "One or higher", "Any" }) do
+		info.text = value
+		info.value = value
+		info.checked = nil
+		UIDropDownMenu_AddButton(info)
+	end
+end
+
+local function ShowEnhancementsWhenDropDownOnClick(choice, dropdown)
+	UIDropDownMenu_SetSelectedValue(dropdown, choice.value, false)
+	ww_vars.options.tooltip.showEnhancementsWhen = choice.value
+end
+
+function ww_ShowEnhancementsWhenDropDownInitialize(dropdown)
+	local info = {}
+
+	info.func = ShowEnhancementsWhenDropDownOnClick
+	info.arg1 = dropdown
+	for _, value in ipairs({ "None applied", "Non-ideal applied", "Always" }) do
+		info.text = value
+		info.value = value
+		info.checked = nil
+		UIDropDownMenu_AddButton(info)
+	end
+end

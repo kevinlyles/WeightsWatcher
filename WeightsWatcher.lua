@@ -26,7 +26,6 @@ local ww_bareItemCacheMetatable = {
 local ww_itemCacheMetatable = {
 	__index = function(tbl, key)
 		local gemStats, socketBonusActive
-		-- TODO: handle the enchant
 		local bareLink, enchant, gems = splitLink(key)
 		local sockets = ww_bareItemCache[bareLink].sockets
 
@@ -132,6 +131,8 @@ local ww_weightIdealCacheWeightMetatable = {
 		tbl[key] = {
 			gemStats = gemStats,
 			score = WeightsWatcher.calculateWeight(itemStats, {socketBonusActive = socketBonusActive, enchantStats = enchantStats, gemStats = gemStats}, tbl.weight),
+			socketBonusActive = socketBonusActive,
+			socketBonusScore = socketBonusWeight,
 		}
 		return tbl[key]
 	end,
@@ -830,19 +831,134 @@ local function addDebugInfo(tooltip, bareItemInfo, link)
 	end
 end
 
-local function addIdealGemInfo(tooltip, gemStats, showStats, showAlternates)
-	local alternatesExist = false
-	for _, gems in ipairs(gemStats) do
+local function addDifferenceLine(tooltip, leftText, score, currentScore)
+	local difference = score - currentScore
+	tooltip:AddDoubleLine(leftText, string.format(colorizeDifferences(difference), score, difference))
+end
+
+local function addIdealGemInfo(tooltip, gemStats, showStats, showAlternates, currentGems, weightScale)
+	local alternatesExist, changesExist = false, false
+	for slot, gems in ipairs(gemStats.gems) do
+		local alreadyApplied = false
 		for i, gem in ipairs(gems) do
-			if #(gems) > 1 then
-				tooltip:AddDoubleLine(string.format(L["MULTIPLE_GEM_FORMAT"], i, #(gems), ww_gemDisplayNames[gem[2]], ww_gemColorDisplayNames[gem[1]]), " ")
-				alternatesExist = true
-			else
-				tooltip:AddDoubleLine(string.format(L["SINGLE_GEM_FORMAT"], ww_gemDisplayNames[gem[2]], ww_gemColorDisplayNames[gem[1]]), " ")
+			if gem[2] == currentGems.gems[slot][1][2] then
+				alreadyApplied = true
+				break
 			end
-			if showStats then
-				for stat, value in pairs(gem[3]) do
-					tooltip:AddDoubleLine(string.format(L["TREBLY_INDENTED_STRING_FORMAT"], ww_statDisplayNames[stat]), value)
+		end
+
+		local forceDisplay = false
+		if ww_vars.options.tooltip.showEnhancementsWhen == "Always" then
+			forceDisplay = true
+		elseif ww_vars.options.tooltip.showEnhancementsWhen == "None applied" then
+			if currentGems.gems[slot][1][2] == "None" then
+				forceDisplay = true
+			else
+				alreadyApplied = true
+			end
+		end
+
+		if not alreadyApplied or forceDisplay then
+			changesExist = true
+			for i, gem in ipairs(gems) do
+				local score = WeightsWatcher.calculateWeight({}, { gemStats = {{{ [3] = gem[3] }}} }, weightScale)
+				local currentScore = WeightsWatcher.calculateWeight({}, { gemStats = {{{ [3] = currentGems.gems[slot][1][3] }}} }, weightScale)
+				if #(gems) > 1 then
+					addDifferenceLine(tooltip, string.format(L["MULTIPLE_GEM_FORMAT"], i, #(gems), ww_gemDisplayNames[gem[2]], ww_gemColorDisplayNames[gem[1]]), score, currentScore)
+					alternatesExist = true
+				else
+					addDifferenceLine(tooltip, string.format(L["SINGLE_GEM_FORMAT"], ww_gemDisplayNames[gem[2]], ww_gemColorDisplayNames[gem[1]]), score, currentScore)
+				end
+				if showStats then
+					for stat, value in pairs(gem[3]) do
+						local weight = WeightsWatcher.getWeight(stat, value, weightScale)
+						if ww_vars.options.tooltip.normalizeWeights then
+							weight = weight / ww_weightNormalizationCache[weightScale]
+						end
+						tooltip:AddDoubleLine(string.format(L["ENHANCEMENT_STAT_FORMAT"], value, ww_statDisplayNames[stat] or "Unlocalized: " .. stat), string.format("%.3f", weight))
+					end
+				end
+				if not showAlternates then
+					break
+				end
+			end
+		end
+	end
+	if changesExist and gemStats.socketBonusActive ~= currentGems.socketBonusActive then
+		addDifferenceLine(tooltip, L["SOCKET_BONUS_FORMAT"], gemStats.socketBonusActive and gemStats.socketBonusScore or 0, currentGems.socketBonusActive and currentGems.socketBonusScore or 0)
+	end
+	return alternatesExist, changesExist
+end
+
+local function addIdealEnchantInfo(tooltip, enchants, showStats, showAlternates, currentEnchants, slot, weightScale)
+	local count, displayCount = 0, 0
+	local alreadyApplied = false
+	local enchantsExist = false
+	for name, ids in pairs(enchants) do
+		count = count + #(ids)
+		enchantsExist = true
+		if not alreadyApplied then
+			for _, slot in ipairs(ww_slotsToCheck[slot]) do
+				if currentEnchants.name then
+					if currentEnchants.name[slot] == name then
+						alreadyApplied = true
+						break
+					elseif type(currentEnchants.name[slot]) == "table" then
+						for _, curName in ipairs(currentEnchants.name[slot]) do
+							if curName == name then
+								alreadyApplied = true
+								break
+							end
+						end
+						if alreadyApplied then
+							break
+						end
+					end
+				end
+			end
+		end
+	end
+	if not enchantsExist then
+		alreadyApplied = true
+	end
+
+	local forceDisplay = false
+	if ww_vars.options.tooltip.showEnhancementsWhen == "Always" then
+		forceDisplay = true
+	elseif ww_vars.options.tooltip.showEnhancementsWhen == "None applied" then
+		if currentEnchants.name == nil then
+			forceDisplay = true
+		else
+			alreadyApplied = true
+		end
+	end
+
+	local alternatesExist, changesExist = count > 1, false
+
+	if not alreadyApplied or forceDisplay then
+		changesExist = true
+		for name, ids in pairs(enchants) do
+			for i, id in ipairs(ids) do
+				local enchantStats = WeightsWatcher.enchantStats(id)
+				displayCount = displayCount + 1
+				local score = WeightsWatcher.calculateWeight({}, { enchantStats = enchantStats }, weightScale)
+				local currentScore = WeightsWatcher.calculateWeight({}, { enchantStats = currentEnchants }, weightScale)
+				if alternatesExist then
+					addDifferenceLine(tooltip, string.format(L["MULTIPLE_ENCHANT_FORMAT"], displayCount, count, name), score, currentScore)
+				else
+					addDifferenceLine(tooltip, string.format(L["SINGLE_ENCHANT_FORMAT"], name), score, currentScore)
+				end
+				if showStats then
+					for stat, value in pairs(enchantStats.stats) do
+						local weight = WeightsWatcher.getWeight(stat, value, weightScale)
+						if ww_vars.options.tooltip.normalizeWeights then
+							weight = weight / ww_weightNormalizationCache[weightScale]
+						end
+						tooltip:AddDoubleLine(string.format(L["ENHANCEMENT_STAT_FORMAT"], value, ww_statDisplayNames[stat] or "Unlocalized: " .. stat), string.format("%.3f", weight))
+					end
+				end
+				if alternatesExist and not showAlternates then
+					break
 				end
 			end
 			if not showAlternates then
@@ -850,43 +966,38 @@ local function addIdealGemInfo(tooltip, gemStats, showStats, showAlternates)
 			end
 		end
 	end
-	return alternatesExist
+
+	return alternatesExist, changesExist
 end
 
-local function addIdealEnchantInfo(tooltip, enchants, showStats, showAlternates)
-	local count, displayCount = 0, 0
-	for name, ids in pairs(enchants) do
-		count = count + #(ids)
-	end
-	local alternatesExist = count > 1
-
-	for name, ids in pairs(enchants) do
-		for i, id in pairs(ids) do
-			displayCount = displayCount + 1
-			if alternatesExist then
-				tooltip:AddDoubleLine(string.format(L["MULTIPLE_ENCHANT_FORMAT"], displayCount, count, name), " ")
-			else
-				tooltip:AddDoubleLine(string.format(L["SINGLE_ENCHANT_FORMAT"], name), " ")
-			end
-			if showStats then
-				for stat, value in pairs(WeightsWatcher.enchantStats(id).stats) do
-					tooltip:AddDoubleLine(string.format(L["TREBLY_INDENTED_STRING_FORMAT"], ww_statDisplayNames[stat] or "Unlocalized: " .. stat), value)
-				end
-			end
-			if alternatesExist and not showAlternates then
-				break
-			end
+local function addEnhancementInfo(tooltip, enhancements, showStats, showAlternates, currentEnhancements, slot, weightScale)
+	local alternatesExist, changesExist = false, false
+	if enhancements.gems then
+		local alternates, changes = addIdealGemInfo(tooltip, enhancements, showStats, showAlternates, currentEnhancements, weightScale)
+		if alternates then
+			alternatesExist = true
 		end
-		if not showAlternates then
-			break
+		if changes then
+			changesExist = true
 		end
 	end
-
+	if enhancements.enchants then
+		local alternates, changes = addIdealEnchantInfo(tooltip, enhancements.enchants, showStats, showAlternates, currentEnhancements.enchants, slot, weightScale)
+		if alternates then
+			alternatesExist = true
+		end
+		if changes then
+			changesExist = true
+		end
+	end
+	if not changesExist then
+		tooltip:AddLine(string.format(L["DOUBLY_INDENTED_STRING_FORMAT"], "All enhancements already applied"))
+	end
 	return alternatesExist
 end
 
 function WeightsWatcher.displayItemStats(tooltip, ttname)
-	local alternateGemsExist = false
+	local alternateEnhancementsExist = false
 
 	local _, link = tooltip:GetItem()
 	if link == nil then
@@ -919,12 +1030,13 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 
 		local showWeights = ww_keyDetectors[ww_vars.options.tooltip.showWeights]()
 		local showIdealWeights = ww_keyDetectors[ww_vars.options.tooltip.showIdealWeights]()
-		local showIdealGems = ww_keyDetectors[ww_vars.options.tooltip.showIdealGems]()
-		local showIdealGemStats = ww_keyDetectors[ww_vars.options.tooltip.showIdealGemStats]()
-		local showAlternateGems = ww_keyDetectors[ww_vars.options.tooltip.showAlternateGems]()
+		local showEnhancements = ww_keyDetectors[ww_vars.options.tooltip.showEnhancements]()
+		local showEnhancementStats = ww_keyDetectors[ww_vars.options.tooltip.showEnhancementStats]()
+		local showAlternateEnhancements = ww_keyDetectors[ww_vars.options.tooltip.showAlternateEnhancements]()
 
 		local bareLink = splitLink(link)
 		local bareItemInfo = ww_bareItemCache[bareLink]
+		local itemInfo = ww_itemCache[link]
 
 		local compareMethod, compareLink, compareBareLink, compareLink2, compareBareLink2 = getCompareInfo(ttname, bareLink, bareItemInfo)
 
@@ -935,34 +1047,27 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 		end
 
 		if showWeights then
+			local currentEnhancements = {
+				gems = itemInfo.gemStats,
+				socketBonusActive = itemInfo.socketBonusActive,
+				enchants = itemInfo.enchantStats,
+			}
 			for _, class in ipairs(ww_charVars.activeWeights) do
 				if ww_vars.weightsList[class] then
 					for _, weight in pairs(ww_charVars.activeWeights[class]) do
 						if ww_vars.weightsList[class][weight] then
 							local currentScore = ww_weightCache[class][weight][link]
 							if ww_vars.options.tooltip.showZeroScores or currentScore > 0 then
-								local compareScore, compareScore2, compareBareScore, compareBareScore2
+								local compareScore, compareScore2
 								local str = weight
 								if ww_vars.options.tooltip.showClassNames == "Always" or (ww_vars.options.tooltip.showClassNames == "Others" and class ~= WeightsWatcher.player.class) then
 									str = string.format(L["WEIGHT_CLASS_FORMAT"], str, ww_classDisplayNames[class])
 								end
 								if compareLink then
 									compareScore = ww_weightCache[class][weight][compareLink]
-									if showIdealWeights and #(bareItemInfo.sockets) == 0 then
-										compareBareScore = ww_weightIdealCache[class][weight][compareBareLink].score
-										if compareScore < compareBareScore then
-											compareScore = compareBareScore
-										end
-									end
 								end
 								if compareLink2 then
 									compareScore2 = ww_weightCache[class][weight][compareLink2]
-									if showIdealWeights and #(bareItemInfo.sockets) == 0 then
-										compareBareScore2 = ww_weightIdealCache[class][weight][compareBareLink2].score
-										if compareScore2 < compareBareScore2 then
-											compareScore2 = compareBareScore2
-										end
-									end
 								end
 								compareScore = computeDifference(compareMethod, compareScore, compareScore2, currentScore)
 								tooltip:AddDoubleLine(str, string.format(colorizeDifferences(compareScore), currentScore, compareScore))
@@ -977,16 +1082,15 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 									end
 									compareScore = computeDifference(compareMethod, compareScore, compareScore2, currentScore)
 									tooltip:AddDoubleLine(L["  Ideally-enhanced:"], string.format(colorizeDifferences(compareScore), currentScore, compareScore))
-									if #(bareItemInfo.sockets) > 0 and showIdealGems then
-										local gemStats = ww_weightIdealCache[class][weight][bareLink].gemStats
-										if addIdealGemInfo(tooltip, gemStats, showIdealGemStats, showAlternateGems) then
-											alternateGemsExist = true
-										end
-									end
-									if showIdealGems then
-										local enchants = ww_bestEnchantsCache[class][weight][bareLink]
-										if addIdealEnchantInfo(tooltip, enchants, showIdealGemStats, showAlternateGems) then
-											alternateGemsExist = true
+									if showEnhancements then
+										local enhancements = {
+											gems = ww_weightIdealCache[class][weight][bareLink].gemStats,
+											socketBonusActive = ww_weightIdealCache[class][weight][bareLink].socketBonusActive,
+											socketBonusScore = ww_weightIdealCache[class][weight][bareLink].socketBonusScore,
+											enchants = ww_bestEnchantsCache[class][weight][bareLink],
+										}
+										if addEnhancementInfo(tooltip, enhancements, showEnhancementStats, showAlternateEnhancements, currentEnhancements, bareItemInfo.nonStats.slot, ww_vars.weightsList[class][weight]) then
+											alternateEnhancementsExist = true
 										end
 									end
 								end
@@ -1003,19 +1107,19 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 					if ww_vars.options.tooltip.showIdealWeights ~= "Never" then
 						tooltip:AddLine(string.format(L["IDEAL_WTS_HINT"], ww_vars.options.tooltip.showIdealWeights))
 					end
-				elseif not showIdealGems then
-					if ww_vars.options.tooltip.showIdealGems ~= "Never" then
-						tooltip:AddLine(string.format(L["IDEAL_GEMS_HINT"], ww_vars.options.tooltip.showIdealGems))
+				elseif not showEnhancements then
+					if ww_vars.options.tooltip.showEnhancements ~= "Never" then
+						tooltip:AddLine(string.format(L["IDEAL_ENHANCEMENTS_HINT"], ww_vars.options.tooltip.showEnhancements))
 					end
 				else
-					if not showIdealGemStats then
-						if ww_vars.options.tooltip.showIdealGemStats ~= "Never" then
-							tooltip:AddLine(string.format(L["IDEAL_GEM_STATS_HINT"], ww_vars.options.tooltip.showIdealGemStats))
+					if not showEnhancementStats then
+						if ww_vars.options.tooltip.showEnhancementStats ~= "Never" then
+							tooltip:AddLine(string.format(L["ENHANCEMENT_STATS_HINT"], ww_vars.options.tooltip.showEnhancementStats))
 						end
 					end
-					if not showAlternateGems and alternateGemsExist then
-						if ww_vars.options.tooltip.showAlternateGems ~= "Never" then
-							tooltip:AddLine(string.format(L["IDEAL_ALT_GEMS_HINT"], ww_vars.options.tooltip.showAlternateGems))
+					if not showAlternateEnhancements and alternateEnhancementsExist then
+						if ww_vars.options.tooltip.showAlternateEnhancements ~= "Never" then
+							tooltip:AddLine(string.format(L["ALT_ENHANCEMENTS_HINT"], ww_vars.options.tooltip.showAlternateEnhancements))
 						end
 					end
 				end
@@ -1188,7 +1292,7 @@ function WeightsWatcher.calculateWeight(bareItemStats, itemStats, weightsScale)
 		weight = weight + WeightsWatcher.getWeight(ww_englishStats[stat], value, weightsScale)
 	end
 	for _, useEffect in pairs(bareItemStats.useEffects or {}) do
-		local factor = useEffect.duration / useEffect.cooldown * ww_vars.options.useEffects.uptimeRatio
+		local factor = useEffect.duration / useEffect.cooldown * ww_vars.options.calculation.useEffectUptimeRatio
 		for stat, value in pairs(useEffect.stats) do
 			weight = weight + WeightsWatcher.getWeight(ww_englishStats[stat], value * factor, weightsScale)
 		end

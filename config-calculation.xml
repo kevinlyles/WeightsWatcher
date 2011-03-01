@@ -77,7 +77,7 @@
 								local text = self:GetText()
 								if self:GetNumber() ~= 0 or text:match("^[0.]+$") or text == "" then
 									self.number = text
-									ww_vars.options.useEffects.uptimeRatio = self:GetNumber() / 100
+									ww_vars.options.calculation.useEffectUptimeRatio = self:GetNumber() / 100
 									ww_weightCache = setmetatable({}, ww_weightCacheMetatable)
 									ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
 								end
@@ -85,7 +85,7 @@
 							<OnChar>
 								if ww_validateNumber(text, self:GetText()) then
 									self.number = self:GetText()
-									ww_vars.options.useEffects.uptimeRatio = self:GetNumber() / 100
+									ww_vars.options.calculation.useEffectUptimeRatio = self:GetNumber() / 100
 									ww_weightCache = setmetatable({}, ww_weightCacheMetatable)
 									ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
 								else

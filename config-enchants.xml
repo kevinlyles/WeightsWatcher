@@ -1,0 +1,243 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+	<Frame name="ww_configEnchantOptions" inherits="ww_borderedFrame" hidden="true">
+		<Anchors>
+			<Anchor point="TOPLEFT"/>
+			<Anchor point="BOTTOMRIGHT"/>
+		</Anchors>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString name="$parentHeader" parentKey="header" inherits="ww_headerFont"/>
+			</Layer>
+			<Layer level="BACKGROUND">
+				<Texture setAllPoints="true">
+					<!--Plain black background with 80% alpha-->
+					<Color r="0" g="0" b="0" a="0.8"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<CheckButton name="$parentUseCraftedEnchants" parentKey="useCraftedEnchants" inherits="ww_checkButton">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentHeader"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						if self:GetChecked() then
+							ww_vars.options.enchants.sources["Crafted"] = true
+						else
+							ww_vars.options.enchants.sources["Crafted"] = false
+						end
+						WeightsWatcher.ResetEnchantCache()
+						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+					</OnClick>
+					<OnLoad>
+						self.shouldBeChecked = function() return ww_vars.options.enchants.sources["Crafted"] end
+						self.ttText = ww_localization["USE_PC_ENCH_TT"]
+						self:SetText(ww_localization["USE_PC_ENCH"])
+					</OnLoad>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentUsePVPVendorEnchants" parentKey="usePVPVendorEnchants" inherits="ww_checkButton">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseCraftedEnchants"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						if self:GetChecked() then
+							ww_vars.options.enchants.sources["PVP-Vendor"] = true
+						else
+							ww_vars.options.enchants.sources["PVP-Vendor"] = false
+						end
+						WeightsWatcher.ResetEnchantCache()
+						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+					</OnClick>
+					<OnLoad>
+						self.shouldBeChecked = function() return ww_vars.options.enchants.sources["PVP-Vendor"] end
+						self.ttText = ww_localization["USE_PVPVP_ENCH_TT"]
+						self:SetText(ww_localization["USE_PVPVP_ENCH"])
+					</OnLoad>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentUseQuestEnchants" parentKey="useQuestEnchants" inherits="ww_checkButton">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUsePVPVendorEnchants"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						if self:GetChecked() then
+							ww_vars.options.enchants.sources["Quest"] = true
+						else
+							ww_vars.options.enchants.sources["Quest"] = false
+						end
+						WeightsWatcher.ResetEnchantCache()
+						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+					</OnClick>
+					<OnLoad>
+						self.shouldBeChecked = function() return ww_vars.options.enchants.sources["Quest"] end
+						self.ttText = ww_localization["USE_QR_ENCH_TT"]
+						self:SetText(ww_localization["USE_QR_ENCH"])
+					</OnLoad>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentUseVendorEnchants" parentKey="useVendorEnchants" inherits="ww_checkButton">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseQuestEnchants"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						if self:GetChecked() then
+							ww_vars.options.enchants.sources["Vendor"] = true
+						else
+							ww_vars.options.enchants.sources["Vendor"] = false
+						end
+						WeightsWatcher.ResetEnchantCache()
+						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+					</OnClick>
+					<OnLoad>
+						self.shouldBeChecked = function() return ww_vars.options.enchants.sources["Vendor"] end
+						self.ttText = ww_localization["USE_VP_ENCH_TT"]
+						self:SetText(ww_localization["USE_VP_ENCH"])
+					</OnLoad>
+				</Scripts>
+			</CheckButton>
+			<Frame name="$parentConsiderRep" parentKey="considerRep" inherits="ww_labeledElement">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseVendorEnchants"/>
+					<Anchor point="LEFT">
+						<Offset>
+							<AbsDimension x="9" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Size>
+					<AbsDimension x="0" y="30"/>
+				</Size>
+				<Frames>
+					<Button name="$parentDropdown" parentKey="dropdown" inherits="UIDropDownMenuTemplate">
+						<Anchors>
+							<Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parentLabel">
+								<Offset>
+									<AbsDimension x="-15" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								UIDropDownMenu_JustifyText(self, "LEFT")
+							</OnLoad>
+							<OnShow>
+								UIDropDownMenu_Initialize(self, ww_RepOptionsDropDownInitialize)
+								UIDropDownMenu_SetSelectedValue(self, ww_vars.options.enchants.considerRep)
+								if ww_vars.options.enchants.considerRep == "Any" then
+									ww_configEnchantOptions.considerBoa:Disable()
+								else
+									ww_configEnchantOptions.considerBoa:Enable()
+								end
+							</OnShow>
+						</Scripts>
+					</Button>
+				</Frames>
+				<Scripts>
+					<OnLoad>
+						self.label:SetText(ww_localization["USE_REP_ENCH"])
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<CheckButton name="$parentConsiderBoa" parentKey="considerBoa" inherits="ww_checkButton">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentConsiderRep">
+						<Offset>
+							<AbsDimension x="20" y="5"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						if self:GetChecked() then
+							ww_vars.options.enchants.considerBoa = true
+						else
+							ww_vars.options.enchants.considerBoa = false
+						end
+						WeightsWatcher.ResetEnchantCache()
+						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+					</OnClick>
+					<OnLoad>
+						self.shouldBeChecked = function() return ww_vars.options.enchants.considerBoa end
+						self.ttText = ww_localization["USE_BTA_ENCH_TT"]
+						self:SetText(ww_localization["USE_BTA_ENCH"])
+					</OnLoad>
+				</Scripts>
+			</CheckButton>
+			<Frame name="$parentConsiderProfessions" parentKey="considerProfessions" inherits="ww_labeledElement">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentConsiderBoa"/>
+					<Anchor point="LEFT">
+						<Offset>
+							<AbsDimension x="9" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Size>
+					<AbsDimension x="0" y="30"/>
+				</Size>
+				<Frames>
+					<Button name="$parentDropdown" parentKey="dropdown" inherits="UIDropDownMenuTemplate">
+						<Anchors>
+							<Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parentLabel">
+								<Offset>
+									<AbsDimension x="-15" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								UIDropDownMenu_JustifyText(self, "LEFT")
+							</OnLoad>
+							<OnShow>
+								UIDropDownMenu_Initialize(self, ww_ProfessionOptionsDropDownInitialize)
+								UIDropDownMenu_SetSelectedValue(self, ww_vars.options.enchants.considerProfessions)
+							</OnShow>
+						</Scripts>
+					</Button>
+				</Frames>
+				<Scripts>
+					<OnLoad>
+						self.label:SetText(ww_localization["USE_PROF_ENCH"])
+					</OnLoad>
+				</Scripts>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				self.header:SetText(ww_localization["IDEAL_ENCHANT_OPTS"])
+				self.name = ww_localization["IDEAL_ENCHANT_NAME"]
+				self.parent = "WeightsWatcher"
+				self.default = function()
+						ww_vars.options.enchants = ww_defaultVars.options.enchants
+						WeightsWatcher.ResetEnchantCache()
+						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+					end
+				local checkBoxes = {
+					"Crafted",
+					"PVP-Vendor",
+					"Quest",
+					"Vendor",
+					"considerBoa",
+					["Vendor"] = self.useVendorEnchants,
+					["PVP-Vendor"] = self.usePVPVendorEnchants,
+					["Crafted"] = self.useCraftedEnchants,
+					["Quest"] = self.useQuestEnchants,
+					["considerBoa"] = self.considerBoa,
+				}
+				self.refresh = function()
+						for _, option in ipairs(checkBoxes) do
+							local checkBox = checkBoxes[option]
+							checkBox:SetChecked(checkBox.shouldBeChecked())
+						end
+					end
+				InterfaceOptions_AddCategory(self)
+			</OnLoad>
+		</Scripts>
+	</Frame>
+</Ui>

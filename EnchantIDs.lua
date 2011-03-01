@@ -11095,24 +11095,40 @@ local enchantItemMetatable = {
 						table.insert(subslots, bareStats.nonStats.subslot)
 						for _, subslot in ipairs(subslots) do
 							for source, enchants in pairs(choices[slot][subslot] or {}) do
-								for boa, enchants in pairs(enchants) do
-									for faction, enchantIntervals in pairs(enchants) do
-										for _, enchants in ipairs(enchantIntervals.find(ww_vars.options.useBoa and boa and #(ww_reputations) or WeightsWatcher.getRepLevel(faction))) do
-											for profession, intervals in pairs(enchants) do
-												for _, intervals in ipairs(intervals.find(WeightsWatcher.getSkillLevel(profession))) do
-													for _, intervals in ipairs(intervals.find(bareStats.normalStats["item level"] or 1)) do
-														for _, interval in ipairs(intervals.find(WeightsWatcher.player.level)) do
-															for name, ids in pairs(interval) do
-																for id in pairs(ids) do
-																	local score = WeightsWatcher.calculateWeight({}, { enchantStats = WeightsWatcher.enchantStats(id) }, tbl.weight)
-																	if score > bestScore then
-																		bestScore = score
-																		bestEnchants = { [name] = { id } }
-																	elseif score == bestScore then
-																		if not bestEnchants[name] then
-																			bestEnchants[name] = {}
+								if ww_vars.options.enchants.sources[source] then
+									for boa, enchants in pairs(enchants) do
+										for faction, enchantIntervals in pairs(enchants) do
+											local repLevel = WeightsWatcher.getRepLevel(faction)
+											if ww_vars.options.enchants.considerRep == "Any" then
+												repLevel = #(ww_reputations)
+											elseif ww_vars.options.enchants.considerRep == "Neutral or better" and repLevel >= 4 then
+												repLevel = #(ww_reputations)
+											elseif ww_vars.options.enchants.considerBoa and boa then
+												repLevel = #(ww_reputations)
+											end
+											for _, enchants in ipairs(enchantIntervals.find(repLevel)) do
+												for profession, intervals in pairs(enchants) do
+													local skillLevel = WeightsWatcher.getSkillLevel(profession)
+													if ww_vars.options.enchants.considerProfessions == "Any" then
+														skillLevel = 525
+													elseif ww_vars.options.enchants.considerProfessions == "One or higher" and skillLevel > 0 then
+														skillLevel = 525
+													end
+													for _, intervals in ipairs(intervals.find(skillLevel)) do
+														for _, intervals in ipairs(intervals.find(bareStats.normalStats["item level"] or 1)) do
+															for _, interval in ipairs(intervals.find(WeightsWatcher.player.level)) do
+																for name, ids in pairs(interval) do
+																	for id in pairs(ids) do
+																		local score = WeightsWatcher.calculateWeight({}, { enchantStats = WeightsWatcher.enchantStats(id) }, tbl.weight)
+																		if score > bestScore then
+																			bestScore = score
+																			bestEnchants = { [name] = { id } }
+																		elseif score == bestScore then
+																			if not bestEnchants[name] then
+																				bestEnchants[name] = {}
+																			end
+																			table.insert(bestEnchants[name], id)
 																		end
-																		table.insert(bestEnchants[name], id)
 																	end
 																end
 															end

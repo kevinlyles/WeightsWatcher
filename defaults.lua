@@ -187,8 +187,8 @@ ww_classNameOptions = {
 }
 
 ww_defaultVars = {
-	dataMajorVersion = 1,
-	dataMinorVersion = 25,
+	dataMajorVersion = 2,
+	dataMinorVersion = 0,
 	weightsList = {
 		"DEATHKNIGHT",
 		"DRUID",
@@ -679,40 +679,52 @@ ww_defaultVars = {
 		},
 	},
 	options = {
+		calculation = {
+			useEffectUptimeRatio = 0.8,
+		},
+		enchants = {
+			considerBoa = true,
+			considerRep = "High enough",
+			considerProfessions = "High enough",
+			sources = {
+				["Crafted"] = true,
+				["PVP-Vendor"] = false,
+				["Quest"] = false,
+				["Vendor"] = true,
+			},
+		},
 		gems = {
-			qualityLimit = 10,
 			breakSocketColors = true,
 			neverBreakSocketColors = false,
+			qualityLimit = 10,
+			sources = {
+				["Crafted"] = true,
+				["Drop"] = false,
+				["Procced"] = true,
+				["PVP-Vendor"] = false,
+				["Quest"] = false,
+				["Vendor"] = true,
+			},
 			types = {
+				["Jewelcrafter-Only"] = false,
 				["Normal"] = true,
 				["Unique-Equipped"] = false,
-				["Jewelcrafter-Only"] = false,
-			},
-			sources = {
-				["Vendor"] = true,
-				["PVP-Vendor"] = false,
-				["Crafted"] = true,
-				["Procced"] = true,
-				["Drop"] = false,
-				["Quest"] = false,
 			},
 		},
 		tooltip = {
 			hideHints = false,
 			normalizeWeights = true,
-			showAlternateGems = "Alt",
+			showAlternateEnhancements = "Alt",
 			showClassNames = "Other Classes",
 			showDebugInfo = "Never",
 			showDifferences = true,
-			showIdealGems = "Control",
-			showIdealGemStats = "Always",
+			showEnhancements = "Control",
+			showEnhancementStats = "Always",
+			showEnhancementsWhen = "Non-ideal applied",
 			showIdealWeights = "Shift",
 			showWeights = "Always",
 			showZeroScores = false,
 		},
-		useEffects = {
-			uptimeRatio = 0.8,
-		}
 	},
 }
 
