@@ -719,7 +719,7 @@
 		<Scripts>
 			<OnLoad>
 				self.title:SetText(ww_localization[self.title:GetText()])
-				table.insert(UISpecialFrames, self:GetName());
+				table.insert(UISpecialFrames, self:GetName())
 			</OnLoad>
 		</Scripts>
 	</Frame>
