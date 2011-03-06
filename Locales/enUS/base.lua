@@ -6,8 +6,8 @@ local L = ww_localization
 
 -- config.lua
 L["WW_VERSION"] = "WeightsWatcher version: %s"
-L["ACCT_VERSION"] = "  Account data version: %d%s%d"
-L["CHAR_VERSION"] = "  Character data version: %d%s%d"
+L["ACCT_VERSION"] = "  Account data version: %d.%d"
+L["CHAR_VERSION"] = "  Character data version: %d.%d"
 L["HELP_TEXT_HEADER"] = "WeightsWatcher help:"
 L["HELP_TEXT_GENERAL"] = "Type /weightswatcher <arg> (or /ww <arg>)"
 L["HELP_TEXT_CONFIG"] = "  config      opens the main configuration window"
@@ -18,7 +18,6 @@ L["HELP_TEXT_BUGS"] = "  Please report bugs at wowinterface.com or WeightsWatche
 L["config"] = "config"
 L["version"] = "version"
 L["weights"] = "weights"
-L["DECIMAL_SEPARATOR"] = "."
 
 -- config.xml
 L["CONFIG_TITLE"] = "WeightsWatcher Configuration"
@@ -137,7 +136,7 @@ L["UPGRADE_ERR_NO_FUNC_TBL"] = "WeightsWatcher: error: no %s function table foun
 L["LOADING_DEFAULTS"] = "WeightsWatcher: no %s data found, loading defaults."
 L["account"] = "account"
 L["character"] = "character"
-L["UPGRADE_ATTEMPT"] = "WeightsWatcher: attempting to %s %s data from version %d%s%d to %d%4$s%7$d."
+L["UPGRADE_ATTEMPT"] = "WeightsWatcher: attempting to %s %s data from version %d.%d to %d.%d."
 L["UPGRADE_ERR_NO_PATH"] = "WeightsWatcher: error: No %s data %s path found."
 L["UPGRADE_ERR_GENERIC"] = "WeightsWatcher: %s data %s error."
 L["UPGRADE_ERR_INF_LOOP"] = "WeightsWatcher: error: infinite loop in %s data %s."

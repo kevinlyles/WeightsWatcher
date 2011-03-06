@@ -1173,7 +1173,7 @@ function WeightsWatcher.Upgrade(dataType)
 	if oldMajorVersion == 0 and oldMinorVersion == 0 then
 		print(string.format(L["LOADING_DEFAULTS"], dataType))
 	else
-		print(string.format(L["UPGRADE_ATTEMPT"], direction, dataType, oldMajorVersion, L["DECIMAL_SEPARATOR"], oldMinorVersion, newMajorVersion, newMinorVersion))
+		print(string.format(L["UPGRADE_ATTEMPT"], direction, dataType, oldMajorVersion, oldMinorVersion, newMajorVersion, newMinorVersion))
 	end
 
 	local newVars = ww_deepTableCopy(vars)
