@@ -698,7 +698,7 @@ StaticPopupDialogs["WW_CONFIRM_WEIGHT_DELETE"] = {
 	hideOnEscape = true,
 }
 
-StaticPopupDialogs["WW_CONFIRM_RESTORE_DEFAULTS"] = {
+StaticPopupDialogs["WW_CONFIRM_RESTORE_DEFAULT_WEIGHTS"] = {
 	text = L["WT_RESTORE_DEFAULTS_CONFIRM"],
 	button1 = L["Restore Defaults"],
 	button2 = L["Cancel"],

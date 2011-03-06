@@ -2,22 +2,74 @@
 		xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
 	<Script file="config.lua"/>
 	<Include file="widgets.xml"/>
-	<Frame name="ww_config" parent="UIParent" hidden="true" frameStrata="HIGH">
-		<Size>
-			<AbsDimension x="600" y="450"/>
-		</Size>
+	<Frame name="ww_config" inherits="ww_borderedFrame" hidden="true">
 		<Anchors>
-			<Anchor point="CENTER">
-				<Offset y="50"/>
-			</Anchor>
+			<Anchor point="TOPLEFT"/>
+			<Anchor point="BOTTOMRIGHT"/>
 		</Anchors>
 		<Layers>
 			<Layer level="OVERLAY">
-				<FontString name="$parentTitle" parentKey="title" inherits="GameFontNormalLarge" text="CONFIG_TITLE">
+				<FontString name="$parentTitle" parentKey="title" inherits="GameFontNormalHuge" text="WeightsWatcher">
 					<Anchors>
 						<Anchor point="TOP">
 							<Offset>
 								<AbsDimension x="0" y="-5"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentVersion" parentKey="version" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentTitle">
+							<Offset>
+								<AbsDimension x="0" y="-10"/>
+							</Offset>
+						</Anchor>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="10" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentAccountVersion" parentKey="accountVersion" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentVersion">
+							<Offset>
+								<AbsDimension x="10" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentCharacterVersion" parentKey="characterVersion" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentAccountVersion"/>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentContact" parentKey="contact" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentCharacterVersion">
+							<Offset>
+								<AbsDimension x="0" y="-15"/>
+							</Offset>
+						</Anchor>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="10" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentWebpage" parentKey="webpage" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentContact"/>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentDescription" parentKey="description" inherits="GameFontHighlight">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentWebpage">
+							<Offset>
+								<AbsDimension x="0" y="-25"/>
 							</Offset>
 						</Anchor>
 					</Anchors>
@@ -31,582 +83,53 @@
 			</Layer>
 		</Layers>
 		<Frames>
-			<Button name="$parentCloseButton" parentKey="closeButton" inherits="UIPanelCloseButton">
+			<Button name="$parentWeights" parentKey="weights" inherits="ww_localizedButton" text="CONFIG_WEIGHTS">
+				<Size>
+					<AbsDimension x="150" y="22"/>
+				</Size>
 				<Anchors>
-					<Anchor point="TOPRIGHT"/>
-				</Anchors>
-			</Button>
-			<Frame name="$parentCalculationOptions" parentKey="calculationOptions" inherits="ww_borderedFrame">
-				<Anchors>
-					<Anchor point="TOPLEFT">
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentDescription">
 						<Offset>
 							<AbsDimension x="0" y="-25"/>
 						</Offset>
 					</Anchor>
-					<Anchor point="BOTTOM"/>
 				</Anchors>
-				<Size>
-					<AbsDimension x="300" y="0"/>
-				</Size>
-				<Layers>
-					<Layer level="ARTWORK">
-						<FontString name="$parentHeader" parentKey="header" inherits="ww_headerFont"/>
-					</Layer>
-				</Layers>
-				<Frames>
-					<Frame name="$parentGemQuality" parentKey="gemQuality" inherits="ww_labeledElement">
-						<Anchors>
-							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentHeader"/>
-						</Anchors>
-						<Size>
-							<AbsDimension x="0" y="45"/>
-						</Size>
-						<Frames>
-							<Button name="$parentDropdown" parentKey="dropdown" inherits="UIDropDownMenuTemplate">
-								<Anchors>
-									<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentLabel">
-										<Offset>
-											<AbsDimension x="-15" y="-3"/>
-										</Offset>
-									</Anchor>
-								</Anchors>
-								<Scripts>
-									<OnLoad>
-										UIDropDownMenu_SetWidth(self, 200, 15)
-										UIDropDownMenu_JustifyText(self, "LEFT")
-									</OnLoad>
-									<OnShow>
-										UIDropDownMenu_Initialize(self, ww_GemQualityDropDownInitialize)
-										UIDropDownMenu_SetSelectedValue(self, ww_vars.options.gems.qualityLimit)
-									</OnShow>
-								</Scripts>
-							</Button>
-						</Frames>
-						<Scripts>
-							<OnLoad>
-								self.label:SetText(ww_localization["MAX_GEM_QUAL"])
-								self:SetBackdropColor(1, 0, 0, 0.5)
-							</OnLoad>
-						</Scripts>
-					</Frame>
-					<CheckButton name="$parentUseUEGems" parentKey="useUEGems" inherits="ww_checkButton">
-						<Anchors>
-							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentGemQuality"/>
-						</Anchors>
-						<Scripts>
-							<OnClick>
-								if self:GetChecked() then
-									ww_vars.options.gems.types["Unique-Equipped"] = true
-								else
-									ww_vars.options.gems.types["Unique-Equipped"] = false
-								end
-								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
-							</OnClick>
-							<OnLoad>
-								self.shouldBeChecked = function() return ww_vars.options.gems.types["Unique-Equipped"] end
-								self.ttText = ww_localization["USE_UE_GEMS_TT"]
-								self:SetText(ww_localization["USE_UE_GEMS"])
-							</OnLoad>
-						</Scripts>
-					</CheckButton>
-					<CheckButton name="$parentUseJCOnlyGems" parentKey="useJCOnlyGems" inherits="ww_checkButton">
-						<Anchors>
-							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseUEGems"/>
-						</Anchors>
-						<Scripts>
-							<OnClick>
-								if self:GetChecked() then
-									ww_vars.options.gems.types["Jewelcrafter-Only"] = true
-								else
-									ww_vars.options.gems.types["Jewelcrafter-Only"] = false
-								end
-								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
-							</OnClick>
-							<OnLoad>
-								self.shouldBeChecked = function() return ww_vars.options.gems.types["Jewelcrafter-Only"] end
-								self.ttText = ww_localization["USE_JC_GEMS_TT"]
-								self:SetText(ww_localization["USE_JC_GEMS"])
-							</OnLoad>
-						</Scripts>
-					</CheckButton>
-					<CheckButton name="$parentUseVendorGems" parentKey="useVendorGems" inherits="ww_checkButton">
-						<Anchors>
-							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseJCOnlyGems"/>
-						</Anchors>
-						<Scripts>
-							<OnClick>
-								if self:GetChecked() then
-									ww_vars.options.gems.sources["Vendor"] = true
-								else
-									ww_vars.options.gems.sources["Vendor"] = false
-								end
-								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
-							</OnClick>
-							<OnLoad>
-								self.shouldBeChecked = function() return ww_vars.options.gems.sources["Vendor"] end
-								self.ttText = ww_localization["USE_VP_GEMS_TT"]
-								self:SetText(ww_localization["USE_VP_GEMS"])
-							</OnLoad>
-						</Scripts>
-					</CheckButton>
-					<CheckButton name="$parentUsePVPVendorGems" parentKey="usePVPVendorGems" inherits="ww_checkButton">
-						<Anchors>
-							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseVendorGems"/>
-						</Anchors>
-						<Scripts>
-							<OnClick>
-								if self:GetChecked() then
-									ww_vars.options.gems.sources["PVP-Vendor"] = true
-								else
-									ww_vars.options.gems.sources["PVP-Vendor"] = false
-								end
-								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
-							</OnClick>
-							<OnLoad>
-								self.shouldBeChecked = function() return ww_vars.options.gems.sources["PVP-Vendor"] end
-								self.ttText = ww_localization["USE_PVPVP_GEMS_TT"]
-								self:SetText(ww_localization["USE_PVPVP_GEMS"])
-							</OnLoad>
-						</Scripts>
-					</CheckButton>
-					<CheckButton name="$parentUseCraftedGems" parentKey="useCraftedGems" inherits="ww_checkButton">
-						<Anchors>
-							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUsePVPVendorGems"/>
-						</Anchors>
-						<Scripts>
-							<OnClick>
-								if self:GetChecked() then
-									ww_vars.options.gems.sources["Crafted"] = true
-									self:GetParent().useProcGems:Enable()
-								else
-									ww_vars.options.gems.sources["Crafted"] = false
-									self:GetParent().useProcGems:Disable()
-								end
-								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
-							</OnClick>
-							<OnLoad>
-								self.shouldBeChecked = function() return ww_vars.options.gems.sources["Crafted"] end
-								self.ttText = ww_localization["USE_PC_GEMS_TT"]
-								self:SetText(ww_localization["USE_PC_GEMS"])
-							</OnLoad>
-						</Scripts>
-					</CheckButton>
-					<CheckButton name="$parentUseProcGems" parentKey="useProcGems" inherits="ww_checkButton">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentUseCraftedGems">
-								<Offset>
-									<AbsDimension x="20" y="0"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Scripts>
-							<OnClick>
-								if self:GetChecked() then
-									ww_vars.options.gems.sources["Procced"] = true
-								else
-									ww_vars.options.gems.sources["Procced"] = false
-								end
-								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
-							</OnClick>
-							<OnLoad>
-								self.shouldBeChecked = function() return ww_vars.options.gems.sources["Procced"] end
-								self.shouldBeEnabled = function() return ww_vars.options.gems.sources["Crafted"] end
-								self.ttText = ww_localization["USE_P_GEMS_TT"]
-								self:SetText(ww_localization["USE_P_GEMS"])
-							</OnLoad>
-						</Scripts>
-					</CheckButton>
-					<CheckButton name="$parentUseDropGems" parentKey="useDropGems" inherits="ww_checkButton">
-						<Anchors>
-							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseProcGems"/>
-						</Anchors>
-						<Scripts>
-							<OnClick>
-								if self:GetChecked() then
-									ww_vars.options.gems.sources["Drop"] = true
-								else
-									ww_vars.options.gems.sources["Drop"] = false
-								end
-								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
-							</OnClick>
-							<OnLoad>
-								self.shouldBeChecked = function() return ww_vars.options.gems.sources["Drop"] end
-								self.ttText = ww_localization["USE_D_GEMS_TT"]
-								self:SetText(ww_localization["USE_D_GEMS"])
-							</OnLoad>
-						</Scripts>
-					</CheckButton>
-					<CheckButton name="$parentUseQuestGems" parentKey="useQuestGems" inherits="ww_checkButton">
-						<Anchors>
-							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseDropGems"/>
-						</Anchors>
-						<Scripts>
-							<OnClick>
-								if self:GetChecked() then
-									ww_vars.options.gems.sources["Quest"] = true
-								else
-									ww_vars.options.gems.sources["Quest"] = false
-								end
-								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
-							</OnClick>
-							<OnLoad>
-								self.shouldBeChecked = function() return ww_vars.options.gems.sources["Quest"] end
-								self.ttText = ww_localization["USE_QR_GEMS_TT"]
-								self:SetText(ww_localization["USE_QR_GEMS"])
-							</OnLoad>
-						</Scripts>
-					</CheckButton>
-					<CheckButton name="$parentObeySocketColors" parentKey="obeySocketColors" inherits="ww_checkButton">
-						<Anchors>
-							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseQuestGems"/>
-						</Anchors>
-						<Scripts>
-							<OnClick>
-								if self:GetChecked() then
-									ww_vars.options.gems.breakSocketColors = false
-									self:GetParent().alwaysObeySocketColors:Enable()
-								else
-									ww_vars.options.gems.breakSocketColors = true
-									self:GetParent().alwaysObeySocketColors:Disable()
-								end
-								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
-							</OnClick>
-							<OnLoad>
-								self.shouldBeChecked = function() return not ww_vars.options.gems.breakSocketColors end
-								self.ttText = ww_localization["MATCH_SOCKET_TT"]
-								self:SetText(ww_localization["MATCH_SOCKET"])
-							</OnLoad>
-						</Scripts>
-					</CheckButton>
-					<CheckButton name="$parentAlwaysObeySocketColors" parentKey="alwaysObeySocketColors" inherits="ww_checkButton">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentObeySocketColors">
-								<Offset>
-									<AbsDimension x="20" y="0"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Scripts>
-							<OnClick>
-								if self:GetChecked() then
-									ww_vars.options.gems.neverBreakSocketColors = true
-								else
-									ww_vars.options.gems.neverBreakSocketColors = false
-								end
-								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
-							</OnClick>
-							<OnLoad>
-								self.shouldBeChecked = function() return ww_vars.options.gems.neverBreakSocketColors end
-								self.shouldBeEnabled = function() return not ww_vars.options.gems.breakSocketColors end
-								self.ttText = ww_localization["ALWAYS_MATCH_SOCKET_TT"]
-								self:SetText(ww_localization["ALWAYS_MATCH_SOCKET"])
-							</OnLoad>
-						</Scripts>
-					</CheckButton>
-					<CheckButton name="$parentNormalizeWeights" parentKey="normalizeWeights" inherits="ww_checkButton">
-						<Anchors>
-							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentAlwaysObeySocketColors"/>
-						</Anchors>
-						<Scripts>
-							<OnClick>
-								if self:GetChecked() then
-									ww_vars.options.tooltip.normalizeWeights = true
-								else
-									ww_vars.options.tooltip.normalizeWeights = false
-								end
-								ww_weightCache = setmetatable({}, ww_weightCacheMetatable)
-								ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
-							</OnClick>
-							<OnLoad>
-								self.shouldBeChecked = function() return ww_vars.options.tooltip.normalizeWeights end
-								self.ttText = ww_localization["NORMALIZE_TT"]
-								self:SetText(ww_localization["NORMALIZE"])
-							</OnLoad>
-						</Scripts>
-					</CheckButton>
-					<Frame name="$parentUseEffectUptimeRatio" parentKey="useEffectUptimeRatio" inherits="ww_labeledElement">
-						<Anchors>
-							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentNormalizeWeights"/>
-						</Anchors>
-						<Size>
-							<AbsDimension x="0" y="25"/>
-						</Size>
-						<Frames>
-							<EditBox letters="16" name="$parentRatio" parentKey="ratio" autoFocus="false">
-								<Anchors>
-									<Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parentLabel"/>
-								</Anchors>
-								<Size>
-									<AbsDimension x="50" y="22"/>
-								</Size>
-								<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
-									<EdgeSize>
-										<AbsValue val="10"/>
-									</EdgeSize>
-									<TileSize>
-										<AbsValue val="10"/>
-									</TileSize>
-									<BackgroundInsets>
-										<AbsInset left="0" right="0" top="5" bottom="5"/>
-									</BackgroundInsets>
-								</Backdrop>
-								<FontString inherits="GameFontNormal">
-									<Anchors>
-										<Anchor point="LEFT"/>
-									</Anchors>
-								</FontString>
-								<Scripts>
-									<OnLoad>
-										self:SetTextInsets(5, 5, 0, 0)
-									</OnLoad>
-									<OnShow>
-										self:SetText(ww_vars.options.useEffects.uptimeRatio * 100)
-									</OnShow>
-									<OnTextChanged>
-										local text = self:GetText()
-										if self:GetNumber() ~= 0 or text:match("^[0.]+$") or text == "" then
-											self.number = text
-											ww_vars.options.useEffects.uptimeRatio = self:GetNumber() / 100
-											ww_weightCache = setmetatable({}, ww_weightCacheMetatable)
-											ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
-										end
-									</OnTextChanged>
-									<OnChar>
-										if ww_validateNumber(text, self:GetText()) then
-											self.number = self:GetText()
-											ww_vars.options.useEffects.uptimeRatio = self:GetNumber() / 100
-											ww_weightCache = setmetatable({}, ww_weightCacheMetatable)
-											ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
-										else
-											local cursorPosition = self:GetCursorPosition() - 1
-											self:SetText(self.number)
-											self:SetCursorPosition(cursorPosition)
-										end
-									</OnChar>
-									<OnEscapePressed>
-										self:ClearFocus()
-									</OnEscapePressed>
-								</Scripts>
-							</EditBox>
-						</Frames>
-						<Scripts>
-							<OnLoad>
-								if ww_cooldownUseEffects then
-									self.label:SetText(ww_localization["IDEAL_USE_UPTIME"])
-								else
-									self:SetParent(nil)
-									self:Hide()
-								end
-							</OnLoad>
-						</Scripts>
-					</Frame>
-				</Frames>
 				<Scripts>
-					<OnLoad>
-						self.header:SetText(ww_localization["CALC_OPTS"])
-					</OnLoad>
+					<OnClick>
+						ww_commandHandler("weights")
+					</OnClick>
 				</Scripts>
-			</Frame>
-			<Frame name="$parentDisplayOptions" parentKey="displayOptions" inherits="ww_borderedFrame">
-				<Anchors>
-					<Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeTo="$parentCalculationOptions"/>
-					<Anchor point="BOTTOMRIGHT"/>
-				</Anchors>
-				<Layers>
-					<Layer level="ARTWORK">
-						<FontString name="$parentHeader" parentKey="header" inherits="ww_headerFont"/>
-					</Layer>
-				</Layers>
-				<Frames>
-					<Frame name="$parentShowWeights" parentKey="showWeights" inherits="ww_modifierKeyDropDown">
-						<Anchors>
-							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentHeader"/>
-						</Anchors>
-						<Scripts>
-							<OnLoad>
-								self.label:SetText(ww_localization["SHOW_WTS"])
-								self.dropdown:SetText("showWeights")
-							</OnLoad>
-						</Scripts>
-					</Frame>
-					<Frame name="$parentShowIdealWeights" parentKey="showIdealWeights" inherits="ww_modifierKeyDropDown">
-						<Anchors>
-							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowWeights"/>
-							<Anchor point="LEFT" relativePoint="LEFT" relativeTo="$parentShowWeights">
-								<Offset>
-									<AbsDimension x="20" y="0"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Scripts>
-							<OnLoad>
-								self.label:SetText(ww_localization["SHOW_IDEAL_WTS"])
-								self.dropdown:SetText("showIdealWeights")
-							</OnLoad>
-						</Scripts>
-					</Frame>
-					<Frame name="$parentShowIdealGems" parentKey="showIdealGems" inherits="ww_modifierKeyDropDown">
-						<Anchors>
-							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowIdealWeights"/>
-							<Anchor point="LEFT" relativePoint="LEFT" relativeTo="$parentShowIdealWeights">
-								<Offset>
-									<AbsDimension x="20" y="0"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Scripts>
-							<OnLoad>
-								self.label:SetText(ww_localization["SHOW_IDEAL_GEMS"])
-								self.dropdown:SetText("showIdealGems")
-							</OnLoad>
-						</Scripts>
-					</Frame>
-					<Frame name="$parentShowAlternateGems" parentKey="showIdealGemStats" inherits="ww_modifierKeyDropDown">
-						<Anchors>
-							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowIdealGems"/>
-							<Anchor point="LEFT" relativePoint="LEFT" relativeTo="$parentShowIdealGems">
-								<Offset>
-									<AbsDimension x="20" y="0"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Scripts>
-							<OnLoad>
-								self.label:SetText(ww_localization["SHOW_ALT_IDEAL_GEMS"])
-								self.dropdown:SetText("showAlternateGems")
-							</OnLoad>
-						</Scripts>
-					</Frame>
-					<Frame name="$parentShowIdealGemStats" parentKey="showIdealGemStats" inherits="ww_modifierKeyDropDown">
-						<Anchors>
-							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowAlternateGems"/>
-							<Anchor point="LEFT" relativePoint="LEFT" relativeTo="$parentShowIdealGems">
-								<Offset>
-									<AbsDimension x="20" y="0"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-						<Scripts>
-							<OnLoad>
-								self.label:SetText(ww_localization["SHOW_IDEAL_GEM_STATS"])
-								self.dropdown:SetText("showIdealGemStats")
-							</OnLoad>
-						</Scripts>
-					</Frame>
-					<Frame name="$parentShowDebugInfo" parentKey="showDebugInfo" inherits="ww_modifierKeyDropDown">
-						<Anchors>
-							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowIdealGemStats"/>
-						</Anchors>
-						<Scripts>
-							<OnLoad>
-								self.label:SetText(ww_localization["SHOW_DEBUG"])
-								self.dropdown:SetText("showDebugInfo")
-							</OnLoad>
-						</Scripts>
-					</Frame>
-					<CheckButton name="$parentHideTooltipHints" parentKey="hideTooltipHints" inherits="ww_checkButton">
-						<Anchors>
-							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowDebugInfo"/>
-						</Anchors>
-						<Scripts>
-							<OnClick>
-								if self:GetChecked() then
-									ww_vars.options.tooltip.hideHints = true
-								else
-									ww_vars.options.tooltip.hideHints = false
-								end
-							</OnClick>
-							<OnLoad>
-								self.shouldBeChecked = function() return ww_vars.options.tooltip.hideHints end
-								self.ttText = ww_localization["HIDE_HINTS_TT"]
-								self:SetText(ww_localization["HIDE_HINTS"])
-							</OnLoad>
-						</Scripts>
-					</CheckButton>
-					<Frame name="$parentShowClassNames" parentKey="showClassNames" inherits="ww_labeledElement">
-						<Anchors>
-							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentHideTooltipHints"/>
-						</Anchors>
-						<Size>
-							<AbsDimension x="0" y="45"/>
-						</Size>
-						<Frames>
-							<Button name="$parentDropdown" parentKey="dropdown" inherits="UIDropDownMenuTemplate">
-								<Anchors>
-									<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentLabel">
-										<Offset>
-											<AbsDimension x="-15" y="-3"/>
-										</Offset>
-									</Anchor>
-								</Anchors>
-								<Scripts>
-									<OnLoad>
-										UIDropDownMenu_JustifyText(self, "LEFT")
-									</OnLoad>
-									<OnShow>
-										UIDropDownMenu_Initialize(self, ww_ShowClassNameDropDownInitialize)
-										UIDropDownMenu_SetSelectedValue(self, ww_vars.options.tooltip.showClassNames)
-									</OnShow>
-								</Scripts>
-							</Button>
-						</Frames>
-						<Scripts>
-							<OnLoad>
-								self.label:SetText(ww_localization["SHOW_CLASS"])
-							</OnLoad>
-						</Scripts>
-					</Frame>
-					<CheckButton name="$parentShowZeroScores" parentKey="showZeroScores" inherits="ww_checkButton">
-						<Anchors>
-							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowClassNames"/>
-						</Anchors>
-						<Scripts>
-							<OnClick>
-								if self:GetChecked() then
-									ww_vars.options.tooltip.showZeroScores = true
-								else
-									ww_vars.options.tooltip.showZeroScores = false
-								end
-							</OnClick>
-							<OnLoad>
-								self.shouldBeChecked = function() return ww_vars.options.tooltip.showZeroScores end
-								self.ttText = ww_localization["SHOW_ZEROES_TT"]
-								self:SetText(ww_localization["SHOW_ZEROES"])
-							</OnLoad>
-						</Scripts>
-					</CheckButton>
-					<CheckButton name="$parentShowDifference" parentKey="showDifference" inherits="ww_checkButton">
-						<Anchors>
-							<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowZeroScores"/>
-						</Anchors>
-						<Scripts>
-							<OnClick>
-								if self:GetChecked() then
-									ww_vars.options.tooltip.showDifferences = true
-								else
-									ww_vars.options.tooltip.showDifferences = false
-								end
-							</OnClick>
-							<OnLoad>
-								self.shouldBeChecked = function() return ww_vars.options.tooltip.showDifferences end
-								self.ttText = ww_localization["SHOW_DIFF_TT"]
-								self:SetText(ww_localization["SHOW_DIFF"])
-							</OnLoad>
-						</Scripts>
-					</CheckButton>
-				</Frames>
-				<Scripts>
-					<OnLoad>
-						self.header:SetText(ww_localization["DISPLAY_OPTS"])
-					</OnLoad>
-				</Scripts>
-			</Frame>
+			</Button>
 		</Frames>
 		<Scripts>
 			<OnLoad>
-				self.title:SetText(ww_localization[self.title:GetText()])
-				table.insert(UISpecialFrames, self:GetName())
+				self.name = "WeightsWatcher"
+				self.okay = function(...)
+						ww_config.originalOpts = nil
+					end
+				self.cancel = function(...)
+						ww_vars.options = ww_config.originalOpts
+						ww_config.originalOpts = nil
+						WeightsWatcher.ResetTables()
+					end
+				self.refresh = function(...)
+						self.version:SetText(string.format(ww_localization["CONF_WW_VER"], GetAddOnMetadata("WeightsWatcher", "Version")))
+						self.accountVersion:SetText(string.format(ww_localization["CONF_ACCT_VER"], ww_vars.dataMajorVersion, ww_vars.dataMinorVersion))
+						self.characterVersion:SetText(string.format(ww_localization["CONF_CHAR_VER"], ww_charVars.dataMajorVersion, ww_charVars.dataMinorVersion))
+						self.contact:SetText(string.format(ww_localization["CONF_CONTACT"], "WeightsWatcher@gmail.com"))
+						self.webpage:SetText(string.format(ww_localization["CONF_WEBPAGE"], "http://wowinterface.com/downloads/\n         info15289-WeightsWatcher.html"))
+						self.description:SetText(ww_localization["CONF_DESC"])
+						self.refresh = function(...)
+								ww_config.originalOpts = ww_config.originalOpts or ww_deepTableCopy(ww_vars.options)
+							end
+						self.refresh(...)
+					end
+				InterfaceOptions_AddCategory(self)
 			</OnLoad>
 		</Scripts>
 	</Frame>
+	<Include file="config-calculation.xml"/>
+	<Include file="config-display.xml"/>
+	<Include file="config-gems.xml"/>
+	<Include file="config-enchants.xml"/>
 </Ui>

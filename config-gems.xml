@@ -1,0 +1,327 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+	<Frame name="ww_configGemOptions" inherits="ww_borderedFrame" hidden="true">
+		<Anchors>
+			<Anchor point="TOPLEFT"/>
+			<Anchor point="BOTTOMRIGHT"/>
+		</Anchors>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString name="$parentHeader" parentKey="header" inherits="ww_headerFont"/>
+			</Layer>
+			<Layer level="BACKGROUND">
+				<Texture setAllPoints="true">
+					<!--Plain black background with 80% alpha-->
+					<Color r="0" g="0" b="0" a="0.8"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame name="$parentGemQuality" parentKey="gemQuality" inherits="ww_labeledElement">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentHeader">
+						<Offset>
+							<AbsDimension x="0" y="-10"/>
+						</Offset>
+					</Anchor>
+					<Anchor point="LEFT">
+						<Offset>
+							<AbsDimension x="9" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Size>
+					<AbsDimension x="0" y="30"/>
+				</Size>
+				<Frames>
+					<Button name="$parentDropdown" parentKey="dropdown" inherits="UIDropDownMenuTemplate">
+						<Anchors>
+							<Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parentLabel">
+								<Offset>
+									<AbsDimension x="-15" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								UIDropDownMenu_SetWidth(self, 200, 15)
+								UIDropDownMenu_JustifyText(self, "LEFT")
+							</OnLoad>
+							<OnShow>
+								UIDropDownMenu_Initialize(self, ww_GemQualityDropDownInitialize)
+								UIDropDownMenu_SetSelectedValue(self, ww_vars.options.gems.qualityLimit)
+							</OnShow>
+						</Scripts>
+					</Button>
+				</Frames>
+				<Scripts>
+					<OnLoad>
+						self.label:SetText(ww_localization["MAX_GEM_QUAL"])
+						self:SetBackdropColor(1, 0, 0, 0.5)
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<CheckButton name="$parentUseUEGems" parentKey="useUEGems" inherits="ww_checkButton">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentGemQuality"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						if self:GetChecked() then
+							ww_vars.options.gems.types["Unique-Equipped"] = true
+						else
+							ww_vars.options.gems.types["Unique-Equipped"] = false
+						end
+						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+					</OnClick>
+					<OnLoad>
+						self.shouldBeChecked = function() return ww_vars.options.gems.types["Unique-Equipped"] end
+						self.ttText = ww_localization["USE_UE_GEMS_TT"]
+						self:SetText(ww_localization["USE_UE_GEMS"])
+					</OnLoad>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentUseJCOnlyGems" parentKey="useJCOnlyGems" inherits="ww_checkButton">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseUEGems"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						if self:GetChecked() then
+							ww_vars.options.gems.types["Jewelcrafter-Only"] = true
+						else
+							ww_vars.options.gems.types["Jewelcrafter-Only"] = false
+						end
+						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+					</OnClick>
+					<OnLoad>
+						self.shouldBeChecked = function() return ww_vars.options.gems.types["Jewelcrafter-Only"] end
+						self.ttText = ww_localization["USE_JC_GEMS_TT"]
+						self:SetText(ww_localization["USE_JC_GEMS"])
+					</OnLoad>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentUseVendorGems" parentKey="useVendorGems" inherits="ww_checkButton">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseJCOnlyGems"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						if self:GetChecked() then
+							ww_vars.options.gems.sources["Vendor"] = true
+						else
+							ww_vars.options.gems.sources["Vendor"] = false
+						end
+						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+					</OnClick>
+					<OnLoad>
+						self.shouldBeChecked = function() return ww_vars.options.gems.sources["Vendor"] end
+						self.ttText = ww_localization["USE_VP_GEMS_TT"]
+						self:SetText(ww_localization["USE_VP_GEMS"])
+					</OnLoad>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentUsePVPVendorGems" parentKey="usePVPVendorGems" inherits="ww_checkButton">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseVendorGems"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						if self:GetChecked() then
+							ww_vars.options.gems.sources["PVP-Vendor"] = true
+						else
+							ww_vars.options.gems.sources["PVP-Vendor"] = false
+						end
+						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+					</OnClick>
+					<OnLoad>
+						self.shouldBeChecked = function() return ww_vars.options.gems.sources["PVP-Vendor"] end
+						self.ttText = ww_localization["USE_PVPVP_GEMS_TT"]
+						self:SetText(ww_localization["USE_PVPVP_GEMS"])
+					</OnLoad>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentUseCraftedGems" parentKey="useCraftedGems" inherits="ww_checkButton">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUsePVPVendorGems"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						if self:GetChecked() then
+							ww_vars.options.gems.sources["Crafted"] = true
+							self:GetParent().useProcGems:Enable()
+						else
+							ww_vars.options.gems.sources["Crafted"] = false
+							self:GetParent().useProcGems:Disable()
+						end
+						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+					</OnClick>
+					<OnLoad>
+						self.shouldBeChecked = function() return ww_vars.options.gems.sources["Crafted"] end
+						self.ttText = ww_localization["USE_PC_GEMS_TT"]
+						self:SetText(ww_localization["USE_PC_GEMS"])
+					</OnLoad>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentUseProcGems" parentKey="useProcGems" inherits="ww_checkButton">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentUseCraftedGems">
+						<Offset>
+							<AbsDimension x="20" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						if self:GetChecked() then
+							ww_vars.options.gems.sources["Procced"] = true
+						else
+							ww_vars.options.gems.sources["Procced"] = false
+						end
+						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+					</OnClick>
+					<OnLoad>
+						self.shouldBeChecked = function() return ww_vars.options.gems.sources["Procced"] end
+						self.shouldBeEnabled = function() return ww_vars.options.gems.sources["Crafted"] end
+						self.ttText = ww_localization["USE_P_GEMS_TT"]
+						self:SetText(ww_localization["USE_P_GEMS"])
+					</OnLoad>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentUseDropGems" parentKey="useDropGems" inherits="ww_checkButton">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseProcGems"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						if self:GetChecked() then
+							ww_vars.options.gems.sources["Drop"] = true
+						else
+							ww_vars.options.gems.sources["Drop"] = false
+						end
+						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+					</OnClick>
+					<OnLoad>
+						self.shouldBeChecked = function() return ww_vars.options.gems.sources["Drop"] end
+						self.ttText = ww_localization["USE_D_GEMS_TT"]
+						self:SetText(ww_localization["USE_D_GEMS"])
+					</OnLoad>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentUseQuestGems" parentKey="useQuestGems" inherits="ww_checkButton">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseDropGems"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						if self:GetChecked() then
+							ww_vars.options.gems.sources["Quest"] = true
+						else
+							ww_vars.options.gems.sources["Quest"] = false
+						end
+						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+					</OnClick>
+					<OnLoad>
+						self.shouldBeChecked = function() return ww_vars.options.gems.sources["Quest"] end
+						self.ttText = ww_localization["USE_QR_GEMS_TT"]
+						self:SetText(ww_localization["USE_QR_GEMS"])
+					</OnLoad>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentObeySocketColors" parentKey="obeySocketColors" inherits="ww_checkButton">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseQuestGems"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						if self:GetChecked() then
+							ww_vars.options.gems.breakSocketColors = false
+							self:GetParent().alwaysObeySocketColors:Enable()
+						else
+							ww_vars.options.gems.breakSocketColors = true
+							self:GetParent().alwaysObeySocketColors:Disable()
+						end
+						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+					</OnClick>
+					<OnLoad>
+						self.shouldBeChecked = function() return not ww_vars.options.gems.breakSocketColors end
+						self.ttText = ww_localization["MATCH_SOCKET_TT"]
+						self:SetText(ww_localization["MATCH_SOCKET"])
+					</OnLoad>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentAlwaysObeySocketColors" parentKey="alwaysObeySocketColors" inherits="ww_checkButton">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentObeySocketColors">
+						<Offset>
+							<AbsDimension x="20" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						if self:GetChecked() then
+							ww_vars.options.gems.neverBreakSocketColors = true
+						else
+							ww_vars.options.gems.neverBreakSocketColors = false
+						end
+						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+					</OnClick>
+					<OnLoad>
+						self.shouldBeChecked = function() return ww_vars.options.gems.neverBreakSocketColors end
+						self.shouldBeEnabled = function() return not ww_vars.options.gems.breakSocketColors end
+						self.ttText = ww_localization["ALWAYS_MATCH_SOCKET_TT"]
+						self:SetText(ww_localization["ALWAYS_MATCH_SOCKET"])
+					</OnLoad>
+				</Scripts>
+			</CheckButton>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				self.header:SetText(ww_localization["IDEAL_GEM_OPTS"])
+				self.name = ww_localization["IDEAL_GEM_NAME"]
+				self.parent = "WeightsWatcher"
+				self.default = function()
+						ww_vars.options.gems = ww_defaultVars.options.gems
+						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+					end
+				local checkBoxes = {
+					"Unique-Equipped",
+					"Jewelcrafter-Only",
+					"Vendor",
+					"PVP-Vendor",
+					"Crafted",
+					"Procced",
+					"Drop",
+					"Quest",
+					"obeySocketColors",
+					"alwaysObeySocketColors",
+					["Unique-Equipped"] = self.useUEGems,
+					["Jewelcrafter-Only"] = self.useJCOnlyGems,
+					["Vendor"] = self.useVendorGems,
+					["PVP-Vendor"] = self.usePVPVendorGems,
+					["Crafted"] = self.useCraftedGems,
+					["Procced"] = self.useProcGems,
+					["Drop"] = self.useDropGems,
+					["Quest"] = self.useQuestGems,
+					["obeySocketColors"] = self.obeySocketColors,
+					["alwaysObeySocketColors"] = self.alwaysObeySocketColors,
+				}
+				self.refresh = function()
+						for _, option in ipairs(checkBoxes) do
+							local checkBox = checkBoxes[option]
+							checkBox:SetChecked(checkBox.shouldBeChecked())
+							if checkBox.shouldBeEnabled then
+								if checkBox.shouldBeEnabled() then
+									checkBox:Enable()
+								else
+									checkBox:Disable()
+								end
+							end
+						end
+					end
+				InterfaceOptions_AddCategory(self)
+			</OnLoad>
+		</Scripts>
+	</Frame>
+</Ui>

@@ -1,0 +1,132 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+	<Frame name="ww_configCalculationOptions" inherits="ww_borderedFrame" hidden="true">
+		<Anchors>
+			<Anchor point="TOPLEFT"/>
+			<Anchor point="BOTTOMRIGHT"/>
+		</Anchors>
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString name="$parentTitle" parentKey="title" inherits="GameFontNormalLarge">
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="-5"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+			<Layer level="BACKGROUND">
+				<Texture setAllPoints="true">
+					<!--Plain black background with 80% alpha-->
+					<Color r="0" g="0" b="0" a="0.8"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame name="$parentUseEffectUptimeRatio" parentKey="useEffectUptimeRatio" inherits="ww_labeledElement">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentTitle">
+						<Offset>
+							<AbsDimension x="0" y="-10"/>
+						</Offset>
+					</Anchor>
+					<Anchor point="LEFT">
+						<Offset>
+							<AbsDimension x="9" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Size>
+					<AbsDimension x="0" y="25"/>
+				</Size>
+				<Frames>
+					<EditBox letters="16" name="$parentRatio" parentKey="ratio" autoFocus="false">
+						<Anchors>
+							<Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parentLabel">
+								<Offset>
+									<AbsDimension x="5" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Size>
+							<AbsDimension x="50" y="22"/>
+						</Size>
+						<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+							<EdgeSize>
+								<AbsValue val="10"/>
+							</EdgeSize>
+							<TileSize>
+								<AbsValue val="10"/>
+							</TileSize>
+							<BackgroundInsets>
+								<AbsInset left="0" right="0" top="5" bottom="5"/>
+							</BackgroundInsets>
+						</Backdrop>
+						<FontString inherits="GameFontNormal">
+							<Anchors>
+								<Anchor point="LEFT"/>
+							</Anchors>
+						</FontString>
+						<Scripts>
+							<OnLoad>
+								self:SetTextInsets(5, 5, 0, 0)
+							</OnLoad>
+							<OnTextChanged>
+								local text = self:GetText()
+								if self:GetNumber() ~= 0 or text:match("^[0.]+$") or text == "" then
+									self.number = text
+									ww_vars.options.useEffects.uptimeRatio = self:GetNumber() / 100
+									ww_weightCache = setmetatable({}, ww_weightCacheMetatable)
+									ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+								end
+							</OnTextChanged>
+							<OnChar>
+								if ww_validateNumber(text, self:GetText()) then
+									self.number = self:GetText()
+									ww_vars.options.useEffects.uptimeRatio = self:GetNumber() / 100
+									ww_weightCache = setmetatable({}, ww_weightCacheMetatable)
+									ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+								else
+									local cursorPosition = self:GetCursorPosition() - 1
+									self:SetText(self.number)
+									self:SetCursorPosition(cursorPosition)
+								end
+							</OnChar>
+							<OnEscapePressed>
+								self:ClearFocus()
+							</OnEscapePressed>
+						</Scripts>
+					</EditBox>
+				</Frames>
+				<Scripts>
+					<OnLoad>
+						if ww_cooldownUseEffects then
+							self.label:SetText(ww_localization["IDEAL_USE_UPTIME"])
+						else
+							self:SetParent(nil)
+							self:Hide()
+						end
+					</OnLoad>
+				</Scripts>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				self.title:SetText(ww_localization["CALC_OPTS"])
+				self.name = ww_localization["CALC_NAME"]
+				self.parent = "WeightsWatcher"
+				self.default = function(...)
+						ww_vars.options.calculation = ww_deepTableCopy(ww_defaultVars.options.calculation)
+						ww_weightCache = setmetatable({}, ww_weightCacheMetatable)
+						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
+					end
+				self.refresh = function(...)
+						self.useEffectUptimeRatio.ratio:SetText(ww_vars.options.calculation.useEffectUptimeRatio * 100)
+					end
+				InterfaceOptions_AddCategory(self)
+			</OnLoad>
+		</Scripts>
+	</Frame>
+</Ui>

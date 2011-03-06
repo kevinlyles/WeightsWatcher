@@ -10,21 +10,40 @@ local function printHelp()
 	print(L["HELP_TEXT_BUGS"])
 end
 
+local function showConfig(frame)
+	if frame:IsVisible() then
+		InterfaceOptionsFrameCancel:Click()
+	else
+		-- TODO: make this always open to the right section if possible
+		InterfaceOptionsFrame_OpenToCategory(frame)
+	end
+end
+
 function ww_commandHandler(msg)
-	if msg == L["config"] then
-		ww_weights:Hide()
-		-- TODO: make this work better with the confirmDiscardChanges dialog
-		if ww_weights:IsShown() then
-			return
+	if msg:find("^" .. L["config"]) then
+		local frame = ww_config
+		if msg:find(L["gems"]) then
+			frame = ww_configGemOptions
+		elseif msg:find(L["enchants"]) then
+			frame = ww_configEnchantOptions
+		elseif msg:find(L["display"]) then
+			frame = ww_configDisplayOptions
+		elseif msg:find(L["calculation"]) then
+			frame = ww_configCalculationOptions
 		end
-		if ww_config:IsVisible() then
-			ww_config:Hide()
+		if ww_weights:IsVisible() then
+			ww_weights:SmartHide(function()
+					showConfig(frame)
+				end
+			)
 		else
-			ww_config:Show()
+			showConfig(frame)
 		end
 	elseif msg == L["weights"] then
-		ww_config:Hide()
-		if ww_config:IsShown() then
+		if InterfaceOptionsFrame:IsVisible() then
+			InterfaceOptionsFrameCancel:Click()
+		end
+		if InterfaceOptionsFrame:IsVisible() then
 			return
 		end
 		if ww_weights:IsVisible() then

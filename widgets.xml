@@ -22,11 +22,7 @@
 			<Layer level="ARTWORK">
 				<FontString name="$parentLabel" parentKey="label" inherits="GameFontNormalSmall">
 					<Anchors>
-						<Anchor point="TOPLEFT">
-							<Offset>
-								<AbsDimension x="5" y="-5"/>
-							</Offset>
-						</Anchor>
+						<Anchor point="LEFT"/>
 					</Anchors>
 				</FontString>
 			</Layer>
@@ -34,14 +30,14 @@
 	</Frame>
 	<Frame name="ww_modifierKeyDropDown" inherits="ww_labeledElement" virtual="true">
 		<Size>
-			<AbsDimension x="0" y="45"/>
+			<AbsDimension x="0" y="30"/>
 		</Size>
 		<Frames>
 			<Button name="$parentDropdown" parentKey="dropdown" inherits="UIDropDownMenuTemplate">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentLabel">
+					<Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parentLabel">
 						<Offset>
-							<AbsDimension x="-15" y="-3"/>
+							<AbsDimension x="-15" y="0"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -103,14 +99,6 @@
 					self.text = getglobal(self:GetName() .. "Text")
 				end
 				self.text:SetText(self:GetText())
-				self:SetChecked(self.shouldBeChecked())
-				if self.shouldBeEnabled then
-					if self.shouldBeEnabled() then
-						self:Enable()
-					else
-						self:Disable()
-					end
-				end
 			</OnShow>
 		</Scripts>
 	</CheckButton>

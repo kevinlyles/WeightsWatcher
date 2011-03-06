@@ -684,10 +684,10 @@
 				<Scripts>
 					<OnClick>
 						if ww_weights.rightPanel.weightFrame and ww_defaultVars.weightsList[ww_weights.rightPanel.weightFrame.category.class][ww_weights.rightPanel.weightFrame.name] then
-							StaticPopup_Show("WW_CONFIRM_RESTORE_DEFAULTS")
+							StaticPopup_Show("WW_CONFIRM_RESTORE_DEFAULT_WEIGHTS")
 						else
 							ww_configDiscardChanges(function()
-									StaticPopup_Show("WW_CONFIRM_RESTORE_DEFAULTS")
+									StaticPopup_Show("WW_CONFIRM_RESTORE_DEFAULT_WEIGHTS")
 								end)
 						end
 					</OnClick>
