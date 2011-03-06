@@ -1,0 +1,183 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+	<Frame name="ww_borderedFrame" virtual="true">
+		<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+			<EdgeSize>
+				<AbsValue val="10"/>
+			</EdgeSize>
+			<TileSize>
+				<AbsValue val="10"/>
+			</TileSize>
+			<BackgroundInsets>
+				<AbsInset left="0" right="0" top="5" bottom="5"/>
+			</BackgroundInsets>
+		</Backdrop>
+	</Frame>
+	<Frame name="ww_labeledElement" virtual="true">
+		<Anchors>
+			<Anchor point="LEFT"/>
+			<Anchor point="RIGHT"/>
+		</Anchors>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString name="$parentLabel" parentKey="label" inherits="GameFontNormalSmall">
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="5" y="-5"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+	</Frame>
+	<Frame name="ww_modifierKeyDropDown" inherits="ww_labeledElement" virtual="true">
+		<Size>
+			<AbsDimension x="0" y="45"/>
+		</Size>
+		<Frames>
+			<Button name="$parentDropdown" parentKey="dropdown" inherits="UIDropDownMenuTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentLabel">
+						<Offset>
+							<AbsDimension x="-15" y="-3"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						UIDropDownMenu_JustifyText(self, "LEFT")
+					</OnLoad>
+					<OnShow>
+						UIDropDownMenu_Initialize(self, ww_ModifierKeyDropDownInitialize)
+						UIDropDownMenu_SetSelectedValue(self, ww_vars.options.tooltip[self:GetText()])
+					</OnShow>
+				</Scripts>
+			</Button>
+		</Frames>
+	</Frame>
+	<!-- Check button template
+		Requires the following values be set at load:
+			self.shouldBeChecked: function returning true/false
+			self.shouldBeEnabled (optional): function returning true/false
+			self.ttText (optional): text to display on mouseover -->
+	<CheckButton name="ww_checkButton" inherits="UICheckButtonTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="25" y="25"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT">
+				<Offset>
+					<AbsDimension x="5" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Scripts>
+			<OnDisable>
+				if not self.text then
+					self.text = getglobal(self:GetName() .. "Text")
+				end
+				self.text:SetTextColor(0.5, 0.5, 0.5)
+			</OnDisable>
+			<OnEnable>
+				if not self.text then
+					self.text = getglobal(self:GetName() .. "Text")
+				end
+				self.text:SetTextColor(1, 0.82, 0)
+			</OnEnable>
+			<OnEnter>
+				if self.ttText then
+					GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
+					GameTooltip:AddLine(self.ttText, 1, 1, 1)
+					GameTooltip:Show()
+				end
+			</OnEnter>
+			<OnLeave>
+				if self.ttText then
+					GameTooltip:Hide()
+				end
+			</OnLeave>
+			<OnShow>
+				if not self.text then
+					self.text = getglobal(self:GetName() .. "Text")
+				end
+				self.text:SetText(self:GetText())
+				self:SetChecked(self.shouldBeChecked())
+				if self.shouldBeEnabled then
+					if self.shouldBeEnabled() then
+						self:Enable()
+					else
+						self:Disable()
+					end
+				end
+			</OnShow>
+		</Scripts>
+	</CheckButton>
+	<FontString name="ww_headerFont" inherits="GameFontNormalLarge" virtual="true">
+		<Anchors>
+			<Anchor point="TOP">
+				<Offset>
+					<AbsDimension x="0" y="-5"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</FontString>
+	<!--Default String used to allow for simpler left alignment in script generated fontstrings-->
+	<FontString name="ww_defaultString" inherits="GameFontNormalSmall" virtual="true">
+		<Anchors>
+			<Anchor point="LEFT"/>
+		</Anchors>
+	</FontString>
+	<!-- Localizes the button text automatically -->
+	<Button name="ww_localizedButton" inherits="UIPanelButtonTemplate" virtual="true">
+		<Scripts>
+			<OnLoad>
+				self:SetText(ww_localization[self:GetText()])
+			</OnLoad>
+		</Scripts>
+	</Button>
+	<!-- Adds a border that can be hidden/shown as a unit -->
+	<Frame name="ww_highlightedFrame" virtual="true" hidden="true">
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture file="Interface\Buttons\UI-Panel-Button-Glow" alphaMode="ADD">
+					<Size>
+						<AbsDimension y="22" x="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT"/>
+					</Anchors>
+					<TexCoords left="0.03125" right="0.25" top=".0625" bottom=".5625"/>
+				</Texture>
+				<Texture file="Interface\Buttons\UI-Panel-Button-Glow" alphaMode="ADD">
+					<Size>
+						<AbsDimension x="0" y="22"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="16" y="0"/>
+							</Offset>
+						</Anchor>
+						<Anchor point="RIGHT">
+							<Offset>
+								<AbsDimension x="-16" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.25" right="0.5" top=".0625" bottom=".5625"/>
+				</Texture>
+				<Texture file="Interface\Buttons\UI-Panel-Button-Glow" alphaMode="ADD">
+					<Size>
+						<AbsDimension y="22" x="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT"/>
+					</Anchors>
+					<TexCoords left=".5" right=".6875" top=".0625" bottom=".5625"/>
+				</Texture>
+			</Layer>
+		</Layers>
+	</Frame>
+</Ui>

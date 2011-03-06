@@ -1,63 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
 	<Script file="weights.lua"/>
-	<!--Default String used to allow for simpler left alignment in script generated fontstrings-->
-	<FontString name="ww_defaultString" inherits="GameFontNormalSmall" virtual="true">
-		<Anchors>
-			<Anchor point="LEFT"/>
-		</Anchors>
-	</FontString>
-	<!-- Localizes the button text automatically -->
-	<Button name="ww_localizedButton" inherits="UIPanelButtonTemplate" virtual="true">
-		<Scripts>
-			<OnLoad>
-				self:SetText(ww_localization[self:GetText()])
-			</OnLoad>
-		</Scripts>
-	</Button>
-	<!-- Adds a border that can be hidden/shown as a unit -->
-	<Frame name="ww_highlightedFrame" virtual="true" hidden="true">
-		<Layers>
-			<Layer level="BACKGROUND">
-				<Texture file="Interface\Buttons\UI-Panel-Button-Glow" alphaMode="ADD">
-					<Size>
-						<AbsDimension y="22" x="16"/>
-					</Size>
-					<Anchors>
-						<Anchor point="LEFT"/>
-					</Anchors>
-					<TexCoords left="0.03125" right="0.25" top=".0625" bottom=".5625"/>
-				</Texture>
-				<Texture file="Interface\Buttons\UI-Panel-Button-Glow" alphaMode="ADD">
-					<Size>
-						<AbsDimension x="0" y="22"/>
-					</Size>
-					<Anchors>
-						<Anchor point="LEFT">
-							<Offset>
-								<AbsDimension x="16" y="0"/>
-							</Offset>
-						</Anchor>
-						<Anchor point="RIGHT">
-							<Offset>
-								<AbsDimension x="-16" y="0"/>
-							</Offset>
-						</Anchor>
-					</Anchors>
-					<TexCoords left="0.25" right="0.5" top=".0625" bottom=".5625"/>
-				</Texture>
-				<Texture file="Interface\Buttons\UI-Panel-Button-Glow" alphaMode="ADD">
-					<Size>
-						<AbsDimension y="22" x="16"/>
-					</Size>
-					<Anchors>
-						<Anchor point="RIGHT"/>
-					</Anchors>
-					<TexCoords left=".5" right=".6875" top=".0625" bottom=".5625"/>
-				</Texture>
-			</Layer>
-		</Layers>
-	</Frame>
 	<!-- virtual frame used for classes in tiered lists -->
 	<Frame name="ww_classFrame" virtual="true">
 		<Size>
