@@ -769,10 +769,18 @@
 			<OnLoad>
 				self.title:SetText(ww_localization[self.title:GetText()])
 				table.insert(UISpecialFrames, self:GetName())
+				function self:SmartHide(func)
+						self.afterHide = func
+						self:Hide()
+					end
 			</OnLoad>
 			<OnHide>
 				if self.reallyClose then
 					self.reallyClose = nil
+					if self.afterHide then
+						self.afterHide()
+					end
+					self.afterHide = nil
 				else
 					self.popup = true
 					self:Show()
@@ -783,6 +791,10 @@
 								ww_configResetWeight()
 							end
 							self:Hide()
+							if self.afterHide then
+								self.afterHide()
+							end
+							self.afterHide = nil
 						end)
 					self.popup = nil
 				end
