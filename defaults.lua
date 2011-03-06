@@ -262,15 +262,15 @@ ww_defaultVars = {
 			ww_specNames["Feral Tank"],
 			ww_specNames["Restoration"],
 			[ww_specNames["Balance"]] = {
-				["hit rating"] = 100,
-				["spell hit rating"] = 100,
-				["mastery rating"] = 100,
-				["spell power"] = 66,
-				["haste rating"] = 54,
-				["critical strike rating"] = 43,
-				["spell critical strike rating"] = 43,
-				["spirit"] = 22,
-				["intellect"] = 22,
+				["intellect"] = 100,
+				["spell power"] = 100,
+				["spirit"] = 90,
+				["haste rating"] = 90,
+				["hit rating"] = 90,
+				["spell hit rating"] = 90,
+				["mastery rating"] = 80,
+				["critical strike rating"] = 70,
+				["spell critical strike rating"] = 70,
 				triggers = {
 					harmfulSpell = true,
 				}
@@ -311,13 +311,13 @@ ww_defaultVars = {
 				}
 			},
 			[ww_specNames["Restoration"]] = {
-				["spell power"] = 100,
-				["mastery rating"] = 100,
-				["haste rating"] = 57,
-				["intellect"] = 51,
-				["spirit"] = 32,
-				["critical strike rating"] = 11,
-				["spell critical strike rating"] = 11,
+				["intellect"] = 100,
+				["spell power"] = 95,
+				["spirit"] = 90,
+				["mastery rating"] = 80,
+				["haste rating"] = 70,
+				["critical strike rating"] = 60,
+				["spell critical strike rating"] = 60,
 				triggers = {
 					helpfulSpell = true,
 				}
@@ -348,9 +348,9 @@ ww_defaultVars = {
 				["ranged hit rating"] = 80,
 				["critical strike rating"] = 60,
 				["ranged critical strike rating"] = 60,
+				["haste rating"] = 60,
+				["ranged haste rating"] = 60,
 				["mastery rating"] = 40,
-				["haste rating"] = 20,
-				["ranged haste rating"] = 20,
 				triggers = {
 					rangedDamage = true,
 				}
@@ -362,9 +362,9 @@ ww_defaultVars = {
 				["ranged hit rating"] = 80,
 				["critical strike rating"] = 60,
 				["ranged critical strike rating"] = 60,
-				["mastery rating"] = 40,
-				["haste rating"] = 20,
-				["ranged haste rating"] = 20,
+				["haste rating"] = 40,
+				["ranged haste rating"] = 40,
+				["mastery rating"] = 20,
 				triggers = {
 					rangedDamage = true,
 				}
@@ -402,14 +402,14 @@ ww_defaultVars = {
 				}
 			},
 			[ww_specNames["Frost"]] = {
-				["hit rating"] = 100,
-				["spell hit rating"] = 100,
-				["mastery rating"] = 100,
-				["haste rating"] = 42,
-				["spell power"] = 39,
-				["critical strike rating"] = 19,
-				["spell critical strike rating"] = 19,
-				["intellect"] = 6,
+				["intellect"] = 100,
+				["spell power"] = 100,
+				["hit rating"] = 80,
+				["spell hit rating"] = 80,
+				["mastery rating"] = 700,
+				["haste rating"] = 50,
+				["critical strike rating"] = 45,
+				["spell critical strike rating"] = 45,
 				triggers = {
 					harmfulSpell = true,
 				}
@@ -420,11 +420,11 @@ ww_defaultVars = {
 			ww_specNames["Protection"],
 			ww_specNames["Retribution"],
 			[ww_specNames["Holy"]] = {
-				["spell power"] = 100,
 				["intellect"] = 100,
 				["haste rating"] = 80,
 				["spirit"] = 50,
 				["mastery rating"] = 50,
+				["spell power"] = 50,
 				["critical strike rating"] = 25,
 				["spell critical strike rating"] = 25,
 				triggers = {
@@ -433,13 +433,12 @@ ww_defaultVars = {
 			},
 			[ww_specNames["Protection"]] = {
 				["stamina"] = 100,
-				["mastery rating"] = 100,
-				["agility"] = 60,
-				["expertise rating"] = 59,
-				["dodge rating"] = 55,
-				["parry rating"] = 30,
-				["strength"] = 16,
-				["armor"] = 8,
+				["mastery rating"] = 90,
+				["dodge rating"] = 80,
+				["parry rating"] = 80,
+				["hit rating"] = 70,
+				["expertise rating"] = 60,
+				["strength"] = 50,
 				triggers = {
 					harmfulSpell = true,
 					meleeDamage = true,
@@ -477,13 +476,12 @@ ww_defaultVars = {
 				}
 			},
 			[ww_specNames["Holy"]] = {
-				["mastery rating"] = 100,
-				["intellect"] = 69,
-				["spell power"] = 60,
-				["spirit"] = 52,
-				["critical strike rating"] = 38,
-				["spell critical strike rating"] = 38,
-				["haste rating"] = 31,
+				["intellect"] = 100,
+				["spirit"] = 95,
+				["haste rating"] = 85,
+				["mastery rating"] = 80,
+				["critical strike rating"] = 30,
+				["spell critical strike rating"] = 30,
 				triggers = {
 					helpfulSpell = true,
 				}
@@ -556,10 +554,10 @@ ww_defaultVars = {
 				["spell hit rating"] = 100,
 				["spell power"] = 80,
 				["intellect"] = 80,
-				["haste rating"] = 60,
-				["mastery rating"] = 40,
-				["critical strike rating"] = 20,
-				["spell critical strike rating"] = 20,
+				["mastery rating"] = 75,
+				["haste rating"] = 75,
+				["critical strike rating"] = 40,
+				["spell critical strike rating"] = 40,
 				triggers = {
 					harmfulSpell = true,
 				}
@@ -636,7 +634,7 @@ ww_defaultVars = {
 				["haste rating"] = 36,
 				["critical strike rating"] = 34,
 				["spell critical strike rating"] = 34,
-				["mastery rating"] = 100,
+				["mastery rating"] = 29,
 				["stamina"] = 1,
 				triggers = {
 					harmfulSpell = true,
@@ -649,44 +647,38 @@ ww_defaultVars = {
 			ww_specNames["Protection"],
 			[ww_specNames["Arms"]] = {
 				["strength"] = 100,
-				["mastery rating"] = 100,
 				["hit rating"] = 90,
 				["expertise rating"] = 85,
 				["critical strike rating"] = 80,
 				["melee critical strike rating"] = 80,
-				["agility"] = 65,
+				["mastery rating"] = 70,
 				["haste rating"] = 50,
-				["armor"] = 2,
 				triggers = {
 					meleeDamage = true,
 				}
 			},
 			[ww_specNames["Fury"]] = {
-				["expertise rating"] = 100,
-				["mastery rating"] = 100,
-				["strength"] = 82,
-				["critical strike rating"] = 66,
-				["melee critical strike rating"] = 66,
-				["agility"] = 53,
-				["hit rating"] = 48,
-				["haste rating"] = 36,
-				["armor"] = 5,
+				["strength"] = 100,
+				["expertise rating"] = 90,
+				["hit rating"] = 90,
+				["critical strike rating"] = 80,
+				["melee critical strike rating"] = 80,
+				["mastery rating"] = 70,
+				["haste rating"] = 50,
 				triggers = {
 					meleeDamage = true,
 				}
 			},
 			[ww_specNames["Protection"]] = {
 				["stamina"] = 100,
-				["mastery rating"] = 100,
-				["dodge rating"] = 90,
-				["agility"] = 67,
-				["strength"] = 48,
-				["expertise rating"] = 19,
-				["hit rating"] = 10,
-				["critical strike rating"] = 7,
-				["melee critical strike rating"] = 7,
-				["armor"] = 6,
-				["haste rating"] = 1,
+				["mastery rating"] = 90,
+				["parry rating"] = 85,
+				["dodge rating"] = 80,
+				["expertise rating"] = 70,
+				["hit rating"] = 65,
+				["strength"] = 60,
+				["critical strike rating"] = 50,
+				["melee critical strike rating"] = 50,
 				triggers = {
 					meleeDamage = true,
 				}
