@@ -478,6 +478,17 @@
 				</Scripts>
 			</Button>
 		</Frames>
+<!--		<Scripts>
+			<OnHide>
+				self.checkButton:Hide()
+				self.text:Hide()
+			</OnHide>
+			<OnShow>
+				self.checkButton:Show()
+				self.text:Show()
+				error()
+			</OnShow>
+		</Scripts> -->
 	</Frame>
 	<!-- The frame containing all weight-related content -->
 	<Frame name="ww_weights" parent="UIParent" hidden="true" frameStrata="HIGH">

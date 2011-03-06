@@ -251,28 +251,34 @@ local function deleteWeight()
 		ww_weightIdealCache[weight.category.class][weight.name] = nil
 	end
 
-	weight.category.length = weight.category.length - 1
-	for _, weightFrame in ipairs({weight.category:GetChildren()}) do
-		if weightFrame.position and weightFrame.position > weight.position then
+	local collapsed = weight.category.collapsed
+	if collapsed then
+		weight.category.elements[1]:Click()
+	end
+
+	weight.category.length = weight.category.length - weight.length
+	local found = false
+	for _, weightFrame in ipairs(weight.category.elements) do
+		if weightFrame.relativePosition and weightFrame.relativePosition > weight.relativePosition then
 			weightFrame.position = weightFrame.position - 1
-			for i = 1, weightFrame:GetNumPoints() do
-				point, relativeTo, relativePoint, xOffset, yOffset = weightFrame:GetPoint(1)
-				if point == "TOPLEFT" then
-					weightFrame:SetPoint(point, relativeTo, relativePoint, xOffset, yOffset + 22)
-					break
+			weightFrame.relativePosition = weightFrame.relativePosition - 1
+			if not found then
+				weightFrame:ClearAllPoints()
+				for i = 1, weight:GetNumPoints() do
+					weightFrame:SetPoint(weight:GetPoint(i))
 				end
+				found = true
 			end
 		end
 	end
-	if not weight.category.collapsed then
-		for _, classFrame in ipairs(ww_weights.leftPanel.scrollContainer.elements) do
-			if classFrame.position > weight.category.position then
-				classFrame.position = classFrame.position - 1
-			end
+	for _, classFrame in ipairs(ww_weights.leftPanel.scrollContainer.elements) do
+		if classFrame.position > weight.category.position then
+			classFrame.position = classFrame.position - 1
 		end
-		table.remove(ww_weights.leftPanel.scrollContainer.shown, weight.category.position + weight.position)
-		weight.category:SetHeight(22 * weight.category.length)
 	end
+	table.remove(ww_weights.leftPanel.scrollContainer.shown, weight.position)
+	weight.category:SetHeight(22 * weight.category.length)
+	table.remove(weight.category.elements, weight.relativePosition)
 	weight:Hide()
 	weight:SetParent(nil)
 
@@ -301,6 +307,9 @@ local function deleteWeight()
 	end
 	ww_weights.rightPanel:Hide()
 	ww_weights.leftPanel.scrollFrame:GetScript("OnShow")(ww_weights.leftPanel.scrollFrame)
+	if collapsed then
+		weight.category.elements[1]:Click()
+	end
 end
 
 function ww_configNewWeight(class, weight, statList)
@@ -324,18 +333,30 @@ function ww_configNewWeight(class, weight, statList)
 end
 
 function ww_setWeight(class, weight, statList)
-	local weightFrame, position
-
 	if not ww_vars.weightsList[class][weight] then
+		local found = false
 		for _, classFrame in ipairs(ww_weights.leftPanel.scrollContainer.elements) do
-			if classFrame.class == class then
-				position = classFrame.length
-				weightFrame = CreateFrame("Frame", nil, classFrame, "ww_weightFrame")
-				weightFrame.position = position
+			if found then
+				classFrame.position = classFrame.position + 1
+				for _, weightFrame in ipairs(classFrame.elements) do
+					if weightFrame.position then
+						weightFrame.position = weightFrame.position + 1
+					end
+				end
+			elseif classFrame.class == class then
+				local weightFrame = CreateFrame("Frame", nil, classFrame, "ww_weightFrame")
+				weightFrame.relativePosition = classFrame.length + 1
+				weightFrame.position = classFrame.position + classFrame.length
 				weightFrame.category = classFrame
 				weightFrame.text:SetText(weight)
 				weightFrame.name = weight
-				weightFrame:SetPoint("TOPLEFT", 20, -22 * position)
+				weightFrame.length = 1
+				if #(classFrame.elements) == 1 then
+					weightFrame:SetPoint("TOPLEFT", 20, -22 * classFrame.length)
+				else
+					weightFrame:SetPoint("TOP", classFrame.elements[#(classFrame.elements)], "BOTTOM")
+					weightFrame:SetPoint("LEFT", 20, 0)
+				end
 				if ww_defaultVars.weightsList[class] and ww_defaultVars.weightsList[class][weight] then
 					local fontString = weightFrame.text:GetFontString()
 					fontString:SetTextColor(1, 1, 1)
@@ -346,14 +367,15 @@ function ww_setWeight(class, weight, statList)
 					weightFrame:Hide()
 				else
 					classFrame:SetHeight(22 * classFrame.length)
-					table.insert(ww_weights.leftPanel.scrollContainer.shown, classFrame.position + position, weightFrame)
+					table.insert(ww_weights.leftPanel.scrollContainer.shown, classFrame.position + weightFrame.relativePosition - 1, weightFrame)
 					for _, class in ipairs(ww_weights.leftPanel.scrollContainer.elements) do
 						if class.position > classFrame.position then
 							class.position = class.position + 1
 						end
 					end
 				end
-				break
+				table.insert(classFrame.elements, weightFrame)
+				found = true
 			end
 		end
 		table.insert(ww_vars.weightsList[class], weight)
@@ -453,7 +475,7 @@ end
 
 --loads the various class buttons onto the config frame
 local function loadClassButtons()
-	local classes, revClassLookup, newClass = {}, {}
+	local classes, revClassLookup = {}, {}
 	local metatable = {
 		__index = function(tbl, key)
 			return key
@@ -461,7 +483,7 @@ local function loadClassButtons()
 	}
 
 	for i, class in ipairs(ww_vars.weightsList) do
-		newClass = ww_classDisplayNames[class]
+		local newClass = ww_classDisplayNames[class]
 		revClassLookup[newClass] = class
 		classes[i] = newClass
 		classes[newClass] = {}
