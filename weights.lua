@@ -453,12 +453,12 @@ local function createSublist(template, containingFrame, categoryType, defaultEle
 	return numElements
 end
 
--- TODO: update the notes here
 -- Creates a tiered list that can be scrolled
 -- template is a table of key-value pairs with text keys as the categories their values as a template, and numeric keys's values as items
 -- scrollFrame is the scrollframe that controls scrolledFrame
 -- NOTE: scrollFrame must have an OnShow handler that updates the scrollbar
 -- scrolledFrame is the frame that will hold everything
+-- categoryType is the category template type
 -- elementType is the element template type
 -- elementHeight is the height of each element
 -- nameTable is a table that will return the display name for each item and category name
