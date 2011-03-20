@@ -140,14 +140,49 @@ ww_itemCache = setmetatable({}, ww_itemCacheMetatable)
 ww_weightCache = setmetatable({}, ww_weightCacheMetatable)
 ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
 
+local normalizedStats = {
+	"agility",
+	"intellect",
+	"stamina",
+	"spirit",
+	"strength",
+	"health",
+	"hp5",
+	"mana",
+	"mastery rating",
+	"armor",
+	"dodge rating",
+	"parry rating",
+	"resilience rating",
+	"attack power",
+	"critical strike rating",
+	"expertise rating",
+	"haste rating",
+	"hit rating",
+	"spell penetration",
+	"spell power",
+	"melee dps",
+	"average melee weapon damage",
+	"maximum melee weapon damage",
+	"melee weapon speed",
+	"ranged dps",
+	"average ranged weapon damage",
+	"maximum ranged weapon damage",
+	"ranged weapon speed",
+	"arcane resistance",
+	"fire resistance",
+	"frost resistance",
+-- 	"holy resistance",
+	"nature resistance",
+	"shadow resistance",
+}
+
 local ww_weightNormalizationCacheMetatable = {
 	__index = function(tbl, key)
 		local total = 0
-		for _, value in pairs(key) do
-			if type(value) == "number" then
-				if value ~= 0 then
-					total = total + math.abs(value)
-				end
+		for _, stat in ipairs(normalizedStats) do
+			if key[stat] then
+				total = total + math.abs(key[stat])
 			end
 		end
 		if total == 0 then
