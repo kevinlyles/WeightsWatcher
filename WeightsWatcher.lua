@@ -140,6 +140,27 @@ ww_itemCache = setmetatable({}, ww_itemCacheMetatable)
 ww_weightCache = setmetatable({}, ww_weightCacheMetatable)
 ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
 
+local ww_weightNormalizationCacheMetatable = {
+	__index = function(tbl, key)
+		local total = 0
+		for _, value in pairs(key) do
+			if type(value) == "number" then
+				if value ~= 0 then
+					total = total + math.abs(value)
+				end
+			end
+		end
+		if total == 0 then
+			-- Avoids a divide by zero
+			total = 1
+		end
+		tbl[key] = total
+		return total
+	end
+}
+
+ww_weightNormalizationCache = setmetatable({}, ww_weightNormalizationCacheMetatable)
+
 local function loadGeneralInfo()
 	local _, class = UnitClass("player")
 	WeightsWatcher.playerClass = class
@@ -944,18 +965,7 @@ function WeightsWatcher.calculateWeight(bareItemStats, itemStats, weightsScale)
 		end
 	end
 	if ww_vars.options.tooltip.normalizeWeights == true then
-		local total = 0
-
-		for _, value in pairs(weightsScale) do
-			if type(value) == "number" then
-				total = total + math.abs(value)
-			end
-		end
-		if total == 0 then
-			-- Avoids a divide by zero
-			return 0
-		end
-		weight = weight / total
+		weight = weight / ww_weightNormalizationCache[weightsScale]
 	end
 	return weight
 end

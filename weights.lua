@@ -210,10 +210,6 @@ function ww_configSaveWeight()
 	local number
 	local weightFrame = ww_weights.rightPanel.weightFrame
 
-	-- The weight is changing, clear any cached info
-	ww_weightCache[weightFrame.category.class][weightFrame.name] = nil
-	ww_weightIdealCache[weightFrame.category.class][weightFrame.name] = nil
-
 	if ww_weights.rightPanel.changedStats then
 		for statValue, statName in pairs(ww_weights.rightPanel.changedStats) do
 			number = tonumber(statValue:GetText())
@@ -232,6 +228,11 @@ function ww_configSaveWeight()
 			end
 		end
 	end
+
+	-- The weight is changing, clear any cached info
+	ww_weightCache[weightFrame.category.class][weightFrame.name] = nil
+	ww_weightIdealCache[weightFrame.category.class][weightFrame.name] = nil
+	ww_weightNormalizationCache[ww_weights.rightPanel.statList] = nil
 
 	ww_weights.rightPanel.changedStats = {}
 	ww_weights.rightPanel.changedTriggers = {}
