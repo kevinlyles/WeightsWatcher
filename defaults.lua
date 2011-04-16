@@ -64,6 +64,7 @@ ww_trackedStats = {
 		"stamina",
 		ww_statCategories["Enchant/Meta Gem Effects"],
 		[ww_statCategories["Enchant/Meta Gem Effects"]] = {
+			"armor (percent)",
 			"armor from items (percent)",
 			"block value (percent)",
 			"chance to restore health on hit",
