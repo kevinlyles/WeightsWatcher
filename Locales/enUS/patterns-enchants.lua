@@ -53,6 +53,8 @@ local EnchantPreprocessLines = {
 	{" reduce threat slightly ", " 2%% reduced threat "},
 	{" a minor movement speed ", " minor run speed "},
 	{" reducing the duration of disarm effects by ", " disarm duration reduced by "},
+	-- item 22023
+	{" to add (%d+) to ", " +%1 "},
 }
 
 local EnchantAffixes = {

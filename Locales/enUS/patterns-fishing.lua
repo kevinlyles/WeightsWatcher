@@ -15,7 +15,9 @@ local FishingPreProcessLines = {
 local FishingAffixes = {
 	"^use: +",
 	"^equip: +",
-	"^replaces the fishing line on your fishing pole with a %a[%a ]+%a line, increasing +",
+	"^replaces the fishing line on your fishing pole with %a[%a ]+%a, +",
+	"^permanently +",
+	"^increasing +",
 	"^when applied to your fishing pole, increases +",
 	"^makes you slightly tipsy and increases your skill in +",
 	"^attach a lure to your equipped fishing pole, increasing +",

@@ -19,7 +19,7 @@ local ElixirPreprocessLines = {
 	{" critical rating ", " critical strike rating "},
 	{" maximum health ", " health "},
 	{" the chance that the player will reflect hostile spells cast on them by (%d+)%% for %d+ hrs%. +will automatically reflect the first offensive spell cast against the user", " %1%% spell reflect"},
--- 	{" goes up by ", " by "},
+	{" is increased by ", " by "},
 	{" resistance to all schools of magic ", " all resistances "},
 	{" resistance to magic ", " all resistances "},
 }
@@ -27,7 +27,7 @@ local ElixirPreprocessLines = {
 local ElixirAffixes = {
 	"^use: +",
 	"^increases +",
--- 	"^your size is increased and +",
+	"^you grow larger and +",
 	"^your +",
 	"^the player's +",
 	"^the target's +",

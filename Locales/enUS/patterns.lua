@@ -133,7 +133,10 @@ ww_IgnoredLines = {
 }
 
 ww_TempIgnoredLines = {
-	"^use: restores %d+ to %d+ %a+",
+	"^use: restores %d+ to %d+ %a+ over ",
+	"^use: restores %d+ to %d+ %a+ and ",
+	"^use: restores %d+ to %d+ %a+ every .* for ",
+	"^use: restores %d+ to %d+ %a+.[^0-9]*$",
 	"^use: teaches .* %(rank %d+%)%.$",
 	"^%d+ slot ",
 	"^use: heals %d+ damage over %d+ sec%.$",
@@ -171,6 +174,7 @@ ww_UnweightedLines = {
 	"^use: .*enchants? ",
 	"^equip: you",
 	"^equip: causes your ",
+	" at the cost of ",
 }
 
 ww_MultipleStatLines = {
@@ -402,6 +406,16 @@ ww_SingleStatLines = {
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "hp5")
 		end,
 		{--[["cooldownUseEffect",]] "elixir", "equipEffect", "food", "generic", "useEffect"},
+	},
+	-- item 20130
+	{"^([+-]?%d+) to ([+-]?%d+) health [ep]v?ery? 5 seco?n?d?s?%.?$",
+		function(text, pattern)
+			local start, _, minVal, maxVal = string.find(text, pattern)
+			if start then
+				return WeightsWatcher.newStatTable({["hp5"] = tonumber((minVal + maxVal) / 2)})
+			end
+		end,
+		{"cooldownUseEffect"},
 	},
 	{"^minor run speed increase$",
 		function(text, pattern)
