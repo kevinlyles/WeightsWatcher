@@ -263,7 +263,7 @@ ww_MultipleStatLines = {
 		end,
 		{"elixir"},
 	},
-	{"^([+-]?%d+) health and mana every 5 seco?n?d?s?$",
+--[[	{"^([+-]?%d+) health and mana every 5 seco?n?d?s?$",
 		function(text, pattern)
 			local start, _, value = string.find(text, pattern)
 			if start then
@@ -288,7 +288,7 @@ ww_MultipleStatLines = {
 			end
 		end,
 		{"enchant"},
-	},
+	},]]
 	{"^(%a+), (%a+),? and (%a+) spell power by (%d+)$",
 		function(text, pattern)
 			local start, _, stat1, stat2, stat3, value = string.find(text, pattern)
@@ -401,7 +401,7 @@ ww_SingleStatLines = {
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "hp5")
 		end,
-		{"cooldownUseEffect", "elixir", "equipEffect", "food", "generic", "useEffect"},
+		{--[["cooldownUseEffect",]] "elixir", "equipEffect", "food", "generic", "useEffect"},
 	},
 	{"^minor run speed increase$",
 		function(text, pattern)

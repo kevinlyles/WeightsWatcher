@@ -101,8 +101,8 @@ local EnchantAffixes = {
 	"^adds? +",
 	"^gives? +",
 	"^grants? +",
-	"^regenerates? +",
-	"^restores? +",
+-- 	"^regenerates? +",
+-- 	"^restores? +",
 
 	"^your +",
 	"^the +",
