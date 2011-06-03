@@ -106,7 +106,7 @@ local EnchantIDs = {
 			weapon = "Fiery Blaze Enchantment",
 		},
 		stats = {
-			["enchant: fiery blaze"] = 1,
+			["fiery blaze"] = 1,
 		},
 	},
 	[37] = {
@@ -4142,7 +4142,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74195 },
 		stats = {
-			["sometimes heal you when you deal damage"] = 1,
+			mending = 1,
 		},
 	},
 	[4067] = {
@@ -4222,7 +4222,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74211 },
 		stats = {
-			["Elemental Slayer"] = 1,
+			["elemental slayer"] = 1,
 		},
 	},
 	[4075] = {
@@ -4449,7 +4449,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74242 },
 		stats = {
-			["Power Torrent"] = 1,
+			["power torrent"] = 1,
 		},
 	},
 	[4098] = {
@@ -4953,7 +4953,8 @@ local EnchantIDs = {
 			["off hand"] = "Elementium Shield Spike",
 		},
 		stats = {
-			["elementium shield spike"] = 1,
+			["maximum damage dealt on block"] = 133,
+			["minimum damage dealt on block"] = 90,
 		},
 	},
 	[4216] = {
@@ -4962,7 +4963,8 @@ local EnchantIDs = {
 			["off hand"] = "Pyrium Shield Spike",
 		},
 		stats = {
-			["pyrium shield spike"] = 1,
+			["maximum damage dealt on block"] = 350,
+			["minimum damage dealt on block"] = 210,
 		},
 	},
 	[4217] = {

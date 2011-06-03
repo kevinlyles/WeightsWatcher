@@ -1,6 +1,7 @@
 local patternCategories = {
 	"elixir",
 	"enchant",
+	"enchantItem",
 	"equipEffect",
 	"fishing",
 	"food",

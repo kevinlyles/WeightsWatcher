@@ -12,6 +12,7 @@
 	<Script file="patterns-elixirs.lua"/>
 	<Script file="patterns-food.lua"/>
 	<Script file="patterns-enchants.lua"/>
+	<Script file="patterns-enchant-items.lua"/>
 	<Script file="patterns-fishing.lua"/>
 	<Script file="patterns-use-effects.lua"/>
 	<Script file="patterns-cooldown-use-effects.lua"/>

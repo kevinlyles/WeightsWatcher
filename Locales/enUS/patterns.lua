@@ -8,6 +8,7 @@ ww_EffectHandlers = {
 	ww_generic,
 	ww_socketBonuses,
 	ww_food,
+	ww_enchant_items,
 	ww_enchants,
 	ww_elixirs,
 	ww_fishing,
