@@ -38,6 +38,12 @@ ww_trackedStats = {
 			"melee weapon speed",
 			"meleeDamage",
 			["meleeDamage"] = "ww_triggerFrame",
+			ww_statCategories["Enchant/Meta Gem Effects"],
+			[ww_statCategories["Enchant/Meta Gem Effects"]] = {
+				"attack power against undead",
+				"melee damage to beasts",
+				"melee damage to elementals",
+			},
 		},
 		[ww_statCategories["Ranged DPS"]] = {
 			"ranged attack power",
