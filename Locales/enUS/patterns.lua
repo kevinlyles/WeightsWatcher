@@ -632,6 +632,15 @@ ww_SingleStatLines = {
 		end,
 		{"enchant", "generic"},
 	},
+	{"^has a (%d+%% chance) per hit of giving you (%d+) damage absorption$",
+		function(text, pattern)
+			local start, _, chance, damage = text:find(pattern)
+			if start then
+				return WeightsWatcher.newStatTable({["damage absorption (" .. chance .. ")"] = tonumber(damage)})
+			end
+		end,
+		{"enchant"},
+	},
 }
 
 ww_ItemInfoLines = {

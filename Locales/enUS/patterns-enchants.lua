@@ -12,11 +12,11 @@ local EnchantMatchLines = {
 
 local EnchantUnweightedLines = {
 	" sometimes ",
-	" chance ",
 	" often ",
 	" damage to ",
 	" occasionally ",
 	" against ",
+	" lasts for ",
 }
 
 local EnchantPreprocessLines = {

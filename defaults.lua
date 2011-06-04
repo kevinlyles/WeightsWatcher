@@ -70,6 +70,8 @@ ww_trackedStats = {
 			"average damage dealt on block",
 			"block value (percent)",
 			"chance to restore health on hit",
+			"damage absorption (2% chance)",
+			"damage absorption (5% chance)",
 			"spell damage taken reduction (percent)",
 			"threat (percent)",
 		},
