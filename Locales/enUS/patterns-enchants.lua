@@ -11,11 +11,8 @@ local EnchantMatchLines = {
 }
 
 local EnchantUnweightedLines = {
-	" sometimes ",
-	" often ",
-	" damage to ",
-	" occasionally ",
-	" against ",
+	" skilled engineer ",
+	" engineering skill ",
 	" lasts for ",
 }
 

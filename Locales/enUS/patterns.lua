@@ -641,6 +641,9 @@ ww_SingleStatLines = {
 		end,
 		{"enchant"},
 	},
+	{"^([+-]?%d+) (%a+ damage to %a+)$", WeightsWatcher.statNumFirst, {"enchant"}},
+	-- item 38981
+	{"^([+-]?%d+) (attack power against undead)$", WeightsWatcher.statNumFirst, {"enchant"}},
 }
 
 ww_ItemInfoLines = {
