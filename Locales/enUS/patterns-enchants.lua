@@ -55,6 +55,16 @@ local EnchantPreprocessLines = {
 	{" reducing the duration of disarm effects by ", " disarm duration reduced by "},
 	-- item 22023
 	{" to add (%d+) to ", " +%1 "},
+	-- item 23530
+	{" (deals %d+)-(%d+ damage) ", " %1 to %2 "},
+	-- item 55055
+	{" each time you block ", " every time you block "},
+	-- item 6042
+	{" (attaches an iron spike to your shield that deals) damage ", " %1 8 to 12 damage "},
+	-- item 7967
+	{" (attaches a mithril spike to your shield that deals) damage ", " %1 16 to 20 damage "},
+	-- item 12645
+	{" (attaches a thorium spike to your shield that deals) damage ", " %1 20 to 30 damage "},
 }
 
 local EnchantAffixes = {
@@ -65,6 +75,7 @@ local EnchantAffixes = {
 	"^enchants? +",
 	"^attache?s? +",
 	"^an? +",
+	"^[%a ]+ to your shield that +",
 	"^chain to your weapon, +",
 	"^counterweight to a two%-handed sword, mace, axe or polearm increasing the wielder's +",
 	"^permanent scope to a bow or gun +",
@@ -128,6 +139,8 @@ local EnchantAffixes = {
 	" +does not stack with other similar effects%.",
 	" +does not stack with other enchantments for the selected equipment slot%.",
 	"[\r\n]+wearer must be level %d+ or higher to receive the benefits of this armor kit%.$",
+
+	" +with it%.$",
 
 	"^%a+ belt buckle onto a belt, adding a +",
 	" +to the belt%.$",

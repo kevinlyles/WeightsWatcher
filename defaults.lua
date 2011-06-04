@@ -67,6 +67,7 @@ ww_trackedStats = {
 		[ww_statCategories["Enchant/Meta Gem Effects"]] = {
 			"armor (percent)",
 			"armor from items (percent)",
+			"average damage dealt on block",
 			"block value (percent)",
 			"chance to restore health on hit",
 			"spell damage taken reduction (percent)",
@@ -177,6 +178,7 @@ ww_trackedStats = {
 		"mending",
 		"mongoose",
 		"power torrent",
+		"pyrium shield spike",
 		"spellsurge",
 		"unholy weapon",
 		"windwalk",

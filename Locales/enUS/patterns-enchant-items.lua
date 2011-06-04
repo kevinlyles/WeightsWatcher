@@ -32,6 +32,7 @@ local PreprocessLines = {
 	{"^use: permanently enchant a weapon to sometimes increase dodge rating by 600 and movement speed by 15%% for 10 sec when striking in melee%.  requires a level 300 or higher item%.$", "windwalk"},
 	{"^use: permanently enchant a weapon to sometimes increase attack power by 1000 for 12 sec when striking in melee%.  requires a level 300 or higher item%.$", "landslide"},
 	{"^use: attaches a permanent scope to a bow or gun that sometimes increases ranged attack power by 800 for 10 sec when dealing damage with ranged attacks%.\r\n\r\nattaching this scope to a ranged weapon causes it to become soulbound%.$", "gnomish x-ray scope"},
+	{"^use: attaches an pyrium spike to your shield that sometimes deals 210 to 350 damage when you block with it%.\r\n\r\nattaching an pyrium spike to your shield causes it to become soulbound%.$", "pyrium shield spike"},
 }
 
 local MatchLines = {}

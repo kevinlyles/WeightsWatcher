@@ -135,8 +135,7 @@ local EnchantIDs = {
 			["off hand"] = "Iron Shield Spike",
 		},
 		stats = {
-			["maximum damage dealt on block"] = 12,
-			["minimum damage dealt on block"] = 8,
+			["average damage dealt on block"] = 10,
 		},
 	},
 	[44] = {
@@ -325,8 +324,7 @@ local EnchantIDs = {
 			["off hand"] = "Mithril Shield Spike",
 		},
 		stats = {
-			["maximum damage dealt on block"] = 20,
-			["minimum damage dealt on block"] = 16,
+			["average damage dealt on block"] = 18,
 		},
 	},
 	[464] = {
@@ -1178,8 +1176,7 @@ local EnchantIDs = {
 			["off hand"] = "Thorium Shield Spike",
 		},
 		stats = {
-			["maximum damage dealt on block"] = 30,
-			["minimum damage dealt on block"] = 20,
+			["average damage dealt on block"] = 25,
 		},
 	},
 	[1843] = {
@@ -2169,8 +2166,7 @@ local EnchantIDs = {
 			["off hand"] = "Felsteel Shield Spike",
 		},
 		stats = {
-			["maximum damage dealt on block"] = 38,
-			["minimum damage dealt on block"] = 26,
+			["average damage dealt on block"] = 32,
 		},
 	},
 	[2715] = {
@@ -3366,8 +3362,7 @@ local EnchantIDs = {
 			["off hand"] = "Titanium Shield Spike",
 		},
 		stats = {
-			["maximum damage dealt on block"] = 67,
-			["minimum damage dealt on block"] = 45,
+			["average damage dealt on block"] = 56,
 		},
 	},
 	[3754] = {
@@ -4953,8 +4948,7 @@ local EnchantIDs = {
 			["off hand"] = "Elementium Shield Spike",
 		},
 		stats = {
-			["maximum damage dealt on block"] = 133,
-			["minimum damage dealt on block"] = 90,
+			["average damage dealt on block"] = 111.5,
 		},
 	},
 	[4216] = {
@@ -4963,8 +4957,7 @@ local EnchantIDs = {
 			["off hand"] = "Pyrium Shield Spike",
 		},
 		stats = {
-			["maximum damage dealt on block"] = 350,
-			["minimum damage dealt on block"] = 210,
+			["pyrium shield spike"] = 1,
 		},
 	},
 	[4217] = {
@@ -5049,6 +5042,7 @@ local EnchantIDs = {
 		},
 	},
 	[4256] = {
+		itemID = { 68785 },
 		name = {
 			wrist = "Enchant Bracer - Major Strength",
 		},
@@ -5058,6 +5052,7 @@ local EnchantIDs = {
 		},
 	},
 	[4257] = {
+		itemID = { 68786 },
 		name = {
 			wrist = "Enchant Bracer - Mighty Intellect",
 		},
@@ -5067,6 +5062,7 @@ local EnchantIDs = {
 		},
 	},
 	[4258] = {
+		itemID = { 68784 },
 		name = {
 			wrist = "Enchant Bracer - Agility",
 		},

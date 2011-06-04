@@ -437,6 +437,15 @@ ww_SingleStatLines = {
 		end,
 		{"elixir", "enchant"},
 	},
+	{"^deals (%d+) to (%d+) damage every time you block$",
+		function(text, pattern)
+			local start, _, minimum, maximum = text:find(pattern)
+			if start then
+				return WeightsWatcher.newStatTable({["average damage dealt on block"] = (minimum + maximum) / 2})
+			end
+		end,
+		{"enchant"},
+	},
 	{"^([+-]?%d+) (mana)$", WeightsWatcher.statNumFirst, {"enchant", "elixir"}},
 	{"^([+-]?%d+) ranged damage$",
 		function(text, pattern)
