@@ -85,7 +85,7 @@ L["Disable WeightsWatcher"] = "Disable WeightsWatcher"
 L["Titan's Grip"] = "Titan's Grip"
 L["Dual Wield"] = "Dual Wield"
 L["Use effects:"] = "Use effects:"
--- TODO: move this to stackingEquipEffects.lua?
+-- TODO: move this to patterns-stacking-equip-effects.lua
 L["Stacking equip effects:"] = "Stacking equip effects:"
 L["Sockets:"] = "Sockets:"
 L["Socket Bonus:"] = "Socket Bonus:"
