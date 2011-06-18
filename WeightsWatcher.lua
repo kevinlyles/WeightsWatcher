@@ -327,7 +327,7 @@ function WeightsWatcher:eventHandler(event, message, ...)
 		WeightsWatcher.player.level = tonumber(message)
 	elseif event == "CHAT_MSG_SKILL" then
 		-- "Your skill in x has increased to y."
-		local skill, level = message:match("^Your skill in ([A-Z][A-Za-z '-]+) has increased to (%d+)%.$")
+		local skill, level = message:match(L["PROF_SKILL_UP"])
 		if skill then
 			if WeightsWatcher.player.professions[skill] then
 				WeightsWatcher.player.professions[skill] = tonumber(level)
@@ -339,7 +339,7 @@ function WeightsWatcher:eventHandler(event, message, ...)
 		end
 	elseif event == "CHAT_MSG_COMBAT_FACTION_CHANGE" then
 		-- "Reputation with X (in|de)creased by y."
-		local faction, direction, reputation = message:match("^Reputation with ([A-Z][A-Za-z '-]+) ([di][en]creased) by (%d+)%.$")
+		local faction, direction, reputation = message:match(L["REP_CHANGE"])
 		if faction then
 			if not WeightsWatcher.player.reputation then
 				populateReputations()
@@ -350,7 +350,7 @@ function WeightsWatcher:eventHandler(event, message, ...)
 				return
 			end
 			reputation = tonumber(reputation)
-			if direction == "increased" then
+			if direction == L["increased"] then
 				rep.value = rep.value + reputation
 				if rep.value > rep.max then
 					while rep.level < #(ww_reputations) and ww_reputations[rep.level] <= rep.value do

@@ -152,6 +152,9 @@ L["Quiver"] = "Quiver"
 L["Gem"] = "Gem"
 L["Consumable"] = "Consumable"
 L["Recipe"] = "Recipe"
+L["PROF_SKILL_UP"] = "^Your skill in ([A-Z][A-Za-z '-]+) has increased to (%d+)%.$"
+L["REP_CHANGE"] = "^Reputation with ([A-Z][A-Za-z '-]+) ([di][en]creased) by (%d+)%.$"
+L["increased"] = "increased"
 
 -- weights.lua
 L["Discard"] = "Discard"
