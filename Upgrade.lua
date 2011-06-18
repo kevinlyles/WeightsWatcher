@@ -837,10 +837,6 @@ local function upgradeAccountToConfig(vars)
 	for key, value in pairs(table) do
 		if keys[key] then
 			if conversion[value] == nil then
-				if type(value) ~= "string" then
-					value = "type: " .. type(value)
-				end
-				print("WeightsWatcher: error: invalid value in tooltip options: " .. value)
 				return nil
 			end
 			table[key] = conversion[value]
@@ -877,10 +873,6 @@ local downgradeAccountFromConfig = [[
 		for key, value in pairs(table) do
 			if keys[key] then
 				if conversion[value] == nil then
-					if type(value) ~= "string" then
-						value = "type: " .. type(value)
-					end
-					print("WeightsWatcher: error: invalid value in tooltip options: " .. value)
 					return nil
 				end
 				table[key] = conversion[value]
@@ -937,7 +929,6 @@ local function upgradeAccountToOrderedLists(vars)
 
 	for class, weights in pairs(vars.weightsList) do
 		if type(class) ~= "string" then
-			print("WeightsWatcher: Error: class name has type " .. type(class) .. ", expecting string.")
 			return nil
 		end
 		weightsListCopy[i] = class
@@ -945,7 +936,6 @@ local function upgradeAccountToOrderedLists(vars)
 		j = 1
 		for weight, stats in pairs(weights) do
 			if type(weight) ~= "string" then
-				print("WeightsWatcher: Error: weight name for class " .. class .. " has type " .. type(weight) .. ", expecting string.")
 				return nil
 			end
 			weightsListCopy[class][j] = weight
@@ -983,14 +973,12 @@ local function upgradeCharToOrderedLists(vars)
 
 	for class, weights in pairs(vars.activeWeights) do
 		if type(class) ~= "string" then
-			print("WeightsWatcher: Error: class name has type " .. type(class) .. ", expecting string.")
 			return nil
 		end
 		activeWeightsCopy[i] = class
 		activeWeightsCopy[class] = {}
 		for j, weight in pairs(weights) do
 			if type(weight) ~= "string" then
-				print("WeightsWatcher: Error: weight name has type " .. type(weight) .. ", expecting string.")
 				return nil
 			end
 			activeWeightsCopy[class][j] = weight

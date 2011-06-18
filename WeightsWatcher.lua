@@ -334,7 +334,6 @@ function WeightsWatcher:eventHandler(event, message, ...)
 				WeightsWatcher.ResetEnchantCache()
 			end
 		else
-			print("WeightsWatcher: warning: unhandled profession event \"" .. message .. "\"")
 			populateProfessions()
 		end
 	elseif event == "CHAT_MSG_COMBAT_FACTION_CHANGE" then
@@ -378,13 +377,10 @@ function WeightsWatcher:eventHandler(event, message, ...)
 				end
 			end
 		else
-			print("WeightsWatcher: warning: unhandled reputation event \"" .. message .. "\"")
 			populateReputations()
 		end
 	elseif event == "SKILL_LINES_CHANGED" then
 		populateProfessions()
-	else
-		print("WeightsWatcher: warning: unhandled event \"" .. tostring(event) .. "\"")
 	end
 end
 
@@ -1248,8 +1244,6 @@ function WeightsWatcher.matchesSocket(gemId, socketColor)
 		if gemInfo then
 			gemColor = gemInfo.info[1]
 		else
-			print(string.format(L["WARN_UNREC_GEMID"], gemId))
-			-- TODO: use the getgeminfo api to parse the gem?
 			return false
 		end
 	elseif type(gemId) == "string" then
@@ -1257,7 +1251,6 @@ function WeightsWatcher.matchesSocket(gemId, socketColor)
 	end
 
 	if not socketColors[socketColor] then
-		print(string.format(L["WARN_UNREC_SOCKET_COLOR"], socketColor))
 		return false
 	end
 
@@ -1340,10 +1333,6 @@ function WeightsWatcher.getGemStats(...)
 			if gemInfo then
 				table.insert(innerStatTable, gemInfo.info)
 			else
-				if gemId ~= "0" then
-					print(string.format(L["WARN_UNHAND_GEMID"], gemId))
-					-- TODO: use getgeminfo to parse the gem itself?
-				end
 				-- Ensures gems line up with their sockets
 				table.insert(innerStatTable, {"N/A", "None", {}})
 			end
