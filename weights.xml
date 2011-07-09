@@ -452,6 +452,16 @@
 						</Anchor>
 					</Anchors>
 				</FontString>
+				<!--Mr. Robot weight attribution-->
+				<FontString name="$parentWeightsAttribution" parentKey="weightsAttribution" inherits="GameFontNormal" text="WEIGHTS_ATTRIBUTION">
+					<Anchors>
+						<Anchor point="BOTTOM">
+							<Offset>
+								<AbsDimension x="20" y="5"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
 			</Layer>
 			<Layer level="BACKGROUND">
 				<Texture setAllPoints="true">
@@ -711,6 +721,7 @@
 		<Scripts>
 			<OnLoad>
 				self.title:SetText(ww_localization[self.title:GetText()])
+				self.weightsAttribution:SetText(ww_localization[self.weightsAttribution:GetText()])
 				table.insert(UISpecialFrames, self:GetName())
 				function self:SmartHide(func)
 						self.afterHide = func

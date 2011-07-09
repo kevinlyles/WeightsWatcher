@@ -91,6 +91,7 @@ L["USE_PROF_ENCH"] = "Use enchants with profession reqs if my skill is:"
 
 -- weights.xml
 L["WEIGHTS_TITLE"] = "WeightsWatcher Weight Values"
+L["WEIGHTS_ATTRIBUTION"] = "Default weights graciously provided by AskMrRobot.com"
 L["WATCH_TT"] = "Watch this weight?"
 L["Save"] = "Save"
 L["Copy"] = "Copy"
