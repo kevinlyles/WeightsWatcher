@@ -33,7 +33,9 @@ ww_specNames = {
 	["Feral Tank"] = "Feral Tank",
 	["Fire"] = "Fire",
 	["Frost"] = "Frost",
+	["Frost DW"] = "Frost DW",
 	["Fury"] = "Fury",
+	["Fury TG"] = "Fury TG",
 	["Holy"] = "Holy",
 	["Marksmanship"] = "Marksmanship",
 	["Protection"] = "Protection",
@@ -43,4 +45,5 @@ ww_specNames = {
 	["Subtlety"] = "Subtlety",
 	["Survival"] = "Survival",
 	["Unholy"] = "Unholy",
+	["Unholy DW"] = "Unholy DW",
 }
