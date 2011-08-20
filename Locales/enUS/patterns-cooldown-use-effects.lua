@@ -8,6 +8,10 @@ local CooldownUseMatchLines = {
 	"^use: grants? .* cooldown%)$",
 	"^use: increases? .* cooldown%)$",
 	"^use: restores .* every .* cooldown%)$",
+	-- item 70142
+	"^use: a small moonwell .* cooldown%)$",
+	-- item 70143
+	"^use: a veil of splashing water .* cooldown%)$",
 }
 
 local CooldownUseUnweightedLines = {
@@ -38,10 +42,18 @@ local CooldownUsePreprocessLines = {
 	{" spell, ranged,? and melee haste rating ", " haste rating "},
 	-- item 66879
 	{" crit rating ", " critical strike rating "},
+	-- item 70142
+	{" mastery for ", " mastery rating for "},
 }
 
 local CooldownUseAffixes = {
 	"^use: +",
+	-- item 70142
+	"^a small moonwell appears. +blessing you with +",
+	-- item 70143
+	"^a veil of splashing water +",
+	-- item 70143
+	", as long as you stay in the pool",
 	"^grants? +",
 	"^increases? +",
 	"^restores +",
