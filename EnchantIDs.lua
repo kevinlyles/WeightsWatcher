@@ -922,7 +922,7 @@ local EnchantIDs = {
 	[1119] = {
 		itemID = { 38968 },
 		name = {
-			wrist = "Enchant Bracers - Exceptional Intellect",
+			wrist = "Enchant Bracer - Exceptional Intellect",
 		},
 		spellID = { 44555 },
 		stats = {
@@ -953,7 +953,7 @@ local EnchantIDs = {
 		itemID = { 38961, 38980 },
 		name = {
 			feet = "Enchant Boots - Greater Spirit",
-			wrist = "Enchant Bracers - Major Spirit",
+			wrist = "Enchant Bracer - Major Spirit",
 		},
 		spellID = { 44508, 44593 },
 		stats = {
@@ -1143,7 +1143,7 @@ local EnchantIDs = {
 	[1600] = {
 		itemID = { 38971 },
 		name = {
-			wrist = "Enchant Bracers - Striking",
+			wrist = "Enchant Bracer - Striking",
 		},
 		spellID = { 60616 },
 		stats = {
@@ -1432,7 +1432,7 @@ local EnchantIDs = {
 	[2326] = {
 		itemID = { 38997 },
 		name = {
-			wrist = "Enchant Bracers - Greater Spellpower",
+			wrist = "Enchant Bracer - Greater Spellpower",
 		},
 		spellID = { 44635 },
 		stats = {
@@ -1991,7 +1991,7 @@ local EnchantIDs = {
 		itemID = { 38987 },
 		name = {
 			chest = "Enchant Chest - Exceptional Stats",
-			wrist = "Enchant Bracers - Greater Stats",
+			wrist = "Enchant Bracer - Greater Stats",
 		},
 		spellID = { 27960, 44616 },
 		stats = {
@@ -3912,7 +3912,7 @@ local EnchantIDs = {
 	[3845] = {
 		itemID = { 44815 },
 		name = {
-			wrist = "Enchant Bracers - Greater Assault",
+			wrist = "Enchant Bracer - Greater Assault",
 		},
 		spellID = { 44575 },
 		stats = {
@@ -7003,7 +7003,7 @@ local EnchantItems = {
 		spell = 44529,
 	},
 	[38968] = {
-		name = "Scroll of Enchant Bracers - Exceptional Intellect",
+		name = "Scroll of Enchant Bracer - Exceptional Intellect",
 		spell = 44555,
 	},
 	[38969] = {
@@ -7011,7 +7011,7 @@ local EnchantItems = {
 		spell = 44556,
 	},
 	[38971] = {
-		name = "Scroll of Enchant Bracers - Striking",
+		name = "Scroll of Enchant Bracer - Striking",
 		spell = 60616,
 	},
 	[38972] = {
@@ -7047,7 +7047,7 @@ local EnchantItems = {
 		spell = 44592,
 	},
 	[38980] = {
-		name = "Scroll of Enchant Bracers - Major Spirit",
+		name = "Scroll of Enchant Bracer - Major Spirit",
 		spell = 44593,
 	},
 	[38981] = {
@@ -7067,7 +7067,7 @@ local EnchantItems = {
 		spell = 60623,
 	},
 	[38987] = {
-		name = "Scroll of Enchant Bracers - Greater Stats",
+		name = "Scroll of Enchant Bracer - Greater Stats",
 		spell = 44616,
 	},
 	[38988] = {
@@ -7099,7 +7099,7 @@ local EnchantItems = {
 		spell = 44633,
 	},
 	[38997] = {
-		name = "Scroll of Enchant Bracers - Greater Spellpower",
+		name = "Scroll of Enchant Bracer - Greater Spellpower",
 		spell = 44635,
 	},
 	[38998] = {
@@ -7536,7 +7536,7 @@ local EnchantItems = {
 		spell = 61468,
 	},
 	[44815] = {
-		name = "Scroll of Enchant Bracers - Greater Assault",
+		name = "Scroll of Enchant Bracer - Greater Assault",
 		spell = 44575,
 	},
 	[44936] = {
@@ -9663,7 +9663,7 @@ local EnchantSpells = {
 	[44555] = {
 		enchID = 1119,
 		minIlvl = 60,
-		name = "Enchant Bracers - Exceptional Intellect",
+		name = "Enchant Bracer - Exceptional Intellect",
 		slot = { "wrist" },
 		source = "Crafted",
 	},
@@ -9677,7 +9677,7 @@ local EnchantSpells = {
 	[44575] = {
 		enchID = 3845,
 		minIlvl = 60,
-		name = "Enchant Bracers - Greater Assault",
+		name = "Enchant Bracer - Greater Assault",
 		slot = { "wrist" },
 		source = "Crafted",
 	},
@@ -9740,7 +9740,7 @@ local EnchantSpells = {
 	[44593] = {
 		enchID = 1147,
 		minIlvl = 60,
-		name = "Enchant Bracers - Major Spirit",
+		name = "Enchant Bracer - Major Spirit",
 		slot = { "wrist" },
 		source = "Crafted",
 	},
@@ -9768,7 +9768,7 @@ local EnchantSpells = {
 	[44616] = {
 		enchID = 2661,
 		minIlvl = 60,
-		name = "Enchant Bracers - Greater Stats",
+		name = "Enchant Bracer - Greater Stats",
 		slot = { "wrist" },
 		source = "Crafted",
 	},
@@ -9824,7 +9824,7 @@ local EnchantSpells = {
 	[44635] = {
 		enchID = 2326,
 		minIlvl = 60,
-		name = "Enchant Bracers - Greater Spellpower",
+		name = "Enchant Bracer - Greater Spellpower",
 		slot = { "wrist" },
 		source = "Crafted",
 	},
@@ -10165,7 +10165,7 @@ local EnchantSpells = {
 	[60616] = {
 		enchID = 1600,
 		minIlvl = 60,
-		name = "Enchant Bracers - Striking",
+		name = "Enchant Bracer - Striking",
 		slot = { "wrist" },
 		source = "Crafted",
 	},
