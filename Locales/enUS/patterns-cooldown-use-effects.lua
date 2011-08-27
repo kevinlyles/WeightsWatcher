@@ -42,6 +42,8 @@ local CooldownUsePreprocessLines = {
 	{" spell, ranged,? and melee haste rating ", " haste rating "},
 	-- item 66879
 	{" crit rating ", " critical strike rating "},
+	-- item 70144
+	{" critical rating ", " critical strike rating "},
 	-- item 70142
 	{" mastery for ", " mastery rating for "},
 }
