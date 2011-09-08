@@ -3,7 +3,7 @@
 ## Notes: Ranks gear according to customizable stat weights
 ## Author: The Flying Squirrels
 ## Version: 1.5r3
-## OptionalDeps: AtlasLoot
+## OptionalDeps: AtlasLoot, tekErr
 ## SavedVariables: ww_vars
 ## SavedVariablesPerCharacter: ww_charVars
 ## X-Category: Interface Enhancements
