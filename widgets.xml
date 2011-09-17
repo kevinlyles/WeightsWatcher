@@ -72,13 +72,13 @@
 		<Scripts>
 			<OnDisable>
 				if not self.text then
-					self.text = getglobal(self:GetName() .. "Text")
+					self.text = _G[self:GetName() .. "Text"]
 				end
 				self.text:SetTextColor(0.5, 0.5, 0.5)
 			</OnDisable>
 			<OnEnable>
 				if not self.text then
-					self.text = getglobal(self:GetName() .. "Text")
+					self.text = _G[self:GetName() .. "Text"]
 				end
 				self.text:SetTextColor(1, 0.82, 0)
 			</OnEnable>
@@ -96,7 +96,7 @@
 			</OnLeave>
 			<OnShow>
 				if not self.text then
-					self.text = getglobal(self:GetName() .. "Text")
+					self.text = _G[self:GetName() .. "Text"]
 				end
 				self.text:SetText(self:GetText())
 			</OnShow>
