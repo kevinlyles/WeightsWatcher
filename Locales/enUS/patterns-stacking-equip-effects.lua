@@ -14,6 +14,7 @@ local triggerGroups = {
 	["rangedDamageDealt"] = {"rangedDamage"},
 	["spellDamageDealt"] = {"harmfulSpell"},
 	["damagingSpellCast"] = {"harmfulSpell"},
+	["harmfulSpellCast"] = {"harmfulSpell"},
 	["harmfulSpellHit"] = {"harmfulSpell"},
 	["spellCast"] = {"harmfulSpell", "helpfulSpell"},
 	["healingSpellCast"] = {"helpfulSpell"},
@@ -76,12 +77,14 @@ local function parseStackingEquipEffectTriggers(trigger)
 				if subType == "" then
 					trigger = trigger:sub(1, 1):lower() .. trigger:sub(2)
 				end
-				for _, group in ipairs(triggerGroups[subType .. trigger]) do
+				for _, group in ipairs(triggerGroups[subType .. trigger] or {}) do
 					triggers[group] = true
 				end
 			end
 
-			return triggers
+			for _ in pairs(triggers) do
+				return triggers
+			end
 		end
 	end
 end
@@ -104,7 +107,6 @@ local function parseStackingEquipEffect(text, section)
 	if not stat or not stat.stats then
 		return
 	end
-	-- TODO: figure out/fix this?
 	local amount
 	for name, value in pairs(stat.stats) do
 		stat = name

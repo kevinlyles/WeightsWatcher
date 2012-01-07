@@ -36,6 +36,22 @@ local function noop_major_up(vars)
 	return vars
 end
 
+local function upgradeAccountToCriticalEffect(vars)
+	for _, class in ipairs(vars.weightsList) do
+		for _, weight in ipairs(vars.weightsList[class]) do
+			if vars.weightsList[class][weight]["critical effect (percent)"] == nil then
+				local value = (vars.weightsList[class][weight]["critical damage (percent)"] or 0) + (vars.weightsList[class][weight]["critical healing (percent)"] or 0)
+				if value ~= 0 then
+					vars.weightsList[class][weight]["critical effect (percent)"] = value
+				end
+			end
+		end
+	end
+
+	vars.dataMinorVersion = 1
+	return vars
+end
+
 local function upgradeAccountToEnchants(vars)
 	if not vars.options.calculation then
 		vars.options.calculation = {}
@@ -1094,6 +1110,9 @@ local upgradeAccountFunctions = {
 		[24] = UpgradeAccountToShowZeroScores,
 		[25] = upgradeAccountToEnchants,
 	},
+	[2] = {
+		[0] = upgradeAccountToCriticalEffect,
+	},
 }
 
 local downgradeAccountFunctions = {
@@ -1138,6 +1157,7 @@ local downgradeAccountFunctions = {
 	},
 	[2] = {
 		[0] = downgradeAccountFromEnchants,
+		[1] = noop_down,
 	},
 }
 

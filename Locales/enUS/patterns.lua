@@ -563,15 +563,9 @@ ww_SingleStatLines = {
 		end,
 		{"generic"},
 	},
-	{"^(%d+)%% increased critical damage$",
+	{"^(%d+)%% increased critical effect$",
 		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "critical damage (percent)")
-		end,
-		{"generic"},
-	},
-	{"^(%d+)%% increased critical healing effect$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "critical healing (percent)")
+			return WeightsWatcher.singleStatValueOnly(text, pattern, "critical effect (percent)")
 		end,
 		{"generic"},
 	},

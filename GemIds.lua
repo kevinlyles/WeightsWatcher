@@ -547,7 +547,7 @@ ww_gems = {
 				[3154] = {
 					"meta",
 					"Relentless Earthstorm Diamond",
-					{[L["agility"]] = 12, [L["critical damage (percent)"]] = 3},
+					{[L["agility"]] = 12, [L["critical effect (percent)"]] = 3},
 				},
 				[3155] = {
 					"meta",
@@ -567,7 +567,7 @@ ww_gems = {
 				[3261] = {
 					"meta",
 					"Chaotic Skyfire Diamond",
-					{[L["critical damage (percent)"]] = 3, [L["critical strike rating"]] = 12},
+					{[L["critical effect (percent)"]] = 3, [L["critical strike rating"]] = 12},
 				},
 				[3270] = {
 					"yellow",
@@ -1528,7 +1528,7 @@ ww_gems = {
 				[3621] = {
 					"meta",
 					"Chaotic Skyflare Diamond",
-					{[L["critical damage (percent)"]] = 3, [L["critical strike rating"]] = 21},
+					{[L["critical effect (percent)"]] = 3, [L["critical strike rating"]] = 21},
 				},
 				[3622] = {
 					"meta",
@@ -1563,7 +1563,7 @@ ww_gems = {
 				[3628] = {
 					"meta",
 					"Relentless Earthsiege Diamond",
-					{[L["agility"]] = 21, [L["critical damage (percent)"]] = 3},
+					{[L["agility"]] = 21, [L["critical effect (percent)"]] = 3},
 				},
 				[3631] = {
 					"meta",
@@ -1578,7 +1578,7 @@ ww_gems = {
 				[3633] = {
 					"meta",
 					"Revitalizing Skyflare Diamond",
-					{[L["critical healing (percent)"]] = 3, [L["spirit"]] = 22},
+					{[L["critical effect (percent)"]] = 3, [L["spirit"]] = 22},
 				},
 				[3634] = {
 					"meta",
@@ -2484,7 +2484,7 @@ ww_gems = {
 				[4046] = {
 					"meta",
 					"Chaotic Shadowspirit Diamond",
-					{[L["critical damage (percent)"]] = 3, [L["critical strike rating"]] = 54},
+					{[L["critical effect (percent)"]] = 3, [L["critical strike rating"]] = 54},
 				},
 				[4047] = {
 					"meta",
@@ -2514,7 +2514,7 @@ ww_gems = {
 				[4052] = {
 					"meta",
 					"Revitalizing Shadowspirit Diamond",
-					{[L["critical healing (percent)"]] = 3, [L["spirit"]] = 54},
+					{[L["critical effect (percent)"]] = 3, [L["spirit"]] = 54},
 				},
 				[4053] = {
 					"meta",
@@ -2564,17 +2564,17 @@ ww_gems = {
 				[4251] = {
 					"meta",
 					"Agile Shadowspirit Diamond",
-					{[L["agility"]] = 54, [L["critical damage (percent)"]] = 3},
+					{[L["agility"]] = 54, [L["critical effect (percent)"]] = 3},
 				},
 				[4252] = {
 					"meta",
 					"Reverberating Shadowspirit Diamond",
-					{[L["critical damage (percent)"]] = 3, [L["strength"]] = 54},
+					{[L["critical effect (percent)"]] = 3, [L["strength"]] = 54},
 				},
 				[4253] = {
 					"meta",
 					"Burning Shadowspirit Diamond",
-					{[L["critical damage (percent)"]] = 3, [L["intellect"]] = 54},
+					{[L["critical effect (percent)"]] = 3, [L["intellect"]] = 54},
 				},
 			},
 		},

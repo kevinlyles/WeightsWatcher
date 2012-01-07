@@ -17,9 +17,13 @@ ww_trackedStats = {
 			"hit rating",
 			ww_statCategories["Enchant/Meta Gem Effects"],
 			[ww_statCategories["Enchant/Meta Gem Effects"]] = {
-				"critical damage (percent)",
+--				"critical damage (percent)",
 				"threat reduction (percent)",
 			},
+		},
+		ww_statCategories["Enchant/Meta Gem Effects"],
+		[ww_statCategories["Enchant/Meta Gem Effects"]] = {
+			"critical effect (percent)",
 		},
 	},
 	[ww_statCategories["Physical DPS"]] = {
@@ -111,7 +115,7 @@ ww_trackedStats = {
 			["helpfulSpell"] = "ww_triggerFrame",
 			[ww_statCategories["Enchant/Meta Gem Effects"]] = {
 				"chance to restore mana on spellcast",
-				"critical healing (percent)",
+--				"critical healing (percent)",
 				"mana (percent)",
 			},
 		},
@@ -238,7 +242,7 @@ ww_classNameOptions = {
 
 ww_defaultVars = {
 	dataMajorVersion = 2,
-	dataMinorVersion = 0,
+	dataMinorVersion = 1,
 	weightsList = {
 		"DEATHKNIGHT",
 		"DRUID",
