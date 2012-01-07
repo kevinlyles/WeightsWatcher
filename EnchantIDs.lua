@@ -1396,7 +1396,7 @@ local EnchantIDs = {
 		},
 		spellID = { 44591, 46594 },
 		stats = {
-			["dodge rating"] = 16,
+			["dodge rating"] = 18,
 		},
 	},
 	[1952] = {
@@ -1891,7 +1891,7 @@ local EnchantIDs = {
 		},
 		spellID = { 27906, 47051 },
 		stats = {
-			["dodge rating"] = 12,
+			["dodge rating"] = 14,
 		},
 	},
 	[2649] = {
@@ -4948,7 +4948,7 @@ local EnchantIDs = {
 			["off hand"] = "Elementium Shield Spike",
 		},
 		stats = {
-			["average damage dealt on block"] = 111.5,
+			["average damage dealt on block"] = 114.5,
 		},
 	},
 	[4216] = {
@@ -6159,7 +6159,7 @@ local EnchantItems = {
 		spell = 45697,
 	},
 	[37603] = {
-		name = "Scroll of Enchant Boots - Dexterity",
+		name = "Enchant Boots - Dexterity",
 		spell = 27951,
 	},
 	[38371] = {
@@ -6211,931 +6211,931 @@ local EnchantItems = {
 		spell = 50909,
 	},
 	[38679] = {
-		name = "Scroll of Enchant Bracer - Minor Health",
+		name = "Enchant Bracer - Minor Health",
 		spell = 7418,
 	},
 	[38766] = {
-		name = "Scroll of Enchant Chest - Minor Health",
+		name = "Enchant Chest - Minor Health",
 		spell = 7420,
 	},
 	[38767] = {
-		name = "Scroll of Enchant Chest - Minor Absorption",
+		name = "Enchant Chest - Minor Absorption",
 		spell = 7426,
 	},
 	[38768] = {
-		name = "Scroll of Enchant Bracer - Minor Deflection",
+		name = "Enchant Bracer - Minor Dodge",
 		spell = 7428,
 	},
 	[38769] = {
-		name = "Scroll of Enchant Chest - Minor Mana",
+		name = "Enchant Chest - Minor Mana",
 		spell = 7443,
 	},
 	[38770] = {
-		name = "Scroll of Enchant Cloak - Minor Resistance",
+		name = "Enchant Cloak - Minor Resistance",
 		spell = 7454,
 	},
 	[38771] = {
-		name = "Scroll of Enchant Bracer - Minor Stamina",
+		name = "Enchant Bracer - Minor Stamina",
 		spell = 7457,
 	},
 	[38772] = {
-		name = "Scroll of Enchant 2H Weapon - Minor Impact",
+		name = "Enchant 2H Weapon - Minor Impact",
 		spell = 7745,
 	},
 	[38773] = {
-		name = "Scroll of Enchant Chest - Lesser Health",
+		name = "Enchant Chest - Lesser Health",
 		spell = 7748,
 	},
 	[38774] = {
-		name = "Scroll of Enchant Bracer - Minor Spirit",
+		name = "Enchant Bracer - Minor Spirit",
 		spell = 7766,
 	},
 	[38775] = {
-		name = "Scroll of Enchant Cloak - Minor Protection",
+		name = "Enchant Cloak - Minor Protection",
 		spell = 7771,
 	},
 	[38776] = {
-		name = "Scroll of Enchant Chest - Lesser Mana",
+		name = "Enchant Chest - Lesser Mana",
 		spell = 7776,
 	},
 	[38777] = {
-		name = "Scroll of Enchant Bracer - Minor Agility",
+		name = "Enchant Bracer - Minor Agility",
 		spell = 7779,
 	},
 	[38778] = {
-		name = "Scroll of Enchant Bracer - Minor Strength",
+		name = "Enchant Bracer - Minor Strength",
 		spell = 7782,
 	},
 	[38779] = {
-		name = "Scroll of Enchant Weapon - Minor Beastslayer",
+		name = "Enchant Weapon - Minor Beastslayer",
 		spell = 7786,
 	},
 	[38780] = {
-		name = "Scroll of Enchant Weapon - Minor Striking",
+		name = "Enchant Weapon - Minor Striking",
 		spell = 7788,
 	},
 	[38781] = {
-		name = "Scroll of Enchant 2H Weapon - Lesser Intellect",
+		name = "Enchant 2H Weapon - Lesser Intellect",
 		spell = 7793,
 	},
 	[38782] = {
-		name = "Scroll of Enchant Chest - Health",
+		name = "Enchant Chest - Health",
 		spell = 7857,
 	},
 	[38783] = {
-		name = "Scroll of Enchant Bracer - Lesser Spirit",
+		name = "Enchant Bracer - Lesser Spirit",
 		spell = 7859,
 	},
 	[38784] = {
-		name = "Scroll of Enchant Cloak - Lesser Fire Resistance",
+		name = "Enchant Cloak - Lesser Fire Resistance",
 		spell = 7861,
 	},
 	[38785] = {
-		name = "Scroll of Enchant Boots - Minor Stamina",
+		name = "Enchant Boots - Minor Stamina",
 		spell = 7863,
 	},
 	[38786] = {
-		name = "Scroll of Enchant Boots - Minor Agility",
+		name = "Enchant Boots - Minor Agility",
 		spell = 7867,
 	},
 	[38787] = {
-		name = "Scroll of Enchant Shield - Minor Stamina",
+		name = "Enchant Shield - Minor Stamina",
 		spell = 13378,
 	},
 	[38788] = {
-		name = "Scroll of Enchant 2H Weapon - Lesser Spirit",
+		name = "Enchant 2H Weapon - Lesser Spirit",
 		spell = 13380,
 	},
 	[38789] = {
-		name = "Scroll of Enchant Cloak - Minor Agility",
+		name = "Enchant Cloak - Minor Agility",
 		spell = 13419,
 	},
 	[38790] = {
-		name = "Scroll of Enchant Cloak - Lesser Protection",
+		name = "Enchant Cloak - Lesser Protection",
 		spell = 13421,
 	},
 	[38791] = {
-		name = "Scroll of Enchant Shield - Lesser Protection",
+		name = "Enchant Shield - Lesser Protection",
 		spell = 13464,
 	},
 	[38792] = {
-		name = "Scroll of Enchant Shield - Lesser Spirit",
+		name = "Enchant Shield - Lesser Spirit",
 		spell = 13485,
 	},
 	[38793] = {
-		name = "Scroll of Enchant Bracer - Lesser Stamina",
+		name = "Enchant Bracer - Lesser Stamina",
 		spell = 13501,
 	},
 	[38794] = {
-		name = "Scroll of Enchant Weapon - Lesser Striking",
+		name = "Enchant Weapon - Lesser Striking",
 		spell = 13503,
 	},
 	[38795] = {
-		name = "Scroll of Enchant Cloak - Lesser Shadow Resistance",
+		name = "Enchant Cloak - Lesser Shadow Resistance",
 		spell = 13522,
 	},
 	[38796] = {
-		name = "Scroll of Enchant 2H Weapon - Lesser Impact",
+		name = "Enchant 2H Weapon - Lesser Impact",
 		spell = 13529,
 	},
 	[38797] = {
-		name = "Scroll of Enchant Bracer - Lesser Strength",
+		name = "Enchant Bracer - Lesser Strength",
 		spell = 13536,
 	},
 	[38798] = {
-		name = "Scroll of Enchant Chest - Lesser Absorption",
+		name = "Enchant Chest - Lesser Absorption",
 		spell = 13538,
 	},
 	[38799] = {
-		name = "Scroll of Enchant Chest - Mana",
+		name = "Enchant Chest - Mana",
 		spell = 13607,
 	},
 	[38800] = {
-		name = "Scroll of Enchant Gloves - Mining",
+		name = "Enchant Gloves - Mining",
 		spell = 13612,
 	},
 	[38801] = {
-		name = "Scroll of Enchant Gloves - Herbalism",
+		name = "Enchant Gloves - Herbalism",
 		spell = 13617,
 	},
 	[38802] = {
-		name = "Scroll of Enchant Gloves - Fishing",
+		name = "Enchant Gloves - Fishing",
 		spell = 13620,
 	},
 	[38803] = {
-		name = "Scroll of Enchant Bracer - Lesser Intellect",
+		name = "Enchant Bracer - Lesser Intellect",
 		spell = 13622,
 	},
 	[38804] = {
-		name = "Scroll of Enchant Chest - Minor Stats",
+		name = "Enchant Chest - Minor Stats",
 		spell = 13626,
 	},
 	[38805] = {
-		name = "Scroll of Enchant Shield - Lesser Stamina",
+		name = "Enchant Shield - Lesser Stamina",
 		spell = 13631,
 	},
 	[38806] = {
-		name = "Scroll of Enchant Cloak - Defense",
+		name = "Enchant Cloak - Defense",
 		spell = 13635,
 	},
 	[38807] = {
-		name = "Scroll of Enchant Boots - Lesser Agility",
+		name = "Enchant Boots - Lesser Agility",
 		spell = 13637,
 	},
 	[38808] = {
-		name = "Scroll of Enchant Chest - Greater Health",
+		name = "Enchant Chest - Greater Health",
 		spell = 13640,
 	},
 	[38809] = {
-		name = "Scroll of Enchant Bracer - Spirit",
+		name = "Enchant Bracer - Spirit",
 		spell = 13642,
 	},
 	[38810] = {
-		name = "Scroll of Enchant Boots - Lesser Stamina",
+		name = "Enchant Boots - Lesser Stamina",
 		spell = 13644,
 	},
 	[38811] = {
-		name = "Scroll of Enchant Bracer - Lesser Deflection",
+		name = "Enchant Bracer - Lesser Dodge",
 		spell = 13646,
 	},
 	[38812] = {
-		name = "Scroll of Enchant Bracer - Stamina",
+		name = "Enchant Bracer - Stamina",
 		spell = 13648,
 	},
 	[38813] = {
-		name = "Scroll of Enchant Weapon - Lesser Beastslayer",
+		name = "Enchant Weapon - Lesser Beastslayer",
 		spell = 13653,
 	},
 	[38814] = {
-		name = "Scroll of Enchant Weapon - Lesser Elemental Slayer",
+		name = "Enchant Weapon - Lesser Elemental Slayer",
 		spell = 13655,
 	},
 	[38815] = {
-		name = "Scroll of Enchant Cloak - Fire Resistance",
+		name = "Enchant Cloak - Fire Resistance",
 		spell = 13657,
 	},
 	[38816] = {
-		name = "Scroll of Enchant Shield - Spirit",
+		name = "Enchant Shield - Spirit",
 		spell = 13659,
 	},
 	[38817] = {
-		name = "Scroll of Enchant Bracer - Strength",
+		name = "Enchant Bracer - Strength",
 		spell = 13661,
 	},
 	[38818] = {
-		name = "Scroll of Enchant Chest - Greater Mana",
+		name = "Enchant Chest - Greater Mana",
 		spell = 13663,
 	},
 	[38819] = {
-		name = "Scroll of Enchant Boots - Lesser Spirit",
+		name = "Enchant Boots - Lesser Spirit",
 		spell = 13687,
 	},
 	[38820] = {
-		name = "Scroll of Enchant Shield - Lesser Block",
+		name = "Enchant Shield - Lesser Parry",
 		spell = 13689,
 	},
 	[38821] = {
-		name = "Scroll of Enchant Weapon - Striking",
+		name = "Enchant Weapon - Striking",
 		spell = 13693,
 	},
 	[38822] = {
-		name = "Scroll of Enchant 2H Weapon - Impact",
+		name = "Enchant 2H Weapon - Impact",
 		spell = 13695,
 	},
 	[38823] = {
-		name = "Scroll of Enchant Gloves - Skinning",
+		name = "Enchant Gloves - Skinning",
 		spell = 13698,
 	},
 	[38824] = {
-		name = "Scroll of Enchant Chest - Lesser Stats",
+		name = "Enchant Chest - Lesser Stats",
 		spell = 13700,
 	},
 	[38825] = {
-		name = "Scroll of Enchant Cloak - Greater Defense",
+		name = "Enchant Cloak - Greater Defense",
 		spell = 13746,
 	},
 	[38826] = {
-		name = "Scroll of Enchant Cloak - Resistance",
+		name = "Enchant Cloak - Resistance",
 		spell = 13794,
 	},
 	[38827] = {
-		name = "Scroll of Enchant Gloves - Agility",
+		name = "Enchant Gloves - Agility",
 		spell = 13815,
 	},
 	[38828] = {
-		name = "Scroll of Enchant Shield - Stamina",
+		name = "Enchant Shield - Stamina",
 		spell = 13817,
 	},
 	[38829] = {
-		name = "Scroll of Enchant Bracer - Intellect",
+		name = "Enchant Bracer - Intellect",
 		spell = 13822,
 	},
 	[38830] = {
-		name = "Scroll of Enchant Boots - Stamina",
+		name = "Enchant Boots - Stamina",
 		spell = 13836,
 	},
 	[38831] = {
-		name = "Scroll of Enchant Gloves - Advanced Mining",
+		name = "Enchant Gloves - Advanced Mining",
 		spell = 13841,
 	},
 	[38832] = {
-		name = "Scroll of Enchant Bracer - Greater Spirit",
+		name = "Enchant Bracer - Greater Spirit",
 		spell = 13846,
 	},
 	[38833] = {
-		name = "Scroll of Enchant Chest - Superior Health",
+		name = "Enchant Chest - Superior Health",
 		spell = 13858,
 	},
 	[38834] = {
-		name = "Scroll of Enchant Gloves - Advanced Herbalism",
+		name = "Enchant Gloves - Advanced Herbalism",
 		spell = 13868,
 	},
 	[38835] = {
-		name = "Scroll of Enchant Cloak - Lesser Agility",
+		name = "Enchant Cloak - Lesser Agility",
 		spell = 13882,
 	},
 	[38836] = {
-		name = "Scroll of Enchant Gloves - Strength",
+		name = "Enchant Gloves - Strength",
 		spell = 13887,
 	},
 	[38837] = {
-		name = "Scroll of Enchant Boots - Minor Speed",
+		name = "Enchant Boots - Minor Speed",
 		spell = 13890,
 	},
 	[38838] = {
-		name = "Scroll of Enchant Weapon - Fiery Weapon",
+		name = "Enchant Weapon - Fiery Weapon",
 		spell = 13898,
 	},
 	[38839] = {
-		name = "Scroll of Enchant Shield - Greater Spirit",
+		name = "Enchant Shield - Greater Spirit",
 		spell = 13905,
 	},
 	[38840] = {
-		name = "Scroll of Enchant Weapon - Demonslaying",
+		name = "Enchant Weapon - Demonslaying",
 		spell = 13915,
 	},
 	[38841] = {
-		name = "Scroll of Enchant Chest - Superior Mana",
+		name = "Enchant Chest - Superior Mana",
 		spell = 13917,
 	},
 	[38842] = {
-		name = "Scroll of Enchant Bracer - Deflection",
+		name = "Enchant Bracer - Dodge",
 		spell = 13931,
 	},
 	[38843] = {
-		name = "Scroll of Enchant Shield - Frost Resistance",
+		name = "Enchant Shield - Frost Resistance",
 		spell = 13933,
 	},
 	[38844] = {
-		name = "Scroll of Enchant Boots - Agility",
+		name = "Enchant Boots - Agility",
 		spell = 13935,
 	},
 	[38845] = {
-		name = "Scroll of Enchant 2H Weapon - Greater Impact",
+		name = "Enchant 2H Weapon - Greater Impact",
 		spell = 13937,
 	},
 	[38846] = {
-		name = "Scroll of Enchant Bracer - Greater Strength",
+		name = "Enchant Bracer - Greater Strength",
 		spell = 13939,
 	},
 	[38847] = {
-		name = "Scroll of Enchant Chest - Stats",
+		name = "Enchant Chest - Stats",
 		spell = 13941,
 	},
 	[38848] = {
-		name = "Scroll of Enchant Weapon - Greater Striking",
+		name = "Enchant Weapon - Greater Striking",
 		spell = 13943,
 	},
 	[38849] = {
-		name = "Scroll of Enchant Bracer - Greater Stamina",
+		name = "Enchant Bracer - Greater Stamina",
 		spell = 13945,
 	},
 	[38850] = {
-		name = "Scroll of Enchant Gloves - Riding Skill",
+		name = "Enchant Gloves - Riding Skill",
 		spell = 13947,
 	},
 	[38851] = {
-		name = "Scroll of Enchant Gloves - Minor Haste",
+		name = "Enchant Gloves - Minor Haste",
 		spell = 13948,
 	},
 	[38852] = {
-		name = "Scroll of Enchant Bracer - Greater Intellect",
+		name = "Enchant Bracer - Greater Intellect",
 		spell = 20008,
 	},
 	[38853] = {
-		name = "Scroll of Enchant Bracer - Superior Spirit",
+		name = "Enchant Bracer - Superior Spirit",
 		spell = 20009,
 	},
 	[38854] = {
-		name = "Scroll of Enchant Bracer - Superior Strength",
+		name = "Enchant Bracer - Superior Strength",
 		spell = 20010,
 	},
 	[38855] = {
-		name = "Scroll of Enchant Bracer - Superior Stamina",
+		name = "Enchant Bracer - Superior Stamina",
 		spell = 20011,
 	},
 	[38856] = {
-		name = "Scroll of Enchant Gloves - Greater Agility",
+		name = "Enchant Gloves - Greater Agility",
 		spell = 20012,
 	},
 	[38857] = {
-		name = "Scroll of Enchant Gloves - Greater Strength",
+		name = "Enchant Gloves - Greater Strength",
 		spell = 20013,
 	},
 	[38858] = {
-		name = "Scroll of Enchant Cloak - Greater Resistance",
+		name = "Enchant Cloak - Greater Resistance",
 		spell = 20014,
 	},
 	[38859] = {
-		name = "Scroll of Enchant Cloak - Superior Defense",
+		name = "Enchant Cloak - Superior Defense",
 		spell = 20015,
 	},
 	[38860] = {
-		name = "Scroll of Enchant Shield - Vitality",
+		name = "Enchant Shield - Vitality",
 		spell = 20016,
 	},
 	[38861] = {
-		name = "Scroll of Enchant Shield - Greater Stamina",
+		name = "Enchant Shield - Greater Stamina",
 		spell = 20017,
 	},
 	[38862] = {
-		name = "Scroll of Enchant Boots - Greater Stamina",
+		name = "Enchant Boots - Greater Stamina",
 		spell = 20020,
 	},
 	[38863] = {
-		name = "Scroll of Enchant Boots - Greater Agility",
+		name = "Enchant Boots - Greater Agility",
 		spell = 20023,
 	},
 	[38864] = {
-		name = "Scroll of Enchant Boots - Spirit",
+		name = "Enchant Boots - Spirit",
 		spell = 20024,
 	},
 	[38865] = {
-		name = "Scroll of Enchant Chest - Greater Stats",
+		name = "Enchant Chest - Greater Stats",
 		spell = 20025,
 	},
 	[38866] = {
-		name = "Scroll of Enchant Chest - Major Health",
+		name = "Enchant Chest - Major Health",
 		spell = 20026,
 	},
 	[38867] = {
-		name = "Scroll of Enchant Chest - Major Mana",
+		name = "Enchant Chest - Major Mana",
 		spell = 20028,
 	},
 	[38868] = {
-		name = "Scroll of Enchant Weapon - Icy Chill",
+		name = "Enchant Weapon - Icy Chill",
 		spell = 20029,
 	},
 	[38869] = {
-		name = "Scroll of Enchant 2H Weapon - Superior Impact",
+		name = "Enchant 2H Weapon - Superior Impact",
 		spell = 20030,
 	},
 	[38870] = {
-		name = "Scroll of Enchant Weapon - Superior Striking",
+		name = "Enchant Weapon - Superior Striking",
 		spell = 20031,
 	},
 	[38871] = {
-		name = "Scroll of Enchant Weapon - Lifestealing",
+		name = "Enchant Weapon - Lifestealing",
 		spell = 20032,
 	},
 	[38872] = {
-		name = "Scroll of Enchant Weapon - Unholy Weapon",
+		name = "Enchant Weapon - Unholy Weapon",
 		spell = 20033,
 	},
 	[38873] = {
-		name = "Scroll of Enchant Weapon - Crusader",
+		name = "Enchant Weapon - Crusader",
 		spell = 20034,
 	},
 	[38874] = {
-		name = "Scroll of Enchant 2H Weapon - Major Spirit",
+		name = "Enchant 2H Weapon - Major Spirit",
 		spell = 20035,
 	},
 	[38875] = {
-		name = "Scroll of Enchant 2H Weapon - Major Intellect",
+		name = "Enchant 2H Weapon - Major Intellect",
 		spell = 20036,
 	},
 	[38876] = {
-		name = "Scroll of Enchant Weapon - Winter's Might",
+		name = "Enchant Weapon - Winter's Might",
 		spell = 21931,
 	},
 	[38877] = {
-		name = "Scroll of Enchant Weapon - Spellpower",
+		name = "Enchant Weapon - Spellpower",
 		spell = 22749,
 	},
 	[38878] = {
-		name = "Scroll of Enchant Weapon - Healing Power",
+		name = "Enchant Weapon - Healing Power",
 		spell = 22750,
 	},
 	[38879] = {
-		name = "Scroll of Enchant Weapon - Strength",
+		name = "Enchant Weapon - Strength",
 		spell = 23799,
 	},
 	[38880] = {
-		name = "Scroll of Enchant Weapon - Agility",
+		name = "Enchant Weapon - Agility",
 		spell = 23800,
 	},
 	[38881] = {
-		name = "Scroll of Enchant Bracer - Mana Regeneration",
+		name = "Enchant Bracer - Mana Regeneration",
 		spell = 23801,
 	},
 	[38882] = {
-		name = "Scroll of Enchant Bracer - Healing Power",
+		name = "Enchant Bracer - Healing Power",
 		spell = 23802,
 	},
 	[38883] = {
-		name = "Scroll of Enchant Weapon - Mighty Spirit",
+		name = "Enchant Weapon - Mighty Spirit",
 		spell = 23803,
 	},
 	[38884] = {
-		name = "Scroll of Enchant Weapon - Mighty Intellect",
+		name = "Enchant Weapon - Mighty Intellect",
 		spell = 23804,
 	},
 	[38885] = {
-		name = "Scroll of Enchant Gloves - Threat",
+		name = "Enchant Gloves - Threat",
 		spell = 25072,
 	},
 	[38886] = {
-		name = "Scroll of Enchant Gloves - Shadow Power",
+		name = "Enchant Gloves - Shadow Power",
 		spell = 25073,
 	},
 	[38887] = {
-		name = "Scroll of Enchant Gloves - Frost Power",
+		name = "Enchant Gloves - Frost Power",
 		spell = 25074,
 	},
 	[38888] = {
-		name = "Scroll of Enchant Gloves - Fire Power",
+		name = "Enchant Gloves - Fire Power",
 		spell = 25078,
 	},
 	[38889] = {
-		name = "Scroll of Enchant Gloves - Healing Power",
+		name = "Enchant Gloves - Healing Power",
 		spell = 25079,
 	},
 	[38890] = {
-		name = "Scroll of Enchant Gloves - Superior Agility",
+		name = "Enchant Gloves - Superior Agility",
 		spell = 25080,
 	},
 	[38891] = {
-		name = "Scroll of Enchant Cloak - Greater Fire Resistance",
+		name = "Enchant Cloak - Greater Fire Resistance",
 		spell = 25081,
 	},
 	[38892] = {
-		name = "Scroll of Enchant Cloak - Greater Nature Resistance",
+		name = "Enchant Cloak - Greater Nature Resistance",
 		spell = 25082,
 	},
 	[38893] = {
-		name = "Scroll of Enchant Cloak - Stealth",
+		name = "Enchant Cloak - Stealth",
 		spell = 25083,
 	},
 	[38894] = {
-		name = "Scroll of Enchant Cloak - Subtlety",
+		name = "Enchant Cloak - Subtlety",
 		spell = 25084,
 	},
 	[38895] = {
-		name = "Scroll of Enchant Cloak - Dodge",
+		name = "Enchant Cloak - Dodge",
 		spell = 25086,
 	},
 	[38896] = {
-		name = "Scroll of Enchant 2H Weapon - Agility",
+		name = "Enchant 2H Weapon - Agility",
 		spell = 27837,
 	},
 	[38897] = {
-		name = "Scroll of Enchant Bracer - Brawn",
+		name = "Enchant Bracer - Brawn",
 		spell = 27899,
 	},
 	[38898] = {
-		name = "Scroll of Enchant Bracer - Stats",
+		name = "Enchant Bracer - Stats",
 		spell = 27905,
 	},
 	[38899] = {
-		name = "Scroll of Enchant Bracer - Greater Dodge",
+		name = "Enchant Bracer - Greater Dodge",
 		spell = 27906,
 	},
 	[38900] = {
-		name = "Scroll of Enchant Bracer - Superior Healing",
+		name = "Enchant Bracer - Superior Healing",
 		spell = 27911,
 	},
 	[38901] = {
-		name = "Scroll of Enchant Bracer - Restore Mana Prime",
+		name = "Enchant Bracer - Restore Mana Prime",
 		spell = 27913,
 	},
 	[38902] = {
-		name = "Scroll of Enchant Bracer - Fortitude",
+		name = "Enchant Bracer - Fortitude",
 		spell = 27914,
 	},
 	[38903] = {
-		name = "Scroll of Enchant Bracer - Spellpower",
+		name = "Enchant Bracer - Spellpower",
 		spell = 27917,
 	},
 	[38904] = {
-		name = "Scroll of Enchant Shield - Tough Shield",
+		name = "Enchant Shield - Lesser Dodge",
 		spell = 27944,
 	},
 	[38905] = {
-		name = "Scroll of Enchant Shield - Intellect",
+		name = "Enchant Shield - Intellect",
 		spell = 27945,
 	},
 	[38906] = {
-		name = "Scroll of Enchant Shield - Shield Block",
+		name = "Enchant Shield - Parry",
 		spell = 27946,
 	},
 	[38907] = {
-		name = "Scroll of Enchant Shield - Resistance",
+		name = "Enchant Shield - Resistance",
 		spell = 27947,
 	},
 	[38908] = {
-		name = "Scroll of Enchant Boots - Vitality",
+		name = "Enchant Boots - Vitality",
 		spell = 27948,
 	},
 	[38909] = {
-		name = "Scroll of Enchant Boots - Fortitude",
+		name = "Enchant Boots - Fortitude",
 		spell = 27950,
 	},
 	[38910] = {
-		name = "Scroll of Enchant Boots - Surefooted",
+		name = "Enchant Boots - Surefooted",
 		spell = 27954,
 	},
 	[38911] = {
-		name = "Scroll of Enchant Chest - Exceptional Health",
+		name = "Enchant Chest - Exceptional Health",
 		spell = 27957,
 	},
 	[38912] = {
-		name = "Scroll of Enchant Chest - Exceptional Mana",
+		name = "Enchant Chest - Exceptional Mana",
 		spell = 27958,
 	},
 	[38914] = {
-		name = "Scroll of Enchant Cloak - Major Armor",
+		name = "Enchant Cloak - Major Armor",
 		spell = 27961,
 	},
 	[38915] = {
-		name = "Scroll of Enchant Cloak - Major Resistance",
+		name = "Enchant Cloak - Major Resistance",
 		spell = 27962,
 	},
 	[38917] = {
-		name = "Scroll of Enchant Weapon - Major Striking",
+		name = "Enchant Weapon - Major Striking",
 		spell = 27967,
 	},
 	[38918] = {
-		name = "Scroll of Enchant Weapon - Major Intellect",
+		name = "Enchant Weapon - Major Intellect",
 		spell = 27968,
 	},
 	[38919] = {
-		name = "Scroll of Enchant 2H Weapon - Savagery",
+		name = "Enchant 2H Weapon - Savagery",
 		spell = 27971,
 	},
 	[38920] = {
-		name = "Scroll of Enchant Weapon - Potency",
+		name = "Enchant Weapon - Potency",
 		spell = 27972,
 	},
 	[38921] = {
-		name = "Scroll of Enchant Weapon - Major Spellpower",
+		name = "Enchant Weapon - Major Spellpower",
 		spell = 27975,
 	},
 	[38922] = {
-		name = "Scroll of Enchant 2H Weapon - Major Agility",
+		name = "Enchant 2H Weapon - Major Agility",
 		spell = 27977,
 	},
 	[38923] = {
-		name = "Scroll of Enchant Weapon - Sunfire",
+		name = "Enchant Weapon - Sunfire",
 		spell = 27981,
 	},
 	[38924] = {
-		name = "Scroll of Enchant Weapon - Soulfrost",
+		name = "Enchant Weapon - Soulfrost",
 		spell = 27982,
 	},
 	[38925] = {
-		name = "Scroll of Enchant Weapon - Mongoose",
+		name = "Enchant Weapon - Mongoose",
 		spell = 27984,
 	},
 	[38926] = {
-		name = "Scroll of Enchant Weapon - Spellsurge",
+		name = "Enchant Weapon - Spellsurge",
 		spell = 28003,
 	},
 	[38927] = {
-		name = "Scroll of Enchant Weapon - Battlemaster",
+		name = "Enchant Weapon - Battlemaster",
 		spell = 28004,
 	},
 	[38928] = {
-		name = "Scroll of Enchant Chest - Major Spirit",
+		name = "Enchant Chest - Major Spirit",
 		spell = 33990,
 	},
 	[38929] = {
-		name = "Scroll of Enchant Chest - Restore Mana Prime",
+		name = "Enchant Chest - Restore Mana Prime",
 		spell = 33991,
 	},
 	[38930] = {
-		name = "Scroll of Enchant Chest - Major Resilience",
+		name = "Enchant Chest - Major Resilience",
 		spell = 33992,
 	},
 	[38931] = {
-		name = "Scroll of Enchant Gloves - Blasting",
+		name = "Enchant Gloves - Blasting",
 		spell = 33993,
 	},
 	[38932] = {
-		name = "Scroll of Enchant Gloves - Precise Strikes",
+		name = "Enchant Gloves - Precise Strikes",
 		spell = 33994,
 	},
 	[38933] = {
-		name = "Scroll of Enchant Gloves - Major Strength",
+		name = "Enchant Gloves - Major Strength",
 		spell = 33995,
 	},
 	[38934] = {
-		name = "Scroll of Enchant Gloves - Assault",
+		name = "Enchant Gloves - Assault",
 		spell = 33996,
 	},
 	[38935] = {
-		name = "Scroll of Enchant Gloves - Major Spellpower",
+		name = "Enchant Gloves - Major Spellpower",
 		spell = 33997,
 	},
 	[38936] = {
-		name = "Scroll of Enchant Gloves - Major Healing",
+		name = "Enchant Gloves - Major Healing",
 		spell = 33999,
 	},
 	[38937] = {
-		name = "Scroll of Enchant Bracer - Major Intellect",
+		name = "Enchant Bracer - Major Intellect",
 		spell = 34001,
 	},
 	[38938] = {
-		name = "Scroll of Enchant Bracer - Assault",
+		name = "Enchant Bracer - Lesser Assault",
 		spell = 34002,
 	},
 	[38939] = {
-		name = "Scroll of Enchant Cloak - Spell Penetration",
+		name = "Enchant Cloak - Spell Penetration",
 		spell = 34003,
 	},
 	[38940] = {
-		name = "Scroll of Enchant Cloak - Greater Agility",
+		name = "Enchant Cloak - Greater Agility",
 		spell = 34004,
 	},
 	[38941] = {
-		name = "Scroll of Enchant Cloak - Greater Arcane Resistance",
+		name = "Enchant Cloak - Greater Arcane Resistance",
 		spell = 34005,
 	},
 	[38942] = {
-		name = "Scroll of Enchant Cloak - Greater Shadow Resistance",
+		name = "Enchant Cloak - Greater Shadow Resistance",
 		spell = 34006,
 	},
 	[38943] = {
-		name = "Scroll of Enchant Boots - Cat's Swiftness",
+		name = "Enchant Boots - Cat's Swiftness",
 		spell = 34007,
 	},
 	[38944] = {
-		name = "Scroll of Enchant Boots - Boar's Speed",
+		name = "Enchant Boots - Boar's Speed",
 		spell = 34008,
 	},
 	[38945] = {
-		name = "Scroll of Enchant Shield - Major Stamina",
+		name = "Enchant Shield - Major Stamina",
 		spell = 34009,
 	},
 	[38946] = {
-		name = "Scroll of Enchant Weapon - Major Healing",
+		name = "Enchant Weapon - Major Healing",
 		spell = 34010,
 	},
 	[38947] = {
-		name = "Scroll of Enchant Weapon - Greater Agility",
+		name = "Enchant Weapon - Greater Agility",
 		spell = 42620,
 	},
 	[38948] = {
-		name = "Scroll of Enchant Weapon - Executioner",
+		name = "Enchant Weapon - Executioner",
 		spell = 42974,
 	},
 	[38949] = {
-		name = "Scroll of Enchant Shield - Resilience",
+		name = "Enchant Shield - Resilience",
 		spell = 44383,
 	},
 	[38950] = {
-		name = "Scroll of Enchant Cloak - Superior Frost Resistance",
+		name = "Enchant Cloak - Superior Frost Resistance",
 		spell = 44483,
 	},
 	[38951] = {
-		name = "Scroll of Enchant Gloves - Expertise",
+		name = "Enchant Gloves - Expertise",
 		spell = 44484,
 	},
 	[38953] = {
-		name = "Scroll of Enchant Gloves - Precision",
+		name = "Enchant Gloves - Precision",
 		spell = 44488,
 	},
 	[38954] = {
-		name = "Scroll of Enchant Shield - Dodge",
+		name = "Enchant Shield - Dodge",
 		spell = 44489,
 	},
 	[38955] = {
-		name = "Scroll of Enchant Chest - Mighty Health",
+		name = "Enchant Chest - Mighty Health",
 		spell = 44492,
 	},
 	[38956] = {
-		name = "Scroll of Enchant Cloak - Superior Nature Resistance",
+		name = "Enchant Cloak - Superior Nature Resistance",
 		spell = 44494,
 	},
 	[38959] = {
-		name = "Scroll of Enchant Cloak - Superior Agility",
+		name = "Enchant Cloak - Superior Agility",
 		spell = 44500,
 	},
 	[38960] = {
-		name = "Scroll of Enchant Gloves - Gatherer",
+		name = "Enchant Gloves - Gatherer",
 		spell = 44506,
 	},
 	[38961] = {
-		name = "Scroll of Enchant Boots - Greater Spirit",
+		name = "Enchant Boots - Greater Spirit",
 		spell = 44508,
 	},
 	[38962] = {
-		name = "Scroll of Enchant Chest - Greater Mana Restoration",
+		name = "Enchant Chest - Greater Mana Restoration",
 		spell = 44509,
 	},
 	[38963] = {
-		name = "Scroll of Enchant Weapon - Exceptional Spirit",
+		name = "Enchant Weapon - Exceptional Spirit",
 		spell = 44510,
 	},
 	[38964] = {
-		name = "Scroll of Enchant Gloves - Greater Assault",
+		name = "Enchant Gloves - Greater Assault",
 		spell = 44513,
 	},
 	[38965] = {
-		name = "Scroll of Enchant Weapon - Icebreaker",
+		name = "Enchant Weapon - Icebreaker",
 		spell = 44524,
 	},
 	[38966] = {
-		name = "Scroll of Enchant Boots - Greater Fortitude",
+		name = "Enchant Boots - Greater Fortitude",
 		spell = 44528,
 	},
 	[38967] = {
-		name = "Scroll of Enchant Gloves - Major Agility",
+		name = "Enchant Gloves - Major Agility",
 		spell = 44529,
 	},
 	[38968] = {
-		name = "Scroll of Enchant Bracer - Exceptional Intellect",
+		name = "Enchant Bracer - Exceptional Intellect",
 		spell = 44555,
 	},
 	[38969] = {
-		name = "Scroll of Enchant Cloak - Superior Fire Resistance",
+		name = "Enchant Cloak - Superior Fire Resistance",
 		spell = 44556,
 	},
 	[38971] = {
-		name = "Scroll of Enchant Bracer - Striking",
+		name = "Enchant Bracer - Assault",
 		spell = 60616,
 	},
 	[38972] = {
-		name = "Scroll of Enchant Weapon - Lifeward",
+		name = "Enchant Weapon - Lifeward",
 		spell = 44576,
 	},
 	[38973] = {
-		name = "Scroll of Enchant Cloak - Spell Piercing",
+		name = "Enchant Cloak - Spell Piercing",
 		spell = 44582,
 	},
 	[38974] = {
-		name = "Scroll of Enchant Boots - Greater Vitality",
+		name = "Enchant Boots - Greater Vitality",
 		spell = 44584,
 	},
 	[38975] = {
-		name = "Scroll of Enchant Chest - Exceptional Resilience",
+		name = "Enchant Chest - Exceptional Resilience",
 		spell = 44588,
 	},
 	[38976] = {
-		name = "Scroll of Enchant Boots - Superior Agility",
+		name = "Enchant Boots - Superior Agility",
 		spell = 44589,
 	},
 	[38977] = {
-		name = "Scroll of Enchant Cloak - Superior Shadow Resistance",
+		name = "Enchant Cloak - Superior Shadow Resistance",
 		spell = 44590,
 	},
 	[38978] = {
-		name = "Scroll of Enchant Cloak - Titanweave",
+		name = "Enchant Cloak - Superior Dodge",
 		spell = 44591,
 	},
 	[38979] = {
-		name = "Scroll of Enchant Gloves - Exceptional Spellpower",
+		name = "Enchant Gloves - Exceptional Spellpower",
 		spell = 44592,
 	},
 	[38980] = {
-		name = "Scroll of Enchant Bracer - Major Spirit",
+		name = "Enchant Bracer - Major Spirit",
 		spell = 44593,
 	},
 	[38981] = {
-		name = "Scroll of Enchant 2H Weapon - Scourgebane",
+		name = "Enchant 2H Weapon - Scourgebane",
 		spell = 44595,
 	},
 	[38982] = {
-		name = "Scroll of Enchant Cloak - Superior Arcane Resistance",
+		name = "Enchant Cloak - Superior Arcane Resistance",
 		spell = 44596,
 	},
 	[38984] = {
-		name = "Scroll of Enchant Bracer - Expertise",
+		name = "Enchant Bracer - Expertise",
 		spell = 44598,
 	},
 	[38986] = {
-		name = "Scroll of Enchant Boots - Icewalker",
+		name = "Enchant Boots - Icewalker",
 		spell = 60623,
 	},
 	[38987] = {
-		name = "Scroll of Enchant Bracer - Greater Stats",
+		name = "Enchant Bracer - Greater Stats",
 		spell = 44616,
 	},
 	[38988] = {
-		name = "Scroll of Enchant Weapon - Giant Slayer",
+		name = "Enchant Weapon - Giant Slayer",
 		spell = 44621,
 	},
 	[38989] = {
-		name = "Scroll of Enchant Chest - Super Stats",
+		name = "Enchant Chest - Super Stats",
 		spell = 44623,
 	},
 	[38990] = {
-		name = "Scroll of Enchant Gloves - Armsman",
+		name = "Enchant Gloves - Armsman",
 		spell = 44625,
 	},
 	[38991] = {
-		name = "Scroll of Enchant Weapon - Exceptional Spellpower",
+		name = "Enchant Weapon - Exceptional Spellpower",
 		spell = 44629,
 	},
 	[38992] = {
-		name = "Scroll of Enchant 2H Weapon - Greater Savagery",
+		name = "Enchant 2H Weapon - Greater Savagery",
 		spell = 44630,
 	},
 	[38993] = {
-		name = "Scroll of Enchant Cloak - Shadow Armor",
+		name = "Enchant Cloak - Shadow Armor",
 		spell = 44631,
 	},
 	[38995] = {
-		name = "Scroll of Enchant Weapon - Exceptional Agility",
+		name = "Enchant Weapon - Exceptional Agility",
 		spell = 44633,
 	},
 	[38997] = {
-		name = "Scroll of Enchant Bracer - Greater Spellpower",
+		name = "Enchant Bracer - Greater Spellpower",
 		spell = 44635,
 	},
 	[38998] = {
-		name = "Scroll of Enchant Weapon - Deathfrost",
+		name = "Enchant Weapon - Deathfrost",
 		spell = 46578,
 	},
 	[38999] = {
-		name = "Scroll of Enchant Chest - Dodge",
+		name = "Enchant Chest - Dodge",
 		spell = 46594,
 	},
 	[39000] = {
-		name = "Scroll of Enchant Cloak - Steelweave",
+		name = "Enchant Cloak - Greater Dodge",
 		spell = 47051,
 	},
 	[39001] = {
-		name = "Scroll of Enchant Cloak - Mighty Armor",
+		name = "Enchant Cloak - Mighty Armor",
 		spell = 47672,
 	},
 	[39002] = {
-		name = "Scroll of Enchant Chest - Greater Dodge",
+		name = "Enchant Chest - Greater Dodge",
 		spell = 47766,
 	},
 	[39003] = {
-		name = "Scroll of Enchant Cloak - Greater Speed",
+		name = "Enchant Cloak - Greater Speed",
 		spell = 47898,
 	},
 	[39004] = {
-		name = "Scroll of Enchant Cloak - Wisdom",
+		name = "Enchant Cloak - Wisdom",
 		spell = 47899,
 	},
 	[39005] = {
-		name = "Scroll of Enchant Chest - Super Health",
+		name = "Enchant Chest - Super Health",
 		spell = 47900,
 	},
 	[39006] = {
-		name = "Scroll of Enchant Boots - Tuskarr's Vitality",
+		name = "Enchant Boots - Tuskarr's Vitality",
 		spell = 47901,
 	},
 	[41146] = {
@@ -7217,7 +7217,7 @@ local EnchantItems = {
 		spell = 56353,
 	},
 	[43987] = {
-		name = "Scroll of Enchant Weapon - Black Magic",
+		name = "Enchant Weapon - Black Magic",
 		spell = 59625,
 	},
 	[44067] = {
@@ -7448,11 +7448,11 @@ local EnchantItems = {
 		spell = 59970,
 	},
 	[44449] = {
-		name = "Scroll of Enchant Boots - Assault",
+		name = "Enchant Boots - Assault",
 		spell = 60606,
 	},
 	[44453] = {
-		name = "Scroll of Enchant Weapon - Greater Potency",
+		name = "Enchant Weapon - Greater Potency",
 		spell = 60621,
 	},
 	[44455] = {
@@ -7460,47 +7460,47 @@ local EnchantItems = {
 		spell = 60653,
 	},
 	[44456] = {
-		name = "Scroll of Enchant Cloak - Speed",
+		name = "Enchant Cloak - Speed",
 		spell = 60609,
 	},
 	[44457] = {
-		name = "Scroll of Enchant Cloak - Major Agility",
+		name = "Enchant Cloak - Major Agility",
 		spell = 60663,
 	},
 	[44458] = {
-		name = "Scroll of Enchant Gloves - Crusher",
+		name = "Enchant Gloves - Crusher",
 		spell = 60668,
 	},
 	[44463] = {
-		name = "Scroll of Enchant 2H Weapon - Massacre",
+		name = "Enchant 2H Weapon - Massacre",
 		spell = 60691,
 	},
 	[44465] = {
-		name = "Scroll of Enchant Chest - Powerful Stats",
+		name = "Enchant Chest - Powerful Stats",
 		spell = 60692,
 	},
 	[44466] = {
-		name = "Scroll of Enchant Weapon - Superior Potency",
+		name = "Enchant Weapon - Superior Potency",
 		spell = 60707,
 	},
 	[44467] = {
-		name = "Scroll of Enchant Weapon - Mighty Spellpower",
+		name = "Enchant Weapon - Mighty Spellpower",
 		spell = 60714,
 	},
 	[44469] = {
-		name = "Scroll of Enchant Boots - Greater Assault",
+		name = "Enchant Boots - Greater Assault",
 		spell = 60763,
 	},
 	[44470] = {
-		name = "Scroll of Enchant Bracer - Superior Spellpower",
+		name = "Enchant Bracer - Superior Spellpower",
 		spell = 60767,
 	},
 	[44493] = {
-		name = "Scroll of Enchant Weapon - Berserking",
+		name = "Enchant Weapon - Berserking",
 		spell = 59621,
 	},
 	[44497] = {
-		name = "Scroll of Enchant Weapon - Accuracy",
+		name = "Enchant Weapon - Accuracy",
 		spell = 59619,
 	},
 	[44701] = {
@@ -7536,7 +7536,7 @@ local EnchantItems = {
 		spell = 61468,
 	},
 	[44815] = {
-		name = "Scroll of Enchant Bracer - Greater Assault",
+		name = "Enchant Bracer - Greater Assault",
 		spell = 44575,
 	},
 	[44936] = {
@@ -7553,7 +7553,7 @@ local EnchantItems = {
 		spell = 62201,
 	},
 	[44947] = {
-		name = "Scroll of Enchant Bracer - Major Stamina",
+		name = "Enchant Bracer - Major Stamina",
 		spell = 62256,
 	},
 	[44957] = {
@@ -7573,23 +7573,23 @@ local EnchantItems = {
 		spell = 62447,
 	},
 	[45056] = {
-		name = "Scroll of Enchant Staff - Greater Spellpower",
+		name = "Enchant Staff - Greater Spellpower",
 		spell = 62948,
 	},
 	[45060] = {
-		name = "Scroll of Enchant Staff - Spellpower",
+		name = "Enchant Staff - Spellpower",
 		spell = 62959,
 	},
 	[45628] = {
-		name = "Scroll of Enchant Boots - Lesser Accuracy",
+		name = "Enchant Boots - Lesser Accuracy",
 		spell = 63746,
 	},
 	[46026] = {
-		name = "Scroll of Enchant Weapon - Blade Ward",
+		name = "Enchant Weapon - Blade Ward",
 		spell = 64441,
 	},
 	[46098] = {
-		name = "Scroll of Enchant Weapon - Blood Draining",
+		name = "Enchant Weapon - Blood Draining",
 		spell = 64579,
 	},
 	[50335] = {
@@ -7713,7 +7713,7 @@ local EnchantItems = {
 		spell = 61271,
 	},
 	[50816] = {
-		name = "Scroll of Enchant Gloves - Angler",
+		name = "Enchant Gloves - Angler",
 		spell = 71692,
 	},
 	[52687] = {
@@ -7801,7 +7801,7 @@ local EnchantItems = {
 		spell = 74226,
 	},
 	[52763] = {
-		name = "Enchant Bracer - Dodge",
+		name = "Enchant Bracer - Superior Dodge",
 		spell = 74229,
 	},
 	[52764] = {
@@ -8280,7 +8280,7 @@ local EnchantSpells = {
 	},
 	[7428] = {
 		enchID = 924,
-		name = "Enchant Bracer - Minor Deflection",
+		name = "Enchant Bracer - Minor Dodge",
 		slot = { "wrist" },
 		source = "Crafted",
 	},
@@ -8559,7 +8559,7 @@ local EnchantSpells = {
 	},
 	[13646] = {
 		enchID = 925,
-		name = "Enchant Bracer - Lesser Deflection",
+		name = "Enchant Bracer - Lesser Dodge",
 		slot = { "wrist" },
 		source = "Crafted",
 	},
@@ -8618,7 +8618,7 @@ local EnchantSpells = {
 	},
 	[13689] = {
 		enchID = 863,
-		name = "Enchant Shield - Lesser Block",
+		name = "Enchant Shield - Lesser Parry",
 		slot = {
 			"off hand",
 			["off hand"] = {
@@ -8765,7 +8765,7 @@ local EnchantSpells = {
 	},
 	[13931] = {
 		enchID = 923,
-		name = "Enchant Bracer - Deflection",
+		name = "Enchant Bracer - Dodge",
 		slot = { "wrist" },
 		source = "Crafted",
 	},
@@ -9204,7 +9204,7 @@ local EnchantSpells = {
 	[27944] = {
 		enchID = 2653,
 		minIlvl = 35,
-		name = "Enchant Shield - Tough Shield",
+		name = "Enchant Shield - Lesser Dodge",
 		slot = {
 			"off hand",
 			["off hand"] = {
@@ -9228,7 +9228,7 @@ local EnchantSpells = {
 	[27946] = {
 		enchID = 2655,
 		minIlvl = 35,
-		name = "Enchant Shield - Shield Block",
+		name = "Enchant Shield - Parry",
 		slot = {
 			"off hand",
 			["off hand"] = {
@@ -9460,7 +9460,7 @@ local EnchantSpells = {
 	},
 	[34002] = {
 		enchID = 1593,
-		name = "Enchant Bracer - Assault",
+		name = "Enchant Bracer - Lesser Assault",
 		slot = { "wrist" },
 		source = "Crafted",
 	},
@@ -9726,7 +9726,7 @@ local EnchantSpells = {
 	[44591] = {
 		enchID = 1951,
 		minIlvl = 60,
-		name = "Enchant Cloak - Titanweave",
+		name = "Enchant Cloak - Superior Dodge",
 		slot = { "back" },
 		source = "Crafted",
 	},
@@ -9863,7 +9863,7 @@ local EnchantSpells = {
 	[47051] = {
 		enchID = 2648,
 		minIlvl = 35,
-		name = "Enchant Cloak - Steelweave",
+		name = "Enchant Cloak - Greater Dodge",
 		slot = { "back" },
 		source = "Crafted",
 	},
@@ -10165,7 +10165,7 @@ local EnchantSpells = {
 	[60616] = {
 		enchID = 1600,
 		minIlvl = 60,
-		name = "Enchant Bracer - Striking",
+		name = "Enchant Bracer - Assault",
 		slot = { "wrist" },
 		source = "Crafted",
 	},
@@ -10561,7 +10561,7 @@ local EnchantSpells = {
 	[74229] = {
 		enchID = 4086,
 		minIlvl = 300,
-		name = "Enchant Bracer - Dodge",
+		name = "Enchant Bracer - Superior Dodge",
 		slot = { "wrist" },
 		source = "Crafted",
 	},
