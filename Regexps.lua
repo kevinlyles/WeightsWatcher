@@ -23,14 +23,16 @@ local function makePatternTables()
 	local pattern, func, categories
 	for _, regex in ipairs(ww_MultipleStatLines) do
 		pattern, func, categories = unpack(regex)
+		local tbl = {pattern, func}
 		for _, category in ipairs(categories) do
-			table.insert(ww_regexes[category].MultipleStat, {pattern, func})
+			table.insert(ww_regexes[category].MultipleStat, tbl)
 		end
 	end
 	for _, regex in ipairs(ww_SingleStatLines) do
 		pattern, func, categories = unpack(regex)
+		local tbl = {pattern, func}
 		for _, category in ipairs(categories) do
-			table.insert(ww_regexes[category].SingleStat, {pattern, func})
+			table.insert(ww_regexes[category].SingleStat, tbl)
 		end
 	end
 end
