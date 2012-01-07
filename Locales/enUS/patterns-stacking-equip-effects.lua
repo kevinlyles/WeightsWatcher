@@ -10,9 +10,11 @@ ww_triggerDisplayNames = {
 }
 
 local triggerGroups = {
+	["damageDealt"] = {"meleeDamage", "rangedDamage"},
 	["meleeDamageDealt"] = {"meleeDamage"},
 	["rangedDamageDealt"] = {"rangedDamage"},
 	["spellDamageDealt"] = {"harmfulSpell"},
+	["damageSpellCast"] = {"harmfulSpell"},
 	["damagingSpellCast"] = {"harmfulSpell"},
 	["harmfulSpellCast"] = {"harmfulSpell"},
 	["harmfulSpellHit"] = {"harmfulSpell"},
@@ -34,8 +36,6 @@ local stackingEquipPreprocessLines = {
 	{" and stacking ", ", stacking "},
 	{" grant heart's revelation, increasing ", " grant "},
 	{" grant inner eye, increasing ", " grant "},
-	{" your (%a* ?)spells grant ", " each time you cast a %1spell you gain "},
-	{" damage spell ", " damaging spell "},
 }
 
 local StackingEquipAffixes = {
@@ -47,14 +47,15 @@ local StackingEquipAffixes = {
 	"[%.,]",
 }
 
-local function parseStackingEquipEffectTriggers(trigger)
-	local triggerPatterns = {
-		{"^cast a ?(.*) spell$", "SpellCast"},
-		{"^deal ?(.*) damage$", "DamageDealt"},
-		{"^land a ?(.*) spell$", "SpellHit"},
-		{"^(.+) attacks$", "DamageDealt"},
-	}
+local triggerPatterns = {
+	{"^cast a ?(.*) spell$", "SpellCast"},
+	{"^(.*) ?spells$", "SpellCast"},
+	{"^deal ?(.*) damage$", "DamageDealt"},
+	{"^land a ?(.*) spell$", "SpellHit"},
+	{"^(.*) ?attacks$", "DamageDealt"},
+}
 
+local function parseStackingEquipEffectTriggers(trigger)
 	for _, regex in ipairs(triggerPatterns) do
 		local pattern, triggerType = unpack(regex)
 		local start, _, triggerSubTypes = string.find(trigger, pattern)
@@ -63,7 +64,7 @@ local function parseStackingEquipEffectTriggers(trigger)
 			if not triggerSubTypes then
 				triggerSubTypes = ""
 			end
-			triggerSubTypes = triggerSubTypes:gsub(" or ", " OR "):gsub(" and ", " OR ")
+			triggerSubTypes = triggerSubTypes:gsub(" or ", " OR "):gsub(" and ", " OR "):gsub(" +$", "")
 			local start, finish, left = string.find(triggerSubTypes, "^([^A-Z]*) OR ")
 			while start do
 				table.insert(subTypes, left)
@@ -90,9 +91,9 @@ local function parseStackingEquipEffectTriggers(trigger)
 end
 
 local function parseStackingEquipEffect(text, section)
-	local start, _, trigger, stat, duration, numStacks = string.find(text, "^(.*) you gain (.*) for (.*) stacking up to (%d+) times$")
+	local start, _, trigger, stat, duration, numStacks = string.find(text, "^(.+) you gain (.+) for (.+) stacking up to (%d+) times$")
 	if not start then
-		start, _, trigger, stat, duration, numStacks = string.find(text, "^(.*) grant (.*) for (.*) stacking up to (%d+) times$")
+		start, _, trigger, stat, duration, numStacks = string.find(text, "^(.+) grant (.+) for (.+) stacking up to (%d+) times$")
 		if not start then
 			return
 		end
