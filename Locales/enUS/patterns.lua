@@ -406,7 +406,7 @@ ww_SingleStatLines = {
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "hp5")
 		end,
-		{--[["cooldownUseEffect",]] "elixir", "equipEffect", "food", "generic", "useEffect"},
+		{"cooldownUseEffect", "elixir", "equipEffect", "food", "generic", "useEffect"},
 	},
 	-- item 20130
 	{"^([+-]?%d+) to ([+-]?%d+) health [ep]v?ery? 5 seco?n?d?s?%.?$",
@@ -444,7 +444,7 @@ ww_SingleStatLines = {
 				return WeightsWatcher.newStatTable({["average damage dealt on block"] = (minimum + maximum) / 2})
 			end
 		end,
-		{"enchant"},
+		{"enchant", "equipEffect"},
 	},
 	{"^([+-]?%d+) (mana)$", WeightsWatcher.statNumFirst, {"enchant", "elixir"}},
 	{"^([+-]?%d+) ranged damage$",
@@ -576,7 +576,7 @@ ww_SingleStatLines = {
 				return WeightsWatcher.newStatTable({[name .. "reduction (percent)"] = tonumber(value)})
 			end
 		end,
-		{"enchant", "generic"},
+		{"enchant", "equipEffect", "generic"},
 	},
 	{"^([+-]?%d+)%% intellect$",
 		function(text, pattern)
