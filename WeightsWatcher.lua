@@ -1472,6 +1472,10 @@ function WeightsWatcher.getItemStats(link)
 	WeightsWatcherHiddenTooltip:ClearLines()
 	WeightsWatcherHiddenTooltip:SetHyperlink(link)
 
+	if WeightsWatcherHiddenTooltip:NumLines() < 1 then
+		return {}
+	end
+
 	-- Skip item name and "currently equipped"
 	if WeightsWatcherHiddenTooltipTextLeft1:GetText() == CURRENTLY_EQUIPPED then
 		start = 3
