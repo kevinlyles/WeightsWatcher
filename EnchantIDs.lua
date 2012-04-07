@@ -4948,7 +4948,7 @@ local EnchantIDs = {
 			["off hand"] = "Elementium Shield Spike",
 		},
 		stats = {
-			["average damage dealt on block"] = 114.5,
+			["average damage dealt on block"] = 111.5,
 		},
 	},
 	[4216] = {
