@@ -34,8 +34,8 @@ local L = ww_localizedStats
 -- 	5: wrath green
 -- 	6: wrath blue
 -- 	7: wrath epic
--- 	8: cataclysm epic
--- 	9: cataclysm epic
+-- 	8: cataclysm green
+-- 	9: cataclysm blue
 -- 	10: cataclysm epic
 
 ww_gems = {
@@ -2575,6 +2575,413 @@ ww_gems = {
 					"meta",
 					"Burning Shadowspirit Diamond",
 					{[L["critical effect (percent)"]] = 3, [L["intellect"]] = 54},
+				},
+			},
+			[10] = {
+				[4273] = {
+					"blue",
+					"Rigid Deepholm Iolite",
+					{[L["hit rating"]] = 50},
+				},
+				[4274] = {
+					"blue",
+					"Stormy Deepholm Iolite",
+					{[L["spell penetration"]] = 63},
+				},
+				[4275] = {
+					"blue",
+					"Sparkling Deepholm Iolite",
+					{[L["spirit"]] = 50},
+				},
+				[4276] = {
+					"blue",
+					"Solid Deepholm Iolite",
+					{[L["stamina"]] = 75},
+				},
+				[4277] = {
+					"green",
+					"Misty Elven Peridot",
+					{[L["critical strike rating"]] = 25, [L["spirit"]] = 25},
+				},
+				[4278] = {
+					"green",
+					"Piercing Elven Peridot",
+					{[L["critical strike rating"]] = 25, [L["hit rating"]] = 25},
+				},
+				[4279] = {
+					"green",
+					"Lightning Elven Peridot",
+					{[L["haste rating"]] = 25, [L["hit rating"]] = 25},
+				},
+				[4280] = {
+					"green",
+					"Sensei's Elven Peridot",
+					{[L["hit rating"]] = 25, [L["mastery rating"]] = 25},
+				},
+				[4281] = {
+					"green",
+					"Infused Elven Peridot",
+					{[L["mastery rating"]] = 25, [L["spell penetration"]] = 32},
+				},
+				[4282] = {
+					"green",
+					"Zen Elven Peridot",
+					{[L["mastery rating"]] = 25, [L["spirit"]] = 25},
+				},
+				[4283] = {
+					"green",
+					"Balanced Elven Peridot",
+					{[L["hit rating"]] = 25, [L["resilience rating"]] = 25},
+				},
+				[4284] = {
+					"green",
+					"Vivid Elven Peridot",
+					{[L["resilience rating"]] = 25, [L["spell penetration"]] = 32},
+				},
+				[4285] = {
+					"green",
+					"Turbid Elven Peridot",
+					{[L["resilience rating"]] = 25, [L["spirit"]] = 25},
+				},
+				[4286] = {
+					"green",
+					"Radiant Elven Peridot",
+					{[L["critical strike rating"]] = 25, [L["spell penetration"]] = 32},
+				},
+				[4287] = {
+					"green",
+					"Shattered Elven Peridot",
+					{[L["haste rating"]] = 25, [L["spell penetration"]] = 32},
+				},
+				[4288] = {
+					"green",
+					"Energized Elven Peridot",
+					{[L["haste rating"]] = 25, [L["spirit"]] = 25},
+				},
+				[4289] = {
+					"green",
+					"Jagged Elven Peridot",
+					{[L["critical strike rating"]] = 25, [L["stamina"]] = 37},
+				},
+				[4290] = {
+					"green",
+					"Regal Elven Peridot",
+					{[L["dodge rating"]] = 25, [L["stamina"]] = 37},
+				},
+				[4291] = {
+					"green",
+					"Forceful Elven Peridot",
+					{[L["haste rating"]] = 25, [L["stamina"]] = 37},
+				},
+				[4292] = {
+					"green",
+					"Nimble Elven Peridot",
+					{[L["dodge rating"]] = 25, [L["hit rating"]] = 25},
+				},
+				[4293] = {
+					"green",
+					"Puissant Elven Peridot",
+					{[L["mastery rating"]] = 25, [L["stamina"]] = 37},
+				},
+				[4294] = {
+					"green",
+					"Steady Elven Peridot",
+					{[L["resilience rating"]] = 25, [L["stamina"]] = 37},
+				},
+				[4295] = {
+					"orange",
+					"Deadly Lava Coral",
+					{[L["agility"]] = 25, [L["critical strike rating"]] = 25},
+				},
+				[4296] = {
+					"orange",
+					"Crafty Lava Coral",
+					{[L["critical strike rating"]] = 25, [L["expertise rating"]] = 25},
+				},
+				[4297] = {
+					"orange",
+					"Potent Lava Coral",
+					{[L["critical strike rating"]] = 25, [L["intellect"]] = 25},
+				},
+				[4298] = {
+					"orange",
+					"Inscribed Lava Coral",
+					{[L["critical strike rating"]] = 25, [L["strength"]] = 25},
+				},
+				[4299] = {
+					"orange",
+					"Polished Lava Coral",
+					{[L["agility"]] = 25, [L["dodge rating"]] = 25},
+				},
+				[4300] = {
+					"orange",
+					"Resolute Lava Coral",
+					{[L["dodge rating"]] = 25, [L["expertise rating"]] = 25},
+				},
+				[4301] = {
+					"orange",
+					"Stalwart Lava Coral",
+					{[L["dodge rating"]] = 25, [L["parry rating"]] = 25},
+				},
+				[4302] = {
+					"orange",
+					"Champion's Lava Coral",
+					{[L["dodge rating"]] = 25, [L["strength"]] = 25},
+				},
+				[4303] = {
+					"orange",
+					"Deft Lava Coral",
+					{[L["agility"]] = 25, [L["haste rating"]] = 25},
+				},
+				[4304] = {
+					"orange",
+					"Wicked Lava Coral",
+					{[L["expertise rating"]] = 25, [L["haste rating"]] = 25},
+				},
+				[4305] = {
+					"orange",
+					"Reckless Lava Coral",
+					{[L["haste rating"]] = 25, [L["intellect"]] = 25},
+				},
+				[4306] = {
+					"orange",
+					"Fierce Lava Coral",
+					{[L["haste rating"]] = 25, [L["strength"]] = 25},
+				},
+				[4307] = {
+					"orange",
+					"Adept Lava Coral",
+					{[L["agility"]] = 25, [L["mastery rating"]] = 25},
+				},
+				[4308] = {
+					"orange",
+					"Keen Lava Coral",
+					{[L["expertise rating"]] = 25, [L["mastery rating"]] = 25},
+				},
+				[4309] = {
+					"orange",
+					"Artful Lava Coral",
+					{[L["intellect"]] = 25, [L["mastery rating"]] = 25},
+				},
+				[4310] = {
+					"orange",
+					"Fine Lava Coral",
+					{[L["mastery rating"]] = 25, [L["parry rating"]] = 25},
+				},
+				[4311] = {
+					"orange",
+					"Skillful Lava Coral",
+					{[L["mastery rating"]] = 25, [L["strength"]] = 25},
+				},
+				[4312] = {
+					"orange",
+					"Lucent Lava Coral",
+					{[L["agility"]] = 25, [L["resilience rating"]] = 25},
+				},
+				[4313] = {
+					"orange",
+					"Tenuous Lava Coral",
+					{[L["expertise rating"]] = 25, [L["resilience rating"]] = 25},
+				},
+				[4314] = {
+					"orange",
+					"Willful Lava Coral",
+					{[L["intellect"]] = 25, [L["resilience rating"]] = 25},
+				},
+				[4315] = {
+					"orange",
+					"Splendid Lava Coral",
+					{[L["parry rating"]] = 25, [L["resilience rating"]] = 25},
+				},
+				[4316] = {
+					"orange",
+					"Resplendent Lava Coral",
+					{[L["resilience rating"]] = 25, [L["strength"]] = 25},
+				},
+				[4317] = {
+					"purple",
+					"Glinting Shadow Spinel",
+					{[L["agility"]] = 25, [L["hit rating"]] = 25},
+				},
+				[4318] = {
+					"purple",
+					"Accurate Shadow Spinel",
+					{[L["expertise rating"]] = 25, [L["hit rating"]] = 25},
+				},
+				[4319] = {
+					"purple",
+					"Veiled Shadow Spinel",
+					{[L["hit rating"]] = 25, [L["intellect"]] = 25},
+				},
+				[4320] = {
+					"purple",
+					"Retaliating Shadow Spinel",
+					{[L["hit rating"]] = 25, [L["parry rating"]] = 25},
+				},
+				[4321] = {
+					"purple",
+					"Etched Shadow Spinel",
+					{[L["hit rating"]] = 25, [L["strength"]] = 25},
+				},
+				[4322] = {
+					"purple",
+					"Mysterious Shadow Spinel",
+					{[L["intellect"]] = 25, [L["spell penetration"]] = 32},
+				},
+				[4323] = {
+					"purple",
+					"Purified Shadow Spinel",
+					{[L["intellect"]] = 25, [L["spirit"]] = 25},
+				},
+				[4324] = {
+					"purple",
+					"Shifting Shadow Spinel",
+					{[L["agility"]] = 25, [L["stamina"]] = 37},
+				},
+				[4325] = {
+					"purple",
+					"Guardian's Shadow Spinel",
+					{[L["expertise rating"]] = 25, [L["stamina"]] = 37},
+				},
+				[4326] = {
+					"purple",
+					"Timeless Shadow Spinel",
+					{[L["intellect"]] = 25, [L["stamina"]] = 37},
+				},
+				[4327] = {
+					"purple",
+					"Defender's Shadow Spinel",
+					{[L["parry rating"]] = 25, [L["stamina"]] = 37},
+				},
+				[4328] = {
+					"purple",
+					"Sovereign Shadow Spinel",
+					{[L["stamina"]] = 37, [L["strength"]] = 25},
+				},
+				[4329] = {
+					"red",
+					"Delicate Queen's Garnet",
+					{[L["agility"]] = 50},
+				},
+				[4330] = {
+					"red",
+					"Precise Queen's Garnet",
+					{[L["expertise rating"]] = 50},
+				},
+				[4331] = {
+					"red",
+					"Brilliant Queen's Garnet",
+					{[L["intellect"]] = 50},
+				},
+				[4332] = {
+					"red",
+					"Flashing Queen's Garnet",
+					{[L["parry rating"]] = 50},
+				},
+				[4333] = {
+					"red",
+					"Bold Queen's Garnet",
+					{[L["strength"]] = 50},
+				},
+				[4334] = {
+					"yellow",
+					"Smooth Lightstone",
+					{[L["critical strike rating"]] = 50},
+				},
+				[4335] = {
+					"yellow",
+					"Subtle Lightstone",
+					{[L["dodge rating"]] = 50},
+				},
+				[4336] = {
+					"yellow",
+					"Quick Lightstone",
+					{[L["haste rating"]] = 50},
+				},
+				[4337] = {
+					"yellow",
+					"Fractured Lightstone",
+					{[L["mastery rating"]] = 50},
+				},
+				[4338] = {
+					"yellow",
+					"Mystic Lightstone",
+					{[L["resilience rating"]] = 50},
+				},
+				[4672] = {
+					"green",
+					"Balanced Elven Peridot",
+					{[L["hit rating"]] = 25, [L["resilience rating"]] = 25},
+				},
+				[4673] = {
+					"green",
+					"Infused Elven Peridot",
+					{[L["mastery rating"]] = 25, [L["spell penetration"]] = 32},
+				},
+				[4674] = {
+					"orange",
+					"Lucent Lava Coral",
+					{[L["agility"]] = 25, [L["resilience rating"]] = 25},
+				},
+				[4675] = {
+					"purple",
+					"Mysterious Shadow Spinel",
+					{[L["intellect"]] = 25, [L["spell penetration"]] = 32},
+				},
+				[4676] = {
+					"yellow",
+					"Mystic Lightstone",
+					{[L["resilience rating"]] = 50},
+				},
+				[4677] = {
+					"green",
+					"Radiant Elven Peridot",
+					{[L["critical strike rating"]] = 25, [L["spell penetration"]] = 32},
+				},
+				[4678] = {
+					"orange",
+					"Resplendent Lava Coral",
+					{[L["resilience rating"]] = 25, [L["strength"]] = 25},
+				},
+				[4679] = {
+					"green",
+					"Shattered Elven Peridot",
+					{[L["haste rating"]] = 25, [L["spell penetration"]] = 32},
+				},
+				[4680] = {
+					"orange",
+					"Splendid Lava Coral",
+					{[L["parry rating"]] = 25, [L["resilience rating"]] = 25},
+				},
+				[4681] = {
+					"green",
+					"Steady Elven Peridot",
+					{[L["resilience rating"]] = 25, [L["stamina"]] = 37},
+				},
+				[4682] = {
+					"blue",
+					"Stormy Deepholm Iolite",
+					{[L["spell penetration"]] = 63},
+				},
+				[4683] = {
+					"orange",
+					"Tenuous Lava Coral",
+					{[L["expertise rating"]] = 25, [L["resilience rating"]] = 25},
+				},
+				[4684] = {
+					"green",
+					"Turbid Elven Peridot",
+					{[L["resilience rating"]] = 25, [L["spirit"]] = 25},
+				},
+				[4685] = {
+					"green",
+					"Vivid Elven Peridot",
+					{[L["resilience rating"]] = 25, [L["spell penetration"]] = 32},
+				},
+				[4686] = {
+					"orange",
+					"Willful Lava Coral",
+					{[L["intellect"]] = 25, [L["resilience rating"]] = 25},
 				},
 			},
 		},
