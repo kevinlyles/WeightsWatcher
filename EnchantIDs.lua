@@ -97,7 +97,7 @@ local EnchantIDs = {
 			["two-hand"] = "Iron Counterweight",
 		},
 		stats = {
-			["haste rating"] = 20,
+			["haste"] = 20,
 		},
 	},
 	[36] = {
@@ -605,7 +605,7 @@ local EnchantIDs = {
 		},
 		spellID = { 13689 },
 		stats = {
-			["parry rating"] = 10,
+			["parry"] = 10,
 		},
 	},
 	[865] = {
@@ -718,7 +718,7 @@ local EnchantIDs = {
 		spellID = { 25083 },
 		stats = {
 			agility = 8,
-			["dodge rating"] = 8,
+			["dodge"] = 8,
 		},
 	},
 	[911] = {
@@ -758,7 +758,7 @@ local EnchantIDs = {
 		},
 		spellID = { 13931 },
 		stats = {
-			["dodge rating"] = 5,
+			["dodge"] = 5,
 		},
 	},
 	[924] = {
@@ -768,7 +768,7 @@ local EnchantIDs = {
 		},
 		spellID = { 7428 },
 		stats = {
-			["dodge rating"] = 2,
+			["dodge"] = 2,
 		},
 	},
 	[925] = {
@@ -778,7 +778,7 @@ local EnchantIDs = {
 		},
 		spellID = { 13646 },
 		stats = {
-			["dodge rating"] = 3,
+			["dodge"] = 3,
 		},
 	},
 	[926] = {
@@ -841,7 +841,7 @@ local EnchantIDs = {
 		},
 		spellID = { 13948 },
 		stats = {
-			["haste rating"] = 10,
+			["haste"] = 10,
 		},
 	},
 	[943] = {
@@ -1396,7 +1396,7 @@ local EnchantIDs = {
 		},
 		spellID = { 44591, 46594 },
 		stats = {
-			["dodge rating"] = 18,
+			["dodge"] = 18,
 		},
 	},
 	[1952] = {
@@ -1406,7 +1406,7 @@ local EnchantIDs = {
 		},
 		spellID = { 44489 },
 		stats = {
-			["dodge rating"] = 20,
+			["dodge"] = 20,
 		},
 	},
 	[1953] = {
@@ -1416,7 +1416,7 @@ local EnchantIDs = {
 		},
 		spellID = { 47766 },
 		stats = {
-			["dodge rating"] = 22,
+			["dodge"] = 22,
 		},
 	},
 	[2322] = {
@@ -1542,7 +1542,7 @@ local EnchantIDs = {
 			legs = "Core Armor Kit",
 		},
 		stats = {
-			["dodge rating"] = 5,
+			["dodge"] = 5,
 		},
 	},
 	[2504] = {
@@ -1571,7 +1571,7 @@ local EnchantIDs = {
 			ranged = "Biznicks 247x128 Accurascope",
 		},
 		stats = {
-			["ranged hit rating"] = 30,
+			["ranged hit"] = 30,
 		},
 	},
 	[2543] = {
@@ -1581,7 +1581,7 @@ local EnchantIDs = {
 			legs = "Arcanum of Rapidity",
 		},
 		stats = {
-			["haste rating"] = 10,
+			["haste"] = 10,
 		},
 	},
 	[2544] = {
@@ -1601,7 +1601,7 @@ local EnchantIDs = {
 			legs = "Arcanum of Protection",
 		},
 		stats = {
-			["dodge rating"] = 12,
+			["dodge"] = 12,
 		},
 	},
 	[2563] = {
@@ -1662,8 +1662,8 @@ local EnchantIDs = {
 			legs = "Presence of Might",
 		},
 		stats = {
-			["dodge rating"] = 10,
-			["parry rating"] = 10,
+			["dodge"] = 10,
+			["parry"] = 10,
 			stamina = 10,
 		},
 	},
@@ -1674,7 +1674,7 @@ local EnchantIDs = {
 			legs = "Syncretist's Sigil",
 		},
 		stats = {
-			["dodge rating"] = 10,
+			["dodge"] = 10,
 			intellect = 10,
 			stamina = 10,
 		},
@@ -1697,7 +1697,7 @@ local EnchantIDs = {
 			legs = "Presence of Sight",
 		},
 		stats = {
-			["hit rating"] = 8,
+			["hit"] = 8,
 			["spell power"] = 18,
 		},
 	},
@@ -1860,7 +1860,7 @@ local EnchantIDs = {
 		},
 		spellID = { 25086 },
 		stats = {
-			["dodge rating"] = 12,
+			["dodge"] = 12,
 		},
 	},
 	[2646] = {
@@ -1891,7 +1891,7 @@ local EnchantIDs = {
 		},
 		spellID = { 27906, 47051 },
 		stats = {
-			["dodge rating"] = 14,
+			["dodge"] = 14,
 		},
 	},
 	[2649] = {
@@ -1922,7 +1922,7 @@ local EnchantIDs = {
 		},
 		spellID = { 27944 },
 		stats = {
-			["dodge rating"] = 12,
+			["dodge"] = 12,
 		},
 	},
 	[2654] = {
@@ -1942,7 +1942,7 @@ local EnchantIDs = {
 		},
 		spellID = { 27946 },
 		stats = {
-			["parry rating"] = 15,
+			["parry"] = 15,
 		},
 	},
 	[2656] = {
@@ -1973,8 +1973,8 @@ local EnchantIDs = {
 		},
 		spellID = { 27954 },
 		stats = {
-			["critical strike rating"] = 10,
-			["hit rating"] = 10,
+			["critical strike"] = 10,
+			["hit"] = 10,
 		},
 	},
 	[2659] = {
@@ -2196,7 +2196,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			["attack power"] = 26,
-			["critical strike rating"] = 14,
+			["critical strike"] = 14,
 		},
 	},
 	[2721] = {
@@ -2205,7 +2205,7 @@ local EnchantIDs = {
 			shoulder = "Power of the Scourge",
 		},
 		stats = {
-			["critical strike rating"] = 14,
+			["critical strike"] = 14,
 			["spell power"] = 15,
 		},
 	},
@@ -2235,7 +2235,7 @@ local EnchantIDs = {
 			ranged = "Stabilized Eternium Scope",
 		},
 		stats = {
-			["critical strike rating"] = 28,
+			["critical strike"] = 28,
 		},
 	},
 	[2745] = {
@@ -2299,7 +2299,7 @@ local EnchantIDs = {
 			legs = "Vindicator's Armor Kit",
 		},
 		stats = {
-			["dodge rating"] = 8,
+			["dodge"] = 8,
 		},
 	},
 	[2794] = {
@@ -2374,7 +2374,7 @@ local EnchantIDs = {
 		},
 		spellID = { 33992 },
 		stats = {
-			["resilience rating"] = 15,
+			["resilience"] = 15,
 		},
 	},
 	[2934] = {
@@ -2384,7 +2384,7 @@ local EnchantIDs = {
 		},
 		spellID = { 33993 },
 		stats = {
-			["critical strike rating"] = 10,
+			["critical strike"] = 10,
 		},
 	},
 	[2935] = {
@@ -2394,7 +2394,7 @@ local EnchantIDs = {
 		},
 		spellID = { 33994 },
 		stats = {
-			["hit rating"] = 15,
+			["hit"] = 15,
 		},
 	},
 	[2937] = {
@@ -2445,7 +2445,7 @@ local EnchantIDs = {
 			shoulder = "Inscription of Warding",
 		},
 		stats = {
-			["dodge rating"] = 13,
+			["dodge"] = 13,
 		},
 	},
 	[2978] = {
@@ -2454,7 +2454,7 @@ local EnchantIDs = {
 			shoulder = "Greater Inscription of Warding",
 		},
 		stats = {
-			["dodge rating"] = 15,
+			["dodge"] = 15,
 			stamina = 15,
 		},
 	},
@@ -2492,7 +2492,7 @@ local EnchantIDs = {
 			shoulder = "Greater Inscription of Discipline",
 		},
 		stats = {
-			["critical strike rating"] = 10,
+			["critical strike"] = 10,
 			["spell power"] = 18,
 		},
 	},
@@ -2536,7 +2536,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			["attack power"] = 30,
-			["critical strike rating"] = 10,
+			["critical strike"] = 10,
 		},
 	},
 	[2987] = {
@@ -2581,7 +2581,7 @@ local EnchantIDs = {
 			shoulder = "Inscription of the Knight",
 		},
 		stats = {
-			["dodge rating"] = 13,
+			["dodge"] = 13,
 		},
 	},
 	[2991] = {
@@ -2590,8 +2590,8 @@ local EnchantIDs = {
 			shoulder = "Greater Inscription of the Knight",
 		},
 		stats = {
-			["dodge rating"] = 10,
-			["parry rating"] = 15,
+			["dodge"] = 10,
+			["parry"] = 15,
 		},
 	},
 	[2992] = {
@@ -2619,7 +2619,7 @@ local EnchantIDs = {
 			shoulder = "Inscription of the Orb",
 		},
 		stats = {
-			["critical strike rating"] = 13,
+			["critical strike"] = 13,
 		},
 	},
 	[2995] = {
@@ -2628,7 +2628,7 @@ local EnchantIDs = {
 			shoulder = "Greater Inscription of the Orb",
 		},
 		stats = {
-			["critical strike rating"] = 15,
+			["critical strike"] = 15,
 			["spell power"] = 12,
 		},
 	},
@@ -2638,7 +2638,7 @@ local EnchantIDs = {
 			shoulder = "Inscription of the Blade",
 		},
 		stats = {
-			["critical strike rating"] = 13,
+			["critical strike"] = 13,
 		},
 	},
 	[2997] = {
@@ -2648,7 +2648,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			["attack power"] = 20,
-			["critical strike rating"] = 15,
+			["critical strike"] = 15,
 		},
 	},
 	[2998] = {
@@ -2666,8 +2666,8 @@ local EnchantIDs = {
 			head = "Arcanum of the Defender",
 		},
 		stats = {
-			["dodge rating"] = 17,
-			["parry rating"] = 16,
+			["dodge"] = 17,
+			["parry"] = 16,
 		},
 	},
 	[3001] = {
@@ -2686,7 +2686,7 @@ local EnchantIDs = {
 			head = "Arcanum of Power",
 		},
 		stats = {
-			["hit rating"] = 14,
+			["hit"] = 14,
 			["spell power"] = 22,
 		},
 	},
@@ -2697,7 +2697,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			["attack power"] = 34,
-			["hit rating"] = 16,
+			["hit"] = 16,
 		},
 	},
 	[3004] = {
@@ -2706,7 +2706,7 @@ local EnchantIDs = {
 			head = "Arcanum of the Gladiator",
 		},
 		stats = {
-			["resilience rating"] = 20,
+			["resilience"] = 20,
 			stamina = 18,
 		},
 	},
@@ -2762,7 +2762,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			["attack power"] = 40,
-			["critical strike rating"] = 10,
+			["critical strike"] = 10,
 		},
 	},
 	[3011] = {
@@ -2782,7 +2782,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			["attack power"] = 50,
-			["critical strike rating"] = 12,
+			["critical strike"] = 12,
 		},
 	},
 	[3013] = {
@@ -2833,7 +2833,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			["disarm duration reduction (percent)"] = 60,
-			["parry rating"] = 15,
+			["parry"] = 15,
 		},
 	},
 	[3225] = {
@@ -2853,7 +2853,7 @@ local EnchantIDs = {
 		},
 		spellID = { 44383 },
 		stats = {
-			["resilience rating"] = 12,
+			["resilience"] = 12,
 		},
 	},
 	[3230] = {
@@ -2874,7 +2874,7 @@ local EnchantIDs = {
 		},
 		spellID = { 44484, 44598 },
 		stats = {
-			["expertise rating"] = 15,
+			["expertise"] = 15,
 		},
 	},
 	[3232] = {
@@ -2905,7 +2905,7 @@ local EnchantIDs = {
 		},
 		spellID = { 44488 },
 		stats = {
-			["hit rating"] = 20,
+			["hit"] = 20,
 		},
 	},
 	[3236] = {
@@ -2978,7 +2978,7 @@ local EnchantIDs = {
 		},
 		spellID = { 44588 },
 		stats = {
-			["resilience rating"] = 20,
+			["resilience"] = 20,
 		},
 	},
 	[3246] = {
@@ -3028,7 +3028,7 @@ local EnchantIDs = {
 		},
 		spellID = { 44625 },
 		stats = {
-			["parry rating"] = 10,
+			["parry"] = 10,
 			["threat (percent)"] = 2,
 		},
 	},
@@ -3124,7 +3124,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			["attack power"] = 55,
-			["critical strike rating"] = 15,
+			["critical strike"] = 15,
 		},
 	},
 	[3327] = {
@@ -3144,7 +3144,7 @@ local EnchantIDs = {
 		spellID = { 60584 },
 		stats = {
 			["attack power"] = 75,
-			["critical strike rating"] = 22,
+			["critical strike"] = 22,
 		},
 	},
 	[3329] = {
@@ -3258,7 +3258,7 @@ local EnchantIDs = {
 			ranged = "Sun Scope",
 		},
 		stats = {
-			["ranged haste rating"] = 40,
+			["ranged haste"] = 40,
 		},
 	},
 	[3608] = {
@@ -3267,7 +3267,7 @@ local EnchantIDs = {
 			ranged = "Heartseeker Scope",
 		},
 		stats = {
-			["ranged critical strike rating"] = 40,
+			["ranged critical strike"] = 40,
 		},
 	},
 	[3718] = {
@@ -3353,7 +3353,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			["disarm duration reduction (percent)"] = 60,
-			["hit rating"] = 28,
+			["hit"] = 28,
 		},
 	},
 	[3748] = {
@@ -3373,7 +3373,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			["attack power"] = 24,
-			["hit rating"] = 10,
+			["hit"] = 10,
 			stamina = 10,
 		},
 	},
@@ -3385,7 +3385,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			["attack power"] = 28,
-			["dodge rating"] = 12,
+			["dodge"] = 12,
 		},
 	},
 	[3756] = {
@@ -3467,8 +3467,8 @@ local EnchantIDs = {
 		},
 		spellID = { 59619 },
 		stats = {
-			["critical strike rating"] = 25,
-			["hit rating"] = 25,
+			["critical strike"] = 25,
+			["hit"] = 25,
 		},
 	},
 	[3789] = {
@@ -3507,7 +3507,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			["attack power"] = 40,
-			["resilience rating"] = 15,
+			["resilience"] = 15,
 		},
 	},
 	[3794] = {
@@ -3516,7 +3516,7 @@ local EnchantIDs = {
 			shoulder = "Inscription of Dominance",
 		},
 		stats = {
-			["resilience rating"] = 15,
+			["resilience"] = 15,
 			["spell power"] = 23,
 		},
 	},
@@ -3527,7 +3527,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			["attack power"] = 50,
-			["resilience rating"] = 20,
+			["resilience"] = 20,
 		},
 	},
 	[3797] = {
@@ -3536,7 +3536,7 @@ local EnchantIDs = {
 			head = "Arcanum of Dominance",
 		},
 		stats = {
-			["resilience rating"] = 20,
+			["resilience"] = 20,
 			["spell power"] = 29,
 		},
 	},
@@ -3546,7 +3546,7 @@ local EnchantIDs = {
 			shoulder = "Lesser Inscription of the Storm",
 		},
 		stats = {
-			["critical strike rating"] = 10,
+			["critical strike"] = 10,
 			["spell power"] = 18,
 		},
 	},
@@ -3567,7 +3567,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			["attack power"] = 40,
-			["critical strike rating"] = 15,
+			["critical strike"] = 15,
 		},
 	},
 	[3809] = {
@@ -3586,7 +3586,7 @@ local EnchantIDs = {
 			shoulder = "Greater Inscription of the Storm",
 		},
 		stats = {
-			["critical strike rating"] = 15,
+			["critical strike"] = 15,
 			["spell power"] = 24,
 		},
 	},
@@ -3596,7 +3596,7 @@ local EnchantIDs = {
 			shoulder = "Greater Inscription of the Pinnacle",
 		},
 		stats = {
-			["dodge rating"] = 20,
+			["dodge"] = 20,
 			stamina = 22,
 		},
 	},
@@ -3657,7 +3657,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			["attack power"] = 50,
-			["critical strike rating"] = 20,
+			["critical strike"] = 20,
 		},
 	},
 	[3818] = {
@@ -3666,7 +3666,7 @@ local EnchantIDs = {
 			head = "Arcanum of the Stalwart Protector",
 		},
 		stats = {
-			["dodge rating"] = 20,
+			["dodge"] = 20,
 			stamina = 37,
 		},
 	},
@@ -3686,7 +3686,7 @@ local EnchantIDs = {
 			head = "Arcanum of Burning Mysteries",
 		},
 		stats = {
-			["critical strike rating"] = 20,
+			["critical strike"] = 20,
 			intellect = 26,
 		},
 	},
@@ -3707,7 +3707,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			["attack power"] = 75,
-			["critical strike rating"] = 22,
+			["critical strike"] = 22,
 		},
 	},
 	[3824] = {
@@ -3727,7 +3727,7 @@ local EnchantIDs = {
 		},
 		spellID = { 60609 },
 		stats = {
-			["haste rating"] = 15,
+			["haste"] = 15,
 		},
 	},
 	[3826] = {
@@ -3737,8 +3737,8 @@ local EnchantIDs = {
 		},
 		spellID = { 60623 },
 		stats = {
-			["critical strike rating"] = 12,
-			["hit rating"] = 12,
+			["critical strike"] = 12,
+			["hit"] = 12,
 		},
 	},
 	[3827] = {
@@ -3788,7 +3788,7 @@ local EnchantIDs = {
 		},
 		spellID = { 47898 },
 		stats = {
-			["haste rating"] = 23,
+			["haste"] = 23,
 		},
 	},
 	[3832] = {
@@ -3828,7 +3828,7 @@ local EnchantIDs = {
 		spellID = { 61117 },
 		stats = {
 			["attack power"] = 120,
-			["critical strike rating"] = 15,
+			["critical strike"] = 15,
 		},
 	},
 	[3836] = {
@@ -3847,8 +3847,8 @@ local EnchantIDs = {
 		},
 		spellID = { 61119 },
 		stats = {
-			["dodge rating"] = 60,
-			["parry rating"] = 15,
+			["dodge"] = 60,
+			["parry"] = 15,
 		},
 	},
 	[3838] = {
@@ -3857,7 +3857,7 @@ local EnchantIDs = {
 		},
 		spellID = { 61120 },
 		stats = {
-			["critical strike rating"] = 15,
+			["critical strike"] = 15,
 			["spell power"] = 70,
 		},
 	},
@@ -3885,7 +3885,7 @@ local EnchantIDs = {
 			head = "Arcanum of the Savage Gladiator",
 		},
 		stats = {
-			["resilience rating"] = 25,
+			["resilience"] = 25,
 			stamina = 30,
 		},
 	},
@@ -3946,7 +3946,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			["disarm duration reduction (percent)"] = 60,
-			["parry rating"] = 26,
+			["parry"] = 26,
 		},
 	},
 	[3850] = {
@@ -3965,7 +3965,7 @@ local EnchantIDs = {
 			shoulder = "Greater Inscription of the Gladiator",
 		},
 		stats = {
-			["resilience rating"] = 15,
+			["resilience"] = 15,
 			stamina = 30,
 		},
 	},
@@ -3975,7 +3975,7 @@ local EnchantIDs = {
 			legs = "Earthen Leg Armor",
 		},
 		stats = {
-			["resilience rating"] = 40,
+			["resilience"] = 40,
 			stamina = 28,
 		},
 	},
@@ -4006,7 +4006,7 @@ local EnchantIDs = {
 		},
 		spellID = { 63746 },
 		stats = {
-			["hit rating"] = 5,
+			["hit"] = 5,
 		},
 	},
 	[3869] = {
@@ -4056,7 +4056,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			["attack power"] = 30,
-			["critical strike rating"] = 10,
+			["critical strike"] = 10,
 		},
 	},
 	[3876] = {
@@ -4065,8 +4065,8 @@ local EnchantIDs = {
 			shoulder = "Lesser Inscription of the Pinnacle",
 		},
 		stats = {
-			["dodge rating"] = 15,
-			["parry rating"] = 10,
+			["dodge"] = 15,
+			["parry"] = 10,
 		},
 	},
 	[3883] = {
@@ -4086,7 +4086,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74132 },
 		stats = {
-			["mastery rating"] = 50,
+			["mastery"] = 50,
 		},
 	},
 	[4062] = {
@@ -4127,7 +4127,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74193 },
 		stats = {
-			["haste rating"] = 50,
+			["haste"] = 50,
 		},
 	},
 	[4066] = {
@@ -4157,7 +4157,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74198 },
 		stats = {
-			["haste rating"] = 50,
+			["haste"] = 50,
 		},
 	},
 	[4069] = {
@@ -4167,7 +4167,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74199 },
 		stats = {
-			["haste rating"] = 50,
+			["haste"] = 50,
 		},
 	},
 	[4070] = {
@@ -4187,7 +4187,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74201 },
 		stats = {
-			["critical strike rating"] = 50,
+			["critical strike"] = 50,
 		},
 	},
 	[4072] = {
@@ -4247,7 +4247,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74214 },
 		stats = {
-			["resilience rating"] = 40,
+			["resilience"] = 40,
 		},
 	},
 	[4078] = {
@@ -4293,7 +4293,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74220 },
 		stats = {
-			["expertise rating"] = 50,
+			["expertise"] = 50,
 		},
 	},
 	[4083] = {
@@ -4323,7 +4323,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74226 },
 		stats = {
-			["mastery rating"] = 50,
+			["mastery"] = 50,
 		},
 	},
 	[4086] = {
@@ -4333,7 +4333,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74229 },
 		stats = {
-			["dodge rating"] = 50,
+			["dodge"] = 50,
 		},
 	},
 	[4087] = {
@@ -4343,7 +4343,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74230 },
 		stats = {
-			["critical strike rating"] = 50,
+			["critical strike"] = 50,
 		},
 	},
 	[4088] = {
@@ -4363,7 +4363,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74232 },
 		stats = {
-			["hit rating"] = 50,
+			["hit"] = 50,
 		},
 	},
 	[4090] = {
@@ -4394,7 +4394,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74236 },
 		stats = {
-			["hit rating"] = 50,
+			["hit"] = 50,
 		},
 	},
 	[4093] = {
@@ -4414,7 +4414,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74238 },
 		stats = {
-			["mastery rating"] = 50,
+			["mastery"] = 50,
 		},
 	},
 	[4095] = {
@@ -4424,7 +4424,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74239 },
 		stats = {
-			["expertise rating"] = 50,
+			["expertise"] = 50,
 		},
 	},
 	[4096] = {
@@ -4474,7 +4474,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74247 },
 		stats = {
-			["critical strike rating"] = 65,
+			["critical strike"] = 65,
 		},
 	},
 	[4101] = {
@@ -4484,7 +4484,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74248 },
 		stats = {
-			["critical strike rating"] = 65,
+			["critical strike"] = 65,
 		},
 	},
 	[4102] = {
@@ -4514,7 +4514,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74253 },
 		stats = {
-			["mastery rating"] = 35,
+			["mastery"] = 35,
 			["minor run speed"] = 1,
 		},
 	},
@@ -4546,7 +4546,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74255 },
 		stats = {
-			["mastery rating"] = 65,
+			["mastery"] = 65,
 		},
 	},
 	[4108] = {
@@ -4556,7 +4556,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74256 },
 		stats = {
-			["haste rating"] = 65,
+			["haste"] = 65,
 		},
 	},
 	[4109] = {
@@ -4684,7 +4684,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			["attack power"] = 110,
-			["critical strike rating"] = 45,
+			["critical strike"] = 45,
 		},
 	},
 	[4124] = {
@@ -4705,7 +4705,7 @@ local EnchantIDs = {
 		spellID = { 85067 },
 		stats = {
 			["attack power"] = 190,
-			["critical strike rating"] = 55,
+			["critical strike"] = 55,
 		},
 	},
 	[4127] = {
@@ -4734,7 +4734,7 @@ local EnchantIDs = {
 			ranged = "R19 Threatfinder",
 		},
 		stats = {
-			["ranged hit rating"] = 88,
+			["ranged hit"] = 88,
 		},
 	},
 	[4177] = {
@@ -4743,7 +4743,7 @@ local EnchantIDs = {
 			ranged = "Safety Catch Removal Kit",
 		},
 		stats = {
-			["ranged haste rating"] = 88,
+			["ranged haste"] = 88,
 		},
 	},
 	[4189] = {
@@ -4789,7 +4789,7 @@ local EnchantIDs = {
 		spellID = { 86375 },
 		stats = {
 			agility = 130,
-			["mastery rating"] = 25,
+			["mastery"] = 25,
 		},
 	},
 	[4194] = {
@@ -4798,7 +4798,7 @@ local EnchantIDs = {
 		},
 		spellID = { 86401 },
 		stats = {
-			["critical strike rating"] = 25,
+			["critical strike"] = 25,
 			strength = 130,
 		},
 	},
@@ -4808,7 +4808,7 @@ local EnchantIDs = {
 		},
 		spellID = { 86402 },
 		stats = {
-			["dodge rating"] = 25,
+			["dodge"] = 25,
 			stamina = 195,
 		},
 	},
@@ -4818,7 +4818,7 @@ local EnchantIDs = {
 		},
 		spellID = { 86403 },
 		stats = {
-			["haste rating"] = 25,
+			["haste"] = 25,
 			intellect = 130,
 		},
 	},
@@ -4828,7 +4828,7 @@ local EnchantIDs = {
 			shoulder = "Lesser Inscription of Unbreakable Quartz",
 		},
 		stats = {
-			["dodge rating"] = 20,
+			["dodge"] = 20,
 			stamina = 45,
 		},
 	},
@@ -4838,7 +4838,7 @@ local EnchantIDs = {
 			shoulder = "Greater Inscription of Unbreakable Quartz",
 		},
 		stats = {
-			["dodge rating"] = 25,
+			["dodge"] = 25,
 			stamina = 75,
 		},
 	},
@@ -4848,7 +4848,7 @@ local EnchantIDs = {
 			shoulder = "Lesser Inscription of Charged Lodestone",
 		},
 		stats = {
-			["haste rating"] = 20,
+			["haste"] = 20,
 			intellect = 30,
 		},
 	},
@@ -4858,7 +4858,7 @@ local EnchantIDs = {
 			shoulder = "Greater Inscription of Charged Lodestone",
 		},
 		stats = {
-			["haste rating"] = 25,
+			["haste"] = 25,
 			intellect = 50,
 		},
 	},
@@ -4868,7 +4868,7 @@ local EnchantIDs = {
 			shoulder = "Lesser Inscription of Jagged Stone",
 		},
 		stats = {
-			["critical strike rating"] = 20,
+			["critical strike"] = 20,
 			strength = 30,
 		},
 	},
@@ -4878,7 +4878,7 @@ local EnchantIDs = {
 			shoulder = "Greater Inscription of Jagged Stone",
 		},
 		stats = {
-			["critical strike rating"] = 25,
+			["critical strike"] = 25,
 			strength = 50,
 		},
 	},
@@ -4889,7 +4889,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			agility = 50,
-			["mastery rating"] = 25,
+			["mastery"] = 25,
 		},
 	},
 	[4205] = {
@@ -4899,7 +4899,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			agility = 30,
-			["mastery rating"] = 20,
+			["mastery"] = 20,
 		},
 	},
 	[4206] = {
@@ -4908,7 +4908,7 @@ local EnchantIDs = {
 			head = "Arcanum of the Earthen Ring",
 		},
 		stats = {
-			["dodge rating"] = 35,
+			["dodge"] = 35,
 			stamina = 90,
 		},
 	},
@@ -4918,7 +4918,7 @@ local EnchantIDs = {
 			head = "Arcanum of Hyjal",
 		},
 		stats = {
-			["critical strike rating"] = 35,
+			["critical strike"] = 35,
 			intellect = 60,
 		},
 	},
@@ -4928,7 +4928,7 @@ local EnchantIDs = {
 			head = { "Arcanum of the Dragonmaw", "Arcanum of the Wildhammer" },
 		},
 		stats = {
-			["mastery rating"] = 35,
+			["mastery"] = 35,
 			strength = 60,
 		},
 	},
@@ -4939,7 +4939,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			agility = 60,
-			["haste rating"] = 35,
+			["haste"] = 35,
 		},
 	},
 	[4215] = {
@@ -4968,7 +4968,7 @@ local EnchantIDs = {
 		stacks = false,
 		stats = {
 			["disarm duration reduction (percent)"] = 60,
-			["hit rating"] = 40,
+			["hit"] = 40,
 		},
 	},
 	[4227] = {
@@ -4988,7 +4988,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			intellect = 60,
-			["resilience rating"] = 35,
+			["resilience"] = 35,
 		},
 	},
 	[4246] = {
@@ -4998,7 +4998,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			agility = 60,
-			["resilience rating"] = 35,
+			["resilience"] = 35,
 		},
 	},
 	[4247] = {
@@ -5007,7 +5007,7 @@ local EnchantIDs = {
 			head = "Arcanum of Vicious Strength",
 		},
 		stats = {
-			["resilience rating"] = 35,
+			["resilience"] = 35,
 			strength = 60,
 		},
 	},
@@ -5018,7 +5018,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			intellect = 50,
-			["resilience rating"] = 25,
+			["resilience"] = 25,
 		},
 	},
 	[4249] = {
@@ -5027,7 +5027,7 @@ local EnchantIDs = {
 			shoulder = "Greater Inscription of Vicious Strength",
 		},
 		stats = {
-			["resilience rating"] = 25,
+			["resilience"] = 25,
 			strength = 50,
 		},
 	},
@@ -5038,7 +5038,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			agility = 50,
-			["resilience rating"] = 25,
+			["resilience"] = 25,
 		},
 	},
 	[4256] = {

@@ -41,7 +41,6 @@ local EnchantPreprocessLines = {
 	{" attacker power ", " attack power "},
 	-- item 20076
 	{" adds to a shoulder slot item increased ", " "},
-	{" resilience by ", " resilience rating by "},
 	{" mounted movement speed ", " mount speed "},
 	{" stealth slightly ", " effective stealth level by 1 "},
 	{" stealth%.$", " effective stealth level by 1"},

@@ -27,7 +27,6 @@ local CooldownUsePreprocessLines = {
 	{" (nature spell) power ", " %1 damage "},
 	{" (shadow spell) power ", " %1 damage "},
 	{" your stats ", " all stats "},
-	{" dodge by ", " dodge rating by "},
 	{" the block value of your shield ", " block value "},
 	{" resistances to all schools of magic ", " all resistances "},
 	{" by up t?o? ?", " by "},
@@ -36,16 +35,16 @@ local CooldownUsePreprocessLines = {
 	{" and increases ", " and "},
 	{" and your ", " and "},
 	-- item 20512
-	{" critical strike rating and spell critical strike rating ", " critical strike rating "},
+	{" critical strike and spell critical strike ", " critical strike "},
 	{" melee and ranged attack power ", " attack power "},
 	-- item 12450
-	{" spell, ranged,? and melee haste rating ", " haste rating "},
+	{" spell, ranged,? and melee haste ", " haste "},
 	-- item 66879
-	{" crit rating ", " critical strike rating "},
+	--Should be obsolete (the item appears to be updated)
+	--{" crit ", " critical strike "},
 	-- item 70144
-	{" critical rating ", " critical strike rating "},
-	-- item 70142
-	{" mastery for ", " mastery rating for "},
+	--Should be obsolete (the item appears to be updated)
+	--{" critical ", " critical strike "},
 }
 
 local CooldownUseAffixes = {

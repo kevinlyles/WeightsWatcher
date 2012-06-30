@@ -16,7 +16,8 @@ local ElixirPreprocessLines = {
 	{" and your ", " and "},
 	{" and restores ", " and "},
 	{" and grants ", " and "},
-	{" critical rating ", " critical strike rating "},
+	-- Should be obsolete (item 40212 appears to have been updated)
+	--{" critical ", " critical strike "},
 	{" maximum health ", " health "},
 	{" the chance that the player will reflect hostile spells cast on them by (%d+)%% for %d+ hrs%. +will automatically reflect the first offensive spell cast against the user", " %1%% spell reflect"},
 	{" is increased by ", " by "},
