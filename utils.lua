@@ -70,3 +70,28 @@ function ww_combineStrings(strings)
 	end
 	return startSame .. table.concat(strings, "/") .. endSame
 end
+
+local function addThousandsSeparators(extra, num)
+	local len = num:len()
+	local firstLen = (len - 1) % 3 + 1
+	local strings = { num:sub(1, firstLen) }
+
+	for i = firstLen + 1, len, 3 do
+		table.insert(strings, num:sub(i, i+2))
+	end
+
+	return extra .. table.concat(strings, ",")
+end
+
+function ww_formatString(...)
+	return (" " .. string.format(...)):gsub("([( ])(%d%d%d+)", addThousandsSeparators):sub(2)
+end
+
+function ww_formatNum(num)
+	if num % 1 == 0 then
+		return addThousandsSeparators("", tostring(num))
+	end
+
+	local start, _, int, dec = tostring(num):find("^(%d+)%.(%d+)$")
+	return addThousandsSeparators("", tostring(int)) .. "." .. dec
+end

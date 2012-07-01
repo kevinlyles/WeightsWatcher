@@ -754,7 +754,7 @@ local function addDebugInfo(tooltip, bareItemInfo, link)
 		end
 	end
 	for name, value in pairs(bareItemInfo.normalStats) do
-		tooltip:AddDoubleLine(ww_statDisplayNames[name], value)
+		tooltip:AddDoubleLine(ww_statDisplayNames[name], ww_formatNum(value))
 	end
 	if #(bareItemInfo.useEffects) > 0 then
 		tooltip:AddLine(L["Use effects:"])
@@ -762,14 +762,14 @@ local function addDebugInfo(tooltip, bareItemInfo, link)
 			tooltip:AddLine(string.format(L["DURATION_COOLDOWN_FORMAT"], useEffect.duration, useEffect.cooldown))
 			tooltip:AddLine(string.format(L["INDENTED_STRING_FORMAT"], "Stats:"))
 			for stat, value in pairs(useEffect.stats) do
-				tooltip:AddDoubleLine(string.format(L["DOUBLY_INDENTED_STRING_FORMAT"], ww_statDisplayNames[stat]), value)
+				tooltip:AddDoubleLine(string.format(L["DOUBLY_INDENTED_STRING_FORMAT"], ww_statDisplayNames[stat]), ww_formatNum(value))
 			end
 		end
 	end
 	if #(bareItemInfo.stackingEquipEffects) > 0 then
 		tooltip:AddLine(L["Stacking equip effects:"])
 		for _, effect in pairs(bareItemInfo.stackingEquipEffects) do
-			tooltip:AddDoubleLine(string.format(L["EFFECT_STAT_FORMAT"], effect.value, ww_statDisplayNames[effect.stat]), string.format(L["EFFECT_STACKS_FORMAT"], effect.numStacks))
+			tooltip:AddDoubleLine(ww_formatString(L["EFFECT_STAT_FORMAT"], effect.value, ww_statDisplayNames[effect.stat]), string.format(L["EFFECT_STACKS_FORMAT"], effect.numStacks))
 			for trigger in pairs(effect.triggers) do
 				tooltip:AddLine(string.format(L["TRIGGER_FORMAT"], ww_triggerDisplayNames[trigger]))
 			end
@@ -790,7 +790,7 @@ local function addDebugInfo(tooltip, bareItemInfo, link)
 				tooltip:AddDoubleLine(L["Socket Bonus:"], L["Inactive"])
 			end
 			for name, value in pairs(bareItemInfo.socketBonusStat) do
-				tooltip:AddDoubleLine(string.format(L["INDENTED_STRING_FORMAT"], ww_statDisplayNames[name]), value)
+				tooltip:AddDoubleLine(string.format(L["INDENTED_STRING_FORMAT"], ww_statDisplayNames[name]), ww_formatNum(value))
 			end
 		end
 		if #(itemInfo.gemStats) > 0 then
@@ -799,7 +799,7 @@ local function addDebugInfo(tooltip, bareItemInfo, link)
 				for _, gem in ipairs(gems) do
 					tooltip:AddLine(string.format(L["GEM_NAME_COLOR_FORMAT"], ww_gemDisplayNames[gem[2]], ww_gemColorDisplayNames[gem[1]]))
 					for stat, value in pairs(gem[3]) do
-						tooltip:AddDoubleLine(string.format(L["DOUBLY_INDENTED_STRING_FORMAT"], ww_statDisplayNames[stat]), value)
+						tooltip:AddDoubleLine(string.format(L["DOUBLY_INDENTED_STRING_FORMAT"], ww_statDisplayNames[stat]), ww_formatNum(value))
 					end
 				end
 			end
@@ -820,7 +820,7 @@ local function addDebugInfo(tooltip, bareItemInfo, link)
 				end
 			end
 			for name, value in pairs(itemInfo.enchantStats.stats or {}) do
-				tooltip:AddDoubleLine(string.format(L["DOUBLY_INDENTED_STRING_FORMAT"], ww_statDisplayNames[name]), value)
+				tooltip:AddDoubleLine(string.format(L["DOUBLY_INDENTED_STRING_FORMAT"], ww_statDisplayNames[name]), ww_formatNum(value))
 			end
 		end
 	end
@@ -828,7 +828,7 @@ end
 
 local function addDifferenceLine(tooltip, leftText, score, currentScore)
 	local difference = score - currentScore
-	tooltip:AddDoubleLine(leftText, string.format(colorizeDifferences(difference), score, difference))
+	tooltip:AddDoubleLine(leftText, ww_formatString(colorizeDifferences(difference), score, difference))
 end
 
 local function addIdealGemInfo(tooltip, gemStats, showStats, showAlternates, currentGems, weightScale)
@@ -870,7 +870,7 @@ local function addIdealGemInfo(tooltip, gemStats, showStats, showAlternates, cur
 						if ww_vars.options.tooltip.normalizeWeights then
 							weight = weight / ww_weightNormalizationCache[weightScale]
 						end
-						tooltip:AddDoubleLine(string.format(L["ENHANCEMENT_STAT_FORMAT"], value, ww_statDisplayNames[stat] or "Unlocalized: " .. stat), string.format("%.3f", weight))
+						tooltip:AddDoubleLine(ww_formatString(L["ENHANCEMENT_STAT_FORMAT"], value, ww_statDisplayNames[stat] or "Unlocalized: " .. stat), ww_formatString("%.3f", weight))
 					end
 				end
 				if not showAlternates then
@@ -949,7 +949,7 @@ local function addIdealEnchantInfo(tooltip, enchants, showStats, showAlternates,
 						if ww_vars.options.tooltip.normalizeWeights then
 							weight = weight / ww_weightNormalizationCache[weightScale]
 						end
-						tooltip:AddDoubleLine(string.format(L["ENHANCEMENT_STAT_FORMAT"], value, ww_statDisplayNames[stat] or "Unlocalized: " .. stat), string.format("%.3f", weight))
+						tooltip:AddDoubleLine(ww_formatString(L["ENHANCEMENT_STAT_FORMAT"], value, ww_statDisplayNames[stat] or "Unlocalized: " .. stat), ww_formatString("%.3f", weight))
 					end
 				end
 				if alternatesExist and not showAlternates then
@@ -1065,7 +1065,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 									compareScore2 = ww_weightCache[class][weight][compareLink2]
 								end
 								compareScore = computeDifference(compareMethod, compareScore, compareScore2, currentScore)
-								tooltip:AddDoubleLine(str, string.format(colorizeDifferences(compareScore), currentScore, compareScore))
+								tooltip:AddDoubleLine(str, ww_formatString(colorizeDifferences(compareScore), currentScore, compareScore))
 								if showIdealWeights then
 									local currentScore = ww_weightIdealCache[class][weight][bareLink].score
 									local compareScore, compareScore2
@@ -1076,7 +1076,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 										compareScore2 = ww_weightIdealCache[class][weight][compareBareLink2].score
 									end
 									compareScore = computeDifference(compareMethod, compareScore, compareScore2, currentScore)
-									tooltip:AddDoubleLine(L["  Ideally-enhanced:"], string.format(colorizeDifferences(compareScore), currentScore, compareScore))
+									tooltip:AddDoubleLine(L["  Ideally-enhanced:"], ww_formatString(colorizeDifferences(compareScore), currentScore, compareScore))
 									if showEnhancements then
 										local enhancements = {
 											gems = ww_weightIdealCache[class][weight][bareLink].gemStats,
