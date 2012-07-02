@@ -242,7 +242,7 @@ ww_classNameOptions = {
 
 ww_defaultVars = {
 	dataMajorVersion = 2,
-	dataMinorVersion = 1,
+	dataMinorVersion = 2,
 	weightsList = {
 		"DEATHKNIGHT",
 		"DRUID",

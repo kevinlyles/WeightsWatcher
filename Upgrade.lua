@@ -36,6 +36,72 @@ local function noop_major_up(vars)
 	return vars
 end
 
+local function upgradeAccountToMoPStats(vars)
+	local stats = {
+		"critical strike",
+		"dodge",
+		"expertise",
+		"haste",
+		"hit",
+		"mastery",
+		"parry",
+		"ranged critical strike",
+		"ranged haste",
+		"ranged hit",
+		"resilience",
+		"spell critical strike",
+		"spell hit"
+	}
+
+	for _, class in ipairs(vars.weightsList) do
+		for _, weight in ipairs(vars.weightsList[class]) do
+			for _, stat in ipairs(stats) do
+				if vars.weightsList[class][weight][stat] == nil then
+					vars.weightsList[class][weight][stat] = vars.weightsList[class][weight][stat .. " rating"]
+				end
+				vars.weightsList[class][weight][stat .. " rating"] = nil
+			end
+		end
+	end
+
+	vars.dataMinorVersion = 2
+	return vars
+end
+
+local downgradeAccountFromMoPStats = [[
+	return function(vars)
+		local stats = {
+			"critical strike",
+			"dodge",
+			"expertise",
+			"haste",
+			"hit",
+			"mastery",
+			"parry",
+			"ranged critical strike",
+			"ranged haste",
+			"ranged hit",
+			"resilience",
+			"spell critical strike",
+			"spell hit"
+		}
+
+		for _, class in ipairs(vars.weightsList) do
+			for _, weight in ipairs(vars.weightsList[class]) do
+				for _, stat in ipairs(stats) do
+					if vars.weightsList[class][weight][stat .. " rating"] == nil then
+						vars.weightsList[class][weight][stat .. " rating"] = vars.weightsList[class][weight][stat]
+					end
+					vars.weightsList[class][weight][stat] = nil
+				end
+			end
+		end
+
+		vars.dataMinorVersion = 1
+		return vars
+	end
+]]
+
 local function upgradeAccountToCriticalEffect(vars)
 	for _, class in ipairs(vars.weightsList) do
 		for _, weight in ipairs(vars.weightsList[class]) do
@@ -1112,6 +1178,7 @@ local upgradeAccountFunctions = {
 	},
 	[2] = {
 		[0] = upgradeAccountToCriticalEffect,
+		[1] = upgradeAccountToMoPStats,
 	},
 }
 
@@ -1158,6 +1225,7 @@ local downgradeAccountFunctions = {
 	[2] = {
 		[0] = downgradeAccountFromEnchants,
 		[1] = noop_down,
+		[2] = downgradeAccountFromMoPStats,
 	},
 }
 
