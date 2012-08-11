@@ -235,7 +235,6 @@ local function loadGeneralInfo()
 		"LegsSlot",
 		"MainHandSlot",
 		"NeckSlot",
-		"RangedSlot",
 		"SecondaryHandSlot",
 		"ShirtSlot",
 		"ShoulderSlot",
