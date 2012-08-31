@@ -1,13 +1,13 @@
-## Interface: 40300
+## Interface: 50001
 ## Title: Weights Watcher
 ## Notes: Ranks gear according to customizable stat weights
 ## Author: The Flying Squirrels
-## Version: 1.5r5
+## Version: 1.6
 ## OptionalDeps: AtlasLoot, tekErr
 ## SavedVariables: ww_vars
 ## SavedVariablesPerCharacter: ww_charVars
 ## X-Category: Interface Enhancements
-## X-Compatible-With: 40300
+## X-Compatible-With: 50001
 ## X-License: GPLv2
 
 utils.lua
