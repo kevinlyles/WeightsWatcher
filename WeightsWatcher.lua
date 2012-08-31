@@ -797,7 +797,7 @@ local function addDebugInfo(tooltip, bareItemInfo, link)
 			tooltip:AddLine(L["Gem Stats:"])
 			for _, gems in pairs(itemInfo.gemStats) do
 				for _, gem in ipairs(gems) do
-					tooltip:AddLine(string.format(L["GEM_NAME_COLOR_FORMAT"], ww_gemDisplayNames[gem[2]], ww_gemColorDisplayNames[gem[1]]))
+					tooltip:AddLine(string.format(L["GEM_NAME_COLOR_FORMAT"], ww_gemDisplayNames[gem[2]] or "Unlocalized gem: " .. gem[2], ww_gemColorDisplayNames[gem[1]]))
 					for stat, value in pairs(gem[3]) do
 						tooltip:AddDoubleLine(string.format(L["DOUBLY_INDENTED_STRING_FORMAT"], ww_statDisplayNames[stat]), ww_formatNum(value))
 					end

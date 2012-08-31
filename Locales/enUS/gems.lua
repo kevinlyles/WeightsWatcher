@@ -267,6 +267,7 @@ ww_gemDisplayNames = {
 	["Nimble Eye of Zul"] = "Nimble Eye of Zul",
 	["Nimble Forest Emerald"] = "Nimble Forest Emerald",
 	["Nimble Jasper"] = "Nimble Jasper",
+	["None"] = "None",
 	["Perfect Accurate Nightstone"] = "Perfect Accurate Nightstone",
 	["Perfect Accurate Shadow Crystal"] = "Perfect Accurate Shadow Crystal",
 	["Perfect Adept Hessonite"] = "Perfect Adept Hessonite",
