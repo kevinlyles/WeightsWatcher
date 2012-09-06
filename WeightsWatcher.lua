@@ -522,42 +522,21 @@ function WeightsWatcher.Broken(dataType)
 end
 
 local function checkForTitansGrip()
-	if WeightsWatcher.player.class ~= "WARRIOR" then
-		return false
-	end
-	local name, _, _, _, rank = GetTalentInfo(2, 20, false, false)
-	if name == L["Titan's Grip"] then
-		return rank == 1
-	end
-	-- Minor rearranging of the tree
-	for i = 1, GetNumTalents(2, false, false) do
-		name, _, _, _, rank = GetTalentInfo(2, i, false, false)
-		if name == L["Titan's Grip"] then
-			return rank == 1
-		end
-	end
-	-- Major rearranging of the tree
-	for i = 1, GetNumTalentTabs(false, false) do
-		for j = 1, GetNumTalents(2, false, false) do
-			name, _, _, _, rank = GetNumTalents(i, j, false, false)
-			if name == L["Titan's Grip"] then
-				return rank == 1
-			end
-		end
+	if class == "WARRIOR" then
+		return GetSpecialization() == 2 and WeightsWatcher.player.level >= 38
 	end
 	return false
 end
 
 local function checkForDualWield()
 	local class = WeightsWatcher.player.class
-	if class == "ROGUE" or class == "DEATHKNIGHT" then
+	if class == "ROGUE" or class == "DEATHKNIGHT" or class == "HUNTER" then
 		return true
-	elseif class == "HUNTER" and UnitLevel("player") >= 20 then
-		return true
-	elseif class == "SHAMAN" then
-		return GetPrimaryTalentTree() == 2
-	elseif class == "WARRIOR" then
-		return GetPrimaryTalentTree() == 2
+	elseif class == "SHAMAN" or class == "WARRIOR" then
+		return GetSpecialization() == 2
+	elseif class == "MONK" then
+		local spec = GetSpecialization()
+		return spec == 1 or spec == 3
 	end
 	return false
 end
