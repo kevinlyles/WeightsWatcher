@@ -708,21 +708,21 @@ local function markTooltipLines(tooltip, ttname, showDebugInfo)
 		textL = WeightsWatcher.preprocess(origTextL:lower())
 		if rawget(ww_unparsed_lines, textL) then
 			if showDebugInfo then
-				ttleft:SetText(string.format("%s |cffff00ff(U)|r", string.gsub(origTextL, "(.)([\r\n]\+)", "%1 |cffff00ff(U)|r%2")))
+				ttleft:SetText(string.format("%s |cffff00ff(U)|r", string.gsub(origTextL, "(.)([\r\n]+)", "%1 |cffff00ff(U)|r%2")))
 			else
-				ttleft:SetText(string.format("%s |cffff0000*|r", string.gsub(origTextL, "(.)([\r\n]\+)", "%1 |cffff0000*|r%2")))
+				ttleft:SetText(string.format("%s |cffff0000*|r", string.gsub(origTextL, "(.)([\r\n]+)", "%1 |cffff0000*|r%2")))
 			end
 			numUnweightedEffects = numUnweightedEffects + 1
 		elseif rawget(ww_ignored_lines, textL) then
 			if showDebugInfo then
-				ttleft:SetText(string.format("%s |cffffff00(I)|r", string.gsub(origTextL, "(.)([\r\n]\+)", "%1 |cffffff00(I)|r%2")))
+				ttleft:SetText(string.format("%s |cffffff00(I)|r", string.gsub(origTextL, "(.)([\r\n]+)", "%1 |cffffff00(I)|r%2")))
 			end
 		elseif rawget(ww_temp_ignored_lines, textL) then
 			if showDebugInfo then
-				ttleft:SetText(string.format("%s |cffffff00(TI)|r", string.gsub(origTextL, "(.)([\r\n]\+)", "%1 |cffffff00(TI)|r%2")))
+				ttleft:SetText(string.format("%s |cffffff00(TI)|r", string.gsub(origTextL, "(.)([\r\n]+)", "%1 |cffffff00(TI)|r%2")))
 			end
 		elseif rawget(ww_unweighted_lines, textL) then
-			ttleft:SetText(string.format("%s |cffff0000*|r", string.gsub(origTextL, "(.)([\r\n]\+)", "%1 |cffff0000*|r%2")))
+			ttleft:SetText(string.format("%s |cffff0000*|r", string.gsub(origTextL, "(.)([\r\n]+)", "%1 |cffff0000*|r%2")))
 			numUnweightedEffects = numUnweightedEffects + 1
 		end
 	end
