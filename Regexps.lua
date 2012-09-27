@@ -159,6 +159,13 @@ function WeightsWatcher.statNameFirst(text, pattern)
 	end
 end
 
+function WeightsWatcher.statRangeFirst(text, pattern)
+	local start, _, minValue, maxValue, name = string.find(text, pattern)
+	if start then
+		return WeightsWatcher.newStatTable({[name] = (tonumber(minValue) + tonumber(maxValue)) / 2})
+	end
+end
+
 local normalStatsMetatable = {
 	-- Allows us to skip the nil check
 	__index = function()
