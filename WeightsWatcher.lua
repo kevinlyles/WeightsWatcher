@@ -1199,6 +1199,9 @@ local socketColors = {
 	["cogwheel"] = {
 		["cogwheel"] = true,
 	},
+	["hydraulic"] = {
+		["hydraulic"] = true,
+	},
 	["meta"] = {
 		["meta"] = true,
 	},
