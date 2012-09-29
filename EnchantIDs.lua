@@ -97,7 +97,7 @@ local EnchantIDs = {
 			["two-hand"] = "Iron Counterweight",
 		},
 		stats = {
-			["haste"] = 20,
+			haste = 20,
 		},
 	},
 	[36] = {
@@ -601,11 +601,11 @@ local EnchantIDs = {
 	[863] = {
 		itemID = { 38820 },
 		name = {
-			["off hand"] = "Enchant Shield - Lesser Block",
+			["off hand"] = "Enchant Shield - Lesser Parry",
 		},
 		spellID = { 13689 },
 		stats = {
-			["parry"] = 10,
+			parry = 10,
 		},
 	},
 	[865] = {
@@ -718,7 +718,7 @@ local EnchantIDs = {
 		spellID = { 25083 },
 		stats = {
 			agility = 8,
-			["dodge"] = 8,
+			dodge = 8,
 		},
 	},
 	[911] = {
@@ -754,31 +754,31 @@ local EnchantIDs = {
 	[923] = {
 		itemID = { 38842 },
 		name = {
-			wrist = "Enchant Bracer - Deflection",
+			wrist = "Enchant Bracer - Dodge",
 		},
 		spellID = { 13931 },
 		stats = {
-			["dodge"] = 5,
+			dodge = 5,
 		},
 	},
 	[924] = {
 		itemID = { 38768 },
 		name = {
-			wrist = "Enchant Bracer - Minor Deflection",
+			wrist = "Enchant Bracer - Minor Dodge",
 		},
 		spellID = { 7428 },
 		stats = {
-			["dodge"] = 2,
+			dodge = 2,
 		},
 	},
 	[925] = {
 		itemID = { 38811 },
 		name = {
-			wrist = "Enchant Bracer - Lesser Deflection",
+			wrist = "Enchant Bracer - Lesser Dodge",
 		},
 		spellID = { 13646 },
 		stats = {
-			["dodge"] = 3,
+			dodge = 3,
 		},
 	},
 	[926] = {
@@ -841,7 +841,7 @@ local EnchantIDs = {
 		},
 		spellID = { 13948 },
 		stats = {
-			["haste"] = 10,
+			haste = 10,
 		},
 	},
 	[943] = {
@@ -929,6 +929,8 @@ local EnchantIDs = {
 			intellect = 16,
 		},
 	},
+--[[
+	-- No longer available
 	[1128] = {
 		itemID = { 44455 },
 		name = {
@@ -939,6 +941,7 @@ local EnchantIDs = {
 			intellect = 25,
 		},
 	},
+]]
 	[1144] = {
 		itemID = { 38928 },
 		name = {
@@ -1023,7 +1026,7 @@ local EnchantIDs = {
 	[1483] = {
 		itemID = { 11622 },
 		name = {
-			head = "Lesser Arcanum of Rumination",
+-- 			head = "Lesser Arcanum of Rumination",
 			legs = "Lesser Arcanum of Rumination",
 		},
 		stats = {
@@ -1033,7 +1036,7 @@ local EnchantIDs = {
 	[1503] = {
 		itemID = { 11642 },
 		name = {
-			head = "Lesser Arcanum of Constitution",
+-- 			head = "Lesser Arcanum of Constitution",
 			legs = "Lesser Arcanum of Constitution",
 		},
 		stats = {
@@ -1043,27 +1046,30 @@ local EnchantIDs = {
 	[1504] = {
 		itemID = { 11643 },
 		name = {
-			head = "Lesser Arcanum of Tenacity",
+-- 			head = "Lesser Arcanum of Tenacity",
 			legs = "Lesser Arcanum of Tenacity",
 		},
 		stats = {
 			armor = 125,
 		},
 	},
+--[[
+	-- No longer available
 	[1505] = {
 		itemID = { 11644 },
 		name = {
-			head = "Lesser Arcanum of Resilience",
+-- 			head = "Lesser Arcanum of Resilience",
 			legs = "Lesser Arcanum of Resilience",
 		},
 		stats = {
 			["fire resistance"] = 20,
 		},
 	},
+]]
 	[1506] = {
 		itemID = { 11645 },
 		name = {
-			head = "Lesser Arcanum of Voracity",
+-- 			head = "Lesser Arcanum of Voracity",
 			legs = "Lesser Arcanum of Voracity",
 		},
 		stats = {
@@ -1073,7 +1079,7 @@ local EnchantIDs = {
 	[1507] = {
 		itemID = { 11646 },
 		name = {
-			head = "Lesser Arcanum of Voracity",
+-- 			head = "Lesser Arcanum of Voracity",
 			legs = "Lesser Arcanum of Voracity",
 		},
 		stats = {
@@ -1083,7 +1089,7 @@ local EnchantIDs = {
 	[1508] = {
 		itemID = { 11647 },
 		name = {
-			head = "Lesser Arcanum of Voracity",
+-- 			head = "Lesser Arcanum of Voracity",
 			legs = "Lesser Arcanum of Voracity",
 		},
 		stats = {
@@ -1093,7 +1099,7 @@ local EnchantIDs = {
 	[1509] = {
 		itemID = { 11648 },
 		name = {
-			head = "Lesser Arcanum of Voracity",
+-- 			head = "Lesser Arcanum of Voracity",
 			legs = "Lesser Arcanum of Voracity",
 		},
 		stats = {
@@ -1103,7 +1109,7 @@ local EnchantIDs = {
 	[1510] = {
 		itemID = { 11649 },
 		name = {
-			head = "Lesser Arcanum of Voracity",
+-- 			head = "Lesser Arcanum of Voracity",
 			legs = "Lesser Arcanum of Voracity",
 		},
 		stats = {
@@ -1113,7 +1119,7 @@ local EnchantIDs = {
 	[1593] = {
 		itemID = { 38938 },
 		name = {
-			wrist = "Enchant Bracer - Assault",
+			wrist = "Enchant Bracer - Lesser Assault",
 		},
 		spellID = { 34002 },
 		stats = {
@@ -1143,7 +1149,7 @@ local EnchantIDs = {
 	[1600] = {
 		itemID = { 38971 },
 		name = {
-			wrist = "Enchant Bracer - Striking",
+			wrist = "Enchant Bracer - Assault",
 		},
 		spellID = { 60616 },
 		stats = {
@@ -1391,12 +1397,12 @@ local EnchantIDs = {
 	[1951] = {
 		itemID = { 38978, 38999 },
 		name = {
-			back = "Enchant Cloak - Titanweave",
+			back = "Enchant Cloak - Superior Dodge",
 			chest = "Enchant Chest - Dodge",
 		},
 		spellID = { 44591, 46594 },
 		stats = {
-			["dodge"] = 18,
+			dodge = 18,
 		},
 	},
 	[1952] = {
@@ -1406,7 +1412,7 @@ local EnchantIDs = {
 		},
 		spellID = { 44489 },
 		stats = {
-			["dodge"] = 20,
+			dodge = 20,
 		},
 	},
 	[1953] = {
@@ -1416,7 +1422,7 @@ local EnchantIDs = {
 		},
 		spellID = { 47766 },
 		stats = {
-			["dodge"] = 22,
+			dodge = 22,
 		},
 	},
 	[2322] = {
@@ -1542,7 +1548,7 @@ local EnchantIDs = {
 			legs = "Core Armor Kit",
 		},
 		stats = {
-			["dodge"] = 5,
+			dodge = 5,
 		},
 	},
 	[2504] = {
@@ -1577,17 +1583,17 @@ local EnchantIDs = {
 	[2543] = {
 		itemID = { 18329 },
 		name = {
-			head = "Arcanum of Rapidity",
+-- 			head = "Arcanum of Rapidity",
 			legs = "Arcanum of Rapidity",
 		},
 		stats = {
-			["haste"] = 10,
+			haste = 10,
 		},
 	},
 	[2544] = {
 		itemID = { 18330 },
 		name = {
-			head = "Arcanum of Focus",
+-- 			head = "Arcanum of Focus",
 			legs = "Arcanum of Focus",
 		},
 		stats = {
@@ -1597,11 +1603,11 @@ local EnchantIDs = {
 	[2545] = {
 		itemID = { 18331 },
 		name = {
-			head = "Arcanum of Protection",
+-- 			head = "Arcanum of Protection",
 			legs = "Arcanum of Protection",
 		},
 		stats = {
-			["dodge"] = 12,
+			dodge = 12,
 		},
 	},
 	[2563] = {
@@ -1658,23 +1664,23 @@ local EnchantIDs = {
 	[2583] = {
 		itemID = { 19782 },
 		name = {
-			head = "Presence of Might",
+-- 			head = "Presence of Might",
 			legs = "Presence of Might",
 		},
 		stats = {
-			["dodge"] = 10,
-			["parry"] = 10,
+			dodge = 10,
+			parry = 10,
 			stamina = 10,
 		},
 	},
 	[2584] = {
 		itemID = { 19783 },
 		name = {
-			head = "Syncretist's Sigil",
+-- 			head = "Syncretist's Sigil",
 			legs = "Syncretist's Sigil",
 		},
 		stats = {
-			["dodge"] = 10,
+			dodge = 10,
 			intellect = 10,
 			stamina = 10,
 		},
@@ -1682,7 +1688,7 @@ local EnchantIDs = {
 	[2587] = {
 		itemID = { 19786 },
 		name = {
-			head = "Vodouisant's Vigilant Embrace",
+-- 			head = "Vodouisant's Vigilant Embrace",
 			legs = "Vodouisant's Vigilant Embrace",
 		},
 		stats = {
@@ -1693,18 +1699,18 @@ local EnchantIDs = {
 	[2588] = {
 		itemID = { 19787 },
 		name = {
-			head = "Presence of Sight",
+-- 			head = "Presence of Sight",
 			legs = "Presence of Sight",
 		},
 		stats = {
-			["hit"] = 8,
+			hit = 8,
 			["spell power"] = 18,
 		},
 	},
 	[2589] = {
 		itemID = { 19788 },
 		name = {
-			head = "Hoodoo Hex",
+-- 			head = "Hoodoo Hex",
 			legs = "Hoodoo Hex",
 		},
 		stats = {
@@ -1715,7 +1721,7 @@ local EnchantIDs = {
 	[2590] = {
 		itemID = { 19789 },
 		name = {
-			head = "Prophetic Aura",
+-- 			head = "Prophetic Aura",
 			legs = "Prophetic Aura",
 		},
 		stats = {
@@ -1727,7 +1733,7 @@ local EnchantIDs = {
 	[2591] = {
 		itemID = { 19790 },
 		name = {
-			head = "Animist's Caress",
+-- 			head = "Animist's Caress",
 			legs = "Animist's Caress",
 		},
 		stats = {
@@ -1860,7 +1866,7 @@ local EnchantIDs = {
 		},
 		spellID = { 25086 },
 		stats = {
-			["dodge"] = 12,
+			dodge = 12,
 		},
 	},
 	[2646] = {
@@ -1886,12 +1892,12 @@ local EnchantIDs = {
 	[2648] = {
 		itemID = { 38899, 39000 },
 		name = {
-			back = "Enchant Cloak - Steelweave",
+			back = "Enchant Cloak - Greater Dodge",
 			wrist = "Enchant Bracer - Greater Dodge",
 		},
 		spellID = { 27906, 47051 },
 		stats = {
-			["dodge"] = 14,
+			dodge = 14,
 		},
 	},
 	[2649] = {
@@ -1918,11 +1924,11 @@ local EnchantIDs = {
 	[2653] = {
 		itemID = { 38904 },
 		name = {
-			["off hand"] = "Enchant Shield - Tough Shield",
+			["off hand"] = "Enchant Shield - Lesser Dodge",
 		},
 		spellID = { 27944 },
 		stats = {
-			["dodge"] = 12,
+			dodge = 12,
 		},
 	},
 	[2654] = {
@@ -1938,11 +1944,11 @@ local EnchantIDs = {
 	[2655] = {
 		itemID = { 38906 },
 		name = {
-			["off hand"] = "Enchant Shield - Shield Block",
+			["off hand"] = "Enchant Shield - Parry",
 		},
 		spellID = { 27946 },
 		stats = {
-			["parry"] = 15,
+			parry = 15,
 		},
 	},
 	[2656] = {
@@ -1974,7 +1980,7 @@ local EnchantIDs = {
 		spellID = { 27954 },
 		stats = {
 			["critical strike"] = 10,
-			["hit"] = 10,
+			hit = 10,
 		},
 	},
 	[2659] = {
@@ -2133,7 +2139,7 @@ local EnchantIDs = {
 	[2681] = {
 		itemID = { 22635 },
 		name = {
-			head = "Savage Guard",
+-- 			head = "Savage Guard",
 			legs = "Savage Guard",
 		},
 		stats = {
@@ -2143,7 +2149,7 @@ local EnchantIDs = {
 	[2682] = {
 		itemID = { 22636 },
 		name = {
-			head = "Ice Guard",
+-- 			head = "Ice Guard",
 			legs = "Ice Guard",
 		},
 		stats = {
@@ -2153,7 +2159,7 @@ local EnchantIDs = {
 	[2683] = {
 		itemID = { 22638 },
 		name = {
-			head = "Shadow Guard",
+-- 			head = "Shadow Guard",
 			legs = "Shadow Guard",
 		},
 		stats = {
@@ -2299,7 +2305,7 @@ local EnchantIDs = {
 			legs = "Vindicator's Armor Kit",
 		},
 		stats = {
-			["dodge"] = 8,
+			dodge = 8,
 		},
 	},
 	[2794] = {
@@ -2320,7 +2326,7 @@ local EnchantIDs = {
 			chest = "Heavy Knothide Armor Kit",
 			feet = "Heavy Knothide Armor Kit",
 			hands = "Heavy Knothide Armor Kit",
-			head = "Heavy Knothide Armor Kit",
+-- 			head = "Heavy Knothide Armor Kit",
 			legs = "Heavy Knothide Armor Kit",
 			shoulder = "Heavy Knothide Armor Kit",
 		},
@@ -2374,7 +2380,7 @@ local EnchantIDs = {
 		},
 		spellID = { 33992 },
 		stats = {
-			["resilience"] = 15,
+			["pvp resilience"] = 15,
 		},
 	},
 	[2934] = {
@@ -2394,7 +2400,7 @@ local EnchantIDs = {
 		},
 		spellID = { 33994 },
 		stats = {
-			["hit"] = 15,
+			hit = 15,
 		},
 	},
 	[2937] = {
@@ -2445,7 +2451,7 @@ local EnchantIDs = {
 			shoulder = "Inscription of Warding",
 		},
 		stats = {
-			["dodge"] = 13,
+			dodge = 13,
 		},
 	},
 	[2978] = {
@@ -2454,7 +2460,7 @@ local EnchantIDs = {
 			shoulder = "Greater Inscription of Warding",
 		},
 		stats = {
-			["dodge"] = 15,
+			dodge = 15,
 			stamina = 15,
 		},
 	},
@@ -2581,7 +2587,7 @@ local EnchantIDs = {
 			shoulder = "Inscription of the Knight",
 		},
 		stats = {
-			["dodge"] = 13,
+			dodge = 13,
 		},
 	},
 	[2991] = {
@@ -2590,8 +2596,8 @@ local EnchantIDs = {
 			shoulder = "Greater Inscription of the Knight",
 		},
 		stats = {
-			["dodge"] = 10,
-			["parry"] = 15,
+			dodge = 10,
+			parry = 15,
 		},
 	},
 	[2992] = {
@@ -2660,16 +2666,19 @@ local EnchantIDs = {
 			["all resistances"] = 7,
 		},
 	},
+--[[
+	-- No longer available
 	[2999] = {
 		itemID = { 29186 },
 		name = {
 			head = "Arcanum of the Defender",
 		},
 		stats = {
-			["dodge"] = 17,
-			["parry"] = 16,
+			dodge = 17,
+			parry = 16,
 		},
 	},
+	-- No longer available
 	[3001] = {
 		itemID = { 29189, 29190 },
 		name = {
@@ -2680,16 +2689,18 @@ local EnchantIDs = {
 			spirit = 18,
 		},
 	},
+	-- No longer available
 	[3002] = {
 		itemID = { 29191 },
 		name = {
 			head = "Arcanum of Power",
 		},
 		stats = {
-			["hit"] = 14,
+			hit = 14,
 			["spell power"] = 22,
 		},
 	},
+	-- No longer available
 	[3003] = {
 		itemID = { 29192 },
 		name = {
@@ -2697,19 +2708,21 @@ local EnchantIDs = {
 		},
 		stats = {
 			["attack power"] = 34,
-			["hit"] = 16,
+			hit = 16,
 		},
 	},
+	-- No longer available
 	[3004] = {
 		itemID = { 29193 },
 		name = {
 			head = "Arcanum of the Gladiator",
 		},
 		stats = {
-			["resilience"] = 20,
+			["pvp resilience"] = 20,
 			stamina = 18,
 		},
 	},
+	-- No longer available
 	[3005] = {
 		itemID = { 29194 },
 		name = {
@@ -2719,6 +2732,7 @@ local EnchantIDs = {
 			["nature resistance"] = 20,
 		},
 	},
+	-- No longer available
 	[3006] = {
 		itemID = { 29195 },
 		name = {
@@ -2728,6 +2742,7 @@ local EnchantIDs = {
 			["arcane resistance"] = 20,
 		},
 	},
+	-- No longer available
 	[3007] = {
 		itemID = { 29196, 29197 },
 		name = {
@@ -2737,6 +2752,7 @@ local EnchantIDs = {
 			["fire resistance"] = 20,
 		},
 	},
+	-- No longer available
 	[3008] = {
 		itemID = { 29198 },
 		name = {
@@ -2746,6 +2762,7 @@ local EnchantIDs = {
 			["frost resistance"] = 20,
 		},
 	},
+	-- No longer available
 	[3009] = {
 		itemID = { 29199 },
 		name = {
@@ -2755,6 +2772,7 @@ local EnchantIDs = {
 			["shadow resistance"] = 20,
 		},
 	},
+]]
 	[3010] = {
 		itemID = { 29533 },
 		name = {
@@ -2795,6 +2813,8 @@ local EnchantIDs = {
 			stamina = 40,
 		},
 	},
+--[[
+	-- No longer available
 	[3096] = {
 		itemID = { 30846 },
 		name = {
@@ -2805,6 +2825,7 @@ local EnchantIDs = {
 			strength = 17,
 		},
 	},
+]]
 	[3150] = {
 		itemID = { 38929 },
 		name = {
@@ -2833,7 +2854,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			["disarm duration reduction (percent)"] = 60,
-			["parry"] = 15,
+			parry = 15,
 		},
 	},
 	[3225] = {
@@ -2853,7 +2874,7 @@ local EnchantIDs = {
 		},
 		spellID = { 44383 },
 		stats = {
-			["resilience"] = 12,
+			["pvp resilience"] = 12,
 		},
 	},
 	[3230] = {
@@ -2874,7 +2895,7 @@ local EnchantIDs = {
 		},
 		spellID = { 44484, 44598 },
 		stats = {
-			["expertise"] = 15,
+			expertise = 15,
 		},
 	},
 	[3232] = {
@@ -2905,7 +2926,7 @@ local EnchantIDs = {
 		},
 		spellID = { 44488 },
 		stats = {
-			["hit"] = 20,
+			hit = 20,
 		},
 	},
 	[3236] = {
@@ -2953,11 +2974,11 @@ local EnchantIDs = {
 	[3243] = {
 		itemID = { 38973 },
 		name = {
-			back = "Enchant Cloak - Spell Piercing",
+			back = "Enchant Cloak - Minor Power",
 		},
 		spellID = { 44582 },
 		stats = {
-			["spell penetration"] = 35,
+			["pvp power"] = 28,
 		},
 	},
 	[3244] = {
@@ -2978,7 +2999,7 @@ local EnchantIDs = {
 		},
 		spellID = { 44588 },
 		stats = {
-			["resilience"] = 20,
+			["pvp resilience"] = 20,
 		},
 	},
 	[3246] = {
@@ -3028,7 +3049,7 @@ local EnchantIDs = {
 		},
 		spellID = { 44625 },
 		stats = {
-			["parry"] = 10,
+			parry = 10,
 			["threat (percent)"] = 2,
 		},
 	},
@@ -3049,7 +3070,7 @@ local EnchantIDs = {
 			hands = "Glove Reinforcements",
 		},
 		stats = {
-			armor = 240,
+			stamina = 24,
 		},
 	},
 	[3269] = {
@@ -3074,11 +3095,11 @@ local EnchantIDs = {
 	[3294] = {
 		itemID = { 39001 },
 		name = {
-			back = "Enchant Cloak - Mighty Armor",
+			back = "Enchant Cloak - Mighty Stamina",
 		},
 		spellID = { 47672 },
 		stats = {
-			armor = 225,
+			stamina = 25,
 		},
 	},
 	[3296] = {
@@ -3153,7 +3174,7 @@ local EnchantIDs = {
 			chest = "Borean Armor Kit",
 			feet = "Borean Armor Kit",
 			hands = "Borean Armor Kit",
-			head = "Borean Armor Kit",
+-- 			head = "Borean Armor Kit",
 			legs = "Borean Armor Kit",
 			shoulder = "Borean Armor Kit",
 		},
@@ -3167,7 +3188,7 @@ local EnchantIDs = {
 			chest = "Heavy Borean Armor Kit",
 			feet = "Heavy Borean Armor Kit",
 			hands = "Heavy Borean Armor Kit",
-			head = "Heavy Borean Armor Kit",
+-- 			head = "Heavy Borean Armor Kit",
 			legs = "Heavy Borean Armor Kit",
 			shoulder = "Heavy Borean Armor Kit",
 		},
@@ -3182,7 +3203,7 @@ local EnchantIDs = {
 		spellID = { 53323 },
 		stats = {
 			["disarm duration reduction (percent)"] = 60,
-			["parry chance (percent)"] = 4,
+			["parry (percent)"] = 4,
 		},
 	},
 	[3366] = {
@@ -3239,7 +3260,7 @@ local EnchantIDs = {
 		spellID = { 54446 },
 		stats = {
 			["disarm duration reduction (percent)"] = 60,
-			["parry chance (percent)"] = 2,
+			["parry (percent)"] = 2,
 		},
 	},
 	[3595] = {
@@ -3353,7 +3374,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			["disarm duration reduction (percent)"] = 60,
-			["hit"] = 28,
+			hit = 28,
 		},
 	},
 	[3748] = {
@@ -3368,24 +3389,24 @@ local EnchantIDs = {
 	[3754] = {
 		itemID = { 19785 },
 		name = {
-			head = "Falcon's Call",
+-- 			head = "Falcon's Call",
 			legs = "Falcon's Call",
 		},
 		stats = {
 			["attack power"] = 24,
-			["hit"] = 10,
+			hit = 10,
 			stamina = 10,
 		},
 	},
 	[3755] = {
 		itemID = { 19784 },
 		name = {
-			head = "Death's Embrace",
+-- 			head = "Death's Embrace",
 			legs = "Death's Embrace",
 		},
 		stats = {
 			["attack power"] = 28,
-			["dodge"] = 12,
+			dodge = 12,
 		},
 	},
 	[3756] = {
@@ -3468,7 +3489,7 @@ local EnchantIDs = {
 		spellID = { 59619 },
 		stats = {
 			["critical strike"] = 25,
-			["hit"] = 25,
+			hit = 25,
 		},
 	},
 	[3789] = {
@@ -3507,7 +3528,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			["attack power"] = 40,
-			["resilience"] = 15,
+			["pvp resilience"] = 15,
 		},
 	},
 	[3794] = {
@@ -3516,10 +3537,12 @@ local EnchantIDs = {
 			shoulder = "Inscription of Dominance",
 		},
 		stats = {
-			["resilience"] = 15,
+			["pvp resilience"] = 15,
 			["spell power"] = 23,
 		},
 	},
+--[[
+	-- No longer available
 	[3795] = {
 		itemID = { 44069 },
 		name = {
@@ -3527,19 +3550,21 @@ local EnchantIDs = {
 		},
 		stats = {
 			["attack power"] = 50,
-			["resilience"] = 20,
+			["pvp resilience"] = 20,
 		},
 	},
+	-- No longer available
 	[3797] = {
 		itemID = { 44075 },
 		name = {
 			head = "Arcanum of Dominance",
 		},
 		stats = {
-			["resilience"] = 20,
+			["pvp resilience"] = 20,
 			["spell power"] = 29,
 		},
 	},
+]]
 	[3806] = {
 		itemID = { 44129 },
 		name = {
@@ -3596,10 +3621,12 @@ local EnchantIDs = {
 			shoulder = "Greater Inscription of the Pinnacle",
 		},
 		stats = {
-			["dodge"] = 20,
+			dodge = 20,
 			stamina = 22,
 		},
 	},
+--[[
+	-- No longer available
 	[3812] = {
 		itemID = { 44137 },
 		name = {
@@ -3610,6 +3637,7 @@ local EnchantIDs = {
 			stamina = 30,
 		},
 	},
+	-- No longer available
 	[3813] = {
 		itemID = { 44138 },
 		name = {
@@ -3620,6 +3648,7 @@ local EnchantIDs = {
 			stamina = 30,
 		},
 	},
+	-- No longer available
 	[3814] = {
 		itemID = { 44139 },
 		name = {
@@ -3630,6 +3659,7 @@ local EnchantIDs = {
 			stamina = 30,
 		},
 	},
+	-- No longer available
 	[3815] = {
 		itemID = { 44140 },
 		name = {
@@ -3640,6 +3670,7 @@ local EnchantIDs = {
 			stamina = 30,
 		},
 	},
+	-- No longer available
 	[3816] = {
 		itemID = { 44141 },
 		name = {
@@ -3650,6 +3681,7 @@ local EnchantIDs = {
 			stamina = 30,
 		},
 	},
+	-- No longer available
 	[3817] = {
 		itemID = { 44149, 50367 },
 		name = {
@@ -3660,16 +3692,18 @@ local EnchantIDs = {
 			["critical strike"] = 20,
 		},
 	},
+	-- No longer available
 	[3818] = {
 		itemID = { 44150, 50369 },
 		name = {
 			head = "Arcanum of the Stalwart Protector",
 		},
 		stats = {
-			["dodge"] = 20,
+			dodge = 20,
 			stamina = 37,
 		},
 	},
+	-- No longer available
 	[3819] = {
 		itemID = { 44152, 50370 },
 		name = {
@@ -3680,6 +3714,7 @@ local EnchantIDs = {
 			spirit = 20,
 		},
 	},
+	-- No longer available
 	[3820] = {
 		itemID = { 44159, 50368 },
 		name = {
@@ -3690,6 +3725,7 @@ local EnchantIDs = {
 			intellect = 26,
 		},
 	},
+]]
 	[3822] = {
 		itemID = { 38373 },
 		name = {
@@ -3727,7 +3763,7 @@ local EnchantIDs = {
 		},
 		spellID = { 60609 },
 		stats = {
-			["haste"] = 15,
+			haste = 15,
 		},
 	},
 	[3826] = {
@@ -3738,7 +3774,7 @@ local EnchantIDs = {
 		spellID = { 60623 },
 		stats = {
 			["critical strike"] = 12,
-			["hit"] = 12,
+			hit = 12,
 		},
 	},
 	[3827] = {
@@ -3788,7 +3824,7 @@ local EnchantIDs = {
 		},
 		spellID = { 47898 },
 		stats = {
-			["haste"] = 23,
+			haste = 23,
 		},
 	},
 	[3832] = {
@@ -3847,8 +3883,8 @@ local EnchantIDs = {
 		},
 		spellID = { 61119 },
 		stats = {
-			["dodge"] = 60,
-			["parry"] = 15,
+			dodge = 60,
+			parry = 15,
 		},
 	},
 	[3838] = {
@@ -3879,16 +3915,19 @@ local EnchantIDs = {
 			["spell power"] = 23,
 		},
 	},
+--[[
+	-- No longer available
 	[3842] = {
 		itemID = { 44701, 44702, 50372, 50373 },
 		name = {
 			head = "Arcanum of the Savage Gladiator",
 		},
 		stats = {
-			["resilience"] = 25,
+			["pvp resilience"] = 25,
 			stamina = 30,
 		},
 	},
+]]
 	[3843] = {
 		itemID = { 44739 },
 		name = {
@@ -3946,7 +3985,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			["disarm duration reduction (percent)"] = 60,
-			["parry"] = 26,
+			parry = 26,
 		},
 	},
 	[3850] = {
@@ -3965,7 +4004,7 @@ local EnchantIDs = {
 			shoulder = "Greater Inscription of the Gladiator",
 		},
 		stats = {
-			["resilience"] = 15,
+			["pvp resilience"] = 15,
 			stamina = 30,
 		},
 	},
@@ -3975,7 +4014,7 @@ local EnchantIDs = {
 			legs = "Earthen Leg Armor",
 		},
 		stats = {
-			["resilience"] = 40,
+			["pvp resilience"] = 40,
 			stamina = 28,
 		},
 	},
@@ -4006,7 +4045,7 @@ local EnchantIDs = {
 		},
 		spellID = { 63746 },
 		stats = {
-			["hit"] = 5,
+			hit = 5,
 		},
 	},
 	[3869] = {
@@ -4065,8 +4104,8 @@ local EnchantIDs = {
 			shoulder = "Lesser Inscription of the Pinnacle",
 		},
 		stats = {
-			["dodge"] = 15,
-			["parry"] = 10,
+			dodge = 15,
+			parry = 10,
 		},
 	},
 	[3883] = {
@@ -4086,7 +4125,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74132 },
 		stats = {
-			["mastery"] = 50,
+			mastery = 50,
 		},
 	},
 	[4062] = {
@@ -4113,11 +4152,11 @@ local EnchantIDs = {
 	[4064] = {
 		itemID = { 52745 },
 		name = {
-			back = "Enchant Cloak - Greater Spell Piercing",
+			back = "Enchant Cloak - Lesser Power",
 		},
 		spellID = { 74192 },
 		stats = {
-			["spell penetration"] = 70,
+			["pvp power"] = 56,
 		},
 	},
 	[4065] = {
@@ -4127,7 +4166,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74193 },
 		stats = {
-			["haste"] = 50,
+			haste = 50,
 		},
 	},
 	[4066] = {
@@ -4157,7 +4196,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74198 },
 		stats = {
-			["haste"] = 50,
+			haste = 50,
 		},
 	},
 	[4069] = {
@@ -4167,7 +4206,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74199 },
 		stats = {
-			["haste"] = 50,
+			haste = 50,
 		},
 	},
 	[4070] = {
@@ -4207,7 +4246,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74207 },
 		stats = {
-			armor = 160,
+			stamina = 16,
 		},
 	},
 	[4074] = {
@@ -4247,7 +4286,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74214 },
 		stats = {
-			["resilience"] = 40,
+			["pvp resilience"] = 40,
 		},
 	},
 	[4078] = {
@@ -4293,7 +4332,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74220 },
 		stats = {
-			["expertise"] = 50,
+			expertise = 50,
 		},
 	},
 	[4083] = {
@@ -4323,17 +4362,17 @@ local EnchantIDs = {
 		},
 		spellID = { 74226 },
 		stats = {
-			["mastery"] = 50,
+			mastery = 50,
 		},
 	},
 	[4086] = {
 		itemID = { 52763 },
 		name = {
-			wrist = "Enchant Bracer - Dodge",
+			wrist = "Enchant Bracer - Superior Dodge",
 		},
 		spellID = { 74229 },
 		stats = {
-			["dodge"] = 50,
+			dodge = 50,
 		},
 	},
 	[4087] = {
@@ -4363,7 +4402,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74232 },
 		stats = {
-			["hit"] = 50,
+			hit = 50,
 		},
 	},
 	[4090] = {
@@ -4373,7 +4412,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74234 },
 		stats = {
-			armor = 250,
+			stamina = 30,
 		},
 	},
 	[4091] = {
@@ -4394,7 +4433,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74236 },
 		stats = {
-			["hit"] = 50,
+			hit = 50,
 		},
 	},
 	[4093] = {
@@ -4414,7 +4453,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74238 },
 		stats = {
-			["mastery"] = 50,
+			mastery = 50,
 		},
 	},
 	[4095] = {
@@ -4424,7 +4463,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74239 },
 		stats = {
-			["expertise"] = 50,
+			expertise = 50,
 		},
 	},
 	[4096] = {
@@ -4514,7 +4553,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74253 },
 		stats = {
-			["mastery"] = 35,
+			mastery = 35,
 			["minor run speed"] = 1,
 		},
 	},
@@ -4546,7 +4585,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74255 },
 		stats = {
-			["mastery"] = 65,
+			mastery = 65,
 		},
 	},
 	[4108] = {
@@ -4556,7 +4595,7 @@ local EnchantIDs = {
 		},
 		spellID = { 74256 },
 		stats = {
-			["haste"] = 65,
+			haste = 65,
 		},
 	},
 	[4109] = {
@@ -4655,7 +4694,7 @@ local EnchantIDs = {
 			chest = "Savage Armor Kit",
 			feet = "Savage Armor Kit",
 			hands = "Savage Armor Kit",
-			head = "Savage Armor Kit",
+-- 			head = "Savage Armor Kit",
 			legs = "Savage Armor Kit",
 			shoulder = "Savage Armor Kit",
 		},
@@ -4669,7 +4708,7 @@ local EnchantIDs = {
 			chest = "Heavy Savage Armor Kit",
 			feet = "Heavy Savage Armor Kit",
 			hands = "Heavy Savage Armor Kit",
-			head = "Heavy Savage Armor Kit",
+-- 			head = "Heavy Savage Armor Kit",
 			legs = "Heavy Savage Armor Kit",
 			shoulder = "Heavy Savage Armor Kit",
 		},
@@ -4789,7 +4828,7 @@ local EnchantIDs = {
 		spellID = { 86375 },
 		stats = {
 			agility = 130,
-			["mastery"] = 25,
+			mastery = 25,
 		},
 	},
 	[4194] = {
@@ -4808,7 +4847,7 @@ local EnchantIDs = {
 		},
 		spellID = { 86402 },
 		stats = {
-			["dodge"] = 25,
+			dodge = 25,
 			stamina = 195,
 		},
 	},
@@ -4818,7 +4857,7 @@ local EnchantIDs = {
 		},
 		spellID = { 86403 },
 		stats = {
-			["haste"] = 25,
+			haste = 25,
 			intellect = 130,
 		},
 	},
@@ -4828,7 +4867,7 @@ local EnchantIDs = {
 			shoulder = "Lesser Inscription of Unbreakable Quartz",
 		},
 		stats = {
-			["dodge"] = 20,
+			dodge = 20,
 			stamina = 45,
 		},
 	},
@@ -4838,7 +4877,7 @@ local EnchantIDs = {
 			shoulder = "Greater Inscription of Unbreakable Quartz",
 		},
 		stats = {
-			["dodge"] = 25,
+			dodge = 25,
 			stamina = 75,
 		},
 	},
@@ -4848,7 +4887,7 @@ local EnchantIDs = {
 			shoulder = "Lesser Inscription of Charged Lodestone",
 		},
 		stats = {
-			["haste"] = 20,
+			haste = 20,
 			intellect = 30,
 		},
 	},
@@ -4858,7 +4897,7 @@ local EnchantIDs = {
 			shoulder = "Greater Inscription of Charged Lodestone",
 		},
 		stats = {
-			["haste"] = 25,
+			haste = 25,
 			intellect = 50,
 		},
 	},
@@ -4889,7 +4928,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			agility = 50,
-			["mastery"] = 25,
+			mastery = 25,
 		},
 	},
 	[4205] = {
@@ -4899,19 +4938,22 @@ local EnchantIDs = {
 		},
 		stats = {
 			agility = 30,
-			["mastery"] = 20,
+			mastery = 20,
 		},
 	},
+--[[
+	-- No longer available
 	[4206] = {
 		itemID = { 62366 },
 		name = {
 			head = "Arcanum of the Earthen Ring",
 		},
 		stats = {
-			["dodge"] = 35,
+			dodge = 35,
 			stamina = 90,
 		},
 	},
+	-- No longer available
 	[4207] = {
 		itemID = { 62367 },
 		name = {
@@ -4922,16 +4964,18 @@ local EnchantIDs = {
 			intellect = 60,
 		},
 	},
+	-- No longer available
 	[4208] = {
 		itemID = { 62368, 62422 },
 		name = {
 			head = { "Arcanum of the Dragonmaw", "Arcanum of the Wildhammer" },
 		},
 		stats = {
-			["mastery"] = 35,
+			mastery = 35,
 			strength = 60,
 		},
 	},
+	-- No longer available
 	[4209] = {
 		itemID = { 62369 },
 		name = {
@@ -4939,9 +4983,10 @@ local EnchantIDs = {
 		},
 		stats = {
 			agility = 60,
-			["haste"] = 35,
+			haste = 35,
 		},
 	},
+]]
 	[4215] = {
 		itemID = { 55055 },
 		name = {
@@ -4968,7 +5013,7 @@ local EnchantIDs = {
 		stacks = false,
 		stats = {
 			["disarm duration reduction (percent)"] = 60,
-			["hit"] = 40,
+			hit = 40,
 		},
 	},
 	[4227] = {
@@ -4981,6 +5026,8 @@ local EnchantIDs = {
 			agility = 130,
 		},
 	},
+--[[
+	-- No longer available
 	[4245] = {
 		itemID = { 68770 },
 		name = {
@@ -4988,9 +5035,10 @@ local EnchantIDs = {
 		},
 		stats = {
 			intellect = 60,
-			["resilience"] = 35,
+			["pvp resilience"] = 35,
 		},
 	},
+	-- No longer available
 	[4246] = {
 		itemID = { 68769 },
 		name = {
@@ -4998,19 +5046,21 @@ local EnchantIDs = {
 		},
 		stats = {
 			agility = 60,
-			["resilience"] = 35,
+			["pvp resilience"] = 35,
 		},
 	},
+	-- No longer available
 	[4247] = {
 		itemID = { 68768 },
 		name = {
 			head = "Arcanum of Vicious Strength",
 		},
 		stats = {
-			["resilience"] = 35,
+			["pvp resilience"] = 35,
 			strength = 60,
 		},
 	},
+]]
 	[4248] = {
 		itemID = { 68772 },
 		name = {
@@ -5018,7 +5068,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			intellect = 50,
-			["resilience"] = 25,
+			["pvp resilience"] = 25,
 		},
 	},
 	[4249] = {
@@ -5027,7 +5077,7 @@ local EnchantIDs = {
 			shoulder = "Greater Inscription of Vicious Strength",
 		},
 		stats = {
-			["resilience"] = 25,
+			["pvp resilience"] = 25,
 			strength = 50,
 		},
 	},
@@ -5038,7 +5088,7 @@ local EnchantIDs = {
 		},
 		stats = {
 			agility = 50,
-			["resilience"] = 25,
+			["pvp resilience"] = 25,
 		},
 	},
 	[4256] = {
@@ -5078,6 +5128,588 @@ local EnchantIDs = {
 		},
 		stats = {
 			fishing = 1,
+		},
+	},
+	[4411] = {
+		itemID = { 74700 },
+		name = {
+			wrist = "Enchant Bracer - Mastery",
+		},
+		spellID = { 104338 },
+		stats = {
+			mastery = 170,
+		},
+	},
+	[4412] = {
+		itemID = { 74701 },
+		name = {
+			wrist = "Enchant Bracer - Major Dodge",
+		},
+		spellID = { 104385 },
+		stats = {
+			dodge = 170,
+		},
+	},
+	[4414] = {
+		itemID = { 74703 },
+		name = {
+			wrist = "Enchant Bracer - Super Intellect",
+		},
+		spellID = { 104389 },
+		stats = {
+			intellect = 170,
+		},
+	},
+	[4415] = {
+		itemID = { 74704 },
+		name = {
+			wrist = "Enchant Bracer - Exceptional Strength",
+		},
+		spellID = { 104390 },
+		stats = {
+			strength = 170,
+		},
+	},
+	[4416] = {
+		itemID = { 74705 },
+		name = {
+			wrist = "Enchant Bracer - Greater Agility",
+		},
+		spellID = { 104391 },
+		stats = {
+			agility = 170,
+		},
+	},
+	[4417] = {
+		itemID = { 74706 },
+		name = {
+			chest = "Enchant Chest - Super Resilience",
+		},
+		spellID = { 104392 },
+		stats = {
+			["pvp resilience"] = 200,
+		},
+	},
+	[4418] = {
+		itemID = { 74707 },
+		name = {
+			chest = "Enchant Chest - Mighty Spirit",
+		},
+		spellID = { 104393 },
+		stats = {
+			spirit = 200,
+		},
+	},
+	[4419] = {
+		itemID = { 74708 },
+		name = {
+			chest = "Enchant Chest - Glorious Stats",
+		},
+		spellID = { 104395 },
+		stats = {
+			["all stats"] = 80,
+		},
+	},
+	[4420] = {
+		itemID = { 74709 },
+		name = {
+			chest = "Enchant Chest - Superior Stamina",
+		},
+		spellID = { 104397 },
+		stats = {
+			stamina = 300,
+		},
+	},
+	[4421] = {
+		itemID = { 74710 },
+		name = {
+			back = "Enchant Cloak - Accuracy",
+		},
+		spellID = { 104398 },
+		stats = {
+			hit = 180,
+		},
+	},
+	[4422] = {
+		itemID = { 74711 },
+		name = {
+			back = "Enchant Cloak - Greater Protection",
+		},
+		spellID = { 104401 },
+		stats = {
+			stamina = 200,
+		},
+	},
+	[4423] = {
+		itemID = { 74712 },
+		name = {
+			back = "Enchant Cloak - Superior Intellect",
+		},
+		spellID = { 104403 },
+		stats = {
+			intellect = 180,
+		},
+	},
+	[4424] = {
+		itemID = { 74713 },
+		name = {
+			back = "Enchant Cloak - Superior Critical Strike",
+		},
+		spellID = { 104404 },
+		stats = {
+			["critical strike"] = 180,
+		},
+	},
+	[4426] = {
+		itemID = { 74715 },
+		name = {
+			feet = "Enchant Boots - Greater Haste",
+		},
+		spellID = { 104407 },
+		stats = {
+			haste = 175,
+		},
+	},
+	[4427] = {
+		itemID = { 74716 },
+		name = {
+			feet = "Enchant Boots - Greater Precision",
+		},
+		spellID = { 104408 },
+		stats = {
+			hit = 175,
+		},
+	},
+	[4428] = {
+		itemID = { 74717 },
+		name = {
+			feet = "Enchant Boots - Blurred Speed",
+		},
+		spellID = { 104409 },
+		stats = {
+			agility = 140,
+			["minor run speed"] = 1,
+		},
+	},
+	[4429] = {
+		itemID = { 74718 },
+		name = {
+			feet = "Enchant Boots - Pandaren's Step",
+		},
+		spellID = { 104414 },
+		stats = {
+			mastery = 140,
+			["minor run speed"] = 1,
+		},
+	},
+	[4430] = {
+		itemID = { 74719 },
+		name = {
+			hands = "Enchant Gloves - Greater Haste",
+		},
+		spellID = { 104416 },
+		stats = {
+			haste = 170,
+		},
+	},
+	[4431] = {
+		itemID = { 74720 },
+		name = {
+			hands = "Enchant Gloves - Superior Expertise",
+		},
+		spellID = { 104417 },
+		stats = {
+			expertise = 170,
+		},
+	},
+	[4432] = {
+		itemID = { 74721 },
+		name = {
+			hands = "Enchant Gloves - Super Strength",
+		},
+		spellID = { 104419 },
+		stats = {
+			strength = 170,
+		},
+	},
+	[4433] = {
+		itemID = { 74722 },
+		name = {
+			hands = "Enchant Gloves - Superior Mastery",
+		},
+		spellID = { 104420 },
+		stats = {
+			mastery = 170,
+		},
+	},
+	[4434] = {
+		itemID = { 74729 },
+		name = {
+			["held in off-hand"] = "Enchant Off-Hand - Major Intellect",
+			["off hand"] = "Enchant Off-Hand - Major Intellect",
+		},
+		spellID = { 104445 },
+		stats = {
+			intellect = 165,
+		},
+	},
+	[4441] = {
+		itemID = { 74723 },
+		name = {
+			weapon = "Enchant Weapon - Windsong",
+		},
+		spellID = { 104425 },
+		stats = {
+			windsong = 1,
+		},
+	},
+	[4442] = {
+		itemID = { 74724 },
+		name = {
+			weapon = "Enchant Weapon - Jade Spirit",
+		},
+		spellID = { 104427 },
+		stats = {
+			["jade spirit"] = 1,
+		},
+	},
+	[4443] = {
+		itemID = { 74725 },
+		name = {
+			weapon = "Enchant Weapon - Elemental Force",
+		},
+		spellID = { 104430 },
+		stats = {
+			["elemental force"] = 1,
+		},
+	},
+	[4444] = {
+		itemID = { 74726 },
+		name = {
+			weapon = "Enchant Weapon - Dancing Steel",
+		},
+		spellID = { 104434 },
+		stats = {
+			["dancing steel"] = 1,
+		},
+	},
+	[4445] = {
+		itemID = { 74727 },
+		name = {
+			weapon = "Enchant Weapon - Colossus",
+		},
+		spellID = { 104440 },
+		stats = {
+			colossus = 1,
+		},
+	},
+	[4446] = {
+		itemID = { 74728 },
+		name = {
+			weapon = "Enchant Weapon - River's Song",
+		},
+		spellID = { 104442 },
+		stats = {
+			["river's song"] = 1,
+		},
+	},
+	[4699] = {
+		itemID = { 77529 },
+		name = {
+			ranged = "Lord Blastington's Scope of Doom",
+		},
+		stats = {
+			["lord blastington's scope of doom"] = 1,
+		},
+	},
+	[4700] = {
+		itemID = { 77531 },
+		name = {
+			ranged = "Mirror Scope",
+		},
+		stats = {
+			["mirror scope"] = 1,
+		},
+	},
+	[4803] = {
+		itemID = { 83006 },
+		name = {
+			shoulder = "Greater Tiger Fang Inscription",
+		},
+		stats = {
+			["critical strike"] = 100,
+			strength = 200,
+		},
+	},
+	[4804] = {
+		itemID = { 83007 },
+		name = {
+			shoulder = "Greater Tiger Claw Inscription",
+		},
+		stats = {
+			agility = 200,
+			["critical strike"] = 100,
+		},
+	},
+	[4805] = {
+		itemID = { 87560 },
+		name = {
+			shoulder = "Greater Ox Horn Inscription",
+		},
+		stats = {
+			dodge = 100,
+			stamina = 300,
+		},
+	},
+	[4806] = {
+		itemID = { 87559 },
+		name = {
+			shoulder = "Greater Crane Wing Inscription",
+		},
+		stats = {
+			["critical strike"] = 100,
+			intellect = 200,
+		},
+	},
+	[4822] = {
+		itemID = { 83764 },
+		name = {
+			legs = "Shadowleather Leg Armor",
+		},
+		stats = {
+			agility = 285,
+			["critical strike"] = 165,
+		},
+	},
+	[4823] = {
+		itemID = { 83765 },
+		name = {
+			legs = "Angerhide Leg Armor",
+		},
+		stats = {
+			["critical strike"] = 165,
+			strength = 285,
+		},
+	},
+	[4824] = {
+		itemID = { 83763 },
+		name = {
+			legs = "Ironscale Leg Armor",
+		},
+		stats = {
+			dodge = 165,
+			stamina = 430,
+		},
+	},
+	[4825] = {
+		itemID = { 82445 },
+		name = {
+			legs = "Greater Cerulean Spellthread",
+		},
+		stats = {
+			["critical strike"] = 165,
+			intellect = 285,
+		},
+	},
+	[4826] = {
+		itemID = { 82444 },
+		name = {
+			legs = "Greater Pearlescent Spellthread",
+		},
+		stats = {
+			intellect = 285,
+			spirit = 165,
+		},
+	},
+	[4869] = {
+		itemID = { 85559 },
+		name = {
+			chest = "Sha Armor Kit",
+			feet = "Sha Armor Kit",
+			hands = "Sha Armor Kit",
+			legs = "Sha Armor Kit",
+			shoulder = "Sha Armor Kit",
+		},
+		stats = {
+			stamina = 150,
+		},
+	},
+	[4870] = {
+		itemID = { 85570 },
+		name = {
+			legs = "Toughened Leg Armor",
+		},
+		stats = {
+			dodge = 100,
+			stamina = 250,
+		},
+	},
+	[4871] = {
+		itemID = { 85569 },
+		name = {
+			legs = "Sha-Touched Leg Armor",
+		},
+		stats = {
+			agility = 170,
+			["critical strike"] = 100,
+		},
+	},
+	[4872] = {
+		itemID = { 85568 },
+		name = {
+			legs = "Brutal Leg Armor",
+		},
+		stats = {
+			["critical strike"] = 100,
+			strength = 170,
+		},
+	},
+	[4907] = {
+		itemID = { 87580 },
+		name = {
+			shoulder = "Tiger Fang Inscription",
+		},
+		stats = {
+			["critical strike"] = 80,
+			strength = 120,
+		},
+	},
+	[4908] = {
+		itemID = { 87579 },
+		name = {
+			shoulder = "Tiger Claw Inscription",
+		},
+		stats = {
+			agility = 120,
+			["critical strike"] = 80,
+		},
+	},
+	[4909] = {
+		itemID = { 87578 },
+		name = {
+			shoulder = "Crane Wing Inscription",
+		},
+		stats = {
+			["critical strike"] = 80,
+			intellect = 120,
+		},
+	},
+	[4910] = {
+		itemID = { 87577 },
+		name = {
+			shoulder = "Ox Horn Inscription",
+		},
+		stats = {
+			dodge = 80,
+			stamina = 180,
+		},
+	},
+	[4912] = {
+		itemID = { 87581 },
+		name = {
+			shoulder = "Secret Ox Horn Inscription",
+		},
+		stats = {
+			dodge = 100,
+			stamina = 750,
+		},
+	},
+	[4913] = {
+		itemID = { 87585 },
+		name = {
+			shoulder = "Secret Tiger Fang Inscription",
+		},
+		stats = {
+			["critical strike"] = 100,
+			strength = 520,
+		},
+	},
+	[4914] = {
+		itemID = { 87584 },
+		name = {
+			shoulder = "Secret Tiger Claw Inscription",
+		},
+		stats = {
+			agility = 520,
+			["critical strike"] = 100,
+		},
+	},
+	[4915] = {
+		itemID = { 87582 },
+		name = {
+			shoulder = "Secret Crane Wing Inscription",
+		},
+		stats = {
+			["critical strike"] = 100,
+			intellect = 520,
+		},
+	},
+	[4916] = {
+		itemID = { 87583 },
+		name = {
+			shoulder = "Secret Serpent Pearl Inscription",
+		},
+		stats = {
+			["critical strike"] = 100,
+			spirit = 520,
+		},
+	},
+	[4918] = {
+		itemID = { 86597 },
+		name = {
+			weapon = "Living Steel Weapon Chain",
+		},
+		stats = {
+			["disarm duration reduction (percent)"] = 60,
+			expertise = 200,
+		},
+	},
+	[4993] = {
+		itemID = { 89737 },
+		name = {
+			["off hand"] = "Enchant Shield - Greater Parry",
+		},
+		spellID = { 130758 },
+		stats = {
+			parry = 170,
+		},
+	},
+	[5001] = {
+		itemID = { 86599 },
+		name = {
+			["off hand"] = "Ghost Iron Shield Spike",
+		},
+		stats = {
+			["ghost iron shield spike"] = 1,
+		},
+	},
+	[5002] = {
+		itemID = { 90046 },
+		name = {
+			waist = "Living Steel Belt Buckle",
+		},
+		stats = {
+			["prismatic socket"] = 1,
+		},
+	},
+	[5003] = {
+		itemID = { 82443 },
+		name = {
+			legs = "Cerulean Spellthread",
+		},
+		stats = {
+			["critical strike"] = 100,
+			intellect = 170,
+		},
+	},
+	[5004] = {
+		itemID = { 82442 },
+		name = {
+			legs = "Pearlescent Spellthread",
+		},
+		stats = {
+			intellect = 170,
+			spirit = 100,
 		},
 	},
 }
@@ -5224,7 +5856,7 @@ local EnchantItems = {
 		enchID = 1483,
 		minLvl = 50,
 		name = "Lesser Arcanum of Rumination",
-		slot = { "legs", "head" },
+		slot = { "legs" },
 		source = "Quest",
 		spell = 15340,
 	},
@@ -5232,7 +5864,7 @@ local EnchantItems = {
 		enchID = 1503,
 		minLvl = 50,
 		name = "Lesser Arcanum of Constitution",
-		slot = { "legs", "head" },
+		slot = { "legs" },
 		source = "Quest",
 		spell = 15389,
 	},
@@ -5240,23 +5872,26 @@ local EnchantItems = {
 		enchID = 1504,
 		minLvl = 50,
 		name = "Lesser Arcanum of Tenacity",
-		slot = { "legs", "head" },
+		slot = { "legs" },
 		source = "Quest",
 		spell = 15391,
 	},
+--[[
+	-- No longer available
 	[11644] = {
 		enchID = 1505,
 		minLvl = 50,
 		name = "Lesser Arcanum of Resilience",
-		slot = { "legs", "head" },
+		slot = { "legs" },
 		source = "Quest",
 		spell = 15394,
 	},
+]]
 	[11645] = {
 		enchID = 1506,
 		minLvl = 50,
 		name = "Lesser Arcanum of Voracity",
-		slot = { "legs", "head" },
+		slot = { "legs" },
 		source = "Quest",
 		spell = 15397,
 	},
@@ -5264,7 +5899,7 @@ local EnchantItems = {
 		enchID = 1507,
 		minLvl = 50,
 		name = "Lesser Arcanum of Voracity",
-		slot = { "legs", "head" },
+		slot = { "legs" },
 		source = "Quest",
 		spell = 15400,
 	},
@@ -5272,7 +5907,7 @@ local EnchantItems = {
 		enchID = 1508,
 		minLvl = 50,
 		name = "Lesser Arcanum of Voracity",
-		slot = { "legs", "head" },
+		slot = { "legs" },
 		source = "Quest",
 		spell = 15402,
 	},
@@ -5280,7 +5915,7 @@ local EnchantItems = {
 		enchID = 1509,
 		minLvl = 50,
 		name = "Lesser Arcanum of Voracity",
-		slot = { "legs", "head" },
+		slot = { "legs" },
 		source = "Quest",
 		spell = 15404,
 	},
@@ -5288,7 +5923,7 @@ local EnchantItems = {
 		enchID = 1510,
 		minLvl = 50,
 		name = "Lesser Arcanum of Voracity",
-		slot = { "legs", "head" },
+		slot = { "legs" },
 		source = "Quest",
 		spell = 15406,
 	},
@@ -5310,7 +5945,7 @@ local EnchantItems = {
 		name = "Rugged Armor Kit",
 		slot = { "chest", "legs", "hands", "feet" },
 		source = "Crafted",
-		spell = 1843,
+		spell = 19057,
 	},
 	[18169] = {
 		enchID = 2483,
@@ -5380,7 +6015,7 @@ local EnchantItems = {
 		enchID = 2543,
 		minLvl = 50,
 		name = "Arcanum of Rapidity",
-		slot = { "legs", "head" },
+		slot = { "legs" },
 		source = "Unavailable",
 		spell = 22840,
 	},
@@ -5388,7 +6023,7 @@ local EnchantItems = {
 		enchID = 2544,
 		minLvl = 50,
 		name = "Arcanum of Focus",
-		slot = { "legs", "head" },
+		slot = { "legs" },
 		source = "Unavailable",
 		spell = 22844,
 	},
@@ -5396,7 +6031,7 @@ local EnchantItems = {
 		enchID = 2545,
 		minLvl = 50,
 		name = "Arcanum of Protection",
-		slot = { "legs", "head" },
+		slot = { "legs" },
 		source = "Unavailable",
 		spell = 22846,
 	},
@@ -5408,7 +6043,7 @@ local EnchantItems = {
 		rep = {
 			["Zandalar Tribe"] = 5,
 		},
-		slot = { "legs", "head" },
+		slot = { "legs" },
 		source = "Unavailable",
 		spell = 24149,
 	},
@@ -5420,7 +6055,7 @@ local EnchantItems = {
 		rep = {
 			["Zandalar Tribe"] = 5,
 		},
-		slot = { "legs", "head" },
+		slot = { "legs" },
 		source = "Unavailable",
 		spell = 24160,
 	},
@@ -5432,7 +6067,7 @@ local EnchantItems = {
 		rep = {
 			["Zandalar Tribe"] = 5,
 		},
-		slot = { "legs", "head" },
+		slot = { "legs" },
 		source = "Unavailable",
 		spell = 24161,
 	},
@@ -5444,7 +6079,7 @@ local EnchantItems = {
 		rep = {
 			["Zandalar Tribe"] = 5,
 		},
-		slot = { "legs", "head" },
+		slot = { "legs" },
 		source = "Unavailable",
 		spell = 24162,
 	},
@@ -5456,7 +6091,7 @@ local EnchantItems = {
 		rep = {
 			["Zandalar Tribe"] = 5,
 		},
-		slot = { "legs", "head" },
+		slot = { "legs" },
 		source = "Unavailable",
 		spell = 24163,
 	},
@@ -5468,7 +6103,7 @@ local EnchantItems = {
 		rep = {
 			["Zandalar Tribe"] = 5,
 		},
-		slot = { "legs", "head" },
+		slot = { "legs" },
 		source = "Unavailable",
 		spell = 24164,
 	},
@@ -5480,7 +6115,7 @@ local EnchantItems = {
 		rep = {
 			["Zandalar Tribe"] = 5,
 		},
-		slot = { "legs", "head" },
+		slot = { "legs" },
 		source = "Unavailable",
 		spell = 24165,
 	},
@@ -5492,7 +6127,7 @@ local EnchantItems = {
 		rep = {
 			["Zandalar Tribe"] = 5,
 		},
-		slot = { "legs", "head" },
+		slot = { "legs" },
 		source = "Unavailable",
 		spell = 24167,
 	},
@@ -5504,7 +6139,7 @@ local EnchantItems = {
 		rep = {
 			["Zandalar Tribe"] = 5,
 		},
-		slot = { "legs", "head" },
+		slot = { "legs" },
 		source = "Unavailable",
 		spell = 24168,
 	},
@@ -5563,7 +6198,7 @@ local EnchantItems = {
 		rep = {
 			["Zandalar Tribe"] = 6,
 		},
-		slot = { "legs", "head" },
+		slot = { "legs" },
 		source = "Unavailable",
 		spell = 28161,
 	},
@@ -5574,7 +6209,7 @@ local EnchantItems = {
 		rep = {
 			["Zandalar Tribe"] = 6,
 		},
-		slot = { "legs", "head" },
+		slot = { "legs" },
 		source = "Unavailable",
 		spell = 28163,
 	},
@@ -5585,7 +6220,7 @@ local EnchantItems = {
 		rep = {
 			["Zandalar Tribe"] = 6,
 		},
-		slot = { "legs", "head" },
+		slot = { "legs" },
 		source = "Unavailable",
 		spell = 28165,
 	},
@@ -5890,6 +6525,8 @@ local EnchantItems = {
 		source = "Quest",
 		spell = 35435,
 	},
+--[[
+	-- No longer available
 	[29186] = {
 		enchID = 2999,
 		minLvl = 70,
@@ -5901,6 +6538,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 35443,
 	},
+]]
 	[29187] = {
 		enchID = 2998,
 		minLvl = 70,
@@ -5912,6 +6550,8 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 35441,
 	},
+--[[
+	-- No longer available
 	[29189] = {
 		enchID = 3001,
 		minLvl = 70,
@@ -5923,6 +6563,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 35445,
 	},
+	-- No longer available
 	[29190] = {
 		enchID = 3001,
 		minLvl = 70,
@@ -5934,6 +6575,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 35445,
 	},
+	-- No longer available
 	[29191] = {
 		enchID = 3002,
 		minLvl = 70,
@@ -5945,6 +6587,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 35447,
 	},
+	-- No longer available
 	[29192] = {
 		enchID = 3003,
 		minLvl = 70,
@@ -5956,6 +6599,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 35452,
 	},
+	-- No longer available
 	[29193] = {
 		enchID = 3004,
 		minLvl = 70,
@@ -5967,6 +6611,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 35453,
 	},
+	-- No longer available
 	[29194] = {
 		enchID = 3005,
 		minLvl = 70,
@@ -5978,6 +6623,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 35454,
 	},
+	-- No longer available
 	[29195] = {
 		enchID = 3006,
 		minLvl = 70,
@@ -5989,6 +6635,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 35455,
 	},
+	-- No longer available
 	[29196] = {
 		enchID = 3007,
 		minLvl = 70,
@@ -6000,6 +6647,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 35456,
 	},
+	-- No longer available
 	[29197] = {
 		enchID = 3007,
 		minLvl = 70,
@@ -6011,6 +6659,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 35456,
 	},
+	-- No longer available
 	[29198] = {
 		enchID = 3008,
 		minLvl = 70,
@@ -6022,6 +6671,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 35457,
 	},
+	-- No longer available
 	[29199] = {
 		enchID = 3009,
 		minLvl = 70,
@@ -6033,6 +6683,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 35458,
 	},
+]]
 	[29483] = {
 		enchID = 2984,
 		minLvl = 65,
@@ -6105,6 +6756,8 @@ local EnchantItems = {
 		source = "Crafted",
 		spell = 35495,
 	},
+--[[
+	-- No longer available
 	[30846] = {
 		enchID = 3096,
 		minLvl = 70,
@@ -6116,6 +6769,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 37891,
 	},
+]]
 	[33185] = {
 		enchID = 3223,
 		minLvl = 50,
@@ -6139,7 +6793,7 @@ local EnchantItems = {
 		minIlvl = 60,
 		minLvl = 60,
 		name = "Heavy Knothide Armor Kit",
-		slot = { "head", "chest", "shoulder", "legs", "hands", "feet" },
+		slot = { "chest", "shoulder", "legs", "hands", "feet" },
 		source = "Crafted",
 		spell = 44968,
 	},
@@ -6198,7 +6852,7 @@ local EnchantItems = {
 		enchID = 3329,
 		minLvl = 70,
 		name = "Borean Armor Kit",
-		slot = { "head", "chest", "shoulder", "legs", "hands", "feet" },
+		slot = { "chest", "shoulder", "legs", "hands", "feet" },
 		source = "Crafted",
 		spell = 50906,
 	},
@@ -6206,7 +6860,7 @@ local EnchantItems = {
 		enchID = 3330,
 		minLvl = 70,
 		name = "Heavy Borean Armor Kit",
-		slot = { "head", "chest", "shoulder", "legs", "hands", "feet" },
+		slot = { "chest", "shoulder", "legs", "hands", "feet" },
 		source = "Crafted",
 		spell = 50909,
 	},
@@ -7019,7 +7673,7 @@ local EnchantItems = {
 		spell = 44576,
 	},
 	[38973] = {
-		name = "Enchant Cloak - Spell Piercing",
+		name = "Enchant Cloak - Minor Power",
 		spell = 44582,
 	},
 	[38974] = {
@@ -7115,7 +7769,7 @@ local EnchantItems = {
 		spell = 47051,
 	},
 	[39001] = {
-		name = "Enchant Cloak - Mighty Armor",
+		name = "Enchant Cloak - Mighty Stamina",
 		spell = 47672,
 	},
 	[39002] = {
@@ -7236,6 +7890,8 @@ local EnchantItems = {
 		source = "PVP-Vendor",
 		spell = 59773,
 	},
+--[[
+	-- No longer available
 	[44069] = {
 		enchID = 3795,
 		minLvl = 80,
@@ -7244,6 +7900,7 @@ local EnchantItems = {
 		source = "PVP-Vendor",
 		spell = 59777,
 	},
+	-- No longer available
 	[44075] = {
 		enchID = 3797,
 		minLvl = 80,
@@ -7252,6 +7909,7 @@ local EnchantItems = {
 		source = "PVP-Vendor",
 		spell = 59784,
 	},
+]]
 	[44129] = {
 		enchID = 3806,
 		minLvl = 80,
@@ -7344,6 +8002,8 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 59941,
 	},
+--[[
+	-- No longer available
 	[44137] = {
 		enchID = 3812,
 		minLvl = 80,
@@ -7355,6 +8015,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 59944,
 	},
+	-- No longer available
 	[44138] = {
 		enchID = 3813,
 		minLvl = 80,
@@ -7366,6 +8027,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 59945,
 	},
+	-- No longer available
 	[44139] = {
 		enchID = 3814,
 		minLvl = 80,
@@ -7377,6 +8039,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 59946,
 	},
+	-- No longer available
 	[44140] = {
 		enchID = 3815,
 		minLvl = 80,
@@ -7388,6 +8051,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 59947,
 	},
+	-- No longer available
 	[44141] = {
 		enchID = 3816,
 		minLvl = 80,
@@ -7399,6 +8063,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 59948,
 	},
+	-- No longer available
 	[44149] = {
 		boa = true,
 		enchID = 3817,
@@ -7411,6 +8076,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 59954,
 	},
+	-- No longer available
 	[44150] = {
 		boa = true,
 		enchID = 3818,
@@ -7423,6 +8089,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 59955,
 	},
+	-- No longer available
 	[44152] = {
 		boa = true,
 		enchID = 3819,
@@ -7435,6 +8102,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 59960,
 	},
+	-- No longer available
 	[44159] = {
 		boa = true,
 		enchID = 3820,
@@ -7447,6 +8115,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 59970,
 	},
+]]
 	[44449] = {
 		name = "Enchant Boots - Assault",
 		spell = 60606,
@@ -7455,10 +8124,13 @@ local EnchantItems = {
 		name = "Enchant Weapon - Greater Potency",
 		spell = 60621,
 	},
+--[[
+	-- No longer available
 	[44455] = {
 		name = "Shield Enchant - Intellect III",
 		spell = 60653,
 	},
+]]
 	[44456] = {
 		name = "Enchant Cloak - Speed",
 		spell = 60609,
@@ -7503,6 +8175,8 @@ local EnchantItems = {
 		name = "Enchant Weapon - Accuracy",
 		spell = 59619,
 	},
+--[[
+	-- No longer available
 	[44701] = {
 		boa = true,
 		enchID = 3842,
@@ -7515,6 +8189,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 61271,
 	},
+	-- No longer available
 	[44702] = {
 		boa = true,
 		enchID = 3842,
@@ -7527,6 +8202,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 61271,
 	},
+]]
 	[44739] = {
 		enchID = 3843,
 		minLvl = 70,
@@ -7640,6 +8316,8 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 59937,
 	},
+--[[
+	-- No longer available
 	[50367] = {
 		boa = true,
 		enchID = 3817,
@@ -7652,6 +8330,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 59954,
 	},
+	-- No longer available
 	[50368] = {
 		boa = true,
 		enchID = 3820,
@@ -7664,6 +8343,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 59970,
 	},
+	-- No longer available
 	[50369] = {
 		boa = true,
 		enchID = 3818,
@@ -7676,6 +8356,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 59955,
 	},
+	-- No longer available
 	[50370] = {
 		boa = true,
 		enchID = 3819,
@@ -7688,6 +8369,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 59960,
 	},
+	-- No longer available
 	[50372] = {
 		boa = true,
 		enchID = 3842,
@@ -7700,6 +8382,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 61271,
 	},
+	-- No longer available
 	[50373] = {
 		boa = true,
 		enchID = 3842,
@@ -7712,6 +8395,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 61271,
 	},
+]]
 	[50816] = {
 		name = "Enchant Gloves - Angler",
 		spell = 71692,
@@ -7729,7 +8413,7 @@ local EnchantItems = {
 		spell = 74191,
 	},
 	[52745] = {
-		name = "Enchant Cloak - Greater Spell Piercing",
+		name = "Enchant Cloak - Lesser Power",
 		spell = 74192,
 	},
 	[52746] = {
@@ -7972,7 +8656,7 @@ local EnchantItems = {
 		enchID = 4120,
 		minLvl = 78,
 		name = "Savage Armor Kit",
-		slot = { "head", "chest", "shoulder", "legs", "hands", "feet" },
+		slot = { "chest", "shoulder", "legs", "hands", "feet" },
 		source = "Crafted",
 		spell = 78165,
 	},
@@ -7996,7 +8680,7 @@ local EnchantItems = {
 		enchID = 4121,
 		minLvl = 81,
 		name = "Heavy Savage Armor Kit",
-		slot = { "head", "chest", "shoulder", "legs", "hands", "feet" },
+		slot = { "chest", "shoulder", "legs", "hands", "feet" },
 		source = "Crafted",
 		spell = 78166,
 	},
@@ -8128,6 +8812,8 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 86909,
 	},
+--[[
+	-- No longer available
 	[62366] = {
 		boa = true,
 		enchID = 4206,
@@ -8140,6 +8826,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 86931,
 	},
+	-- No longer available
 	[62367] = {
 		boa = true,
 		enchID = 4207,
@@ -8152,6 +8839,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 86932,
 	},
+	-- No longer available
 	[62368] = {
 		boa = true,
 		enchID = 4208,
@@ -8164,6 +8852,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 86933,
 	},
+	-- No longer available
 	[62369] = {
 		boa = true,
 		enchID = 4209,
@@ -8176,6 +8865,7 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 86934,
 	},
+	-- No longer available
 	[62422] = {
 		boa = true,
 		enchID = 4208,
@@ -8188,10 +8878,13 @@ local EnchantItems = {
 		source = "Vendor",
 		spell = 86933,
 	},
+]]
 	[68134] = {
 		name = "Enchant 2H Weapon - Mighty Agility",
 		spell = 95471,
 	},
+--[[
+	-- No longer available
 	[68768] = {
 		enchID = 4247,
 		minLvl = 85,
@@ -8199,6 +8892,7 @@ local EnchantItems = {
 		slot = { "head" },
 		source = "PVP-Vendor",
 	},
+	-- No longer available
 	[68769] = {
 		enchID = 4246,
 		minLvl = 85,
@@ -8206,6 +8900,7 @@ local EnchantItems = {
 		slot = { "head" },
 		source = "PVP-Vendor",
 	},
+	-- No longer available
 	[68770] = {
 		enchID = 4245,
 		minLvl = 85,
@@ -8213,12 +8908,14 @@ local EnchantItems = {
 		slot = { "head" },
 		source = "PVP-Vendor",
 	},
+]]
 	[68772] = {
 		enchID = 4248,
 		minLvl = 85,
 		name = "Greater Inscription of Vicious Intellect",
 		slot = { "shoulder" },
 		source = "PVP-Vendor",
+		spell = 96249,
 	},
 	[68773] = {
 		enchID = 4249,
@@ -8226,6 +8923,7 @@ local EnchantItems = {
 		name = "Greater Inscription of Vicious Strength",
 		slot = { "shoulder" },
 		source = "PVP-Vendor",
+		spell = 96250,
 	},
 	[68774] = {
 		enchID = 4250,
@@ -8233,6 +8931,7 @@ local EnchantItems = {
 		name = "Greater Inscription of Vicious Agility",
 		slot = { "shoulder" },
 		source = "PVP-Vendor",
+		spell = 96251,
 	},
 	[68784] = {
 		name = "Enchant Bracer - Agility",
@@ -8255,11 +8954,465 @@ local EnchantItems = {
 				[true] = { "fishing pole" },
 			},
 		},
-		source = "Unavailable",
+		source = "Drop",
+		spell = 96286,
+	},
+	[74700] = {
+		name = "Enchant Bracer - Mastery",
+		spell = 104338,
+	},
+	[74701] = {
+		name = "Enchant Bracer - Major Dodge",
+		spell = 104385,
+	},
+	[74703] = {
+		name = "Enchant Bracer - Super Intellect",
+		spell = 104389,
+	},
+	[74704] = {
+		name = "Enchant Bracer - Exceptional Strength",
+		spell = 104390,
+	},
+	[74705] = {
+		name = "Enchant Bracer - Greater Agility",
+		spell = 104391,
+	},
+	[74706] = {
+		name = "Enchant Chest - Super Resilience",
+		spell = 104392,
+	},
+	[74707] = {
+		name = "Enchant Chest - Mighty Spirit",
+		spell = 104393,
+	},
+	[74708] = {
+		name = "Enchant Chest - Glorious Stats",
+		spell = 104395,
+	},
+	[74709] = {
+		name = "Enchant Chest - Superior Stamina",
+		spell = 104397,
+	},
+	[74710] = {
+		name = "Enchant Cloak - Accuracy",
+		spell = 104398,
+	},
+	[74711] = {
+		name = "Enchant Cloak - Greater Protection",
+		spell = 104401,
+	},
+	[74712] = {
+		name = "Enchant Cloak - Superior Intellect",
+		spell = 104403,
+	},
+	[74713] = {
+		name = "Enchant Cloak - Superior Critical Strike",
+		spell = 104404,
+	},
+	[74715] = {
+		name = "Enchant Boots - Greater Haste",
+		spell = 104407,
+	},
+	[74716] = {
+		name = "Enchant Boots - Greater Precision",
+		spell = 104408,
+	},
+	[74717] = {
+		name = "Enchant Boots - Blurred Speed",
+		spell = 104409,
+	},
+	[74718] = {
+		name = "Enchant Boots - Pandaren's Step",
+		spell = 104414,
+	},
+	[74719] = {
+		name = "Enchant Gloves - Greater Haste",
+		spell = 104416,
+	},
+	[74720] = {
+		name = "Enchant Gloves - Superior Expertise",
+		spell = 104417,
+	},
+	[74721] = {
+		name = "Enchant Gloves - Super Strength",
+		spell = 104419,
+	},
+	[74722] = {
+		name = "Enchant Gloves - Superior Mastery",
+		spell = 104420,
+	},
+	[74723] = {
+		name = "Enchant Weapon - Windsong",
+		spell = 104425,
+	},
+	[74724] = {
+		name = "Enchant Weapon - Jade Spirit",
+		spell = 104427,
+	},
+	[74725] = {
+		name = "Enchant Weapon - Elemental Force",
+		spell = 104430,
+	},
+	[74726] = {
+		name = "Enchant Weapon - Dancing Steel",
+		spell = 104434,
+	},
+	[74727] = {
+		name = "Enchant Weapon - Colossus",
+		spell = 104440,
+	},
+	[74728] = {
+		name = "Enchant Weapon - River's Song",
+		spell = 104442,
+	},
+	[74729] = {
+		name = "Enchant Off-Hand - Major Intellect",
+		spell = 104445,
+	},
+--[[
+	-- Probably not live
+	[77276] = {
+		name = "Enchant Weapon - Ninja",
+		spell = 108115,
+	},
+]]
+	[77529] = {
+		enchID = 4699,
+		minLvl = 85,
+		name = "Lord Blastington's Scope of Doom",
+		slot = normalRanged,
+		source = "Crafted",
+		spell = 109086,
+	},
+	[77531] = {
+		enchID = 4700,
+		minLvl = 85,
+		name = "Mirror Scope",
+		slot = normalRanged,
+		source = "Crafted",
+		spell = 109093,
+	},
+--[[
+	-- Probably not live
+	[79061] = {
+		name = "Enchant Weapon - Pandamonium",
+		spell = 110764,
+	},
+]]
+--[[
+	-- Probably not live
+	[80153] = {
+		name = "Enchant Cloak - Minor Stats",
+		slot = { "back" },
+	},
+	-- Probably not live
+	[80154] = {
+		name = "Enchant Cloak - Lesser Stats",
+		slot = { "back" },
+	},
+	-- Probably not live
+	[80155] = {
+		name = "Enchant Cloak - Stats",
+		slot = { "back" },
+	},
+	-- Probably not live
+	[80156] = {
+		name = "Enchant Cloak - Greater Stats",
+		slot = { "back" },
+	},
+	-- Probably not live
+	[80157] = {
+		name = "Enchant Cloak - Superior Stats",
+		slot = { "back" },
+	},
+	-- Probably not live
+	[80158] = {
+		name = "Enchant Shield - Lesser Stats",
+		slot = {
+			"off hand",
+			["off hand"] = {
+				[true] = { "shield" },
+			},
+		},
+	},
+	-- Probably not live
+	[80167] = {
+		name = "Enchant Shield - Stats",
+		slot = {
+			"off hand",
+			["off hand"] = {
+				[true] = { "shield" },
+			},
+		},
+	},
+]]
+	[82442] = {
+		enchID = 5004,
+		minLvl = 85,
+		name = "Pearlescent Spellthread",
+		slot = { "legs" },
+		source = "Crafted",
+		spell = 131863,
+	},
+	[82443] = {
+		enchID = 5003,
+		minLvl = 85,
+		name = "Cerulean Spellthread",
+		slot = { "legs" },
+		source = "Crafted",
+		spell = 131862,
+	},
+	[82444] = {
+		enchID = 4826,
+		minLvl = 85,
+		name = "Greater Pearlescent Spellthread",
+		slot = { "legs" },
+		source = "Crafted",
+		spell = 122393,
+	},
+	[82445] = {
+		enchID = 4825,
+		minLvl = 85,
+		name = "Greater Cerulean Spellthread",
+		slot = { "legs" },
+		source = "Crafted",
+		spell = 122392,
+	},
+--[[
+	-- Probably not live
+	[82959] = {
+		name = "Living Steel Buckle",
+		slot = { "waist" },
+	},
+]]
+	[83006] = {
+		enchID = 4803,
+		minLvl = 85,
+		name = "Greater Tiger Fang Inscription",
+		slot = { "shoulder" },
+		source = "Crafted",
+		spell = 121192,
+	},
+	[83007] = {
+		enchID = 4804,
+		minLvl = 85,
+		name = "Greater Tiger Claw Inscription",
+		slot = { "shoulder" },
+		source = "Crafted",
+		spell = 121193,
+	},
+	[83763] = {
+		enchID = 4824,
+		minLvl = 85,
+		name = "Ironscale Leg Armor",
+		slot = { "legs" },
+		source = "Crafted",
+		spell = 122386,
+	},
+	[83764] = {
+		enchID = 4822,
+		minLvl = 85,
+		name = "Shadowleather Leg Armor",
+		slot = { "legs" },
+		source = "Crafted",
+		spell = 122387,
+	},
+	[83765] = {
+		enchID = 4823,
+		minLvl = 85,
+		name = "Angerhide Leg Armor",
+		slot = { "legs" },
+		source = "Crafted",
+		spell = 122388,
+	},
+	[85559] = {
+		enchID = 4869,
+		minLvl = 85,
+		name = "Sha Armor Kit",
+		slot = { "chest", "feet", "hands", "legs", "shoulder" },
+		source = "Crafted",
+		spell = 124091,
+	},
+	[85568] = {
+		enchID = 4872,
+		minLvl = 85,
+		name = "Brutal Leg Armor",
+		slot = { "legs" },
+		source = "Crafted",
+		spell = 124119,
+	},
+	[85569] = {
+		enchID = 4871,
+		minLvl = 85,
+		name = "Sha-Touched Leg Armor",
+		slot = { "legs" },
+		source = "Crafted",
+		spell = 124118,
+	},
+	[85570] = {
+		enchID = 4870,
+		minLvl = 85,
+		name = "Toughened Leg Armor",
+		slot = { "legs" },
+		source = "Crafted",
+		spell = 124116,
+	},
+	[86597] = {
+		enchID = 4918,
+		minLvl = 81,
+		name = "Living Steel Weapon Chain",
+		slot = normalWeapon,
+		source = "Crafted",
+		spell = 128286,
+	},
+	[86599] = {
+		enchID = 5001,
+		minLvl = 85,
+		name = "Ghost Iron Shield Spike",
+		slot = {
+			"off hand",
+			["off hand"] = {
+				[true] = { "shield" },
+			},
+		},
+		source = "Crafted",
+		spell = 131464,
+	},
+	[87559] = {
+		enchID = 4806,
+		minLvl = 85,
+		name = "Greater Crane Wing Inscription",
+		slot = { "shoulder" },
+		source = "Crafted",
+		spell = 121195,
+	},
+	[87560] = {
+		enchID = 4805,
+		minLvl = 85,
+		name = "Greater Ox Horn Inscription",
+		slot = { "shoulder" },
+		source = "Crafted",
+		spell = 121194,
+	},
+	[87577] = {
+		enchID = 4910,
+		minLvl = 85,
+		name = "Ox Horn Inscription",
+		slot = { "shoulder" },
+		source = "Crafted",
+		spell = 127012,
+	},
+	[87578] = {
+		enchID = 4909,
+		minLvl = 85,
+		name = "Crane Wing Inscription",
+		slot = { "shoulder" },
+		source = "Crafted",
+		spell = 127013,
+	},
+	[87579] = {
+		enchID = 4908,
+		minLvl = 85,
+		name = "Tiger Claw Inscription",
+		slot = { "shoulder" },
+		source = "Crafted",
+		spell = 127014,
+	},
+	[87580] = {
+		enchID = 4907,
+		minLvl = 85,
+		name = "Tiger Fang Inscription",
+		slot = { "shoulder" },
+		source = "Crafted",
+		spell = 127015,
+	},
+	[87581] = {
+		enchID = 4912,
+		minLvl = 85,
+		name = "Secret Ox Horn Inscription",
+		skill = {
+			Inscription = 600,
+		},
+		slot = { "shoulder" },
+		source = "Crafted",
+		spell = 113048,
+	},
+	[87582] = {
+		enchID = 4915,
+		minLvl = 85,
+		name = "Secret Crane Wing Inscription",
+		skill = {
+			Inscription = 600,
+		},
+		slot = { "shoulder" },
+		source = "Crafted",
+		spell = 113045,
+	},
+	[87583] = {
+		enchID = 4916,
+		minLvl = 85,
+		name = "Secret Serpent Pearl Inscription",
+		skill = {
+			Inscription = 600,
+		},
+		slot = { "shoulder" },
+		source = "Crafted",
+		spell = 113044,
+	},
+	[87584] = {
+		enchID = 4914,
+		minLvl = 85,
+		name = "Secret Tiger Claw Inscription",
+		skill = {
+			Inscription = 600,
+		},
+		slot = { "shoulder" },
+		source = "Crafted",
+		spell = 113046,
+	},
+	[87585] = {
+		enchID = 4913,
+		minLvl = 85,
+		name = "Secret Tiger Fang Inscription",
+		skill = {
+			Inscription = 600,
+		},
+		slot = { "shoulder" },
+		source = "Crafted",
+		spell = 113047,
+	},
+--[[
+	-- Probably not live
+	[89717] = {
+		name = "Enchant Bracer - Exceptional Strength (Scaling)",
+		spell = 130749,
+	},
+]]
+	[89737] = {
+		name = "Enchant Shield - Greater Parry",
+		spell = 130758,
+	},
+	[90046] = {
+		enchID = 5002,
+		minLvl = 85,
+		name = "Living Steel Belt Buckle",
+		slot = { "waist" },
+		source = "Crafted",
+		spell = 131467,
 	},
 }
 
 local EnchantSpells = {
+	[2831] = "N/A",
+	[2832] = "N/A",
+	[2833] = "N/A",
+	[3974] = "N/A",
+	[3975] = "N/A",
+	[3976] = "N/A",
+	[6296] = "N/A",
+	[7216] = "N/A",
+	[7218] = "N/A",
+	[7220] = "N/A",
 	[7418] = {
 		enchID = 41,
 		name = "Enchant Bracer - Minor Health",
@@ -8393,6 +9546,11 @@ local EnchantSpells = {
 		slot = { "feet" },
 		source = "Crafted",
 	},
+	[9781] = "N/A",
+	[9783] = "N/A",
+	[10344] = "N/A",
+	[12459] = "N/A",
+	[12460] = "N/A",
 	[13378] = {
 		enchID = 66,
 		name = "Enchant Shield - Minor Stamina",
@@ -8829,6 +9987,17 @@ local EnchantSpells = {
 		slot = { "hands" },
 		source = "Crafted",
 	},
+	[15340] = "N/A",
+	[15389] = "N/A",
+	[15391] = "N/A",
+	[15394] = "N/A",
+	[15397] = "N/A",
+	[15400] = "N/A",
+	[15402] = "N/A",
+	[15404] = "N/A",
+	[15406] = "N/A",
+	[16623] = "N/A",
+	[19057] = "N/A",
 	[20008] = {
 		enchID = 1883,
 		name = "Enchant Bracer - Greater Intellect",
@@ -8992,6 +10161,13 @@ local EnchantSpells = {
 		slot = normalWeapon,
 		source = "Crafted",
 	},
+	[22593] = "N/A",
+	[22594] = "N/A",
+	[22596] = "N/A",
+	[22597] = "N/A",
+	[22598] = "N/A",
+	[22599] = "N/A",
+	[22725] = "N/A",
 	[22749] = {
 		enchID = 2504,
 		name = "Enchant Weapon - Spellpower",
@@ -9004,6 +10180,10 @@ local EnchantSpells = {
 		slot = normalWeapon,
 		source = "Crafted",
 	},
+	[22779] = "N/A",
+	[22840] = "N/A",
+	[22844] = "N/A",
+	[22846] = "N/A",
 	[23799] = {
 		enchID = 2563,
 		name = "Enchant Weapon - Strength",
@@ -9040,6 +10220,19 @@ local EnchantSpells = {
 		slot = normalWeapon,
 		source = "Crafted",
 	},
+	[24149] = "N/A",
+	[24160] = "N/A",
+	[24161] = "N/A",
+	[24162] = "N/A",
+	[24163] = "N/A",
+	[24164] = "N/A",
+	[24165] = "N/A",
+	[24167] = "N/A",
+	[24168] = "N/A",
+	[24302] = "N/A",
+	[24420] = "N/A",
+	[24421] = "N/A",
+	[24422] = "N/A",
 	[25072] = {
 		enchID = 2613,
 		name = "Enchant Gloves - Threat",
@@ -9389,6 +10582,24 @@ local EnchantSpells = {
 		slot = normalWeapon,
 		source = "Crafted",
 	},
+	[28161] = "N/A",
+	[28163] = "N/A",
+	[28165] = "N/A",
+	[29454] = "N/A",
+	[29467] = "N/A",
+	[29475] = "N/A",
+	[29480] = "N/A",
+	[29483] = "N/A",
+	[30250] = "N/A",
+	[30252] = "N/A",
+	[30260] = "N/A",
+	[31369] = "N/A",
+	[31370] = "N/A",
+	[31371] = "N/A",
+	[31372] = "N/A",
+	[32397] = "N/A",
+	[32398] = "N/A",
+	[32399] = "N/A",
 	[33990] = {
 		enchID = 1144,
 		minIlvl = 35,
@@ -9524,6 +10735,43 @@ local EnchantSpells = {
 		slot = normalWeapon,
 		source = "Crafted",
 	},
+	[35355] = "N/A",
+	[35402] = "N/A",
+	[35403] = "N/A",
+	[35404] = "N/A",
+	[35405] = "N/A",
+	[35406] = "N/A",
+	[35407] = "N/A",
+	[35415] = "N/A",
+	[35416] = "N/A",
+	[35417] = "N/A",
+	[35418] = "N/A",
+	[35419] = "N/A",
+	[35420] = "N/A",
+	[35432] = "N/A",
+	[35433] = "N/A",
+	[35434] = "N/A",
+	[35435] = "N/A",
+	[35436] = "N/A",
+	[35437] = "N/A",
+	[35438] = "N/A",
+	[35439] = "N/A",
+	[35441] = "N/A",
+	[35443] = "N/A",
+	[35445] = "N/A",
+	[35447] = "N/A",
+	[35452] = "N/A",
+	[35453] = "N/A",
+	[35454] = "N/A",
+	[35455] = "N/A",
+	[35456] = "N/A",
+	[35457] = "N/A",
+	[35458] = "N/A",
+	[35488] = "N/A",
+	[35489] = "N/A",
+	[35490] = "N/A",
+	[35495] = "N/A",
+	[37891] = "N/A",
 	[42620] = {
 		enchID = 3222,
 		minIlvl = 35,
@@ -9531,6 +10779,7 @@ local EnchantSpells = {
 		slot = normalWeapon,
 		source = "Crafted",
 	},
+	[42687] = "N/A",
 	[42974] = {
 		enchID = 3225,
 		minIlvl = 60,
@@ -9691,7 +10940,7 @@ local EnchantSpells = {
 	[44582] = {
 		enchID = 3243,
 		minIlvl = 60,
-		name = "Enchant Cloak - Spell Piercing",
+		name = "Enchant Cloak - Minor Power",
 		slot = { "back" },
 		source = "Crafted",
 	},
@@ -9846,6 +11095,9 @@ local EnchantSpells = {
 		slot = { "finger" },
 		source = "Crafted",
 	},
+	[44769] = "N/A",
+	[44968] = "N/A",
+	[45697] = "N/A",
 	[46578] = {
 		enchID = 3273,
 		minIlvl = 60,
@@ -9870,7 +11122,7 @@ local EnchantSpells = {
 	[47672] = {
 		enchID = 3294,
 		minIlvl = 60,
-		name = "Enchant Cloak - Mighty Armor",
+		name = "Enchant Cloak - Mighty Stamina",
 		slot = { "back" },
 		source = "Crafted",
 	},
@@ -9909,6 +11161,10 @@ local EnchantSpells = {
 		slot = { "feet" },
 		source = "Crafted",
 	},
+	[50901] = "N/A",
+	[50902] = "N/A",
+	[50906] = "N/A",
+	[50909] = "N/A",
 	[53323] = {
 		class = "DEATHKNIGHT",
 		enchID = 3365,
@@ -9983,6 +11239,12 @@ local EnchantSpells = {
 		},
 		source = "Crafted",
 	},
+	[55076] = "N/A",
+	[55135] = "N/A",
+	[55630] = "N/A",
+	[55631] = "N/A",
+	[55632] = "N/A",
+	[55634] = "N/A",
 	[55642] = {
 		enchID = 3722,
 		name = "Lightweave Embroidery",
@@ -9992,6 +11254,7 @@ local EnchantSpells = {
 		slot = { "back" },
 		source = "Crafted",
 	},
+	[55655] = "N/A",
 	[55769] = {
 		enchID = 3728,
 		name = "Darkglow Embroidery",
@@ -10010,6 +11273,7 @@ local EnchantSpells = {
 		slot = { "back" },
 		source = "Crafted",
 	},
+	[55836] = "N/A",
 	[56034] = {
 		enchID = 3873,
 		name = "Master's Spellthread",
@@ -10028,6 +11292,7 @@ local EnchantSpells = {
 		slot = { "legs" },
 		source = "Crafted",
 	},
+	[56353] = "N/A",
 	[57683] = {
 		enchID = 3756,
 		name = "Fur Lining - Attack Power",
@@ -10130,6 +11395,29 @@ local EnchantSpells = {
 		slot = { "finger" },
 		source = "Crafted",
 	},
+	[59771] = "N/A",
+	[59773] = "N/A",
+	[59777] = "N/A",
+	[59784] = "N/A",
+	[59927] = "N/A",
+	[59928] = "N/A",
+	[59929] = "N/A",
+	[59932] = "N/A",
+	[59934] = "N/A",
+	[59936] = "N/A",
+	[59937] = "N/A",
+	[59941] = "N/A",
+	[59944] = "N/A",
+	[59945] = "N/A",
+	[59946] = "N/A",
+	[59947] = "N/A",
+	[59948] = "N/A",
+	[59954] = "N/A",
+	[59955] = "N/A",
+	[59960] = "N/A",
+	[59970] = "N/A",
+	[60581] = "N/A",
+	[60582] = "N/A",
 	[60583] = {
 		enchID = 3327,
 		name = "Jormungar Leg Reinforcements",
@@ -10183,6 +11471,8 @@ local EnchantSpells = {
 		slot = { "feet" },
 		source = "Crafted",
 	},
+--[[
+	-- No longer available
 	[60653] = {
 		enchID = 1128,
 		minIlvl = 60,
@@ -10195,6 +11485,7 @@ local EnchantSpells = {
 		},
 		source = "Crafted",
 	},
+]]
 	[60663] = {
 		enchID = 1099,
 		minIlvl = 60,
@@ -10287,6 +11578,8 @@ local EnchantSpells = {
 		slot = { "shoulder" },
 		source = "Crafted",
 	},
+	[61271] = "N/A",
+	[61468] = "N/A",
 	[62158] = {
 		class = "DEATHKNIGHT",
 		enchID = 3847,
@@ -10295,6 +11588,7 @@ local EnchantSpells = {
 		slot = normalTwoHand,
 		source = "Crafted",
 	},
+	[62201] = "N/A",
 	[62256] = {
 		enchID = 3850,
 		minIlvl = 60,
@@ -10302,6 +11596,8 @@ local EnchantSpells = {
 		slot = { "wrist" },
 		source = "Crafted",
 	},
+	[62384] = "N/A",
+	[62447] = "N/A",
 	[62948] = {
 		enchID = 3854,
 		minIlvl = 60,
@@ -10389,7 +11685,7 @@ local EnchantSpells = {
 	[74192] = {
 		enchID = 4064,
 		minIlvl = 300,
-		name = "Enchant Cloak - Greater Spell Piercing",
+		name = "Enchant Cloak - Lesser Power",
 		slot = { "back" },
 		source = "Crafted",
 	},
@@ -10725,6 +12021,10 @@ local EnchantSpells = {
 		slot = { "wrist" },
 		source = "Crafted",
 	},
+	[75149] = "N/A",
+	[75150] = "N/A",
+	[75151] = "N/A",
+	[75152] = "N/A",
 	[75154] = {
 		enchID = 4113,
 		name = "Master's Spellthread",
@@ -10770,6 +12070,16 @@ local EnchantSpells = {
 		slot = { "back" },
 		source = "Crafted",
 	},
+	[76168] = "N/A",
+	[78165] = "N/A",
+	[78166] = "N/A",
+	[78169] = "N/A",
+	[78170] = "N/A",
+	[78171] = "N/A",
+	[78172] = "N/A",
+	[81932] = "N/A",
+	[81933] = "N/A",
+	[81934] = "N/A",
 	[85007] = {
 		enchID = 4189,
 		name = "Draconic Embossment - Stamina",
@@ -10860,6 +12170,21 @@ local EnchantSpells = {
 		slot = { "shoulder" },
 		source = "Crafted",
 	},
+	[86847] = "N/A",
+	[86854] = "N/A",
+	[86898] = "N/A",
+	[86899] = "N/A",
+	[86900] = "N/A",
+	[86901] = "N/A",
+	[86907] = "N/A",
+	[86909] = "N/A",
+	[86931] = "N/A",
+	[86932] = "N/A",
+	[86933] = "N/A",
+	[86934] = "N/A",
+	[92433] = "N/A",
+	[92437] = "N/A",
+	[93448] = "N/A",
 	[95471] = {
 		enchID = 4227,
 		minIlvl = 300,
@@ -10867,6 +12192,9 @@ local EnchantSpells = {
 		slot = normalTwoHand,
 		source = "Crafted",
 	},
+	[96249] = "N/A",
+	[96250] = "N/A",
+	[96251] = "N/A",
 	[96261] = {
 		enchID = 4256,
 		minIlvl = 300,
@@ -10888,6 +12216,250 @@ local EnchantSpells = {
 		slot = { "wrist" },
 		source = "Crafted",
 	},
+	[96286] = "N/A",
+	[104338] = {
+		enchID = 4411,
+		minIlvl = 372,
+		name = "Enchant Bracer - Mastery",
+		slot = { "wrist" },
+		source = "Crafted",
+	},
+	[104385] = {
+		enchID = 4412,
+		minIlvl = 372,
+		name = "Enchant Bracer - Major Dodge",
+		slot = { "wrist" },
+		source = "Crafted",
+	},
+	[104389] = {
+		enchID = 4414,
+		minIlvl = 372,
+		name = "Enchant Bracer - Super Intellect",
+		slot = { "wrist" },
+		source = "Crafted",
+	},
+	[104390] = {
+		enchID = 4415,
+		minIlvl = 372,
+		name = "Enchant Bracer - Exceptional Strength",
+		slot = { "wrist" },
+		source = "Crafted",
+	},
+	[104391] = {
+		enchID = 4416,
+		minIlvl = 372,
+		name = "Enchant Bracer - Greater Agility",
+		slot = { "wrist" },
+		source = "Crafted",
+	},
+	[104392] = {
+		enchID = 4417,
+		minIlvl = 372,
+		name = "Enchant Chest - Super Resilience",
+		slot = { "chest" },
+		source = "Crafted",
+	},
+	[104393] = {
+		enchID = 4418,
+		minIlvl = 372,
+		name = "Enchant Chest - Mighty Spirit",
+		slot = { "chest" },
+		source = "Crafted",
+	},
+	[104395] = {
+		enchID = 4419,
+		minIlvl = 372,
+		name = "Enchant Chest - Glorious Stats",
+		slot = { "chest" },
+		source = "Crafted",
+	},
+	[104397] = {
+		enchID = 4420,
+		minIlvl = 372,
+		name = "Enchant Chest - Superior Stamina",
+		slot = { "chest" },
+		source = "Crafted",
+	},
+	[104398] = {
+		enchID = 4421,
+		minIlvl = 372,
+		name = "Enchant Cloak - Accuracy",
+		slot = { "back" },
+		source = "Crafted",
+	},
+	[104401] = {
+		enchID = 4422,
+		minIlvl = 372,
+		name = "Enchant Cloak - Greater Protection",
+		slot = { "back" },
+		source = "Crafted",
+	},
+	[104403] = {
+		enchID = 4423,
+		minIlvl = 372,
+		name = "Enchant Cloak - Superior Intellect",
+		slot = { "back" },
+		source = "Crafted",
+	},
+	[104404] = {
+		enchID = 4424,
+		minIlvl = 372,
+		name = "Enchant Cloak - Superior Critical Strike",
+		slot = { "back" },
+		source = "Crafted",
+	},
+	[104407] = {
+		enchID = 4426,
+		minIlvl = 372,
+		name = "Enchant Boots - Greater Haste",
+		slot = { "feet" },
+		source = "Crafted",
+	},
+	[104408] = {
+		enchID = 4427,
+		minIlvl = 372,
+		name = "Enchant Boots - Greater Precision",
+		slot = { "feet" },
+		source = "Crafted",
+	},
+	[104409] = {
+		enchID = 4428,
+		minIlvl = 372,
+		name = "Enchant Boots - Blurred Speed",
+		slot = { "feet" },
+		source = "Crafted",
+	},
+	[104414] = {
+		enchID = 4429,
+		minIlvl = 372,
+		name = "Enchant Boots - Pandaren's Step",
+		slot = { "feet" },
+		source = "Crafted",
+	},
+	[104416] = {
+		enchID = 4430,
+		minIlvl = 372,
+		name = "Enchant Gloves - Greater Haste",
+		slot = { "hands" },
+		source = "Crafted",
+	},
+	[104417] = {
+		enchID = 4431,
+		minIlvl = 372,
+		name = "Enchant Gloves - Superior Expertise",
+		slot = { "hands" },
+		source = "Crafted",
+	},
+	[104419] = {
+		enchID = 4432,
+		minIlvl = 372,
+		name = "Enchant Gloves - Super Strength",
+		slot = { "hands" },
+		source = "Crafted",
+	},
+	[104420] = {
+		enchID = 4433,
+		minIlvl = 372,
+		name = "Enchant Gloves - Superior Mastery",
+		slot = { "hands" },
+		source = "Crafted",
+	},
+	[104425] = {
+		enchID = 4441,
+		minIlvl = 372,
+		name = "Enchant Weapon - Windsong",
+		slot = normalWeapon,
+		source = "Crafted",
+	},
+	[104427] = {
+		enchID = 4442,
+		minIlvl = 372,
+		name = "Enchant Weapon - Jade Spirit",
+		slot = normalWeapon,
+		source = "Crafted",
+	},
+	[104430] = {
+		enchID = 4443,
+		minIlvl = 372,
+		name = "Enchant Weapon - Elemental Force",
+		slot = normalWeapon,
+		source = "Crafted",
+	},
+	[104434] = {
+		enchID = 4444,
+		minIlvl = 372,
+		name = "Enchant Weapon - Dancing Steel",
+		slot = normalWeapon,
+		source = "Crafted",
+	},
+	[104440] = {
+		enchID = 4445,
+		minIlvl = 372,
+		name = "Enchant Weapon - Colossus",
+		slot = normalWeapon,
+		source = "Crafted",
+	},
+	[104442] = {
+		enchID = 4446,
+		minIlvl = 372,
+		name = "Enchant Weapon - River's Song",
+		slot = normalWeapon,
+		source = "Crafted",
+	},
+	[104445] = {
+		enchID = 4434,
+		minIlvl = 372,
+		name = "Enchant Off-Hand - Major Intellect",
+		slot = {
+			"held in off-hand",
+			"off hand",
+			["off hand"] = {
+				[true] = { "shield" },
+			},
+		},
+		source = "Crafted",
+	},
+	[109086] = "N/A",
+	[109093] = "N/A",
+	[113044] = "N/A",
+	[113045] = "N/A",
+	[113046] = "N/A",
+	[113047] = "N/A",
+	[113048] = "N/A",
+	[121192] = "N/A",
+	[121193] = "N/A",
+	[121194] = "N/A",
+	[121195] = "N/A",
+	[122386] = "N/A",
+	[122387] = "N/A",
+	[122388] = "N/A",
+	[122392] = "N/A",
+	[122393] = "N/A",
+	[124091] = "N/A",
+	[124116] = "N/A",
+	[124118] = "N/A",
+	[124119] = "N/A",
+	[127012] = "N/A",
+	[127013] = "N/A",
+	[127014] = "N/A",
+	[127015] = "N/A",
+	[128286] = "N/A",
+	[130758] = {
+		enchID = 4993,
+		minIlvl = 417,
+		name = "Enchant Shield - Greater Parry",
+		slot = {
+			"off hand",
+			["off hand"] = {
+				[true] = { "shield" },
+			},
+		},
+		source = "Crafted",
+	},
+	[131464] = "N/A",
+	[131467] = "N/A",
+	[131862] = "N/A",
+	[131863] = "N/A",
 }
 
 local EnchantOptions = {}
@@ -11002,7 +12574,7 @@ for item, info in pairs(EnchantItems) do
 end
 
 for item, info in pairs(EnchantSpells) do
-	if info.source ~= "Unavailable" and info.source ~= "Crafted (undetectable)" then
+	if info.source and info.source ~= "Unavailable" and info.source ~= "Crafted (undetectable)" then
 		local class = info.class or "all"
 		if not EnchantOptions[class] then
 			EnchantOptions[class] = {}
