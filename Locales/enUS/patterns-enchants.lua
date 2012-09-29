@@ -48,6 +48,7 @@ local EnchantPreprocessLines = {
 	{" from all attacks and spells ", " caused "},
 	{" reduce threat slightly ", " 2%% reduced threat "},
 	{" a minor movement speed ", " minor run speed "},
+	{" movement speed by 8%%", " minor run speed increase"},
 	{" reducing the duration of disarm effects by ", " disarm duration reduced by "},
 	-- item 22023
 	{" to add (%d+) to ", " +%1 "},
@@ -61,6 +62,8 @@ local EnchantPreprocessLines = {
 	{" (attaches a mithril spike to your shield that deals) damage ", " %1 16 to 20 damage "},
 	-- item 12645
 	{" (attaches a thorium spike to your shield that deals) damage ", " %1 20 to 30 damage "},
+	-- items 38813 and 38814
+	{" a melee weapon to increase damage to ", " melee damage to "},
 }
 
 local EnchantAffixes = {
@@ -78,6 +81,7 @@ local EnchantAffixes = {
 	"weapon to increase its +",
 	"^spurs to your +",
 
+	"^pair of +",
 	"^boots +",
 	"^bracers? +",
 	"^cloak +",
@@ -93,8 +97,10 @@ local EnchantAffixes = {
 	"^ring +",
 	"^shoulder slot item +",
 	"^or held item +",
+	"^or off%-hand item +",
 
-	"^%a+ l?e?g? ?armor onto pants +",
+	"^%a+ l?e?g? ?armor +",
+	"^onto pants +",
 	"^embroiders spellthread into pants, +",
 	"lightweight titanium plating to a shield, +",
 
@@ -131,14 +137,15 @@ local EnchantAffixes = {
 	" +only the enchanter's rings can be enchanted,? and enchanting a ring will cause it to become soulbound%.$",
 	" +fur lining requires at least %d+ skill in leatherworking to remain active%.$",
 	"[\r\n]+can only be used on the leatherworker's bracers, and doing so will cause them to become soulbound%.$",
-	-- TODO: flag this somehow and handle it in scoring
+	-- TODO: flag these somehow and handle it in scoring
 	" +does not stack with other similar effects%.",
+	" +does not stack with other passive movement speed bonuses%.",
 	" +does not stack with other enchantments for the selected equipment slot%.",
 	"[\r\n]+wearer must be level %d+ or higher to receive the benefits of this armor kit%.$",
 
 	" +with it%.$",
 
-	"^%a+ belt buckle onto a belt, adding a +",
+	"^%a+ ?%a* belt buckle onto a belt, adding a +",
 	" +to the belt%.$",
 	" +to shoulder armor%.$",
 	" +t?o[fn]? any? item worn on the %a[%a ,]+ or %a+",

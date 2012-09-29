@@ -282,6 +282,21 @@ ww_MultipleStatLines = {
 		end,
 		{"enchant"},
 	},
+	-- item 38960
+	{"^(%a+), (%a+), and (%a+) skills by (%d+)$",
+		function(text, pattern)
+			local start, _, stat1, stat2, stat3, value = string.find(text, pattern)
+			if start then
+				value = tonumber(value)
+				local stats = WeightsWatcher.newStatTable()
+				stats[stat1] = value
+				stats[stat2] = value
+				stats[stat3] = value
+				return stats
+			end
+		end,
+		{"enchant"},
+	},
 	{"^chance to resist (%a+) and (%a+) effects by (%d+)%%$",
 		function(text, pattern)
 			local start, _, effect1, effect2, value = string.find(text, pattern)
@@ -362,7 +377,6 @@ ww_SingleStatLines = {
 		end,
 		{"enchant", "equipEffect", "generic"},
 	},
-	{"^([+-]?%d+) (ranged attack power)$", WeightsWatcher.statNumFirst, {"equipEffect", "generic"}},
 	{"^([+-]?%d+) (health)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "useEffect"}},
 	{"^(%d+) to (%d+) (health)$", WeightsWatcher.statRangeFirst, {"cooldownUseEffect", "elixir", "enchant", "useEffect"}},
 	{"^(fishing) by ([+-]?%d+)$", WeightsWatcher.statNameFirst, {"enchant", "fishing"}},
@@ -392,6 +406,7 @@ ww_SingleStatLines = {
 		end,
 		{"enchant"},
 	},
+	{"^([+-]?%d+) (ranged %a+ ?%a+)$", WeightsWatcher.statNumFirst, {"enchant", "equipEffect", "generic"}},
 	{"^effective stealth level by (%d+)$",
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "increased stealth")
