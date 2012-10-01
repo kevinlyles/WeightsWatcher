@@ -224,7 +224,6 @@ local function loadGeneralInfo()
 	WeightsWatcher.player.class = class
 
 	local slotList = {
-		"AmmoSlot",
 		"BackSlot",
 		"ChestSlot",
 		"FeetSlot",
@@ -635,9 +634,7 @@ local slotConversion = {
 	[ww_localizedSlotNames["off hand"]] = {"MainHandSlot", "SecondaryHandSlot"},
 	[ww_localizedSlotNames["one-hand"]] = {"MainHandSlot", "SecondaryHandSlot"},
 	[ww_localizedSlotNames["two-hand"]] = {"MainHandSlot", "SecondaryHandSlot"},
-	[ww_localizedSlotNames["relic"]] = "RangedSlot",
-	[ww_localizedSlotNames["ranged"]] = "RangedSlot",
-	[ww_localizedSlotNames["thrown"]] = "RangedSlot",
+	[ww_localizedSlotNames["ranged"]] = {"MainHandSlot", "SecondaryHandSlot"},
 	[ww_localizedSlotNames["projectile"]] = "AmmoSlot",
 	[ww_localizedSlotNames["neck"]] = "NeckSlot",
 	[ww_localizedSlotNames["back"]] = "BackSlot",
