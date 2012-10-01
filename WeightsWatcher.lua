@@ -559,13 +559,25 @@ local function determineCompareMethod(currentSlot, compareSlot, compareSlot2, cu
 
 	-- ranged weapons are two-handers now
 	if currentSlot == ww_localizedSlotNames["ranged"] then
-		currentSlot = ww_localizedSlotNames["two-hand"]
+		if currentSubslot == ww_localizedSlotNames["wand"] then
+			currentSlot = ww_localizedSlotNames["main hand"]
+		else
+			currentSlot = ww_localizedSlotNames["two-hand"]
+		end
 	end
 	if compareSlot == ww_localizedSlotNames["ranged"] then
-		compareSlot = ww_localizedSlotNames["two-hand"]
+		if compareSubslot == ww_localizedSlotNames["wand"] then
+			compareSlot = ww_localizedSlotNames["main hand"]
+		else
+			compareSlot = ww_localizedSlotNames["two-hand"]
+		end
 	end
 	if compareSlot2 == ww_localizedSlotNames["ranged"] then
-		compareSlot2 = ww_localizedSlotNames["two-hand"]
+		if compareSubslot2 == ww_localizedSlotNames["wand"] then
+			compareSlot2 = ww_localizedSlotNames["main hand"]
+		else
+			compareSlot2 = ww_localizedSlotNames["two-hand"]
+		end
 	end
 
 	if currentSlot == ww_localizedSlotNames["two-hand"] then
