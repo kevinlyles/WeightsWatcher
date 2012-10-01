@@ -3333,7 +3333,7 @@ local EnchantIDs = {
 	},
 	[3722] = {
 		name = {
-			back = "Lightweave Embroidery",
+			back = "Lightweave Embroidery (Rank 1)",
 		},
 		spellID = { 55642 },
 		stats = {
@@ -3342,7 +3342,7 @@ local EnchantIDs = {
 	},
 	[3728] = {
 		name = {
-			back = "Darkglow Embroidery",
+			back = "Darkglow Embroidery (Rank 1)",
 		},
 		spellID = { 55769 },
 		stats = {
@@ -3360,7 +3360,7 @@ local EnchantIDs = {
 	},
 	[3730] = {
 		name = {
-			back = "Swordguard Embroidery",
+			back = "Swordguard Embroidery (Rank 1)",
 		},
 		spellID = { 55777 },
 		stats = {
@@ -3409,6 +3409,8 @@ local EnchantIDs = {
 			dodge = 12,
 		},
 	},
+--[[
+	-- No longer available
 	[3756] = {
 		name = {
 			wrist = "Fur Lining - Attack Power",
@@ -3418,9 +3420,10 @@ local EnchantIDs = {
 			["attack power"] = 130,
 		},
 	},
+]]
 	[3757] = {
 		name = {
-			wrist = "Fur Lining - Stamina",
+			wrist = "Fur Lining - Stamina (Rank 1)",
 		},
 		spellID = { 57690 },
 		stats = {
@@ -3429,7 +3432,7 @@ local EnchantIDs = {
 	},
 	[3758] = {
 		name = {
-			wrist = "Fur Lining - Spell Power",
+			wrist = "Fur Lining - Intellect (Rank 1)",
 		},
 		spellID = { 57691 },
 		stats = {
@@ -4070,7 +4073,7 @@ local EnchantIDs = {
 	},
 	[3872] = {
 		name = {
-			legs = "Sanctified Spellthread",
+			legs = "Sanctified Spellthread (Rank 1)",
 		},
 		spellID = { 56039 },
 		stats = {
@@ -4080,7 +4083,7 @@ local EnchantIDs = {
 	},
 	[3873] = {
 		name = {
-			legs = "Master's Spellthread",
+			legs = "Master's Spellthread (Rank 1)",
 		},
 		spellID = { 56034 },
 		stats = {
@@ -4640,7 +4643,7 @@ local EnchantIDs = {
 	},
 	[4113] = {
 		name = {
-			legs = "Master's Spellthread",
+			legs = "Master's Spellthread (Rank 2)",
 		},
 		spellID = { 75154 },
 		stats = {
@@ -4650,7 +4653,7 @@ local EnchantIDs = {
 	},
 	[4114] = {
 		name = {
-			legs = "Sanctified Spellthread",
+			legs = "Sanctified Spellthread (Rank 2)",
 		},
 		spellID = { 75155 },
 		stats = {
@@ -4660,7 +4663,7 @@ local EnchantIDs = {
 	},
 	[4115] = {
 		name = {
-			back = "Lightweave Embroidery",
+			back = "Lightweave Embroidery (Rank 2)",
 		},
 		spellID = { 75172 },
 		stats = {
@@ -4670,7 +4673,7 @@ local EnchantIDs = {
 	},
 	[4116] = {
 		name = {
-			back = "Darkglow Ebroidery",
+			back = "Darkglow Embroidery (Rank 2)",
 		},
 		spellID = { 75175 },
 		stats = {
@@ -4680,7 +4683,7 @@ local EnchantIDs = {
 	},
 	[4118] = {
 		name = {
-			back = "Swordguard Embroidery",
+			back = "Swordguard Embroidery (Rank 2)",
 		},
 		spellID = { 75178 },
 		stats = {
@@ -4787,7 +4790,7 @@ local EnchantIDs = {
 	},
 	[4189] = {
 		name = {
-			wrist = "Draconic Embossment - Stamina",
+			wrist = "Fur Lining - Stamina (Rank 2)",
 		},
 		spellID = { 85007 },
 		stats = {
@@ -4796,7 +4799,7 @@ local EnchantIDs = {
 	},
 	[4190] = {
 		name = {
-			wrist = "Draconic Embossment - Agility",
+			wrist = "Fur Lining - Agility (Rank 2)",
 		},
 		spellID = { 85008 },
 		stats = {
@@ -4805,7 +4808,7 @@ local EnchantIDs = {
 	},
 	[4191] = {
 		name = {
-			wrist = "Draconic Embossment - Strength",
+			wrist = "Fur Lining - Strength (Rank 2)",
 		},
 		spellID = { 85009 },
 		stats = {
@@ -4814,7 +4817,7 @@ local EnchantIDs = {
 	},
 	[4192] = {
 		name = {
-			wrist = "Draconic Embossment - Intellect",
+			wrist = "Fur Lining - Intellect (Rank 2)",
 		},
 		spellID = { 85010 },
 		stats = {
@@ -5130,6 +5133,33 @@ local EnchantIDs = {
 			fishing = 1,
 		},
 	},
+	[4359] = {
+		name = {
+			finger = "Enchant Ring - Greater Agility",
+		},
+		spellID = { 103461 },
+		stats = {
+			agility = 160,
+		},
+	},
+	[4360] = {
+		name = {
+			finger = "Enchant Ring - Greater Intellect",
+		},
+		spellID = { 103462 },
+		stats = {
+			intellect = 160,
+		},
+	},
+	[4361] = {
+		name = {
+			finger = "Enchant Ring - Greater Stamina",
+		},
+		spellID = { 103463 },
+		stats = {
+			stamina = 160,
+		},
+	},
 	[4411] = {
 		itemID = { 74700 },
 		name = {
@@ -5413,6 +5443,24 @@ local EnchantIDs = {
 			["river's song"] = 1,
 		},
 	},
+	[4697] = {
+		name = {
+			hands = "Phase Fingers",
+		},
+		spellID = { 108789 },
+		stats = {
+			["phase fingers"] = 1,
+		},
+	},
+	[4698] = {
+		name = {
+			hands = "Incendiary Fireworks Launcher",
+		},
+		spellID = { 109077 },
+		stats = {
+			["incendiary fireworks launcher"] = 1,
+		},
+	},
 	[4699] = {
 		itemID = { 77529 },
 		name = {
@@ -5469,6 +5517,15 @@ local EnchantIDs = {
 		stats = {
 			["critical strike"] = 100,
 			intellect = 200,
+		},
+	},
+	[4807] = {
+		name = {
+			finger = "Enchant Ring - Greater Strength",
+		},
+		spellID = { 103465 },
+		stats = {
+			strength = 160,
 		},
 	},
 	[4822] = {
@@ -5562,6 +5619,216 @@ local EnchantIDs = {
 		stats = {
 			["critical strike"] = 100,
 			strength = 170,
+		},
+	},
+	[4873] = {
+		name = {
+			wrist = "Fur Lining - Agility (Rank 1)",
+		},
+		spellID = { 57683 },
+		stats = {
+			agility = 57,
+		},
+	},
+	[4874] = {
+		name = {
+			wrist = "Fur Lining - Strength (Rank 1)",
+		},
+		spellID = { 124549 },
+		stats = {
+			strength = 57,
+		},
+	},
+	[4875] = {
+		name = {
+			wrist = "Fur Lining - Agility (Rank 3)",
+		},
+		spellID = { 124551 },
+		stats = {
+			agility = 500,
+		},
+	},
+	[4877] = {
+		name = {
+			wrist = "Fur Lining - Intellect (Rank 3)",
+		},
+		spellID = { 124552 },
+		stats = {
+			intellect = 500,
+		},
+	},
+	[4878] = {
+		name = {
+			wrist = "Fur Lining - Stamina (Rank 3)",
+		},
+		spellID = { 124553 },
+		stats = {
+			stamina = 750,
+		},
+	},
+	[4879] = {
+		name = {
+			wrist = "Fur Lining - Strength (Rank 3)",
+		},
+		spellID = { 124554 },
+		stats = {
+			strength = 500,
+		},
+	},
+	[4880] = {
+		name = {
+			legs = "Primal Leg Reinforcements (Rank 3)",
+		},
+		spellID = { 124559 },
+		stats = {
+			agility = 285,
+			["critical strike"] = 165,
+		},
+	},
+	[4881] = {
+		name = {
+			legs = "Draconic Leg Reinforcements (Rank 3)",
+		},
+		spellID = { 124561 },
+		stats = {
+			["critical strike"] = 165,
+			strength = 285,
+		},
+	},
+	[4882] = {
+		name = {
+			legs = "Heavy Leg Reinforcements (Rank 3)",
+		},
+		spellID = { 124563 },
+		stats = {
+			dodge = 165,
+			stamina = 430,
+		},
+	},
+	[4883] = {
+		name = {
+			legs = "Primal Leg Reinforcements (Rank 2)",
+		},
+		spellID = { 124564 },
+		stats = {
+			agility = 95,
+			["critical strike"] = 55,
+		},
+	},
+	[4884] = {
+		name = {
+			legs = "Heavy Leg Reinforcements (Rank 2)",
+		},
+		spellID = { 124565 },
+		stats = {
+			dodge = 55,
+			stamina = 143,
+		},
+	},
+	[4885] = {
+		name = {
+			legs = "Draconic Leg Reinforcements (Rank 2)",
+		},
+		spellID = { 124566 },
+		stats = {
+			["critical strike"] = 55,
+			strength = 95,
+		},
+	},
+	[4886] = {
+		name = {
+			legs = "Primal Leg Reinforcements (Rank 1)",
+		},
+		spellID = { 124567 },
+		stats = {
+			agility = 37,
+			["critical strike"] = 22,
+		},
+	},
+	[4887] = {
+		name = {
+			legs = "Heavy Leg Reinforcements (Rank 1)",
+		},
+		spellID = { 124568 },
+		stats = {
+			dodge = 22,
+			stamina = 55,
+		},
+	},
+	[4888] = {
+		name = {
+			legs = "Draconic Leg Reinforcements (Rank 1)",
+		},
+		spellID = { 124569 },
+		stats = {
+			["critical strike"] = 22,
+			strength = 37,
+		},
+	},
+	[4892] = {
+		name = {
+			back = "Lightweave Embroidery (Rank 3)",
+		},
+		spellID = { 125481 },
+		stats = {
+			["lightweave embroidery"] = 3,
+		},
+	},
+	[4893] = {
+		name = {
+			back = "Darkglow Embroidery (Rank 3)",
+		},
+		spellID = { 125482 },
+		stats = {
+			["darkglow embroidery"] = 3,
+		},
+	},
+	[4894] = {
+		name = {
+			back = "Swordguard Embroidery (Rank 3)",
+		},
+		spellID = { 125483 },
+		stats = {
+			["swordguard embroidery"] = 3,
+		},
+	},
+	[4895] = {
+		name = {
+			legs = "Master's Spellthread (Rank 3)",
+		},
+		spellID = { 125496 },
+		stats = {
+			["critical strike"] = 165,
+			intellect = 285,
+		},
+	},
+	[4896] = {
+		name = {
+			legs = "Sanctified Spellthread (Rank 3)",
+		},
+		spellID = { 125497 },
+		stats = {
+			intellect = 285,
+			spirit = 165,
+		},
+	},
+	[4897] = {
+		name = {
+			back = "Goblin Glider",
+		},
+		spellID = { 126392 },
+		stats = {
+			["goblin glider"] = 1,
+		},
+	},
+	[4898] = {
+		name = {
+			hands = "Synapse Springs",
+		},
+		spellID = { 126731 },
+		-- TODO: handle this better (find highest primary stat)
+		stats = {
+			["synapse springs"] = 1,
 		},
 	},
 	[4907] = {
@@ -5672,6 +5939,15 @@ local EnchantIDs = {
 		spellID = { 130758 },
 		stats = {
 			parry = 170,
+		},
+	},
+	[5000] = {
+		name = {
+			waist = "Watergliding Jets",
+		},
+		spellID = { 109099 },
+		stats = {
+			["watergliding jets"] = 1,
 		},
 	},
 	[5001] = {
@@ -11247,7 +11523,7 @@ local EnchantSpells = {
 	[55634] = "N/A",
 	[55642] = {
 		enchID = 3722,
-		name = "Lightweave Embroidery",
+		name = "Lightweave Embroidery (Rank 1)",
 		skill = {
 			Tailoring = 420,
 		},
@@ -11257,7 +11533,7 @@ local EnchantSpells = {
 	[55655] = "N/A",
 	[55769] = {
 		enchID = 3728,
-		name = "Darkglow Embroidery",
+		name = "Darkglow Embroidery (Rank 1)",
 		skill = {
 			Tailoring = 420,
 		},
@@ -11266,7 +11542,7 @@ local EnchantSpells = {
 	},
 	[55777] = {
 		enchID = 3730,
-		name = "Swordguard Embroidery",
+		name = "Swordguard Embroidery (Rank 1)",
 		skill = {
 			Tailoring = 420,
 		},
@@ -11276,7 +11552,7 @@ local EnchantSpells = {
 	[55836] = "N/A",
 	[56034] = {
 		enchID = 3873,
-		name = "Master's Spellthread",
+		name = "Master's Spellthread (Rank 1)",
 		skill = {
 			Tailoring = 405,
 		},
@@ -11285,7 +11561,7 @@ local EnchantSpells = {
 	},
 	[56039] = {
 		enchID = 3872,
-		name = "Sanctified Spellthread",
+		name = "Sanctified Spellthread (Rank 1)",
 		skill = {
 			Tailoring = 405,
 		},
@@ -11294,8 +11570,8 @@ local EnchantSpells = {
 	},
 	[56353] = "N/A",
 	[57683] = {
-		enchID = 3756,
-		name = "Fur Lining - Attack Power",
+		enchID = 4873,
+		name = "Fur Lining - Agility (Rank 1)",
 		skill = {
 			Leatherworking = 400,
 		},
@@ -11304,7 +11580,7 @@ local EnchantSpells = {
 	},
 	[57690] = {
 		enchID = 3757,
-		name = "Fur Lining - Stamina",
+		name = "Fur Lining - Stamina (Rank 1)",
 		skill = {
 			Leatherworking = 400,
 		},
@@ -11313,7 +11589,7 @@ local EnchantSpells = {
 	},
 	[57691] = {
 		enchID = 3758,
-		name = "Fur Lining - Spell Power",
+		name = "Fur Lining - Intellect (Rank 1)",
 		skill = {
 			Leatherworking = 400,
 		},
@@ -12027,25 +12303,25 @@ local EnchantSpells = {
 	[75152] = "N/A",
 	[75154] = {
 		enchID = 4113,
-		name = "Master's Spellthread",
+		name = "Master's Spellthread (Rank 2)",
 		skill = {
-			Tailoring = 475,
+			Tailoring = 500,
 		},
 		slot = { "legs" },
 		source = "Crafted",
 	},
 	[75155] = {
 		enchID = 4114,
-		name = "Sanctified Spellthread",
+		name = "Sanctified Spellthread (Rank 2)",
 		skill = {
-			Tailoring = 475,
+			Tailoring = 500,
 		},
 		slot = { "legs" },
 		source = "Crafted",
 	},
 	[75172] = {
 		enchID = 4115,
-		name = "Lightweave Embroidery",
+		name = "Lightweave Embroidery (Rank 2)",
 		skill = {
 			Tailoring = 500,
 		},
@@ -12054,7 +12330,7 @@ local EnchantSpells = {
 	},
 	[75175] = {
 		enchID = 4116,
-		name = "Darkglow Ebroidery",
+		name = "Darkglow Embroidery (Rank 2)",
 		skill = {
 			Tailoring = 500,
 		},
@@ -12063,7 +12339,7 @@ local EnchantSpells = {
 	},
 	[75178] = {
 		enchID = 4118,
-		name = "Swordguard Embroidery",
+		name = "Swordguard Embroidery (Rank 2)",
 		skill = {
 			Tailoring = 500,
 		},
@@ -12082,7 +12358,7 @@ local EnchantSpells = {
 	[81934] = "N/A",
 	[85007] = {
 		enchID = 4189,
-		name = "Draconic Embossment - Stamina",
+		name = "Fur Lining - Stamina (Rank 2)",
 		skill = {
 			Leatherworking = 500,
 		},
@@ -12091,7 +12367,7 @@ local EnchantSpells = {
 	},
 	[85008] = {
 		enchID = 4190,
-		name = "Draconic Embossment - Agility",
+		name = "Fur Lining - Agility (Rank 2)",
 		skill = {
 			Leatherworking = 500,
 		},
@@ -12100,7 +12376,7 @@ local EnchantSpells = {
 	},
 	[85009] = {
 		enchID = 4191,
-		name = "Draconic Embossment - Strength",
+		name = "Fur Lining - Strength (Rank 2)",
 		skill = {
 			Leatherworking = 500,
 		},
@@ -12109,7 +12385,7 @@ local EnchantSpells = {
 	},
 	[85010] = {
 		enchID = 4192,
-		name = "Draconic Embossment - Intellect",
+		name = "Fur Lining - Intellect (Rank 2)",
 		skill = {
 			Leatherworking = 500,
 		},
@@ -12217,6 +12493,46 @@ local EnchantSpells = {
 		source = "Crafted",
 	},
 	[96286] = "N/A",
+	[103461] = {
+		enchID = 4359,
+		minIlvl = 372,
+		name = "Enchant Ring - Greater Agility",
+		skill = {
+			Enchanting = 550,
+		},
+		slot = { "finger" },
+		source = "Crafted",
+	},
+	[103462] = {
+		enchID = 4360,
+		minIlvl = 372,
+		name = "Enchant Ring - Greater Intellect",
+		skill = {
+			Enchanting = 550,
+		},
+		slot = { "finger" },
+		source = "Crafted",
+	},
+	[103463] = {
+		enchID = 4361,
+		minIlvl = 372,
+		name = "Enchant Ring - Greater Stamina",
+		skill = {
+			Enchanting = 550,
+		},
+		slot = { "finger" },
+		source = "Crafted",
+	},
+	[103465] = {
+		enchID = 4807,
+		minIlvl = 372,
+		name = "Enchant Ring - Greater Strength",
+		skill = {
+			Enchanting = 550,
+		},
+		slot = { "finger" },
+		source = "Crafted",
+	},
 	[104338] = {
 		enchID = 4411,
 		minIlvl = 372,
@@ -12419,13 +12735,56 @@ local EnchantSpells = {
 		},
 		source = "Crafted",
 	},
+	[108789] = {
+		enchID = 4697,
+		name = "Phase Fingers",
+		skill = {
+			engineering = 550,
+		},
+		slot = { "hands" },
+		source = "Crafted",
+	},
+	[109077] = {
+		enchID = 4698,
+		name = "Incendiary Fireworks Launcher",
+		skill = {
+			engineering = 550,
+		},
+		slot = { "hands" },
+		source = "Crafted",
+	},
 	[109086] = "N/A",
 	[109093] = "N/A",
+	[109099] = {
+		enchID = 5000,
+		name = "Watergliding Jets",
+		skill = {
+			engineering = 550,
+		},
+		slot = { "waist" },
+		source = "Crafted",
+	},
 	[113044] = "N/A",
 	[113045] = "N/A",
 	[113046] = "N/A",
 	[113047] = "N/A",
 	[113048] = "N/A",
+--[[
+	-- Not actually available?
+	[113263] = {
+		enchID = 3717,
+		name = "Socket Bracer",
+		slot = { "wrist" },
+		source = "Crafted",
+	}
+	-- Not actually available?
+	[114112] = {
+		enchID = 3723,
+		name = "Socket Gloves",
+		slot = { "hands" },
+		source = "Crafted",
+	},
+]]
 	[121192] = "N/A",
 	[121193] = "N/A",
 	[121194] = "N/A",
@@ -12439,6 +12798,204 @@ local EnchantSpells = {
 	[124116] = "N/A",
 	[124118] = "N/A",
 	[124119] = "N/A",
+	[124549] = {
+		enchID = 4874,
+		name = "Fur Lining - Strength (Rank 1)",
+		skill = {
+			Leatherworking = 400,
+		},
+		slot = { "wrist" },
+		source = "Crafted",
+	},
+	[124551] = {
+		enchID = 4875,
+		name = "Fur Lining - Agility (Rank 3)",
+		skill = {
+			Leatherworking = 575,
+		},
+		slot = { "wrist" },
+		source = "Crafted",
+	},
+	[124552] = {
+		enchID = 4877,
+		name = "Fur Lining - Intellect (Rank 3)",
+		skill = {
+			Leatherworking = 575,
+		},
+		slot = { "wrist" },
+		source = "Crafted",
+	},
+	[124553] = {
+		enchID = 4878,
+		name = "Fur Lining - Stamina (Rank 3)",
+		skill = {
+			Leatherworking = 575,
+		},
+		slot = { "wrist" },
+		source = "Crafted",
+	},
+	[124554] = {
+		enchID = 4879,
+		name = "Fur Lining - Strength (Rank 3)",
+		skill = {
+			Leatherworking = 575,
+		},
+		slot = { "wrist" },
+		source = "Crafted",
+	},
+	[124559] = {
+		enchID = 4880,
+		minLvl = 80,
+		name = "Primal Leg Reinforcements (Rank 3)",
+		skill = {
+			Leatherworking = 575,
+		},
+		slot = { "legs" },
+		source = "Crafted",
+	},
+	[124561] = {
+		enchID = 4881,
+		minLvl = 80,
+		name = "Draconic Leg Reinforcements (Rank 3)",
+		skill = {
+			Leatherworking = 575,
+		},
+		slot = { "legs" },
+		source = "Crafted",
+	},
+	[124563] = {
+		enchID = 4882,
+		minLvl = 80,
+		name = "Heavy Leg Reinforcements (Rank 3)",
+		skill = {
+			Leatherworking = 575,
+		},
+		slot = { "legs" },
+		source = "Crafted",
+	},
+	[124564] = {
+		enchID = 4883,
+		minLvl = 75,
+		name = "Primal Leg Reinforcements (Rank 2)",
+		skill = {
+			Leatherworking = 500,
+		},
+		slot = { "legs" },
+		source = "Crafted",
+	},
+	[124565] = {
+		enchID = 4884,
+		minLvl = 75,
+		name = "Heavy Leg Reinforcements (Rank 2)",
+		skill = {
+			Leatherworking = 500,
+		},
+		slot = { "legs" },
+		source = "Crafted",
+	},
+	[124566] = {
+		enchID = 4885,
+		minLvl = 75,
+		name = "Draconic Leg Reinforcements (Rank 2)",
+		skill = {
+			Leatherworking = 500,
+		},
+		slot = { "legs" },
+		source = "Crafted",
+	},
+	[124567] = {
+		enchID = 4886,
+		minLvl = 65,
+		name = "Primal Leg Reinforcements (Rank 1)",
+		skill = {
+			Leatherworking = 400,
+		},
+		slot = { "legs" },
+		source = "Crafted",
+	},
+	[124568] = {
+		enchID = 4887,
+		minLvl = 65,
+		name = "Heavy Leg Reinforcements (Rank 1)",
+		skill = {
+			Leatherworking = 400,
+		},
+		slot = { "legs" },
+		source = "Crafted",
+	},
+	[124569] = {
+		enchID = 4888,
+		minLvl = 65,
+		name = "Draconic Leg Reinforcements (Rank 1)",
+		skill = {
+			Leatherworking = 400,
+		},
+		slot = { "legs" },
+		source = "Crafted",
+	},
+	[125481] = {
+		enchID = 4892,
+		name = "Lightweave Embroidery (Rank 3)",
+		skill = {
+			Tailoring = 550,
+		},
+		slot = { "back" },
+		source = "Crafted",
+	},
+	[125482] = {
+		enchID = 4893,
+		name = "Darkglow Embroidery (Rank 3)",
+		skill = {
+			Tailoring = 550,
+		},
+		slot = { "back" },
+		source = "Crafted",
+	},
+	[125483] = {
+		enchID = 4894,
+		name = "Swordguard Embroidery (Rank 3)",
+		skill = {
+			Tailoring = 550,
+		},
+		slot = { "back" },
+		source = "Crafted",
+	},
+	[125496] = {
+		enchID = 4895,
+		name = "Master's Spellthread (Rank 3)",
+		skill = {
+			Tailoring = 550,
+		},
+		slot = { "legs" },
+		source = "Crafted",
+	},
+	[125497] = {
+		enchID = 4896,
+		name = "Sanctified Spellthread (Rank 3)",
+		skill = {
+			Tailoring = 550,
+		},
+		slot = { "legs" },
+		source = "Crafted",
+	},
+	[126392] = {
+		enchID = 4897,
+		name = "Goblin Glider",
+		skill = {
+			engineering = 550,
+		},
+		slot = { "back" },
+		source = "Crafted",
+	},
+	[126731] = {
+		enchID = 4898,
+		name = "Synapse Springs",
+		skill = {
+			engineering = 550,
+		},
+		slot = { "hands" },
+		source = "Crafted",
+	},
 	[127012] = "N/A",
 	[127013] = "N/A",
 	[127014] = "N/A",
