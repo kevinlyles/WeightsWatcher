@@ -36,6 +36,70 @@ local function noop_major_up(vars)
 	return vars
 end
 
+local function upgradeAccountToMonks(vars)
+	if vars.weightsList["MONK"] == nil then
+		vars.weightsList["MONK"] = ww_deepTableCopy(ww_defaultVars.weightsList["MONK"])
+		table.insert(vars.weightsList, 5, "MONK")
+	end
+
+	vars.dataMinorVersion = 5
+	return vars
+end
+
+local function upgradeAccountToMoPEnhancements(vars)
+	local limit = vars.options.gems.qualityLimit
+	if limit <= 10 and limit >= 8 then
+		vars.options.gems.qualityLimit = limit + 3
+	end
+
+	vars.dataMinorVersion = 4
+	return vars
+end
+
+local downgradeAccountFromMoPEnhancements = [[
+	return function(vars)
+		local limit = vars.options.gems.qualityLimit
+		if limit <= 13 and limit >= 11 then
+			vars.options.gems.qualityLimit = limit - 3
+		elseif limit == 14 then
+			vars.options.gems.qualityLimit = 10
+		end
+
+		vars.dataMinorVersion = 3
+		return vars
+	end
+]]
+
+local function upgradeAccountToPVPResilience(vars)
+	for _, class in ipairs(vars.weightsList) do
+		for _, weight in ipairs(vars.weightsList[class]) do
+			if vars.weightsList[class][weight]["pvp resilience"] == nil then
+				vars.weightsList[class][weight]["pvp resilience"] = vars.weightsList[class][weight]["resilience"]
+			end
+			vars.weightsList[class][weight]["resilience"] = nil
+		end
+	end
+
+	vars.dataMinorVersion = 3
+	return vars
+end
+
+local downgradeAccountFromPVPResilience = [[
+	return function(vars)
+		for _, class in ipairs(vars.weightsList) do
+			for _, weight in ipairs(vars.weightsList[class]) do
+				if vars.weightsList[class][weight]["resilience"] == nil then
+					vars.weightsList[class][weight]["resilience"] = vars.weightsList[class][weight]["pvp resilience"]
+				end
+				vars.weightsList[class][weight]["pvp resilience"] = nil
+			end
+		end
+
+		vars.dataMinorVersion = 2
+		return vars
+	end
+]]
+
 local function upgradeAccountToMoPStats(vars)
 	local stats = {
 		"critical strike",
@@ -1179,6 +1243,9 @@ local upgradeAccountFunctions = {
 	[2] = {
 		[0] = upgradeAccountToCriticalEffect,
 		[1] = upgradeAccountToMoPStats,
+		[2] = upgradeAccountToPVPResilience,
+		[3] = upgradeAccountToMoPEnhancements,
+		[4] = upgradeAccountToMonks,
 	},
 }
 
@@ -1226,6 +1293,9 @@ local downgradeAccountFunctions = {
 		[0] = downgradeAccountFromEnchants,
 		[1] = noop_down,
 		[2] = downgradeAccountFromMoPStats,
+		[3] = downgradeAccountFromPVPResilience,
+		[4] = downgradeAccountFromMoPEnhancements,
+		[5] = noop_down,
 	},
 }
 
