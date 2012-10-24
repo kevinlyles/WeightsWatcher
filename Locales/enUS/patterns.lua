@@ -168,8 +168,6 @@ ww_TempIgnoredLines = {
 ww_UnweightedLines = {
 	"^%(%d%) set: ",
 	"^set: ", -- In-game only?
-	-- Some relics that boost stats for certain abilities only
-	"^equip: increases the %a[%a ]+ of your %a[%a ]+ by ",
 	-- Use effects that have a cooldown
 	"cooldown",
 	"chance t?on? ",
@@ -630,9 +628,6 @@ ww_DoubleSlotLines = {
 	"^main hand$",
 	"^off hand$",
 	"^ranged$",
-	"^relic$",
-	"^thrown$",
-	"^projectile$",
 }
 
 ww_SingleSlotLines = {

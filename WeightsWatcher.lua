@@ -647,7 +647,6 @@ local slotConversion = {
 	[ww_localizedSlotNames["one-hand"]] = {"MainHandSlot", "SecondaryHandSlot"},
 	[ww_localizedSlotNames["two-hand"]] = {"MainHandSlot", "SecondaryHandSlot"},
 	[ww_localizedSlotNames["ranged"]] = {"MainHandSlot", "SecondaryHandSlot"},
-	[ww_localizedSlotNames["projectile"]] = "AmmoSlot",
 	[ww_localizedSlotNames["neck"]] = "NeckSlot",
 	[ww_localizedSlotNames["back"]] = "BackSlot",
 	[ww_localizedSlotNames["shirt"]] = "ShirtSlot",
@@ -1518,7 +1517,7 @@ function WeightsWatcher.getItemStats(link)
 		end
 	end
 
-	if nonStats["slot"] == ww_localizedSlotNames["ranged"] or nonStats["slot"] == ww_localizedSlotNames["thrown"] or nonStats["slot"] == ww_localizedSlotNames["projectile"] then
+	if nonStats["slot"] == ww_localizedSlotNames["ranged"] then
 		for k, v in pairs(rangedConversions) do
 			normalStats[v] = rawget(normalStats, k)
 			normalStats[k] = nil

@@ -61,22 +61,11 @@ ww_slotsToSubslots = {
 		staff = 1,
 		sword = 461,
 	},
-	projectile = {
-		arrow = 4,
-		bullet = 2,
-	},
 	ranged = {
 		bow = 277,
 		crossbow = 162,
 		gun = 289,
 		wand = 375,
-	},
-	relic = {
-		idol = 1,
-		libram = 4,
-		relic = 295,
-		sigil = 6,
-		totem = 1,
 	},
 	shirt = {
 	},
@@ -87,9 +76,6 @@ ww_slotsToSubslots = {
 		plate = 646,
 	},
 	tabard = {
-	},
-	thrown = {
-		thrown = 164,
 	},
 	trinket = {
 	},
