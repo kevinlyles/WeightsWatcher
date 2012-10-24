@@ -633,6 +633,7 @@ local function colorizeDifferences(difference)
 	end
 end
 
+local weapons = {"MainHandSlot", "SecondaryHandSlot"}
 local slotConversion = {
 	[ww_localizedSlotNames["head"]] = "HeadSlot",
 	[ww_localizedSlotNames["shoulder"]] = "ShoulderSlot",
@@ -642,18 +643,18 @@ local slotConversion = {
 	[ww_localizedSlotNames["waist"]] = "WaistSlot",
 	[ww_localizedSlotNames["legs"]] = "LegsSlot",
 	[ww_localizedSlotNames["feet"]] = "FeetSlot",
-	[ww_localizedSlotNames["main hand"]] = {"MainHandSlot", "SecondaryHandSlot"},
-	[ww_localizedSlotNames["off hand"]] = {"MainHandSlot", "SecondaryHandSlot"},
-	[ww_localizedSlotNames["one-hand"]] = {"MainHandSlot", "SecondaryHandSlot"},
-	[ww_localizedSlotNames["two-hand"]] = {"MainHandSlot", "SecondaryHandSlot"},
-	[ww_localizedSlotNames["ranged"]] = {"MainHandSlot", "SecondaryHandSlot"},
+	[ww_localizedSlotNames["main hand"]] = weapons,
+	[ww_localizedSlotNames["off hand"]] = weapons,
+	[ww_localizedSlotNames["one-hand"]] = weapons,
+	[ww_localizedSlotNames["two-hand"]] = weapons,
+	[ww_localizedSlotNames["ranged"]] = weapons,
 	[ww_localizedSlotNames["neck"]] = "NeckSlot",
 	[ww_localizedSlotNames["back"]] = "BackSlot",
 	[ww_localizedSlotNames["shirt"]] = "ShirtSlot",
 	[ww_localizedSlotNames["tabard"]] = "TabardSlot",
 	[ww_localizedSlotNames["finger"]] = {"Finger0Slot", "Finger1Slot"},
 	[ww_localizedSlotNames["trinket"]] = {"Trinket0Slot", "Trinket1Slot"},
-	[ww_localizedSlotNames["held in off-hand"]] = {"MainHandSlot", "SecondaryHandSlot"},
+	[ww_localizedSlotNames["held in off-hand"]] = weapons,
 }
 
 local function getCompareInfo(ttname, bareLink, bareItemInfo)
