@@ -72,8 +72,8 @@ function WeightsWatcher.convertToSeconds(duration)
 end
 
 ww_Preprocess = {
-	{"|c[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9]([^|]+)|r", "%1"},
-	{"([0-9]+),([0-9]+)", "%1%2"},
+	{"|c%x%x%x%x%x%x%x%x([^|]+)|r", "%1"},
+	{"(%d+),(%d+)", "%1%2"},
 	{" +$", ""},
 }
 
