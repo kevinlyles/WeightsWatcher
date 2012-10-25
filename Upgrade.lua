@@ -36,6 +36,15 @@ local function noop_major_up(vars)
 	return vars
 end
 
+local function upgradeAccountToReplaceEmptyOptions(vars)
+	if not vars.options then
+		vars.options = ww_deepTableCopy(ww_defaultVars.options)
+	end
+
+	vars.dataMinorVersion = 6
+	return vars
+end
+
 local function upgradeAccountToMonks(vars)
 	if vars.weightsList["MONK"] == nil then
 		vars.weightsList["MONK"] = ww_deepTableCopy(ww_defaultVars.weightsList["MONK"])
@@ -1246,6 +1255,7 @@ local upgradeAccountFunctions = {
 		[2] = upgradeAccountToPVPResilience,
 		[3] = upgradeAccountToMoPEnhancements,
 		[4] = upgradeAccountToMonks,
+		[5] = upgradeAccountToReplaceEmptyOptions,
 	},
 }
 
@@ -1296,6 +1306,7 @@ local downgradeAccountFunctions = {
 		[3] = downgradeAccountFromPVPResilience,
 		[4] = downgradeAccountFromMoPEnhancements,
 		[5] = noop_down,
+		[6] = noop_down,
 	},
 }
 
