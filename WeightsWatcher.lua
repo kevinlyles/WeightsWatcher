@@ -1022,7 +1022,10 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 			end
 		end
 
-		if not weightsShown and not showDebugInfo then
+		local bareLink = splitLink(link)
+		local bareItemInfo = ww_bareItemCache[bareLink]
+
+		if not weightsShown and not (bareItemInfo.nonStats.slot == ww_localizedSlotNames["trinket"] and #(bareItemInfo.sockets) > 0) then
 			return
 		end
 
@@ -1032,8 +1035,6 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 		local showEnhancementStats = ww_keyDetectors[ww_vars.options.tooltip.showEnhancementStats]()
 		local showAlternateEnhancements = ww_keyDetectors[ww_vars.options.tooltip.showAlternateEnhancements]()
 
-		local bareLink = splitLink(link)
-		local bareItemInfo = ww_bareItemCache[bareLink]
 		local itemInfo = ww_itemCache[link]
 
 		local compareMethod, compareLink, compareBareLink, compareLink2, compareBareLink2 = getCompareInfo(ttname, bareLink, bareItemInfo)
@@ -1055,7 +1056,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 					for _, weight in pairs(ww_charVars.activeWeights[class]) do
 						if ww_vars.weightsList[class][weight] then
 							local currentScore = ww_weightCache[class][weight][link]
-							if showZeroScores or currentScore > 0 then
+							if showZeroScores or currentScore > 0 or (bareItemInfo.nonStats.slot == ww_localizedSlotNames["trinket"] and #(bareItemInfo.sockets) > 0) then
 								local compareScore, compareScore2
 								local str = weight
 								if ww_vars.options.tooltip.showClassNames == "Always" or (ww_vars.options.tooltip.showClassNames == "Others" and class ~= WeightsWatcher.player.class) then
