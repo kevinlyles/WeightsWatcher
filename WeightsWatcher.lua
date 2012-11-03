@@ -1000,24 +1000,28 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 
 	local _, _, _, _, _, itemType, _, stackSize = GetItemInfo(link)
 	if (IsEquippableItem(link) and itemType ~= L["Container"] and itemType ~= L["Quiver"]) or (itemType == L["Gem"] and stackSize == 1) or (itemType == L["Consumable"]) or (itemType == L["Recipe"]) then
-		local weightsShown = false
-		for _, class in ipairs(ww_charVars.activeWeights) do
-			if ww_vars.weightsList[class] then
-				for _, weight in pairs(ww_charVars.activeWeights[class]) do
-					if ww_vars.weightsList[class][weight] then
-						if ww_vars.options.tooltip.showZeroScores or ww_weightCache[class][weight][link] > 0 then
-							weightsShown = true
-							break
+		local showDebugInfo = ww_keyDetectors[ww_vars.options.tooltip.showDebugInfo]()
+		local weightsShown = showDebugInfo
+		local showZeroScores = showDebugInfo or ww_vars.options.tooltip.showZeroScores
+
+		if not showDebugInfo then
+			for _, class in ipairs(ww_charVars.activeWeights) do
+				if ww_vars.weightsList[class] then
+					for _, weight in pairs(ww_charVars.activeWeights[class]) do
+						if ww_vars.weightsList[class][weight] then
+							if showZeroScores or ww_weightCache[class][weight][link] > 0 then
+								weightsShown = true
+								break
+							end
 						end
 					end
 				end
-			end
-			if weightsShown then
-				break
+				if weightsShown then
+					break
+				end
 			end
 		end
 
-		local showDebugInfo = ww_keyDetectors[ww_vars.options.tooltip.showDebugInfo]()
 		if not weightsShown and not showDebugInfo then
 			return
 		end
@@ -1051,7 +1055,7 @@ function WeightsWatcher.displayItemStats(tooltip, ttname)
 					for _, weight in pairs(ww_charVars.activeWeights[class]) do
 						if ww_vars.weightsList[class][weight] then
 							local currentScore = ww_weightCache[class][weight][link]
-							if ww_vars.options.tooltip.showZeroScores or currentScore > 0 then
+							if showZeroScores or currentScore > 0 then
 								local compareScore, compareScore2
 								local str = weight
 								if ww_vars.options.tooltip.showClassNames == "Always" or (ww_vars.options.tooltip.showClassNames == "Others" and class ~= WeightsWatcher.player.class) then
