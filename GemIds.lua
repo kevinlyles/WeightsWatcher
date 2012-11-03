@@ -5594,17 +5594,17 @@ ww_gems = {
 			},
 			[14] = {
 				[4996] = {
-					"hydraulic",
+					"sha-touched",
 					"Crystallized Dread",
 					{[L["agility"]] = 500},
 				},
 				[4997] = {
-					"hydraulic",
+					"sha-touched",
 					"Crystallized Terror",
 					{[L["strength"]] = 500},
 				},
 				[4998] = {
-					"hydraulic",
+					"sha-touched",
 					"Crystallized Horror",
 					{[L["intellect"]] = 500},
 				},

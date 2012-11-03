@@ -1208,8 +1208,8 @@ local socketColors = {
 	["cogwheel"] = {
 		["cogwheel"] = true,
 	},
-	["hydraulic"] = {
-		["hydraulic"] = true,
+	["sha-touched"] = {
+		["sha-touched"] = true,
 	},
 	["meta"] = {
 		["meta"] = true,

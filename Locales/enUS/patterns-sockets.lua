@@ -6,4 +6,9 @@ local function sockets(text)
 	return {socket = text}
 end
 
-ww_sockets = {{" socket$"}, {}, {}, {}, {" socket$"}, sockets, "socket"}
+local matchLines = {
+	" socket$",
+	"^sha%-touched$",
+}
+
+ww_sockets = {matchLines, {}, {}, {}, {" socket$"}, sockets, "socket"}

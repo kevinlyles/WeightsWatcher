@@ -907,6 +907,7 @@ ww_gemColorDisplayNames = {
 	["prismatic"] = "Prismatic",
 	["purple"] = "Purple",
 	["red"] = "Red",
+	["sha-touched"] = "Sha-Touched",
 	["yellow"] = "Yellow",
 	["N/A"] = "N/A",
 }
@@ -914,10 +915,10 @@ ww_gemColorDisplayNames = {
 ww_localizedSocketColors = {
 	["blue"] = "blue",
 	["cogwheel"] = "cogwheel",
-	["hydraulic"] = "hydraulic",
 	["meta"] = "meta",
 	["prismatic"] = "prismatic",
 	["red"] = "red",
+	["sha-touched"] = "sha-touched",
 	["yellow"] = "yellow",
 }
 
@@ -929,10 +930,10 @@ end
 ww_socketColorDisplayNames = {
 	[ww_localizedSocketColors["blue"]] = "Blue",
 	[ww_localizedSocketColors["cogwheel"]] = "Cogwheel",
-	[ww_localizedSocketColors["hydraulic"]] = "Hydraulic",
 	[ww_localizedSocketColors["meta"]] = "Meta",
 	[ww_localizedSocketColors["prismatic"]] = "Prismatic",
 	[ww_localizedSocketColors["red"]] = "Red",
+	[ww_localizedSocketColors["sha-touched"]] = "Sha-Touched",
 	[ww_localizedSocketColors["yellow"]] = "Yellow",
 }
 
