@@ -25,6 +25,7 @@ local GenericPreprocessLines = {
 
 local GenericAffixes = {
 	"^adds +",
+	" +%(reforged from [^)]+%)$",
 }
 
 ww_generic = {GenericMatchLines, {}, {}, GenericPreprocessLines, GenericAffixes, WeightsWatcher.parseStats, "generic"}
