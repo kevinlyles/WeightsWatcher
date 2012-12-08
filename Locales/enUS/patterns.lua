@@ -85,6 +85,7 @@ ww_ignoredInvalidStats = {
 
 ww_IgnoredLines = {
 	"^$",
+	"^upgrade level:",
 	-- Reputation and materials requirements
 	"^requires ",
 	"^  [^ ]",

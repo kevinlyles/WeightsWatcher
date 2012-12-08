@@ -9,9 +9,9 @@ local function splitLink(link)
 	if link:find("|") then
 		link = link:gsub(".*|H([^|]+)|h.*", "%1")
 	end
-	local linkType, Id, enchant, gemId1, gemId2, gemId3, gemId4, suffixId, uniqueId, linkLevel, reforgeInfo = strsplit(":", link)
+	local linkType, Id, enchant, gemId1, gemId2, gemId3, gemId4, suffixId, uniqueId, linkLevel, reforgeInfo, upgradeInfo = strsplit(":", link)
 	if linkType == "item" then
-		bareLink = strjoin(":", linkType, Id, "0:0:0:0:0", suffixId, uniqueId, linkLevel, reforgeInfo)
+		bareLink = strjoin(":", linkType, Id, "0:0:0:0:0", suffixId, uniqueId, linkLevel, reforgeInfo, upgradeInfo)
 		return bareLink, enchant, {{gemId1}, {gemId2}, {gemId3}, {gemId4}}
 	end
 end
