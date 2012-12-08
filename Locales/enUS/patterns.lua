@@ -613,6 +613,7 @@ ww_ItemInfoLines = {
 	"^soulbound$",
 	"^heroic$",
 	"^quest item$",
+	"^raid finder$",
 }
 
 ww_DoubleSlotLines = {
