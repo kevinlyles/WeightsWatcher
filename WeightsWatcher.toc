@@ -1,8 +1,8 @@
-## Interface: 50001
+## Interface: 50100
 ## Title: Weights Watcher
 ## Notes: Ranks gear according to customizable stat weights
 ## Author: The Flying Squirrels
-## Version: 1.6r5
+## Version: 1.6r6
 ## OptionalDeps: AtlasLoot, tekErr
 ## SavedVariables: ww_vars
 ## SavedVariablesPerCharacter: ww_charVars
