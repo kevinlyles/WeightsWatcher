@@ -1,4 +1,5 @@
-if GetLocale() ~= "enUS" then
+local locale = GetLocale()
+if locale ~= "enUS" and locale ~= "enGB" then
 	return
 end
 
