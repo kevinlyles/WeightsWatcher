@@ -115,7 +115,7 @@ local EnchantIDs = {
 			weapon = "Steel Weapon Chain",
 		},
 		stats = {
-			["disarm duration reduction (percent)"] = 60,
+			["disarm duration reduction (percent)"] = 50,
 		},
 	},
 	[41] = {
@@ -2420,7 +2420,7 @@ local EnchantIDs = {
 		},
 		spellID = { 34003 },
 		stats = {
-			["spell penetration"] = 20,
+			["pvp power"] = 16,
 		},
 	},
 	[2939] = {
@@ -2853,7 +2853,7 @@ local EnchantIDs = {
 			weapon = "Adamantite Weapon Chain",
 		},
 		stats = {
-			["disarm duration reduction (percent)"] = 60,
+			["disarm duration reduction (percent)"] = 50,
 			parry = 15,
 		},
 	},
@@ -3373,7 +3373,7 @@ local EnchantIDs = {
 			weapon = "Titanium Weapon Chain",
 		},
 		stats = {
-			["disarm duration reduction (percent)"] = 60,
+			["disarm duration reduction (percent)"] = 50,
 			hit = 28,
 		},
 	},
@@ -3987,7 +3987,7 @@ local EnchantIDs = {
 			["off hand"] = "Titanium Plating",
 		},
 		stats = {
-			["disarm duration reduction (percent)"] = 60,
+			["disarm duration reduction (percent)"] = 50,
 			parry = 26,
 		},
 	},
@@ -5015,7 +5015,7 @@ local EnchantIDs = {
 		},
 		stacks = false,
 		stats = {
-			["disarm duration reduction (percent)"] = 60,
+			["disarm duration reduction (percent)"] = 50,
 			hit = 40,
 		},
 	},
@@ -5187,7 +5187,7 @@ local EnchantIDs = {
 		},
 		spellID = { 104389 },
 		stats = {
-			intellect = 170,
+			intellect = 180,
 		},
 	},
 	[4415] = {
@@ -5197,7 +5197,7 @@ local EnchantIDs = {
 		},
 		spellID = { 104390 },
 		stats = {
-			strength = 170,
+			strength = 180,
 		},
 	},
 	[4416] = {
@@ -5207,7 +5207,7 @@ local EnchantIDs = {
 		},
 		spellID = { 104391 },
 		stats = {
-			agility = 170,
+			agility = 180,
 		},
 	},
 	[4417] = {
@@ -5927,7 +5927,7 @@ local EnchantIDs = {
 			weapon = "Living Steel Weapon Chain",
 		},
 		stats = {
-			["disarm duration reduction (percent)"] = 60,
+			["disarm duration reduction (percent)"] = 50,
 			expertise = 200,
 		},
 	},
