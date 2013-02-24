@@ -52,10 +52,7 @@ local EnchantPreprocessLines = {
 	{" reduce threat slightly ", " 2%% reduced threat "},
 	{" a minor movement speed ", " minor run speed "},
 	{" movement speed by 8%%", " minor run speed increase"},
-	{" reducing the duration of disarm effects by ", " disarm duration reduced by "},
-	-- item 95349
-	{" reduces the duration of disarm effects by ", " disarm duration reduced by "},
-	-- items 28270 and 37340
+	{" reduce?s?i?n?g? the duration of disarm effects by ", " disarm duration reduced by "},
 	{" resilience ", " pvp resilience "},
 	{" pvp pvp resilience ", " pvp resilience "},
 	-- item 22023

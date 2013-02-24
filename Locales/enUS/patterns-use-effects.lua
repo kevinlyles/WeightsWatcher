@@ -9,14 +9,11 @@ local UseEffectMatchLines = {
 
 local UseEffectIgnoreLines = {
 	"^use: heal",
-	"^use: a strong alcoholic beverage",
+	"^use: a %a* ?%a* ?alcohol",
 	"^use: transform",
 	"^use: a sample of ",
-	"^use: a typical alcoholic beverage",
 	" if they have free room ",
-	"^use: a weak alcohol",
 	"^use: throw into ",
-	"^use: a strangely glowing alcoholic beverage",
 	"^use: instantly restores ",
 	"^use: reduces ",
 	"^use: combines? ",

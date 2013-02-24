@@ -27,21 +27,12 @@ function WeightsWatcher.damageRange(textL, textR)
 		stats["average melee weapon damage"] = (minimum + maximum) / 2
 		stats["maximum melee weapon damage"] = maximum
 	else
-		local start, _, damage = string.find(textL, "^(%d+) damage$")
+		local start, _, damage = string.find(textL, "^(%d+) %a* ?damage$")
 		if start then
 			stats = WeightsWatcher.newStatTable()
 			damage = tonumber(damage)
 			stats["average melee weapon damage"] = damage
 			stats["maximum melee weapon damage"] = damage
-		else
-			-- item 7730
-			local start, _, damage = string.find(textL, "^%+(%d+) frost damage$")
-			if start then
-				stats = WeightsWatcher.newStatTable()
-				damage = tonumber(damage)
-				stats["average melee weapon damage"] = damage
-				stats["maximum melee weapon damage"] = damage
-			end
 		end
 	end
 	if stats and textR then
@@ -181,26 +172,8 @@ ww_TempIgnoredLines = {
 	"^%d+ slot ",
 	"^use: heals %d+ damage over %d+ sec%.$",
 	-- Profession patterns
-	"^use: teaches you how to make ",
-	"^use: teaches you how to cut ",
-	"^use: teaches you how to craft ",
-	"^use: teaches you how to sew ",
-	"^use: teaches you how to cook ",
-	"^use: teaches you how to forge ",
-	"^use: teaches you how to transmute ",
-	"^use: teaches you how to create ",
-	"^use: teaches you how to bake ",
-	"^use: teaches you how to be ",
-	"^use: teaches you how to summon ",
-	"^use: teaches you how to brew ",
-	"^use: teaches you how to inscribe ",
-	"^use: teaches you how to ride ",
-	"^use: teaches you how to burn ",
-	"^use: teaches you how to deep fry ",
-	"^use: teaches you how to purify ",
-	"^use: teaches you how to shatter ",
-	"^use: teaches you how to smelt ",
-	"^use: teaches you how to turn ",
+	"^use: teaches you how to [a-oq-z]%a+ ",
+	"^use: teaches you how to p[a-df-z]%a+ ",
 }
 
 ww_UnweightedLines = {
@@ -506,21 +479,7 @@ ww_SingleStatLines = {
 	},
 
 	-- Tends to eat other stats if not last
-	{"^(%a+ ?%a+ ?%a+ ?%a+) by ([+-]?%d+%%?)$",
-		function(text, pattern, section)
-			local start, _, name, value = string.find(text, pattern)
-			if start then
-				local stats = WeightsWatcher.parseStats(value .. " " .. name, section)
-				if stats then
-					return stats.stats
-				end
-			end
-		end,
-		{"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "stackingEquipEffect", "useEffect"},
-	},
-
-	-- Tends to eat other stats if not last
-	{"^(%a+ ?%a+ ?%a+) by ([+-]?%d+%%?)$",
+	{"^(%a+ ?%a+ ?%a* ?%a+) by ([+-]?%d+%%?)$",
 		function(text, pattern, section)
 			local start, _, name, value = string.find(text, pattern)
 			if start then
