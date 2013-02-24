@@ -20,7 +20,7 @@ ww_EffectHandlers = {
 
 function WeightsWatcher.damageRange(textL, textR)
 	local stats
-	local start, _, minimum, maximum = string.find(textL, "^%+?(%d+%.?%d*) %- (%d+%.?%d*) %a* ?damage$")
+	local start, _, minimum, maximum = string.find(textL, "^(%d+%.?%d*) %- (%d+%.?%d*) %a* ?damage$")
 	if start then
 		stats = WeightsWatcher.newStatTable()
 		maximum = tonumber(maximum)
