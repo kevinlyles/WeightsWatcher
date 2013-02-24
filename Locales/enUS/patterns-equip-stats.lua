@@ -20,9 +20,6 @@ local EquipStatsUnweightedLines = {
 }
 
 local EquipStatsPreprocessLines = {
-	-- Should be obsolete
-	--{" the block value of your shield ", " block value "},
-	--{" shield block ", " block "},
 	{" effective stealth level%.$", " effective stealth level by 1"},
 	{" stealth slightly%.$", " effective stealth level by 1"},
 	{" run speed increased slightly%.$", " minor run speed increase"},

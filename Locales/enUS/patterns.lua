@@ -358,7 +358,6 @@ ww_SingleStatLines = {
 	{"^([+-]?%d+) (block value)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "enchant", "equipEffect", "generic", "socketBonus"}},
 	-- random suffix enchants
 	{"^([+-]?%d+) (%a+ spell damage)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "generic"}},
-	{"^([+-]?%d+) (spell penetration)$", WeightsWatcher.statNumFirst, {"enchant", "equipEffect", "generic"}},
 	{"^([+-]?%d+) health [ep]v?ery? 5 seco?n?d?s?%.?$",
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "hp5")

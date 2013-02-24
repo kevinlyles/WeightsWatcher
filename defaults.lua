@@ -136,7 +136,6 @@ ww_trackedStats = {
 	[ww_statCategories["PVP"]] = {
 		"pvp power",
 		"pvp resilience",
-		"spell penetration",
 		ww_statCategories["Enchant/Meta Gem Effects"],
 		[ww_statCategories["Enchant/Meta Gem Effects"]] = {
 			"chance to stun target",

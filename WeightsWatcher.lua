@@ -181,7 +181,6 @@ local normalizedStats = {
 	"expertise",
 	"haste",
 	"hit",
-	"spell penetration",
 	"spell power",
 	"melee dps",
 	"average melee weapon damage",
