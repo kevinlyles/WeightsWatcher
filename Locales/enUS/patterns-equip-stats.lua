@@ -39,8 +39,8 @@ local EquipStatsAffixes = {
 	"^restores +",
 	"^your +",
 	" +does not work for players above level %d+%.$",
-	" +%([%a ]+%)$",
 	"%.$",
+	" +%([%a ]+%)$",
 }
 
 ww_equipStats = {EquipStatsMatchLines, {}, EquipStatsUnweightedLines, EquipStatsPreprocessLines, EquipStatsAffixes, WeightsWatcher.parseStats, "equipEffect"}
