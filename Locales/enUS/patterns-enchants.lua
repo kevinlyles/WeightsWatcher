@@ -8,7 +8,8 @@ local EnchantMatchLines = {
 	"^use: teaches you how to permanently enchant ",
 	"^use: attaches ",
 	"^use: enchants? ",
-	"^use: removes the safety mechanism from +",
+	"^use: removes the safety mechanism from ",
+	"^use: add a prismatic socket ",
 }
 
 local EnchantUnweightedLines = {
@@ -20,6 +21,7 @@ local EnchantUnweightedLines = {
 local EnchantPreprocessLines = {
 	{" increase movement speed slightly ", " minor run speed increase "},
 	{" socket ", " prismatic socket "},
+	{" prismatic prismatic socket ", " prismatic socket "},
 	{" and increase?i?n?g? ", " and "},
 	{" and your ", " and "},
 	-- item 23547
@@ -74,6 +76,7 @@ local EnchantAffixes = {
 	"^permanently +",
 	"^enchants? +",
 	"^attache?s? +",
+	"^adds? +",
 	"^an? +",
 	"^[%a ]+ to your shield that +",
 	"^chain to your weapon, +",
@@ -154,6 +157,8 @@ local EnchantAffixes = {
 	" +on a pair of gloves",
 	"points of +",
 	"^mana regeneration by +",
+
+	" +to a sha%-touched weapon or armament of the thunder king%.$",
 
 	"%.$",
 }
