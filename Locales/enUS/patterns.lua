@@ -186,7 +186,7 @@ ww_UnweightedLines = {
 ww_MultipleStatLines = {
 	{"^([^,]+) and ([^,]+)$", WeightsWatcher.twoStats, {"cooldownUseEffect", "elixir", "enchant", "food", "generic", "useEffect"}},
 	{"^([+-]?%d+ )(%a[%a ]+%a) and (%a[%a ]+%a)$", WeightsWatcher.multipleStatsOneNumber, {"elixir", "food"}},
-	{"^([%a%d][%a%d ]+[%a%d]), ([%a%d][%a%d ]+[%a%d]),? and ([%a%d][%a%d ]+[%a%d])$",
+	{"^([^,]+), ([^,]+),? and ([^,]+)$",
 		function(text, pattern, section)
 			local start, _, stat1, stat2, stat3 = string.find(text, pattern)
 			if start then
