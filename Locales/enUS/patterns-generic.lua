@@ -10,6 +10,8 @@ local GenericMatchLines = {
 local GenericPreprocessLines = {
 	-- items 31864 and 31872
 	{" & ", " and "},
+	-- items 95346 and 95347
+	{", and ", " and "},
 	-- item 28363
 	{"^([^,]+), ([^,]+)$", "%1 and %2"},
 	{" resist all$", " all resistances"},

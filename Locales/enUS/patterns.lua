@@ -651,6 +651,30 @@ ww_SingleStatLines = {
 	{"^([+-]?%d+) (%a+ damage to %a+)$", WeightsWatcher.statNumFirst, {"enchant"}},
 	-- item 38981
 	{"^([+-]?%d+) (attack power against undead)$", WeightsWatcher.statNumFirst, {"enchant"}},
+	{"^chance on melee or ranged hit to gain capacitance$",
+		function(text, pattern)
+			return WeightsWatcher.newStatTable({[text] = 1})
+		end,
+		{"generic"},
+	},
+	{"^chance on spell damage to gain 30%% spell haste$",
+		function(text, pattern)
+			return WeightsWatcher.newStatTable({[text] = 1})
+		end,
+		{"generic"},
+	},
+	{"^chance on beneficial spell to make your spells cost no mana for 4 sec%.$",
+		function(text, pattern)
+			return WeightsWatcher.newStatTable({[text] = 1})
+		end,
+		{"generic"},
+	},
+	{"^chance on being hit to gain 20%% reduction to physical damage taken$",
+		function(text, pattern)
+			return WeightsWatcher.newStatTable({[text] = 1})
+		end,
+		{"generic"},
+	},
 }
 
 ww_ItemInfoLines = {

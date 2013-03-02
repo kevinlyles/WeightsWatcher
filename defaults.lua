@@ -62,6 +62,7 @@ ww_trackedStats = {
 			["rangedDamage"] = "ww_triggerFrame",
 		},
 		[ww_statCategories["Enchant/Meta Gem Effects"]] = {
+			"chance on melee or ranged hit to gain capacitance",
 			"chance to increase physical haste",
 			"weapon damage (percent)",
 			"weapon damage vs undead (percent)",
@@ -81,6 +82,7 @@ ww_trackedStats = {
 			"armor from items (percent)",
 			"average damage dealt on block",
 			"block value (percent)",
+			"chance on being hit to gain 20% reduction to physical damage taken",
 			"chance to restore health on hit",
 			"damage absorption (2% chance)",
 			"damage absorption (5% chance)",
@@ -106,8 +108,12 @@ ww_trackedStats = {
 			"holy spell damage",
 			"nature spell damage",
 			"shadow spell damage",
+			ww_statCategories["Enchant/Meta Gem Effects"],
 			"harmfulSpell",
 			["harmfulSpell"] = "ww_triggerFrame",
+			[ww_statCategories["Enchant/Meta Gem Effects"]] = {
+				"chance on spell damage to gain 30% spell haste",
+			},
 		},
 		[ww_statCategories["Healing"]] = {
 			"mana",
@@ -116,6 +122,7 @@ ww_trackedStats = {
 			ww_statCategories["Enchant/Meta Gem Effects"],
 			["helpfulSpell"] = "ww_triggerFrame",
 			[ww_statCategories["Enchant/Meta Gem Effects"]] = {
+				"chance on beneficial spell to make your spells cost no mana for 4 sec.",
 				"chance to restore mana on spellcast",
 --				"critical healing (percent)",
 				"mana (percent)",
