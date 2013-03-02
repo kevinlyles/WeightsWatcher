@@ -55,6 +55,9 @@ local EnchantPreprocessLines = {
 	{" reducing the duration of disarm effects by ", " disarm duration reduced by "},
 	-- item 95349
 	{" reduces the duration of disarm effects by ", " disarm duration reduced by "},
+	-- items 28270 and 37340
+	{" resilience ", " pvp resilience "},
+	{" pvp pvp resilience ", " pvp resilience "},
 	-- item 22023
 	{" to add (%d+) to ", " +%1 "},
 	-- item 23530
