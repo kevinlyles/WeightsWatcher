@@ -83,7 +83,8 @@ local EnchantAffixes = {
 	"^counterweight to a two%-handed sword, mace, axe or polearm increasing the wielder's +",
 	"^permanent scope to a bow or gun +",
 	"weapon to increase its +",
-	"^spurs to your +",
+	"^spurs to +",
+	"^your +",
 
 	"^pair of +",
 	"^boots +",
@@ -146,6 +147,8 @@ local EnchantAffixes = {
 	" +does not stack with other passive movement speed bonuses%.",
 	" +does not stack with other enchantments for the selected equipment slot%.",
 	"[\r\n]+wearer must be level %d+ or higher to receive the benefits of this armor kit%.$",
+	-- item 89717
+	" +effect is reduced for players below level %d+.$",
 
 	" +with it%.$",
 
