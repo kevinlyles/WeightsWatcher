@@ -22,13 +22,7 @@ local CooldownUseUnweightedLines = {
 
 local CooldownUsePreprocessLines = {
 	{" (arcane spell) power ", " %1 damage "},
-	{" (fire spell) power ", " %1 damage "},
-	{" (frost spell) power ", " %1 damage "},
-	{" (holy spell) power ", " %1 damage "},
-	{" (nature spell) power ", " %1 damage "},
-	{" (shadow spell) power ", " %1 damage "},
 	{" your stats ", " all stats "},
-	{" the block value of your shield ", " block value "},
 	{" resistances to all schools of magic ", " all resistances "},
 	{" by up t?o? ?", " by "},
 	{"%. +effect lasts ", " "},
@@ -40,12 +34,6 @@ local CooldownUsePreprocessLines = {
 	{" melee and ranged attack power ", " attack power "},
 	-- item 12450
 	{" spell, ranged,? and melee haste ", " haste "},
-	-- item 66879
-	--Should be obsolete (the item appears to be updated)
-	--{" crit ", " critical strike "},
-	-- item 70144
-	--Should be obsolete (the item appears to be updated)
-	--{" critical ", " critical strike "},
 }
 
 local CooldownUseAffixes = {

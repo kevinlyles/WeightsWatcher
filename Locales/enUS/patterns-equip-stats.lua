@@ -15,7 +15,6 @@ local EquipStatsUnweightedLines = {
 	" you kill a target ",
 	" against ",
 	" while ",
-	" periodic damage done by ",
 	" you use ",
 }
 

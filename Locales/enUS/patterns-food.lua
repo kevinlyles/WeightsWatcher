@@ -15,15 +15,12 @@ local FoodMatchLines = {
 
 local FoodIgnoreLines = {
 	" must remain seated while %a+ing%.$",
-	" usable only inside %a[%a ]+%.$",
 	" %(%d+ min cooldown%)$",
 	" nearby party members ",
-	"can only be consumed underwater%.",
 }
 
 local FoodUnweightedLines = {
 	" you will become well fed and can track ",
-	" you are likely to grow in size%.",
 	" discover the fortune hidden in your meal!$",
 }
 
@@ -34,7 +31,6 @@ local FoodPreprocessLines = {
 	{" reduces ", " decreases "},
 	{", but decreases ", " and decreases "},
 	{" all stats are reduced by ", " decreases all stats by "},
-	{" resistance to all schools of magic ", " all resistances "},
 }
 
 local FoodAffixes = {

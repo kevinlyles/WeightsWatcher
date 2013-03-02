@@ -18,9 +18,6 @@ local UseEffectIgnoreLines = {
 	"^use: reduces ",
 	"^use: combines? ",
 	"^use: inflicts? ",
-	"^use: increases the range ",
-	"^use: increases the radius ",
-	"^use: increases the duration ",
 	"^use: summons? ",
 	"^use: turns? ",
 	"^use: unlocks? ",
@@ -37,7 +34,6 @@ local UseEffectPreprocessLines = {
 	{" all magical resistances ", " all resistances "},
 	{" additional ", " "},
 	{" maximum health ", " health "},
-	{" all attributes ", " all stats "},
 }
 
 local UseEffectAffixes = {
@@ -45,13 +41,9 @@ local UseEffectAffixes = {
 	-- item 4952
 	"^a powerful ale that +",
 	"^increases +",
-	"^the target's +",
 	"^the player's +",
 	"^your +",
 	"^restores +",
-	"^gives the gift of the wild to all party and raid members, increasing +",
-	" +%([14] sec cooldown%)$",
-	" +only one scroll effect can be active at a time%.$",
 	" +for 5 min%.$",
 	" +30 mins?%.$",
 	" +1 hour%.$",

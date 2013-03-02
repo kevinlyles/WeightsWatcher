@@ -29,24 +29,13 @@ local EnchantPreprocessLines = {
 	{" melee weapon to do (%d+) additional points? of damage", " %1 melee damage"},
 	{" armor value ", " armor "},
 	{" additional ", " "},
-	{" a slight movement speed increase", " minor run speed increase"},
 	{"^use: attaches a permanent scope to a bow or gun that increases its damage by ", "increases ranged damage by "},
-	{" resistance to (%a+) by ", " %1 resistance by "},
-	{" resistance to all schools of magic by ", " all resistances by "},
 	-- items 18182 and 29187
 	{" resistance to all magic schools ", " all resistances "},
-	{" to all ", " all "},
 	{" skill by ", " by "},
-	-- item 19782
-	{" shield block ", " block "},
-	{" resist ", " resistance "},
-	-- item 23548
-	{" attacker power ", " attack power "},
 	-- item 20076
 	{" adds to a shoulder slot item increased ", " "},
 	{" mounted movement speed ", " mount speed "},
-	{" stealth slightly ", " effective stealth level by 1 "},
-	{" stealth%.$", " effective stealth level by 1"},
 	{" decrease threat from all attacks and spells ", " reduced threat "},
 	{" from all attacks and spells ", " caused "},
 	{" reduce threat slightly ", " 2%% reduced threat "},
@@ -55,8 +44,6 @@ local EnchantPreprocessLines = {
 	{" reduce?s?i?n?g? the duration of disarm effects by ", " disarm duration reduced by "},
 	{" resilience ", " pvp resilience "},
 	{" pvp pvp resilience ", " pvp resilience "},
-	-- item 22023
-	{" to add (%d+) to ", " +%1 "},
 	-- item 23530
 	{" (deals %d+)-(%d+ damage) ", " %1 to %2 "},
 	-- item 55055
@@ -115,21 +102,14 @@ local EnchantAffixes = {
 
 	"^[st]o +",
 	"^that +",
-	"^they +",
 	"^it +",
 
 	"^increases? +",
-	"^provides? +",
-	"^adds? +",
 	"^gives? +",
 	"^grants? +",
--- 	"^regenerates? +",
--- 	"^restores? +",
 
 	"^your +",
 	"^the +",
-	"^[bw]earer's +",
-	" of the [bw]earer",
 	"^both +",
 	"^its +",
 
@@ -142,8 +122,6 @@ local EnchantAffixes = {
 	"[\r\n]+%a+ing [%a ]+ causes [%a ]+ to become soulbound%.$",
 	"[\r\n]+can only be attached to [%a ]+ in your inventory%.$",
 	" +only the enchanter's rings can be enchanted,? and enchanting a ring will cause it to become soulbound%.$",
-	" +fur lining requires at least %d+ skill in leatherworking to remain active%.$",
-	"[\r\n]+can only be used on the leatherworker's bracers, and doing so will cause them to become soulbound%.$",
 	-- TODO: flag these somehow and handle it in scoring
 	" +disarm duration reduction does not stack with other similar effects%.",
 	" +does not stack with other similar effects%.",
@@ -162,7 +140,6 @@ local EnchantAffixes = {
 	" +t?on? a %a[%a ,]+ slot item%.?$",
 	" +on a pair of gloves",
 	"points of +",
-	"^mana regeneration by +",
 
 	" +to a sha%-touched weapon or armament of the thunder king%.$",
 

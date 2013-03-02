@@ -10,20 +10,14 @@ local ElixirMatchLines = {
 
 local ElixirUnweightedLines = {
 	" walk across water ",
-	" of your spell targets ",
 }
 
 local ElixirPreprocessLines = {
 	{" and your ", " and "},
 	{" and restores ", " and "},
-	{" and grants ", " and "},
-	-- Should be obsolete (item 40212 appears to have been updated)
-	--{" critical ", " critical strike "},
 	{" maximum health ", " health "},
 	{" the chance that the player will reflect hostile spells cast on them by (%d+)%% for %d+ hrs%. +will automatically reflect the first offensive spell cast against the user", " %1%% spell reflect"},
 	{" is increased by ", " by "},
-	{" resistance to all schools of magic ", " all resistances "},
-	{" resistance to magic ", " all resistances "},
 }
 
 local ElixirAffixes = {
@@ -34,7 +28,6 @@ local ElixirAffixes = {
 	"^the player's +",
 	"^the target's +",
 	"^maximum +",
-	"^mana regeneration by +",
 	"^regenerate +",
 	" +%(1 sec cooldown%)$",
 	" +%([12] min cooldown%)$",

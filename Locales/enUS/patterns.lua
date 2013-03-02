@@ -70,7 +70,6 @@ ww_Preprocess = {
 }
 
 ww_ignoredInvalidStats = {
-	"requires level",
 	"all stats",
 	"all resistances",
 }
@@ -90,7 +89,6 @@ ww_IgnoredLines = {
 	"^use: right click to ",
 	"^this item begins a quest$",
 	"^already known$",
-	"^prime glyph$",
 	"^major glyph$",
 	"^minor glyph$",
 	"^cogwheel$",
@@ -98,7 +96,6 @@ ww_IgnoredLines = {
 	"^mount$",
 	"^ammo$",
 	"^projectile$",
-	"^relic$",
 	"^thrown$",
 	"^crystal of fear$",
 
@@ -112,12 +109,10 @@ ww_IgnoredLines = {
 	"^ahn'kahet: the old kingdom$",
 	"^ahn'qiraj$",
 	"^alterac valley$",
-	"^assault on zan'vess$",
 	"^black temple$",
 	"^blackrock depths$",
 	"^blade's edge mountains$",
 	"^coilfang: serpentshrine cavern$",
-	"^crypt of forgotten kings$",
 	"^dire maul$",
 	"^drak'tharon keep$",
 	"^ebon hold$",
@@ -163,11 +158,7 @@ ww_IgnoredLines = {
 }
 
 ww_TempIgnoredLines = {
-	"^use: restores %d+ to %d+ %a+ over ",
 	"^use: restores %d+ to %d+ %a+ and ",
-	"^use: restores %d+ to %d+ %a+ every .* for ",
---	"^use: restores %d+ to %d+ %a+.[^0-9]*$",
-	"^use: teaches .* %(rank %d+%)%.$",
 	"^use: heals %d+ damage over %d+ sec%.$",
 }
 
@@ -179,7 +170,6 @@ ww_UnweightedLines = {
 	"chance t?on? ",
 	"^use: .*enchants? ",
 	"^equip: you",
-	"^equip: causes your ",
 	" at the cost of ",
 }
 
@@ -272,20 +262,6 @@ ww_MultipleStatLines = {
 		end,
 		{"cooldownUseEffect"},
 	},
-	{"^(%a+), (%a+), and (%a+) by (%d+)$",
-		function(text, pattern)
-			local start, _, stat1, stat2, stat3, value = string.find(text, pattern)
-			if start then
-				value = tonumber(value)
-				local stats = WeightsWatcher.newStatTable()
-				stats[stat1] = value
-				stats[stat2] = value
-				stats[stat3] = value
-				return stats
-			end
-		end,
-		{"enchant"},
-	},
 	-- item 38960
 	{"^(%a+), (%a+), and (%a+) skills by (%d+)$",
 		function(text, pattern)
@@ -347,13 +323,6 @@ ww_SingleStatLines = {
 		end,
 		{"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "socketBonus", "stackingEquipEffect"},
 	},
-	-- druid only
-	{"^increases attack power by (%d+) in cat, bear, dire bear, and moonkin forms only%.$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "feral attack power")
-		end,
-		{"generic"},
-	},
 	{"^([+-]?%d+) (%a+ resistances?)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "useEffect"}},
 	{"^([+-]?%d+) (block value)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "enchant", "equipEffect", "generic", "socketBonus"}},
 	-- random suffix enchants
@@ -363,16 +332,6 @@ ww_SingleStatLines = {
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "hp5")
 		end,
 		{"cooldownUseEffect", "elixir", "equipEffect", "food", "generic", "useEffect"},
-	},
-	-- item 20130
-	{"^([+-]?%d+) to ([+-]?%d+) health [ep]v?ery? 5 seco?n?d?s?%.?$",
-		function(text, pattern)
-			local start, _, minVal, maxVal = string.find(text, pattern)
-			if start then
-				return WeightsWatcher.newStatTable({["hp5"] = tonumber((minVal + maxVal) / 2)})
-			end
-		end,
-		{"cooldownUseEffect"},
 	},
 	{"^minor run speed increase$",
 		function(text, pattern)
@@ -543,12 +502,6 @@ ww_SingleStatLines = {
 			end
 		end,
 		{"enchant", "equipEffect", "generic"},
-	},
-	{"^([+-]?%d+)%% intellect$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "intellect (percent)")
-		end,
-		{"generic"},
 	},
 	{"^([+-]?%d+)%% mana$",
 		function(text, pattern)
