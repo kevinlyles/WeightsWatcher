@@ -53,6 +53,8 @@ local EnchantPreprocessLines = {
 	{" a minor movement speed ", " minor run speed "},
 	{" movement speed by 8%%", " minor run speed increase"},
 	{" reducing the duration of disarm effects by ", " disarm duration reduced by "},
+	-- item 95349
+	{" reduces the duration of disarm effects by ", " disarm duration reduced by "},
 	-- item 22023
 	{" to add (%d+) to ", " +%1 "},
 	-- item 23530
@@ -143,6 +145,7 @@ local EnchantAffixes = {
 	" +fur lining requires at least %d+ skill in leatherworking to remain active%.$",
 	"[\r\n]+can only be used on the leatherworker's bracers, and doing so will cause them to become soulbound%.$",
 	-- TODO: flag these somehow and handle it in scoring
+	" +disarm duration reduction does not stack with other similar effects%.",
 	" +does not stack with other similar effects%.",
 	" +does not stack with other passive movement speed bonuses%.",
 	" +does not stack with other enchantments for the selected equipment slot%.",
