@@ -26,17 +26,17 @@ local triggerGroups = {
 
 local StackingEquipMatchLines = {
 	"^equip: each .* stack",
-	"^equip: your %a* ?spells grant .* stack",
 	"^equip: your .*attacks grant .* stack",
+	"^equip: your %a* ?spells grant .* stack",
 }
 
 local stackingEquipPreprocessLines = {
-	{"%. +each time you ", " SPLIT "},
 	{"%. +lasts ", " for "},
 	{"%. +stacks ", ", stacking "},
 	{" and stacking ", ", stacking "},
 	{" grant heart's revelation, increasing ", " grant "},
 	{" grant inner eye, increasing ", " grant "},
+	{"%. +each time you ", " SPLIT "},
 }
 
 local StackingEquipAffixes = {

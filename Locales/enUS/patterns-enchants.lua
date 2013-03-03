@@ -8,8 +8,8 @@ local EnchantMatchLines = {
 	"^use: teaches you how to permanently enchant ",
 	"^use: attaches ",
 	"^use: enchants? ",
-	"^use: removes the safety mechanism from ",
 	"^use: add a prismatic socket ",
+	"^use: removes the safety mechanism from ",
 }
 
 local EnchantUnweightedLines = {
@@ -71,6 +71,7 @@ local EnchantAffixes = {
 	"^chain to your weapon, +",
 	"^counterweight to a two%-handed sword, mace, axe or polearm increasing the wielder's +",
 	"^permanent scope to a bow or gun +",
+	"^lightweight titanium plating to a shield, +",
 	"weapon to increase its +",
 	"^spurs to +",
 	"^your +",
@@ -96,7 +97,6 @@ local EnchantAffixes = {
 	"^%a+ l?e?g? ?armor +",
 	"^onto pants +",
 	"^embroiders spellthread into pants, +",
-	"^lightweight titanium plating to a shield, +",
 
 	"^increasing +",
 

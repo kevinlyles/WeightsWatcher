@@ -75,29 +75,32 @@ ww_ignoredInvalidStats = {
 }
 
 ww_IgnoredLines = {
-	"^$",
-	"^upgrade level:",
 	"^requires ", -- Reputation and materials requirements
+	"^$",
 	"^  [^ ]",
-	"^%a[%a' -]+ %(%d/%d%)$",
 	"^classes: ",
-	"^\n",
+	"^%a[%a' -]+ %(%d/%d%)$", -- Set names
 	"^\".+\"$",
+	"^\n",
+	"^use: teaches you how to [a-oq-z]%a+ ", -- Profession items
 	"^races: ",
-	"^duration: ",
-	"^conjured item$",
-	"^use: right click to ",
 	"^this item begins a quest$",
-	"^already known$",
-	"^major glyph$",
-	"^minor glyph$",
-	"^cogwheel$",
 	"^<.*>$",
 	"^mount$",
-	"^ammo$",
-	"^projectile$",
+	"^major glyph$",
+	"^duration: ",
+	"^%d+ slot ", -- Bags
 	"^thrown$",
+	"^conjured item$",
+	"^minor glyph$",
+	"^use: right click to ",
+	"^upgrade level:",
+	"^ammo$",
+	"^use: teaches you how to p[a-df-z]%a+ ", -- Profession items
+	"^cogwheel$",
 	"^crystal of fear$",
+	"^projectile$",
+	"^already known$",
 
 	-- TODO: add these for ALL professions
 	"^cooking ingredient$",
@@ -149,12 +152,6 @@ ww_IgnoredLines = {
 	"^zul'aman$",
 	"^zul'drak$",
 	"^zul'gurub$",
-
-	--Promoted from temp ignore list
-	"^%d+ slot ",
-	-- Profession items
-	"^use: teaches you how to [a-oq-z]%a+ ",
-	"^use: teaches you how to p[a-df-z]%a+ ",
 }
 
 ww_TempIgnoredLines = {
@@ -164,12 +161,11 @@ ww_TempIgnoredLines = {
 
 ww_UnweightedLines = {
 	"^%(%d%) set: ",
-	"^set: ", -- In-game only?
-	-- Use effects that have a cooldown
-	"cooldown",
+	"^set: ", -- In-game only (set bonus that you have enough pieces for)
 	"chance t?on? ",
-	"^use: .*enchants? ",
+	"cooldown", -- Use effects that have a cooldown
 	"^equip: you",
+	"^use: .*enchants? ",
 	" at the cost of ",
 }
 
@@ -587,8 +583,8 @@ ww_ItemInfoLines = {
 	"^binds ",
 	"^unique",
 	"^soulbound$",
-	"^heroic",
 	"^quest item$",
+	"^heroic",
 	"^season ",
 	"^raid finder$",
 	"^thunderforged$",
@@ -596,26 +592,26 @@ ww_ItemInfoLines = {
 }
 
 ww_DoubleSlotLines = {
+	"^chest$",
+	"^legs$",
+	"^hands$",
 	"^head$",
 	"^shoulder$",
-	"^chest$",
-	"^wrist$",
-	"^hands$",
-	"^waist$",
-	"^legs$",
 	"^feet$",
-	"^two%-hand$",
+	"^waist$",
+	"^wrist$",
 	"^one%-hand$",
-	"^main hand$",
-	"^off hand$",
+	"^two%-hand$",
 	"^ranged$",
+	"^off hand$",
+	"^main hand$",
 }
 
 ww_SingleSlotLines = {
 	"^finger$",
 	"^back$",
-	"^neck$",
 	"^trinket$",
+	"^neck$",
 	"^held in off%-hand$",
 	"^shirt$",
 	"^tabard$",

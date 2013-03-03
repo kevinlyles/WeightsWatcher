@@ -8,19 +8,19 @@ local UseEffectMatchLines = {
 }
 
 local UseEffectIgnoreLines = {
-	"^use: heal",
-	"^use: a %a* ?%a* ?alcohol",
-	"^use: transform",
-	"^use: a sample of ",
-	" if they have free room ",
-	"^use: throw into ",
-	"^use: instantly restores ",
-	"^use: reduces ",
 	"^use: combines? ",
-	"^use: inflicts? ",
 	"^use: summons? ",
-	"^use: turns? ",
+	"^use: a %a* ?%a* ?alcohol",
 	"^use: unlocks? ",
+	"^use: heal",
+	"^use: turns? ",
+	"^use: inflicts? ",
+	"^use: transform",
+	"^use: throw into ",
+	"^use: a sample of ",
+	"^use: reduces ",
+	"^use: instantly restores ",
+	" if they have free room ",
 }
 
 local UseEffectUnweightedLines = {
@@ -30,10 +30,10 @@ local UseEffectUnweightedLines = {
 }
 
 local UseEffectPreprocessLines = {
-	{" decreases your ", " decreases "},
-	{" all magical resistances ", " all resistances "},
 	{" additional ", " "},
+	{" decreases your ", " decreases "},
 	{" maximum health ", " health "},
+	{" all magical resistances ", " all resistances "},
 }
 
 local UseEffectAffixes = {

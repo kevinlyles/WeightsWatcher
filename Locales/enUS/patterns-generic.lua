@@ -8,8 +8,6 @@ local GenericMatchLines = {
 }
 
 local GenericPreprocessLines = {
-	-- items 95346 and 95347
-	{", and ", " and "},
 	{" resist all$", " all resistances"},
 	{" block$", " block value"},
 	-- random enchant id 1470
@@ -20,6 +18,8 @@ local GenericPreprocessLines = {
 	{" maximum mana$", " mana"},
 	-- Items 7348 and 30318
 	{" critical strike %(ranged%)", " ranged critical strike"},
+	-- items 95346 and 95347
+	{", and ", " and "},
 }
 
 local GenericAffixes = {

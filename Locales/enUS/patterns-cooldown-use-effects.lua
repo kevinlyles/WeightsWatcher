@@ -6,8 +6,8 @@ end
 ww_localization["IDEAL_USE_UPTIME"] = "Percent of ideal use effect uptime:"
 
 local CooldownUseMatchLines = {
-	"^use: grants? .* cooldown%)$",
 	"^use: increases? .* cooldown%)$",
+	"^use: grants? .* cooldown%)$",
 	"^use: restores .* every .* cooldown%)$",
 	-- item 70142
 	"^use: a small moonwell .* cooldown%)$",

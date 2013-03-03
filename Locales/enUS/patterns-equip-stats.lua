@@ -9,12 +9,12 @@ local EquipStatsMatchLines = {
 
 local EquipStatsUnweightedLines = {
 	"^equip: reduces ",
-	" when fighting ",
-	" spell power of ",
-	" pet[' ]",
-	" you kill a target ",
-	" against ",
 	" while ",
+	" when fighting ",
+	" you kill a target ",
+	" pet[' ]",
+	" against ",
+	" spell power of ",
 	" you use ",
 }
 
