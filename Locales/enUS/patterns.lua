@@ -102,13 +102,6 @@ ww_IgnoredLines = {
 	"^thrown$",
 	"^crystal of fear$",
 
-	-- Gear modifiers
-	"^elite$",
-	"^heroic elite$",
-	"^heroic thunderforged$",
-	"^season ",
-	"^thunderforged$",
-
 	-- TODO: add these for ALL professions
 	"^cooking ingredient$",
 	"^crafting material$",
@@ -161,6 +154,12 @@ ww_IgnoredLines = {
 	"^zul'aman$",
 	"^zul'drak$",
 	"^zul'gurub$",
+
+	--Promoted from temp ignore list
+	"^%d+ slot ",
+	-- Profession items
+	"^use: teaches you how to [a-oq-z]%a+ ",
+	"^use: teaches you how to p[a-df-z]%a+ ",
 }
 
 ww_TempIgnoredLines = {
@@ -169,11 +168,7 @@ ww_TempIgnoredLines = {
 	"^use: restores %d+ to %d+ %a+ every .* for ",
 --	"^use: restores %d+ to %d+ %a+.[^0-9]*$",
 	"^use: teaches .* %(rank %d+%)%.$",
-	"^%d+ slot ",
 	"^use: heals %d+ damage over %d+ sec%.$",
-	-- Profession patterns
-	"^use: teaches you how to [a-oq-z]%a+ ",
-	"^use: teaches you how to p[a-df-z]%a+ ",
 }
 
 ww_UnweightedLines = {
@@ -640,9 +635,12 @@ ww_ItemInfoLines = {
 	"^binds ",
 	"^unique",
 	"^soulbound$",
-	"^heroic$",
+	"^heroic",
 	"^quest item$",
+	"^season ",
 	"^raid finder$",
+	"^thunderforged$",
+	"^elite$",
 }
 
 ww_DoubleSlotLines = {
