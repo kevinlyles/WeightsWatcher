@@ -109,7 +109,7 @@ local EnchantAffixes = {
 	"^%a+ l?e?g? ?armor +",
 	"^onto pants +",
 	"^embroiders spellthread into pants, +",
-	"lightweight titanium plating to a shield, +",
+	"^lightweight titanium plating to a shield, +",
 
 	"^increasing +",
 
