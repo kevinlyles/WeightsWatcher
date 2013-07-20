@@ -14,7 +14,7 @@ local PreprocessLines = {
 	{"^use: enchants a weapon to have a 15%% chance to inflict 11 fire damage to all enemies within 3 yards%.$", "fiery blaze"},
 	{"^use: permanently attaches a mirrored scope to a ranged weapon, sometimes increasi?n?g?e?s? critical strike by 900 for 10 sec when dealing damage with ranged attacks%.[\r\n]+attaching this scope to a ranged weapon causes it to become soulbound%.$", "mirror scope"},
 	{"^use: permanently attaches lord blastington's special scope to a ranged weapon, sometimes increasing agility by 1,?800 for 10 sec when dealing damage with ranged attacks%.[\r\n]+attaching this scope to a ranged weapon causes it to become soulbound%.$", "lord blastington's scope of doom"},
-	{"^use: permanently enchant a melee weapon to cause your damaging spells and melee weapon hits to occasionally inflict additional frost damage and slow the target%. +requires a level 60 or higher item%.[\r\n\\n]+slow effect does not work on targets 73 or higher%.$", "deathfrost"},
+	{"^use: permanently enchant a melee weapon to cause your damaging spells and melee weapon hits to occasionally inflict additional frost damage and slow the target%. +requires a level 60 or higher item%. +slow effect does not work on targets 73 or higher%.$", "deathfrost"},
 	{"^use: permanently enchant a melee weapon to cause your harmful spells to sometimes increase haste by 250%. +requires a level 60 or higher item%.$", "black magic"},
 	{"^use: permanently enchant a melee weapon to have a chance of reducing movement speed and doing additional damage against giants%. +requires a level 60 or higher item%.$", "giant slayer"},
 	{"^use: permanently enchant a melee weapon to have a chance of stunning and doing additional damage against demons%.$", "demonslaying"},
