@@ -332,7 +332,15 @@ function WeightsWatcher:eventHandler(event, message, ...)
 				WeightsWatcher.ResetEnchantCache()
 			end
 		else
-			populateProfessions()
+			skill = message:match(L["PROF_NEW"])
+			if skill then
+				if WeightsWatcher.player.professions[skill] then
+					WeightsWatcher.player.professions[skill] = 1
+					WeightsWatcher.ResetEnchantCache()
+				end
+			else
+				populateProfessions()
+			end
 		end
 	elseif event == "CHAT_MSG_COMBAT_FACTION_CHANGE" then
 		-- "Reputation with X (in|de)creased by y."
