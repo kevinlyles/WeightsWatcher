@@ -9,7 +9,6 @@ local GenericMatchLines = {
 
 local GenericPreprocessLines = {
 	{" resist all$", " all resistances"},
-	{" block$", " block value"},
 	-- random enchant id 1470
 	{" resist shadow$", " shadow resistance"},
 	{" to all ", " all "},

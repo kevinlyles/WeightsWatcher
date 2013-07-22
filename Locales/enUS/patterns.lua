@@ -320,7 +320,6 @@ ww_SingleStatLines = {
 		{"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "socketBonus"},
 	},
 	{"^([+-]?%d+) (%a+ resistances?)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "generic", "useEffect"}},
-	{"^([+-]?%d+) (block value)$", WeightsWatcher.statNumFirst, {"generic"}},
 	-- random suffix enchants
 	{"^([+-]?%d+) (%a+ spell damage)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "generic"}},
 	{"^([+-]?%d+) health [ep]v?ery? 5 seco?n?d?s?%.?$",
