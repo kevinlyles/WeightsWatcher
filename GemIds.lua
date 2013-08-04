@@ -3086,7 +3086,7 @@ ww_gems = {
 				},
 				[4472] = {
 					"green",
-					"Nimble Alexandrite",
+					"Confounded Alexandrite",
 					{[L["hit"]] = 120, [L["stamina"]] = 90},
 				},
 				[4473] = {
@@ -3428,7 +3428,7 @@ ww_gems = {
 				},
 				[4606] = {
 					"green",
-					"Nimble Wild Jade",
+					"Confounded Wild Jade",
 					{[L["hit"]] = 160, [L["stamina"]] = 120},
 				},
 				[4607] = {
@@ -4776,7 +4776,7 @@ ww_gems = {
 				},
 				[4540] = {
 					"green",
-					"Perfect Nimble Alexandrite",
+					"Perfect Confounded Alexandrite",
 					{[L["hit"]] = 160, [L["stamina"]] = 120},
 				},
 				[4541] = {
