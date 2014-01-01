@@ -1,170 +1,347 @@
 local L = ww_localizedStats
 
--- format:
--- 	[source] = {
---  	[type] = {
---  		[quality] = {
---  			[gemId] = {
---  				"color",
---  				"name",
---  				{stats},
---  			}
---  		}
---  	}
--- 	}
---
--- sources:
--- 	Vendor: purchasable w/ gold
--- 	PVP-Vendor: purchasable w/ pvp stuff
--- 	Crafted: crafted by players
--- 	Procced: procced via crafting
--- 	Drop: drops from a mob or zone
--- 	Quest: quest reward
---
--- types:
--- 	Normal: normal gems, no restrictions on their use
--- 	Unique-Equipped: Only one can be equipped at a time
--- 	Jewelcrafter-Only: Only jewelcrafters can use them
---
--- qualities:
--- 	1: BC white
--- 	2: BC green
--- 	3: BC blue
--- 	4: BC epic
--- 	5: wrath green
--- 	6: wrath blue
--- 	7: wrath epic
--- 	8: cataclysm green
--- 	9: cataclysm blue
--- 10: cataclysm epic
--- 11: pandaria green
--- 12: pandaria blue
--- 13: pandaria epic
--- 14: pandaria legendary
+--[[
+format:
+	[source] = {
+		[type] = {
+			[quality] = {
+				[gemId] = {
+					"color",
+					"name",
+					{stats},
+				}
+			}
+		}
+	}
+
+sources:
+	Vendor: purchasable w/ gold
+	PVP-Vendor: purchasable w/ pvp stuff
+	Crafted: crafted by players
+	Procced: procced via crafting
+	Drop: drops from a mob or zone
+	Quest: quest reward
+
+types:
+	Normal: normal gems, no restrictions on their use
+	Unique-Equipped: Only one can be equipped at a time
+	Jewelcrafter-Only: Only jewelcrafters can use them
+
+qualities:
+	1: BC white
+	2: BC green
+	3: BC blue
+	4: BC epic
+	5: wrath green
+	6: wrath blue
+	7: wrath epic
+	8: cataclysm green
+	9: cataclysm blue
+	10: cataclysm epic
+	11: pandaria green
+	12: pandaria blue
+	13: pandaria epic
+	14: pandaria legendary
+]]
 
 ww_gems = {
-	["Vendor"] = {
-		["Normal"] = {
-			[1] = {
-				[2956] = {
+	Crafted = {
+		["Jewelcrafter-Only"] = {
+			[4] = {
+				[3208] = {
 					"red",
-					"Bold Tourmaline",
-					{[L["strength"]] = 4},
+					"Crimson Sun",
+					{[L["agility"]] = 12},
 				},
-				[2957] = {
+				[3210] = {
 					"red",
-					"Delicate Tourmaline",
-					{[L["agility"]] = 4},
+					"Don Julio's Heart",
+					{[L["intellect"]] = 12},
 				},
-				[2958] = {
+				[3211] = {
 					"red",
-					"Brilliant Tourmaline",
-					{[L["intellect"]] = 4},
+					"Kailee's Rose",
+					{[L["intellect"]] = 12},
 				},
-				[2959] = {
-					"red",
-					"Brilliant Tourmaline",
-					{[L["intellect"]] = 4},
-				},
-				[2960] = {
-					"red",
-					"Delicate Tourmaline",
-					{[L["agility"]] = 4},
-				},
-				[2961] = {
+				[3212] = {
 					"blue",
-					"Solid Zircon",
-					{[L["stamina"]] = 6},
+					"Falling Star",
+					{[L["stamina"]] = 18},
 				},
-				[2962] = {
-					"blue",
-					"Sparkling Zircon",
-					{[L["spirit"]] = 4},
-				},
-				[2963] = {
-					"blue",
-					"Sparkling Zircon",
-					{[L["spirit"]] = 4},
-				},
-				[2964] = {
-					"red",
-					"Brilliant Tourmaline",
-					{[L["intellect"]] = 4},
-				},
-				[2965] = {
+				[3217] = {
 					"yellow",
-					"Smooth Amber",
-					{[L["critical strike"]] = 4},
+					"Blood of Amber",
+					{[L["critical strike"]] = 24},
 				},
-				[2966] = {
+				[3220] = {
+					"yellow",
+					"Stone of Blades",
+					{[L["critical strike"]] = 24},
+				},
+				[3221] = {
+					"yellow",
+					"Facet of Eternity",
+					{[L["dodge"]] = 24},
+				},
+			},
+			[7] = {
+				[3292] = {
+					"red",
+					"Delicate Dragon's Eye",
+					{[L["agility"]] = 34},
+				},
+				[3293] = {
 					"blue",
-					"Rigid Zircon",
-					{[L["hit"]] = 4},
+					"Solid Dragon's Eye",
+					{[L["stamina"]] = 51},
 				},
-				[2967] = {
-					"yellow",
-					"Smooth Amber",
-					{[L["critical strike"]] = 4},
+				[3732] = {
+					"red",
+					"Bold Dragon's Eye",
+					{[L["strength"]] = 34},
 				},
-				[2968] = {
+				[3733] = {
+					"red",
+					"Delicate Dragon's Eye",
+					{[L["agility"]] = 34},
+				},
+				[3734] = {
+					"red",
+					"Brilliant Dragon's Eye",
+					{[L["intellect"]] = 34},
+				},
+				[3735] = {
+					"blue",
+					"Sparkling Dragon's Eye",
+					{[L["spirit"]] = 68},
+				},
+				[3736] = {
+					"blue",
+					"Sparkling Dragon's Eye",
+					{[L["spirit"]] = 68},
+				},
+				[3737] = {
+					"red",
+					"Brilliant Dragon's Eye",
+					{[L["intellect"]] = 34},
+				},
+				[3738] = {
 					"yellow",
-					"Subtle Amber",
-					{[L["dodge"]] = 4},
+					"Smooth Dragon's Eye",
+					{[L["critical strike"]] = 68},
+				},
+				[3739] = {
+					"yellow",
+					"Quick Dragon's Eye",
+					{[L["haste"]] = 68},
+				},
+				[3740] = {
+					"yellow",
+					"Subtle Dragon's Eye",
+					{[L["dodge"]] = 68},
+				},
+				[3741] = {
+					"red",
+					"Flashing Dragon's Eye",
+					{[L["parry"]] = 68},
+				},
+				[3742] = {
+					"blue",
+					"Rigid Dragon's Eye",
+					{[L["hit"]] = 68},
+				},
+				[3743] = {
+					"yellow",
+					"Subtle Dragon's Eye",
+					{[L["dodge"]] = 68},
+				},
+				[3744] = {
+					"yellow",
+					"Mystic Dragon's Eye",
+					{[L["pvp resilience"]] = 34},
+				},
+				[3745] = {
+					"yellow",
+					"Smooth Dragon's Eye",
+					{[L["critical strike"]] = 68},
+				},
+				[3746] = {
+					"red",
+					"Precise Dragon's Eye",
+					{[L["expertise"]] = 68},
+				},
+				[3747] = {
+					"blue",
+					"Stormy Dragon's Eye",
+					{[L["pvp power"]] = 34},
+				},
+			},
+			[10] = {
+				[4031] = {
+					"red",
+					"Bold Chimera's Eye",
+					{[L["strength"]] = 67},
+				},
+				[4032] = {
+					"red",
+					"Brilliant Chimera's Eye",
+					{[L["intellect"]] = 67},
+				},
+				[4033] = {
+					"red",
+					"Delicate Chimera's Eye",
+					{[L["agility"]] = 67},
+				},
+				[4034] = {
+					"red",
+					"Flashing Chimera's Eye",
+					{[L["parry"]] = 134},
+				},
+				[4035] = {
+					"yellow",
+					"Fractured Chimera's Eye",
+					{[L["mastery"]] = 134},
+				},
+				[4036] = {
+					"yellow",
+					"Mystic Chimera's Eye",
+					{[L["pvp resilience"]] = 67},
+				},
+				[4037] = {
+					"red",
+					"Precise Chimera's Eye",
+					{[L["expertise"]] = 134},
+				},
+				[4038] = {
+					"yellow",
+					"Quick Chimera's Eye",
+					{[L["haste"]] = 134},
+				},
+				[4039] = {
+					"blue",
+					"Rigid Chimera's Eye",
+					{[L["hit"]] = 134},
+				},
+				[4040] = {
+					"yellow",
+					"Smooth Chimera's Eye",
+					{[L["critical strike"]] = 134},
+				},
+				[4041] = {
+					"blue",
+					"Solid Chimera's Eye",
+					{[L["stamina"]] = 101},
+				},
+				[4042] = {
+					"blue",
+					"Sparkling Chimera's Eye",
+					{[L["spirit"]] = 134},
+				},
+				[4043] = {
+					"blue",
+					"Stormy Chimera's Eye",
+					{[L["pvp power"]] = 67},
+				},
+				[4044] = {
+					"yellow",
+					"Subtle Chimera's Eye",
+					{[L["dodge"]] = 134},
+				},
+			},
+			[13] = {
+				[4810] = {
+					"red",
+					"Bold Serpent's Eye",
+					{[L["strength"]] = 320},
+				},
+				[4811] = {
+					"red",
+					"Brilliant Serpent's Eye",
+					{[L["intellect"]] = 320},
+				},
+				[4812] = {
+					"red",
+					"Delicate Serpent's Eye",
+					{[L["agility"]] = 320},
+				},
+				[4813] = {
+					"red",
+					"Flashing Serpent's Eye",
+					{[L["parry"]] = 480},
+				},
+				[4814] = {
+					"yellow",
+					"Fractured Serpent's Eye",
+					{[L["mastery"]] = 480},
+				},
+				[4815] = {
+					"red",
+					"Precise Serpent's Eye",
+					{[L["expertise"]] = 480},
+				},
+				[4816] = {
+					"yellow",
+					"Quick Serpent's Eye",
+					{[L["haste"]] = 480},
+				},
+				[4817] = {
+					"blue",
+					"Rigid Serpent's Eye",
+					{[L["hit"]] = 480},
+				},
+				[4818] = {
+					"yellow",
+					"Smooth Serpent's Eye",
+					{[L["critical strike"]] = 480},
+				},
+				[4819] = {
+					"yellow",
+					"Subtle Serpent's Eye",
+					{[L["dodge"]] = 480},
+				},
+				[4820] = {
+					"blue",
+					"Solid Serpent's Eye",
+					{[L["stamina"]] = 480},
+				},
+				[4821] = {
+					"blue",
+					"Sparkling Serpent's Eye",
+					{[L["spirit"]] = 480},
+				},
+				[5016] = {
+					"orange",
+					"Resplendent Serpent's Eye",
+					{[L["pvp resilience"]] = 160, [L["strength"]] = 160},
+				},
+				[5017] = {
+					"orange",
+					"Lucent Serpent's Eye",
+					{[L["agility"]] = 160, [L["pvp resilience"]] = 160},
+				},
+				[5018] = {
+					"orange",
+					"Willful Serpent's Eye",
+					{[L["intellect"]] = 160, [L["pvp resilience"]] = 160},
+				},
+				[5019] = {
+					"purple",
+					"Tense Serpent's Eye",
+					{[L["pvp power"]] = 160, [L["strength"]] = 160},
+				},
+				[5020] = {
+					"purple",
+					"Assassin's Serpent's Eye",
+					{[L["agility"]] = 160, [L["pvp power"]] = 160},
+				},
+				[5021] = {
+					"purple",
+					"Mysterious Serpent's Eye",
+					{[L["intellect"]] = 160, [L["pvp power"]] = 160},
 				},
 			},
 		},
-		["Unique-Equipped"] = {
-			[9] = {
-				[4166] = {
-					"cogwheel",
-					"Subtle Cogwheel",
-					{[L["dodge"]] = 208},
-				},
-				[4167] = {
-					"cogwheel",
-					"Smooth Cogwheel",
-					{[L["critical strike"]] = 208},
-				},
-				[4168] = {
-					"cogwheel",
-					"Quick Cogwheel",
-					{[L["haste"]] = 208},
-				},
-				[4169] = {
-					"cogwheel",
-					"Fractured Cogwheel",
-					{[L["mastery"]] = 208},
-				},
-				[4170] = {
-					"cogwheel",
-					"Precise Cogwheel",
-					{[L["expertise"]] = 208},
-				},
-				[4171] = {
-					"cogwheel",
-					"Flashing Cogwheel",
-					{[L["parry"]] = 208},
-				},
-				[4172] = {
-					"cogwheel",
-					"Rigid Cogwheel",
-					{[L["hit"]] = 208},
-				},
-				[4173] = {
-					"cogwheel",
-					"Sparkling Cogwheel",
-					{[L["spirit"]] = 208},
-				},
-				[4239] = {
-					"cogwheel",
-					"Mystic Cogwheel",
-					{[L["pvp resilience"]] = 208},
-				},
-			},
-		},
-	},
-	["Crafted"] = {
-		["Normal"] = {
+		Normal = {
 			[2] = {
 				[2690] = {
 					"red",
@@ -194,17 +371,17 @@ ww_gems = {
 				[2695] = {
 					"yellow",
 					"Smooth Golden Draenite",
-					{[L["critical strike"]] = 6},
+					{[L["critical strike"]] = 12},
 				},
 				[2696] = {
 					"yellow",
 					"Subtle Golden Draenite",
-					{[L["dodge"]] = 6},
+					{[L["dodge"]] = 12},
 				},
 				[2697] = {
 					"blue",
 					"Rigid Azure Moonstone",
-					{[L["hit"]] = 6},
+					{[L["hit"]] = 12},
 				},
 				[2698] = {
 					"blue",
@@ -214,7 +391,7 @@ ww_gems = {
 				[2699] = {
 					"blue",
 					"Sparkling Azure Moonstone",
-					{[L["spirit"]] = 6},
+					{[L["spirit"]] = 12},
 				},
 				[2700] = {
 					"blue",
@@ -224,22 +401,22 @@ ww_gems = {
 				[2701] = {
 					"blue",
 					"Sparkling Azure Moonstone",
-					{[L["spirit"]] = 6},
+					{[L["spirit"]] = 12},
 				},
 				[2705] = {
 					"orange",
 					"Reckless Flame Spessarite",
-					{[L["haste"]] = 3, [L["intellect"]] = 3},
+					{[L["haste"]] = 6, [L["intellect"]] = 3},
 				},
 				[2706] = {
 					"green",
 					"Regal Deep Peridot",
-					{[L["dodge"]] = 3, [L["stamina"]] = 4},
+					{[L["dodge"]] = 6, [L["stamina"]] = 4},
 				},
 				[2707] = {
 					"purple",
 					"Purified Shadow Draenite",
-					{[L["intellect"]] = 3, [L["spirit"]] = 3},
+					{[L["intellect"]] = 3, [L["spirit"]] = 6},
 				},
 				[2708] = {
 					"purple",
@@ -249,7 +426,7 @@ ww_gems = {
 				[2709] = {
 					"purple",
 					"Purified Shadow Draenite",
-					{[L["intellect"]] = 3, [L["spirit"]] = 3},
+					{[L["intellect"]] = 3, [L["spirit"]] = 6},
 				},
 				[2710] = {
 					"purple",
@@ -264,32 +441,32 @@ ww_gems = {
 				[2752] = {
 					"orange",
 					"Inscribed Flame Spessarite",
-					{[L["critical strike"]] = 3, [L["strength"]] = 3},
+					{[L["critical strike"]] = 6, [L["strength"]] = 3},
 				},
 				[2755] = {
 					"purple",
 					"Glinting Shadow Draenite",
-					{[L["agility"]] = 3, [L["hit"]] = 3},
+					{[L["agility"]] = 3, [L["hit"]] = 6},
 				},
 				[2757] = {
 					"green",
 					"Jagged Deep Peridot",
-					{[L["critical strike"]] = 3, [L["stamina"]] = 4},
+					{[L["critical strike"]] = 6, [L["stamina"]] = 4},
 				},
 				[2760] = {
 					"orange",
 					"Potent Flame Spessarite",
-					{[L["critical strike"]] = 3, [L["intellect"]] = 3},
+					{[L["critical strike"]] = 3, [L["intellect"]] = 6},
 				},
 				[2762] = {
 					"green",
 					"Radiant Deep Peridot",
-					{[L["critical strike"]] = 3, [L["pvp power"]] = 3},
+					{[L["critical strike"]] = 6, [L["pvp power"]] = 3},
 				},
 				[2942] = {
 					"yellow",
 					"Smooth Golden Draenite",
-					{[L["critical strike"]] = 6},
+					{[L["critical strike"]] = 12},
 				},
 				[2971] = {
 					"red",
@@ -299,7 +476,7 @@ ww_gems = {
 				[3104] = {
 					"blue",
 					"Rigid Azure Moonstone",
-					{[L["hit"]] = 6},
+					{[L["hit"]] = 12},
 				},
 				[3106] = {
 					"purple",
@@ -314,17 +491,17 @@ ww_gems = {
 				[3110] = {
 					"purple",
 					"Veiled Shadow Draenite",
-					{[L["hit"]] = 3, [L["intellect"]] = 3},
+					{[L["hit"]] = 6, [L["intellect"]] = 3},
 				},
 				[3113] = {
 					"orange",
 					"Deadly Flame Spessarite",
-					{[L["agility"]] = 3, [L["critical strike"]] = 3},
+					{[L["agility"]] = 6, [L["critical strike"]] = 3},
 				},
 				[3201] = {
 					"purple",
 					"Purified Jaggal Pearl",
-					{[L["intellect"]] = 3, [L["spirit"]] = 3},
+					{[L["intellect"]] = 3, [L["spirit"]] = 6},
 				},
 			},
 			[3] = {
@@ -356,7 +533,7 @@ ww_gems = {
 				[2730] = {
 					"yellow",
 					"Subtle Dawnstone",
-					{[L["dodge"]] = 8},
+					{[L["dodge"]] = 16},
 				},
 				[2731] = {
 					"blue",
@@ -366,12 +543,12 @@ ww_gems = {
 				[2732] = {
 					"blue",
 					"Sparkling Star of Elune",
-					{[L["spirit"]] = 8},
+					{[L["spirit"]] = 16},
 				},
 				[2733] = {
 					"blue",
 					"Sparkling Star of Elune",
-					{[L["spirit"]] = 8},
+					{[L["spirit"]] = 16},
 				},
 				[2734] = {
 					"red",
@@ -381,17 +558,17 @@ ww_gems = {
 				[2735] = {
 					"yellow",
 					"Smooth Dawnstone",
-					{[L["critical strike"]] = 8},
+					{[L["critical strike"]] = 16},
 				},
 				[2736] = {
 					"yellow",
 					"Smooth Dawnstone",
-					{[L["critical strike"]] = 8},
+					{[L["critical strike"]] = 1},
 				},
 				[2737] = {
 					"yellow",
 					"Subtle Dawnstone",
-					{[L["dodge"]] = 8},
+					{[L["dodge"]] = 16},
 				},
 				[2738] = {
 					"purple",
@@ -411,42 +588,42 @@ ww_gems = {
 				[2741] = {
 					"purple",
 					"Purified Nightseye",
-					{[L["intellect"]] = 4, [L["spirit"]] = 4},
+					{[L["intellect"]] = 4, [L["spirit"]] = 8},
 				},
 				[2742] = {
 					"orange",
 					"Reckless Noble Topaz",
-					{[L["haste"]] = 4, [L["intellect"]] = 4},
+					{[L["haste"]] = 8, [L["intellect"]] = 4},
 				},
 				[2743] = {
 					"green",
 					"Regal Talasite",
-					{[L["dodge"]] = 4, [L["stamina"]] = 6},
+					{[L["dodge"]] = 8, [L["stamina"]] = 6},
 				},
 				[2744] = {
 					"purple",
 					"Purified Nightseye",
-					{[L["intellect"]] = 4, [L["spirit"]] = 4},
+					{[L["intellect"]] = 4, [L["spirit"]] = 8},
 				},
 				[2753] = {
 					"orange",
 					"Inscribed Noble Topaz",
-					{[L["critical strike"]] = 4, [L["strength"]] = 4},
+					{[L["critical strike"]] = 4, [L["strength"]] = 8},
 				},
 				[2754] = {
 					"red",
 					"Flashing Living Ruby",
-					{[L["parry"]] = 8},
+					{[L["parry"]] = 16},
 				},
 				[2756] = {
 					"purple",
 					"Glinting Nightseye",
-					{[L["agility"]] = 4, [L["hit"]] = 4},
+					{[L["agility"]] = 4, [L["hit"]] = 8},
 				},
 				[2758] = {
 					"green",
 					"Jagged Talasite",
-					{[L["critical strike"]] = 4, [L["stamina"]] = 6},
+					{[L["critical strike"]] = 8, [L["stamina"]] = 6},
 				},
 				[2759] = {
 					"yellow",
@@ -456,17 +633,17 @@ ww_gems = {
 				[2761] = {
 					"orange",
 					"Potent Noble Topaz",
-					{[L["critical strike"]] = 4, [L["intellect"]] = 4},
+					{[L["critical strike"]] = 8, [L["intellect"]] = 4},
 				},
 				[2763] = {
 					"green",
 					"Radiant Talasite",
-					{[L["critical strike"]] = 4, [L["pvp power"]] = 4},
+					{[L["critical strike"]] = 8, [L["pvp power"]] = 4},
 				},
 				[2764] = {
 					"blue",
 					"Rigid Star of Elune",
-					{[L["hit"]] = 8},
+					{[L["hit"]] = 16},
 				},
 				[2765] = {
 					"blue",
@@ -476,7 +653,7 @@ ww_gems = {
 				[2827] = {
 					"meta",
 					"Destructive Skyfire Diamond",
-					{[L["critical strike"]] = 14, [L["spell reflect (percent)"]] = 1},
+					{[L["critical strike"]] = 28, [L["spell reflect (percent)"]] = 1},
 				},
 				[2828] = {
 					"meta",
@@ -486,12 +663,12 @@ ww_gems = {
 				[2829] = {
 					"meta",
 					"Swift Skyfire Diamond",
-					{[L["critical strike"]] = 12, [L["minor run speed"]] = 1},
+					{[L["critical strike"]] = 24, [L["minor run speed"]] = 1},
 				},
 				[2830] = {
 					"meta",
 					"Enigmatic Skyfire Diamond",
-					{[L["critical strike"]] = 12, [L["snare/root duration reduction (percent)"]] = 10},
+					{[L["critical strike"]] = 24, [L["snare/root duration reduction (percent)"]] = 10},
 				},
 				[2831] = {
 					"meta",
@@ -506,7 +683,7 @@ ww_gems = {
 				[2833] = {
 					"meta",
 					"Tenacious Earthstorm Diamond",
-					{[L["chance to restore health on hit"]] = 1, [L["dodge"]] = 12},
+					{[L["chance to restore health on hit"]] = 1, [L["dodge"]] = 24},
 				},
 				[2834] = {
 					"meta",
@@ -526,7 +703,7 @@ ww_gems = {
 				[3105] = {
 					"blue",
 					"Rigid Star of Elune",
-					{[L["hit"]] = 8},
+					{[L["hit"]] = 16},
 				},
 				[3107] = {
 					"purple",
@@ -536,17 +713,17 @@ ww_gems = {
 				[3109] = {
 					"purple",
 					"Glinting Nightseye",
-					{[L["agility"]] = 4, [L["hit"]] = 4},
+					{[L["agility"]] = 4, [L["hit"]] = 8},
 				},
 				[3111] = {
 					"purple",
 					"Veiled Nightseye",
-					{[L["hit"]] = 4, [L["intellect"]] = 4},
+					{[L["hit"]] = 8, [L["intellect"]] = 4},
 				},
 				[3112] = {
 					"orange",
 					"Deadly Noble Topaz",
-					{[L["agility"]] = 4, [L["critical strike"]] = 4},
+					{[L["agility"]] = 4, [L["critical strike"]] = 8},
 				},
 				[3154] = {
 					"meta",
@@ -561,7 +738,7 @@ ww_gems = {
 				[3202] = {
 					"purple",
 					"Purified Shadow Pearl",
-					{[L["intellect"]] = 4, [L["spirit"]] = 4},
+					{[L["intellect"]] = 4, [L["spirit"]] = 8},
 				},
 				[3226] = {
 					"green",
@@ -571,27 +748,27 @@ ww_gems = {
 				[3261] = {
 					"meta",
 					"Chaotic Skyfire Diamond",
-					{[L["critical effect (percent)"]] = 3, [L["critical strike"]] = 12},
+					{[L["critical effect (percent)"]] = 3, [L["critical strike"]] = 384},
 				},
 				[3270] = {
 					"yellow",
 					"Quick Dawnstone",
-					{[L["haste"]] = 8},
+					{[L["haste"]] = 16},
 				},
 				[3271] = {
 					"orange",
 					"Reckless Noble Topaz",
-					{[L["haste"]] = 4, [L["intellect"]] = 4},
+					{[L["haste"]] = 8, [L["intellect"]] = 4},
 				},
 				[3272] = {
 					"green",
 					"Forceful Talasite",
-					{[L["haste"]] = 4, [L["stamina"]] = 6},
+					{[L["haste"]] = 8, [L["stamina"]] = 6},
 				},
 				[3274] = {
 					"meta",
 					"Eternal Earthstorm Diamond",
-					{[L["block value (percent)"]] = 1, [L["dodge"]] = 12},
+					{[L["block value (percent)"]] = 1, [L["dodge"]] = 24},
 				},
 				[3275] = {
 					"meta",
@@ -633,17 +810,17 @@ ww_gems = {
 				[3119] = {
 					"red",
 					"Delicate Crimson Spinel",
-					{[L["agility"]] = 10},
+					{[L["agility"]] = 20},
 				},
 				[3120] = {
 					"yellow",
 					"Subtle Lionseye",
-					{[L["dodge"]] = 10},
+					{[L["dodge"]] = 20},
 				},
 				[3121] = {
 					"red",
 					"Flashing Crimson Spinel",
-					{[L["parry"]] = 10},
+					{[L["parry"]] = 20},
 				},
 				[3122] = {
 					"blue",
@@ -653,12 +830,12 @@ ww_gems = {
 				[3123] = {
 					"blue",
 					"Sparkling Empyrean Sapphire",
-					{[L["spirit"]] = 10},
+					{[L["spirit"]] = 20},
 				},
 				[3124] = {
 					"blue",
 					"Sparkling Empyrean Sapphire",
-					{[L["spirit"]] = 10},
+					{[L["spirit"]] = 20},
 				},
 				[3125] = {
 					"blue",
@@ -673,7 +850,7 @@ ww_gems = {
 				[3127] = {
 					"yellow",
 					"Smooth Lionseye",
-					{[L["critical strike"]] = 10},
+					{[L["critical strike"]] = 20},
 				},
 				[3128] = {
 					"blue",
@@ -683,12 +860,12 @@ ww_gems = {
 				[3129] = {
 					"yellow",
 					"Smooth Lionseye",
-					{[L["critical strike"]] = 10},
+					{[L["critical strike"]] = 20},
 				},
 				[3130] = {
 					"yellow",
 					"Subtle Lionseye",
-					{[L["dodge"]] = 10},
+					{[L["dodge"]] = 20},
 				},
 				[3131] = {
 					"yellow",
@@ -698,7 +875,7 @@ ww_gems = {
 				[3132] = {
 					"blue",
 					"Rigid Empyrean Sapphire",
-					{[L["hit"]] = 10},
+					{[L["hit"]] = 20},
 				},
 				[3133] = {
 					"purple",
@@ -718,7 +895,7 @@ ww_gems = {
 				[3136] = {
 					"purple",
 					"Glinting Shadowsong Amethyst",
-					{[L["agility"]] = 5, [L["hit"]] = 5},
+					{[L["agility"]] = 5, [L["hit"]] = 10},
 				},
 				[3137] = {
 					"purple",
@@ -728,57 +905,57 @@ ww_gems = {
 				[3138] = {
 					"purple",
 					"Purified Shadowsong Amethyst",
-					{[L["intellect"]] = 5, [L["spirit"]] = 5},
+					{[L["intellect"]] = 5, [L["spirit"]] = 10},
 				},
 				[3139] = {
 					"orange",
 					"Inscribed Pyrestone",
-					{[L["critical strike"]] = 5, [L["strength"]] = 5},
+					{[L["critical strike"]] = 10, [L["strength"]] = 5},
 				},
 				[3140] = {
 					"orange",
 					"Potent Pyrestone",
-					{[L["critical strike"]] = 5, [L["intellect"]] = 5},
+					{[L["critical strike"]] = 10, [L["intellect"]] = 5},
 				},
 				[3141] = {
 					"orange",
 					"Reckless Pyrestone",
-					{[L["haste"]] = 5, [L["intellect"]] = 5},
+					{[L["haste"]] = 10, [L["intellect"]] = 5},
 				},
 				[3142] = {
 					"purple",
 					"Glinting Shadowsong Amethyst",
-					{[L["agility"]] = 5, [L["hit"]] = 5},
+					{[L["agility"]] = 5, [L["hit"]] = 10},
 				},
 				[3143] = {
 					"purple",
 					"Veiled Shadowsong Amethyst",
-					{[L["hit"]] = 5, [L["intellect"]] = 5},
+					{[L["hit"]] = 10, [L["intellect"]] = 5},
 				},
 				[3144] = {
 					"orange",
 					"Deadly Pyrestone",
-					{[L["agility"]] = 5, [L["critical strike"]] = 5},
+					{[L["agility"]] = 5, [L["critical strike"]] = 10},
 				},
 				[3145] = {
 					"green",
 					"Regal Seaspray Emerald",
-					{[L["dodge"]] = 5, [L["stamina"]] = 7},
+					{[L["dodge"]] = 10, [L["stamina"]] = 7},
 				},
 				[3146] = {
 					"green",
 					"Radiant Seaspray Emerald",
-					{[L["critical strike"]] = 5, [L["pvp power"]] = 5},
+					{[L["critical strike"]] = 10, [L["pvp power"]] = 5},
 				},
 				[3147] = {
 					"purple",
 					"Purified Shadowsong Amethyst",
-					{[L["intellect"]] = 5, [L["spirit"]] = 5},
+					{[L["intellect"]] = 5, [L["spirit"]] = 10},
 				},
 				[3148] = {
 					"green",
 					"Jagged Seaspray Emerald",
-					{[L["critical strike"]] = 5, [L["stamina"]] = 7},
+					{[L["critical strike"]] = 10, [L["stamina"]] = 7},
 				},
 				[3284] = {
 					"green",
@@ -793,17 +970,17 @@ ww_gems = {
 				[3286] = {
 					"orange",
 					"Reckless Pyrestone",
-					{[L["haste"]] = 5, [L["intellect"]] = 5},
+					{[L["haste"]] = 10, [L["intellect"]] = 5},
 				},
 				[3287] = {
 					"yellow",
 					"Quick Lionseye",
-					{[L["haste"]] = 10},
+					{[L["haste"]] = 20},
 				},
 				[3318] = {
 					"purple",
 					"Purified Shadowsong Amethyst",
-					{[L["intellect"]] = 5, [L["spirit"]] = 5},
+					{[L["intellect"]] = 5, [L["spirit"]] = 10},
 				},
 			},
 			[5] = {
@@ -830,17 +1007,17 @@ ww_gems = {
 				[3377] = {
 					"red",
 					"Flashing Bloodstone",
-					{[L["parry"]] = 12},
+					{[L["parry"]] = 24},
 				},
 				[3378] = {
 					"yellow",
 					"Smooth Sun Crystal",
-					{[L["critical strike"]] = 12},
+					{[L["critical strike"]] = 24},
 				},
 				[3379] = {
 					"red",
 					"Precise Bloodstone",
-					{[L["expertise"]] = 12},
+					{[L["expertise"]] = 24},
 				},
 				[3380] = {
 					"red",
@@ -855,17 +1032,17 @@ ww_gems = {
 				[3382] = {
 					"yellow",
 					"Smooth Sun Crystal",
-					{[L["critical strike"]] = 12},
+					{[L["critical strike"]] = 24},
 				},
 				[3383] = {
 					"blue",
 					"Rigid Chalcedony",
-					{[L["hit"]] = 12},
+					{[L["hit"]] = 24},
 				},
 				[3384] = {
 					"yellow",
 					"Subtle Sun Crystal",
-					{[L["dodge"]] = 12},
+					{[L["dodge"]] = 24},
 				},
 				[3385] = {
 					"yellow",
@@ -875,7 +1052,7 @@ ww_gems = {
 				[3386] = {
 					"yellow",
 					"Quick Sun Crystal",
-					{[L["haste"]] = 12},
+					{[L["haste"]] = 24},
 				},
 				[3387] = {
 					"blue",
@@ -885,12 +1062,12 @@ ww_gems = {
 				[3388] = {
 					"blue",
 					"Sparkling Chalcedony",
-					{[L["spirit"]] = 12},
+					{[L["spirit"]] = 24},
 				},
 				[3389] = {
 					"blue",
 					"Sparkling Chalcedony",
-					{[L["spirit"]] = 12},
+					{[L["spirit"]] = 24},
 				},
 				[3390] = {
 					"blue",
@@ -900,7 +1077,7 @@ ww_gems = {
 				[3391] = {
 					"green",
 					"Jagged Dark Jade",
-					{[L["critical strike"]] = 6, [L["stamina"]] = 9},
+					{[L["critical strike"]] = 12, [L["stamina"]] = 9},
 				},
 				[3392] = {
 					"purple",
@@ -925,37 +1102,37 @@ ww_gems = {
 				[3396] = {
 					"green",
 					"Regal Dark Jade",
-					{[L["dodge"]] = 6, [L["stamina"]] = 9},
+					{[L["dodge"]] = 12, [L["stamina"]] = 9},
 				},
 				[3397] = {
 					"purple",
 					"Defender's Shadow Crystal",
-					{[L["parry"]] = 6, [L["stamina"]] = 9},
+					{[L["parry"]] = 12, [L["stamina"]] = 9},
 				},
 				[3398] = {
 					"purple",
 					"Guardian's Shadow Crystal",
-					{[L["expertise"]] = 6, [L["stamina"]] = 9},
+					{[L["expertise"]] = 12, [L["stamina"]] = 9},
 				},
 				[3399] = {
 					"purple",
 					"Purified Shadow Crystal",
-					{[L["intellect"]] = 6, [L["spirit"]] = 6},
+					{[L["intellect"]] = 6, [L["spirit"]] = 12},
 				},
 				[3400] = {
 					"purple",
 					"Glinting Shadow Crystal",
-					{[L["agility"]] = 6, [L["hit"]] = 6},
+					{[L["agility"]] = 6, [L["hit"]] = 12},
 				},
 				[3401] = {
 					"purple",
 					"Purified Shadow Crystal",
-					{[L["intellect"]] = 6, [L["spirit"]] = 6},
+					{[L["intellect"]] = 6, [L["spirit"]] = 12},
 				},
 				[3402] = {
 					"purple",
 					"Glinting Shadow Crystal",
-					{[L["agility"]] = 6, [L["hit"]] = 6},
+					{[L["agility"]] = 6, [L["hit"]] = 12},
 				},
 				[3403] = {
 					"purple",
@@ -965,22 +1142,22 @@ ww_gems = {
 				[3404] = {
 					"orange",
 					"Reckless Huge Citrine",
-					{[L["haste"]] = 6, [L["intellect"]] = 6},
+					{[L["haste"]] = 12, [L["intellect"]] = 6},
 				},
 				[3405] = {
 					"orange",
 					"Inscribed Huge Citrine",
-					{[L["critical strike"]] = 6, [L["strength"]] = 6},
+					{[L["critical strike"]] = 12, [L["strength"]] = 6},
 				},
 				[3406] = {
 					"purple",
 					"Glinting Shadow Crystal",
-					{[L["agility"]] = 6, [L["hit"]] = 6},
+					{[L["agility"]] = 6, [L["hit"]] = 12},
 				},
 				[3407] = {
 					"orange",
 					"Champion's Huge Citrine",
-					{[L["dodge"]] = 6, [L["strength"]] = 6},
+					{[L["dodge"]] = 12, [L["strength"]] = 6},
 				},
 				[3408] = {
 					"orange",
@@ -990,17 +1167,17 @@ ww_gems = {
 				[3409] = {
 					"orange",
 					"Fierce Huge Citrine",
-					{[L["haste"]] = 6, [L["strength"]] = 6},
+					{[L["haste"]] = 12, [L["strength"]] = 6},
 				},
 				[3410] = {
 					"orange",
 					"Deadly Huge Citrine",
-					{[L["agility"]] = 6, [L["critical strike"]] = 6},
+					{[L["agility"]] = 6, [L["critical strike"]] = 12},
 				},
 				[3411] = {
 					"purple",
 					"Etched Shadow Crystal",
-					{[L["hit"]] = 6, [L["strength"]] = 6},
+					{[L["hit"]] = 12, [L["strength"]] = 6},
 				},
 				[3412] = {
 					"orange",
@@ -1010,17 +1187,17 @@ ww_gems = {
 				[3413] = {
 					"orange",
 					"Deft Huge Citrine",
-					{[L["agility"]] = 6, [L["haste"]] = 6},
+					{[L["agility"]] = 6, [L["haste"]] = 12},
 				},
 				[3414] = {
 					"orange",
 					"Potent Huge Citrine",
-					{[L["critical strike"]] = 6, [L["intellect"]] = 6},
+					{[L["critical strike"]] = 12, [L["intellect"]] = 6},
 				},
 				[3415] = {
 					"purple",
 					"Veiled Shadow Crystal",
-					{[L["hit"]] = 6, [L["intellect"]] = 6},
+					{[L["hit"]] = 12, [L["intellect"]] = 6},
 				},
 				[3416] = {
 					"orange",
@@ -1030,37 +1207,37 @@ ww_gems = {
 				[3417] = {
 					"orange",
 					"Reckless Huge Citrine",
-					{[L["haste"]] = 6, [L["intellect"]] = 6},
+					{[L["haste"]] = 12, [L["intellect"]] = 6},
 				},
 				[3418] = {
 					"orange",
 					"Stalwart Huge Citrine",
-					{[L["dodge"]] = 6, [L["parry"]] = 6},
+					{[L["dodge"]] = 12, [L["parry"]] = 12},
 				},
 				[3419] = {
 					"orange",
 					"Stalwart Huge Citrine",
-					{[L["dodge"]] = 6, [L["parry"]] = 6},
+					{[L["dodge"]] = 12, [L["parry"]] = 12},
 				},
 				[3420] = {
 					"purple",
 					"Accurate Shadow Crystal",
-					{[L["expertise"]] = 6, [L["hit"]] = 6},
+					{[L["expertise"]] = 12, [L["hit"]] = 12},
 				},
 				[3421] = {
 					"orange",
 					"Resolute Huge Citrine",
-					{[L["dodge"]] = 6, [L["expertise"]] = 6},
+					{[L["dodge"]] = 12, [L["expertise"]] = 12},
 				},
 				[3422] = {
 					"orange",
 					"Deadly Huge Citrine",
-					{[L["agility"]] = 6, [L["critical strike"]] = 6},
+					{[L["agility"]] = 6, [L["critical strike"]] = 12},
 				},
 				[3423] = {
 					"purple",
 					"Glinting Shadow Crystal",
-					{[L["agility"]] = 6, [L["hit"]] = 6},
+					{[L["agility"]] = 6, [L["hit"]] = 12},
 				},
 				[3424] = {
 					"orange",
@@ -1070,7 +1247,7 @@ ww_gems = {
 				[3426] = {
 					"orange",
 					"Deft Huge Citrine",
-					{[L["agility"]] = 6, [L["haste"]] = 6},
+					{[L["agility"]] = 6, [L["haste"]] = 12},
 				},
 				[3427] = {
 					"purple",
@@ -1080,17 +1257,17 @@ ww_gems = {
 				[3428] = {
 					"green",
 					"Jagged Dark Jade",
-					{[L["critical strike"]] = 6, [L["stamina"]] = 9},
+					{[L["critical strike"]] = 12, [L["stamina"]] = 9},
 				},
 				[3429] = {
 					"green",
 					"Nimble Dark Jade",
-					{[L["dodge"]] = 6, [L["hit"]] = 6},
+					{[L["dodge"]] = 12, [L["hit"]] = 12},
 				},
 				[3430] = {
 					"green",
 					"Regal Dark Jade",
-					{[L["dodge"]] = 6, [L["stamina"]] = 9},
+					{[L["dodge"]] = 12, [L["stamina"]] = 9},
 				},
 				[3431] = {
 					"green",
@@ -1100,72 +1277,72 @@ ww_gems = {
 				[3432] = {
 					"green",
 					"Forceful Dark Jade",
-					{[L["haste"]] = 6, [L["stamina"]] = 9},
+					{[L["haste"]] = 12, [L["stamina"]] = 9},
 				},
 				[3433] = {
 					"purple",
 					"Purified Shadow Crystal",
-					{[L["intellect"]] = 6, [L["spirit"]] = 6},
+					{[L["intellect"]] = 6, [L["spirit"]] = 12},
 				},
 				[3434] = {
 					"green",
 					"Misty Dark Jade",
-					{[L["critical strike"]] = 6, [L["spirit"]] = 6},
+					{[L["critical strike"]] = 12, [L["spirit"]] = 12},
 				},
 				[3435] = {
 					"green",
 					"Lightning Dark Jade",
-					{[L["haste"]] = 6, [L["hit"]] = 6},
+					{[L["haste"]] = 12, [L["hit"]] = 12},
 				},
 				[3436] = {
 					"green",
 					"Turbid Dark Jade",
-					{[L["pvp resilience"]] = 6, [L["spirit"]] = 6},
+					{[L["pvp resilience"]] = 6, [L["spirit"]] = 12},
 				},
 				[3437] = {
 					"green",
 					"Energized Dark Jade",
-					{[L["haste"]] = 6, [L["spirit"]] = 6},
+					{[L["haste"]] = 12, [L["spirit"]] = 12},
 				},
 				[3438] = {
 					"purple",
 					"Purified Shadow Crystal",
-					{[L["intellect"]] = 6, [L["spirit"]] = 6},
+					{[L["intellect"]] = 6, [L["spirit"]] = 12},
 				},
 				[3439] = {
 					"green",
 					"Misty Dark Jade",
-					{[L["critical strike"]] = 6, [L["spirit"]] = 6},
+					{[L["critical strike"]] = 12, [L["spirit"]] = 12},
 				},
 				[3440] = {
 					"green",
 					"Lightning Dark Jade",
-					{[L["haste"]] = 6, [L["hit"]] = 6},
+					{[L["haste"]] = 12, [L["hit"]] = 12},
 				},
 				[3441] = {
 					"green",
 					"Turbid Dark Jade",
-					{[L["pvp resilience"]] = 6, [L["spirit"]] = 6},
+					{[L["pvp resilience"]] = 6, [L["spirit"]] = 12},
 				},
 				[3442] = {
 					"green",
 					"Energized Dark Jade",
-					{[L["haste"]] = 6, [L["spirit"]] = 6},
+					{[L["haste"]] = 12, [L["spirit"]] = 12},
 				},
 				[3443] = {
 					"green",
 					"Radiant Dark Jade",
-					{[L["critical strike"]] = 6, [L["pvp power"]] = 6},
+					{[L["critical strike"]] = 12, [L["pvp power"]] = 6},
 				},
 				[3444] = {
 					"green",
 					"Radiant Dark Jade",
-					{[L["critical strike"]] = 6, [L["pvp power"]] = 6},
+					{[L["critical strike"]] = 12, [L["pvp power"]] = 6},
 				},
 				[3445] = {
 					"green",
 					"Shattered Dark Jade",
-					{[L["haste"]] = 6, [L["pvp power"]] = 6},
+					{[L["haste"]] = 12, [L["pvp power"]] = 6},
 				},
 			},
 			[6] = {
@@ -1192,22 +1369,22 @@ ww_gems = {
 				[3450] = {
 					"yellow",
 					"Subtle Autumn's Glow",
-					{[L["dodge"]] = 16},
+					{[L["dodge"]] = 32},
 				},
 				[3451] = {
 					"red",
 					"Flashing Scarlet Ruby",
-					{[L["parry"]] = 16},
+					{[L["parry"]] = 32},
 				},
 				[3452] = {
 					"yellow",
 					"Smooth Autumn's Glow",
-					{[L["critical strike"]] = 16},
+					{[L["critical strike"]] = 32},
 				},
 				[3453] = {
 					"red",
 					"Precise Scarlet Ruby",
-					{[L["expertise"]] = 16},
+					{[L["expertise"]] = 32},
 				},
 				[3454] = {
 					"blue",
@@ -1217,12 +1394,12 @@ ww_gems = {
 				[3455] = {
 					"blue",
 					"Sparkling Sky Sapphire",
-					{[L["spirit"]] = 16},
+					{[L["spirit"]] = 32},
 				},
 				[3456] = {
 					"blue",
 					"Sparkling Sky Sapphire",
-					{[L["spirit"]] = 16},
+					{[L["spirit"]] = 32},
 				},
 				[3457] = {
 					"blue",
@@ -1237,17 +1414,17 @@ ww_gems = {
 				[3459] = {
 					"yellow",
 					"Smooth Autumn's Glow",
-					{[L["critical strike"]] = 16},
+					{[L["critical strike"]] = 32},
 				},
 				[3460] = {
 					"blue",
 					"Rigid Sky Sapphire",
-					{[L["hit"]] = 16},
+					{[L["hit"]] = 32},
 				},
 				[3461] = {
 					"yellow",
 					"Subtle Autumn's Glow",
-					{[L["dodge"]] = 16},
+					{[L["dodge"]] = 32},
 				},
 				[3462] = {
 					"yellow",
@@ -1257,7 +1434,7 @@ ww_gems = {
 				[3463] = {
 					"yellow",
 					"Quick Autumn's Glow",
-					{[L["haste"]] = 16},
+					{[L["haste"]] = 32},
 				},
 				[3464] = {
 					"purple",
@@ -1282,42 +1459,42 @@ ww_gems = {
 				[3468] = {
 					"green",
 					"Regal Forest Emerald",
-					{[L["dodge"]] = 8, [L["stamina"]] = 12},
+					{[L["dodge"]] = 16, [L["stamina"]] = 12},
 				},
 				[3469] = {
 					"purple",
 					"Defender's Twilight Opal",
-					{[L["parry"]] = 8, [L["stamina"]] = 12},
+					{[L["parry"]] = 16, [L["stamina"]] = 12},
 				},
 				[3470] = {
 					"green",
 					"Jagged Forest Emerald",
-					{[L["critical strike"]] = 8, [L["stamina"]] = 12},
+					{[L["critical strike"]] = 16, [L["stamina"]] = 12},
 				},
 				[3471] = {
 					"purple",
 					"Guardian's Twilight Opal",
-					{[L["expertise"]] = 8, [L["stamina"]] = 12},
+					{[L["expertise"]] = 16, [L["stamina"]] = 12},
 				},
 				[3472] = {
 					"purple",
 					"Purified Twilight Opal",
-					{[L["intellect"]] = 8, [L["spirit"]] = 8},
+					{[L["intellect"]] = 8, [L["spirit"]] = 16},
 				},
 				[3473] = {
 					"purple",
 					"Purified Twilight Opal",
-					{[L["intellect"]] = 8, [L["spirit"]] = 8},
+					{[L["intellect"]] = 8, [L["spirit"]] = 16},
 				},
 				[3474] = {
 					"purple",
 					"Glinting Twilight Opal",
-					{[L["agility"]] = 8, [L["hit"]] = 8},
+					{[L["agility"]] = 8, [L["hit"]] = 16},
 				},
 				[3475] = {
 					"purple",
 					"Glinting Twilight Opal",
-					{[L["agility"]] = 8, [L["hit"]] = 8},
+					{[L["agility"]] = 8, [L["hit"]] = 16},
 				},
 				[3476] = {
 					"purple",
@@ -1327,17 +1504,17 @@ ww_gems = {
 				[3477] = {
 					"orange",
 					"Inscribed Monarch Topaz",
-					{[L["critical strike"]] = 8, [L["strength"]] = 8},
+					{[L["critical strike"]] = 16, [L["strength"]] = 8},
 				},
 				[3478] = {
 					"purple",
 					"Etched Twilight Opal",
-					{[L["hit"]] = 8, [L["strength"]] = 8},
+					{[L["hit"]] = 16, [L["strength"]] = 8},
 				},
 				[3479] = {
 					"orange",
 					"Champion's Monarch Topaz",
-					{[L["dodge"]] = 8, [L["strength"]] = 8},
+					{[L["dodge"]] = 16, [L["strength"]] = 8},
 				},
 				[3480] = {
 					"orange",
@@ -1347,17 +1524,17 @@ ww_gems = {
 				[3481] = {
 					"orange",
 					"Fierce Monarch Topaz",
-					{[L["haste"]] = 8, [L["strength"]] = 8},
+					{[L["haste"]] = 16, [L["strength"]] = 8},
 				},
 				[3482] = {
 					"orange",
 					"Deadly Monarch Topaz",
-					{[L["agility"]] = 8, [L["critical strike"]] = 8},
+					{[L["agility"]] = 8, [L["critical strike"]] = 16},
 				},
 				[3483] = {
 					"purple",
 					"Glinting Twilight Opal",
-					{[L["agility"]] = 8, [L["hit"]] = 8},
+					{[L["agility"]] = 8, [L["hit"]] = 16},
 				},
 				[3484] = {
 					"orange",
@@ -1367,22 +1544,22 @@ ww_gems = {
 				[3485] = {
 					"orange",
 					"Deft Monarch Topaz",
-					{[L["agility"]] = 8, [L["haste"]] = 8},
+					{[L["agility"]] = 8, [L["haste"]] = 16},
 				},
 				[3486] = {
 					"orange",
 					"Reckless Monarch Topaz",
-					{[L["haste"]] = 8, [L["intellect"]] = 8},
+					{[L["haste"]] = 16, [L["intellect"]] = 8},
 				},
 				[3487] = {
 					"orange",
 					"Potent Monarch Topaz",
-					{[L["critical strike"]] = 8, [L["intellect"]] = 8},
+					{[L["critical strike"]] = 16, [L["intellect"]] = 8},
 				},
 				[3488] = {
 					"purple",
 					"Veiled Twilight Opal",
-					{[L["hit"]] = 8, [L["intellect"]] = 8},
+					{[L["hit"]] = 16, [L["intellect"]] = 8},
 				},
 				[3489] = {
 					"orange",
@@ -1392,17 +1569,17 @@ ww_gems = {
 				[3490] = {
 					"orange",
 					"Reckless Monarch Topaz",
-					{[L["haste"]] = 8, [L["intellect"]] = 8},
+					{[L["haste"]] = 16, [L["intellect"]] = 8},
 				},
 				[3491] = {
 					"orange",
 					"Deadly Monarch Topaz",
-					{[L["agility"]] = 8, [L["critical strike"]] = 8},
+					{[L["agility"]] = 13, [L["critical strike"]] = 16},
 				},
 				[3492] = {
 					"purple",
 					"Glinting Twilight Opal",
-					{[L["agility"]] = 8, [L["hit"]] = 8},
+					{[L["agility"]] = 8, [L["hit"]] = 16},
 				},
 				[3493] = {
 					"orange",
@@ -1412,27 +1589,27 @@ ww_gems = {
 				[3494] = {
 					"orange",
 					"Deft Monarch Topaz",
-					{[L["agility"]] = 8, [L["haste"]] = 8},
+					{[L["agility"]] = 8, [L["haste"]] = 16},
 				},
 				[3495] = {
 					"orange",
 					"Stalwart Monarch Topaz",
-					{[L["dodge"]] = 8, [L["parry"]] = 8},
+					{[L["dodge"]] = 16, [L["parry"]] = 16},
 				},
 				[3496] = {
 					"orange",
 					"Stalwart Monarch Topaz",
-					{[L["dodge"]] = 8, [L["parry"]] = 8},
+					{[L["dodge"]] = 16, [L["parry"]] = 16},
 				},
 				[3497] = {
 					"purple",
 					"Accurate Twilight Opal",
-					{[L["expertise"]] = 8, [L["hit"]] = 8},
+					{[L["expertise"]] = 16, [L["hit"]] = 16},
 				},
 				[3498] = {
 					"orange",
 					"Resolute Monarch Topaz",
-					{[L["dodge"]] = 8, [L["expertise"]] = 8},
+					{[L["dodge"]] = 16, [L["expertise"]] = 16},
 				},
 				[3499] = {
 					"purple",
@@ -1442,17 +1619,17 @@ ww_gems = {
 				[3500] = {
 					"green",
 					"Jagged Forest Emerald",
-					{[L["critical strike"]] = 8, [L["stamina"]] = 12},
+					{[L["critical strike"]] = 16, [L["stamina"]] = 12},
 				},
 				[3501] = {
 					"green",
 					"Nimble Forest Emerald",
-					{[L["dodge"]] = 8, [L["hit"]] = 8},
+					{[L["dodge"]] = 16, [L["hit"]] = 16},
 				},
 				[3502] = {
 					"green",
 					"Regal Forest Emerald",
-					{[L["dodge"]] = 8, [L["stamina"]] = 12},
+					{[L["dodge"]] = 16, [L["stamina"]] = 12},
 				},
 				[3503] = {
 					"green",
@@ -1462,82 +1639,82 @@ ww_gems = {
 				[3504] = {
 					"green",
 					"Forceful Forest Emerald",
-					{[L["haste"]] = 8, [L["stamina"]] = 12},
+					{[L["haste"]] = 16, [L["stamina"]] = 12},
 				},
 				[3505] = {
 					"purple",
 					"Purified Twilight Opal",
-					{[L["intellect"]] = 8, [L["spirit"]] = 8},
+					{[L["intellect"]] = 8, [L["spirit"]] = 16},
 				},
 				[3506] = {
 					"green",
 					"Misty Forest Emerald",
-					{[L["critical strike"]] = 8, [L["spirit"]] = 8},
+					{[L["critical strike"]] = 16, [L["spirit"]] = 16},
 				},
 				[3507] = {
 					"green",
 					"Lightning Forest Emerald",
-					{[L["haste"]] = 8, [L["hit"]] = 8},
+					{[L["haste"]] = 16, [L["hit"]] = 16},
 				},
 				[3508] = {
 					"green",
 					"Turbid Forest Emerald",
-					{[L["pvp resilience"]] = 8, [L["spirit"]] = 8},
+					{[L["pvp resilience"]] = 8, [L["spirit"]] = 16},
 				},
 				[3509] = {
 					"green",
 					"Energized Forest Emerald",
-					{[L["haste"]] = 8, [L["spirit"]] = 8},
+					{[L["haste"]] = 16, [L["spirit"]] = 16},
 				},
 				[3510] = {
 					"purple",
 					"Purified Twilight Opal",
-					{[L["intellect"]] = 8, [L["spirit"]] = 8},
+					{[L["intellect"]] = 10, [L["spirit"]] = 20},
 				},
 				[3511] = {
 					"green",
 					"Misty Forest Emerald",
-					{[L["critical strike"]] = 8, [L["spirit"]] = 8},
+					{[L["critical strike"]] = 16, [L["spirit"]] = 16},
 				},
 				[3512] = {
 					"green",
 					"Lightning Forest Emerald",
-					{[L["haste"]] = 8, [L["hit"]] = 8},
+					{[L["haste"]] = 16, [L["hit"]] = 16},
 				},
 				[3513] = {
 					"green",
 					"Turbid Forest Emerald",
-					{[L["pvp resilience"]] = 8, [L["spirit"]] = 8},
+					{[L["pvp resilience"]] = 16, [L["spirit"]] = 8},
 				},
 				[3514] = {
 					"green",
 					"Energized Forest Emerald",
-					{[L["haste"]] = 8, [L["spirit"]] = 8},
+					{[L["haste"]] = 16, [L["spirit"]] = 16},
 				},
 				[3515] = {
 					"green",
 					"Radiant Forest Emerald",
-					{[L["critical strike"]] = 8, [L["pvp power"]] = 8},
+					{[L["critical strike"]] = 16, [L["pvp power"]] = 8},
 				},
 				[3516] = {
 					"green",
 					"Radiant Forest Emerald",
-					{[L["critical strike"]] = 8, [L["pvp power"]] = 8},
+					{[L["critical strike"]] = 16, [L["pvp power"]] = 8},
 				},
 				[3517] = {
 					"green",
 					"Shattered Forest Emerald",
-					{[L["haste"]] = 8, [L["pvp power"]] = 8},
+					{[L["haste"]] = 16, [L["pvp power"]] = 8},
 				},
 				[3621] = {
 					"meta",
 					"Chaotic Skyflare Diamond",
-					{[L["critical effect (percent)"]] = 3, [L["critical strike"]] = 21},
+					{[L["critical effect (percent)"]] = 3, [L["critical strike"]] = 42},
 				},
 				[3622] = {
 					"meta",
 					"Destructive Skyflare Diamond",
-					{[L["critical strike"]] = 25, [L["spell reflect (percent)"]] = 1},
+					{[L["critical strike"]] = 50, [L["spell reflect (percent)"]] = 1},
 				},
 				[3623] = {
 					"meta",
@@ -1547,12 +1724,12 @@ ww_gems = {
 				[3624] = {
 					"meta",
 					"Enigmatic Skyflare Diamond",
-					{[L["critical strike"]] = 21, [L["snare/root duration reduction (percent)"]] = 10},
+					{[L["critical strike"]] = 42, [L["snare/root duration reduction (percent)"]] = 10},
 				},
 				[3625] = {
 					"meta",
 					"Swift Skyflare Diamond",
-					{[L["critical strike"]] = 21, [L["minor run speed"]] = 1},
+					{[L["critical strike"]] = 42, [L["minor run speed"]] = 1},
 				},
 				[3626] = {
 					"meta",
@@ -1572,7 +1749,7 @@ ww_gems = {
 				[3631] = {
 					"meta",
 					"Eternal Earthsiege Diamond",
-					{[L["block value (percent)"]] = 1, [L["dodge"]] = 21},
+					{[L["block value (percent)"]] = 1, [L["dodge"]] = 42},
 				},
 				[3632] = {
 					"meta",
@@ -1582,7 +1759,7 @@ ww_gems = {
 				[3633] = {
 					"meta",
 					"Revitalizing Skyflare Diamond",
-					{[L["critical effect (percent)"]] = 3, [L["spirit"]] = 22},
+					{[L["critical effect (percent)"]] = 3, [L["spirit"]] = 42},
 				},
 				[3634] = {
 					"meta",
@@ -1597,7 +1774,7 @@ ww_gems = {
 				[3636] = {
 					"meta",
 					"Impassive Skyflare Diamond",
-					{[L["critical strike"]] = 21, [L["fear duration reduction (percent)"]] = 10},
+					{[L["critical strike"]] = 42, [L["fear duration reduction (percent)"]] = 10},
 				},
 				[3637] = {
 					"meta",
@@ -1607,7 +1784,7 @@ ww_gems = {
 				[3638] = {
 					"meta",
 					"Persistent Earthsiege Diamond",
-					{[L["critical strike"]] = 21, [L["stun duration reduction (percent)"]] = 10},
+					{[L["critical strike"]] = 42, [L["stun duration reduction (percent)"]] = 10},
 				},
 				[3639] = {
 					"meta",
@@ -1617,17 +1794,17 @@ ww_gems = {
 				[3640] = {
 					"meta",
 					"Invigorating Earthsiege Diamond",
-					{[L["haste"]] = 21, [L["sometimes heal on your crits"]] = 1},
+					{[L["haste"]] = 42, [L["sometimes heal on your crits"]] = 1},
 				},
 				[3641] = {
 					"meta",
 					"Beaming Earthsiege Diamond",
-					{[L["critical strike"]] = 21, [L["mana (percent)"]] = 2},
+					{[L["critical strike"]] = 42, [L["mana (percent)"]] = 2},
 				},
 				[3642] = {
 					"meta",
 					"Powerful Earthsiege Diamond",
-					{[L["stamina"]] = 32, [L["stun duration reduction (percent)"]] = 10},
+					{[L["stamina"]] = 320, [L["stun duration reduction (percent)"]] = 10},
 				},
 				[3643] = {
 					"meta",
@@ -1659,22 +1836,22 @@ ww_gems = {
 				[3522] = {
 					"yellow",
 					"Subtle King's Amber",
-					{[L["dodge"]] = 20},
+					{[L["dodge"]] = 40},
 				},
 				[3523] = {
 					"red",
 					"Flashing Cardinal Ruby",
-					{[L["parry"]] = 20},
+					{[L["parry"]] = 40},
 				},
 				[3524] = {
 					"red",
 					"Precise Cardinal Ruby",
-					{[L["expertise"]] = 20},
+					{[L["expertise"]] = 40},
 				},
 				[3525] = {
 					"yellow",
 					"Smooth King's Amber",
-					{[L["critical strike"]] = 20},
+					{[L["critical strike"]] = 40},
 				},
 				[3526] = {
 					"red",
@@ -1684,17 +1861,17 @@ ww_gems = {
 				[3527] = {
 					"yellow",
 					"Smooth King's Amber",
-					{[L["critical strike"]] = 20},
+					{[L["critical strike"]] = 40},
 				},
 				[3528] = {
 					"blue",
 					"Rigid Majestic Zircon",
-					{[L["hit"]] = 20},
+					{[L["hit"]] = 40},
 				},
 				[3529] = {
 					"yellow",
 					"Subtle King's Amber",
-					{[L["dodge"]] = 20},
+					{[L["dodge"]] = 40},
 				},
 				[3530] = {
 					"yellow",
@@ -1704,22 +1881,22 @@ ww_gems = {
 				[3531] = {
 					"yellow",
 					"Quick King's Amber",
-					{[L["haste"]] = 20},
+					{[L["haste"]] = 40},
 				},
 				[3532] = {
 					"blue",
 					"Solid Majestic Zircon",
-					{[L["stamina"]] = 30},
+					{[L["stamina"]] = 24},
 				},
 				[3533] = {
 					"blue",
 					"Sparkling Majestic Zircon",
-					{[L["spirit"]] = 20},
+					{[L["spirit"]] = 40},
 				},
 				[3534] = {
 					"blue",
 					"Sparkling Majestic Zircon",
-					{[L["spirit"]] = 20},
+					{[L["spirit"]] = 40},
 				},
 				[3535] = {
 					"blue",
@@ -1749,42 +1926,42 @@ ww_gems = {
 				[3540] = {
 					"green",
 					"Regal Eye of Zul",
-					{[L["dodge"]] = 10, [L["stamina"]] = 15},
+					{[L["dodge"]] = 20, [L["stamina"]] = 15},
 				},
 				[3541] = {
 					"purple",
 					"Defender's Dreadstone",
-					{[L["parry"]] = 10, [L["stamina"]] = 15},
+					{[L["parry"]] = 20, [L["stamina"]] = 15},
 				},
 				[3542] = {
 					"purple",
 					"Guardian's Dreadstone",
-					{[L["expertise"]] = 10, [L["stamina"]] = 15},
+					{[L["expertise"]] = 20, [L["stamina"]] = 15},
 				},
 				[3543] = {
 					"green",
 					"Jagged Eye of Zul",
-					{[L["critical strike"]] = 10, [L["stamina"]] = 15},
+					{[L["critical strike"]] = 20, [L["stamina"]] = 15},
 				},
 				[3544] = {
 					"purple",
 					"Glinting Dreadstone",
-					{[L["agility"]] = 10, [L["hit"]] = 10},
+					{[L["agility"]] = 10, [L["hit"]] = 20},
 				},
 				[3545] = {
 					"purple",
 					"Purified Dreadstone",
-					{[L["intellect"]] = 10, [L["spirit"]] = 10},
+					{[L["intellect"]] = 10, [L["spirit"]] = 20},
 				},
 				[3546] = {
 					"purple",
 					"Purified Dreadstone",
-					{[L["intellect"]] = 10, [L["spirit"]] = 10},
+					{[L["intellect"]] = 10, [L["spirit"]] = 20},
 				},
 				[3547] = {
 					"purple",
 					"Glinting Dreadstone",
-					{[L["agility"]] = 10, [L["hit"]] = 10},
+					{[L["agility"]] = 10, [L["hit"]] = 20},
 				},
 				[3548] = {
 					"purple",
@@ -1794,17 +1971,17 @@ ww_gems = {
 				[3549] = {
 					"orange",
 					"Inscribed Ametrine",
-					{[L["critical strike"]] = 10, [L["strength"]] = 10},
+					{[L["critical strike"]] = 20, [L["strength"]] = 10},
 				},
 				[3550] = {
 					"purple",
 					"Etched Dreadstone",
-					{[L["hit"]] = 10, [L["strength"]] = 10},
+					{[L["hit"]] = 20, [L["strength"]] = 10},
 				},
 				[3551] = {
 					"orange",
 					"Champion's Ametrine",
-					{[L["dodge"]] = 10, [L["strength"]] = 10},
+					{[L["dodge"]] = 20, [L["strength"]] = 10},
 				},
 				[3552] = {
 					"orange",
@@ -1814,17 +1991,17 @@ ww_gems = {
 				[3553] = {
 					"orange",
 					"Fierce Ametrine",
-					{[L["haste"]] = 10, [L["strength"]] = 10},
+					{[L["haste"]] = 20, [L["strength"]] = 10},
 				},
 				[3554] = {
 					"orange",
 					"Deadly Ametrine",
-					{[L["agility"]] = 10, [L["critical strike"]] = 10},
+					{[L["agility"]] = 10, [L["critical strike"]] = 20},
 				},
 				[3555] = {
 					"purple",
 					"Glinting Dreadstone",
-					{[L["agility"]] = 10, [L["hit"]] = 10},
+					{[L["agility"]] = 10, [L["hit"]] = 20},
 				},
 				[3556] = {
 					"orange",
@@ -1834,22 +2011,22 @@ ww_gems = {
 				[3557] = {
 					"orange",
 					"Deft Ametrine",
-					{[L["agility"]] = 10, [L["haste"]] = 10},
+					{[L["agility"]] = 10, [L["haste"]] = 20},
 				},
 				[3558] = {
 					"purple",
 					"Purified Dreadstone",
-					{[L["intellect"]] = 10, [L["spirit"]] = 10},
+					{[L["intellect"]] = 10, [L["spirit"]] = 20},
 				},
 				[3559] = {
 					"orange",
 					"Potent Ametrine",
-					{[L["critical strike"]] = 10, [L["intellect"]] = 10},
+					{[L["critical strike"]] = 20, [L["intellect"]] = 10},
 				},
 				[3560] = {
 					"purple",
 					"Veiled Dreadstone",
-					{[L["hit"]] = 10, [L["intellect"]] = 10},
+					{[L["hit"]] = 20, [L["intellect"]] = 10},
 				},
 				[3561] = {
 					"orange",
@@ -1859,17 +2036,17 @@ ww_gems = {
 				[3563] = {
 					"orange",
 					"Reckless Ametrine",
-					{[L["haste"]] = 10, [L["intellect"]] = 10},
+					{[L["haste"]] = 20, [L["intellect"]] = 10},
 				},
 				[3564] = {
 					"orange",
 					"Deadly Ametrine",
-					{[L["agility"]] = 10, [L["critical strike"]] = 10},
+					{[L["agility"]] = 10, [L["critical strike"]] = 20},
 				},
 				[3565] = {
 					"purple",
 					"Glinting Dreadstone",
-					{[L["agility"]] = 10, [L["hit"]] = 10},
+					{[L["agility"]] = 10, [L["hit"]] = 20},
 				},
 				[3566] = {
 					"orange",
@@ -1879,27 +2056,27 @@ ww_gems = {
 				[3567] = {
 					"orange",
 					"Deft Ametrine",
-					{[L["agility"]] = 10, [L["haste"]] = 10},
+					{[L["agility"]] = 10, [L["haste"]] = 20},
 				},
 				[3568] = {
 					"orange",
 					"Stalwart Ametrine",
-					{[L["dodge"]] = 10, [L["parry"]] = 10},
+					{[L["dodge"]] = 20, [L["parry"]] = 20},
 				},
 				[3569] = {
 					"orange",
 					"Stalwart Ametrine",
-					{[L["dodge"]] = 10, [L["parry"]] = 10},
+					{[L["dodge"]] = 20, [L["parry"]] = 20},
 				},
 				[3570] = {
 					"purple",
 					"Accurate Dreadstone",
-					{[L["expertise"]] = 10, [L["hit"]] = 10},
+					{[L["expertise"]] = 20, [L["hit"]] = 20},
 				},
 				[3571] = {
 					"orange",
 					"Resolute Ametrine",
-					{[L["dodge"]] = 10, [L["expertise"]] = 10},
+					{[L["dodge"]] = 20, [L["expertise"]] = 20},
 				},
 				[3572] = {
 					"purple",
@@ -1909,17 +2086,17 @@ ww_gems = {
 				[3573] = {
 					"green",
 					"Jagged Eye of Zul",
-					{[L["critical strike"]] = 10, [L["stamina"]] = 15},
+					{[L["critical strike"]] = 20, [L["stamina"]] = 15},
 				},
 				[3574] = {
 					"green",
 					"Nimble Eye of Zul",
-					{[L["dodge"]] = 10, [L["hit"]] = 10},
+					{[L["dodge"]] = 20, [L["hit"]] = 20},
 				},
 				[3575] = {
 					"green",
 					"Regal Eye of Zul",
-					{[L["dodge"]] = 10, [L["stamina"]] = 15},
+					{[L["dodge"]] = 20, [L["stamina"]] = 15},
 				},
 				[3576] = {
 					"green",
@@ -1929,52 +2106,52 @@ ww_gems = {
 				[3577] = {
 					"green",
 					"Forceful Eye of Zul",
-					{[L["haste"]] = 10, [L["stamina"]] = 15},
+					{[L["haste"]] = 20, [L["stamina"]] = 15},
 				},
 				[3578] = {
 					"purple",
 					"Purified Dreadstone",
-					{[L["intellect"]] = 10, [L["spirit"]] = 10},
+					{[L["intellect"]] = 10, [L["spirit"]] = 20},
 				},
 				[3579] = {
 					"green",
 					"Misty Eye of Zul",
-					{[L["critical strike"]] = 10, [L["spirit"]] = 10},
+					{[L["critical strike"]] = 20, [L["spirit"]] = 20},
 				},
 				[3580] = {
 					"green",
 					"Lightning Eye of Zul",
-					{[L["haste"]] = 10, [L["hit"]] = 10},
+					{[L["haste"]] = 20, [L["hit"]] = 20},
 				},
 				[3581] = {
 					"green",
 					"Turbid Eye of Zul",
-					{[L["pvp resilience"]] = 10, [L["spirit"]] = 10},
+					{[L["pvp resilience"]] = 10, [L["spirit"]] = 20},
 				},
 				[3582] = {
 					"green",
 					"Energized Eye of Zul",
-					{[L["haste"]] = 10, [L["spirit"]] = 10},
+					{[L["haste"]] = 20, [L["spirit"]] = 20},
 				},
 				[3583] = {
 					"purple",
 					"Purified Dreadstone",
-					{[L["intellect"]] = 10, [L["spirit"]] = 10},
+					{[L["intellect"]] = 10, [L["spirit"]] = 20},
 				},
 				[3584] = {
 					"green",
 					"Misty Eye of Zul",
-					{[L["critical strike"]] = 10, [L["spirit"]] = 10},
+					{[L["critical strike"]] = 20, [L["spirit"]] = 20},
 				},
 				[3585] = {
 					"green",
 					"Lightning Eye of Zul",
-					{[L["haste"]] = 10, [L["hit"]] = 10},
+					{[L["haste"]] = 20, [L["hit"]] = 20},
 				},
 				[3586] = {
 					"green",
 					"Turbid Eye of Zul",
-					{[L["pvp resilience"]] = 10, [L["spirit"]] = 10},
+					{[L["pvp resilience"]] = 10, [L["spirit"]] = 20},
 				},
 				[3587] = {
 					"green",
@@ -1984,29 +2161,29 @@ ww_gems = {
 				[3588] = {
 					"green",
 					"Radiant Eye of Zul",
-					{[L["critical strike"]] = 10, [L["pvp power"]] = 10},
+					{[L["critical strike"]] = 20, [L["pvp power"]] = 10},
 				},
 				[3589] = {
 					"green",
 					"Radiant Eye of Zul",
-					{[L["critical strike"]] = 10, [L["pvp power"]] = 10},
+					{[L["critical strike"]] = 20, [L["pvp power"]] = 10},
 				},
 				[3590] = {
 					"green",
 					"Shattered Eye of Zul",
-					{[L["haste"]] = 10, [L["pvp power"]] = 10},
+					{[L["haste"]] = 20, [L["pvp power"]] = 10},
 				},
 			},
 			[8] = {
 				[3885] = {
 					"green",
 					"Zen Jasper",
-					{[L["mastery"]] = 15, [L["spirit"]] = 15},
+					{[L["mastery"]] = 30, [L["spirit"]] = 30},
 				},
 				[3886] = {
 					"green",
 					"Sensei's Jasper",
-					{[L["hit"]] = 15, [L["mastery"]] = 15},
+					{[L["hit"]] = 30, [L["mastery"]] = 30},
 				},
 				[3889] = {
 					"red",
@@ -2021,7 +2198,7 @@ ww_gems = {
 				[3891] = {
 					"red",
 					"Flashing Carnelian",
-					{[L["parry"]] = 30},
+					{[L["parry"]] = 60},
 				},
 				[3892] = {
 					"red",
@@ -2031,7 +2208,7 @@ ww_gems = {
 				[3893] = {
 					"red",
 					"Precise Carnelian",
-					{[L["expertise"]] = 30},
+					{[L["expertise"]] = 60},
 				},
 				[3894] = {
 					"blue",
@@ -2041,7 +2218,7 @@ ww_gems = {
 				[3895] = {
 					"blue",
 					"Sparkling Zephyrite",
-					{[L["spirit"]] = 30},
+					{[L["spirit"]] = 60},
 				},
 				[3896] = {
 					"blue",
@@ -2051,12 +2228,12 @@ ww_gems = {
 				[3897] = {
 					"blue",
 					"Rigid Zephyrite",
-					{[L["hit"]] = 30},
+					{[L["hit"]] = 60},
 				},
 				[3898] = {
 					"yellow",
 					"Subtle Alicite",
-					{[L["dodge"]] = 30},
+					{[L["dodge"]] = 60},
 				},
 				[3899] = {
 					"yellow",
@@ -2066,12 +2243,12 @@ ww_gems = {
 				[3900] = {
 					"yellow",
 					"Quick Alicite",
-					{[L["haste"]] = 30},
+					{[L["haste"]] = 60},
 				},
 				[3901] = {
 					"yellow",
 					"Fractured Alicite",
-					{[L["mastery"]] = 30},
+					{[L["mastery"]] = 60},
 				},
 				[3902] = {
 					"purple",
@@ -2081,7 +2258,7 @@ ww_gems = {
 				[3903] = {
 					"purple",
 					"Defender's Nightstone",
-					{[L["parry"]] = 15, [L["stamina"]] = 23},
+					{[L["parry"]] = 30, [L["stamina"]] = 23},
 				},
 				[3904] = {
 					"purple",
@@ -2096,122 +2273,122 @@ ww_gems = {
 				[3906] = {
 					"purple",
 					"Guardian's Nightstone",
-					{[L["expertise"]] = 15, [L["stamina"]] = 23},
+					{[L["expertise"]] = 30, [L["stamina"]] = 23},
 				},
 				[3907] = {
 					"purple",
 					"Purified Nightstone",
-					{[L["intellect"]] = 15, [L["spirit"]] = 15},
+					{[L["intellect"]] = 15, [L["spirit"]] = 30},
 				},
 				[3908] = {
 					"purple",
 					"Etched Nightstone",
-					{[L["hit"]] = 15, [L["strength"]] = 15},
+					{[L["hit"]] = 30, [L["strength"]] = 15},
 				},
 				[3909] = {
 					"purple",
 					"Glinting Nightstone",
-					{[L["agility"]] = 15, [L["hit"]] = 15},
+					{[L["agility"]] = 15, [L["hit"]] = 30},
 				},
 				[3910] = {
 					"purple",
 					"Retaliating Nightstone",
-					{[L["hit"]] = 15, [L["parry"]] = 15},
+					{[L["hit"]] = 30, [L["parry"]] = 30},
 				},
 				[3911] = {
 					"purple",
 					"Veiled Nightstone",
-					{[L["hit"]] = 15, [L["intellect"]] = 15},
+					{[L["hit"]] = 30, [L["intellect"]] = 15},
 				},
 				[3912] = {
 					"purple",
 					"Accurate Nightstone",
-					{[L["expertise"]] = 15, [L["hit"]] = 15},
+					{[L["expertise"]] = 30, [L["hit"]] = 30},
 				},
 				[3913] = {
 					"orange",
 					"Polished Hessonite",
-					{[L["agility"]] = 15, [L["dodge"]] = 15},
+					{[L["agility"]] = 15, [L["dodge"]] = 30},
 				},
 				[3914] = {
 					"orange",
 					"Resolute Hessonite",
-					{[L["dodge"]] = 15, [L["expertise"]] = 15},
+					{[L["dodge"]] = 30, [L["expertise"]] = 30},
 				},
 				[3915] = {
 					"orange",
 					"Inscribed Hessonite",
-					{[L["critical strike"]] = 15, [L["strength"]] = 15},
+					{[L["critical strike"]] = 30, [L["strength"]] = 15},
 				},
 				[3916] = {
 					"orange",
 					"Deadly Hessonite",
-					{[L["agility"]] = 15, [L["critical strike"]] = 15},
+					{[L["agility"]] = 15, [L["critical strike"]] = 30},
 				},
 				[3917] = {
 					"orange",
 					"Potent Hessonite",
-					{[L["critical strike"]] = 15, [L["intellect"]] = 15},
+					{[L["critical strike"]] = 30, [L["intellect"]] = 15},
 				},
 				[3918] = {
 					"orange",
 					"Fierce Hessonite",
-					{[L["haste"]] = 15, [L["strength"]] = 15},
+					{[L["haste"]] = 30, [L["strength"]] = 15},
 				},
 				[3919] = {
 					"orange",
 					"Deft Hessonite",
-					{[L["agility"]] = 15, [L["haste"]] = 15},
+					{[L["agility"]] = 15, [L["haste"]] = 30},
 				},
 				[3920] = {
 					"orange",
 					"Reckless Hessonite",
-					{[L["haste"]] = 15, [L["intellect"]] = 15},
+					{[L["haste"]] = 30, [L["intellect"]] = 15},
 				},
 				[3921] = {
 					"orange",
 					"Skillful Hessonite",
-					{[L["mastery"]] = 15, [L["strength"]] = 15},
+					{[L["mastery"]] = 30, [L["strength"]] = 15},
 				},
 				[3922] = {
 					"orange",
 					"Adept Hessonite",
-					{[L["agility"]] = 15, [L["mastery"]] = 15},
+					{[L["agility"]] = 15, [L["mastery"]] = 30},
 				},
 				[3923] = {
 					"orange",
 					"Fine Hessonite",
-					{[L["mastery"]] = 15, [L["parry"]] = 15},
+					{[L["mastery"]] = 30, [L["parry"]] = 30},
 				},
 				[3924] = {
 					"orange",
 					"Artful Hessonite",
-					{[L["intellect"]] = 15, [L["mastery"]] = 15},
+					{[L["intellect"]] = 15, [L["mastery"]] = 30},
 				},
 				[3925] = {
 					"orange",
 					"Keen Hessonite",
-					{[L["expertise"]] = 15, [L["mastery"]] = 15},
+					{[L["expertise"]] = 30, [L["mastery"]] = 30},
 				},
 				[3926] = {
 					"green",
 					"Regal Jasper",
-					{[L["dodge"]] = 15, [L["stamina"]] = 23},
+					{[L["dodge"]] = 30, [L["stamina"]] = 23},
 				},
 				[3927] = {
 					"green",
 					"Nimble Jasper",
-					{[L["dodge"]] = 15, [L["hit"]] = 15},
+					{[L["dodge"]] = 30, [L["hit"]] = 30},
 				},
 				[3928] = {
 					"green",
 					"Jagged Jasper",
-					{[L["critical strike"]] = 15, [L["stamina"]] = 23},
+					{[L["critical strike"]] = 30, [L["stamina"]] = 23},
 				},
 				[3929] = {
 					"green",
 					"Piercing Jasper",
-					{[L["critical strike"]] = 15, [L["hit"]] = 15},
+					{[L["critical strike"]] = 30, [L["hit"]] = 30},
 				},
 				[3930] = {
 					"green",
@@ -2221,64 +2398,64 @@ ww_gems = {
 				[3931] = {
 					"green",
 					"Forceful Jasper",
-					{[L["haste"]] = 15, [L["stamina"]] = 23},
+					{[L["haste"]] = 30, [L["stamina"]] = 23},
 				},
 				[3932] = {
 					"green",
 					"Lightning Jasper",
-					{[L["haste"]] = 15, [L["hit"]] = 15},
+					{[L["haste"]] = 30, [L["hit"]] = 30},
 				},
 				[3933] = {
 					"green",
 					"Puissant Jasper",
-					{[L["mastery"]] = 15, [L["stamina"]] = 23},
+					{[L["mastery"]] = 30, [L["stamina"]] = 23},
 				},
 				[3936] = {
 					"yellow",
 					"Smooth Alicite",
-					{[L["critical strike"]] = 30},
+					{[L["critical strike"]] = 60},
 				},
 			},
 			[9] = {
 				[3983] = {
 					"purple",
 					"Accurate Demonseye",
-					{[L["expertise"]] = 20, [L["hit"]] = 20},
+					{[L["expertise"]] = 40, [L["hit"]] = 40},
 				},
 				[3984] = {
 					"purple",
 					"Defender's Demonseye",
-					{[L["parry"]] = 20, [L["stamina"]] = 30},
+					{[L["parry"]] = 40, [L["stamina"]] = 20},
 				},
 				[3985] = {
 					"purple",
 					"Etched Demonseye",
-					{[L["hit"]] = 20, [L["strength"]] = 20},
+					{[L["hit"]] = 40, [L["strength"]] = 20},
 				},
 				[3986] = {
 					"purple",
 					"Veiled Demonseye",
-					{[L["hit"]] = 20, [L["intellect"]] = 20},
+					{[L["hit"]] = 40, [L["intellect"]] = 20},
 				},
 				[3987] = {
 					"purple",
 					"Glinting Demonseye",
-					{[L["agility"]] = 20, [L["hit"]] = 20},
+					{[L["agility"]] = 20, [L["hit"]] = 40},
 				},
 				[3988] = {
 					"purple",
 					"Guardian's Demonseye",
-					{[L["expertise"]] = 20, [L["stamina"]] = 30},
+					{[L["expertise"]] = 40, [L["stamina"]] = 30},
 				},
 				[3989] = {
 					"purple",
 					"Retaliating Demonseye",
-					{[L["hit"]] = 20, [L["parry"]] = 20},
+					{[L["hit"]] = 40, [L["parry"]] = 40},
 				},
 				[3990] = {
 					"purple",
 					"Purified Demonseye",
-					{[L["intellect"]] = 20, [L["spirit"]] = 20},
+					{[L["intellect"]] = 20, [L["spirit"]] = 40},
 				},
 				[3991] = {
 					"purple",
@@ -2313,17 +2490,17 @@ ww_gems = {
 				[3997] = {
 					"red",
 					"Flashing Inferno Ruby",
-					{[L["parry"]] = 40},
+					{[L["parry"]] = 80},
 				},
 				[3998] = {
 					"red",
 					"Precise Inferno Ruby",
-					{[L["expertise"]] = 40},
+					{[L["expertise"]] = 80},
 				},
 				[3999] = {
 					"yellow",
 					"Fractured Amberjewel",
-					{[L["mastery"]] = 40},
+					{[L["mastery"]] = 80},
 				},
 				[4000] = {
 					"yellow",
@@ -2333,22 +2510,22 @@ ww_gems = {
 				[4001] = {
 					"yellow",
 					"Quick Amberjewel",
-					{[L["haste"]] = 40},
+					{[L["haste"]] = 80},
 				},
 				[4002] = {
 					"yellow",
 					"Smooth Amberjewel",
-					{[L["critical strike"]] = 40},
+					{[L["critical strike"]] = 80},
 				},
 				[4003] = {
 					"yellow",
 					"Subtle Amberjewel",
-					{[L["dodge"]] = 40},
+					{[L["dodge"]] = 80},
 				},
 				[4004] = {
 					"blue",
 					"Rigid Ocean Sapphire",
-					{[L["hit"]] = 40},
+					{[L["hit"]] = 80},
 				},
 				[4005] = {
 					"blue",
@@ -2358,7 +2535,7 @@ ww_gems = {
 				[4006] = {
 					"blue",
 					"Sparkling Ocean Sapphire",
-					{[L["spirit"]] = 40},
+					{[L["spirit"]] = 80},
 				},
 				[4007] = {
 					"blue",
@@ -2368,107 +2545,107 @@ ww_gems = {
 				[4008] = {
 					"orange",
 					"Adept Ember Topaz",
-					{[L["agility"]] = 20, [L["mastery"]] = 20},
+					{[L["agility"]] = 20, [L["mastery"]] = 40},
 				},
 				[4009] = {
 					"orange",
 					"Artful Ember Topaz",
-					{[L["intellect"]] = 20, [L["mastery"]] = 20},
+					{[L["intellect"]] = 20, [L["mastery"]] = 40},
 				},
 				[4010] = {
 					"orange",
 					"Reckless Ember Topaz",
-					{[L["haste"]] = 20, [L["intellect"]] = 20},
+					{[L["haste"]] = 40, [L["intellect"]] = 20},
 				},
 				[4011] = {
 					"orange",
 					"Deadly Ember Topaz",
-					{[L["agility"]] = 20, [L["critical strike"]] = 20},
+					{[L["agility"]] = 20, [L["critical strike"]] = 40},
 				},
 				[4012] = {
 					"orange",
 					"Deft Ember Topaz",
-					{[L["agility"]] = 20, [L["haste"]] = 20},
+					{[L["agility"]] = 20, [L["haste"]] = 40},
 				},
 				[4013] = {
 					"orange",
 					"Fierce Ember Topaz",
-					{[L["haste"]] = 20, [L["strength"]] = 20},
+					{[L["haste"]] = 40, [L["strength"]] = 20},
 				},
 				[4014] = {
 					"orange",
 					"Fine Ember Topaz",
-					{[L["mastery"]] = 20, [L["parry"]] = 20},
+					{[L["mastery"]] = 40, [L["parry"]] = 40},
 				},
 				[4015] = {
 					"orange",
 					"Inscribed Ember Topaz",
-					{[L["critical strike"]] = 20, [L["strength"]] = 20},
+					{[L["critical strike"]] = 40, [L["strength"]] = 20},
 				},
 				[4016] = {
 					"orange",
 					"Keen Ember Topaz",
-					{[L["expertise"]] = 20, [L["mastery"]] = 20},
+					{[L["expertise"]] = 40, [L["mastery"]] = 40},
 				},
 				[4017] = {
 					"orange",
 					"Polished Ember Topaz",
-					{[L["agility"]] = 20, [L["dodge"]] = 20},
+					{[L["agility"]] = 20, [L["dodge"]] = 40},
 				},
 				[4018] = {
 					"orange",
 					"Potent Ember Topaz",
-					{[L["critical strike"]] = 20, [L["intellect"]] = 20},
+					{[L["critical strike"]] = 40, [L["intellect"]] = 20},
 				},
 				[4019] = {
 					"orange",
 					"Skillful Ember Topaz",
-					{[L["mastery"]] = 20, [L["strength"]] = 20},
+					{[L["mastery"]] = 1, [L["strength"]] = 20},
 				},
 				[4020] = {
 					"orange",
 					"Resolute Ember Topaz",
-					{[L["dodge"]] = 20, [L["expertise"]] = 20},
+					{[L["dodge"]] = 40, [L["expertise"]] = 40},
 				},
 				[4021] = {
 					"green",
 					"Forceful Dream Emerald",
-					{[L["haste"]] = 20, [L["stamina"]] = 30},
+					{[L["haste"]] = 40, [L["stamina"]] = 30},
 				},
 				[4022] = {
 					"green",
 					"Jagged Dream Emerald",
-					{[L["critical strike"]] = 20, [L["stamina"]] = 30},
+					{[L["critical strike"]] = 40, [L["stamina"]] = 30},
 				},
 				[4023] = {
 					"green",
 					"Lightning Dream Emerald",
-					{[L["haste"]] = 20, [L["hit"]] = 20},
+					{[L["haste"]] = 40, [L["hit"]] = 40},
 				},
 				[4024] = {
 					"green",
 					"Nimble Dream Emerald",
-					{[L["dodge"]] = 20, [L["hit"]] = 20},
+					{[L["dodge"]] = 40, [L["hit"]] = 40},
 				},
 				[4025] = {
 					"green",
 					"Piercing Dream Emerald",
-					{[L["critical strike"]] = 20, [L["hit"]] = 20},
+					{[L["critical strike"]] = 40, [L["hit"]] = 40},
 				},
 				[4026] = {
 					"green",
 					"Puissant Dream Emerald",
-					{[L["mastery"]] = 20, [L["stamina"]] = 30},
+					{[L["mastery"]] = 1, [L["stamina"]] = 1},
 				},
 				[4027] = {
 					"green",
 					"Regal Dream Emerald",
-					{[L["dodge"]] = 20, [L["stamina"]] = 30},
+					{[L["dodge"]] = 40, [L["stamina"]] = 30},
 				},
 				[4028] = {
 					"green",
 					"Sensei's Dream Emerald",
-					{[L["hit"]] = 20, [L["mastery"]] = 20},
+					{[L["hit"]] = 40, [L["mastery"]] = 40},
 				},
 				[4029] = {
 					"green",
@@ -2478,17 +2655,17 @@ ww_gems = {
 				[4030] = {
 					"green",
 					"Zen Dream Emerald",
-					{[L["mastery"]] = 20, [L["spirit"]] = 20},
+					{[L["mastery"]] = 40, [L["spirit"]] = 40},
 				},
 				[4045] = {
 					"meta",
 					"Fleet Shadowspirit Diamond",
-					{[L["mastery"]] = 54, [L["minor run speed"]] = 1},
+					{[L["mastery"]] = 108, [L["minor run speed"]] = 1},
 				},
 				[4046] = {
 					"meta",
 					"Chaotic Shadowspirit Diamond",
-					{[L["critical effect (percent)"]] = 3, [L["critical strike"]] = 54},
+					{[L["critical effect (percent)"]] = 3, [L["critical strike"]] = 108},
 				},
 				[4047] = {
 					"meta",
@@ -2518,12 +2695,12 @@ ww_gems = {
 				[4052] = {
 					"meta",
 					"Revitalizing Shadowspirit Diamond",
-					{[L["critical effect (percent)"]] = 3, [L["spirit"]] = 54},
+					{[L["critical effect (percent)"]] = 3, [L["spirit"]] = 108},
 				},
 				[4053] = {
 					"meta",
 					"Destructive Shadowspirit Diamond",
-					{[L["critical strike"]] = 54, [L["spell reflect (percent)"]] = 1},
+					{[L["critical strike"]] = 108, [L["spell reflect (percent)"]] = 1},
 				},
 				[4054] = {
 					"meta",
@@ -2533,12 +2710,12 @@ ww_gems = {
 				[4055] = {
 					"meta",
 					"Enigmatic Shadowspirit Diamond",
-					{[L["critical strike"]] = 54, [L["snare/root duration reduction (percent)"]] = 10},
+					{[L["critical strike"]] = 108, [L["snare/root duration reduction (percent)"]] = 10},
 				},
 				[4056] = {
 					"meta",
 					"Impassive Shadowspirit Diamond",
-					{[L["critical strike"]] = 54, [L["fear duration reduction (percent)"]] = 10},
+					{[L["critical strike"]] = 108, [L["fear duration reduction (percent)"]] = 10},
 				},
 				[4057] = {
 					"meta",
@@ -2585,17 +2762,17 @@ ww_gems = {
 				[4273] = {
 					"blue",
 					"Rigid Deepholm Iolite",
-					{[L["hit"]] = 50},
+					{[L["hit"]] = 100},
 				},
 				[4274] = {
 					"blue",
 					"Stormy Deepholm Iolite",
-					{[L["pvp power"]] = 50},
+					{[L["pvp power"]] = 100},
 				},
 				[4275] = {
 					"blue",
 					"Sparkling Deepholm Iolite",
-					{[L["spirit"]] = 50},
+					{[L["spirit"]] = 100},
 				},
 				[4276] = {
 					"blue",
@@ -2605,37 +2782,37 @@ ww_gems = {
 				[4277] = {
 					"green",
 					"Misty Elven Peridot",
-					{[L["critical strike"]] = 25, [L["spirit"]] = 25},
+					{[L["critical strike"]] = 50, [L["spirit"]] = 50},
 				},
 				[4278] = {
 					"green",
 					"Piercing Elven Peridot",
-					{[L["critical strike"]] = 25, [L["hit"]] = 25},
+					{[L["critical strike"]] = 50, [L["hit"]] = 50},
 				},
 				[4279] = {
 					"green",
 					"Lightning Elven Peridot",
-					{[L["haste"]] = 25, [L["hit"]] = 25},
+					{[L["haste"]] = 50, [L["hit"]] = 50},
 				},
 				[4280] = {
 					"green",
 					"Sensei's Elven Peridot",
-					{[L["hit"]] = 25, [L["mastery"]] = 25},
+					{[L["hit"]] = 50, [L["mastery"]] = 50},
 				},
 				[4281] = {
 					"green",
 					"Infused Elven Peridot",
-					{[L["mastery"]] = 25, [L["pvp power"]] = 25},
+					{[L["mastery"]] = 50, [L["pvp power"]] = 25},
 				},
 				[4282] = {
 					"green",
 					"Zen Elven Peridot",
-					{[L["mastery"]] = 25, [L["spirit"]] = 25},
+					{[L["mastery"]] = 50, [L["spirit"]] = 50},
 				},
 				[4283] = {
 					"green",
 					"Balanced Elven Peridot",
-					{[L["hit"]] = 25, [L["pvp resilience"]] = 25},
+					{[L["hit"]] = 50, [L["pvp resilience"]] = 25},
 				},
 				[4284] = {
 					"green",
@@ -2645,137 +2822,137 @@ ww_gems = {
 				[4285] = {
 					"green",
 					"Turbid Elven Peridot",
-					{[L["pvp resilience"]] = 25, [L["spirit"]] = 25},
+					{[L["pvp resilience"]] = 25, [L["spirit"]] = 50},
 				},
 				[4286] = {
 					"green",
 					"Radiant Elven Peridot",
-					{[L["critical strike"]] = 25, [L["pvp power"]] = 25},
+					{[L["critical strike"]] = 50, [L["pvp power"]] = 25},
 				},
 				[4287] = {
 					"green",
 					"Shattered Elven Peridot",
-					{[L["haste"]] = 25, [L["pvp power"]] = 25},
+					{[L["haste"]] = 50, [L["pvp power"]] = 25},
 				},
 				[4288] = {
 					"green",
 					"Energized Elven Peridot",
-					{[L["haste"]] = 25, [L["spirit"]] = 25},
+					{[L["haste"]] = 50, [L["spirit"]] = 50},
 				},
 				[4289] = {
 					"green",
 					"Jagged Elven Peridot",
-					{[L["critical strike"]] = 25, [L["stamina"]] = 37},
+					{[L["critical strike"]] = 50, [L["stamina"]] = 38},
 				},
 				[4290] = {
 					"green",
 					"Regal Elven Peridot",
-					{[L["dodge"]] = 25, [L["stamina"]] = 37},
+					{[L["dodge"]] = 50, [L["stamina"]] = 38},
 				},
 				[4291] = {
 					"green",
 					"Forceful Elven Peridot",
-					{[L["haste"]] = 25, [L["stamina"]] = 37},
+					{[L["haste"]] = 50, [L["stamina"]] = 38},
 				},
 				[4292] = {
 					"green",
 					"Nimble Elven Peridot",
-					{[L["dodge"]] = 25, [L["hit"]] = 25},
+					{[L["dodge"]] = 50, [L["hit"]] = 50},
 				},
 				[4293] = {
 					"green",
 					"Puissant Elven Peridot",
-					{[L["mastery"]] = 25, [L["stamina"]] = 37},
+					{[L["mastery"]] = 50, [L["stamina"]] = 38},
 				},
 				[4294] = {
 					"green",
 					"Steady Elven Peridot",
-					{[L["pvp resilience"]] = 25, [L["stamina"]] = 37},
+					{[L["pvp resilience"]] = 25, [L["stamina"]] = 38},
 				},
 				[4295] = {
 					"orange",
 					"Deadly Lava Coral",
-					{[L["agility"]] = 25, [L["critical strike"]] = 25},
+					{[L["agility"]] = 25, [L["critical strike"]] = 50},
 				},
 				[4296] = {
 					"orange",
 					"Crafty Lava Coral",
-					{[L["critical strike"]] = 25, [L["expertise"]] = 25},
+					{[L["critical strike"]] = 50, [L["expertise"]] = 50},
 				},
 				[4297] = {
 					"orange",
 					"Potent Lava Coral",
-					{[L["critical strike"]] = 25, [L["intellect"]] = 25},
+					{[L["critical strike"]] = 50, [L["intellect"]] = 25},
 				},
 				[4298] = {
 					"orange",
 					"Inscribed Lava Coral",
-					{[L["critical strike"]] = 25, [L["strength"]] = 25},
+					{[L["critical strike"]] = 50, [L["strength"]] = 25},
 				},
 				[4299] = {
 					"orange",
 					"Polished Lava Coral",
-					{[L["agility"]] = 25, [L["dodge"]] = 25},
+					{[L["agility"]] = 25, [L["dodge"]] = 50},
 				},
 				[4300] = {
 					"orange",
 					"Resolute Lava Coral",
-					{[L["dodge"]] = 25, [L["expertise"]] = 25},
+					{[L["dodge"]] = 50, [L["expertise"]] = 50},
 				},
 				[4301] = {
 					"orange",
 					"Stalwart Lava Coral",
-					{[L["dodge"]] = 25, [L["parry"]] = 25},
+					{[L["dodge"]] = 50, [L["parry"]] = 50},
 				},
 				[4302] = {
 					"orange",
 					"Champion's Lava Coral",
-					{[L["dodge"]] = 25, [L["strength"]] = 25},
+					{[L["dodge"]] = 50, [L["strength"]] = 25},
 				},
 				[4303] = {
 					"orange",
 					"Deft Lava Coral",
-					{[L["agility"]] = 25, [L["haste"]] = 25},
+					{[L["agility"]] = 25, [L["haste"]] = 50},
 				},
 				[4304] = {
 					"orange",
 					"Wicked Lava Coral",
-					{[L["expertise"]] = 25, [L["haste"]] = 25},
+					{[L["expertise"]] = 50, [L["haste"]] = 50},
 				},
 				[4305] = {
 					"orange",
 					"Reckless Lava Coral",
-					{[L["haste"]] = 25, [L["intellect"]] = 25},
+					{[L["haste"]] = 50, [L["intellect"]] = 25},
 				},
 				[4306] = {
 					"orange",
 					"Fierce Lava Coral",
-					{[L["haste"]] = 25, [L["strength"]] = 25},
+					{[L["haste"]] = 50, [L["strength"]] = 25},
 				},
 				[4307] = {
 					"orange",
 					"Adept Lava Coral",
-					{[L["agility"]] = 25, [L["mastery"]] = 25},
+					{[L["agility"]] = 25, [L["mastery"]] = 50},
 				},
 				[4308] = {
 					"orange",
 					"Keen Lava Coral",
-					{[L["expertise"]] = 25, [L["mastery"]] = 25},
+					{[L["expertise"]] = 50, [L["mastery"]] = 50},
 				},
 				[4309] = {
 					"orange",
 					"Artful Lava Coral",
-					{[L["intellect"]] = 25, [L["mastery"]] = 25},
+					{[L["intellect"]] = 25, [L["mastery"]] = 50},
 				},
 				[4310] = {
 					"orange",
 					"Fine Lava Coral",
-					{[L["mastery"]] = 25, [L["parry"]] = 25},
+					{[L["mastery"]] = 50, [L["parry"]] = 50},
 				},
 				[4311] = {
 					"orange",
 					"Skillful Lava Coral",
-					{[L["mastery"]] = 25, [L["strength"]] = 25},
+					{[L["mastery"]] = 50, [L["strength"]] = 25},
 				},
 				[4312] = {
 					"orange",
@@ -2785,7 +2962,7 @@ ww_gems = {
 				[4313] = {
 					"orange",
 					"Tenuous Lava Coral",
-					{[L["expertise"]] = 25, [L["pvp resilience"]] = 25},
+					{[L["expertise"]] = 50, [L["pvp resilience"]] = 25},
 				},
 				[4314] = {
 					"orange",
@@ -2795,7 +2972,7 @@ ww_gems = {
 				[4315] = {
 					"orange",
 					"Splendid Lava Coral",
-					{[L["parry"]] = 25, [L["pvp resilience"]] = 25},
+					{[L["parry"]] = 50, [L["pvp resilience"]] = 25},
 				},
 				[4316] = {
 					"orange",
@@ -2805,27 +2982,27 @@ ww_gems = {
 				[4317] = {
 					"purple",
 					"Glinting Shadow Spinel",
-					{[L["agility"]] = 25, [L["hit"]] = 25},
+					{[L["agility"]] = 25, [L["hit"]] = 50},
 				},
 				[4318] = {
 					"purple",
 					"Accurate Shadow Spinel",
-					{[L["expertise"]] = 25, [L["hit"]] = 25},
+					{[L["expertise"]] = 50, [L["hit"]] = 50},
 				},
 				[4319] = {
 					"purple",
 					"Veiled Shadow Spinel",
-					{[L["hit"]] = 25, [L["intellect"]] = 25},
+					{[L["hit"]] = 50, [L["intellect"]] = 25},
 				},
 				[4320] = {
 					"purple",
 					"Retaliating Shadow Spinel",
-					{[L["hit"]] = 25, [L["parry"]] = 25},
+					{[L["hit"]] = 50, [L["parry"]] = 50},
 				},
 				[4321] = {
 					"purple",
 					"Etched Shadow Spinel",
-					{[L["hit"]] = 25, [L["strength"]] = 25},
+					{[L["hit"]] = 50, [L["strength"]] = 25},
 				},
 				[4322] = {
 					"purple",
@@ -2835,32 +3012,32 @@ ww_gems = {
 				[4323] = {
 					"purple",
 					"Purified Shadow Spinel",
-					{[L["intellect"]] = 25, [L["spirit"]] = 25},
+					{[L["intellect"]] = 25, [L["spirit"]] = 50},
 				},
 				[4324] = {
 					"purple",
 					"Shifting Shadow Spinel",
-					{[L["agility"]] = 25, [L["stamina"]] = 37},
+					{[L["agility"]] = 25, [L["stamina"]] = 38},
 				},
 				[4325] = {
 					"purple",
 					"Guardian's Shadow Spinel",
-					{[L["expertise"]] = 25, [L["stamina"]] = 37},
+					{[L["expertise"]] = 50, [L["stamina"]] = 38},
 				},
 				[4326] = {
 					"purple",
 					"Timeless Shadow Spinel",
-					{[L["intellect"]] = 25, [L["stamina"]] = 37},
+					{[L["intellect"]] = 25, [L["stamina"]] = 38},
 				},
 				[4327] = {
 					"purple",
 					"Defender's Shadow Spinel",
-					{[L["parry"]] = 25, [L["stamina"]] = 37},
+					{[L["parry"]] = 50, [L["stamina"]] = 38},
 				},
 				[4328] = {
 					"purple",
 					"Sovereign Shadow Spinel",
-					{[L["stamina"]] = 37, [L["strength"]] = 25},
+					{[L["stamina"]] = 38, [L["strength"]] = 25},
 				},
 				[4329] = {
 					"red",
@@ -2870,7 +3047,7 @@ ww_gems = {
 				[4330] = {
 					"red",
 					"Precise Queen's Garnet",
-					{[L["expertise"]] = 50},
+					{[L["expertise"]] = 100},
 				},
 				[4331] = {
 					"red",
@@ -2880,7 +3057,7 @@ ww_gems = {
 				[4332] = {
 					"red",
 					"Flashing Queen's Garnet",
-					{[L["parry"]] = 50},
+					{[L["parry"]] = 100},
 				},
 				[4333] = {
 					"red",
@@ -2890,22 +3067,22 @@ ww_gems = {
 				[4334] = {
 					"yellow",
 					"Smooth Lightstone",
-					{[L["critical strike"]] = 50},
+					{[L["critical strike"]] = 100},
 				},
 				[4335] = {
 					"yellow",
 					"Subtle Lightstone",
-					{[L["dodge"]] = 50},
+					{[L["dodge"]] = 100},
 				},
 				[4336] = {
 					"yellow",
 					"Quick Lightstone",
-					{[L["haste"]] = 50},
+					{[L["haste"]] = 100},
 				},
 				[4337] = {
 					"yellow",
 					"Fractured Lightstone",
-					{[L["mastery"]] = 50},
+					{[L["mastery"]] = 100},
 				},
 				[4338] = {
 					"yellow",
@@ -2915,12 +3092,12 @@ ww_gems = {
 				[4672] = {
 					"green",
 					"Balanced Elven Peridot",
-					{[L["hit"]] = 25, [L["pvp resilience"]] = 25},
+					{[L["hit"]] = 50, [L["pvp resilience"]] = 25},
 				},
 				[4673] = {
 					"green",
 					"Infused Elven Peridot",
-					{[L["mastery"]] = 25, [L["pvp power"]] = 25},
+					{[L["mastery"]] = 50, [L["pvp power"]] = 25},
 				},
 				[4674] = {
 					"orange",
@@ -2940,7 +3117,7 @@ ww_gems = {
 				[4677] = {
 					"green",
 					"Radiant Elven Peridot",
-					{[L["critical strike"]] = 25, [L["pvp power"]] = 25},
+					{[L["critical strike"]] = 50, [L["pvp power"]] = 25},
 				},
 				[4678] = {
 					"orange",
@@ -2950,17 +3127,17 @@ ww_gems = {
 				[4679] = {
 					"green",
 					"Shattered Elven Peridot",
-					{[L["haste"]] = 25, [L["pvp power"]] = 25},
+					{[L["haste"]] = 50, [L["pvp power"]] = 25},
 				},
 				[4680] = {
 					"orange",
 					"Splendid Lava Coral",
-					{[L["parry"]] = 25, [L["pvp resilience"]] = 25},
+					{[L["parry"]] = 50, [L["pvp resilience"]] = 25},
 				},
 				[4681] = {
 					"green",
 					"Steady Elven Peridot",
-					{[L["pvp resilience"]] = 25, [L["stamina"]] = 37},
+					{[L["pvp resilience"]] = 25, [L["stamina"]] = 38},
 				},
 				[4682] = {
 					"blue",
@@ -2970,12 +3147,12 @@ ww_gems = {
 				[4683] = {
 					"orange",
 					"Tenuous Lava Coral",
-					{[L["expertise"]] = 25, [L["pvp resilience"]] = 25},
+					{[L["expertise"]] = 50, [L["pvp resilience"]] = 25},
 				},
 				[4684] = {
 					"green",
 					"Turbid Elven Peridot",
-					{[L["pvp resilience"]] = 25, [L["spirit"]] = 25},
+					{[L["pvp resilience"]] = 25, [L["spirit"]] = 50},
 				},
 				[4685] = {
 					"green",
@@ -2997,7 +3174,7 @@ ww_gems = {
 				[4454] = {
 					"blue",
 					"Stormy Lapis Lazuli",
-					{[L["pvp power"]] = 240},
+					{[L["pvp power"]] = 120},
 				},
 				[4455] = {
 					"blue",
@@ -3032,37 +3209,37 @@ ww_gems = {
 				[4461] = {
 					"green",
 					"Effulgent Alexandrite",
-					{[L["mastery"]] = 120, [L["pvp power"]] = 120},
+					{[L["mastery"]] = 120, [L["pvp power"]] = 60},
 				},
 				[4462] = {
 					"green",
 					"Zen Alexandrite",
-					{[L["mastery"]] = 120, [L["spirit"]] = 120},
+					{[L["mastery"]] = 80, [L["spirit"]] = 120},
 				},
 				[4463] = {
 					"green",
 					"Balanced Alexandrite",
-					{[L["hit"]] = 120, [L["pvp resilience"]] = 120},
+					{[L["hit"]] = 120, [L["pvp resilience"]] = 60},
 				},
 				[4464] = {
 					"green",
 					"Vivid Alexandrite",
-					{[L["pvp power"]] = 120, [L["pvp resilience"]] = 120},
+					{[L["pvp power"]] = 60, [L["pvp resilience"]] = 60},
 				},
 				[4465] = {
 					"green",
 					"Turbid Alexandrite",
-					{[L["pvp resilience"]] = 120, [L["spirit"]] = 120},
+					{[L["pvp resilience"]] = 60, [L["spirit"]] = 120},
 				},
 				[4466] = {
 					"green",
 					"Radiant Alexandrite",
-					{[L["critical strike"]] = 120, [L["pvp power"]] = 120},
+					{[L["critical strike"]] = 120, [L["pvp power"]] = 60},
 				},
 				[4467] = {
 					"green",
 					"Shattered Alexandrite",
-					{[L["haste"]] = 120, [L["pvp power"]] = 120},
+					{[L["haste"]] = 120, [L["pvp power"]] = 60},
 				},
 				[4468] = {
 					"green",
@@ -3097,7 +3274,7 @@ ww_gems = {
 				[4474] = {
 					"green",
 					"Steady Alexandrite",
-					{[L["pvp resilience"]] = 120, [L["stamina"]] = 90},
+					{[L["pvp resilience"]] = 60, [L["stamina"]] = 90},
 				},
 				[4475] = {
 					"orange",
@@ -3187,27 +3364,27 @@ ww_gems = {
 				[4492] = {
 					"orange",
 					"Lucent Tiger Opal",
-					{[L["agility"]] = 60, [L["pvp resilience"]] = 120},
+					{[L["agility"]] = 60, [L["pvp resilience"]] = 60},
 				},
 				[4493] = {
 					"orange",
 					"Tenuous Tiger Opal",
-					{[L["expertise"]] = 120, [L["pvp resilience"]] = 120},
+					{[L["expertise"]] = 120, [L["pvp resilience"]] = 60},
 				},
 				[4494] = {
 					"orange",
 					"Willful Tiger Opal",
-					{[L["intellect"]] = 60, [L["pvp resilience"]] = 120},
+					{[L["intellect"]] = 60, [L["pvp resilience"]] = 60},
 				},
 				[4495] = {
 					"orange",
 					"Splendid Tiger Opal",
-					{[L["parry"]] = 120, [L["pvp resilience"]] = 120},
+					{[L["parry"]] = 120, [L["pvp resilience"]] = 60},
 				},
 				[4496] = {
 					"orange",
 					"Resplendent Tiger Opal",
-					{[L["pvp resilience"]] = 120, [L["strength"]] = 60},
+					{[L["pvp resilience"]] = 60, [L["strength"]] = 60},
 				},
 				[4497] = {
 					"purple",
@@ -3237,7 +3414,7 @@ ww_gems = {
 				[4502] = {
 					"purple",
 					"Mysterious Roguestone",
-					{[L["intellect"]] = 60, [L["pvp power"]] = 120},
+					{[L["intellect"]] = 60, [L["pvp power"]] = 60},
 				},
 				[4503] = {
 					"purple",
@@ -3317,17 +3494,22 @@ ww_gems = {
 				[4519] = {
 					"yellow",
 					"Mystic Sunstone",
-					{[L["pvp resilience"]] = 240},
+					{[L["pvp resilience"]] = 120},
 				},
 				[4985] = {
 					"purple",
 					"Tense Roguestone",
-					{[L["pvp power"]] = 120, [L["strength"]] = 60},
+					{[L["pvp power"]] = 60, [L["strength"]] = 60},
 				},
 				[4988] = {
 					"purple",
 					"Assassin's Roguestone",
-					{[L["agility"]] = 60, [L["pvp power"]] = 120},
+					{[L["agility"]] = 60, [L["pvp power"]] = 60},
+				},
+				[5025] = {
+					"green",
+					"Nimble Alexandrite",
+					{[L["dodge"]] = 120, [L["hit"]] = 120},
 				},
 			},
 			[12] = {
@@ -3339,7 +3521,7 @@ ww_gems = {
 				[4588] = {
 					"blue",
 					"Stormy River's Heart",
-					{[L["pvp power"]] = 320},
+					{[L["pvp power"]] = 160},
 				},
 				[4589] = {
 					"blue",
@@ -3374,7 +3556,7 @@ ww_gems = {
 				[4595] = {
 					"green",
 					"Effulgent Wild Jade",
-					{[L["mastery"]] = 160, [L["pvp power"]] = 160},
+					{[L["mastery"]] = 160, [L["pvp power"]] = 80},
 				},
 				[4596] = {
 					"green",
@@ -3384,27 +3566,27 @@ ww_gems = {
 				[4597] = {
 					"green",
 					"Balanced Wild Jade",
-					{[L["hit"]] = 160, [L["pvp resilience"]] = 160},
+					{[L["hit"]] = 160, [L["pvp resilience"]] = 80},
 				},
 				[4598] = {
 					"green",
 					"Vivid Wild Jade",
-					{[L["pvp power"]] = 160, [L["pvp resilience"]] = 160},
+					{[L["pvp power"]] = 80, [L["pvp resilience"]] = 80},
 				},
 				[4599] = {
 					"green",
 					"Turbid Wild Jade",
-					{[L["pvp resilience"]] = 160, [L["spirit"]] = 160},
+					{[L["pvp resilience"]] = 80, [L["spirit"]] = 160},
 				},
 				[4600] = {
 					"green",
 					"Radiant Wild Jade",
-					{[L["critical strike"]] = 160, [L["pvp power"]] = 160},
+					{[L["critical strike"]] = 160, [L["pvp power"]] = 80},
 				},
 				[4601] = {
 					"green",
 					"Shattered Wild Jade",
-					{[L["haste"]] = 160, [L["pvp power"]] = 160},
+					{[L["haste"]] = 160, [L["pvp power"]] = 80},
 				},
 				[4602] = {
 					"green",
@@ -3439,7 +3621,7 @@ ww_gems = {
 				[4608] = {
 					"green",
 					"Steady Wild Jade",
-					{[L["pvp resilience"]] = 160, [L["stamina"]] = 120},
+					{[L["pvp resilience"]] = 80, [L["stamina"]] = 120},
 				},
 				[4609] = {
 					"orange",
@@ -3529,27 +3711,27 @@ ww_gems = {
 				[4626] = {
 					"orange",
 					"Lucent Vermilion Onyx",
-					{[L["agility"]] = 80, [L["pvp resilience"]] = 160},
+					{[L["agility"]] = 80, [L["pvp resilience"]] = 80},
 				},
 				[4627] = {
 					"orange",
 					"Tenuous Vermilion Onyx",
-					{[L["expertise"]] = 160, [L["pvp resilience"]] = 160},
+					{[L["expertise"]] = 160, [L["pvp resilience"]] = 80},
 				},
 				[4628] = {
 					"orange",
 					"Willful Vermilion Onyx",
-					{[L["intellect"]] = 80, [L["pvp resilience"]] = 160},
+					{[L["intellect"]] = 80, [L["pvp resilience"]] = 80},
 				},
 				[4629] = {
 					"orange",
 					"Splendid Vermilion Onyx",
-					{[L["parry"]] = 160, [L["pvp resilience"]] = 160},
+					{[L["parry"]] = 160, [L["pvp resilience"]] = 80},
 				},
 				[4630] = {
 					"orange",
 					"Resplendent Vermilion Onyx",
-					{[L["pvp resilience"]] = 160, [L["strength"]] = 80},
+					{[L["pvp resilience"]] = 80, [L["strength"]] = 80},
 				},
 				[4631] = {
 					"purple",
@@ -3579,7 +3761,7 @@ ww_gems = {
 				[4636] = {
 					"purple",
 					"Mysterious Imperial Amethyst",
-					{[L["intellect"]] = 80, [L["pvp power"]] = 160},
+					{[L["intellect"]] = 80, [L["pvp power"]] = 80},
 				},
 				[4637] = {
 					"purple",
@@ -3649,7 +3831,7 @@ ww_gems = {
 				[4651] = {
 					"yellow",
 					"Mystic Sun's Radiance",
-					{[L["pvp resilience"]] = 320},
+					{[L["pvp resilience"]] = 160},
 				},
 				[4652] = {
 					"purple",
@@ -3774,12 +3956,17 @@ ww_gems = {
 				[4984] = {
 					"purple",
 					"Tense Imperial Amethyst",
-					{[L["pvp power"]] = 160, [L["strength"]] = 80},
+					{[L["pvp power"]] = 80, [L["strength"]] = 80},
 				},
 				[4990] = {
 					"purple",
 					"Assassin's Imperial Amethyst",
-					{[L["agility"]] = 80, [L["pvp power"]] = 160},
+					{[L["agility"]] = 80, [L["pvp power"]] = 80},
+				},
+				[5024] = {
+					"green",
+					"Nimble Wild Jade",
+					{[L["dodge"]] = 160, [L["hit"]] = 160},
 				},
 			},
 		},
@@ -3806,1224 +3993,286 @@ ww_gems = {
 				},
 			},
 		},
-		["Jewelcrafter-Only"] = {
+	},
+	Drop = {
+		Normal = {
 			[4] = {
-				[3208] = {
-					"red",
-					"Crimson Sun",
-					{[L["agility"]] = 12},
+				[3045] = {
+					"purple",
+					"Sovereign Tanzanite",
+					{[L["stamina"]] = 6, [L["strength"]] = 5},
 				},
-				[3210] = {
-					"red",
-					"Don Julio's Heart",
-					{[L["intellect"]] = 12},
+				[3046] = {
+					"orange",
+					"Reckless Fire Opal",
+					{[L["haste"]] = 4, [L["intellect"]] = 5},
 				},
-				[3211] = {
-					"red",
-					"Kailee's Rose",
-					{[L["intellect"]] = 12},
+				[3047] = {
+					"green",
+					"Jagged Chrysoprase",
+					{[L["critical strike"]] = 10, [L["stamina"]] = 6},
 				},
-				[3212] = {
-					"blue",
-					"Falling Star",
-					{[L["stamina"]] = 18},
+				[3048] = {
+					"purple",
+					"Shifting Tanzanite",
+					{[L["agility"]] = 5, [L["stamina"]] = 6},
 				},
-				[3217] = {
-					"yellow",
-					"Blood of Amber",
-					{[L["critical strike"]] = 12},
+				[3049] = {
+					"green",
+					"Misty Chrysoprase",
+					{[L["critical strike"]] = 10, [L["spirit"]] = 8},
 				},
-				[3220] = {
-					"yellow",
-					"Stone of Blades",
-					{[L["critical strike"]] = 12},
+				[3050] = {
+					"orange",
+					"Reckless Fire Opal",
+					{[L["haste"]] = 4, [L["intellect"]] = 5},
 				},
-				[3221] = {
-					"yellow",
-					"Facet of Eternity",
-					{[L["dodge"]] = 12},
+				[3051] = {
+					"purple",
+					"Timeless Tanzanite",
+					{[L["intellect"]] = 5, [L["stamina"]] = 6},
+				},
+				[3052] = {
+					"purple",
+					"Glinting Tanzanite",
+					{[L["agility"]] = 5, [L["hit"]] = 4},
+				},
+				[3053] = {
+					"orange",
+					"Stalwart Fire Opal",
+					{[L["dodge"]] = 4, [L["parry"]] = 5},
+				},
+				[3054] = {
+					"purple",
+					"Timeless Tanzanite",
+					{[L["intellect"]] = 5, [L["stamina"]] = 6},
+				},
+				[3055] = {
+					"purple",
+					"Glinting Tanzanite",
+					{[L["agility"]] = 5, [L["hit"]] = 4},
+				},
+				[3056] = {
+					"orange",
+					"Stalwart Fire Opal",
+					{[L["dodge"]] = 4, [L["parry"]] = 5},
+				},
+				[3057] = {
+					"purple",
+					"Etched Tanzanite",
+					{[L["hit"]] = 4, [L["strength"]] = 5},
+				},
+				[3058] = {
+					"green",
+					"Misty Chrysoprase",
+					{[L["critical strike"]] = 5, [L["spirit"]] = 4},
+				},
+				[3060] = {
+					"green",
+					"Regal Chrysoprase",
+					{[L["dodge"]] = 5, [L["stamina"]] = 6},
+				},
+				[3061] = {
+					"purple",
+					"Veiled Tanzanite",
+					{[L["hit"]] = 4, [L["intellect"]] = 5},
+				},
+				[3062] = {
+					"green",
+					"Jagged Chrysoprase",
+					{[L["critical strike"]] = 5, [L["stamina"]] = 6},
+				},
+				[3063] = {
+					"purple",
+					"Defender's Tanzanite",
+					{[L["parry"]] = 5, [L["stamina"]] = 6},
+				},
+				[3064] = {
+					"purple",
+					"Purified Tanzanite",
+					{[L["intellect"]] = 5, [L["spirit"]] = 10},
+				},
+				[3066] = {
+					"purple",
+					"Mysterious Tanzanite",
+					{[L["intellect"]] = 5, [L["pvp power"]] = 5},
+				},
+				[3067] = {
+					"purple",
+					"Shifting Tanzanite",
+					{[L["agility"]] = 4, [L["stamina"]] = 5},
+				},
+				[3068] = {
+					"green",
+					"Nimble Chrysoprase",
+					{[L["dodge"]] = 5, [L["hit"]] = 4},
+				},
+				[3069] = {
+					"orange",
+					"Willful Fire Opal",
+					{[L["intellect"]] = 5, [L["pvp resilience"]] = 4},
+				},
+				[3070] = {
+					"orange",
+					"Deadly Fire Opal",
+					{[L["agility"]] = 5, [L["critical strike"]] = 4},
+				},
+				[3071] = {
+					"purple",
+					"Timeless Tanzanite",
+					{[L["intellect"]] = 5, [L["stamina"]] = 6},
+				},
+				[3072] = {
+					"orange",
+					"Inscribed Fire Opal",
+					{[L["critical strike"]] = 4, [L["strength"]] = 5},
+				},
+				[3073] = {
+					"orange",
+					"Polished Fire Opal",
+					{[L["agility"]] = 4, [L["dodge"]] = 5},
+				},
+				[3074] = {
+					"purple",
+					"Purified Tanzanite",
+					{[L["intellect"]] = 5, [L["spirit"]] = 4},
+				},
+				[3075] = {
+					"orange",
+					"Champion's Fire Opal",
+					{[L["dodge"]] = 4, [L["strength"]] = 5},
+				},
+				[3076] = {
+					"orange",
+					"Potent Fire Opal",
+					{[L["critical strike"]] = 4, [L["intellect"]] = 5},
+				},
+				[3077] = {
+					"purple",
+					"Purified Tanzanite",
+					{[L["intellect"]] = 5, [L["spirit"]] = 4},
+				},
+				[3078] = {
+					"green",
+					"Regal Chrysoprase",
+					{[L["dodge"]] = 5, [L["stamina"]] = 6},
+				},
+				[3079] = {
+					"orange",
+					"Lucent Fire Opal",
+					{[L["agility"]] = 5, [L["pvp resilience"]] = 4},
+				},
+				[3080] = {
+					"green",
+					"Steady Chrysoprase",
+					{[L["pvp resilience"]] = 5, [L["stamina"]] = 6},
+				},
+				[3081] = {
+					"orange",
+					"Potent Fire Opal",
+					{[L["critical strike"]] = 4, [L["intellect"]] = 5},
+				},
+				[3082] = {
+					"green",
+					"Regal Chrysoprase",
+					{[L["dodge"]] = 5, [L["stamina"]] = 6},
+				},
+				[3083] = {
+					"purple",
+					"Purified Tanzanite",
+					{[L["intellect"]] = 5, [L["spirit"]] = 4},
+				},
+				[3084] = {
+					"green",
+					"Steady Chrysoprase",
+					{[L["pvp resilience"]] = 5, [L["stamina"]] = 6},
+				},
+				[3085] = {
+					"green",
+					"Jagged Chrysoprase",
+					{[L["critical strike"]] = 5, [L["stamina"]] = 6},
+				},
+				[3086] = {
+					"purple",
+					"Purified Tanzanite",
+					{[L["intellect"]] = 5, [L["spirit"]] = 8},
+				},
+				[3087] = {
+					"orange",
+					"Resplendent Fire Opal",
+					{[L["pvp resilience"]] = 4, [L["strength"]] = 5},
+				},
+				[3088] = {
+					"green",
+					"Nimble Chrysoprase",
+					{[L["dodge"]] = 8, [L["hit"]] = 10},
+				},
+				[3089] = {
+					"green",
+					"Lightning Chrysoprase",
+					{[L["haste"]] = 8, [L["hit"]] = 10},
+				},
+				[3090] = {
+					"orange",
+					"Splendid Fire Opal",
+					{[L["parry"]] = 5, [L["pvp resilience"]] = 4},
+				},
+				[3091] = {
+					"green",
+					"Radiant Chrysoprase",
+					{[L["critical strike"]] = 5, [L["pvp power"]] = 5},
 				},
 			},
 			[7] = {
-				[3292] = {
+				[3861] = {
 					"red",
-					"Delicate Dragon's Eye",
-					{[L["agility"]] = 34},
+					"Bold Stormjewel",
+					{[L["strength"]] = 20},
 				},
-				[3293] = {
+				[3862] = {
+					"red",
+					"Delicate Stormjewel",
+					{[L["agility"]] = 20},
+				},
+				[3863] = {
 					"blue",
-					"Solid Dragon's Eye",
-					{[L["stamina"]] = 51},
+					"Solid Stormjewel",
+					{[L["stamina"]] = 30},
 				},
-				[3732] = {
-					"red",
-					"Bold Dragon's Eye",
-					{[L["strength"]] = 34},
-				},
-				[3733] = {
-					"red",
-					"Delicate Dragon's Eye",
-					{[L["agility"]] = 34},
-				},
-				[3734] = {
-					"red",
-					"Brilliant Dragon's Eye",
-					{[L["intellect"]] = 34},
-				},
-				[3735] = {
+				[3864] = {
 					"blue",
-					"Sparkling Dragon's Eye",
-					{[L["spirit"]] = 34},
+					"Sparkling Stormjewel",
+					{[L["spirit"]] = 40},
 				},
-				[3736] = {
+				[3865] = {
+					"red",
+					"Brilliant Stormjewel",
+					{[L["intellect"]] = 20},
+				},
+				[3866] = {
+					"red",
+					"Brilliant Stormjewel",
+					{[L["intellect"]] = 20},
+				},
+				[3867] = {
 					"blue",
-					"Sparkling Dragon's Eye",
-					{[L["spirit"]] = 34},
-				},
-				[3737] = {
-					"red",
-					"Brilliant Dragon's Eye",
-					{[L["intellect"]] = 34},
-				},
-				[3738] = {
-					"yellow",
-					"Smooth Dragon's Eye",
-					{[L["critical strike"]] = 34},
-				},
-				[3739] = {
-					"yellow",
-					"Quick Dragon's Eye",
-					{[L["haste"]] = 34},
-				},
-				[3740] = {
-					"yellow",
-					"Subtle Dragon's Eye",
-					{[L["dodge"]] = 34},
-				},
-				[3741] = {
-					"red",
-					"Flashing Dragon's Eye",
-					{[L["parry"]] = 34},
-				},
-				[3742] = {
-					"blue",
-					"Rigid Dragon's Eye",
-					{[L["hit"]] = 34},
-				},
-				[3743] = {
-					"yellow",
-					"Subtle Dragon's Eye",
-					{[L["dodge"]] = 34},
-				},
-				[3744] = {
-					"yellow",
-					"Mystic Dragon's Eye",
-					{[L["pvp resilience"]] = 34},
-				},
-				[3745] = {
-					"yellow",
-					"Smooth Dragon's Eye",
-					{[L["critical strike"]] = 34},
-				},
-				[3746] = {
-					"red",
-					"Precise Dragon's Eye",
-					{[L["expertise"]] = 34},
-				},
-				[3747] = {
-					"blue",
-					"Stormy Dragon's Eye",
-					{[L["pvp power"]] = 34},
-				},
-			},
-			[10] = {
-				[4031] = {
-					"red",
-					"Bold Chimera's Eye",
-					{[L["strength"]] = 67},
-				},
-				[4032] = {
-					"red",
-					"Brilliant Chimera's Eye",
-					{[L["intellect"]] = 67},
-				},
-				[4033] = {
-					"red",
-					"Delicate Chimera's Eye",
-					{[L["agility"]] = 67},
-				},
-				[4034] = {
-					"red",
-					"Flashing Chimera's Eye",
-					{[L["parry"]] = 67},
-				},
-				[4035] = {
-					"yellow",
-					"Fractured Chimera's Eye",
-					{[L["mastery"]] = 67},
-				},
-				[4036] = {
-					"yellow",
-					"Mystic Chimera's Eye",
-					{[L["pvp resilience"]] = 67},
-				},
-				[4037] = {
-					"red",
-					"Precise Chimera's Eye",
-					{[L["expertise"]] = 67},
-				},
-				[4038] = {
-					"yellow",
-					"Quick Chimera's Eye",
-					{[L["haste"]] = 67},
-				},
-				[4039] = {
-					"blue",
-					"Rigid Chimera's Eye",
-					{[L["hit"]] = 67},
-				},
-				[4040] = {
-					"yellow",
-					"Smooth Chimera's Eye",
-					{[L["critical strike"]] = 67},
-				},
-				[4041] = {
-					"blue",
-					"Solid Chimera's Eye",
-					{[L["stamina"]] = 101},
-				},
-				[4042] = {
-					"blue",
-					"Sparkling Chimera's Eye",
-					{[L["spirit"]] = 67},
-				},
-				[4043] = {
-					"blue",
-					"Stormy Chimera's Eye",
-					{[L["pvp power"]] = 67},
-				},
-				[4044] = {
-					"yellow",
-					"Subtle Chimera's Eye",
-					{[L["dodge"]] = 67},
-				},
-			},
-			[12] = {
-				[4810] = {
-					"red",
-					"Bold Serpent's Eye",
-					{[L["strength"]] = 320},
-				},
-				[4811] = {
-					"red",
-					"Brilliant Serpent's Eye",
-					{[L["intellect"]] = 320},
-				},
-				[4812] = {
-					"red",
-					"Delicate Serpent's Eye",
-					{[L["agility"]] = 320},
-				},
-				[4813] = {
-					"red",
-					"Flashing Serpent's Eye",
-					{[L["parry"]] = 480},
-				},
-				[4814] = {
-					"yellow",
-					"Fractured Serpent's Eye",
-					{[L["mastery"]] = 480},
-				},
-				[4815] = {
-					"red",
-					"Precise Serpent's Eye",
-					{[L["expertise"]] = 480},
-				},
-				[4816] = {
-					"yellow",
-					"Quick Serpent's Eye",
-					{[L["haste"]] = 480},
-				},
-				[4817] = {
-					"blue",
-					"Rigid Serpent's Eye",
-					{[L["hit"]] = 480},
-				},
-				[4818] = {
-					"yellow",
-					"Smooth Serpent's Eye",
-					{[L["critical strike"]] = 480},
-				},
-				[4819] = {
-					"yellow",
-					"Subtle Serpent's Eye",
-					{[L["dodge"]] = 480},
-				},
-				[4820] = {
-					"blue",
-					"Solid Serpent's Eye",
-					{[L["stamina"]] = 480},
-				},
-				[4821] = {
-					"blue",
-					"Sparkling Serpent's Eye",
-					{[L["spirit"]] = 480},
+					"Rigid Stormjewel",
+					{[L["hit"]] = 40},
 				},
 			},
 		},
-	},
-	["Procced"] = {
-		["Normal"] = {
-			[5] = {
-				[3644] = {
-					"red",
-					"Perfect Delicate Bloodstone",
-					{[L["agility"]] = 14},
-				},
-				[3646] = {
-					"yellow",
-					"Perfect Subtle Sun Crystal",
-					{[L["dodge"]] = 14},
-				},
-				[3647] = {
-					"red",
-					"Perfect Precise Bloodstone",
-					{[L["expertise"]] = 14},
-				},
-				[3648] = {
-					"red",
-					"Perfect Flashing Bloodstone",
-					{[L["parry"]] = 14},
-				},
-				[3649] = {
-					"red",
-					"Perfect Bold Bloodstone",
-					{[L["strength"]] = 14},
-				},
-				[3650] = {
-					"red",
-					"Perfect Brilliant Bloodstone",
-					{[L["intellect"]] = 14},
-				},
-				[3651] = {
-					"red",
-					"Perfect Delicate Bloodstone",
-					{[L["agility"]] = 14},
-				},
-				[3652] = {
-					"yellow",
-					"Perfect Smooth Sun Crystal",
-					{[L["critical strike"]] = 14},
-				},
-				[3653] = {
+		["Unique-Equipped"] = {
+			[3] = {
+				[3268] = {
 					"blue",
-					"Perfect Sparkling Chalcedony",
-					{[L["spirit"]] = 14},
-				},
-				[3654] = {
-					"blue",
-					"Perfect Sparkling Chalcedony",
-					{[L["spirit"]] = 14},
-				},
-				[3655] = {
-					"blue",
-					"Perfect Solid Chalcedony",
-					{[L["stamina"]] = 21},
-				},
-				[3656] = {
-					"blue",
-					"Perfect Stormy Chalcedony",
-					{[L["pvp power"]] = 14},
-				},
-				[3657] = {
-					"yellow",
-					"Perfect Smooth Sun Crystal",
-					{[L["critical strike"]] = 14},
-				},
-				[3658] = {
-					"yellow",
-					"Perfect Subtle Sun Crystal",
-					{[L["dodge"]] = 14},
-				},
-				[3659] = {
-					"yellow",
-					"Perfect Quick Sun Crystal",
-					{[L["haste"]] = 14},
-				},
-				[3660] = {
-					"blue",
-					"Perfect Rigid Chalcedony",
-					{[L["hit"]] = 14},
-				},
-				[3661] = {
-					"red",
-					"Perfect Brilliant Bloodstone",
-					{[L["intellect"]] = 14},
-				},
-				[3662] = {
-					"yellow",
-					"Perfect Mystic Sun Crystal",
-					{[L["pvp resilience"]] = 14},
-				},
-				[3663] = {
-					"purple",
-					"Perfect Glinting Shadow Crystal",
-					{[L["agility"]] = 7, [L["hit"]] = 7},
-				},
-				[3664] = {
-					"purple",
-					"Perfect Shifting Shadow Crystal",
-					{[L["agility"]] = 7, [L["stamina"]] = 10},
-				},
-				[3665] = {
-					"green",
-					"Perfect Jagged Dark Jade",
-					{[L["critical strike"]] = 7, [L["stamina"]] = 10},
-				},
-				[3666] = {
-					"purple",
-					"Perfect Glinting Shadow Crystal",
-					{[L["agility"]] = 7, [L["hit"]] = 7},
-				},
-				[3667] = {
-					"purple",
-					"Perfect Shifting Shadow Crystal",
-					{[L["agility"]] = 7, [L["stamina"]] = 10},
-				},
-				[3668] = {
-					"green",
-					"Perfect Regal Dark Jade",
-					{[L["dodge"]] = 7, [L["stamina"]] = 10},
-				},
-				[3669] = {
-					"purple",
-					"Perfect Guardian's Shadow Crystal",
-					{[L["expertise"]] = 7, [L["stamina"]] = 10},
-				},
-				[3670] = {
-					"purple",
-					"Perfect Defender's Shadow Crystal",
-					{[L["parry"]] = 7, [L["stamina"]] = 10},
-				},
-				[3671] = {
-					"purple",
-					"Perfect Sovereign Shadow Crystal",
-					{[L["stamina"]] = 10, [L["strength"]] = 7},
-				},
-				[3672] = {
-					"purple",
-					"Perfect Purified Shadow Crystal",
-					{[L["intellect"]] = 7, [L["spirit"]] = 7},
-				},
-				[3673] = {
-					"purple",
-					"Perfect Purified Shadow Crystal",
-					{[L["intellect"]] = 7, [L["spirit"]] = 7},
-				},
-				[3674] = {
-					"purple",
-					"Perfect Mysterious Shadow Crystal",
-					{[L["intellect"]] = 7, [L["pvp power"]] = 7},
-				},
-				[3675] = {
-					"purple",
-					"Perfect Timeless Shadow Crystal",
-					{[L["intellect"]] = 7, [L["stamina"]] = 10},
-				},
-				[3677] = {
-					"orange",
-					"Perfect Deft Huge Citrine",
-					{[L["agility"]] = 7, [L["haste"]] = 7},
-				},
-				[3678] = {
-					"orange",
-					"Perfect Deft Huge Citrine",
-					{[L["agility"]] = 7, [L["haste"]] = 7},
-				},
-				[3679] = {
-					"purple",
-					"Perfect Glinting Shadow Crystal",
-					{[L["agility"]] = 7, [L["hit"]] = 7},
-				},
-				[3680] = {
-					"orange",
-					"Perfect Lucent Huge Citrine",
-					{[L["agility"]] = 7, [L["pvp resilience"]] = 7},
-				},
-				[3681] = {
-					"orange",
-					"Perfect Inscribed Huge Citrine",
-					{[L["critical strike"]] = 7, [L["strength"]] = 7},
-				},
-				[3682] = {
-					"purple",
-					"Perfect Etched Shadow Crystal",
-					{[L["hit"]] = 7, [L["strength"]] = 7},
-				},
-				[3683] = {
-					"orange",
-					"Perfect Champion's Huge Citrine",
-					{[L["dodge"]] = 7, [L["strength"]] = 7},
-				},
-				[3684] = {
-					"orange",
-					"Perfect Resplendent Huge Citrine",
-					{[L["pvp resilience"]] = 7, [L["strength"]] = 7},
-				},
-				[3685] = {
-					"orange",
-					"Perfect Fierce Huge Citrine",
-					{[L["haste"]] = 7, [L["strength"]] = 7},
-				},
-				[3686] = {
-					"orange",
-					"Perfect Deadly Huge Citrine",
-					{[L["agility"]] = 7, [L["critical strike"]] = 7},
-				},
-				[3687] = {
-					"purple",
-					"Perfect Glinting Shadow Crystal",
-					{[L["agility"]] = 7, [L["hit"]] = 7},
-				},
-				[3688] = {
-					"orange",
-					"Perfect Lucent Huge Citrine",
-					{[L["agility"]] = 7, [L["pvp resilience"]] = 7},
-				},
-				[3689] = {
-					"purple",
-					"Perfect Purified Shadow Crystal",
-					{[L["intellect"]] = 7, [L["spirit"]] = 7},
-				},
-				[3690] = {
-					"orange",
-					"Perfect Potent Huge Citrine",
-					{[L["critical strike"]] = 7, [L["intellect"]] = 7},
-				},
-				[3691] = {
-					"purple",
-					"Perfect Veiled Shadow Crystal",
-					{[L["hit"]] = 7, [L["intellect"]] = 7},
-				},
-				[3692] = {
-					"orange",
-					"Perfect Willful Huge Citrine",
-					{[L["intellect"]] = 7, [L["pvp resilience"]] = 7},
-				},
-				[3693] = {
-					"orange",
-					"Perfect Reckless Huge Citrine",
-					{[L["haste"]] = 7, [L["intellect"]] = 7},
-				},
-				[3694] = {
-					"orange",
-					"Perfect Stalwart Huge Citrine",
-					{[L["dodge"]] = 7, [L["parry"]] = 7},
-				},
-				[3695] = {
-					"orange",
-					"Perfect Stalwart Huge Citrine",
-					{[L["dodge"]] = 7, [L["parry"]] = 7},
-				},
-				[3696] = {
-					"purple",
-					"Perfect Accurate Shadow Crystal",
-					{[L["expertise"]] = 7, [L["hit"]] = 7},
-				},
-				[3697] = {
-					"orange",
-					"Perfect Resolute Huge Citrine",
-					{[L["dodge"]] = 7, [L["expertise"]] = 7},
-				},
-				[3698] = {
-					"green",
-					"Perfect Misty Dark Jade",
-					{[L["critical strike"]] = 7, [L["spirit"]] = 7},
-				},
-				[3699] = {
-					"green",
-					"Perfect Jagged Dark Jade",
-					{[L["critical strike"]] = 7, [L["stamina"]] = 10},
-				},
-				[3700] = {
-					"green",
-					"Perfect Regal Dark Jade",
-					{[L["dodge"]] = 7, [L["stamina"]] = 10},
-				},
-				[3701] = {
-					"green",
-					"Perfect Energized Dark Jade",
-					{[L["haste"]] = 7, [L["spirit"]] = 7},
-				},
-				[3702] = {
-					"green",
-					"Perfect Forceful Dark Jade",
-					{[L["haste"]] = 7, [L["stamina"]] = 10},
-				},
-				[3703] = {
-					"green",
-					"Perfect Lightning Dark Jade",
-					{[L["haste"]] = 7, [L["hit"]] = 7},
-				},
-				[3704] = {
-					"green",
-					"Perfect Nimble Dark Jade",
-					{[L["dodge"]] = 7, [L["hit"]] = 7},
-				},
-				[3705] = {
-					"purple",
-					"Perfect Purified Shadow Crystal",
-					{[L["intellect"]] = 7, [L["spirit"]] = 7},
-				},
-				[3706] = {
-					"purple",
-					"Perfect Timeless Shadow Crystal",
-					{[L["intellect"]] = 7, [L["stamina"]] = 10},
-				},
-				[3707] = {
-					"green",
-					"Perfect Turbid Dark Jade",
-					{[L["pvp resilience"]] = 7, [L["spirit"]] = 7},
-				},
-				[3708] = {
-					"green",
-					"Perfect Steady Dark Jade",
-					{[L["pvp resilience"]] = 7, [L["stamina"]] = 10},
-				},
-				[3709] = {
-					"green",
-					"Perfect Radiant Dark Jade",
-					{[L["critical strike"]] = 7, [L["pvp power"]] = 7},
-				},
-				[3710] = {
-					"green",
-					"Perfect Misty Dark Jade",
-					{[L["critical strike"]] = 7, [L["spirit"]] = 7},
-				},
-				[3711] = {
-					"purple",
-					"Perfect Purified Shadow Crystal",
-					{[L["intellect"]] = 7, [L["spirit"]] = 7},
-				},
-				[3712] = {
-					"green",
-					"Perfect Lightning Dark Jade",
-					{[L["haste"]] = 7, [L["hit"]] = 7},
-				},
-				[3713] = {
-					"green",
-					"Perfect Turbid Dark Jade",
-					{[L["pvp resilience"]] = 7, [L["spirit"]] = 7},
-				},
-				[3714] = {
-					"green",
-					"Perfect Energized Dark Jade",
-					{[L["haste"]] = 7, [L["spirit"]] = 7},
-				},
-				[3715] = {
-					"green",
-					"Perfect Radiant Dark Jade",
-					{[L["critical strike"]] = 7, [L["pvp power"]] = 7},
-				},
-				[3716] = {
-					"green",
-					"Perfect Shattered Dark Jade",
-					{[L["haste"]] = 7, [L["pvp power"]] = 7},
-				},
-				[3767] = {
-					"orange",
-					"Perfect Deadly Huge Citrine",
-					{[L["agility"]] = 7, [L["critical strike"]] = 7},
-				},
-			},
-			[8] = {
-				[3887] = {
-					"green",
-					"Perfect Zen Jasper",
-					{[L["mastery"]] = 18, [L["spirit"]] = 17},
-				},
-				[3888] = {
-					"green",
-					"Perfect Sensei's Jasper",
-					{[L["hit"]] = 17, [L["mastery"]] = 18},
-				},
-				[3937] = {
-					"purple",
-					"Perfect Etched Nightstone",
-					{[L["hit"]] = 17, [L["strength"]] = 18},
-				},
-				[3938] = {
-					"purple",
-					"Perfect Purified Nightstone",
-					{[L["intellect"]] = 18, [L["spirit"]] = 17},
-				},
-				[3939] = {
-					"purple",
-					"Perfect Guardian's Nightstone",
-					{[L["expertise"]] = 18, [L["stamina"]] = 26},
-				},
-				[3940] = {
-					"purple",
-					"Perfect Timeless Nightstone",
-					{[L["intellect"]] = 18, [L["stamina"]] = 26},
-				},
-				[3941] = {
-					"purple",
-					"Perfect Defender's Nightstone",
-					{[L["parry"]] = 18, [L["stamina"]] = 26},
-				},
-				[3942] = {
-					"purple",
-					"Perfect Shifting Nightstone",
-					{[L["agility"]] = 18, [L["stamina"]] = 23},
-				},
-				[3943] = {
-					"purple",
-					"Perfect Sovereign Nightstone",
-					{[L["stamina"]] = 26, [L["strength"]] = 18},
-				},
-				[3944] = {
-					"yellow",
-					"Perfect Fractured Alicite",
-					{[L["mastery"]] = 35},
-				},
-				[3945] = {
-					"yellow",
-					"Perfect Quick Alicite",
-					{[L["haste"]] = 35},
-				},
-				[3946] = {
-					"yellow",
-					"Perfect Mystic Alicite",
-					{[L["pvp resilience"]] = 35},
-				},
-				[3947] = {
-					"yellow",
-					"Perfect Smooth Alicite",
-					{[L["critical strike"]] = 35},
-				},
-				[3948] = {
-					"yellow",
-					"Perfect Subtle Alicite",
-					{[L["dodge"]] = 35},
-				},
-				[3949] = {
-					"blue",
-					"Perfect Rigid Zephyrite",
-					{[L["hit"]] = 35},
-				},
-				[3950] = {
-					"blue",
-					"Perfect Stormy Zephyrite",
-					{[L["pvp power"]] = 35},
-				},
-				[3951] = {
-					"blue",
-					"Perfect Sparkling Zephyrite",
-					{[L["spirit"]] = 35},
-				},
-				[3952] = {
-					"blue",
-					"Perfect Solid Zephyrite",
-					{[L["stamina"]] = 53},
-				},
-				[3953] = {
-					"red",
-					"Perfect Precise Carnelian",
-					{[L["expertise"]] = 35},
-				},
-				[3954] = {
-					"red",
-					"Perfect Brilliant Carnelian",
-					{[L["intellect"]] = 35},
-				},
-				[3955] = {
-					"red",
-					"Perfect Flashing Carnelian",
-					{[L["parry"]] = 35},
-				},
-				[3956] = {
-					"red",
-					"Perfect Delicate Carnelian",
-					{[L["agility"]] = 35},
-				},
-				[3957] = {
-					"red",
-					"Perfect Bold Carnelian",
-					{[L["strength"]] = 35},
-				},
-				[3958] = {
-					"green",
-					"Perfect Puissant Jasper",
-					{[L["mastery"]] = 18, [L["stamina"]] = 26},
-				},
-				[3959] = {
-					"green",
-					"Perfect Lightning Jasper",
-					{[L["haste"]] = 18, [L["hit"]] = 17},
-				},
-				[3960] = {
-					"green",
-					"Perfect Forceful Jasper",
-					{[L["haste"]] = 18, [L["stamina"]] = 26},
-				},
-				[3961] = {
-					"green",
-					"Perfect Steady Jasper",
-					{[L["pvp resilience"]] = 18, [L["stamina"]] = 26},
-				},
-				[3962] = {
-					"green",
-					"Perfect Piercing Jasper",
-					{[L["critical strike"]] = 18, [L["hit"]] = 17},
-				},
-				[3963] = {
-					"green",
-					"Perfect Jagged Jasper",
-					{[L["critical strike"]] = 18, [L["stamina"]] = 26},
-				},
-				[3964] = {
-					"green",
-					"Perfect Nimble Jasper",
-					{[L["dodge"]] = 18, [L["hit"]] = 17},
-				},
-				[3965] = {
-					"green",
-					"Perfect Regal Jasper",
-					{[L["dodge"]] = 18, [L["stamina"]] = 26},
-				},
-				[3966] = {
-					"orange",
-					"Perfect Keen Hessonite",
-					{[L["expertise"]] = 18, [L["mastery"]] = 17},
-				},
-				[3967] = {
-					"orange",
-					"Perfect Artful Hessonite",
-					{[L["intellect"]] = 18, [L["mastery"]] = 17},
-				},
-				[3968] = {
-					"orange",
-					"Perfect Fine Hessonite",
-					{[L["mastery"]] = 17, [L["parry"]] = 18},
-				},
-				[3969] = {
-					"orange",
-					"Perfect Adept Hessonite",
-					{[L["agility"]] = 18, [L["mastery"]] = 17},
-				},
-				[3970] = {
-					"orange",
-					"Perfect Skillful Hessonite",
-					{[L["mastery"]] = 17, [L["strength"]] = 18},
-				},
-				[3971] = {
-					"orange",
-					"Perfect Reckless Hessonite",
-					{[L["haste"]] = 17, [L["intellect"]] = 18},
-				},
-				[3972] = {
-					"orange",
-					"Perfect Deft Hessonite",
-					{[L["agility"]] = 18, [L["haste"]] = 17},
-				},
-				[3973] = {
-					"orange",
-					"Perfect Fierce Hessonite",
-					{[L["haste"]] = 17, [L["strength"]] = 18},
-				},
-				[3974] = {
-					"orange",
-					"Perfect Potent Hessonite",
-					{[L["critical strike"]] = 17, [L["intellect"]] = 18},
-				},
-				[3975] = {
-					"orange",
-					"Perfect Deadly Hessonite",
-					{[L["agility"]] = 18, [L["critical strike"]] = 17},
-				},
-				[3976] = {
-					"orange",
-					"Perfect Inscribed Hessonite",
-					{[L["critical strike"]] = 17, [L["strength"]] = 18},
-				},
-				[3977] = {
-					"orange",
-					"Perfect Resolute Hessonite",
-					{[L["dodge"]] = 17, [L["expertise"]] = 18},
-				},
-				[3978] = {
-					"orange",
-					"Perfect Polished Hessonite",
-					{[L["agility"]] = 18, [L["dodge"]] = 17},
-				},
-				[3979] = {
-					"purple",
-					"Perfect Accurate Nightstone",
-					{[L["expertise"]] = 18, [L["hit"]] = 17},
-				},
-				[3980] = {
-					"purple",
-					"Perfect Veiled Nightstone",
-					{[L["hit"]] = 17, [L["intellect"]] = 18},
-				},
-				[3981] = {
-					"purple",
-					"Perfect Retaliating Nightstone",
-					{[L["hit"]] = 17, [L["parry"]] = 18},
-				},
-				[3982] = {
-					"purple",
-					"Perfect Glinting Nightstone",
-					{[L["agility"]] = 18, [L["hit"]] = 17},
-				},
-			},
-			[11] = {
-				[4520] = {
-					"blue",
-					"Perfect Rigid Lapis Lazuli",
-					{[L["hit"]] = 320},
-				},
-				[4521] = {
-					"blue",
-					"Perfect Stormy Lapis Lazuli",
-					{[L["pvp power"]] = 320},
-				},
-				[4522] = {
-					"blue",
-					"Perfect Sparkling Lapis Lazuli",
-					{[L["spirit"]] = 320},
-				},
-				[4523] = {
-					"blue",
-					"Perfect Solid Lapis Lazuli",
-					{[L["stamina"]] = 240},
-				},
-				[4524] = {
-					"green",
-					"Perfect Misty Alexandrite",
-					{[L["critical strike"]] = 160, [L["spirit"]] = 160},
-				},
-				[4525] = {
-					"green",
-					"Perfect Piercing Alexandrite",
-					{[L["critical strike"]] = 160, [L["hit"]] = 160},
-				},
-				[4526] = {
-					"green",
-					"Perfect Lightning Alexandrite",
-					{[L["haste"]] = 160, [L["hit"]] = 160},
-				},
-				[4527] = {
-					"green",
-					"Perfect Sensei's Alexandrite",
-					{[L["hit"]] = 160, [L["mastery"]] = 160},
-				},
-				[4528] = {
-					"green",
-					"Perfect Effulgent Alexandrite",
-					{[L["mastery"]] = 160, [L["pvp power"]] = 160},
-				},
-				[4529] = {
-					"green",
-					"Perfect Zen Alexandrite",
-					{[L["mastery"]] = 160, [L["spirit"]] = 160},
-				},
-				[4530] = {
-					"green",
-					"Perfect Balanced Alexandrite",
-					{[L["hit"]] = 160, [L["pvp resilience"]] = 160},
-				},
-				[4531] = {
-					"green",
-					"Perfect Vivid Alexandrite",
-					{[L["pvp power"]] = 160, [L["pvp resilience"]] = 160},
-				},
-				[4532] = {
-					"green",
-					"Perfect Turbid Alexandrite",
-					{[L["pvp resilience"]] = 160, [L["spirit"]] = 160},
-				},
-				[4533] = {
-					"green",
-					"Perfect Radiant Alexandrite",
-					{[L["critical strike"]] = 160, [L["pvp power"]] = 160},
-				},
-				[4535] = {
-					"green",
-					"Perfect Shattered Alexandrite",
-					{[L["haste"]] = 160, [L["pvp power"]] = 160},
-				},
-				[4536] = {
-					"green",
-					"Perfect Energized Alexandrite",
-					{[L["haste"]] = 160, [L["spirit"]] = 160},
-				},
-				[4537] = {
-					"green",
-					"Perfect Jagged Alexandrite",
-					{[L["critical strike"]] = 160, [L["stamina"]] = 120},
-				},
-				[4538] = {
-					"green",
-					"Perfect Regal Alexandrite",
-					{[L["dodge"]] = 160, [L["stamina"]] = 120},
-				},
-				[4539] = {
-					"green",
-					"Perfect Forceful Alexandrite",
-					{[L["haste"]] = 160, [L["stamina"]] = 120},
-				},
-				[4540] = {
-					"green",
-					"Perfect Confounded Alexandrite",
-					{[L["hit"]] = 160, [L["stamina"]] = 120},
-				},
-				[4541] = {
-					"green",
-					"Perfect Puissant Alexandrite",
-					{[L["mastery"]] = 160, [L["stamina"]] = 120},
-				},
-				[4542] = {
-					"green",
-					"Perfect Steady Alexandrite",
-					{[L["pvp resilience"]] = 160, [L["stamina"]] = 120},
-				},
-				[4543] = {
-					"orange",
-					"Perfect Deadly Tiger Opal",
-					{[L["agility"]] = 80, [L["critical strike"]] = 160},
-				},
-				[4544] = {
-					"orange",
-					"Perfect Crafty Tiger Opal",
-					{[L["critical strike"]] = 160, [L["expertise"]] = 160},
-				},
-				[4545] = {
-					"orange",
-					"Perfect Potent Tiger Opal",
-					{[L["critical strike"]] = 160, [L["intellect"]] = 80},
-				},
-				[4546] = {
-					"orange",
-					"Perfect Inscribed Tiger Opal",
-					{[L["critical strike"]] = 160, [L["strength"]] = 80},
-				},
-				[4547] = {
-					"orange",
-					"Perfect Polished Tiger Opal",
-					{[L["agility"]] = 80, [L["dodge"]] = 160},
-				},
-				[4548] = {
-					"orange",
-					"Perfect Resolute Tiger Opal",
-					{[L["dodge"]] = 160, [L["expertise"]] = 160},
-				},
-				[4549] = {
-					"orange",
-					"Perfect Stalwart Tiger Opal",
-					{[L["dodge"]] = 160, [L["parry"]] = 160},
-				},
-				[4550] = {
-					"orange",
-					"Perfect Champion's Tiger Opal",
-					{[L["dodge"]] = 160, [L["strength"]] = 80},
-				},
-				[4551] = {
-					"orange",
-					"Perfect Deft Tiger Opal",
-					{[L["agility"]] = 80, [L["haste"]] = 160},
-				},
-				[4552] = {
-					"orange",
-					"Perfect Wicked Tiger Opal",
-					{[L["expertise"]] = 160, [L["haste"]] = 160},
-				},
-				[4553] = {
-					"orange",
-					"Perfect Reckless Tiger Opal",
-					{[L["haste"]] = 160, [L["intellect"]] = 80},
-				},
-				[4554] = {
-					"orange",
-					"Perfect Fierce Tiger Opal",
-					{[L["haste"]] = 160, [L["strength"]] = 80},
-				},
-				[4555] = {
-					"orange",
-					"Perfect Adept Tiger Opal",
-					{[L["agility"]] = 80, [L["mastery"]] = 160},
-				},
-				[4556] = {
-					"orange",
-					"Perfect Keen Tiger Opal",
-					{[L["expertise"]] = 160, [L["mastery"]] = 160},
-				},
-				[4557] = {
-					"orange",
-					"Perfect Artful Tiger Opal",
-					{[L["intellect"]] = 80, [L["mastery"]] = 160},
-				},
-				[4558] = {
-					"orange",
-					"Perfect Fine Tiger Opal",
-					{[L["mastery"]] = 160, [L["parry"]] = 160},
-				},
-				[4559] = {
-					"orange",
-					"Perfect Skillful Tiger Opal",
-					{[L["mastery"]] = 160, [L["strength"]] = 80},
-				},
-				[4560] = {
-					"orange",
-					"Perfect Lucent Tiger Opal",
-					{[L["agility"]] = 80, [L["pvp resilience"]] = 160},
-				},
-				[4561] = {
-					"orange",
-					"Perfect Tenuous Tiger Opal",
-					{[L["expertise"]] = 160, [L["pvp resilience"]] = 160},
-				},
-				[4562] = {
-					"orange",
-					"Perfect Willful Tiger Opal",
-					{[L["intellect"]] = 80, [L["pvp resilience"]] = 160},
-				},
-				[4563] = {
-					"orange",
-					"Perfect Splendid Tiger Opal",
-					{[L["parry"]] = 160, [L["pvp resilience"]] = 160},
-				},
-				[4564] = {
-					"orange",
-					"Perfect Resplendent Tiger Opal",
-					{[L["pvp resilience"]] = 160, [L["strength"]] = 80},
-				},
-				[4565] = {
-					"purple",
-					"Perfect Glinting Roguestone",
-					{[L["agility"]] = 80, [L["hit"]] = 160},
-				},
-				[4566] = {
-					"purple",
-					"Perfect Accurate Roguestone",
-					{[L["expertise"]] = 160, [L["hit"]] = 160},
-				},
-				[4567] = {
-					"purple",
-					"Perfect Veiled Roguestone",
-					{[L["hit"]] = 160, [L["intellect"]] = 80},
-				},
-				[4568] = {
-					"purple",
-					"Perfect Retaliating Roguestone",
-					{[L["hit"]] = 160, [L["parry"]] = 160},
-				},
-				[4569] = {
-					"purple",
-					"Perfect Etched Roguestone",
-					{[L["hit"]] = 160, [L["strength"]] = 80},
-				},
-				[4570] = {
-					"purple",
-					"Perfect Mysterious Roguestone",
-					{[L["intellect"]] = 80, [L["pvp power"]] = 160},
-				},
-				[4571] = {
-					"purple",
-					"Perfect Purified Roguestone",
-					{[L["intellect"]] = 80, [L["spirit"]] = 160},
-				},
-				[4572] = {
-					"purple",
-					"Perfect Shifting Roguestone",
-					{[L["agility"]] = 80, [L["stamina"]] = 120},
-				},
-				[4573] = {
-					"purple",
-					"Perfect Guardian's Roguestone",
-					{[L["expertise"]] = 160, [L["stamina"]] = 120},
-				},
-				[4574] = {
-					"purple",
-					"Perfect Timeless Roguestone",
-					{[L["intellect"]] = 80, [L["stamina"]] = 120},
-				},
-				[4575] = {
-					"purple",
-					"Perfect Defender's Roguestone",
-					{[L["parry"]] = 160, [L["stamina"]] = 120},
-				},
-				[4576] = {
-					"purple",
-					"Perfect Sovereign Roguestone",
-					{[L["stamina"]] = 120, [L["strength"]] = 80},
-				},
-				[4577] = {
-					"red",
-					"Perfect Delicate Pandarian Garnet",
-					{[L["agility"]] = 160},
-				},
-				[4578] = {
-					"red",
-					"Perfect Precise Pandarian Garnet",
-					{[L["expertise"]] = 320},
-				},
-				[4579] = {
-					"red",
-					"Perfect Brilliant Pandarian Garnet",
-					{[L["intellect"]] = 160},
-				},
-				[4580] = {
-					"red",
-					"Perfect Flashing Pandarian Garnet",
-					{[L["parry"]] = 320},
-				},
-				[4581] = {
-					"red",
-					"Perfect Bold Pandarian Garnet",
-					{[L["strength"]] = 160},
-				},
-				[4582] = {
-					"yellow",
-					"Perfect Smooth Sunstone",
-					{[L["critical strike"]] = 320},
-				},
-				[4583] = {
-					"yellow",
-					"Perfect Subtle Sunstone",
-					{[L["dodge"]] = 320},
-				},
-				[4584] = {
-					"yellow",
-					"Perfect Quick Sunstone",
-					{[L["haste"]] = 320},
-				},
-				[4585] = {
-					"yellow",
-					"Perfect Fractured Sunstone",
-					{[L["mastery"]] = 320},
-				},
-				[4586] = {
-					"yellow",
-					"Perfect Mystic Sunstone",
-					{[L["pvp resilience"]] = 320},
-				},
-				[4986] = {
-					"purple",
-					"Perfect Tense Roguestone",
-					{[L["pvp power"]] = 160, [L["strength"]] = 80},
-				},
-				[4989] = {
-					"purple",
-					"Perfect Assassin's Roguestone",
-					{[L["agility"]] = 80, [L["pvp power"]] = 160},
+					"Eye of the Sea",
+					{[L["stamina"]] = 15},
 				},
 			},
 		},
 	},
 	["PVP-Vendor"] = {
-		["Normal"] = {
+		Normal = {
 			[4] = {
 				[2912] = {
 					"red",
@@ -5128,6 +4377,13 @@ ww_gems = {
 					{[L["intellect"]] = 17, [L["stun duration reduction (percent)"]] = 10},
 				},
 			},
+			[13] = {
+				[5034] = {
+					"meta",
+					"Tyrannical Primal Diamond",
+					{[L["pvp power"]] = 665, [L["pvp resilience"]] = 775},
+				},
+			},
 		},
 		["Unique-Equipped"] = {
 			[3] = {
@@ -5213,285 +4469,963 @@ ww_gems = {
 			},
 		},
 	},
-	["Drop"] = {
-		["Normal"] = {
-			[4] = {
-				[3045] = {
+	Procced = {
+		Normal = {
+			[5] = {
+				[3644] = {
+					"red",
+					"Perfect Delicate Bloodstone",
+					{[L["agility"]] = 14},
+				},
+				[3646] = {
+					"yellow",
+					"Perfect Subtle Sun Crystal",
+					{[L["dodge"]] = 28},
+				},
+				[3647] = {
+					"red",
+					"Perfect Precise Bloodstone",
+					{[L["expertise"]] = 28},
+				},
+				[3648] = {
+					"red",
+					"Perfect Flashing Bloodstone",
+					{[L["parry"]] = 28},
+				},
+				[3649] = {
+					"red",
+					"Perfect Bold Bloodstone",
+					{[L["strength"]] = 14},
+				},
+				[3650] = {
+					"red",
+					"Perfect Brilliant Bloodstone",
+					{[L["intellect"]] = 14},
+				},
+				[3651] = {
+					"red",
+					"Perfect Delicate Bloodstone",
+					{[L["agility"]] = 14},
+				},
+				[3652] = {
+					"yellow",
+					"Perfect Smooth Sun Crystal",
+					{[L["critical strike"]] = 28},
+				},
+				[3653] = {
+					"blue",
+					"Perfect Sparkling Chalcedony",
+					{[L["spirit"]] = 28},
+				},
+				[3654] = {
+					"blue",
+					"Perfect Sparkling Chalcedony",
+					{[L["spirit"]] = 280},
+				},
+				[3655] = {
+					"blue",
+					"Perfect Solid Chalcedony",
+					{[L["stamina"]] = 21},
+				},
+				[3656] = {
+					"blue",
+					"Perfect Stormy Chalcedony",
+					{[L["pvp power"]] = 14},
+				},
+				[3657] = {
+					"yellow",
+					"Perfect Smooth Sun Crystal",
+					{[L["critical strike"]] = 28},
+				},
+				[3658] = {
+					"yellow",
+					"Perfect Subtle Sun Crystal",
+					{[L["dodge"]] = 28},
+				},
+				[3659] = {
+					"yellow",
+					"Perfect Quick Sun Crystal",
+					{[L["haste"]] = 28},
+				},
+				[3660] = {
+					"blue",
+					"Perfect Rigid Chalcedony",
+					{[L["hit"]] = 28},
+				},
+				[3661] = {
+					"red",
+					"Perfect Brilliant Bloodstone",
+					{[L["intellect"]] = 14},
+				},
+				[3662] = {
+					"yellow",
+					"Perfect Mystic Sun Crystal",
+					{[L["pvp resilience"]] = 14},
+				},
+				[3663] = {
 					"purple",
-					"Sovereign Tanzanite",
-					{[L["stamina"]] = 6, [L["strength"]] = 5},
+					"Perfect Glinting Shadow Crystal",
+					{[L["agility"]] = 7, [L["hit"]] = 14},
 				},
-				[3046] = {
-					"orange",
-					"Reckless Fire Opal",
-					{[L["haste"]] = 4, [L["intellect"]] = 5},
+				[3664] = {
+					"purple",
+					"Perfect Shifting Shadow Crystal",
+					{[L["agility"]] = 7, [L["stamina"]] = 10},
 				},
-				[3047] = {
+				[3665] = {
 					"green",
-					"Jagged Chrysoprase",
-					{[L["critical strike"]] = 5, [L["stamina"]] = 6},
+					"Perfect Jagged Dark Jade",
+					{[L["critical strike"]] = 14, [L["stamina"]] = 10},
 				},
-				[3048] = {
+				[3666] = {
 					"purple",
-					"Shifting Tanzanite",
-					{[L["agility"]] = 5, [L["stamina"]] = 6},
+					"Perfect Glinting Shadow Crystal",
+					{[L["agility"]] = 7, [L["hit"]] = 14},
 				},
-				[3049] = {
+				[3667] = {
+					"purple",
+					"Perfect Shifting Shadow Crystal",
+					{[L["agility"]] = 7, [L["stamina"]] = 10},
+				},
+				[3668] = {
 					"green",
-					"Misty Chrysoprase",
-					{[L["critical strike"]] = 5, [L["spirit"]] = 4},
+					"Perfect Regal Dark Jade",
+					{[L["dodge"]] = 14, [L["stamina"]] = 10},
 				},
-				[3050] = {
+				[3669] = {
+					"purple",
+					"Perfect Guardian's Shadow Crystal",
+					{[L["expertise"]] = 14, [L["stamina"]] = 10},
+				},
+				[3670] = {
+					"purple",
+					"Perfect Defender's Shadow Crystal",
+					{[L["parry"]] = 14, [L["stamina"]] = 10},
+				},
+				[3671] = {
+					"purple",
+					"Perfect Sovereign Shadow Crystal",
+					{[L["stamina"]] = 10, [L["strength"]] = 7},
+				},
+				[3672] = {
+					"purple",
+					"Perfect Purified Shadow Crystal",
+					{[L["intellect"]] = 7, [L["spirit"]] = 14},
+				},
+				[3673] = {
+					"purple",
+					"Perfect Purified Shadow Crystal",
+					{[L["intellect"]] = 7, [L["spirit"]] = 14},
+				},
+				[3674] = {
+					"purple",
+					"Perfect Mysterious Shadow Crystal",
+					{[L["intellect"]] = 7, [L["pvp power"]] = 7},
+				},
+				[3675] = {
+					"purple",
+					"Perfect Timeless Shadow Crystal",
+					{[L["intellect"]] = 7, [L["stamina"]] = 10},
+				},
+				[3677] = {
 					"orange",
-					"Reckless Fire Opal",
-					{[L["haste"]] = 4, [L["intellect"]] = 5},
+					"Perfect Deft Huge Citrine",
+					{[L["agility"]] = 7, [L["haste"]] = 14},
 				},
-				[3051] = {
-					"purple",
-					"Timeless Tanzanite",
-					{[L["intellect"]] = 5, [L["stamina"]] = 6},
-				},
-				[3052] = {
-					"purple",
-					"Glinting Tanzanite",
-					{[L["agility"]] = 5, [L["hit"]] = 4},
-				},
-				[3053] = {
+				[3678] = {
 					"orange",
-					"Stalwart Fire Opal",
-					{[L["dodge"]] = 4, [L["parry"]] = 5},
+					"Perfect Deft Huge Citrine",
+					{[L["agility"]] = 7, [L["haste"]] = 14},
 				},
-				[3054] = {
+				[3679] = {
 					"purple",
-					"Timeless Tanzanite",
-					{[L["intellect"]] = 5, [L["stamina"]] = 6},
+					"Perfect Glinting Shadow Crystal",
+					{[L["agility"]] = 7, [L["hit"]] = 14},
 				},
-				[3055] = {
-					"purple",
-					"Glinting Tanzanite",
-					{[L["agility"]] = 5, [L["hit"]] = 4},
-				},
-				[3056] = {
+				[3680] = {
 					"orange",
-					"Stalwart Fire Opal",
-					{[L["dodge"]] = 4, [L["parry"]] = 5},
+					"Perfect Lucent Huge Citrine",
+					{[L["agility"]] = 7, [L["pvp resilience"]] = 7},
 				},
-				[3057] = {
+				[3681] = {
+					"orange",
+					"Perfect Inscribed Huge Citrine",
+					{[L["critical strike"]] = 14, [L["strength"]] = 7},
+				},
+				[3682] = {
 					"purple",
-					"Etched Tanzanite",
-					{[L["hit"]] = 4, [L["strength"]] = 5},
+					"Perfect Etched Shadow Crystal",
+					{[L["hit"]] = 14, [L["strength"]] = 7},
 				},
-				[3058] = {
+				[3683] = {
+					"orange",
+					"Perfect Champion's Huge Citrine",
+					{[L["dodge"]] = 14, [L["strength"]] = 7},
+				},
+				[3684] = {
+					"orange",
+					"Perfect Resplendent Huge Citrine",
+					{[L["pvp resilience"]] = 7, [L["strength"]] = 7},
+				},
+				[3685] = {
+					"orange",
+					"Perfect Fierce Huge Citrine",
+					{[L["haste"]] = 14, [L["strength"]] = 7},
+				},
+				[3686] = {
+					"orange",
+					"Perfect Deadly Huge Citrine",
+					{[L["agility"]] = 7, [L["critical strike"]] = 14},
+				},
+				[3687] = {
+					"purple",
+					"Perfect Glinting Shadow Crystal",
+					{[L["agility"]] = 7, [L["hit"]] = 14},
+				},
+				[3688] = {
+					"orange",
+					"Perfect Lucent Huge Citrine",
+					{[L["agility"]] = 7, [L["pvp resilience"]] = 7},
+				},
+				[3689] = {
+					"purple",
+					"Perfect Purified Shadow Crystal",
+					{[L["intellect"]] = 7, [L["spirit"]] = 14},
+				},
+				[3690] = {
+					"orange",
+					"Perfect Potent Huge Citrine",
+					{[L["critical strike"]] = 14, [L["intellect"]] = 7},
+				},
+				[3691] = {
+					"purple",
+					"Perfect Veiled Shadow Crystal",
+					{[L["hit"]] = 14, [L["intellect"]] = 7},
+				},
+				[3692] = {
+					"orange",
+					"Perfect Willful Huge Citrine",
+					{[L["intellect"]] = 7, [L["pvp resilience"]] = 7},
+				},
+				[3693] = {
+					"orange",
+					"Perfect Reckless Huge Citrine",
+					{[L["haste"]] = 14, [L["intellect"]] = 7},
+				},
+				[3694] = {
+					"orange",
+					"Perfect Stalwart Huge Citrine",
+					{[L["dodge"]] = 14, [L["parry"]] = 14},
+				},
+				[3695] = {
+					"orange",
+					"Perfect Stalwart Huge Citrine",
+					{[L["dodge"]] = 14, [L["parry"]] = 14},
+				},
+				[3696] = {
+					"purple",
+					"Perfect Accurate Shadow Crystal",
+					{[L["expertise"]] = 14, [L["hit"]] = 14},
+				},
+				[3697] = {
+					"orange",
+					"Perfect Resolute Huge Citrine",
+					{[L["dodge"]] = 14, [L["expertise"]] = 14},
+				},
+				[3698] = {
 					"green",
-					"Misty Chrysoprase",
-					{[L["critical strike"]] = 5, [L["spirit"]] = 4},
+					"Perfect Misty Dark Jade",
+					{[L["critical strike"]] = 14, [L["spirit"]] = 14},
 				},
-				[3060] = {
+				[3699] = {
 					"green",
-					"Regal Chrysoprase",
-					{[L["dodge"]] = 5, [L["stamina"]] = 6},
+					"Perfect Jagged Dark Jade",
+					{[L["critical strike"]] = 14, [L["stamina"]] = 10},
 				},
-				[3061] = {
+				[3700] = {
+					"green",
+					"Perfect Regal Dark Jade",
+					{[L["dodge"]] = 14, [L["stamina"]] = 10},
+				},
+				[3701] = {
+					"green",
+					"Perfect Energized Dark Jade",
+					{[L["haste"]] = 14, [L["spirit"]] = 14},
+				},
+				[3702] = {
+					"green",
+					"Perfect Forceful Dark Jade",
+					{[L["haste"]] = 14, [L["stamina"]] = 10},
+				},
+				[3703] = {
+					"green",
+					"Perfect Lightning Dark Jade",
+					{[L["haste"]] = 14, [L["hit"]] = 14},
+				},
+				[3704] = {
+					"green",
+					"Perfect Nimble Dark Jade",
+					{[L["dodge"]] = 14, [L["hit"]] = 14},
+				},
+				[3705] = {
 					"purple",
-					"Veiled Tanzanite",
-					{[L["hit"]] = 4, [L["intellect"]] = 5},
+					"Perfect Purified Shadow Crystal",
+					{[L["intellect"]] = 7, [L["spirit"]] = 14},
 				},
-				[3062] = {
-					"green",
-					"Jagged Chrysoprase",
-					{[L["critical strike"]] = 5, [L["stamina"]] = 6},
-				},
-				[3063] = {
+				[3706] = {
 					"purple",
-					"Defender's Tanzanite",
-					{[L["parry"]] = 5, [L["stamina"]] = 6},
+					"Perfect Timeless Shadow Crystal",
+					{[L["intellect"]] = 7, [L["stamina"]] = 10},
 				},
-				[3064] = {
+				[3707] = {
+					"green",
+					"Perfect Turbid Dark Jade",
+					{[L["pvp resilience"]] = 7, [L["spirit"]] = 14},
+				},
+				[3708] = {
+					"green",
+					"Perfect Steady Dark Jade",
+					{[L["pvp resilience"]] = 7, [L["stamina"]] = 10},
+				},
+				[3709] = {
+					"green",
+					"Perfect Radiant Dark Jade",
+					{[L["critical strike"]] = 14, [L["pvp power"]] = 7},
+				},
+				[3710] = {
+					"green",
+					"Perfect Misty Dark Jade",
+					{[L["critical strike"]] = 14, [L["spirit"]] = 14},
+				},
+				[3711] = {
 					"purple",
-					"Purified Tanzanite",
-					{[L["intellect"]] = 5, [L["spirit"]] = 5},
+					"Perfect Purified Shadow Crystal",
+					{[L["intellect"]] = 7, [L["spirit"]] = 14},
 				},
-				[3066] = {
-					"purple",
-					"Mysterious Tanzanite",
-					{[L["intellect"]] = 5, [L["pvp power"]] = 5},
-				},
-				[3067] = {
-					"purple",
-					"Shifting Tanzanite",
-					{[L["agility"]] = 5, [L["stamina"]] = 6},
-				},
-				[3068] = {
+				[3712] = {
 					"green",
-					"Nimble Chrysoprase",
-					{[L["dodge"]] = 5, [L["hit"]] = 4},
+					"Perfect Lightning Dark Jade",
+					{[L["haste"]] = 14, [L["hit"]] = 14},
 				},
-				[3069] = {
-					"orange",
-					"Willful Fire Opal",
-					{[L["intellect"]] = 5, [L["pvp resilience"]] = 4},
-				},
-				[3070] = {
-					"orange",
-					"Deadly Fire Opal",
-					{[L["agility"]] = 5, [L["critical strike"]] = 4},
-				},
-				[3071] = {
-					"purple",
-					"Timeless Tanzanite",
-					{[L["intellect"]] = 5, [L["stamina"]] = 6},
-				},
-				[3072] = {
-					"orange",
-					"Inscribed Fire Opal",
-					{[L["critical strike"]] = 4, [L["strength"]] = 5},
-				},
-				[3073] = {
-					"orange",
-					"Polished Fire Opal",
-					{[L["agility"]] = 4, [L["dodge"]] = 5},
-				},
-				[3074] = {
-					"purple",
-					"Purified Tanzanite",
-					{[L["intellect"]] = 5, [L["spirit"]] = 4},
-				},
-				[3075] = {
-					"orange",
-					"Champion's Fire Opal",
-					{[L["dodge"]] = 4, [L["strength"]] = 5},
-				},
-				[3076] = {
-					"orange",
-					"Potent Fire Opal",
-					{[L["critical strike"]] = 4, [L["intellect"]] = 5},
-				},
-				[3077] = {
-					"purple",
-					"Purified Tanzanite",
-					{[L["intellect"]] = 5, [L["spirit"]] = 4},
-				},
-				[3078] = {
+				[3713] = {
 					"green",
-					"Regal Chrysoprase",
-					{[L["dodge"]] = 5, [L["stamina"]] = 6},
+					"Perfect Turbid Dark Jade",
+					{[L["pvp resilience"]] = 7, [L["spirit"]] = 14},
 				},
-				[3079] = {
+				[3714] = {
+					"green",
+					"Perfect Energized Dark Jade",
+					{[L["haste"]] = 14, [L["spirit"]] = 14},
+				},
+				[3715] = {
+					"green",
+					"Perfect Radiant Dark Jade",
+					{[L["critical strike"]] = 14, [L["pvp power"]] = 7},
+				},
+				[3716] = {
+					"green",
+					"Perfect Shattered Dark Jade",
+					{[L["haste"]] = 14, [L["pvp power"]] = 7},
+				},
+				[3767] = {
 					"orange",
-					"Lucent Fire Opal",
-					{[L["agility"]] = 5, [L["pvp resilience"]] = 4},
-				},
-				[3080] = {
-					"green",
-					"Steady Chrysoprase",
-					{[L["pvp resilience"]] = 5, [L["stamina"]] = 6},
-				},
-				[3081] = {
-					"orange",
-					"Potent Fire Opal",
-					{[L["critical strike"]] = 4, [L["intellect"]] = 5},
-				},
-				[3082] = {
-					"green",
-					"Regal Chrysoprase",
-					{[L["dodge"]] = 5, [L["stamina"]] = 6},
-				},
-				[3083] = {
-					"purple",
-					"Purified Tanzanite",
-					{[L["intellect"]] = 5, [L["spirit"]] = 4},
-				},
-				[3084] = {
-					"green",
-					"Steady Chrysoprase",
-					{[L["pvp resilience"]] = 5, [L["stamina"]] = 6},
-				},
-				[3085] = {
-					"green",
-					"Jagged Chrysoprase",
-					{[L["critical strike"]] = 5, [L["stamina"]] = 6},
-				},
-				[3086] = {
-					"purple",
-					"Purified Tanzanite",
-					{[L["intellect"]] = 5, [L["spirit"]] = 4},
-				},
-				[3087] = {
-					"orange",
-					"Resplendent Fire Opal",
-					{[L["pvp resilience"]] = 4, [L["strength"]] = 5},
-				},
-				[3088] = {
-					"green",
-					"Nimble Chrysoprase",
-					{[L["dodge"]] = 4, [L["hit"]] = 5},
-				},
-				[3089] = {
-					"green",
-					"Lightning Chrysoprase",
-					{[L["haste"]] = 4, [L["hit"]] = 5},
-				},
-				[3090] = {
-					"orange",
-					"Splendid Fire Opal",
-					{[L["parry"]] = 5, [L["pvp resilience"]] = 4},
-				},
-				[3091] = {
-					"green",
-					"Radiant Chrysoprase",
-					{[L["critical strike"]] = 5, [L["pvp power"]] = 5},
+					"Perfect Deadly Huge Citrine",
+					{[L["agility"]] = 7, [L["critical strike"]] = 14},
 				},
 			},
-			[7] = {
-				[3861] = {
-					"red",
-					"Bold Stormjewel",
-					{[L["strength"]] = 20},
+			[8] = {
+				[3887] = {
+					"green",
+					"Perfect Zen Jasper",
+					{[L["mastery"]] = 35, [L["spirit"]] = 35},
 				},
-				[3862] = {
-					"red",
-					"Delicate Stormjewel",
-					{[L["agility"]] = 20},
+				[3888] = {
+					"green",
+					"Perfect Sensei's Jasper",
+					{[L["hit"]] = 35, [L["mastery"]] = 35},
 				},
-				[3863] = {
+				[3937] = {
+					"purple",
+					"Perfect Etched Nightstone",
+					{[L["hit"]] = 35, [L["strength"]] = 18},
+				},
+				[3938] = {
+					"purple",
+					"Perfect Purified Nightstone",
+					{[L["intellect"]] = 18, [L["spirit"]] = 35},
+				},
+				[3939] = {
+					"purple",
+					"Perfect Guardian's Nightstone",
+					{[L["expertise"]] = 35, [L["stamina"]] = 26},
+				},
+				[3940] = {
+					"purple",
+					"Perfect Timeless Nightstone",
+					{[L["intellect"]] = 18, [L["stamina"]] = 26},
+				},
+				[3941] = {
+					"purple",
+					"Perfect Defender's Nightstone",
+					{[L["parry"]] = 35, [L["stamina"]] = 26},
+				},
+				[3942] = {
+					"purple",
+					"Perfect Shifting Nightstone",
+					{[L["agility"]] = 18, [L["stamina"]] = 26},
+				},
+				[3943] = {
+					"purple",
+					"Perfect Sovereign Nightstone",
+					{[L["stamina"]] = 26, [L["strength"]] = 18},
+				},
+				[3944] = {
+					"yellow",
+					"Perfect Fractured Alicite",
+					{[L["mastery"]] = 70},
+				},
+				[3945] = {
+					"yellow",
+					"Perfect Quick Alicite",
+					{[L["haste"]] = 70},
+				},
+				[3946] = {
+					"yellow",
+					"Perfect Mystic Alicite",
+					{[L["pvp resilience"]] = 35},
+				},
+				[3947] = {
+					"yellow",
+					"Perfect Smooth Alicite",
+					{[L["critical strike"]] = 70},
+				},
+				[3948] = {
+					"yellow",
+					"Perfect Subtle Alicite",
+					{[L["dodge"]] = 70},
+				},
+				[3949] = {
 					"blue",
-					"Solid Stormjewel",
-					{[L["stamina"]] = 30},
+					"Perfect Rigid Zephyrite",
+					{[L["hit"]] = 70},
 				},
-				[3864] = {
+				[3950] = {
 					"blue",
-					"Sparkling Stormjewel",
-					{[L["spirit"]] = 20},
+					"Perfect Stormy Zephyrite",
+					{[L["pvp power"]] = 35},
 				},
-				[3865] = {
-					"red",
-					"Brilliant Stormjewel",
-					{[L["intellect"]] = 20},
-				},
-				[3866] = {
-					"red",
-					"Brilliant Stormjewel",
-					{[L["intellect"]] = 20},
-				},
-				[3867] = {
+				[3951] = {
 					"blue",
-					"Rigid Stormjewel",
-					{[L["hit"]] = 20},
+					"Perfect Sparkling Zephyrite",
+					{[L["spirit"]] = 70},
+				},
+				[3952] = {
+					"blue",
+					"Perfect Solid Zephyrite",
+					{[L["stamina"]] = 53},
+				},
+				[3953] = {
+					"red",
+					"Perfect Precise Carnelian",
+					{[L["expertise"]] = 70},
+				},
+				[3954] = {
+					"red",
+					"Perfect Brilliant Carnelian",
+					{[L["intellect"]] = 35},
+				},
+				[3955] = {
+					"red",
+					"Perfect Flashing Carnelian",
+					{[L["parry"]] = 70},
+				},
+				[3956] = {
+					"red",
+					"Perfect Delicate Carnelian",
+					{[L["agility"]] = 35},
+				},
+				[3957] = {
+					"red",
+					"Perfect Bold Carnelian",
+					{[L["strength"]] = 35},
+				},
+				[3958] = {
+					"green",
+					"Perfect Puissant Jasper",
+					{[L["mastery"]] = 35, [L["stamina"]] = 26},
+				},
+				[3959] = {
+					"green",
+					"Perfect Lightning Jasper",
+					{[L["haste"]] = 35, [L["hit"]] = 35},
+				},
+				[3960] = {
+					"green",
+					"Perfect Forceful Jasper",
+					{[L["haste"]] = 35, [L["stamina"]] = 26},
+				},
+				[3961] = {
+					"green",
+					"Perfect Steady Jasper",
+					{[L["pvp resilience"]] = 18, [L["stamina"]] = 26},
+				},
+				[3962] = {
+					"green",
+					"Perfect Piercing Jasper",
+					{[L["critical strike"]] = 35, [L["hit"]] = 35},
+				},
+				[3963] = {
+					"green",
+					"Perfect Jagged Jasper",
+					{[L["critical strike"]] = 35, [L["stamina"]] = 26},
+				},
+				[3964] = {
+					"green",
+					"Perfect Nimble Jasper",
+					{[L["dodge"]] = 35, [L["hit"]] = 35},
+				},
+				[3965] = {
+					"green",
+					"Perfect Regal Jasper",
+					{[L["dodge"]] = 35, [L["stamina"]] = 26},
+				},
+				[3966] = {
+					"orange",
+					"Perfect Keen Hessonite",
+					{[L["expertise"]] = 35, [L["mastery"]] = 35},
+				},
+				[3967] = {
+					"orange",
+					"Perfect Artful Hessonite",
+					{[L["intellect"]] = 18, [L["mastery"]] = 35},
+				},
+				[3968] = {
+					"orange",
+					"Perfect Fine Hessonite",
+					{[L["mastery"]] = 35, [L["parry"]] = 35},
+				},
+				[3969] = {
+					"orange",
+					"Perfect Adept Hessonite",
+					{[L["agility"]] = 18, [L["mastery"]] = 35},
+				},
+				[3970] = {
+					"orange",
+					"Perfect Skillful Hessonite",
+					{[L["mastery"]] = 35, [L["strength"]] = 18},
+				},
+				[3971] = {
+					"orange",
+					"Perfect Reckless Hessonite",
+					{[L["haste"]] = 35, [L["intellect"]] = 18},
+				},
+				[3972] = {
+					"orange",
+					"Perfect Deft Hessonite",
+					{[L["agility"]] = 18, [L["haste"]] = 35},
+				},
+				[3973] = {
+					"orange",
+					"Perfect Fierce Hessonite",
+					{[L["haste"]] = 35, [L["strength"]] = 18},
+				},
+				[3974] = {
+					"orange",
+					"Perfect Potent Hessonite",
+					{[L["critical strike"]] = 35, [L["intellect"]] = 18},
+				},
+				[3975] = {
+					"orange",
+					"Perfect Deadly Hessonite",
+					{[L["agility"]] = 18, [L["critical strike"]] = 35},
+				},
+				[3976] = {
+					"orange",
+					"Perfect Inscribed Hessonite",
+					{[L["critical strike"]] = 35, [L["strength"]] = 18},
+				},
+				[3977] = {
+					"orange",
+					"Perfect Resolute Hessonite",
+					{[L["dodge"]] = 35, [L["expertise"]] = 35},
+				},
+				[3978] = {
+					"orange",
+					"Perfect Polished Hessonite",
+					{[L["agility"]] = 18, [L["dodge"]] = 35},
+				},
+				[3979] = {
+					"purple",
+					"Perfect Accurate Nightstone",
+					{[L["expertise"]] = 35, [L["hit"]] = 35},
+				},
+				[3980] = {
+					"purple",
+					"Perfect Veiled Nightstone",
+					{[L["hit"]] = 35, [L["intellect"]] = 18},
+				},
+				[3981] = {
+					"purple",
+					"Perfect Retaliating Nightstone",
+					{[L["hit"]] = 35, [L["parry"]] = 35},
+				},
+				[3982] = {
+					"purple",
+					"Perfect Glinting Nightstone",
+					{[L["agility"]] = 17, [L["hit"]] = 35},
 				},
 			},
-		},
-		["Unique-Equipped"] = {
-			[3] = {
-				[3268] = {
+			[11] = {
+				[4520] = {
 					"blue",
-					"Eye of the Sea",
-					{[L["stamina"]] = 15},
+					"Perfect Rigid Lapis Lazuli",
+					{[L["hit"]] = 320},
 				},
-			}
+				[4521] = {
+					"blue",
+					"Perfect Stormy Lapis Lazuli",
+					{[L["pvp power"]] = 160},
+				},
+				[4522] = {
+					"blue",
+					"Perfect Sparkling Lapis Lazuli",
+					{[L["spirit"]] = 320},
+				},
+				[4523] = {
+					"blue",
+					"Perfect Solid Lapis Lazuli",
+					{[L["stamina"]] = 240},
+				},
+				[4524] = {
+					"green",
+					"Perfect Misty Alexandrite",
+					{[L["critical strike"]] = 160, [L["spirit"]] = 160},
+				},
+				[4525] = {
+					"green",
+					"Perfect Piercing Alexandrite",
+					{[L["critical strike"]] = 160, [L["hit"]] = 160},
+				},
+				[4526] = {
+					"green",
+					"Perfect Lightning Alexandrite",
+					{[L["haste"]] = 160, [L["hit"]] = 160},
+				},
+				[4527] = {
+					"green",
+					"Perfect Sensei's Alexandrite",
+					{[L["hit"]] = 160, [L["mastery"]] = 160},
+				},
+				[4528] = {
+					"green",
+					"Perfect Effulgent Alexandrite",
+					{[L["mastery"]] = 160, [L["pvp power"]] = 80},
+				},
+				[4529] = {
+					"green",
+					"Perfect Zen Alexandrite",
+					{[L["mastery"]] = 160, [L["spirit"]] = 160},
+				},
+				[4530] = {
+					"green",
+					"Perfect Balanced Alexandrite",
+					{[L["hit"]] = 160, [L["pvp resilience"]] = 80},
+				},
+				[4531] = {
+					"green",
+					"Perfect Vivid Alexandrite",
+					{[L["pvp power"]] = 80, [L["pvp resilience"]] = 80},
+				},
+				[4532] = {
+					"green",
+					"Perfect Turbid Alexandrite",
+					{[L["pvp resilience"]] = 80, [L["spirit"]] = 160},
+				},
+				[4533] = {
+					"green",
+					"Perfect Radiant Alexandrite",
+					{[L["critical strike"]] = 160, [L["pvp power"]] = 80},
+				},
+				[4535] = {
+					"green",
+					"Perfect Shattered Alexandrite",
+					{[L["haste"]] = 160, [L["pvp power"]] = 80},
+				},
+				[4536] = {
+					"green",
+					"Perfect Energized Alexandrite",
+					{[L["haste"]] = 160, [L["spirit"]] = 160},
+				},
+				[4537] = {
+					"green",
+					"Perfect Jagged Alexandrite",
+					{[L["critical strike"]] = 160, [L["stamina"]] = 120},
+				},
+				[4538] = {
+					"green",
+					"Perfect Regal Alexandrite",
+					{[L["dodge"]] = 160, [L["stamina"]] = 120},
+				},
+				[4539] = {
+					"green",
+					"Perfect Forceful Alexandrite",
+					{[L["haste"]] = 160, [L["stamina"]] = 120},
+				},
+				[4540] = {
+					"green",
+					"Perfect Confounded Alexandrite",
+					{[L["hit"]] = 160, [L["stamina"]] = 120},
+				},
+				[4541] = {
+					"green",
+					"Perfect Puissant Alexandrite",
+					{[L["mastery"]] = 160, [L["stamina"]] = 120},
+				},
+				[4542] = {
+					"green",
+					"Perfect Steady Alexandrite",
+					{[L["pvp resilience"]] = 80, [L["stamina"]] = 120},
+				},
+				[4543] = {
+					"orange",
+					"Perfect Deadly Tiger Opal",
+					{[L["agility"]] = 80, [L["critical strike"]] = 160},
+				},
+				[4544] = {
+					"orange",
+					"Perfect Crafty Tiger Opal",
+					{[L["critical strike"]] = 160, [L["expertise"]] = 160},
+				},
+				[4545] = {
+					"orange",
+					"Perfect Potent Tiger Opal",
+					{[L["critical strike"]] = 160, [L["intellect"]] = 80},
+				},
+				[4546] = {
+					"orange",
+					"Perfect Inscribed Tiger Opal",
+					{[L["critical strike"]] = 160, [L["strength"]] = 80},
+				},
+				[4547] = {
+					"orange",
+					"Perfect Polished Tiger Opal",
+					{[L["agility"]] = 80, [L["dodge"]] = 160},
+				},
+				[4548] = {
+					"orange",
+					"Perfect Resolute Tiger Opal",
+					{[L["dodge"]] = 160, [L["expertise"]] = 160},
+				},
+				[4549] = {
+					"orange",
+					"Perfect Stalwart Tiger Opal",
+					{[L["dodge"]] = 160, [L["parry"]] = 160},
+				},
+				[4550] = {
+					"orange",
+					"Perfect Champion's Tiger Opal",
+					{[L["dodge"]] = 160, [L["strength"]] = 80},
+				},
+				[4551] = {
+					"orange",
+					"Perfect Deft Tiger Opal",
+					{[L["agility"]] = 80, [L["haste"]] = 160},
+				},
+				[4552] = {
+					"orange",
+					"Perfect Wicked Tiger Opal",
+					{[L["expertise"]] = 160, [L["haste"]] = 160},
+				},
+				[4553] = {
+					"orange",
+					"Perfect Reckless Tiger Opal",
+					{[L["haste"]] = 160, [L["intellect"]] = 80},
+				},
+				[4554] = {
+					"orange",
+					"Perfect Fierce Tiger Opal",
+					{[L["haste"]] = 160, [L["strength"]] = 80},
+				},
+				[4555] = {
+					"orange",
+					"Perfect Adept Tiger Opal",
+					{[L["agility"]] = 80, [L["mastery"]] = 160},
+				},
+				[4556] = {
+					"orange",
+					"Perfect Keen Tiger Opal",
+					{[L["expertise"]] = 160, [L["mastery"]] = 160},
+				},
+				[4557] = {
+					"orange",
+					"Perfect Artful Tiger Opal",
+					{[L["intellect"]] = 80, [L["mastery"]] = 160},
+				},
+				[4558] = {
+					"orange",
+					"Perfect Fine Tiger Opal",
+					{[L["mastery"]] = 160, [L["parry"]] = 160},
+				},
+				[4559] = {
+					"orange",
+					"Perfect Skillful Tiger Opal",
+					{[L["mastery"]] = 160, [L["strength"]] = 80},
+				},
+				[4560] = {
+					"orange",
+					"Perfect Lucent Tiger Opal",
+					{[L["agility"]] = 80, [L["pvp resilience"]] = 80},
+				},
+				[4561] = {
+					"orange",
+					"Perfect Tenuous Tiger Opal",
+					{[L["expertise"]] = 160, [L["pvp resilience"]] = 80},
+				},
+				[4562] = {
+					"orange",
+					"Perfect Willful Tiger Opal",
+					{[L["intellect"]] = 80, [L["pvp resilience"]] = 80},
+				},
+				[4563] = {
+					"orange",
+					"Perfect Splendid Tiger Opal",
+					{[L["parry"]] = 160, [L["pvp resilience"]] = 80},
+				},
+				[4564] = {
+					"orange",
+					"Perfect Resplendent Tiger Opal",
+					{[L["pvp resilience"]] = 80, [L["strength"]] = 80},
+				},
+				[4565] = {
+					"purple",
+					"Perfect Glinting Roguestone",
+					{[L["agility"]] = 80, [L["hit"]] = 160},
+				},
+				[4566] = {
+					"purple",
+					"Perfect Accurate Roguestone",
+					{[L["expertise"]] = 160, [L["hit"]] = 160},
+				},
+				[4567] = {
+					"purple",
+					"Perfect Veiled Roguestone",
+					{[L["hit"]] = 160, [L["intellect"]] = 80},
+				},
+				[4568] = {
+					"purple",
+					"Perfect Retaliating Roguestone",
+					{[L["hit"]] = 160, [L["parry"]] = 160},
+				},
+				[4569] = {
+					"purple",
+					"Perfect Etched Roguestone",
+					{[L["hit"]] = 160, [L["strength"]] = 80},
+				},
+				[4570] = {
+					"purple",
+					"Perfect Mysterious Roguestone",
+					{[L["intellect"]] = 80, [L["pvp power"]] = 80},
+				},
+				[4571] = {
+					"purple",
+					"Perfect Purified Roguestone",
+					{[L["intellect"]] = 80, [L["spirit"]] = 160},
+				},
+				[4572] = {
+					"purple",
+					"Perfect Shifting Roguestone",
+					{[L["agility"]] = 80, [L["stamina"]] = 160},
+				},
+				[4573] = {
+					"purple",
+					"Perfect Guardian's Roguestone",
+					{[L["expertise"]] = 160, [L["stamina"]] = 120},
+				},
+				[4574] = {
+					"purple",
+					"Perfect Timeless Roguestone",
+					{[L["intellect"]] = 80, [L["stamina"]] = 120},
+				},
+				[4575] = {
+					"purple",
+					"Perfect Defender's Roguestone",
+					{[L["parry"]] = 160, [L["stamina"]] = 120},
+				},
+				[4576] = {
+					"purple",
+					"Perfect Sovereign Roguestone",
+					{[L["stamina"]] = 120, [L["strength"]] = 80},
+				},
+				[4577] = {
+					"red",
+					"Perfect Delicate Pandarian Garnet",
+					{[L["agility"]] = 160},
+				},
+				[4578] = {
+					"red",
+					"Perfect Precise Pandarian Garnet",
+					{[L["expertise"]] = 320},
+				},
+				[4579] = {
+					"red",
+					"Perfect Brilliant Pandarian Garnet",
+					{[L["intellect"]] = 160},
+				},
+				[4580] = {
+					"red",
+					"Perfect Flashing Pandarian Garnet",
+					{[L["parry"]] = 320},
+				},
+				[4581] = {
+					"red",
+					"Perfect Bold Pandarian Garnet",
+					{[L["strength"]] = 160},
+				},
+				[4582] = {
+					"yellow",
+					"Perfect Smooth Sunstone",
+					{[L["critical strike"]] = 320},
+				},
+				[4583] = {
+					"yellow",
+					"Perfect Subtle Sunstone",
+					{[L["dodge"]] = 320},
+				},
+				[4584] = {
+					"yellow",
+					"Perfect Quick Sunstone",
+					{[L["haste"]] = 320},
+				},
+				[4585] = {
+					"yellow",
+					"Perfect Fractured Sunstone",
+					{[L["mastery"]] = 320},
+				},
+				[4586] = {
+					"yellow",
+					"Perfect Mystic Sunstone",
+					{[L["pvp resilience"]] = 160},
+				},
+				[4986] = {
+					"purple",
+					"Perfect Tense Roguestone",
+					{[L["pvp power"]] = 80, [L["strength"]] = 80},
+				},
+				[4989] = {
+					"purple",
+					"Perfect Assassin's Roguestone",
+					{[L["agility"]] = 80, [L["pvp power"]] = 80},
+				},
+				[5026] = {
+					"green",
+					"Perfect Nimble Alexandrite",
+					{[L["dodge"]] = 160, [L["hit"]] = 160},
+				},
+			},
 		},
 	},
-	["Quest"] = {
-		["Normal"] = {
+	Quest = {
+		Normal = {
 			[3] = {
 				[3162] = {
 					"meta",
@@ -5551,6 +5485,28 @@ ww_gems = {
 					{[L["intellect"]] = 10},
 				},
 			},
+			[14] = {
+				[5030] = {
+					"meta",
+					"Indomitable Primal Diamond",
+					{[L["chance on being hit to gain 20% reduction to damage taken"]] = 1, [L["stamina"]] = 324},
+				},
+				[5031] = {
+					"meta",
+					"Courageous Primal Diamond",
+					{[L["chance on beneficial spell to make your spells cost no mana for 4 sec."]] = 1, [L["intellect"]] = 324},
+				},
+				[5032] = {
+					"meta",
+					"Capacitive Primal Diamond",
+					{[L["chance on melee or ranged hit to gain capacitance"]] = 1, [L["critical strike"]] = 324},
+				},
+				[5033] = {
+					"meta",
+					"Sinister Primal Diamond",
+					{[L["chance on spell damage to gain 30% spell haste"]] = 1, [L["critical strike"]] = 324},
+				},
+			},
 		},
 		["Unique-Equipped"] = {
 			[3] = {
@@ -5572,7 +5528,7 @@ ww_gems = {
 				[3159] = {
 					"orange",
 					"Deadly Citrine",
-					{[L["agility"]] = 5, [L["critical strike"]] = 4},
+					{[L["agility"]] = 5, [L["critical strike"]] = 8},
 				},
 				[3160] = {
 					"orange",
@@ -5607,6 +5563,126 @@ ww_gems = {
 					"sha-touched",
 					"Crystallized Horror",
 					{[L["intellect"]] = 500},
+				},
+			},
+		},
+	},
+	Vendor = {
+		Normal = {
+			[1] = {
+				[2956] = {
+					"red",
+					"Bold Tourmaline",
+					{[L["strength"]] = 4},
+				},
+				[2957] = {
+					"red",
+					"Delicate Tourmaline",
+					{[L["agility"]] = 4},
+				},
+				[2958] = {
+					"red",
+					"Brilliant Tourmaline",
+					{[L["intellect"]] = 4},
+				},
+				[2959] = {
+					"red",
+					"Brilliant Tourmaline",
+					{[L["intellect"]] = 4},
+				},
+				[2960] = {
+					"red",
+					"Delicate Tourmaline",
+					{[L["agility"]] = 4},
+				},
+				[2961] = {
+					"blue",
+					"Solid Zircon",
+					{[L["stamina"]] = 6},
+				},
+				[2962] = {
+					"blue",
+					"Sparkling Zircon",
+					{[L["spirit"]] = 8},
+				},
+				[2963] = {
+					"blue",
+					"Sparkling Zircon",
+					{[L["spirit"]] = 8},
+				},
+				[2964] = {
+					"red",
+					"Brilliant Tourmaline",
+					{[L["intellect"]] = 4},
+				},
+				[2965] = {
+					"yellow",
+					"Smooth Amber",
+					{[L["critical strike"]] = 8},
+				},
+				[2966] = {
+					"blue",
+					"Rigid Zircon",
+					{[L["hit"]] = 8},
+				},
+				[2967] = {
+					"yellow",
+					"Smooth Amber",
+					{[L["critical strike"]] = 8},
+				},
+				[2968] = {
+					"yellow",
+					"Subtle Amber",
+					{[L["dodge"]] = 8},
+				},
+			},
+		},
+		["Unique-Equipped"] = {
+			[9] = {
+				[4166] = {
+					"cogwheel",
+					"Subtle Cogwheel",
+					{[L["dodge"]] = 208},
+				},
+				[4167] = {
+					"cogwheel",
+					"Smooth Cogwheel",
+					{[L["critical strike"]] = 208},
+				},
+				[4168] = {
+					"cogwheel",
+					"Quick Cogwheel",
+					{[L["haste"]] = 208},
+				},
+				[4169] = {
+					"cogwheel",
+					"Fractured Cogwheel",
+					{[L["mastery"]] = 208},
+				},
+				[4170] = {
+					"cogwheel",
+					"Precise Cogwheel",
+					{[L["expertise"]] = 208},
+				},
+				[4171] = {
+					"cogwheel",
+					"Flashing Cogwheel",
+					{[L["parry"]] = 208},
+				},
+				[4172] = {
+					"cogwheel",
+					"Rigid Cogwheel",
+					{[L["hit"]] = 208},
+				},
+				[4173] = {
+					"cogwheel",
+					"Sparkling Cogwheel",
+					{[L["spirit"]] = 208},
+				},
+				[4239] = {
+					"cogwheel",
+					"Mystic Cogwheel",
+					{[L["pvp resilience"]] = 52},
 				},
 			},
 		},
