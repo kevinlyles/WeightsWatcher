@@ -212,7 +212,7 @@ ww_MultipleStatLines = {
 				end
 			end
 		end,
-		{"elixir", "enchant"},
+		{"cooldownUseEffect", "elixir", "enchant"},
 	},
 	{"^(%a+), (%a+),? and (%a+) spell power by (%d+)$",
 		function(text, pattern)
@@ -303,8 +303,8 @@ ww_SingleStatLines = {
 	{"^([+-]?%d+) (dodge)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "food", "generic", "socketBonus", "stackingEquipEffect", "useEffect"}},
 	{"^([+-]?%d+) (parry)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "enchant", "food", "generic", "socketBonus"}},
 	{"^([+-]?%d+) (haste)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "food", "generic", "socketBonus"}},
-	{"^([+-]?%d+) (pvp power)$", WeightsWatcher.statNumFirst, {"elixir", "enchant", "equipEffect", "generic", "socketBonus"}},
-	{"^([+-]?%d+) (pvp resilience)$", WeightsWatcher.statNumFirst, {"elixir", "enchant", "food", "generic", "socketBonus"}},
+	{"^([+-]?%d+) (pvp power)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "generic", "socketBonus"}},
+	{"^([+-]?%d+) (pvp resilience)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "food", "generic", "socketBonus"}},
 	{"^%(?(%d+%.?%d*) damage per second%)?$",
 		function(text, pattern)
 			return WeightsWatcher.singleStatValueOnly(text, pattern, "melee dps")
