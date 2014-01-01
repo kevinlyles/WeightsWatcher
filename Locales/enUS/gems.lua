@@ -84,7 +84,6 @@ ww_gemDisplayNames = {
 	["Chaotic Skyfire Diamond"] = "Chaotic Skyfire Diamond",
 	["Chaotic Skyflare Diamond"] = "Chaotic Skyflare Diamond",
 	["Charmed Amani Jewel"] = "Charmed Amani Jewel",
-	["cogwheel"] = "cogwheel",
 	["Confounded Alexandrite"] = "Confounded Alexandrite",
 	["Confounded Wild Jade"] = "Confounded Wild Jade",
 	["Crafty Lava Coral"] = "Crafty Lava Coral",
