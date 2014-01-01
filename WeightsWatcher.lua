@@ -101,7 +101,7 @@ local ww_weightIdealCacheWeightMetatable = {
 			table.insert(bestGems, idealGems[color])
 			gemScore = gemScore + idealGems[color .. "Score"]
 			if breakSocketColors then
-				if color ~= "meta" and color ~= "cogwheel" then
+				if color ~= "meta" and color ~= "cogwheel" and color ~= "sha-touched" then
 					color = "prismatic"
 				end
 				table.insert(bestGemsIgnoreSocket, idealGems[color])
