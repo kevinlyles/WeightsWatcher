@@ -13044,9 +13044,6 @@ ww_slotsToCheck = {
 	wrist = {"wrist"},
 }
 
-ww_factionsToTrack = {}
-ww_professionsToTrack = {}
-
 for item, info in pairs(EnchantItems) do
 	if info.enchID and info.source ~= "Unavailable" then
 		local class = info.class or "all"
@@ -13086,7 +13083,6 @@ for item, info in pairs(EnchantItems) do
 				end
 				local reputations = info.rep or { ["none"] = 0 }
 				for faction, reputation in pairs(reputations) do
-					ww_factionsToTrack[faction] = true
 					if not EnchantOptions[class][slot][subslot][info.source][info.boa or false][faction] then
 						EnchantOptions[class][slot][subslot][info.source][info.boa or false][faction] = IntervalTree.create()
 					end
@@ -13097,7 +13093,6 @@ for item, info in pairs(EnchantItems) do
 					end
 					local skills = info.skill or { ["none"] = 0 }
 					for skill, level in pairs(skills) do
-						ww_professionsToTrack[skill] = true
 						if not repInterval[skill] then
 							repInterval[skill] = IntervalTree.create()
 						end
@@ -13166,7 +13161,6 @@ for item, info in pairs(EnchantSpells) do
 				end
 				local reputations = info.rep or { ["none"] = 0 }
 				for faction, reputation in pairs(reputations) do
-					ww_factionsToTrack[faction] = true
 					if not EnchantOptions[class][slot][subslot][info.source][info.boa or false][faction] then
 						EnchantOptions[class][slot][subslot][info.source][info.boa or false][faction] = IntervalTree.create()
 					end
@@ -13177,7 +13171,6 @@ for item, info in pairs(EnchantSpells) do
 					end
 					local skills = info.skill or { ["none"] = 0 }
 					for skill, level in pairs(skills) do
-						ww_professionsToTrack[skill] = true
 						if not repInterval[skill] then
 							repInterval[skill] = IntervalTree.create()
 						end

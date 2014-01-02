@@ -291,9 +291,7 @@ local function populateProfessions()
 	local professions = {}
 	for _, idx in ipairs({ GetProfessions() }) do
 		local name, _, rank = GetProfessionInfo(idx)
-		if ww_professionsToTrack[name] then
-			professions[name] = rank
-		end
+		professions[name] = rank
 	end
 	WeightsWatcher.player.professions = professions
 	WeightsWatcher.ResetEnchantCache()
@@ -305,14 +303,12 @@ local function populateReputations()
 	for i = 1, GetNumFactions() do
 		local name, _, standingID, barMin, barMax, barValue, _, _, isHeader, _, hasRep = GetFactionInfo(i)
 		if not isHeader or hasRep then
-			if ww_factionsToTrack[name] then
-				rep[name] = {
-					level = standingID,
-					min = barMin,
-					max = barMax,
-					value = barValue,
-				}
-			end
+			rep[name] = {
+				level = standingID,
+				min = barMin,
+				max = barMax,
+				value = barValue,
+			}
 		end
 	end
 	WeightsWatcher.player.reputation = rep
