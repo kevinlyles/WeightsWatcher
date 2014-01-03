@@ -114,10 +114,8 @@ local EnchantAffixes = {
 	"^its +",
 
 	" +%(1 sec cooldown%)$",
-	" +only use?able on items level %d+ and above%.$",
 	" +requires a level %d+ or higher l?e?v?e?l? ?item%.$",
 	" +must be level %d+ or lower to gain this benefit%.$",
-	" +wearer must be level %d+ or higher%.$",
 	" +cannot be used on items level %d+ or higher%.$",
 	"[\r\n]+%a+ing [%a ]+ causes [%a ]+ to become soulbound%.$",
 	"[\r\n]+can only be attached to [%a ]+ in your inventory%.$",
@@ -127,7 +125,6 @@ local EnchantAffixes = {
 	" +does not stack with other similar effects%.",
 	" +does not stack with other passive movement speed bonuses%.",
 	" +does not stack with other enchantments for the selected equipment slot%.",
-	"[\r\n]+wearer must be level %d+ or higher to receive the benefits of this armor kit%.$",
 	-- item 89717
 	" +effect is reduced for players below level %d+.$",
 

@@ -33,7 +33,6 @@ local UseEffectPreprocessLines = {
 	{" additional ", " "},
 	{" decreases your ", " decreases "},
 	{" maximum health ", " health "},
-	{" all magical resistances ", " all resistances "},
 }
 
 local UseEffectAffixes = {
