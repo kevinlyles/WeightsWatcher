@@ -101,6 +101,7 @@ ww_IgnoredLines = {
 	"^crystal of fear$",
 	"^projectile$",
 	"^already known$",
+	"^use: create",
 
 	-- TODO: add these for ALL professions
 	"^cooking ingredient$",
@@ -111,6 +112,7 @@ ww_IgnoredLines = {
 	-- Zone names
 	"^ahn'kahet: the old kingdom$",
 	"^ahn'qiraj$",
+	"^assault on zan'vess$",
 	"^alterac valley$",
 	"^black temple$",
 	"^blackrock depths$",
@@ -133,6 +135,7 @@ ww_IgnoredLines = {
 	"^ruins of ahn'qiraj$",
 	"^shadowmoon valley",
 	"^sholazar basin$",
+	"^siege of orgrimmar$",
 	"^strand of the ancients$",
 	"^stratholme$",
 	"^tempest keep$",
@@ -143,6 +146,7 @@ ww_IgnoredLines = {
 	"^the oculus$",
 	"^the wandering isle$",
 	"^theramore's fall ?%(?h?%)?$",
+	"^timeless isle$",
 	"^townlong steppes$",
 	"^twilight highlands$",
 	"^unga ingoo$",
