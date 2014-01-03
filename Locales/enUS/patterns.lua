@@ -588,6 +588,9 @@ ww_ItemInfoLines = {
 	"^raid finder$",
 	"^thunderforged$",
 	"^elite$",
+	"^flexible$",
+	"^timeless$",
+	"^warforged$",
 }
 
 ww_DoubleSlotLines = {
