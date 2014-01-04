@@ -79,7 +79,7 @@ ww_IgnoredLines = {
 	"^$",
 	"^  [^ ]",
 	"^classes: ",
-	"^%a[%a' -]+ %(%d/%d%)$", -- Set names
+	"^%a[%a' -]+ %(%d+/%d+%)$", -- Set names
 	"^\".+\"$",
 	"^\n",
 	"^use: teaches you how to [a-oq-z]%a+ ", -- Profession items
@@ -164,7 +164,7 @@ ww_TempIgnoredLines = {
 }
 
 ww_UnweightedLines = {
-	"^%(%d%) set: ",
+	"^%(%d+%) set: ",
 	"^set: ", -- In-game only (set bonus that you have enough pieces for)
 	"chance t?on? ",
 	"cooldown", -- Use effects that have a cooldown
