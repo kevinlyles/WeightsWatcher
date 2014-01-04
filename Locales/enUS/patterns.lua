@@ -317,21 +317,26 @@ ww_SingleStatLines = {
 	},
 	{"^([+-]?%d+) (attack power)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "food", "generic", "socketBonus", "stackingEquipEffect", "useEffect"}},
 	{"^([+-]?%d+) (spirit)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "food", "generic", "socketBonus", "stackingEquipEffect", "useEffect"}},
-	{"^([+-]?%d+) mana [ep]v?ery? 5 seco?n?d?s?%.?$",
+	{"^([+-]?%d+) (%a+) [ep]v?ery? (%d+) seco?n?d?s?%.?$",
 		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "mp5")
+			local start, _, amount, stat, period = text:find(pattern)
+			if start then
+				amount = tonumber(amount)
+				if period ~= "5" then
+					amount = amount * 5 / tonumber(period)
+				end
+				if stat == "mana" then
+					return WeightsWatcher.newStatTable({ mp5 = amount })
+				elseif stat == "health" then
+					return WeightsWatcher.newStatTable({ hp5 = amount })
+				end
+			end
 		end,
 		{"cooldownUseEffect", "elixir", "enchant", "equipEffect", "food", "generic", "socketBonus"},
 	},
 	{"^([+-]?%d+) (%a+ resistances?)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "elixir", "enchant", "equipEffect", "generic", "useEffect"}},
 	-- random suffix enchants
 	{"^([+-]?%d+) (%a+ spell damage)$", WeightsWatcher.statNumFirst, {"cooldownUseEffect", "generic"}},
-	{"^([+-]?%d+) health [ep]v?ery? 5 seco?n?d?s?%.?$",
-		function(text, pattern)
-			return WeightsWatcher.singleStatValueOnly(text, pattern, "hp5")
-		end,
-		{"cooldownUseEffect", "elixir", "equipEffect", "food", "generic"},
-	},
 	{"^minor run speed increase$",
 		function(text, pattern)
 			return WeightsWatcher.newStatTable({["minor run speed"] = 1})
