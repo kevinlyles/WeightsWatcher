@@ -4,6 +4,7 @@ if locale ~= "enUS" and locale ~= "enGB" then
 end
 
 ww_EffectHandlers = {
+	ww_stackingEquipEffects,
 	ww_equipStats,
 	ww_sockets,
 	ww_generic,
@@ -15,7 +16,6 @@ ww_EffectHandlers = {
 	ww_fishing,
 	ww_cooldownUseEffects,
 	ww_useEffects,
-	ww_stackingEquipEffects,
 }
 
 function WeightsWatcher.damageRange(textL, textR)
