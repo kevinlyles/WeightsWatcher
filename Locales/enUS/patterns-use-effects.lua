@@ -39,7 +39,7 @@ local UseEffectPreprocessLines = {
 local UseEffectAffixes = {
 	"^use: +",
 	-- item 4952
-	"^a powerful ale that +",
+	"^a powerful beverage that +",
 	"^increases +",
 	"^the player's +",
 	"^your +",
