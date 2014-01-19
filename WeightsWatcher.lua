@@ -528,7 +528,7 @@ function WeightsWatcher.Broken(dataType)
 end
 
 local function checkForTitansGrip()
-	if class == "WARRIOR" then
+	if WeightsWatcher.player.class == "WARRIOR" then
 		return GetSpecialization() == 2 and WeightsWatcher.player.level >= 38
 	end
 	return false
