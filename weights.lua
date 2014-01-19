@@ -6,9 +6,7 @@ function ww_validateNumber(newChar, newText)
 	if string.find(newChar, "^%d$") then
 		return true
 	elseif newChar == '.' then
-		local first = newText:find(".", 1, true)
-		local second = newText:find(".", first + 1, true)
-		if not second then
+		if not newText:find(".", newText:find(".", 1, true) + 1, true) then
 			return true
 		end
 	elseif newChar == '-' then
