@@ -47,21 +47,8 @@
 					</Anchors>
 				</HighlightTexture>
 				<Scripts>
-					<OnLoad>
-						local fontString = self:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-						fontString:SetPoint("LEFT", 20, 0)
-						self:SetFontString(fontString)
-					</OnLoad>
-					<OnClick>
-						ww_toggleCollapse(self:GetParent(), self:GetParent():GetParent():GetParent().scrollFrame)
-						if self:GetParent().collapsed then
-							self:SetNormalTexture("Interface\\Buttons\\UI-PlusButton-UP")
-							self:SetPushedTexture("Interface\\Buttons\\UI-PlusButton-DOWN")
-						else
-							self:SetNormalTexture("Interface\\Buttons\\UI-MinusButton-UP")
-							self:SetPushedTexture("Interface\\Buttons\\UI-MinusButton-DOWN")
-						end
-					</OnClick>
+					<OnLoad function="ww_normalFontString"/>
+					<OnClick function="ww_toggleCollapse"/>
 				</Scripts>
 			</Button>
 		</Frames>
@@ -112,21 +99,8 @@
 					</Anchors>
 				</HighlightTexture>
 				<Scripts>
-					<OnLoad>
-						local fontString = self:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-						fontString:SetPoint("LEFT", 20, 0)
-						self:SetFontString(fontString)
-					</OnLoad>
-					<OnClick>
-						ww_toggleCollapse(self:GetParent())
-						if self:GetParent().collapsed then
-							self:SetNormalTexture("Interface\\Buttons\\UI-PlusButton-UP")
-							self:SetPushedTexture("Interface\\Buttons\\UI-PlusButton-DOWN")
-						else
-							self:SetNormalTexture("Interface\\Buttons\\UI-MinusButton-UP")
-							self:SetPushedTexture("Interface\\Buttons\\UI-MinusButton-DOWN")
-						end
-					</OnClick>
+					<OnLoad function="ww_highlightFontString"/>
+					<OnClick function="ww_toggleCollapse"/>
 				</Scripts>
 			</Button>
 		</Frames>
@@ -194,61 +168,13 @@
 					</Anchors>
 				</FontString>
 				<Scripts>
-					<OnLoad>
-						self:SetTextInsets(5, 5, 0, 0)
-					</OnLoad>
-					<OnTextChanged>
-						local text = self:GetText()
-						local number = tonumber(text)
-						if number then
-							self.number = number
-						elseif text:match("^[0.]*$") then
-							self.number = 0
-						end
-						if number == ww_weights.rightPanel.statList[self:GetParent().statName] or (number == 0 and ww_weights.rightPanel.statList[self:GetParent().statName] == nil) then
-							ww_weights.rightPanel.changedStats[self] = nil
-							local changed = false
-							for _ in pairs(ww_weights.rightPanel.changedStats) do
-								changed = true
-								break
-							end
-							for _ in pairs(ww_weights.rightPanel.changedTriggers) do
-								changed = true
-								break
-							end
-							if not changed then
-								ww_weights.rightPanel.saveButton:Disable()
-								ww_weights.rightPanel.resetButton:Disable()
-							end
-						else
-							ww_weights.rightPanel.changedStats[self] = self:GetParent().statName
-							ww_weights.rightPanel.saveButton:Enable()
-							ww_weights.rightPanel.resetButton:Enable()
-						end
-					</OnTextChanged>
-					<OnChar>
-						if ww_validateNumber(text, self:GetText()) then
-							self.number = tonumber(self:GetText()) or 0
-						else
-							local cursorPosition = self:GetCursorPosition() - 1
-							self:SetText(self.number)
-							self:SetCursorPosition(cursorPosition)
-						end
-					</OnChar>
-					<OnEditFocusGained>
-						self:GetParent().highlightFrame:Show()
-						self:HighlightText()
-					</OnEditFocusGained>
-					<OnEditFocusLost>
-						self:GetParent().highlightFrame:Hide()
-						self:HighlightText(0,0)
-					</OnEditFocusLost>
-					<OnTabPressed>
-						ww_changeFocus(self:GetParent())
-					</OnTabPressed>
-					<OnEscapePressed>
-						self:ClearFocus()
-					</OnEscapePressed>
+					<OnLoad function="ww_editBoxTextInsets"/>
+					<OnTextChanged function="ww_statValueTextChanged"/>
+					<OnChar function="ww_statValueOnChar"/>
+					<OnEditFocusGained function="ww_editFocusGained"/>
+					<OnEditFocusLost function="ww_editFocusLost"/>
+					<OnTabPressed function="ww_statValueTabPressed"/>
+					<OnEscapePressed function="ww_clearFocus"/>
 				</Scripts>
 			</EditBox>
 		</Frames>
@@ -290,29 +216,7 @@
 					</Anchor>
 				</Anchors>
 				<Scripts>
-					<OnClick>
-						-- The nots convert things to boolean (instead of 1/nil)
-						if not self:GetChecked() == not ww_weights.rightPanel.statList.triggers[self:GetText()] then
-							ww_weights.rightPanel.changedTriggers[self] = nil
-							local changed = false
-							for _ in pairs(ww_weights.rightPanel.changedStats) do
-								changed = true
-								break
-							end
-							for _ in pairs(ww_weights.rightPanel.changedTriggers) do
-								changed = true
-								break
-							end
-							if not changed then
-								ww_weights.rightPanel.saveButton:Disable()
-								ww_weights.rightPanel.resetButton:Disable()
-							end
-						else
-							ww_weights.rightPanel.changedTriggers[self] = self:GetText()
-							ww_weights.rightPanel.saveButton:Enable()
-							ww_weights.rightPanel.resetButton:Enable()
-						end
-					</OnClick>
+					<OnClick function="ww_toggleTriggerActive"/>
 				</Scripts>
 			</CheckButton>
 		</Frames>
@@ -338,33 +242,9 @@
 					</Anchor>
 				</Anchors>
 				<Scripts>
-					<OnClick>
-						local parent = self:GetParent()
-						local class = parent.category.class
-
-						if not ww_charVars.activeWeights[class] then
-							ww_charVars.activeWeights[class] = {}
-							table.insert(ww_charVars.activeWeights, class)
-						end
-						if self:GetChecked() then
-							table.insert(ww_charVars.activeWeights[class], parent.name)
-						else
-							for i, weight in ipairs(ww_charVars.activeWeights[class]) do
-								if weight == parent.name then
-									table.remove(ww_charVars.activeWeights[class], i)
-									break
-								end
-							end
-						end
-					</OnClick>
-					<OnEnter>
-						GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
-						GameTooltip:AddLine(ww_localization["WATCH_TT"], 1, 1, 1)
-						GameTooltip:Show()
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide()
-					</OnLeave>
+					<OnClick function="ww_toggleWeightActive"/>
+					<OnEnter function="ww_showWeightTooltip"/>
+					<OnLeave function="ww_hideTooltip"/>
 				</Scripts>
 			</CheckButton>
 			<Button name="$parentText" parentKey="text">
@@ -410,28 +290,11 @@
 					</Frame>
 				</Frames>
 				<Scripts>
-					<OnClick>
-						ww_configDiscardChanges(function()
-								ww_configSelectWeight(self:GetParent())
-							end)
-					</OnClick>
-					<OnLoad>
-						self:SetFontString(self:CreateFontString(nil, "OVERLAY", "ww_defaultString"))
-					</OnLoad>
+					<OnClick function="ww_confirmDiscardWeightChangesChangeWeight"/>
+					<OnLoad function="ww_defaultFontString"/>
 				</Scripts>
 			</Button>
 		</Frames>
-<!--		<Scripts>
-			<OnHide>
-				self.checkButton:Hide()
-				self.text:Hide()
-			</OnHide>
-			<OnShow>
-				self.checkButton:Show()
-				self.text:Show()
-				error()
-			</OnShow>
-		</Scripts> -->
 	</Frame>
 	<!-- The frame containing all weight-related content -->
 	<Frame name="ww_weights" parent="UIParent" hidden="true" frameStrata="HIGH">
@@ -470,7 +333,7 @@
 				</Texture>
 			</Layer>
 		</Layers>
-		<!--list of objects within the configuartion window-->
+		<!--list of objects within the configuration window-->
 		<Frames>
 			<!--The Class Selection Frame-->
 			<Frame name="$parentLeftPanel" parentKey="leftPanel">
@@ -520,12 +383,8 @@
 							</Anchor>
 						</Anchors>
 						<Scripts>
-							<OnShow>
-								ww_scrollBarUpdate(self, ww_weights.leftPanel.scrollContainer, 22, 0, 25)
-							</OnShow>
-							<OnVerticalScroll>
-								FauxScrollFrame_OnVerticalScroll(self, offset, 22, self:GetScript("OnShow"))
-							</OnVerticalScroll>
+							<OnShow function="ww_classListScrollFrameOnShow"/>
+							<OnVerticalScroll function="ww_scrollFrameOnVerticalScroll"/>
 						</Scripts>
 					</ScrollFrame>
 				</Frames>
@@ -583,9 +442,7 @@
 							</Anchor>
 						</Anchors>
 						<Scripts>
-							<OnClick>
-								ww_configSaveWeight()
-							</OnClick>
+							<OnClick function="ww_configSaveWeight"/>
 						</Scripts>
 					</Button>
 					<!--Copy button-->
@@ -595,15 +452,8 @@
 							<AbsDimension x="80" y="22"/>
 						</Size>
 						<Scripts>
-							<OnClick>
-								ww_configNewWeight(self:GetParent().weightFrame.category.class, string.format(ww_localization["DEFAULT_COPY_NAME"], self:GetParent().weightFrame.name), self:GetParent().statList)
-							</OnClick>
-							<OnLoad>
-								self:SetText(ww_localization[self:GetText()])
-								local relTo = self:GetParent().saveButton
-								local _, _, _, relToXOffset = relTo:GetPoint(1)
-								self:SetPoint("CENTER", relTo, (self:GetParent():GetWidth() - self:GetWidth() - 2 * relToXOffset) / 3, 0)
-							</OnLoad>
+							<OnClick function="ww_copyWeight"/>
+							<OnLoad function="ww_copyButtonOnLoad"/>
 						</Scripts>
 					</Button>
 					<!--Reset button-->
@@ -619,9 +469,7 @@
 							</Anchor>
 						</Anchors>
 						<Scripts>
-							<OnClick>
-								ww_configResetWeight()
-							</OnClick>
+							<OnClick function="ww_configResetWeight"/>
 						</Scripts>
 					</Button>
 					<!--Delete button-->
@@ -631,15 +479,8 @@
 							<AbsDimension x="80" y="22"/>
 						</Size>
 						<Scripts>
-							<OnClick>
-								ww_configDeleteWeight()
-							</OnClick>
-							<OnLoad>
-								self:SetText(ww_localization[self:GetText()])
-								local relTo = self:GetParent().resetButton
-								local _, _, _, relToXOffset = relTo:GetPoint(1)
-								self:SetPoint("CENTER", relTo, (self:GetWidth() - 2 * relToXOffset - self:GetParent():GetWidth()) / 3, 0)
-							</OnLoad>
+							<OnClick function="ww_configDeleteWeight"/>
+							<OnLoad function="ww_deleteButtonOnLoad"/>
 						</Scripts>
 					</Button>
 					<!--used to hold a series of stat frames to maintain absolute position when scrolling-->
@@ -660,21 +501,13 @@
 							</Anchor>
 						</Anchors>
 						<Scripts>
-							<OnShow>
-								ww_scrollBarUpdate(self, ww_weights.rightPanel.scrollContainer, 22, -30, 22)
-							</OnShow>
-							<OnVerticalScroll>
-								FauxScrollFrame_OnVerticalScroll(self, offset, 22, self:GetScript("OnShow"))
-							</OnVerticalScroll>
+							<OnShow function="ww_weightFrameScrollFrameOnShow"/>
+							<OnVerticalScroll function="ww_scrollFrameOnVerticalScroll"/>
 						</Scripts>
 					</ScrollFrame>
 				</Frames>
 				<Scripts>
-					<OnShow>
-						if not ww_weights.popup then
-							ww_changeFocus(self.scrollContainer.stats[#(self.scrollContainer.stats)])
-						end
-					</OnShow>
+					<OnShow function="ww_weightFrameOnShow"/>
 				</Scripts>
 			</Frame>
 			<!--Close Button for the configuration window-->
@@ -692,15 +525,7 @@
 					<Anchor point="BOTTOMLEFT"/>
 				</Anchors>
 				<Scripts>
-					<OnClick>
-						if ww_weights.rightPanel.weightFrame and ww_defaultVars.weightsList[ww_weights.rightPanel.weightFrame.category.class][ww_weights.rightPanel.weightFrame.name] then
-							StaticPopup_Show("WW_CONFIRM_RESTORE_DEFAULT_WEIGHTS")
-						else
-							ww_configDiscardChanges(function()
-									StaticPopup_Show("WW_CONFIRM_RESTORE_DEFAULT_WEIGHTS")
-								end)
-						end
-					</OnClick>
+					<OnClick function="ww_restoreDefaultWeights"/>
 				</Scripts>
 			</Button>
 			<!--Create new weight button-->
@@ -712,47 +537,13 @@
 					<Anchor point="BOTTOMRIGHT"/>
 				</Anchors>
 				<Scripts>
-					<OnClick>
-						ww_configNewWeight()
-					</OnClick>
+					<OnClick function="ww_configNewWeight"/>
 				</Scripts>
 			</Button>
 		</Frames>
 		<Scripts>
-			<OnLoad>
-				self.title:SetText(ww_localization[self.title:GetText()])
-				self.weightsAttribution:SetText(ww_localization[self.weightsAttribution:GetText()])
-				table.insert(UISpecialFrames, self:GetName())
-				function self:SmartHide(func)
-						self.afterHide = func
-						self:Hide()
-					end
-			</OnLoad>
-			<OnHide>
-				if self.reallyClose then
-					self.reallyClose = nil
-					if self.afterHide then
-						self.afterHide()
-					end
-					self.afterHide = nil
-				else
-					self.popup = true
-					self:Show()
-					ww_configDiscardChanges(function()
-							self.reallyClose = true
-							<!-- Safe because ww_configDiscardChanges will save the weight first -->
-							if self.rightPanel:IsShown() then
-								ww_configResetWeight()
-							end
-							self:Hide()
-							if self.afterHide then
-								self.afterHide()
-							end
-							self.afterHide = nil
-						end)
-					self.popup = nil
-				end
-			</OnHide>
+			<OnLoad function="ww_weightsOnShow"/>
+			<OnHide function="ww_weightsOnHide"/>
 		</Scripts>
 	</Frame>
 	<Frame name="ww_newWeight" parent="UIParent" hidden="true" frameStrata="DIALOG">
@@ -801,10 +592,7 @@
 					<Anchor point="LEFT"/>
 				</Anchors>
 				<Scripts>
-					<OnShow>
-						UIDropDownMenu_Initialize(self, ww_ClassDropDownInitialize)
-						UIDropDownMenu_SetSelectedValue(self, WeightsWatcher.player.class)
-					</OnShow>
+					<OnShow function="ww_initializeClassDropDown"/>
 				</Scripts>
 			</Button>
 			<EditBox letters="50" name="$parentEditBox" parentKey="editBox">
@@ -860,30 +648,10 @@
 					</Layer>
 				</Layers>
 				<Scripts>
-					<OnLoad>
-						self:SetTextInsets(5, 5, 0, 0)
-					</OnLoad>
-					<OnTextChanged>
-						if self:GetText() == "" then
-							self:GetParent().createButton:Disable()
-						else
-							self:GetParent().createButton:Enable()
-						end
-					</OnTextChanged>
-					<OnEnterPressed>
-						if StaticPopup_Visible("WW_WEIGHT_EXISTS") then
-							StaticPopup_Hide("WW_WEIGHT_EXISTS")
-						else
-							self:GetParent().createButton:Click()
-						end
-					</OnEnterPressed>
-					<OnEscapePressed>
-						if StaticPopup_Visible("WW_WEIGHT_EXISTS") then
-							StaticPopup_Hide("WW_WEIGHT_EXISTS")
-						else
-							self:GetParent().cancelButton:Click()
-						end
-					</OnEscapePressed>
+					<OnLoad function="ww_editBoxTextInsets"/>
+					<OnTextChanged function="ww_weightNameTextChanged"/>
+					<OnEnterPressed function="ww_weightNameEnterPressed"/>
+					<OnEscapePressed function="ww_weightNameEscapePressed"/>
 				</Scripts>
 			</EditBox>
 			<Button name="$parentCreateButton" parentKey="createButton" inherits="ww_localizedButton" text="Create">
@@ -898,17 +666,7 @@
 					</Anchor>
 				</Anchors>
 				<Scripts>
-					<OnClick>
-						local class = UIDropDownMenu_GetSelectedValue(self:GetParent().dropdown)
-						local name = self:GetParent().editBox:GetText()
-						if ww_vars.weightsList[class][name] then
-							local error = StaticPopup_Show("WW_WEIGHT_EXISTS", ww_classDisplayNames[class], name)
-						else
-							ww_setWeight(class, name, self:GetParent().statList)
-							ww_selectWeight(class, name)
-							self:GetParent():Hide()
-						end
-					</OnClick>
+					<OnClick function="ww_createNewWeight"/>
 				</Scripts>
 			</Button>
 			<Button name="$parentCancelButton" parentKey="cancelButton" inherits="ww_localizedButton" text="Cancel">
@@ -923,19 +681,13 @@
 					</Anchor>
 				</Anchors>
 				<Scripts>
-					<OnClick>
-						self:GetParent():Hide()
-					</OnClick>
+					<OnClick function="ww_hidePopup"/>
 				</Scripts>
 			</Button>
 		</Frames>
 		<Scripts>
-			<OnLoad>
-				self.text:SetText(ww_localization[self.text:GetText()])
-			</OnLoad>
-			<OnShow>
-				self.editBox:SetFocus()
-			</OnShow>
+			<OnLoad function="ww_newWeightLocalizeText"/>
+			<OnShow function="ww_setFocusOnEditBox"/>
 		</Scripts>
 	</Frame>
 </Ui>

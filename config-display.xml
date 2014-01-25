@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+	<Script file="config-display.lua"/>
 	<Frame name="ww_configDisplayOptions" inherits="ww_borderedFrame" hidden="true">
 		<Anchors>
 			<Anchor point="TOPLEFT"/>
@@ -31,10 +32,7 @@
 					</Anchor>
 				</Anchors>
 				<Scripts>
-					<OnLoad>
-						self.label:SetText(ww_localization["SHOW_WTS"])
-						self.dropdown:SetText("showWeights")
-					</OnLoad>
+					<OnLoad function="ww_configShowWeights"/>
 				</Scripts>
 			</Frame>
 			<Frame name="$parentShowIdealWeights" parentKey="showIdealWeights" inherits="ww_modifierKeyDropDown">
@@ -46,10 +44,7 @@
 					</Anchor>
 				</Anchors>
 				<Scripts>
-					<OnLoad>
-						self.label:SetText(ww_localization["SHOW_IDEAL_WTS"])
-						self.dropdown:SetText("showIdealWeights")
-					</OnLoad>
+					<OnLoad function="ww_configShowIdealWeights"/>
 				</Scripts>
 			</Frame>
 			<Frame name="$parentShowEnhancements" parentKey="showEnhancements" inherits="ww_modifierKeyDropDown">
@@ -61,10 +56,7 @@
 					</Anchor>
 				</Anchors>
 				<Scripts>
-					<OnLoad>
-						self.label:SetText(ww_localization["SHOW_IDEAL_ENHANCEMENTS"])
-						self.dropdown:SetText("showEnhancements")
-					</OnLoad>
+					<OnLoad function="ww_configShowEnhancements"/>
 				</Scripts>
 			</Frame>
 			<Frame name="$parentShowAlternateEnhancements" parentKey="showAlternateEnhancements" inherits="ww_modifierKeyDropDown">
@@ -76,10 +68,7 @@
 					</Anchor>
 				</Anchors>
 				<Scripts>
-					<OnLoad>
-						self.label:SetText(ww_localization["SHOW_ALT_IDEAL_ENHANCEMENTS"])
-						self.dropdown:SetText("showAlternateEnhancements")
-					</OnLoad>
+					<OnLoad function="ww_configShowAlternateEnhancements"/>
 				</Scripts>
 			</Frame>
 			<Frame name="$parentShowEnhancementStats" parentKey="showEnhancementStats" inherits="ww_modifierKeyDropDown">
@@ -87,10 +76,7 @@
 					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentShowAlternateEnhancements"/>
 				</Anchors>
 				<Scripts>
-					<OnLoad>
-						self.label:SetText(ww_localization["SHOW_IDEAL_ENHANCEMENT_STATS"])
-						self.dropdown:SetText("showEnhancementStats")
-					</OnLoad>
+					<OnLoad function="ww_configShowEnhancementStats"/>
 				</Scripts>
 			</Frame>
 			<Frame name="$parentShowDebugInfo" parentKey="showDebugInfo" inherits="ww_modifierKeyDropDown">
@@ -103,10 +89,7 @@
 					</Anchor>
 				</Anchors>
 				<Scripts>
-					<OnLoad>
-						self.label:SetText(ww_localization["SHOW_DEBUG"])
-						self.dropdown:SetText("showDebugInfo")
-					</OnLoad>
+					<OnLoad function="ww_configShowDebugInfo"/>
 				</Scripts>
 			</Frame>
 			<Frame name="$parentShowEnhancementsWhen" parentKey="showEnhancementsWhen" inherits="ww_labeledElement">
@@ -131,20 +114,13 @@
 							</Anchor>
 						</Anchors>
 						<Scripts>
-							<OnLoad>
-								UIDropDownMenu_JustifyText(self, "LEFT")
-							</OnLoad>
-							<OnShow>
-								UIDropDownMenu_Initialize(self, ww_ShowEnhancementsWhenDropDownInitialize)
-								UIDropDownMenu_SetSelectedValue(self, ww_vars.options.tooltip.showEnhancementsWhen)
-							</OnShow>
+							<OnLoad function="ww_leftJustifyDropDownText"/>
+							<OnShow function="ww_configShowEnhancementsWhenDropdownLoad"/>
 						</Scripts>
 					</Button>
 				</Frames>
 				<Scripts>
-					<OnLoad>
-						self.label:SetText(ww_localization["SHOW_ENHANCEMENTS_WHEN"])
-					</OnLoad>
+					<OnLoad function="ww_configShowEnhancementsWhenLabel"/>
 				</Scripts>
 			</Frame>
 			<CheckButton name="$parentHideTooltipHints" parentKey="hideTooltipHints" inherits="ww_checkButton">
@@ -152,18 +128,8 @@
 					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowEnhancementsWhen"/>
 				</Anchors>
 				<Scripts>
-					<OnClick>
-						if self:GetChecked() then
-							ww_vars.options.tooltip.hideHints = true
-						else
-							ww_vars.options.tooltip.hideHints = false
-						end
-					</OnClick>
-					<OnLoad>
-						self.shouldBeChecked = function() return ww_vars.options.tooltip.hideHints end
-						self.ttText = ww_localization["HIDE_HINTS_TT"]
-						self:SetText(ww_localization["HIDE_HINTS"])
-					</OnLoad>
+					<OnClick function="ww_configHideTooltipHintsClick"/>
+					<OnLoad function="ww_configHideTooltipHintsLoad"/>
 				</Scripts>
 			</CheckButton>
 			<Frame name="$parentShowClassNames" parentKey="showClassNames" inherits="ww_labeledElement">
@@ -188,20 +154,13 @@
 							</Anchor>
 						</Anchors>
 						<Scripts>
-							<OnLoad>
-								UIDropDownMenu_JustifyText(self, "LEFT")
-							</OnLoad>
-							<OnShow>
-								UIDropDownMenu_Initialize(self, ww_ShowClassNameDropDownInitialize)
-								UIDropDownMenu_SetSelectedValue(self, ww_vars.options.tooltip.showClassNames)
-							</OnShow>
+							<OnLoad function="ww_leftJustifyDropDownText"/>
+							<OnShow function="ww_configShowClassNamesDropdownLoad"/>
 						</Scripts>
 					</Button>
 				</Frames>
 				<Scripts>
-					<OnLoad>
-						self.label:SetText(ww_localization["SHOW_CLASS"])
-					</OnLoad>
+					<OnLoad function="ww_configShowClassNamesLabel"/>
 				</Scripts>
 			</Frame>
 			<CheckButton name="$parentShowZeroScores" parentKey="showZeroScores" inherits="ww_checkButton">
@@ -209,18 +168,8 @@
 					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowClassNames"/>
 				</Anchors>
 				<Scripts>
-					<OnClick>
-						if self:GetChecked() then
-							ww_vars.options.tooltip.showZeroScores = true
-						else
-							ww_vars.options.tooltip.showZeroScores = false
-						end
-					</OnClick>
-					<OnLoad>
-						self.shouldBeChecked = function() return ww_vars.options.tooltip.showZeroScores end
-						self.ttText = ww_localization["SHOW_ZEROES_TT"]
-						self:SetText(ww_localization["SHOW_ZEROES"])
-					</OnLoad>
+					<OnClick function="ww_configShowZeroScoresClick"/>
+					<OnLoad function="ww_configShowZeroScoresLoad"/>
 				</Scripts>
 			</CheckButton>
 			<CheckButton name="$parentShowDifference" parentKey="showDifference" inherits="ww_checkButton">
@@ -228,18 +177,8 @@
 					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowZeroScores"/>
 				</Anchors>
 				<Scripts>
-					<OnClick>
-						if self:GetChecked() then
-							ww_vars.options.tooltip.showDifferences = true
-						else
-							ww_vars.options.tooltip.showDifferences = false
-						end
-					</OnClick>
-					<OnLoad>
-						self.shouldBeChecked = function() return ww_vars.options.tooltip.showDifferences end
-						self.ttText = ww_localization["SHOW_DIFF_TT"]
-						self:SetText(ww_localization["SHOW_DIFF"])
-					</OnLoad>
+					<OnClick function="ww_configShowDifferencesClick"/>
+					<OnLoad function="ww_configShowDifferencesLoad"/>
 				</Scripts>
 			</CheckButton>
 			<CheckButton name="$parentNormalizeWeights" parentKey="normalizeWeights" inherits="ww_checkButton">
@@ -247,58 +186,13 @@
 					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentShowDifference"/>
 				</Anchors>
 				<Scripts>
-					<OnClick>
-						if self:GetChecked() then
-							ww_vars.options.tooltip.normalizeWeights = true
-						else
-							ww_vars.options.tooltip.normalizeWeights = false
-						end
-						ww_weightCache = setmetatable({}, ww_weightCacheMetatable)
-						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
-					</OnClick>
-					<OnLoad>
-						self.shouldBeChecked = function() return ww_vars.options.tooltip.normalizeWeights end
-						self.ttText = ww_localization["NORMALIZE_TT"]
-						self:SetText(ww_localization["NORMALIZE"])
-					</OnLoad>
+					<OnClick function="ww_configNormalizeWeightsClick"/>
+					<OnLoad function="ww_configNormalizeWeightsLoad"/>
 				</Scripts>
 			</CheckButton>
 		</Frames>
 		<Scripts>
-			<OnLoad>
-				self.header:SetText(ww_localization["DISPLAY_OPTS"])
-				self.name = ww_localization["DISPLAY_NAME"]
-				self.parent = "WeightsWatcher"
-				self.default = function()
-						ww_vars.options.tooltip = ww_defaultVars.options.tooltip
-						ww_weightCache = setmetatable({}, ww_weightCacheMetatable)
-						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
-					end
-				local checkBoxes = {
-					"hideHints",
-					"showZeroScores",
-					"showDifferences",
-					"normalizeWeights",
-					hideHints = self.hideTooltipHints,
-					showZeroScores = self.showZeroScores,
-					showDifferences = self.showDifference,
-					normalizeWeights = self.normalizeWeights,
-				}
-				self.refresh = function()
-						for _, option in ipairs(checkBoxes) do
-							local checkBox = checkBoxes[option]
-							checkBox:SetChecked(checkBox.shouldBeChecked())
-							if checkBox.shouldBeEnabled then
-								if checkBox.shouldBeEnabled() then
-									checkBox:Enable()
-								else
-									checkBox:Disable()
-								end
-							end
-						end
-					end
-				InterfaceOptions_AddCategory(self)
-			</OnLoad>
+			<OnLoad function="ww_configDisplayLoad"/>
 		</Scripts>
 	</Frame>
 </Ui>

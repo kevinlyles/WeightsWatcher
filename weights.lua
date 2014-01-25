@@ -567,7 +567,8 @@ local function removeRecursive(shown, elements, start)
 	return offset
 end
 
-function ww_toggleCollapse(frame)
+function ww_toggleCollapse(self)
+	local frame = self:GetParent()
 	local scrolledFrame = frame
 	while scrolledFrame and not scrolledFrame.shown do
 		scrolledFrame = scrolledFrame:GetParent()
@@ -611,6 +612,269 @@ function ww_toggleCollapse(frame)
 		end
 	end
 	scrolledFrame.scrollFrame:GetScript("OnShow")(scrolledFrame.scrollFrame)
+	if frame.collapsed then
+		self:SetNormalTexture("Interface\\Buttons\\UI-PlusButton-UP")
+		self:SetPushedTexture("Interface\\Buttons\\UI-PlusButton-DOWN")
+	else
+		self:SetNormalTexture("Interface\\Buttons\\UI-MinusButton-UP")
+		self:SetPushedTexture("Interface\\Buttons\\UI-MinusButton-DOWN")
+	end
+end
+
+function ww_toggleTriggerActive(self)
+	-- The nots convert things to boolean (instead of 1/nil)
+	if not self:GetChecked() == not ww_weights.rightPanel.statList.triggers[self:GetText()] then
+		ww_weights.rightPanel.changedTriggers[self] = nil
+		local changed = false
+		for _ in pairs(ww_weights.rightPanel.changedStats) do
+			changed = true
+			break
+		end
+		if not changed then
+			for _ in pairs(ww_weights.rightPanel.changedTriggers) do
+				changed = true
+				break
+			end
+			if not changed then
+				ww_weights.rightPanel.saveButton:Disable()
+				ww_weights.rightPanel.resetButton:Disable()
+			end
+		end
+	else
+		ww_weights.rightPanel.changedTriggers[self] = self:GetText()
+		ww_weights.rightPanel.saveButton:Enable()
+		ww_weights.rightPanel.resetButton:Enable()
+	end
+end
+
+function ww_statValueTextChanged(self)
+	local text = self:GetText()
+	local number = tonumber(text)
+	if number then
+		self.number = number
+	elseif text:match("^[0.]*$") then
+		self.number = 0
+	end
+	if number == ww_weights.rightPanel.statList[self:GetParent().statName] or (number == 0 and ww_weights.rightPanel.statList[self:GetParent().statName] == nil) then
+		ww_weights.rightPanel.changedStats[self] = nil
+		local changed = false
+		for _ in pairs(ww_weights.rightPanel.changedStats) do
+			changed = true
+			break
+		end
+		for _ in pairs(ww_weights.rightPanel.changedTriggers) do
+			changed = true
+			break
+		end
+		if not changed then
+			ww_weights.rightPanel.saveButton:Disable()
+			ww_weights.rightPanel.resetButton:Disable()
+		end
+	else
+		ww_weights.rightPanel.changedStats[self] = self:GetParent().statName
+		ww_weights.rightPanel.saveButton:Enable()
+		ww_weights.rightPanel.resetButton:Enable()
+	end
+end
+
+function ww_statValueOnChar(self, text)
+	if ww_validateNumber(text, self:GetText()) then
+		self.number = tonumber(self:GetText()) or 0
+	else
+		local cursorPosition = self:GetCursorPosition() - 1
+		self:SetText(self.number)
+		self:SetCursorPosition(cursorPosition)
+	end
+end
+
+function ww_editFocusGained(self)
+	self:GetParent().highlightFrame:Show()
+	self:HighlightText()
+end
+
+function ww_editFocusLost(self)
+	self:GetParent().highlightFrame:Hide()
+	self:HighlightText(0,0)
+end
+
+function ww_statValueTabPressed(self)
+	ww_changeFocus(self:GetParent())
+end
+
+function ww_toggleWeightActive(self)
+	local parent = self:GetParent()
+	local class = parent.category.class
+
+	if not ww_charVars.activeWeights[class] then
+		ww_charVars.activeWeights[class] = {}
+		table.insert(ww_charVars.activeWeights, class)
+	end
+	if self:GetChecked() then
+		table.insert(ww_charVars.activeWeights[class], parent.name)
+	else
+		for i, weight in ipairs(ww_charVars.activeWeights[class]) do
+			if weight == parent.name then
+				table.remove(ww_charVars.activeWeights[class], i)
+				break
+			end
+		end
+	end
+end
+
+function ww_showWeightTooltip(self)
+	ww_showTooltip(self, ww_localization["WATCH_TT"])
+end
+
+function ww_confirmDiscardWeightChangesChangeWeight(self)
+	local function func()
+		ww_configSelectWeight(self:GetParent())
+	end
+
+	ww_configDiscardChanges(func)
+end
+
+function ww_classListScrollFrameOnShow(self)
+	ww_scrollBarUpdate(self, ww_weights.leftPanel.scrollContainer, 22, 0, 25)
+end
+
+function ww_scrollFrameOnVerticalScroll(self, offset)
+	FauxScrollFrame_OnVerticalScroll(self, offset, 22, self:GetScript("OnShow"))
+end
+
+function ww_copyWeight(self)
+	local parent = self:GetParent()
+	local weightFrame = parent.weightFrame
+	ww_configNewWeight(weightFrame.category.class, string.format(ww_localization["DEFAULT_COPY_NAME"], weightFrame.name), parent.statList)
+end
+
+function ww_copyButtonOnLoad(self)
+	ww_localizeText(self)
+	local relTo = self:GetParent().saveButton
+	local _, _, _, relToXOffset = relTo:GetPoint(1)
+	self:SetPoint("CENTER", relTo, (self:GetParent():GetWidth() - self:GetWidth() - 2 * relToXOffset) / 3, 0)
+end
+
+function ww_deleteButtonOnLoad(self)
+	ww_localizeText(self)
+	local relTo = self:GetParent().resetButton
+	local _, _, _, relToXOffset = relTo:GetPoint(1)
+	self:SetPoint("CENTER", relTo, (self:GetWidth() - 2 * relToXOffset - self:GetParent():GetWidth()) / 3, 0)
+end
+
+function ww_weightFrameScrollFrameOnShow(self)
+	ww_scrollBarUpdate(self, ww_weights.rightPanel.scrollContainer, 22, -30, 22)
+end
+
+function ww_weightFrameOnShow(self)
+	if not ww_weights.popup then
+		ww_changeFocus(self.scrollContainer.stats[#(self.scrollContainer.stats)])
+	end
+end
+
+function ww_restoreDefaultWeights()
+	local function func()
+		StaticPopup_Show("WW_CONFIRM_RESTORE_DEFAULT_WEIGHTS")
+	end
+
+	local weightFrame = ww_weights.rightPanel.weightFrame
+	if weightFrame and ww_defaultVars.weightsList[weightFrame.category.class][weightFrame.name] then
+		func()
+	else
+		ww_configDiscardChanges(func)
+	end
+end
+
+function ww_weightsOnShow(self)
+	function self:SmartHide(func)
+		self.afterHide = func
+		self:Hide()
+	end
+
+	ww_localizeText(self.title)
+	ww_localizeText(self.weightsAttribution)
+	table.insert(UISpecialFrames, self:GetName())
+end
+
+function ww_weightsOnHide(self)
+	if self.reallyClose then
+		self.reallyClose = nil
+		if self.afterHide then
+			self.afterHide()
+		end
+		self.afterHide = nil
+	else
+		local function func()
+			self.reallyClose = true
+			-- Safe because ww_configDiscardChanges will save the weight first
+			if self.rightPanel:IsShown() then
+				ww_configResetWeight()
+			end
+			self:Hide()
+			if self.afterHide then
+				self.afterHide()
+			end
+			self.afterHide = nil
+		end
+
+		self.popup = true
+		self:Show()
+		ww_configDiscardChanges(func)
+		self.popup = nil
+	end
+end
+
+function ww_initializeClassDropDown(self)
+	UIDropDownMenu_Initialize(self, ww_ClassDropDownInitialize)
+	UIDropDownMenu_SetSelectedValue(self, WeightsWatcher.player.class)
+end
+
+function ww_weightNameTextChanged(self)
+	if self:GetText() == "" then
+		self:GetParent().createButton:Disable()
+	else
+		self:GetParent().createButton:Enable()
+	end
+end
+
+local function handleWeightExistsPopup(button)
+	if StaticPopup_Visible("WW_WEIGHT_EXISTS") then
+		StaticPopup_Hide("WW_WEIGHT_EXISTS")
+	else
+		button:Click()
+	end
+end
+
+function ww_weightNameEnterPressed(self)
+	handleWeightExistsPopup(self:GetParent().createButton)
+end
+
+function ww_weightNameEscapePressed(self)
+	handleWeightExistsPopup(self:GetParent().cancelButton)
+end
+
+function ww_createNewWeight(self)
+	local parent = self:GetParent()
+	local class = UIDropDownMenu_GetSelectedValue(parent.dropdown)
+	local name = parent.editBox:GetText()
+	if ww_vars.weightsList[class][name] then
+		local error = StaticPopup_Show("WW_WEIGHT_EXISTS", ww_classDisplayNames[class], name)
+	else
+		ww_setWeight(class, name, parent.statList)
+		ww_selectWeight(class, name)
+		parent:Hide()
+	end
+end
+
+function ww_hidePopup(self)
+	self:GetParent():Hide()
+end
+
+function ww_newWeightLocalizeText(self)
+	ww_localizeText(self.text)
+end
+
+function ww_setFocusOnEditBox(self)
+	self.editBox:SetFocus()
 end
 
 local function loadStatButtons()

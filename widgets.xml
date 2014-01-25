@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+	<Script file="widgets.lua"/>
 	<Frame name="ww_borderedFrame" virtual="true">
 		<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
 			<EdgeSize>
@@ -42,13 +43,8 @@
 					</Anchor>
 				</Anchors>
 				<Scripts>
-					<OnLoad>
-						UIDropDownMenu_JustifyText(self, "LEFT")
-					</OnLoad>
-					<OnShow>
-						UIDropDownMenu_Initialize(self, ww_ModifierKeyDropDownInitialize)
-						UIDropDownMenu_SetSelectedValue(self, ww_vars.options.tooltip[self:GetText()])
-					</OnShow>
+					<OnLoad function="ww_leftJustifyDropDownText"/>
+					<OnShow function="ww_initializeModifierKeyDropDown"/>
 				</Scripts>
 			</Button>
 		</Frames>
@@ -70,36 +66,11 @@
 			</Anchor>
 		</Anchors>
 		<Scripts>
-			<OnDisable>
-				if not self.text then
-					self.text = _G[self:GetName() .. "Text"]
-				end
-				self.text:SetTextColor(0.5, 0.5, 0.5)
-			</OnDisable>
-			<OnEnable>
-				if not self.text then
-					self.text = _G[self:GetName() .. "Text"]
-				end
-				self.text:SetTextColor(1, 0.82, 0)
-			</OnEnable>
-			<OnEnter>
-				if self.ttText then
-					GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
-					GameTooltip:AddLine(self.ttText, 1, 1, 1)
-					GameTooltip:Show()
-				end
-			</OnEnter>
-			<OnLeave>
-				if self.ttText then
-					GameTooltip:Hide()
-				end
-			</OnLeave>
-			<OnShow>
-				if not self.text then
-					self.text = _G[self:GetName() .. "Text"]
-				end
-				self.text:SetText(self:GetText())
-			</OnShow>
+			<OnDisable function="ww_checkButtonDisable"/>
+			<OnEnable function="ww_checkButtonEnable"/>
+			<OnEnter function="ww_checkButtonTooltipShow"/>
+			<OnLeave function="ww_checkButtonTooltipHide"/>
+			<OnShow function="ww_checkButtonShow"/>
 		</Scripts>
 	</CheckButton>
 	<FontString name="ww_headerFont" inherits="GameFontNormalLarge" virtual="true">
@@ -120,9 +91,7 @@
 	<!-- Localizes the button text automatically -->
 	<Button name="ww_localizedButton" inherits="UIPanelButtonTemplate" virtual="true">
 		<Scripts>
-			<OnLoad>
-				self:SetText(ww_localization[self:GetText()])
-			</OnLoad>
+			<OnLoad function="ww_localizeText"/>
 		</Scripts>
 	</Button>
 	<!-- Adds a border that can be hidden/shown as a unit -->

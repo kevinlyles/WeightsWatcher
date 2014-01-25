@@ -19,6 +19,20 @@ local function showConfig(frame)
 	end
 end
 
+function ww_weightsCommand()
+	if InterfaceOptionsFrame:IsVisible() then
+		InterfaceOptionsFrameCancel:Click()
+	end
+	if InterfaceOptionsFrame:IsVisible() then
+		return
+	end
+	if ww_weights:IsVisible() then
+		ww_weights:Hide()
+	else
+		ww_weights:Show()
+	end
+end
+
 function ww_commandHandler(msg)
 	if msg:find("^" .. L["config"]) then
 		local frame = ww_config
@@ -40,17 +54,7 @@ function ww_commandHandler(msg)
 			showConfig(frame)
 		end
 	elseif msg == L["weights"] then
-		if InterfaceOptionsFrame:IsVisible() then
-			InterfaceOptionsFrameCancel:Click()
-		end
-		if InterfaceOptionsFrame:IsVisible() then
-			return
-		end
-		if ww_weights:IsVisible() then
-			ww_weights:Hide()
-		else
-			ww_weights:Show()
-		end
+		ww_weightsCommand()
 	elseif msg == L["version"] then
 		print(string.format(L["WW_VERSION"], GetAddOnMetadata("WeightsWatcher", "Version")))
 		print(string.format(L["ACCT_VERSION"], ww_vars.dataMajorVersion, ww_vars.dataMinorVersion))
@@ -176,4 +180,37 @@ function ww_ShowEnhancementsWhenDropDownInitialize(dropdown)
 		info.checked = nil
 		UIDropDownMenu_AddButton(info)
 	end
+end
+
+local function okay()
+	ww_config.originalOpts = nil
+end
+
+local function cancel()
+	ww_vars.options = ww_config.originalOpts
+	ww_config.originalOpts = nil
+	WeightsWatcher.ResetTables()
+end
+
+function ww_loadConfig(self)
+	local function refresh()
+		local function refresh()
+			ww_config.originalOpts = ww_config.originalOpts or ww_deepTableCopy(ww_vars.options)
+		end
+
+		self.version:SetText(string.format(ww_localization["CONF_WW_VER"], GetAddOnMetadata("WeightsWatcher", "Version")))
+		self.accountVersion:SetText(string.format(ww_localization["CONF_ACCT_VER"], ww_vars.dataMajorVersion, ww_vars.dataMinorVersion))
+		self.characterVersion:SetText(string.format(ww_localization["CONF_CHAR_VER"], ww_charVars.dataMajorVersion, ww_charVars.dataMinorVersion))
+		self.contact:SetText(string.format(ww_localization["CONF_CONTACT"], "WeightsWatcher@gmail.com"))
+		self.webpage:SetText(string.format(ww_localization["CONF_WEBPAGE"], "http://wowinterface.com/downloads/\n         info15289-WeightsWatcher.html"))
+		self.description:SetText(ww_localization["CONF_DESC"])
+		self.refresh = refresh
+		self.refresh()
+	end
+
+	self.name = "WeightsWatcher"
+	self.okay = okay
+	self.cancel = cancel
+	self.refresh = refresh
+	InterfaceOptions_AddCategory(self)
 end

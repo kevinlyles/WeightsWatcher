@@ -95,37 +95,12 @@
 					</Anchor>
 				</Anchors>
 				<Scripts>
-					<OnClick>
-						ww_commandHandler("weights")
-					</OnClick>
+					<OnClick function="ww_weightsCommand"/>
 				</Scripts>
 			</Button>
 		</Frames>
 		<Scripts>
-			<OnLoad>
-				self.name = "WeightsWatcher"
-				self.okay = function(...)
-						ww_config.originalOpts = nil
-					end
-				self.cancel = function(...)
-						ww_vars.options = ww_config.originalOpts
-						ww_config.originalOpts = nil
-						WeightsWatcher.ResetTables()
-					end
-				self.refresh = function(...)
-						self.version:SetText(string.format(ww_localization["CONF_WW_VER"], GetAddOnMetadata("WeightsWatcher", "Version")))
-						self.accountVersion:SetText(string.format(ww_localization["CONF_ACCT_VER"], ww_vars.dataMajorVersion, ww_vars.dataMinorVersion))
-						self.characterVersion:SetText(string.format(ww_localization["CONF_CHAR_VER"], ww_charVars.dataMajorVersion, ww_charVars.dataMinorVersion))
-						self.contact:SetText(string.format(ww_localization["CONF_CONTACT"], "WeightsWatcher@gmail.com"))
-						self.webpage:SetText(string.format(ww_localization["CONF_WEBPAGE"], "http://wowinterface.com/downloads/\n         info15289-WeightsWatcher.html"))
-						self.description:SetText(ww_localization["CONF_DESC"])
-						self.refresh = function(...)
-								ww_config.originalOpts = ww_config.originalOpts or ww_deepTableCopy(ww_vars.options)
-							end
-						self.refresh(...)
-					end
-				InterfaceOptions_AddCategory(self)
-			</OnLoad>
+			<OnLoad function="ww_loadConfig"/>
 		</Scripts>
 	</Frame>
 	<Include file="config-calculation.xml"/>

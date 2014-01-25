@@ -1,16 +1,10 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+	<Script file="init.lua"/>
 	<Frame name="WeightsWatcher" hidden="true">
 		<Scripts>
-			<OnLoad>
-				self:RegisterEvent("ADDON_LOADED")
-			</OnLoad>
-			<OnEvent>
-				if event == "ADDON_LOADED" and ... == "WeightsWatcher" then
-					self:OnInitialize()
-					self:UnregisterEvent("ADDON_LOADED")
-				end
-			</OnEvent>
+			<OnLoad function="ww_load"/>
+			<OnEvent function="ww_event"/>
 		</Scripts>
 	</Frame>
 </Ui>

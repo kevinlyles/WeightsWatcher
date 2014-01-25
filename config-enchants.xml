@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+	<Script file="config-enchants.lua"/>
 	<Frame name="ww_configEnchantOptions" inherits="ww_borderedFrame" hidden="true">
 		<Anchors>
 			<Anchor point="TOPLEFT"/>
@@ -22,20 +23,8 @@
 					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentHeader"/>
 				</Anchors>
 				<Scripts>
-					<OnClick>
-						if self:GetChecked() then
-							ww_vars.options.enchants.sources["Crafted"] = true
-						else
-							ww_vars.options.enchants.sources["Crafted"] = false
-						end
-						WeightsWatcher.ResetEnchantCache()
-						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
-					</OnClick>
-					<OnLoad>
-						self.shouldBeChecked = function() return ww_vars.options.enchants.sources["Crafted"] end
-						self.ttText = ww_localization["USE_PC_ENCH_TT"]
-						self:SetText(ww_localization["USE_PC_ENCH"])
-					</OnLoad>
+					<OnClick function="ww_configEnchantsCraftedClick"/>
+					<OnLoad function="ww_configEnchantsCraftedLoad"/>
 				</Scripts>
 			</CheckButton>
 			<CheckButton name="$parentUsePVPVendorEnchants" parentKey="usePVPVendorEnchants" inherits="ww_checkButton">
@@ -43,20 +32,8 @@
 					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseCraftedEnchants"/>
 				</Anchors>
 				<Scripts>
-					<OnClick>
-						if self:GetChecked() then
-							ww_vars.options.enchants.sources["PVP-Vendor"] = true
-						else
-							ww_vars.options.enchants.sources["PVP-Vendor"] = false
-						end
-						WeightsWatcher.ResetEnchantCache()
-						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
-					</OnClick>
-					<OnLoad>
-						self.shouldBeChecked = function() return ww_vars.options.enchants.sources["PVP-Vendor"] end
-						self.ttText = ww_localization["USE_PVPVP_ENCH_TT"]
-						self:SetText(ww_localization["USE_PVPVP_ENCH"])
-					</OnLoad>
+					<OnClick function="ww_configEnchantsPVPVendorClick"/>
+					<OnLoad function="ww_configEnchantsPVPVendorLoad"/>
 				</Scripts>
 			</CheckButton>
 			<CheckButton name="$parentUseQuestEnchants" parentKey="useQuestEnchants" inherits="ww_checkButton">
@@ -64,20 +41,8 @@
 					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUsePVPVendorEnchants"/>
 				</Anchors>
 				<Scripts>
-					<OnClick>
-						if self:GetChecked() then
-							ww_vars.options.enchants.sources["Quest"] = true
-						else
-							ww_vars.options.enchants.sources["Quest"] = false
-						end
-						WeightsWatcher.ResetEnchantCache()
-						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
-					</OnClick>
-					<OnLoad>
-						self.shouldBeChecked = function() return ww_vars.options.enchants.sources["Quest"] end
-						self.ttText = ww_localization["USE_QR_ENCH_TT"]
-						self:SetText(ww_localization["USE_QR_ENCH"])
-					</OnLoad>
+					<OnClick function="ww_configEnchantsQuestClick"/>
+					<OnLoad function="ww_configEnchantsQuestLoad"/>
 				</Scripts>
 			</CheckButton>
 			<CheckButton name="$parentUseVendorEnchants" parentKey="useVendorEnchants" inherits="ww_checkButton">
@@ -85,20 +50,8 @@
 					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentUseQuestEnchants"/>
 				</Anchors>
 				<Scripts>
-					<OnClick>
-						if self:GetChecked() then
-							ww_vars.options.enchants.sources["Vendor"] = true
-						else
-							ww_vars.options.enchants.sources["Vendor"] = false
-						end
-						WeightsWatcher.ResetEnchantCache()
-						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
-					</OnClick>
-					<OnLoad>
-						self.shouldBeChecked = function() return ww_vars.options.enchants.sources["Vendor"] end
-						self.ttText = ww_localization["USE_VP_ENCH_TT"]
-						self:SetText(ww_localization["USE_VP_ENCH"])
-					</OnLoad>
+					<OnClick function="ww_configEnchantsVendorClick"/>
+					<OnLoad function="ww_configEnchantsVendorLoad"/>
 				</Scripts>
 			</CheckButton>
 			<Frame name="$parentConsiderRep" parentKey="considerRep" inherits="ww_labeledElement">
@@ -123,25 +76,13 @@
 							</Anchor>
 						</Anchors>
 						<Scripts>
-							<OnLoad>
-								UIDropDownMenu_JustifyText(self, "LEFT")
-							</OnLoad>
-							<OnShow>
-								UIDropDownMenu_Initialize(self, ww_RepOptionsDropDownInitialize)
-								UIDropDownMenu_SetSelectedValue(self, ww_vars.options.enchants.considerRep)
-								if ww_vars.options.enchants.considerRep == "Any" then
-									ww_configEnchantOptions.considerBoa:Disable()
-								else
-									ww_configEnchantOptions.considerBoa:Enable()
-								end
-							</OnShow>
+							<OnLoad function="ww_leftJustifyDropDownText"/>
+							<OnShow function="ww_configEnchantsConsiderRepShow"/>
 						</Scripts>
 					</Button>
 				</Frames>
 				<Scripts>
-					<OnLoad>
-						self.label:SetText(ww_localization["USE_REP_ENCH"])
-					</OnLoad>
+					<OnLoad function="ww_configEnchantsConsiderRepLabel"/>
 				</Scripts>
 			</Frame>
 			<CheckButton name="$parentConsiderBoa" parentKey="considerBoa" inherits="ww_checkButton">
@@ -153,20 +94,8 @@
 					</Anchor>
 				</Anchors>
 				<Scripts>
-					<OnClick>
-						if self:GetChecked() then
-							ww_vars.options.enchants.considerBoa = true
-						else
-							ww_vars.options.enchants.considerBoa = false
-						end
-						WeightsWatcher.ResetEnchantCache()
-						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
-					</OnClick>
-					<OnLoad>
-						self.shouldBeChecked = function() return ww_vars.options.enchants.considerBoa end
-						self.ttText = ww_localization["USE_BTA_ENCH_TT"]
-						self:SetText(ww_localization["USE_BTA_ENCH"])
-					</OnLoad>
+					<OnClick function="ww_configEnchantsConsiderBoaClick"/>
+					<OnLoad function="ww_configEnchantsConsiderBoaLoad"/>
 				</Scripts>
 			</CheckButton>
 			<Frame name="$parentConsiderProfessions" parentKey="considerProfessions" inherits="ww_labeledElement">
@@ -191,53 +120,18 @@
 							</Anchor>
 						</Anchors>
 						<Scripts>
-							<OnLoad>
-								UIDropDownMenu_JustifyText(self, "LEFT")
-							</OnLoad>
-							<OnShow>
-								UIDropDownMenu_Initialize(self, ww_ProfessionOptionsDropDownInitialize)
-								UIDropDownMenu_SetSelectedValue(self, ww_vars.options.enchants.considerProfessions)
-							</OnShow>
+							<OnLoad function="ww_leftJustifyDropDownText"/>
+							<OnShow function="ww_configEnchantsConsiderProfessionsShow"/>
 						</Scripts>
 					</Button>
 				</Frames>
 				<Scripts>
-					<OnLoad>
-						self.label:SetText(ww_localization["USE_PROF_ENCH"])
-					</OnLoad>
+					<OnLoad function="ww_configEnchantsConsiderProfessionsLabel"/>
 				</Scripts>
 			</Frame>
 		</Frames>
 		<Scripts>
-			<OnLoad>
-				self.header:SetText(ww_localization["IDEAL_ENCHANT_OPTS"])
-				self.name = ww_localization["IDEAL_ENCHANT_NAME"]
-				self.parent = "WeightsWatcher"
-				self.default = function()
-						ww_vars.options.enchants = ww_defaultVars.options.enchants
-						WeightsWatcher.ResetEnchantCache()
-						ww_weightIdealCache = setmetatable({}, ww_weightIdealCacheMetatable)
-					end
-				local checkBoxes = {
-					"Crafted",
-					"PVP-Vendor",
-					"Quest",
-					"Vendor",
-					"considerBoa",
-					["Vendor"] = self.useVendorEnchants,
-					["PVP-Vendor"] = self.usePVPVendorEnchants,
-					["Crafted"] = self.useCraftedEnchants,
-					["Quest"] = self.useQuestEnchants,
-					["considerBoa"] = self.considerBoa,
-				}
-				self.refresh = function()
-						for _, option in ipairs(checkBoxes) do
-							local checkBox = checkBoxes[option]
-							checkBox:SetChecked(checkBox.shouldBeChecked())
-						end
-					end
-				InterfaceOptions_AddCategory(self)
-			</OnLoad>
+			<OnLoad function="ww_configEnchantsLoad"/>
 		</Scripts>
 	</Frame>
 </Ui>
