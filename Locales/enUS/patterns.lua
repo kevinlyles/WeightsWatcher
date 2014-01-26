@@ -570,7 +570,7 @@ ww_SingleStatLines = {
 		end,
 		{"generic"},
 	},
-	{"^chance on being hit to gain 20%% reduction to physical damage taken$",
+	{"^chance on being hit to gain 20%% reduction to damage taken$",
 		function(text, pattern)
 			return WeightsWatcher.newStatTable({[text] = 1})
 		end,

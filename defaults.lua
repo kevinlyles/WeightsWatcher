@@ -82,7 +82,7 @@ ww_trackedStats = {
 			"armor from items (percent)",
 			"average damage dealt on block",
 			"block value (percent)",
-			"chance on being hit to gain 20% reduction to physical damage taken",
+			"chance on being hit to gain 20% reduction to damage taken",
 			"chance to restore health on hit",
 			"damage absorption (2% chance)",
 			"damage absorption (5% chance)",
@@ -265,7 +265,7 @@ ww_classNameOptions = {
 
 ww_defaultVars = {
 	dataMajorVersion = 2,
-	dataMinorVersion = 6,
+	dataMinorVersion = 7,
 	weightsList = {
 		"DEATHKNIGHT",
 		"DRUID",

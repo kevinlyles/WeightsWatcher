@@ -19,6 +19,8 @@ local GenericPreprocessLines = {
 	{" critical strike %(ranged%)", " ranged critical strike"},
 	-- items 95346 and 95347
 	{", and ", " and "},
+	-- items 95346 and 95347
+	{" crit ", " critical strike "},
 }
 
 local GenericAffixes = {

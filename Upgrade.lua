@@ -36,6 +36,62 @@ local function noop_major_up(vars)
 	return vars
 end
 
+local function replaceStats(vars, conversions)
+	for _, class in ipairs(vars.weightsList) do
+		for _, weight in ipairs(vars.weightsList[class]) do
+			if vars.weightsList[class][weight] then
+				for oldStat, newStat in pairs(conversions) do
+					if vars.weightsList[class][weight][newStat] == nil then
+						vars.weightsList[class][weight][newStat] = vars.weightsList[class][weight][oldStat]
+					end
+					vars.weightsList[class][weight][oldStat] = nil
+				end
+			end
+		end
+	end
+end
+
+local replaceStatsStr = [[
+	local function replaceStats(vars, conversions)
+		for _, class in ipairs(vars.weightsList) do
+			for _, weight in ipairs(vars.weightsList[class]) do
+				if vars.weightsList[class][weight] then
+					for oldStat, newStat in pairs(conversions) do
+						if vars.weightsList[class][weight][newStat] == nil then
+							vars.weightsList[class][weight][newStat] = vars.weightsList[class][weight][oldStat]
+						end
+						vars.weightsList[class][weight][oldStat] = nil
+					end
+				end
+			end
+		end
+	end
+]]
+
+local function upgradeAccountToNewMetaEffects(vars)
+	local conversions = {
+		["chance on being hit to gain 20% reduction to physical damage taken"] = "chance on being hit to gain 20% reduction to damage taken",
+	}
+
+	replaceStats(vars, conversions)
+
+	vars.dataMinorVersion = 7
+	return vars
+end
+
+local downgradeAccountFromNewMetaEffects = replaceStatsStr .. [[
+	return function(vars)
+		local conversions = {
+			["chance on being hit to gain 20% reduction to damage taken"] = "chance on being hit to gain 20% reduction to physical damage taken",
+		}
+
+		replaceStats(vars, conversions)
+
+		vars.dataMinorVersion = 6
+		return vars
+	end
+]]
+
 local function upgradeAccountToReplaceEmptyOptions(vars)
 	if not vars.options then
 		vars.options = ww_deepTableCopy(ww_defaultVars.options)
@@ -1256,6 +1312,7 @@ local upgradeAccountFunctions = {
 		[3] = upgradeAccountToMoPEnhancements,
 		[4] = upgradeAccountToMonks,
 		[5] = upgradeAccountToReplaceEmptyOptions,
+		[6] = upgradeAccountToNewMetaEffects,
 	},
 }
 
@@ -1307,6 +1364,7 @@ local downgradeAccountFunctions = {
 		[4] = downgradeAccountFromMoPEnhancements,
 		[5] = noop_down,
 		[6] = noop_down,
+		[7] = downgradeAccountFromNewMetaEffects,
 	},
 }
 
