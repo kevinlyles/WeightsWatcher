@@ -570,40 +570,40 @@ end
 function ww_toggleCollapse(self)
 	local frame = self:GetParent()
 	local scrolledFrame = frame
+
 	while scrolledFrame and not scrolledFrame.shown do
 		scrolledFrame = scrolledFrame:GetParent()
 	end
+
+	local lengthChange
 	if frame.collapsed then
-		local lengthChange = insertRecursive(scrolledFrame.shown, {frame:GetChildren()}, frame.position)
+		lengthChange = insertRecursive(scrolledFrame.shown, { frame:GetChildren() }, frame.position)
 		for _, element in ipairs({frame:GetChildren()}) do
 			if element.name then
 				table.insert(frame.elements, element)
 			end
 		end
 		lengthChange = #(frame.elements) + lengthChange - 1
-		frame.length = frame.length + lengthChange
-		frame.collapsed = false
-		frame:SetHeight(scrolledFrame.elementHeight * frame.length)
-		local parent = frame:GetParent()
-		while parent.length do
-			parent.length = parent.length + lengthChange
-			parent:SetHeight(scrolledFrame.elementHeight * parent.length)
-			parent = parent:GetParent()
-		end
+		frame:SetHeight(scrolledFrame.elementHeight * (frame.length + lengthChange))
+		self:SetNormalTexture("Interface\\Buttons\\UI-MinusButton-UP")
+		self:SetPushedTexture("Interface\\Buttons\\UI-MinusButton-DOWN")
 	else
-		local lengthChange = removeRecursive(scrolledFrame.shown, frame.elements, frame.position + 1)
-		lengthChange = #(frame.elements) + lengthChange - 1
-		frame.length = frame.length - lengthChange
-		frame.elements = {frame.text}
-		frame.collapsed = true
+		lengthChange = removeRecursive(scrolledFrame.shown, frame.elements, frame.position + 1)
+		lengthChange = 1 - #(frame.elements) - lengthChange
+		frame.elements = { frame.text }
 		frame:SetHeight(scrolledFrame.elementHeight)
-		local parent = frame:GetParent()
-		while parent.length do
-			parent.length = parent.length - lengthChange
-			parent:SetHeight(scrolledFrame.elementHeight * parent.length)
-			parent = parent:GetParent()
-		end
+		self:SetNormalTexture("Interface\\Buttons\\UI-PlusButton-UP")
+		self:SetPushedTexture("Interface\\Buttons\\UI-PlusButton-DOWN")
 	end
+	frame.length = frame.length + lengthChange
+	frame.collapsed = not frame.collapsed
+	local parent = frame:GetParent()
+	while parent.length do
+		parent.length = parent.length + lengthChange
+		parent:SetHeight(scrolledFrame.elementHeight * parent.length)
+		parent = parent:GetParent()
+	end
+
 	for i, element in ipairs(scrolledFrame.shown) do
 		if element.position then
 			element.position = i
@@ -612,13 +612,6 @@ function ww_toggleCollapse(self)
 		end
 	end
 	scrolledFrame.scrollFrame:GetScript("OnShow")(scrolledFrame.scrollFrame)
-	if frame.collapsed then
-		self:SetNormalTexture("Interface\\Buttons\\UI-PlusButton-UP")
-		self:SetPushedTexture("Interface\\Buttons\\UI-PlusButton-DOWN")
-	else
-		self:SetNormalTexture("Interface\\Buttons\\UI-MinusButton-UP")
-		self:SetPushedTexture("Interface\\Buttons\\UI-MinusButton-DOWN")
-	end
 end
 
 function ww_toggleTriggerActive(self)
