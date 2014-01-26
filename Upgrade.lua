@@ -23,10 +23,10 @@ local function noop_up(vars)
 end
 
 local noop_down = [[
-	return function(vars)
-		vars.dataMinorVersion = vars.dataMinorVersion - 1
-		return vars
-	end
+return function(vars)
+	vars.dataMinorVersion = vars.dataMinorVersion - 1
+	return vars
+end
 ]]
 
 local function noop_major_up(vars)
@@ -52,20 +52,20 @@ local function replaceStats(vars, conversions)
 end
 
 local replaceStatsStr = [[
-	local function replaceStats(vars, conversions)
-		for _, class in ipairs(vars.weightsList) do
-			for _, weight in ipairs(vars.weightsList[class]) do
-				if vars.weightsList[class][weight] then
-					for oldStat, newStat in pairs(conversions) do
-						if vars.weightsList[class][weight][newStat] == nil then
-							vars.weightsList[class][weight][newStat] = vars.weightsList[class][weight][oldStat]
-						end
-						vars.weightsList[class][weight][oldStat] = nil
+local function replaceStats(vars, conversions)
+	for _, class in ipairs(vars.weightsList) do
+		for _, weight in ipairs(vars.weightsList[class]) do
+			if vars.weightsList[class][weight] then
+				for oldStat, newStat in pairs(conversions) do
+					if vars.weightsList[class][weight][newStat] == nil then
+						vars.weightsList[class][weight][newStat] = vars.weightsList[class][weight][oldStat]
 					end
+					vars.weightsList[class][weight][oldStat] = nil
 				end
 			end
 		end
 	end
+end
 ]]
 
 local function upgradeAccountToNewMetaEffects(vars)
@@ -80,16 +80,16 @@ local function upgradeAccountToNewMetaEffects(vars)
 end
 
 local downgradeAccountFromNewMetaEffects = replaceStatsStr .. [[
-	return function(vars)
-		local conversions = {
-			["chance on being hit to gain 20% reduction to damage taken"] = "chance on being hit to gain 20% reduction to physical damage taken",
-		}
+return function(vars)
+	local conversions = {
+		["chance on being hit to gain 20% reduction to damage taken"] = "chance on being hit to gain 20% reduction to physical damage taken",
+	}
 
-		replaceStats(vars, conversions)
+	replaceStats(vars, conversions)
 
-		vars.dataMinorVersion = 6
-		return vars
-	end
+	vars.dataMinorVersion = 6
+	return vars
+end
 ]]
 
 local function upgradeAccountToReplaceEmptyOptions(vars)
@@ -122,17 +122,17 @@ local function upgradeAccountToMoPEnhancements(vars)
 end
 
 local downgradeAccountFromMoPEnhancements = [[
-	return function(vars)
-		local limit = vars.options.gems.qualityLimit
-		if limit <= 13 and limit >= 11 then
-			vars.options.gems.qualityLimit = limit - 3
-		elseif limit == 14 then
-			vars.options.gems.qualityLimit = 10
-		end
-
-		vars.dataMinorVersion = 3
-		return vars
+return function(vars)
+	local limit = vars.options.gems.qualityLimit
+	if limit <= 13 and limit >= 11 then
+		vars.options.gems.qualityLimit = limit - 3
+	elseif limit == 14 then
+		vars.options.gems.qualityLimit = 10
 	end
+
+	vars.dataMinorVersion = 3
+	return vars
+end
 ]]
 
 local function upgradeAccountToPVPResilience(vars)
@@ -150,19 +150,19 @@ local function upgradeAccountToPVPResilience(vars)
 end
 
 local downgradeAccountFromPVPResilience = [[
-	return function(vars)
-		for _, class in ipairs(vars.weightsList) do
-			for _, weight in ipairs(vars.weightsList[class]) do
-				if vars.weightsList[class][weight]["resilience"] == nil then
-					vars.weightsList[class][weight]["resilience"] = vars.weightsList[class][weight]["pvp resilience"]
-				end
-				vars.weightsList[class][weight]["pvp resilience"] = nil
+return function(vars)
+	for _, class in ipairs(vars.weightsList) do
+		for _, weight in ipairs(vars.weightsList[class]) do
+			if vars.weightsList[class][weight]["resilience"] == nil then
+				vars.weightsList[class][weight]["resilience"] = vars.weightsList[class][weight]["pvp resilience"]
 			end
+			vars.weightsList[class][weight]["pvp resilience"] = nil
 		end
-
-		vars.dataMinorVersion = 2
-		return vars
 	end
+
+	vars.dataMinorVersion = 2
+	return vars
+end
 ]]
 
 local function upgradeAccountToMoPStats(vars)
@@ -198,37 +198,37 @@ local function upgradeAccountToMoPStats(vars)
 end
 
 local downgradeAccountFromMoPStats = [[
-	return function(vars)
-		local stats = {
-			"critical strike",
-			"dodge",
-			"expertise",
-			"haste",
-			"hit",
-			"mastery",
-			"parry",
-			"ranged critical strike",
-			"ranged haste",
-			"ranged hit",
-			"resilience",
-			"spell critical strike",
-			"spell hit"
-		}
+return function(vars)
+	local stats = {
+		"critical strike",
+		"dodge",
+		"expertise",
+		"haste",
+		"hit",
+		"mastery",
+		"parry",
+		"ranged critical strike",
+		"ranged haste",
+		"ranged hit",
+		"resilience",
+		"spell critical strike",
+		"spell hit"
+	}
 
-		for _, class in ipairs(vars.weightsList) do
-			for _, weight in ipairs(vars.weightsList[class]) do
-				for _, stat in ipairs(stats) do
-					if vars.weightsList[class][weight][stat .. " rating"] == nil then
-						vars.weightsList[class][weight][stat .. " rating"] = vars.weightsList[class][weight][stat]
-					end
-					vars.weightsList[class][weight][stat] = nil
+	for _, class in ipairs(vars.weightsList) do
+		for _, weight in ipairs(vars.weightsList[class]) do
+			for _, stat in ipairs(stats) do
+				if vars.weightsList[class][weight][stat .. " rating"] == nil then
+					vars.weightsList[class][weight][stat .. " rating"] = vars.weightsList[class][weight][stat]
 				end
+				vars.weightsList[class][weight][stat] = nil
 			end
 		end
-
-		vars.dataMinorVersion = 1
-		return vars
 	end
+
+	vars.dataMinorVersion = 1
+	return vars
+end
 ]]
 
 local function upgradeAccountToCriticalEffect(vars)
@@ -283,32 +283,32 @@ local function upgradeAccountToEnchants(vars)
 end
 
 local downgradeAccountFromEnchants = [[
-	return function(vars)
-		if not vars.options.useEffects then
-			vars.options.useEffects = {}
-		end
-		if not vars.options.useEffects.uptimeRatio then
-			vars.options.useEffects.uptimeRatio = vars.options.calculation.useEffectUptimeRatio or ww_defaultVars.options.useEffects.uptimeRatio
-		end
-
-		if vars.options.tooltip.showAlternateGems == nil then
-			vars.options.tooltip.showAlternateGems = vars.options.tooltip.showAlternateEnhancements or ww_defaultVars.options.tooltip.showAlternateGems
-		end
-		vars.options.tooltip.showAlternateEnhancements = nil
-		if vars.options.tooltip.showIdealGems == nil then
-			vars.options.tooltip.showIdealGems = vars.options.tooltip.showEnhancements or ww_defaultVars.options.tooltip.showIdealGems
-		end
-		vars.options.tooltip.showEnhancements = nil
-		if vars.options.tooltip.showIdealGemStats == nil then
-			vars.options.tooltip.showIdealGemStats = vars.options.tooltip.showEnhancementStats or ww_defaultVars.options.tooltip.showIdealGemStats
-		end
-		vars.options.tooltip.showEnhancementStats = nil
-
-		vars.dataMajorVersion = 1
-		vars.dataMinorVersion = 25
-
-		return vars
+return function(vars)
+	if not vars.options.useEffects then
+		vars.options.useEffects = {}
 	end
+	if not vars.options.useEffects.uptimeRatio then
+		vars.options.useEffects.uptimeRatio = vars.options.calculation.useEffectUptimeRatio or ww_defaultVars.options.useEffects.uptimeRatio
+	end
+
+	if vars.options.tooltip.showAlternateGems == nil then
+		vars.options.tooltip.showAlternateGems = vars.options.tooltip.showAlternateEnhancements or ww_defaultVars.options.tooltip.showAlternateGems
+	end
+	vars.options.tooltip.showAlternateEnhancements = nil
+	if vars.options.tooltip.showIdealGems == nil then
+		vars.options.tooltip.showIdealGems = vars.options.tooltip.showEnhancements or ww_defaultVars.options.tooltip.showIdealGems
+	end
+	vars.options.tooltip.showEnhancements = nil
+	if vars.options.tooltip.showIdealGemStats == nil then
+		vars.options.tooltip.showIdealGemStats = vars.options.tooltip.showEnhancementStats or ww_defaultVars.options.tooltip.showIdealGemStats
+	end
+	vars.options.tooltip.showEnhancementStats = nil
+
+	vars.dataMajorVersion = 1
+	vars.dataMinorVersion = 25
+
+	return vars
+end
 ]]
 
 local function UpgradeAccountToShowZeroScores(vars)
@@ -371,14 +371,14 @@ local function upgradeAccountToNewClassNameDisplayOptions(vars)
 end
 
 local downgradeAccountFromNewClassNameDisplayOptions = [[
-	return function(vars)
-		if vars.options.tooltip.showClassNames == "Other Classes" then
-			vars.options.tooltip.showClassNames = "Others"
-		end
-
-		vars.dataMinorVersion = 20
-		return vars
+return function(vars)
+	if vars.options.tooltip.showClassNames == "Other Classes" then
+		vars.options.tooltip.showClassNames = "Others"
 	end
+
+	vars.dataMinorVersion = 20
+	return vars
+end
 ]]
 
 local function upgradeAccountToRangedCritHasteAndHit(vars)
@@ -456,21 +456,21 @@ local function upgradeAccountToAverageWeaponDamage(vars)
 end
 
 local downgradeAccountFromAverageWeaponDamage = [[
-	return function(vars)
-		for _, class in ipairs(vars.weightsList) do
-			for _, weight in ipairs(vars.weightsList[class]) do
-				if vars.weightsList[class][weight]["minimum melee weapon damage"] == nil then
-					vars.weightsList[class][weight]["minimum melee weapon damage"] = vars.weightsList[class][weight]["average melee weapon damage"]
-				end
-				if vars.weightsList[class][weight]["minimum ranged weapon damage"] == nil then
-					vars.weightsList[class][weight]["minimum ranged weapon damage"] = vars.weightsList[class][weight]["average ranged weapon damage"]
-				end
+return function(vars)
+	for _, class in ipairs(vars.weightsList) do
+		for _, weight in ipairs(vars.weightsList[class]) do
+			if vars.weightsList[class][weight]["minimum melee weapon damage"] == nil then
+				vars.weightsList[class][weight]["minimum melee weapon damage"] = vars.weightsList[class][weight]["average melee weapon damage"]
+			end
+			if vars.weightsList[class][weight]["minimum ranged weapon damage"] == nil then
+				vars.weightsList[class][weight]["minimum ranged weapon damage"] = vars.weightsList[class][weight]["average ranged weapon damage"]
 			end
 		end
-
-		vars.dataMinorVersion = 16
-		return vars
 	end
+
+	vars.dataMinorVersion = 16
+	return vars
+end
 ]]
 
 local function upgradeAccountToMeleeStatsAndRangedWeaponDamage(vars)
@@ -506,30 +506,30 @@ local function upgradeAccountToMeleeStatsAndRangedWeaponDamage(vars)
 end
 
 local downgradeAccountFromMeleeStatsAndRangedWeaponDamage = [[
-	return function(vars)
-		for _, class in ipairs(vars.weightsList) do
-			for _, weight in ipairs(vars.weightsList[class]) do
-				if vars.weightsList[class][weight]["maximum weapon damage"] == nil then
-					vars.weightsList[class][weight]["maximum weapon damage"] = vars.weightsList[class][weight]["maximum ranged weapon damage"]
-				end
-				if vars.weightsList[class][weight]["minimum weapon damage"] == nil then
-					vars.weightsList[class][weight]["minimum weapon damage"] = vars.weightsList[class][weight]["minimum ranged weapon damage"]
-				end
-				if vars.weightsList[class][weight]["dps"] == nil then
-					vars.weightsList[class][weight]["dps"] = vars.weightsList[class][weight]["melee dps"]
-				end
-				if vars.weightsList[class][weight]["minimum weapon damage"] == nil then
-					vars.weightsList[class][weight]["minimum weapon damage"] = vars.weightsList[class][weight]["minimum melee weapon damage"]
-				end
-				if vars.weightsList[class][weight]["maximum weapon damage"] == nil then
-					vars.weightsList[class][weight]["maximum weapon damage"] = vars.weightsList[class][weight]["maximum melee weapon damage"]
-				end
+return function(vars)
+	for _, class in ipairs(vars.weightsList) do
+		for _, weight in ipairs(vars.weightsList[class]) do
+			if vars.weightsList[class][weight]["maximum weapon damage"] == nil then
+				vars.weightsList[class][weight]["maximum weapon damage"] = vars.weightsList[class][weight]["maximum ranged weapon damage"]
+			end
+			if vars.weightsList[class][weight]["minimum weapon damage"] == nil then
+				vars.weightsList[class][weight]["minimum weapon damage"] = vars.weightsList[class][weight]["minimum ranged weapon damage"]
+			end
+			if vars.weightsList[class][weight]["dps"] == nil then
+				vars.weightsList[class][weight]["dps"] = vars.weightsList[class][weight]["melee dps"]
+			end
+			if vars.weightsList[class][weight]["minimum weapon damage"] == nil then
+				vars.weightsList[class][weight]["minimum weapon damage"] = vars.weightsList[class][weight]["minimum melee weapon damage"]
+			end
+			if vars.weightsList[class][weight]["maximum weapon damage"] == nil then
+				vars.weightsList[class][weight]["maximum weapon damage"] = vars.weightsList[class][weight]["maximum melee weapon damage"]
 			end
 		end
-
-		vars.dataMinorVersion = 15
-		return vars
 	end
+
+	vars.dataMinorVersion = 15
+	return vars
+end
 ]]
 
 local function upgradeAccountToFixStunResistChance(vars)
@@ -554,19 +554,19 @@ local function FixStunResistChance(vars)
 end
 
 local downgradeAccountFromFixStunResistChance = [[
-	return function(vars)
-		for _, class in ipairs(vars.weightsList) do
-			for _, weight in ipairs(vars.weightsList[class]) do
-				if vars.weightsList[class][weight]["stun resistance (percent)"] == nil then
-					vars.weightsList[class][weight]["stun resistance (percent)"] = vars.weightsList[class][weight]["stun resist chance (percent)"]
-					vars.weightsList[class][weight]["stun resist chance (percent)"] = nil
-				end
+return function(vars)
+	for _, class in ipairs(vars.weightsList) do
+		for _, weight in ipairs(vars.weightsList[class]) do
+			if vars.weightsList[class][weight]["stun resistance (percent)"] == nil then
+				vars.weightsList[class][weight]["stun resistance (percent)"] = vars.weightsList[class][weight]["stun resist chance (percent)"]
+				vars.weightsList[class][weight]["stun resist chance (percent)"] = nil
 			end
 		end
-
-		vars.dataMinorVersion = 13
-		return vars
 	end
+
+	vars.dataMinorVersion = 13
+	return vars
+end
 ]]
 
 local function upgradeAccountToDebugKey(vars)
@@ -614,21 +614,21 @@ local function upgradeAccountToTriggers(vars)
 end
 
 local downgradeAccountFromTriggers = [[
-	return function(vars)
-		vars.savedTriggers = {}
-		for i, class in ipairs(vars.weightsList) do
-			vars.savedTriggers[i] = class
-			vars.savedTriggers[class] = {}
-			for j, weight in ipairs(vars.weightsList[class]) do
-				vars.savedTriggers[class][j] = weight
-				vars.savedTriggers[class][weight] = vars.weightsList[class][weight].triggers
-				vars.weightsList[class][weight].triggers = nil
-			end
+return function(vars)
+	vars.savedTriggers = {}
+	for i, class in ipairs(vars.weightsList) do
+		vars.savedTriggers[i] = class
+		vars.savedTriggers[class] = {}
+		for j, weight in ipairs(vars.weightsList[class]) do
+			vars.savedTriggers[class][j] = weight
+			vars.savedTriggers[class][weight] = vars.weightsList[class][weight].triggers
+			vars.weightsList[class][weight].triggers = nil
 		end
-
-		vars.dataMinorVersion = 11
-		return vars
 	end
+
+	vars.dataMinorVersion = 11
+	return vars
+end
 ]]
 
 local function upgradeAccountToUseEffectRatio(vars)
@@ -756,44 +756,44 @@ local function upgradeAccountToGemSources(vars)
 end
 
 local downgradeAccountFromGemSources = [[
-	return function(vars)
-		if not vars.options.gems.usedTypes then
-			vars.options.gems.usedTypes = {}
-		end
+return function(vars)
+	if not vars.options.gems.usedTypes then
+		vars.options.gems.usedTypes = {}
+	end
 
-		if vars.options.gems.types then
-			if vars.options.gems.usedTypes["Normal"] == nil then
-				vars.options.gems.usedTypes["Normal"] = vars.options.gems.types["Normal"]
-			end
-			if vars.options.gems.usedTypes["Unique-Equipped"] == nil then
-				vars.options.gems.usedTypes["Unique-Equipped"] = vars.options.gems.types["Unique-Equipped"]
-			end
-			if vars.options.gems.usedTypes["Jewelcrafter-Only"] == nil then
-				vars.options.gems.usedTypes["Jewelcrafter-Only"] = vars.options.gems.types["Jewelcrafter-Only"]
-			end
-		end
-		if vars.options.gems.sources then
-			if vars.options.gems.usedTypes["Procced"] == nil then
-				vars.options.gems.usedTypes["Procced"] = vars.options.gems.sources["Procced"]
-			end
-		end
-
+	if vars.options.gems.types then
 		if vars.options.gems.usedTypes["Normal"] == nil then
-			vars.options.gems.usedTypes["Normal"] = true
+			vars.options.gems.usedTypes["Normal"] = vars.options.gems.types["Normal"]
 		end
 		if vars.options.gems.usedTypes["Unique-Equipped"] == nil then
-			vars.options.gems.usedTypes["Unique-Equipped"] = false
+			vars.options.gems.usedTypes["Unique-Equipped"] = vars.options.gems.types["Unique-Equipped"]
 		end
 		if vars.options.gems.usedTypes["Jewelcrafter-Only"] == nil then
-			vars.options.gems.usedTypes["Jewelcrafter-Only"] = false
+			vars.options.gems.usedTypes["Jewelcrafter-Only"] = vars.options.gems.types["Jewelcrafter-Only"]
 		end
-		if vars.options.gems.usedTypes["Procced"] == nil then
-			vars.options.gems.usedTypes["Procced"] = true
-		end
-
-		vars.dataMinorVersion = 5
-		return vars
 	end
+	if vars.options.gems.sources then
+		if vars.options.gems.usedTypes["Procced"] == nil then
+			vars.options.gems.usedTypes["Procced"] = vars.options.gems.sources["Procced"]
+		end
+	end
+
+	if vars.options.gems.usedTypes["Normal"] == nil then
+		vars.options.gems.usedTypes["Normal"] = true
+	end
+	if vars.options.gems.usedTypes["Unique-Equipped"] == nil then
+		vars.options.gems.usedTypes["Unique-Equipped"] = false
+	end
+	if vars.options.gems.usedTypes["Jewelcrafter-Only"] == nil then
+		vars.options.gems.usedTypes["Jewelcrafter-Only"] = false
+	end
+	if vars.options.gems.usedTypes["Procced"] == nil then
+		vars.options.gems.usedTypes["Procced"] = true
+	end
+
+	vars.dataMinorVersion = 5
+	return vars
+end
 ]]
 
 local function upgradeAccountToFixedConfigOptions(vars)
@@ -821,17 +821,17 @@ local function upgradeAccountToFixedConfigOptions(vars)
 end
 
 local downgradeAccountFromFixedConfigOptions = [[
-	return function(vars)
-		if vars.options.tooltip.normalizeWeights ~= nil then
-			vars.options.normalizeWeights = vars.options.tooltip.normalizeWeights
-			vars.options.tooltip.normalizeWeights = nil
-		else
-			vars.options.normalizeWeights = true
-		end
-
-		vars.dataMinorVersion = 4
-		return vars
+return function(vars)
+	if vars.options.tooltip.normalizeWeights ~= nil then
+		vars.options.normalizeWeights = vars.options.tooltip.normalizeWeights
+		vars.options.tooltip.normalizeWeights = nil
+	else
+		vars.options.normalizeWeights = true
 	end
+
+	vars.dataMinorVersion = 4
+	return vars
+end
 ]]
 
 local function upgradeAccountToPartitionedGems(vars)
@@ -873,35 +873,35 @@ local function upgradeAccountToPartitionedGems(vars)
 end
 
 local downgradeAccountFromPartitionedGems = [[
-	return function(vars)
-		local qualityConversion = {
-			[1] = 1,
-			[2] = 2,
-			[3] = 3,
-			[4] = 4,
-			[5] = 6,
-			[6] = 8,
-			[7] = 9,
-		}
+return function(vars)
+	local qualityConversion = {
+		[1] = 1,
+		[2] = 2,
+		[3] = 3,
+		[4] = 4,
+		[5] = 6,
+		[6] = 8,
+		[7] = 9,
+	}
 
-		vars.options.gemQualityLimit = qualityConversion[vars.options.gems.qualityLimit]
-		if vars.options.gems.usedTypes["Unique-Equipped"] and (vars.options.gems.qualityLimit == 4 or vars.options.gems.qualityLimit == 7) then
-			vars.options.gemQualityLimit = vars.options.gemQualityLimit + 1
-		end
-		if vars.options.gems.usedTypes["Procced"] and vars.options.gems.qualityLimit == 5 then
-			vars.options.gemQualityLimit = 7
-		end
-		if vars.options.gems.usedTypes["Jewelcrafter-Only"] and vars.options.gems.qualityLimit == 7 then
-			vars.options.gemQualityLimit = 11
-		end
-		vars.options.breakSocketColors = vars.options.gems.breakSocketColors
-		vars.options.neverBreakSocketColors = vars.options.gems.neverBreakSocketColors
-
-		vars.options.gems = nil
-
-		vars.dataMinorVersion = 3
-		return vars
+	vars.options.gemQualityLimit = qualityConversion[vars.options.gems.qualityLimit]
+	if vars.options.gems.usedTypes["Unique-Equipped"] and (vars.options.gems.qualityLimit == 4 or vars.options.gems.qualityLimit == 7) then
+		vars.options.gemQualityLimit = vars.options.gemQualityLimit + 1
 	end
+	if vars.options.gems.usedTypes["Procced"] and vars.options.gems.qualityLimit == 5 then
+		vars.options.gemQualityLimit = 7
+	end
+	if vars.options.gems.usedTypes["Jewelcrafter-Only"] and vars.options.gems.qualityLimit == 7 then
+		vars.options.gemQualityLimit = 11
+	end
+	vars.options.breakSocketColors = vars.options.gems.breakSocketColors
+	vars.options.neverBreakSocketColors = vars.options.gems.neverBreakSocketColors
+
+	vars.options.gems = nil
+
+	vars.dataMinorVersion = 3
+	return vars
+end
 ]]
 
 local function upgradeAccountToShowDifferences(vars)
@@ -968,59 +968,59 @@ local function upgradeAccountToBetterMetaEffectNames(vars)
 end
 
 local downgradeAccountFromBetterMetaEffectNames = [[
-	return function (vars)
-		local newName
-		local conversion = {
-			["armor from items (percent)"] = "armor from items percent",
-			["block value (percent)"] = "block value percent",
-			["chance to increase physical haste"] = "chance to increase melee/ranged attack speed",
-			["chance to increase spell haste"] = "chance to increase spell cast speed",
-			["critical damage (percent)"] = "critical damage percent",
-			["critical healing (percent)"] = "critical healing percent",
-			["fear duration reduction (percent)"] = "fear duration reduction percent",
-			["silence duration reduction (percent)"] = "silence duration reduction percent",
-			["snare/root duration reduction (percent)"] = "snare/root duration reduction percent",
-			["spell damage taken reduction (percent)"] = "spell damage taken reduction percent",
-			["spell reflect (percent)"] = "spell reflect percent",
-			["stun duration reduction (percent)"] = "stun duration reduction percent",
-			["stun resistance (percent)"] = "stun resistance percent",
-			["threat reduction (percent)"] = "threat reduction percent",
-		}
+return function(vars)
+	local newName
+	local conversion = {
+		["armor from items (percent)"] = "armor from items percent",
+		["block value (percent)"] = "block value percent",
+		["chance to increase physical haste"] = "chance to increase melee/ranged attack speed",
+		["chance to increase spell haste"] = "chance to increase spell cast speed",
+		["critical damage (percent)"] = "critical damage percent",
+		["critical healing (percent)"] = "critical healing percent",
+		["fear duration reduction (percent)"] = "fear duration reduction percent",
+		["silence duration reduction (percent)"] = "silence duration reduction percent",
+		["snare/root duration reduction (percent)"] = "snare/root duration reduction percent",
+		["spell damage taken reduction (percent)"] = "spell damage taken reduction percent",
+		["spell reflect (percent)"] = "spell reflect percent",
+		["stun duration reduction (percent)"] = "stun duration reduction percent",
+		["stun resistance (percent)"] = "stun resistance percent",
+		["threat reduction (percent)"] = "threat reduction percent",
+	}
 
-		for _, class in ipairs(vars.weightsList) do
-			for _, weight in ipairs(vars.weightsList[class]) do
-				for stat, value in pairs(vars.weightsList[class][weight]) do
-					newName = conversion[stat]
-					-- move the value to the new stat name
-					if newName then
-						vars.weightsList[class][weight][stat] = nil
-						vars.weightsList[class][weight][newName] = value
-					end
+	for _, class in ipairs(vars.weightsList) do
+		for _, weight in ipairs(vars.weightsList[class]) do
+			for stat, value in pairs(vars.weightsList[class][weight]) do
+				newName = conversion[stat]
+				-- move the value to the new stat name
+				if newName then
+					vars.weightsList[class][weight][stat] = nil
+					vars.weightsList[class][weight][newName] = value
 				end
 			end
 		end
-
-		vars.dataMinorVersion = 0
-		return vars
 	end
+
+	vars.dataMinorVersion = 0
+	return vars
+end
 ]]
 
 local downgradeAccountToDevelopment = [[
-	return function(vars)
-		vars.dataMajorVersion = 0
-		vars.dataMinorVersion = 10
+return function(vars)
+	vars.dataMajorVersion = 0
+	vars.dataMinorVersion = 10
 
-		return vars
-	end
+	return vars
+end
 ]]
 
 local downgradeCharToDevelopment = [[
-	return function(vars)
-		vars.dataMajorVersion = 0
-		vars.dataMinorVersion = 2
+return function(vars)
+	vars.dataMajorVersion = 0
+	vars.dataMinorVersion = 2
 
-		return vars
-	end
+	return vars
+end
 ]]
 
 local function upgradeAccountToConfig(vars)
@@ -1059,40 +1059,40 @@ local function upgradeAccountToConfig(vars)
 end
 
 local downgradeAccountFromConfig = [[
-	return function(vars)
-		local table = vars.options.tooltip
-		local conversion = {
-			["Always"] = true,
-			["Never"] = false,
-			["Left Shift"] = "LSHIFT",
-			["Right Shift"] = "RSHIFT",
-			["Shift"] = "SHIFT",
-			["Left Alt"] = "LALT",
-			["Right Alt"] = "RALT",
-			["Alt"] = "ALT",
-			["Left Control"] = "LCTRL",
-			["Right Control"] = "RCTRL",
-			["Control"] = "CTRL",
-		}
-		local keys = {
-			["showIdealGemStats"] = true,
-			["showIdealWeights"] = true,
-			["showWeights"] = true,
-			["showIdealGems"] = true,
-		}
+return function(vars)
+	local table = vars.options.tooltip
+	local conversion = {
+		["Always"] = true,
+		["Never"] = false,
+		["Left Shift"] = "LSHIFT",
+		["Right Shift"] = "RSHIFT",
+		["Shift"] = "SHIFT",
+		["Left Alt"] = "LALT",
+		["Right Alt"] = "RALT",
+		["Alt"] = "ALT",
+		["Left Control"] = "LCTRL",
+		["Right Control"] = "RCTRL",
+		["Control"] = "CTRL",
+	}
+	local keys = {
+		["showIdealGemStats"] = true,
+		["showIdealWeights"] = true,
+		["showWeights"] = true,
+		["showIdealGems"] = true,
+	}
 
-		for key, value in pairs(table) do
-			if keys[key] then
-				if conversion[value] == nil then
-					return nil
-				end
-				table[key] = conversion[value]
+	for key, value in pairs(table) do
+		if keys[key] then
+			if conversion[value] == nil then
+				return nil
 			end
+			table[key] = conversion[value]
 		end
-
-		vars.dataMinorVersion = 9
-		return vars
 	end
+
+	vars.dataMinorVersion = 9
+	return vars
+end
 ]]
 
 local function upgradeAccountForceGemColors(vars)
@@ -1162,20 +1162,20 @@ local function upgradeAccountToOrderedLists(vars)
 end
 
 local downgradeAccountFromOrderedLists = [[
-	return function(vars)
-		local weightsListCopy = {}
+return function(vars)
+	local weightsListCopy = {}
 
-		for i, class in ipairs(vars.weightsList) do
-			weightsListCopy[class] = {}
-			for j, weight in ipairs(vars.weightsList[class]) do
-				weightsListCopy[class][weight] = class[weight]
-			end
+	for i, class in ipairs(vars.weightsList) do
+		weightsListCopy[class] = {}
+		for j, weight in ipairs(vars.weightsList[class]) do
+			weightsListCopy[class][weight] = class[weight]
 		end
-		vars.weightsList = weightsListCopy
-
-		vars.dataMinorVersion = 3
-		return vars
 	end
+	vars.weightsList = weightsListCopy
+
+	vars.dataMinorVersion = 3
+	return vars
+end
 ]]
 
 local function upgradeCharToOrderedLists(vars)
@@ -1203,20 +1203,20 @@ local function upgradeCharToOrderedLists(vars)
 end
 
 local downgradeCharFromOrderedLists = [[
-	return function(vars)
-		local activeWeightsCopy = {}
+return function(vars)
+	local activeWeightsCopy = {}
 
-		for i, class in ipairs(vars.activeWeights) do
-			activeWeightsCopy[class] = {}
-			for j, weight in ipairs(vars.activeWeights[class]) do
-				activeWeightsCopy[class][j] = weight
-			end
+	for i, class in ipairs(vars.activeWeights) do
+		activeWeightsCopy[class] = {}
+		for j, weight in ipairs(vars.activeWeights[class]) do
+			activeWeightsCopy[class][j] = weight
 		end
-		vars.activeWeights = activeWeightsCopy
-
-		vars.dataMinorVersion = 1
-		return vars
 	end
+	vars.activeWeights = activeWeightsCopy
+
+	vars.dataMinorVersion = 1
+	return vars
+end
 ]]
 
 local function upgradeAccountToGemQuality(vars)
