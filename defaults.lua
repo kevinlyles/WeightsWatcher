@@ -265,7 +265,7 @@ ww_classNameOptions = {
 
 ww_defaultVars = {
 	dataMajorVersion = 2,
-	dataMinorVersion = 7,
+	dataMinorVersion = 8,
 	weightsList = {
 		"DEATHKNIGHT",
 		"DRUID",
@@ -283,7 +283,6 @@ ww_defaultVars = {
 			ww_specNames["Frost"],
 			ww_specNames["Frost DW"],
 			ww_specNames["Unholy"],
-			ww_specNames["Unholy DW"],
 			[ww_specNames["Blood"]] = {
 				["mastery"] = 1.3,
 				["strength"] = 1.2,

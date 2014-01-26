@@ -50,7 +50,6 @@ ww_specNames = {
 	["Subtlety"] = "Subtlety",
 	["Survival"] = "Survival",
 	["Unholy"] = "Unholy",
-	["Unholy DW"] = "Unholy DW",
 	["Windwalker"] = "Windwalker",
 	["Windwalker DW"] = "Windwalker DW",
 }

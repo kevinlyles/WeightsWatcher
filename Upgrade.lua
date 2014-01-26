@@ -68,6 +68,27 @@ local function replaceStats(vars, conversions)
 end
 ]]
 
+local function removedDeletedWeights(vars)
+	for _, class in ipairs(vars.weightsList) do
+		local indexesToRemove = {}
+
+		for index, weight in ipairs(vars.weightsList[class]) do
+			if not vars.weightsList[class][weight] then
+				table.insert(indexesToRemove, index)
+			end
+		end
+
+		table.sort(indexesToRemove)
+		for i = #(indexesToRemove), 1, -1 do
+			table.remove(vars.weightsList[class], indexesToRemove[i])
+		end
+	end
+
+	vars.dataMinorVersion = vars.dataMinorVersion + 1
+
+	return vars
+end
+
 local function upgradeAccountToNewMetaEffects(vars)
 	local conversions = {
 		["chance on being hit to gain 20% reduction to physical damage taken"] = "chance on being hit to gain 20% reduction to damage taken",
@@ -1263,6 +1284,7 @@ local upgradeAccountFunctions = {
 		[4] = upgradeAccountToMonks,
 		[5] = upgradeAccountToReplaceEmptyOptions,
 		[6] = upgradeAccountToNewMetaEffects,
+		[7] = removedDeletedWeights,
 	},
 }
 
@@ -1315,6 +1337,7 @@ local downgradeAccountFunctions = {
 		[5] = noop_down,
 		[6] = noop_down,
 		[7] = downgradeAccountFromNewMetaEffects,
+		[8] = noop_down,
 	},
 }
 
