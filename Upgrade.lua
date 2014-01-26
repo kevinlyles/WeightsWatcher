@@ -136,29 +136,17 @@ end
 ]]
 
 local function upgradeAccountToPVPResilience(vars)
-	for _, class in ipairs(vars.weightsList) do
-		for _, weight in ipairs(vars.weightsList[class]) do
-			if vars.weightsList[class][weight]["pvp resilience"] == nil then
-				vars.weightsList[class][weight]["pvp resilience"] = vars.weightsList[class][weight]["resilience"]
-			end
-			vars.weightsList[class][weight]["resilience"] = nil
-		end
-	end
+	local conversions = { ["resilience"] = "pvp resilience" }
+	replaceStats(vars, conversions)
 
 	vars.dataMinorVersion = 3
 	return vars
 end
 
-local downgradeAccountFromPVPResilience = [[
+local downgradeAccountFromPVPResilience = replaceStatsStr .. [[
 return function(vars)
-	for _, class in ipairs(vars.weightsList) do
-		for _, weight in ipairs(vars.weightsList[class]) do
-			if vars.weightsList[class][weight]["resilience"] == nil then
-				vars.weightsList[class][weight]["resilience"] = vars.weightsList[class][weight]["pvp resilience"]
-			end
-			vars.weightsList[class][weight]["pvp resilience"] = nil
-		end
-	end
+	local conversions = { ["pvp resilience"] = "resilience" }
+	replaceStats(vars, conversions)
 
 	vars.dataMinorVersion = 2
 	return vars
@@ -166,65 +154,47 @@ end
 ]]
 
 local function upgradeAccountToMoPStats(vars)
-	local stats = {
-		"critical strike",
-		"dodge",
-		"expertise",
-		"haste",
-		"hit",
-		"mastery",
-		"parry",
-		"ranged critical strike",
-		"ranged haste",
-		"ranged hit",
-		"resilience",
-		"spell critical strike",
-		"spell hit"
+	local conversions = {
+		["critical strike rating"] = "critical strike",
+		["dodge rating"] = "dodge",
+		["expertise rating"] = "expertise",
+		["haste rating"] = "haste",
+		["hit rating"] = "hit",
+		["mastery rating"] = "mastery",
+		["parry rating"] = "parry",
+		["ranged critical strike rating"] = "ranged critical strike",
+		["ranged haste rating"] = "ranged haste",
+		["ranged hit rating"] = "ranged hit",
+		["resilience rating"] = "resilience",
+		["spell critical strike rating"] = "spell critical strike",
+		["spell hit rating"] = "spell hit",
 	}
 
-	for _, class in ipairs(vars.weightsList) do
-		for _, weight in ipairs(vars.weightsList[class]) do
-			for _, stat in ipairs(stats) do
-				if vars.weightsList[class][weight][stat] == nil then
-					vars.weightsList[class][weight][stat] = vars.weightsList[class][weight][stat .. " rating"]
-				end
-				vars.weightsList[class][weight][stat .. " rating"] = nil
-			end
-		end
-	end
+	replaceStats(conversions)
 
 	vars.dataMinorVersion = 2
 	return vars
 end
 
-local downgradeAccountFromMoPStats = [[
+local downgradeAccountFromMoPStats = replaceStatsStr .. [[
 return function(vars)
-	local stats = {
-		"critical strike",
-		"dodge",
-		"expertise",
-		"haste",
-		"hit",
-		"mastery",
-		"parry",
-		"ranged critical strike",
-		"ranged haste",
-		"ranged hit",
-		"resilience",
-		"spell critical strike",
-		"spell hit"
+	local conversions = {
+		["critical strike"] = "critical strike rating",
+		["dodge"] = "dodge rating",
+		["expertise"] = "expertise rating",
+		["haste"] = "haste rating",
+		["hit"] = "hit rating",
+		["mastery"] = "mastery rating",
+		["parry"] = "parry rating",
+		["ranged critical strike"] = "ranged critical strike rating",
+		["ranged haste"] = "ranged haste rating",
+		["ranged hit"] = "ranged hit rating",
+		["resilience"] = "resilience rating",
+		["spell critical strike"] = "spell critical strike rating",
+		["spell hit"] = "spell hit rating",
 	}
 
-	for _, class in ipairs(vars.weightsList) do
-		for _, weight in ipairs(vars.weightsList[class]) do
-			for _, stat in ipairs(stats) do
-				if vars.weightsList[class][weight][stat .. " rating"] == nil then
-					vars.weightsList[class][weight][stat .. " rating"] = vars.weightsList[class][weight][stat]
-				end
-				vars.weightsList[class][weight][stat] = nil
-			end
-		end
-	end
+	replaceStats(conversions)
 
 	vars.dataMinorVersion = 1
 	return vars
@@ -533,14 +503,9 @@ end
 ]]
 
 local function upgradeAccountToFixStunResistChance(vars)
-	for _, class in ipairs(vars.weightsList) do
-		for _, weight in ipairs(vars.weightsList[class]) do
-			if vars.weightsList[class][weight]["stun resist chance (percent)"] == nil then
-				vars.weightsList[class][weight]["stun resist chance (percent)"] = vars.weightsList[class][weight]["stun resistance (percent)"]
-				vars.weightsList[class][weight]["stun resistance (percent)"] = nil
-			end
-		end
-	end
+	local conversions = { ["stun resistance (percent)"] = "stun resist chance (percent)" }
+
+	replaceStats(vars, conversions)
 
 	vars.dataMinorVersion = 14
 	return vars
@@ -553,16 +518,11 @@ local function FixStunResistChance(vars)
 	return vars
 end
 
-local downgradeAccountFromFixStunResistChance = [[
+local downgradeAccountFromFixStunResistChance = replaceStatsStr .. [[
 return function(vars)
-	for _, class in ipairs(vars.weightsList) do
-		for _, weight in ipairs(vars.weightsList[class]) do
-			if vars.weightsList[class][weight]["stun resistance (percent)"] == nil then
-				vars.weightsList[class][weight]["stun resistance (percent)"] = vars.weightsList[class][weight]["stun resist chance (percent)"]
-				vars.weightsList[class][weight]["stun resist chance (percent)"] = nil
-			end
-		end
-	end
+	local conversions = { ["stun resist chance (percent)"] = "stun resistance (percent)" }
+
+	replaceStats(vars, conversions)
 
 	vars.dataMinorVersion = 13
 	return vars
@@ -644,35 +604,25 @@ local function upgradeAccountToUseEffectRatio(vars)
 end
 
 local function upgradeAccountToWorkingMeleeDamage(vars)
-	for _, class in ipairs(vars.weightsList) do
-		for _, weight in ipairs(vars.weightsList[class]) do
-			vars.weightsList[class][weight]["melee damage"] = vars.weightsList[class][weight]["weapon damage"]
-			vars.weightsList[class][weight]["weapon damage"] = nil
-		end
-	end
+	local conversions = { ["weapon damage"] = "melee damage" }
+
+	replaceStats(vars, conversions)
 
 	vars.dataMinorVersion = 10
 	return vars
 end
 
 local function upgradeAccountToWorkingResistances(vars)
-	local resistances = {
-		"arcane",
-		"fire",
-		"frost",
-		"holy",
-		"nature",
-		"shadow",
+	local conversions = {
+		["arcane"] = "arcane resistance",
+		["fire"] = "fire resistance",
+		["frost"] = "frost resistance",
+		["holy"] = "holy resistance",
+		["nature"] = "nature resistance",
+		["shadow"] = "shadow resistance",
 	}
 
-	for _, class in ipairs(vars.weightsList) do
-		for _, weight in ipairs(vars.weightsList[class]) do
-			for _, resistance in ipairs(resistances) do
-				vars.weightsList[class][weight][resistance .. " resistance"] = vars.weightsList[class][weight][resistance]
-				vars.weightsList[class][weight][resistance] = nil
-			end
-		end
-	end
+	replaceStats(vars, conversions)
 
 	vars.dataMinorVersion = 9
 	return vars
